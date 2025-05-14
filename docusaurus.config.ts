@@ -17,8 +17,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'SmythOS', // Usually your GitHub org/user name.
+  projectName: 'SmythOS-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -39,8 +39,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: ({versionDocsDirPath, docPath}) =>
+            `https://github.com/Smyth-ai/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
         },
         blog: {
           showReadingTime: true,
@@ -60,6 +60,11 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+         sitemap: {
+        changefreq: 'weekly',
+        priority: 0.5,
+        filename: 'sitemap.xml',
+         },
       } satisfies Preset.Options,
     ],
   ],
@@ -72,6 +77,18 @@ const config: Config = {
   markdown: {
     mermaid: true,
   },
+
+  plugins: [
+  [
+    require.resolve('@easyops-cn/docusaurus-search-local'),
+    {
+      hashed: true,
+      language: ['en'],
+      docsRouteBasePath: '/docs',
+      highlightSearchTermsOnTargetPage: true,
+    },
+  ],
+],
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
@@ -90,7 +107,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Smyth-ai',
           label: 'GitHub',
           position: 'right',
         },
@@ -112,12 +129,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/company/smythos',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.gg/yDBhKk2Y',
             },
             {
               label: 'X',
@@ -134,7 +151,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Smyth-ai',
             },
           ],
         },

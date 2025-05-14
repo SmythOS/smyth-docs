@@ -28,3 +28,13 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.credit-note {
+  border-left: 6px solid var(--ifm-color-success);
+  padding-left: 1rem;
+  font-style: italic;
+}
+.credit-note strong {
+  font-weight: 600;
+  font-style: normal;
+}

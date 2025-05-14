@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'SmythOS Documentation Home',
+  tagline: 'SmythOS is the future of agent building and deployment.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -39,8 +39,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: ({versionDocsDirPath, docPath}) =>
+            `https://github.com/Smyth-ai/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
         },
         blog: {
           showReadingTime: true,
@@ -64,21 +64,29 @@ const config: Config = {
     ],
   ],
 
+  themes: [
+    '@docusaurus/theme-live-codeblock',
+    '@docusaurus/theme-mermaid',
+  ],
+
+  markdown: {
+    mermaid: true,
+  },
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'SmythOS',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/smythos-500px.png',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Documentation',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
@@ -131,7 +139,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} SmythOS, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

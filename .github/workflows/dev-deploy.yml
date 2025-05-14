@@ -21,5 +21,5 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "/opt/git/smyth-docs/deploy-docs.sh smyth-doc2 origin/dev"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "/opt/git/smyth-docs/deploy-docs.sh smyth-docs origin/dev"
           rm -f private_key.pem

@@ -1,4 +1,4 @@
-name: DEV: Deploy
+name: "DEV: Deploy"
 run-name: DEV - Deploy 
 
 on:

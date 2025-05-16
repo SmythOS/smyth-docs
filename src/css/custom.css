@@ -38,3 +38,7 @@
   font-weight: 600;
   font-style: normal;
 }
+
+hidden {
+display: none !important;
+}

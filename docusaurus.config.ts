@@ -66,7 +66,7 @@ const config: Config = {
         src: 'img/smythos-500px.png',
       },
       items: [
-        { to: '/docs', label: 'Docs Home', position: 'left' },
+        // { to: '/docs', label: 'Docs Home', position: 'left' },
         { to: '/docs/agent-studio/overview', label: 'Studio', position: 'left' },
         { to: '/docs/agent-weaver/overview', label: 'Weaver', position: 'left' },
         { to: '/docs/agent-runtime/overview', label: 'Runtime', position: 'left' },

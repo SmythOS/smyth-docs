@@ -31,6 +31,7 @@ const config: Config = {
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: ({ versionDocsDirPath, docPath }) =>
             `https://github.com/Smyth-ai/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
+           includeCurrentVersion: true,
         },
         blog: false,
         theme: {

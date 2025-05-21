@@ -1,0 +1,50 @@
+
+# Upstash Integration
+
+`Upstash` is a pioneering serverless database enterprise that extends a Redis-compatible database tailored for serverless applications. They furnish a high-availability, low latency, and auto-scalable database appropriate for serverless architecture.
+
+With `Upstash`, developers have the advantage of crafting scalable and efficient serverless applications, eliminating concerns about the configuration, management or scaling of a traditional database.
+
+Their offered solution strictly complies with the central principles of serverless, such as pay-per-use, self-services, automated scaling, and short-lived stateless computation.
+
+At `SmythOS`, we perceive and appreciate the uniqueness of each agent's workflow. Thus, our customized components engineered for `Upstash` integration are designed to facilitate necessary adjustments. This enables the selection, modification, and integration of features in line with your agent's specific requirements and preferences. Our flexible, yet sturdy infrastructure is equipped to handle, support, and augment `Upstash's` potent features, reinforcing operational effectiveness and efficiency.
+
+## Create Record
+
+Record Creation.
+
+### Settings
+
+To successfully initialize and configure the `Create Record` component, adhere to these straightforward guidelines:
+
+1. Start by establishing a new account if you haven't already.
+2. Proceed to the [Account Settings - API section](https://console.upstash.com/account/teams).
+3. Generate your `Upstash Redis Rest Token` and insert it into the component settings section. This is an essential step to ensure a seamless connection with your `Upstash` platform.
+
+> **Note:** Treat the `Upstash Redis Rest Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/upstash/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To ensure the `Create Record` component functions correctly, the following indispensable parameters should be provided:
+
+1. **db_id `required<string>`:** This is the designated Upstash database ID.
+2. **db_key `required<string>`:** This is the key, under which the value will be stored.
+3. **db_value `required<string>`:** This encompasses the value that is to be stored.
+
+<Image src="/img/upstash/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After successfully executing the `Create Record` component, you can expect the following outcomes:
+
+1. **Response:** An object filled with in-depth information about the operation's results. This includes details on the record that has been created, any unique identifiers assigned to it, as well as any other feedback received from the operation.
+2. **Headers:** The set of HTTP headers that have been drawn from the server’s response as provided by `Upstash`. These headers include supplementary metadata, offering information such as response status codes - which can indicate the success or failure of the create operation, and the content type that specifies the format of the response data.
+3. **result:** This outcome typically represents the final status or payload of the created record. It may contain the actual data that was saved, confirmation of a successful save, and/or identifiers that can be used to reference the record within the database for future retrieval or modification.
+
+<Image src="/img/upstash/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

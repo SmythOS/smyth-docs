@@ -1,9 +1,549 @@
----
-title: google drive integration
----
 
-# google drive integration
+# Google Drive Integration
 
-This is the **google drive integration** page for Agent Studio.
+`Google Drive` is a powerful cloud-based storage and synchronization service that offers users the ability to save files online, access them from anywhere, and collaborate with others seamlessly. Integrating `Google Drive` into `SmythOS` leverages these capabilities directly within the operating system, enhancing the functionality and efficiency of the workflow.
 
-_TODO: Add detailed content for google drive integration._
+With `Google Drive` integration in `SmythOS`, users can enjoy direct access to their stored files and folders through the operating system's environment without the need to use a web browser or separate applications. This seamless integration empowers users to manage, edit, and share their files directly within `SmythOS`, making it an essential feature for professionals and teams who require real-time collaboration and flexibility in managing their digital assets.
+
+In essence, `Google Drive` integration within `SmythOS` is not just about providing storage solutions, but rather enhancing the overall user experience by offering a unified, secure, and efficient way to manage digital content.
+
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/google_drive/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+Accurately configure the following inputs to initiate the creation of a shared drive:
+
+- **name (`required<string>`)**: Specifies the name of the new drive.
+- **requestId (`optional<integer>`)**: A unique identifier for the request, defaulting to `1` if not specified.
+
+<Image src="/img/google_drive/screenshot2.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful creation of the drive, the endpoint will provide detailed information useful for further integration and processing:
+
+- **Response**: Full API response including details of the created drive.
+- **Headers**: HTTP headers returned by the `Google Drive` API.
+- **id**: Unique identifier for the newly created drive, useful for subsequent operations such as file uploads or permission settings.
+
+<Image src="/img/google_drive/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Drive
+
+This component retrieves the metadata of a specified shared drive in `Google Drive` through `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+To retrieve drive metadata, configure the following input:
+
+- **driveId (`required<string>`)**: The unique identifier of the drive whose metadata you wish to access.
+
+<Image src="/img/google_drive/screenshot5.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+After successfully querying the drive, the endpoint provides detailed response data:
+
+- **Response**: Comprehensive API response including all metadata of the queried drive.
+- **Headers**: HTTP headers returned by the `Google Drive` API.
+- **name**: Name of the drive.
+- **kind**: Type of the resource (should return 'drive#drive').
+- **id**: Unique identifier of the drive.
+
+<Image src="/img/google_drive/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Drives
+
+This component lists all the shared drives associated with a user's `Google Drive` account, accessible through `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the following input to trigger the listing of shared drives:
+
+- **trigger (`required<any value>`)**: This input serves solely to trigger the component execution. It can hold any value.
+
+<Image src="/img/google_drive/screenshot8.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The endpoint provides detailed information about the shared drives:
+
+- **Response**: The full API response, including details on all shared drives.
+- **Headers**: HTTP headers returned from the `Google Drive` API call.
+- **drives**: An array containing information about each drive, such as name, ID, and type.
+
+<Image src="/img/google_drive/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Drive
+
+This component permanently deletes a shared drive for which the user is an organizer in `Google Drive` through `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot10.png" alt="alt text" /> 
+
+### Inputs
+
+To initiate the deletion of a shared drive, configure the following input:
+
+- **driveId (`required<string>`)**: The unique identifier of the shared drive you intend to delete.
+
+<Image src="/img/google_drive/screenshot11.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful deletion, the endpoint provides the following details:
+
+- **Response**: Comprehensive API response confirming the deletion.
+- **Headers**: HTTP headers returned by the `Google Drive` API.
+
+<Image src="/img/google_drive/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create File
+
+This component allows for creating new files within `Google Drive` via `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot13.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the following inputs to create a new file:
+
+- **name (`required<string>`)**: The name of the file.
+- **mimeType (`optional<string>`)**: The MIME type of the file, defaulting to `text/plain` if not specified.
+
+<Image src="/img/google_drive/screenshot14.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The endpoint provides detailed information about the newly created file:
+
+- **Response**: Comprehensive API response containing details about the file.
+- **Headers**: HTTP headers returned by `Google Drive` API.
+- **id**: Unique identifier of the created file, useful for further actions like sharing or modifications.
+
+<Image src="/img/google_drive/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get File
+
+This endpoint retrieves metadata or content of a specific file in `Google Drive` via `SmythOS`, given its unique file ID.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot16.png" alt="alt text" /> 
+
+### Inputs
+
+To retrieve a file's metadata or content, configure the following inputs:
+
+- **fileId (`required<string>`)**: The unique identifier for the file whose data you want to retrieve.
+- **alt (`optional<string>`)**: Specifies the format in which file content should be returned, such as "media" for the file content itself.
+
+<Image src="/img/google_drive/screenshot17.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The endpoint delivers detailed information about the file:
+
+- **Response**: The complete API response containing file metadata or content.
+- **Headers**: HTTP headers returned by the Google Drive API.
+- **name**: The name of the file.
+- **mimeType**: The MIME type of the file.
+
+<Image src="/img/google_drive/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Files
+
+This component lists all files within a user's `Google Drive`, including options to filter through trashed or specific types of files.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot19.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the following inputs to list your Google Drive files based on specific criteria:
+
+- **trigger (`required<any value>`)**: This dummy input is used to trigger the component's execution. It can be any value.
+- **trashed (`optional<boolean>`)**: Set to `true` to list files in the trash; defaults to `false` if not specified.
+
+<Image src="/img/google_drive/screenshot20.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The endpoint delivers detailed information about each file listed:
+
+- **Response**: Comprehensive API response containing details about each file.
+- **Headers**: HTTP headers returned by the `Google Drive` API.
+- **files**: A list of objects, each representing a file, with detailed attributes like `id`, `name`, `mimeType`, and more. 
+
+<Image src="/img/google_drive/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate IDs
+
+This component generates a set of unique file IDs that can be used in subsequent create or copy requests within `Google Drive` via `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot22.png" alt="alt text" /> 
+
+### Inputs
+
+To generate file IDs, set the following parameters:
+
+- **trigger (`required<any value>`)**: This input serves to activate the component's execution and can be set to any value.
+- **count (`optional<integer>`)**: Specifies the number of IDs to generate, with default being `1`.
+- **space (`optional<string>`)**: Defines the namespace in which the IDs should exist, with default being `drive`.
+- **type (`optional<string>`)**: Determines the type of the IDs generated, default is `files`.
+
+<Image src="/img/google_drive/screenshot23.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The response includes detailed information about the generated IDs:
+
+- **Response**: Contains the complete API response with the generated IDs.
+- **Headers**: HTTP headers returned by the `Google Drive` API.
+- **ids**: A list of newly generated file IDs. 
+
+<Image src="/img/google_drive/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete File
+
+Permanently deletes a file owned by the user without moving it to the trash.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To connect `Google Drive` with `SmythOS`, you need to secure a `Client ID` and `Client Secret`. Following these comprehensive steps will guide you through the process of obtaining these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Open the [Google Developers Console](https://console.developers.google.com/).
+   - Start a new project or select an appropriate existing project for your `Google Drive` integration.
+
+2. **Enable the Google Drive API**:
+   - In the Developers Console, navigate to the `Library` section.
+   - Locate and activate the `Google Drive API` for your project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Update necessary details such as your application's name, email address, and needed scopes on the consent screen.
+   - These settings are crucial for user permissions and secure access.
+
+4. **Create Credentials**:
+   - Go to the `Credentials` tab within the Developers Console.
+   - Click on `Create credentials` and then choose `OAuth client ID`.
+   - Specify your application's type and ensure to input all required redirects and configurations.
+   - Set the callback URL to `https://app.smythos.com/oauth/google/callback` to handle proper redirection after users authenticate.
+
+5. **Retrieve Client ID and Client Secret**:
+   - After setting up the OAuth client ID, the console will provide you with your specific `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Input the newly obtained `Client ID` and `Client Secret` into the designated fields in the settings section of the Google Drive component within `SmythOS`.
+   - Hit the `Authenticate` button to secure the connection and begin utilizing `Google Drive` capabilities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_drive/screenshot25.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To delete a file, set the following parameter:
+
+- **fileId (`required<string>`)**: The unique identifier of the file you want to delete.
+
+<Image src="/img/google_drive/screenshot26.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### 📤 Outputs
+
+The response includes detailed information about the deletion request:
+
+- **Response**: Contains the complete API response confirming the deletion.
+- **Headers**: The HTTP headers returned by the `Google Drive` API that provide context for the response.
+
+<Image src="/img/google_drive/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

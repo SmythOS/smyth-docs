@@ -1,0 +1,67 @@
+# 🔄 Async Component
+
+The `Async` component manages asynchronous operations, enabling non-immediate process handling. It's particularly useful for operations that would otherwise cause timeout issues, such as processing large datasets or executing time-consuming tasks.
+
+<Arcade  src="https://demo.arcade.software/NmkvZboIWz4aZwjb1ruq?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Async | SmythOS" />
+
+---
+
+## Inputs
+
+- **Flexible Inputs:** Define as needed. Each input generates a corresponding async output.
+
+### ➕ Add Input
+- **Name (Required):** Unique and concise.
+- **Type:** Any, String, Number, Integer, Boolean, Array, Object, Binary, Date.
+- **Color (Optional):** Adds visual clarity.
+- **Optional (Optional):** For non-essential inputs.
+- **Default Value (Optional):** Used if no specific value is provided.
+
+---
+
+## Outputs
+
+- **JobID:** Reference ID for tracking async operations.
+
+> **Note:** Each user-created input has a paired async output, unavailable in synchronous workflows.
+
+---
+
+## Key Considerations
+
+> **🐞 Debugging Limitations**
+> - **Debug Mode Unavailable:** The debug toolbar cannot be used in Async workflows, as they execute as separate workflows from the main process.
+> - **Log Monitoring:** All async workflow executions are recorded in the Agent Settings > Logs section, allowing you to review how the async execution proceeded after completion.
+
+### 🏆 Best Practices
+
+#### 🛠️ Development Workflow
+1. **Develop Synchronously First:** Build and test your workflow without the Async component initially, using debug mode to ensure proper functionality.
+2. **Add Async Later:** Once your workflow operates as expected, integrate the Async component to handle timeout-prone operations.
+
+#### ⏱️ For Timeout Issues
+- If you're simply trying to solve timeout problems (such as with lengthy "for each" loops), you can use the Async component alone without needing the Await component.
+- The Await component is only necessary when you need to retrieve results from the async execution within the same user session.
+
+#### 🔔 Tracking Completion
+A common question is: "How do I know when the async execution finishes?" Consider these options:
+
+- **Implement Notifications:** Add notification mechanisms at the end of your async workflow:
+  - 📧 Email notifications with results summary
+  - 📱 SMS alerts
+  - 💬 Slack messages
+  - 🔄 Webhook calls to other systems
+  - 💾 Database record updates
+
+- **Result Storage:** Store processing results in a persistent location:
+  - 🗄️ Database entries
+  - 📁 File storage
+  - 🔄 Updating application state
+
+### 🎯 When to Use Async
+
+- 📊 Processing large datasets (hundreds or thousands of items)
+- ⏳ Long-running operations that exceed normal timeout limits
+- 🔙 Background tasks that don't require immediate user feedback
+- 🏋️ Resource-intensive operations that might block the main workflow
+- 🕒 Scheduled processes that need to run independently

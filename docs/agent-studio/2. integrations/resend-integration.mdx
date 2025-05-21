@@ -1,9 +1,57 @@
----
-title: resend integration
----
 
-# resend integration
+# Resend Integration
 
-This is the **resend integration** page for Agent Studio.
+`Resend` is a renowned organization specializing in the domain of email services. They have developed an intuitive, easy-to-use email platform packed with advanced features such as user-friendly interface, range of templates, and easy integrations. 
 
-_TODO: Add detailed content for resend integration._
+Within the vast panorama of `SmythOS` components, we offer dedicated modules to simplify integration with `Resend`. This section provides a comprehensive walk-through of these components.
+
+## Send Email
+
+This fundamental component of `SmythOS` is designed for immediately sending out emails.
+
+> **Note:** Ensure that for enabling email dispatch in a Production environment, you verify your domains in `Resend`.
+
+### Settings
+
+To bring this component to life, an essential pre-requisite is setting the `Authentication Key`.
+
+Here is a step-by-step guide to obtaining this:
+
+1. If you do not possess a `Resend` account, please set one up.
+2. Obtain the `Authentication Key` from [Resend's API keys page](https://resend.com/api-keys).
+3. Input the `Authentication Key` into the designated section in the settings.
+
+> **Note:** Treat the `Authentication Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/resend/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+This component requires 4 default inputs:
+
+1. **From `required<string>`:** This represents the sender's email. You can provide it in two formats: `email@example.com` or `Name <email@example.com>`. The email must be from a Resend-registered domain.
+2. **To `required<string>`:** This is intended for the recipient(s) email address(es). It can accept a single email address or an array of email addresses.
+3. **Subject `required<string>`:** This is the main theme or topic of the email.
+4. **Text `required<string>`:** This is the main content body of your email.
+
+<Image src="/img/resend/screenshot2.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+This component comes with 2 default outputs:
+
+1. **Response:** This output signifies the response received after an email is successfully sent. It provides valuable information for debugging and confirming that the operation was successfully executed.
+2. **Headers:** These are the HTTP Headers provided in the response from the `Resend` server. These headers can contain important information such as sender, receiver, timestamp of the email sent, and more. This can be particularly helpful for logging, debugging, and tracking the emails sent.
+3. **id:** This output contains the unique identifier associated with the email-sending operation.
+
+<Image src="/img/resend/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+# 🔍 RAG Search
+
+The `RAG Search` component in `SmythOS` functions as an information repository, enabling the agent to enhance its intelligence and learn new things.
+
+<Arcade src="https://demo.arcade.software/AGw1jcRdkCPna3EyPyyX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="RAG Search | SmythOS" />
+
+---
+
+## Settings
+
+### 🏷️ Namespace
+
+- **Namespace:** Select a specific namespace to organize data sources and ensure the agent finds the correct data.
+
+### 📊 Results Count
+
+- **Results Count:** Specify the number of data pieces to retrieve.
+
+### 📝 Include Metadata
+
+- **Include Metadata:** Disabled by default. Enable to retrieve metadata along with data.
+- **Note:** Metadata can only be saved using the [RAG Remember](components/DataSourceIndexer).
+
+---
+
+## Inputs
+
+1. **Query:** Main input for retrieving information from the specified namespace.
+
+---
+
+## Outputs
+
+1. **Results:** Main output that encapsulates all retrieved data based on the `Query`.
+
+### Key Points
+
+- **Primary Output:** `Results` output is the main channel for conveying retrieved data.
+- **Exclusivity:** Component operates exclusively with the `Results` output for efficient data retrieval.
+
+> 📌 **Note:** `Results` is the sole output for data retrieval, ensuring simplicity and clarity.

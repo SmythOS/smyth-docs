@@ -1,9 +1,399 @@
----
-title: huuspot integration
----
 
-# huuspot integration
+# HubSpot Integration
 
-This is the **huuspot integration** page for Agent Studio.
+`HubSpot` is a leading CRM platform that helps companies attract visitors, convert leads, and close customers. It features a suite of tools to assist in marketing, sales, and service management, making it an essential asset for business growth and customer relationships management.
 
-_TODO: Add detailed content for huuspot integration._
+At `SmythOS`, we've seamlessly integrated with `HubSpot`, providing custom components that simplify the incorporation of its powerful services into your applications.
+
+## Integration Settings
+
+#### HubSpot Access Token
+To use HubSpot integration in `SmythOs`, you must authenticate each integration component with a HubSpot Access Token. Follow these steps to prepare your credentials:
+1. Log into your `HubSpot` account and navigate to the `Settings` menu.
+2. Under '`Integrations`', go to `API Key`.
+3. If an `API key` has not been generated, select '`Create Key`'. If it already exists, copy your existing `API key`.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Create Contact
+The `Create Contact` component in SmythOS facilitates the easy creation of contact records in `HubSpot`, enabling you to efficiently add new contacts into your CRM directly from your application.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, provide the following necessary information:
+1. **email `required<string>`:** The email address of the contact.
+2. **firstName `required<string>`:** The first name of the contact.
+3. **lastName `required<string>`:** The last name of the contact.
+4. **phone `required<string>`:** The phone number of the contact.
+5. **company `required<string>`:** The company with which the contact is associated.
+6. **website `required<string>`:** The website URL associated with the contact or company.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution of this component, you will receive the following outputs:
+1. **Response:** Contains detailed information about the creation of the contact, including success or error messages.
+2. **Headers:** The HTTP headers from the HubSpot server that provide additional metadata.
+3. **id:** The unique identifier of the newly created contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/9MSgopNXXNfEkkWhcRbN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Create Contact" />
+
+## List Contacts
+The `List Contacts` component in `SmythOS` enables you to retrieve a list of contacts from your HubSpot CRM. This is particularly useful for applications that need to systematically access and display contact information, or synchronize contacts across different platforms or databases.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To maximize the utility of this component, supply the following inputs:
+1. **trigger `required<string>`:** An input to initiate the component's execution; any value is acceptable.
+2. **limit `optional<integer>`:** The number of contact records to retrieve per request, defaulting to 10.
+3. **archived `optional<boolean>`:** Whether to include archived contacts, defaulted to `false`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon executing this component, you will receive the following outputs:
+1. **Response:** A JSON object detailing the fetched contact data, including name, email, and other relevant attributes.
+2. **Headers:** HTTP metadata from the HubSpot server response, providing additional context like execution status and content type.
+3. **results:** A list of contacts, each with detailed information.
+4. **pagingNextAfter:** An identifier used for pagination, useful for subsequent requests if more contacts are available beyond the set limit.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/sMGUkuSOORRF6eoZI8ns?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot List Contacts" />
+
+## Get Contact
+The `Get Contact` component is designed to interface with `HubSpot` to retrieve detailed contact information. This component is essential for integrating and automating customer relationship management within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Configure the following input to effectively use this component:
+- **contactId `required<string>`:** The unique identifier for the contact you want to retrieve information for.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, expect to obtain data in the following outputs:
+1. **Response:** The full response from HubSpot containing the contact data.
+2. **Headers:** Response headers provided by HubSpot.
+3. **Contact Details:**
+   - **id:** Unique identifier for the contact.
+   - **email:** Email address of the contact.
+   - **firstName:** First name of the contact.
+   - **lastName:** Last name of the contact.
+   - **phone:** Phone number of the contact.
+   - **company:** Company associated with the contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Vm2x91ESg2WZMUYoKvyB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Get Contact" />
+
+## List Deals
+This component retrieves a list of deals from `HubSpot`, allowing you to manage and analyze your sales data directly within `SmythOS`. By setting this up, you can streamline your deal management processes and seamlessly integrate your sales data with other components in your workflow.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Configure the inputs below to effectively use this component:
+- **trigger `required<string>`:** An input to initiate the component's execution. It accepts any string.
+- **limit `required<integer>`:** Sets the maximum number of deals returned. Default is 10.
+- **archived `required<boolean>`:** Determines if archived deals are included. Default is false.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, the following outputs will be available:
+1. **Response:** A comprehensive response from HubSpot detailing the deals.
+2. **Headers:** Response headers included by HubSpot that offer additional context or metadata.
+3. **results:** A list of the deals in structured format.
+4. **pagingNextAfter:** A token to retrieve the next set of results if paging is required.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/C1JMk31xMIzu0swTycFx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot List Deals" />
+
+## Get Deal
+This component retrieves detailed information about a specific deal from `HubSpot`, enabling in-depth analysis and management within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively use this component, configure the necessary inputs:
+- **deal_id (`required<string>`):** The unique identifier for the deal you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After executing this component, expect to receive detailed outputs including:
+1. **Response:** The comprehensive response from HubSpot with deal information.
+2. **Headers:** Additional metadata and context provided by response headers from HubSpot.
+3. **id:** The unique identifier of the deal.
+4. **amount:** The monetary value of the deal.
+5. **closedDate:** The date on which the deal was closed.
+6. **dealName:** The name associated with the deal.
+7. **dealStage:** The current stage of the deal in the sales process.
+8. **pipeline:** The sales pipeline that the deal is part of.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/rbngLuZrpSmYlsaZkh5r?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Get Deal" />
+
+## Create Deal
+This component facilitates the creation of new deals within HubSpot via `SmythOS`. It streamlines the process by allowing users to input deal details and subsequently generate a deal record in `HubSpot`, enhancing CRM integration and sales pipeline management.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Proper configuration of inputs is essential for using this component effectively:
+- **amount (`required<string>`):** The monetary value associated with the deal.
+- **dealname (`required<string>`):** The name of the deal.
+- **dealstage (`required<string>`):** The stage of the deal process, defaults to `contractsent`.
+- **pipeline (`required<string>`):** The pipeline identifier, set to `default`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution of this component, expected outputs include:
+1. **Response:** The complete response from HubSpot with details of the newly created deal.
+2. **Headers:** Response headers providing additional context or metadata.
+3. **id:** The unique identifier assigned to the new deal by HubSpot.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/vucT93PnP8NRb1sHiAUv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Create Deal" />
+
+## List Tickets
+This component enables the retrieval of ticket records from `HubSpot`, allowing for efficient management and overview within `SmythOS`. It is designed to fetch multiple tickets based on specific criteria such as archived status and maximum records.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To use this component effectively, set the following inputs:
+- **trigger (`required<string>`):** An input value that triggers the component's execution. It can be any string.
+- **limit (`required<integer>`):** Sets the maximum number of tickets to retrieve (default is `10`).
+- **archived (`required<boolean>`):** Determines whether to include archived tickets (default is `false`).
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, the component provides the following outputs:
+1. **Response:** A detailed response from HubSpot containing ticket information.
+2. **Headers:** Additional metadata and contextual data provided by HubSpot response headers.
+3. **results:** A list of ticket details extracted from the response.
+4. **pagingNextAfter:** A token used to fetch the next set of records if pagination is required.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/GUKrQmUOF3NsDWFK1Td8?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot List Tickets" />
+
+## Get Ticket
+This component allows you to retrieve detailed information about a specific ticket from `HubSpot`. This is useful for tracking individual ticket status, details, and updates directly within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+This component requires the following input to function correctly:
+- **ticket_id (`required<string>`):** The unique identifier for the ticket you want to fetch.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+The component provides the following outputs upon execution, offering a comprehensive overview of the ticket:
+1. **Response:** The detailed response from `HubSpot` containing ticket information.
+2. **Headers:** Metadata and additional contextual data included in the response from `HubSpot`.
+3. **id:** The ticket's unique identifier.
+4. **content:** The content or body of the ticket.
+5. **createdate:** The date and time the ticket was created.
+6. **subject:** The subject or title of the ticket.
+7. **pipeline:** The pipeline to which the ticket belongs.
+8. **pipelineStage:** The stage of the ticket within the pipeline.
+9. **ticketPriority:** The priority level assigned to the ticket.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/qKB9x3zOqPn1eIS58NM8?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Get Ticket" />
+
+## Create Ticket
+This component allows for the creation of tickets in `HubSpot` directly through `SmythOS`, facilitating efficient issue tracking and customer service management. It enables users to input vital ticket details and submit them to their `HubSpot` account, ensuring seamless integration and management of customer service operations.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Correctly configuring the inputs is critical for the effective operation of this component:
+- **subject (`required<string>`):** The main topic or subject of the ticket.
+- **ticket_priority (`required<string>`):** The urgency of the ticket, defaulted to `HIGH`.
+- **pipeline_stage (`required<integer>`):** The stage of the pipeline the ticket falls under, defaulted to `1`.
+- **pipeline (`required<integer>`):** Identifies the pipeline the ticket belongs to, defaulted to `0`.
+- **content (`optional<string>`):** The detailed content or description of the issue, defaulted to `NOT AVAILABLE`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, the component generates the following outputs that provide comprehensive insights about the created ticket:
+1. **Response:** A detailed response from HubSpot with ticket creation status and details.
+2. **Headers:** Metadata and other contextual information included in the response from HubSpot.
+3. **id:** The unique identifier of the newly created ticket assigned by HubSpot.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/0EJ0euwUT7454NKHLgmR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Create Ticket" />
+
+## Next Contacts Page
+This component is designed to paginate through contacts in `HubSpot` efficiently. It utilizes existing pagination tokens to fetch the next page of contacts based on the setup criteria, allowing for systematic access to large sets of contact data within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Ensure these inputs are correctly configured for the component to function effectively:
+- **paging_next_after (`required<string>`):** The token used to fetch the next set of contacts.
+- **limit (`optional<integer>`):** Regulates the number of contacts retrieved per request (default is `10`).
+- **archived (`optional<boolean>`):** Determines whether archived contacts are included (default is `false`).
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following outputs are generated:
+1. **Response:** Detailed response from `HubSpot` that includes the retrieved contact data.
+2. **Headers:** Metadata and additional information provided in the response headers from `HubSpot`.
+3. **results:** The list of contacts retrieved in the current batch.
+4. **pagingNextAfter:** The pagination token for accessing the next page of contacts.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/tAAqSy4nMZsXnYevJ7uN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Next Contacts Page" />
+
+## Next Deals Page
+This component is designed to facilitate seamless pagination through deal records in `HubSpot`, enabling users to effortlessly navigate and access subsequent pages of deal data within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Proper configuration of the inputs is key for the component’s optimal performance:
+- **paging_next_after (`required<string>`):** Token for fetching the next batch of deals.
+- **limit (`optional<integer>`):** Configures the maximum number of deals to retrieve per page (default is `10`).
+- **archived (`optional<boolean>`):** Specifies whether to include archived deals (default is `false`).
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+The execution of this component yields the following outputs, providing detailed insights about the deals:
+1. **Response:** Comprehensive response from `HubSpot` including the details of the deals fetched.
+2. **Headers:** Metadata and contextual information provided by `HubSpot` response headers.
+3. **results:** The collection of deal records in the current batch.
+4. **pagingNextAfter:** The token necessary for accessing the subsequent page of deals.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/25hGp7e5lkPx8EH1ROVx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Next Deals Page" />
+
+## Next Tickets Page
+This component is used to navigate through ticket records in `HubSpot` by loading subsequent pages of data. It is particularly useful for efficiently handling large volumes of ticket information within `SmythOS`, enabling streamlined customer service management.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Correct configuration of the following inputs is crucial for the component’s effective performance:
+- **paging_next_after (`required<string>`):** Token for navigating to the next page of tickets.
+- **limit (`optional<integer>`):** Sets the maximum number of tickets to retrieve per request (default is `10`).
+- **archived (`optional<boolean>`):** Determines whether to include archived tickets (default is `false`).
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, this component generates the following outputs to provide detailed insights about ticket data:
+1. **Response:** A detailed report from `HubSpot` including information on the fetched tickets.
+2. **Headers:** Meta-data and contextual information from `HubSpot`'s response headers.
+3. **results:** The detailed list of tickets retrieved in the session.
+4. **pagingNextAfter:** Pagination token for accessing subsequent pages of tickets.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/3BjExZHsZ1cJ0eurKc85?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Next Tickets Page" />
+
+## Import File
+The `Import File` component facilitates the importation of files into the `HubSpot` file manager, ensuring seamless integration and management within your `HubSpot` account.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `HubSpot Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Access
+Define the accessibility and indexability of the imported file within `HubSpot`:
+- `PUBLIC_INDEXABLE`: Publicly accessible and indexable.
+- `PUBLIC_NOT_INDEXABLE`: Publicly accessible but not indexable.
+- `HIDDEN_INDEXABLE`: Hidden from public view but indexable.
+- `HIDDEN_NOT_INDEXABLE`: Hidden from public view and not indexable.
+- `HIDDEN_PRIVATE`: Hidden and private.
+- `PRIVATE`: Access restricted to certain users.
+
+### Inputs
+To ensure optimal performance, configure the following input fields accurately:
+- **file_url (`required<string>`):** URL where the file is currently hosted.
+- **folderPath (`required<string>`):** Path within `HubSpot` where the file will be stored.
+- **name (`required<string>`):** Name to assign to the file in `HubSpot`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+This component yields detailed output data that aids in tracking the integration process:
+1. **Response:** Provides a full response from `HubSpot`, including status and file details.
+2. **Headers:** Meta-data and contextual information extracted from `HubSpot`'s response headers.
+3. **id:** The unique identifier allocated to the file within `HubSpot`.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/vSYbqNc7bLl2y70t6KAh?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="HubSpot Import File" />

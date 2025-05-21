@@ -1,9 +1,234 @@
----
-title: firestore integration
----
 
-# firestore integration
+# Firestore Integration
 
-This is the **firestore integration** page for Agent Studio.
+`Firestore` is Google's flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud Platform. It provides powerful querying, easy integration with other Google services, and offline synchronization capabilities for building rich interactive applications.
 
-_TODO: Add detailed content for firestore integration._
+At `SmythOS`, we recognize the potential of integrating such advanced database technology into our systems. Therefore, we offer dedicated modules specifically designed to facilitate seamless integration with Firestore. This guide is crafted to provide you with comprehensive instructions on how to effectively utilize these modules for optimal integration.
+
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/firestore/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+This feature requires the following inputs:
+
+1. **project_id `required<string>`:** Your Google Cloud project ID.
+2. **collection_id `required<string>`:** The ID of the collection containing the document.
+3. **document_id `required<string>`:** The ID of the document to update.
+
+<Image src="/img/firestore/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, it delivers the following outputs:
+
+1. **Response:** Detailed server response about the operation.
+2. **Headers:** HTTP headers included in the response.
+3. **name:** This is the full path to the document in Firestore, reflecting the project ID, database instance, collection ID, and document ID.
+4. **fields:** This contains the fields of the document. Each field in the document is represented as a key with the field name and value as a nested object. The type of the field is indicated (like stringValue, integerValue, etc.), depending on the data type of the field.
+
+<Image src="/img/firestore/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Document
+
+This component allows you to delete a document from a Firestore database, simplifying data management and ensuring your application's data integrity.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+Integrating `Google Firestore` with `SmythOS` requires secure credentials such as a `Client ID` and `Client Secret`. Here is a detailed guide to help you obtain these credentials effectively:
+
+1. **Visit the Google Developers Console**:
+   - Access the [Google Developers Console](https://console.developers.google.com/).
+   - Select an existing project or create a new one that aligns with your Firestore usage.
+
+2. **Enable the Google Firestore API**:
+   - Navigate to the `Library` section within the Developers Console.
+   - Search for the `Google Firestore API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Complete the configuration on the OAuth consent screen by providing your application's name, email address, and defining the necessary scopes.
+
+4. **Create Credentials**:
+   - Proceed to the `Credentials` tab.
+   - Click `Create credentials` and then select `OAuth client ID`.
+   - Choose the correct application type and ensure that all additional settings are correctly configured.
+   - Important: Specify the callback URL as `https://app.smythos.com/oauth/google/callback` to manage proper redirection after authentication processes.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Upon successful configuration of the OAuth client ID, you will be issued a `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Enter the `Client ID` and `Client Secret` into the appropriate settings fields in the Firestore component within `SmythOS`.
+   - Click the `Authenticate` button to establish a secure connection, allowing you to utilize Google Firestore functionalities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/firestore/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+Specify these inputs to identify the document to delete:
+
+1. **project_id (`required<string>`):** Specifies the Google Cloud project ID.
+2. **collection_id (`required<string>`):** The ID of the collection from which the document is to be deleted.
+3. **document_id (`required<string>`):** The ID of the document to delete.
+
+<Image src="/img/firestore/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Once the deletion operation executes, the following details are available:
+
+1. **Response:** Provides a detailed server response, indicating the success or failure of the delete operation.
+2. **Headers:** Displays HTTP headers that came with the response from the Firestore API.
+
+<Image src="/img/firestore/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Document
+
+This component enables the creation of a new document in the Firestore database, facilitating effortless data management and integration.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+Integrating `Google Firestore` with `SmythOS` requires secure credentials such as a `Client ID` and `Client Secret`. Here is a detailed guide to help you obtain these credentials effectively:
+
+1. **Visit the Google Developers Console**:
+   - Access the [Google Developers Console](https://console.developers.google.com/).
+   - Select an existing project or create a new one that aligns with your Firestore usage.
+
+2. **Enable the Google Firestore API**:
+   - Navigate to the `Library` section within the Developers Console.
+   - Search for the `Google Firestore API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Complete the configuration on the OAuth consent screen by providing your application's name, email address, and defining the necessary scopes.
+
+4. **Create Credentials**:
+   - Proceed to the `Credentials` tab.
+   - Click `Create credentials` and then select `OAuth client ID`.
+   - Choose the correct application type and ensure that all additional settings are correctly configured.
+   - Important: Specify the callback URL as `https://app.smythos.com/oauth/google/callback` to manage proper redirection after authentication processes.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Upon successful configuration of the OAuth client ID, you will be issued a `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Enter the `Client ID` and `Client Secret` into the appropriate settings fields in the Firestore component within `SmythOS`.
+   - Click the `Authenticate` button to establish a secure connection, allowing you to utilize Google Firestore functionalities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body 
+
+Configure the document's fields using the editable `Body` section. An example schema is provided to guide the setup.
+
+<Image src="/img/firestore/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+To create a document, specify the following details:
+
+1. **project_id (`required<string>`):** Your Google Cloud project ID.
+2. **collection_id (`required<string>`):** The collection ID where the document will be created.
+
+<Image src="/img/firestore/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component provides detailed outputs upon successful creation of the document:
+
+1. **Response:** A comprehensive server response containing details about the newly created document.
+2. **Headers:** HTTP headers returned with the response.
+3. **name:** This is the full path to the document in Firestore, reflecting the project ID, database instance, collection ID, and document ID.
+4. **fields:** This contains the fields of the document. Each field in the document is represented as a key with the field name and value as a nested object. The type of the field is indicated (like stringValue, integerValue, etc.), depending on the data type of the field.
+
+<Image src="/img/firestore/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Document
+
+This component retrieves a document from the Firestore database, allowing for real-time data access and management within your applications.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+Integrating `Google Firestore` with `SmythOS` requires secure credentials such as a `Client ID` and `Client Secret`. Here is a detailed guide to help you obtain these credentials effectively:
+
+1. **Visit the Google Developers Console**:
+   - Access the [Google Developers Console](https://console.developers.google.com/).
+   - Select an existing project or create a new one that aligns with your Firestore usage.
+
+2. **Enable the Google Firestore API**:
+   - Navigate to the `Library` section within the Developers Console.
+   - Search for the `Google Firestore API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Complete the configuration on the OAuth consent screen by providing your application's name, email address, and defining the necessary scopes.
+
+4. **Create Credentials**:
+   - Proceed to the `Credentials` tab.
+   - Click `Create credentials` and then select `OAuth client ID`.
+   - Choose the correct application type and ensure that all additional settings are correctly configured.
+   - Important: Specify the callback URL as `https://app.smythos.com/oauth/google/callback` to manage proper redirection after authentication processes.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Upon successful configuration of the OAuth client ID, you will be issued a `Client ID` and `Client Secret`.
+
+6. **Enter and Authenticate**:
+   - Enter the `Client ID` and `Client Secret` into the appropriate settings fields in the Firestore component within `SmythOS`.
+   - Click the `Authenticate` button to establish a secure connection, allowing you to utilize Google Firestore functionalities within `SmythOS`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/firestore/screenshot10.png" alt="alt text" /> 
+
+### Inputs
+
+Define these inputs to retrieve the document:
+
+1. **project_id (`required<string>`):** Specifies the Google Cloud project ID.
+2. **collection_id (`required<string>`):** Identifies the collection that contains the document.
+3. **document_id (`required<string>`):** The specific document ID to retrieve.
+
+<Image src="/img/firestore/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+On successful retrieval of the document, you will receive the following detailed outputs:
+
+1. **Response**: The complete server response, providing all document details.
+2. **Headers**: HTTP response headers from Firestore.
+3. **Document Path (`name`)**: The full Firestore path to the retrieved document, which includes project ID, database instance, collection ID, and document ID.
+4. **Document Fields (`fields`)**: Detailed representation of the document's fields, each defined by its key and corresponding value type.
+
+<Image src="/img/firestore/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

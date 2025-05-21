@@ -1,9 +1,223 @@
----
-title: pdfcrowd integration
----
 
-# pdfcrowd integration
+# PdfCrowd Integration
 
-This is the **pdfcrowd integration** page for Agent Studio.
+The `PdfCrowd` API is a professional cloud-based service for converting between document formats. It is secure, reliable, highly available, and supports the latest standards. `PdfCrowd` can be integrated quickly and easily without the need for third-party libraries. It is compatible with virtually any platform, including Windows, Linux, macOS, BSD, and Unix-like systems.
 
-_TODO: Add detailed content for pdfcrowd integration._
+Integrating `PdfCrowd` into `SmythOS` offers several significant advantages:
+
+- **Secure and Reliable**: Ensure that your document conversions are handled with high security and reliability.
+- **High Availability**: Benefit from a highly available service that ensures your document conversion processes are always accessible.
+- **Latest Standards Support**: Stay up-to-date with the latest document standards to ensure compatibility and quality.
+- **Quick and Easy Integration**: Save time with an integration process that takes only a few minutes and does not require any third-party libraries.
+
+By incorporating `PdfCrowd` into `SmythOS`, users can enjoy a seamless and efficient document conversion experience across various platforms.
+
+## Image to PDF
+
+Convert images to PDF using the `PdfCrowd` API.
+
+### Settings
+
+#### Base64 Encoded Username and API Key
+
+To kickstart this component, follow these steps to obtain your `Username` and `API Key`:
+
+1. **Create an Account:**
+   - If you don't have an account yet, go to the [registration page](https://pdfcrowd.com/user/sign-up/) and create one.
+
+2. **Get Your Username:**
+   - Once your account is created, you will have your username.
+
+3. **Get Your API Key:**
+   - Log in to your PdfCrowd account.
+   - Navigate to [this page](https://pdfcrowd.com/user/account/change-api-key/) to find your API key.
+
+4. **Encode Credentials:**
+   - Encode your `username:api_key` in base64 format. You can use the [Encode/Decode component](https://app.smythos.com/doc/#/components/FEncDec) in SmythOS to do this.
+
+5. **Enter Encoded Credentials:**
+   - Take the base64 encoded result and enter it in the settings section of the component.
+
+> **Note:** Treat the `Username` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/pdfcrowd/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **file_url (`required<string>`):** The URL of the file (image) you want to convert to PDF.
+
+<Image src="/img/pdfcrowd/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `PdfCrowd` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **mimetype:** The MIME type of the converted PDF.
+4. **size:** The size of the converted PDF file.
+5. **url:** The URL to download the converted PDF.
+
+<Image src="/img/pdfcrowd/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## PDF to Text
+
+Convert PDFs to text using the `PdfCrowd` API.
+
+### Settings
+
+#### Base64 Encoded Username and API Key
+
+To kickstart this component, follow these steps to obtain your `Username` and `API Key`:
+
+1. **Create an Account:**
+   - If you don't have an account yet, go to the [registration page](https://pdfcrowd.com/user/sign-up/) and create one.
+
+2. **Get Your Username:**
+   - Once your account is created, you will have your username.
+
+3. **Get Your API Key:**
+   - Log in to your PdfCrowd account.
+   - Navigate to [this page](https://pdfcrowd.com/user/account/change-api-key/) to find your API key.
+
+4. **Encode Credentials:**
+   - Encode your `username:api_key` in base64 format. You can use the [Encode/Decode component](https://app.smythos.com/doc/#/components/FEncDec) in SmythOS to do this.
+
+5. **Enter Encoded Credentials:**
+   - Take the base64 encoded result and enter it in the settings section of the component.
+
+> **Note:** Treat the `Username` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/pdfcrowd/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **file_url (`required<string>`):** The URL of the PDF file you want to convert to text.
+
+<Image src="/img/pdfcrowd/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `PdfCrowd` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+
+<Image src="/img/pdfcrowd/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## HTML to PDF
+
+Convert HTML or a webpage to PDF using the `PdfCrowd` API.
+
+### Settings
+
+#### Base64 Encoded Username and API Key
+
+To kickstart this component, follow these steps to obtain your `Username` and `API Key`:
+
+1. **Create an Account:**
+   - If you don't have an account yet, go to the [registration page](https://pdfcrowd.com/user/sign-up/) and create one.
+
+2. **Get Your Username:**
+   - Once your account is created, you will have your username.
+
+3. **Get Your API Key:**
+   - Log in to your PdfCrowd account.
+   - Navigate to [this page](https://pdfcrowd.com/user/account/change-api-key/) to find your API key.
+
+4. **Encode Credentials:**
+   - Encode your `username:api_key` in base64 format. You can use the [Encode/Decode component](https://app.smythos.com/doc/#/components/FEncDec) in SmythOS to do this.
+
+5. **Enter Encoded Credentials:**
+   - Take the base64 encoded result and enter it in the settings section of the component.
+
+> **Note:** Treat the `Username` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/pdfcrowd/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **webpage/file_url (`required<string>`):** The URL of the HTML page or file you want to convert to PDF.
+
+<Image src="/img/pdfcrowd/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `PdfCrowd` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **mimetype:** The MIME type of the converted PDF.
+4. **size:** The size of the converted PDF file.
+5. **url:** The URL to download the converted PDF.
+
+<Image src="/img/pdfcrowd/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## PDF to HTML
+
+Convert PDFs to HTML using the `PdfCrowd` API.
+
+### Settings
+
+#### Base64 Encoded Username and API Key
+
+To kickstart this component, follow these steps to obtain your `Username` and `API Key`:
+
+1. **Create an Account:**
+   - If you don't have an account yet, go to the [registration page](https://pdfcrowd.com/user/sign-up/) and create one.
+
+2. **Get Your Username:**
+   - Once your account is created, you will have your username.
+
+3. **Get Your API Key:**
+   - Log in to your PdfCrowd account.
+   - Navigate to [this page](https://pdfcrowd.com/user/account/change-api-key/) to find your API key.
+
+4. **Encode Credentials:**
+   - Encode your `username:api_key` in base64 format. You can use the [Encode/Decode component](https://app.smythos.com/doc/#/components/FEncDec) in SmythOS to do this.
+
+5. **Enter Encoded Credentials:**
+   - Take the base64 encoded result and enter it in the settings section of the component.
+
+> **Note:** Treat the `Username` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/pdfcrowd/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **file_url (`required<string>`):** The URL of the PDF file you want to convert to HTML.
+
+<Image src="/img/pdfcrowd/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `PdfCrowd` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+
+<Image src="/img/pdfcrowd/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

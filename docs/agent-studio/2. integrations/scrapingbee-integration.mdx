@@ -1,9 +1,216 @@
----
-title: scrapinguee integration
----
 
-# scrapinguee integration
+# ScrapingBee Integration
 
-This is the **scrapinguee integration** page for Agent Studio.
+`ScrapingBee` is a powerful web scraping service that handles headless browsers and bypasses anti-scraping protections to extract data from websites efficiently. 
 
-_TODO: Add detailed content for scrapinguee integration._
+In the array of `SmythOS` components, we provide specialized modules designed to streamline the process of integrating with `ScrapingBee`. This section offers a detailed guide through these components to enhance your data extraction efforts.
+
+## Integration Settings
+
+#### API Key
+To use ScrapingBee integration in `SmythOs`, you must authenticate each integration component with an API key. Follow these steps to prepare your credentials:
+1. Create a `ScrapingBee` account if you haven't already.
+2. Retrieve your `API Key` from the [Dashboard](https://app.scrapingbee.com/dashboard).
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Advanced: Scrape Web Page
+
+This advanced section covers the `ScrapingBee` component, tailored for efficient web scraping directly through `SmythOS`. With this component, you can automate the collection of web data efficiently, handling everything from JavaScript rendering to ad blocking with just a few settings.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+#### Render JS
+Toggle JavaScript rendering in the headless browser:
+- `true`: Enable rendering.
+- `false`: Disable rendering.
+#### Block Resources
+Control the blocking of images and CSS to speed up requests:
+- `true`: Continues blocking.
+- `false`: Disables blocking.
+(Only relevant when JavaScript is rendered.)
+#### Premium Proxy
+Use premium proxies for difficult-to-scrape sites:
+- `true`
+- `false`
+#### Stealth Proxy
+Activate stealth proxies for the most resilient sites:
+- `true`
+- `false`
+#### Screenshots
+Enable screenshot capture during scraping:
+- `true`: Only available with JavaScript rendering enabled.
+- `false`
+#### Full-Page Screenshots
+Opt for full-page screenshots:
+- `true`
+- `false`
+
+### Inputs
+This component supports several default input parameters:
+1. **url `required<string>`:** The URL of the web page to be scraped.
+2. **country_code `optional<string>`:** Select a proxy server based in a specific country to enhance scraping success rates; default is `us`. View available country codes [here](https://www.scrapingbee.com/documentation/country_codes/).
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Default outputs provided by this component are:
+1. **Response:** The HTML content or other response data retrieved from the scraped page.
+2. **Headers:** HTTP headers from the response, useful for debugging or compliance checks.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/gny2Wid6ZOaOF4L58Jn7?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ScrapingBee Advanced Web Scrape" />
+
+## Google News Scrape
+Scrapes Google news results with `ScrapingBee`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Configure the inputs based on your search requirements:
+1. **search** `required<string>`: The search query.
+   - *Example:* `"latest technology news"`
+2. **nb_results** `optional<integer>`: Number of results per page.
+   - *Default Value:* `100`
+   - *Example:* `50` if fewer results are needed.
+3. **page** `optional<integer>`: Page number of search results.
+   - *Default Value:* `1`
+   - *Example:* `2` for the second page of results.
+4. **language** `optional<string>`: Search language.
+   - *Default Value:* `"en"`
+   - *Example:* `"fr"` for French results.
+5. **country_code** `optional<string>`: Proxy server location to improve scraping success.
+   - *Default Value:* `"us"`
+   - *Example:* `"de"` for German results.
+   - [View Country Codes](https://www.scrapingbee.com/documentation/country_codes/).
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides several default outputs:
+1. **Response**: The raw response from the Google search.
+   - This includes the entire body of the search results returned by the ScrapingBee API.
+2. **Headers**: Relevant HTTP headers from the response.
+   - This includes headers like `Content-Type`, `Date`, and other essential HTTP response headers.
+3. **meta_data**: Metadata extracted from the search results.
+   - Information such as the search time, total results count, and other relevant metadata.
+4. **news_results**: The main search results.
+   - This includes the URLs, titles, and snippets of the Google News search results.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/v8kA2uS032TJGigVTrY7?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ScrapingBee Google News Scrape" />
+
+## Basic: Scrape Web Page
+
+This section introduces the `Basic Scrape Web Page` component within `SmythOS`, which leverages the `ScrapingBee` service to effectively extract content from web pages. Ideal for straightforward scraping tasks, this tool requires minimal setup and is highly customizable through various settings.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Set up the inputs according to your scraping needs:
+1. **url `required<string>`:** Specify the URL of the web page to be scraped.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component automatically provides the following outputs:
+1. **Response:** The data retrieved from the webpage.
+2. **Headers:** HTTP headers from the response that can be crucial for understanding server behavior.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/sKIfbLp2lI1TteDgvquU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ScrapingBee Basic Web Scrape" />
+
+## Google Search Scrape
+
+Scrapes Google search results via Scrapingbee based on your specified search input.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Configure the necessary inputs based on your search requirements:
+1. **Search** `required<string>`: Define the search query string.
+   - *Example:* `"latest technology trends"`
+2. **country_code** `optional<string>`: The country code to tailor the search results based on location.
+   - *Default Value:* `"us"`
+   - *Example:* `"uk"` for the United Kingdom results.
+3. **nb_results** `optional<integer>`: The number of search results to retrieve.
+   - *Default Value:* `100`
+   - *Example:* `50` if you need fewer results.
+4. **page** `optional<integer>`: The page number of search results to retrieve.
+   - *Default Value:* `1`
+   - *Example:* `2` to get the results from the second results page.
+5. **language** `optional<string>`: The language code to return the search results in a specific language.
+   - *Default Value:* `"en"`
+   - *Example:* `"es"` for Spanish results.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides several predefined outputs to assist in data analysis:
+1. **Response:** The raw data retrieved from the Google search.
+2. **Headers:** Critical HTTP headers from the response.
+3. **meta_data:** Metadata associated with the search results.
+4. **organic_results:** The main search results achieved.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/IGXsWuGG9iq5S3xeFPBe?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ScrapingBee Google Search Scrape" />
+
+## Google Maps Scrape
+Scrapes Google Maps results using `ScrapingBee`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Configure the necessary inputs based on your search requirements:
+1. **search** `required<string>`: Define the search query string.
+   - *Example:* `"restaurants near me"`
+2. **country_code** `optional<string>`: The country code to tailor the search results based on location.
+   - *Default Value:* `"us"`
+   - *Example:* `"uk"` for results in the United Kingdom.
+3. **nb_results** `optional<integer>`: The number of search results to retrieve.
+   - *Default Value:* `100`
+   - *Example:* `50` if you need fewer results.
+4. **page** `optional<integer>`: The page number of search results to retrieve.
+   - *Default Value:* `1`
+   - *Example:* `2` to get the results from the second results page.
+5. **language** `optional<string>`: The language code to return the search results in a specific language.
+   - *Default Value:* `"en"`
+   - *Example:* `"es"` for Spanish results.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides several predefined outputs to assist in data analysis:
+1. **Response**: The raw data retrieved from the Google search.
+   - This includes the entire body of the search results returned by the ScrapingBee API.
+2. **Headers**: Critical HTTP headers from the response.
+   - This includes headers like `Content-Type`, `Date`, and other essential HTTP response headers.
+3. **meta_data**: Metadata associated with the search results.
+   - Information such as the search time, total results count, and more.
+4. **maps_results**: The main search results achieved from the Google Maps scrape.
+   - This includes the URLs, titles, addresses, and snippets of the Google Maps results.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/cVkupmkOLKrN0Vf8XnP1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ScrapingBee Google Maps Scrape" />

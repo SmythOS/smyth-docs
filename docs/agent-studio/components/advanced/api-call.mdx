@@ -1,0 +1,208 @@
+# API Call
+
+The `API Call` component allows agents to interact with external API endpoints for data submission, updates, and retrieval.
+
+---
+
+## Settings
+
+### Methods Overview
+
+Specify the HTTP verb in the **Method** field:
+
+- **GET**: Retrieve data without altering the server.
+- **POST**: Create a new resource.
+- **PUT**: Replace an existing resource.
+- **PATCH**: Partially update a resource.
+- **DELETE**: Remove a resource.
+- **HEAD**: Fetch metadata without the resource body.
+- **OPTIONS**: Discover communication options.
+
+### URL Configuration
+
+Configure the URL field to enhance flexibility and reusability:
+
+- **Static URLs**: Constant endpoints.
+  - **Example:** `https://randomuser.me/api`
+- **Query Parameters**: Dynamic key-value pairs.
+  - **Example:** `https://randomuser.me/api?results={{input1}}`
+- **Path Parameters**: Dynamic URL segments.
+  - **Example:** `{{url}}?results=10`
+- **Combined Parameters**: Mix path and query parameters.
+  - **Example:** `{{url}}/?gender={{gender}}&age={{age}}`
+
+### Headers
+
+Headers play a crucial role in API communication, passing metadata like data type, content format, and authentication credentials. 
+
+1. Navigate to the API component settings.
+2. Tap on the `Edit` option to open the header configuration panel.
+3. Input or modify the headers as per your API’s documentation requirements.
+
+### Content-Type
+
+The `Content-Type` header indicates the format of data sent in the request body:
+
+- **None**
+- **application/json**
+- **multipart/form-data**
+- **binary**
+- **application/x-www-form-urlencoded**
+- **text/plain**
+- **application/xml**
+
+### Body
+
+The `Body` transmits data required by the server. `SmythOS` allows dynamic data integration, adapting to the selected `Content-Type`.
+
+1. Integrate variables from component outputs.
+2. `SmythOS` auto-adapts the `Body` format to the `Content-Type`.
+
+> **Note:** SmythOS includes the `Vault` feature for securely managing sensitive information within the `API Call` component. For more details, refer to the documentation [here](core_concepts/keysManagement).
+
+<Arcade  src="https://demo.arcade.software/AGdOc4458QGL78QO1hqA?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="API Call | SmythOS" />
+
+---
+
+### Mock Data
+
+#### Overview
+
+The "Mock Data" feature enhances the API Call component by allowing you to simulate API responses without requiring actual API keys during debugging and testing. This feature is particularly valuable when working with third-party APIs that require subscriptions or credentials that may not be immediately available.
+
+#### Enabling Mock Data
+
+The "Use Mock Data" toggle appears at the bottom of the API Call component settings under these conditions:
+- • When an API key from the Vault is used in the component settings
+- • The feature is disabled by default
+
+#### How It Works
+
+When enabled and running in Debug Mode:
+- • The API Call component will bypass the actual external API request
+- • Instead, it will return the hardcoded output values you've defined
+- • All downstream components will receive and process these mock values exactly as if they came from the real API
+
+#### Use Cases
+
+This feature solves several common challenges:
+- • Testing workflows that depend on third-party APIs without active subscriptions
+- • Developing and debugging agents without incurring API usage costs
+- • Creating demo versions of agents that don't require actual API credentials
+- • Simulating specific API response scenarios for testing error handling
+
+#### Configuration
+
+To configure Mock Data:
+
+1. Enable the "Use Mock Data" toggle in the API Call component settings
+2. For each output field of the component, you can define a hardcoded value:
+   - • **Response**: Define the complete mock API response JSON
+   - • Any custom output fields you've added
+
+---
+
+### OAuth
+
+#### Authenticate Service
+
+Secure and straightforward third-party service integration through OAuth:
+
+1. **None:** No authentication needed.
+2. **Google:** OAuth2.0 for accessing Google APIs.
+3. **Twitter:** OAuth1.0 for Twitter services.
+4. **LinkedIn:** OAuth2.0 for LinkedIn services.
+5. **Custom OAuth2.0:** Configurable for any OAuth2.0 service.
+6. **Custom OAuth1.0:** Configurable for any OAuth1.0 service.
+7. **OAuth2 Client Credential:** Server-to-server authentication using client credentials.
+
+#### OAuth2.0 Configuration
+
+For OAuth2.0, specifying necessary scopes is essential. Scopes limit your application's access level on a user's account. Ensure that the provided Callback URL from SmythOS is correctly entered in the external service's configuration to complete the seamless OAuth flow.
+
+1. **Scopes**: Define access levels.
+   - If multiple, separate by spaces.
+2. **Authorization URL**: Starts OAuth2.0 authentication.
+3. **Token URL**: Obtains access tokens.
+4. **Client ID**: Unique application identifier.
+5. **Client Secret**: Authenticates the application.
+6. **Callback URL**: Redirects users after authentication.
+   - **Google:** `https://app.smythos.com/oauth/google/callback`
+   - **LinkedIn:** `https://app.smythos.com/oauth/linkedin/callback`
+   - **Custom OAuth2.0:** `https://app.smythos.com/oauth/oauth2/callback`
+
+> **Important:** Correct `Callback URL` implementation ensures smooth authentication.
+
+### OAuth1.0 Configuration
+
+For services using OAuth1.0 like Twitter:
+
+- **Request Token URL:** Initial URL to request a temporary token.
+- **Access Token URL:** URL to exchange the request token for an access token.
+- **User Authorization URL:** URL for user authorization.
+- **Consumer Key:** Unique key provided by the service.
+- **Consumer Secret:** Secret key used with the Consumer Key.
+- **Callback URL:** Where users are redirected after authorization.
+  - **Twitter:** `https://app.smythos.com/oauth/twitter/callback`
+  - **Custom OAuth1.0:** `https://app.smythos.com/oauth/oauth1/callback`
+
+> **Critical:** Ensure the correct Callback URL is entered in the service settings.
+
+### OAuth2 Client Credentials
+
+For server-to-server authentication:
+
+- **Token URL:** URL to request tokens from the service.
+- **Client ID:** Unique identifier for your application.
+- **Client Secret:** Confidential key to authenticate the application.
+
+---
+
+## Inputs
+
+The `API Call` component in `SmythOS` allows creating custom inputs to meet specific API requirements.
+
+### Add Input
+
+1. In the `Inputs` section, click the `+` button to configure a new input.
+
+- **Name (Required):** Unique, concise, and descriptive name for the input.
+
+- **Type:** 
+  - **Any:** Accepts any data format.
+  - **String:** Textual data.
+  - **Number:** Numerical values, including floating points.
+  - **Integer:** Whole numbers without fractions.
+  - **Boolean:** Binary values (`true` or `false`).
+  - **Array:** Lists of ordered values.
+  - **Object:** Structured data with named fields.
+  - **Binary:** Binary data (files, Blobs, ArrayBuffer, Base64 string, Data URLs, HTTP(S) URLs).
+  - **Date:** Dates in ISO 8601 format.
+
+- **Color (Optional):** Visual cues for differentiating inputs.
+
+- **Optional (Optional):** Mark inputs as optional if not required for every `API Call`.
+
+- **Default Value (Optional):** Provide a fallback value if no explicit input is given.
+
+---
+
+## Outputs
+
+The component provides the following default outputs:
+
+- **Headers:** Metadata associated with the API's request or response (e.g., `Content-Type`, `Authorization`, `User-Agent`, `Content-Length`, `Host`).
+
+- **Response:** Data returned by the API endpoint.
+
+### Customizing Outputs
+
+Define additional outputs based on your needs:
+
+1. **Name:** Unique, concise, and descriptive. Outputs must be formatted as a JSON Path.
+   - **Option 1:** Prefix with `Response.` (e.g., `Response.results`).
+   - **Option 2:** Custom name with a JSON Path expression.
+     - **Name:** `results`
+     - **Expression:** `Response.results`
+
+2. **Color Coding (Optional):** Assign colors to outputs for visual differentiation.

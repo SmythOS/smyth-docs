@@ -1,0 +1,84 @@
+# LLM Prompt
+
+Generate content based on a prompt with this component.
+
+---
+
+## Settings
+
+### Model
+
+Select from available models:
+- **OpenAI**: Default models like GPT 3.5, GPT 4, etc. Use your own API key to unlock the full context window.
+- **Echo**: Mirrors the prompt in its output. Useful for default text.
+
+> **Note:** To unlock more AI models, refer to the [Vault](core_concepts/keysManagement.md) section.
+
+### ✨ Custom Models
+
+Create custom LLMs:
+1. **Custom Model Button**: Start creating a new model.
+2. **Fill Required Fields**: Name, Features (only text completion now), and Provider (Bedrock or Vertex AI).
+3. **Next Step**: Select Foundation Model and configure credentials.
+   - **Vertex AI**: Google credentials and Project ID.
+   - **Bedrock**: Key ID and Secret Key.
+4. **Create**: Finalize and add the custom model to your list.
+5. **Manage**: Use the Delete option to remove models.
+
+> **Note:** Custom models are an enterprise feature. For access, [contact us](https://smythos.com/contact-us/).
+
+### Prompt
+
+Enter the prompt for content generation. Include input variables for dynamic prompts.
+
+### Advanced Settings
+
+- **Temperature**: Controls response randomness. Default is 1 (range: 0-2).
+- **Max Output Tokens**: Limit total tokens (input + output).
+- **Stop Sequence(s)**: Specify strings to stop token generation.
+- **Top P**: Consider tokens in Top P probability mass. Adjust Temperature or Top P, not both.
+- **Frequency Penalty**: Reduces repetition by penalizing repeated tokens proportionally.
+- **Presence Penalty**: Prevents repeated phrases with a constant penalty for repeated tokens. Adjust Frequency or Presence Penalty, not both.
+
+---
+
+## Inputs
+
+Inputs are data supplied to the LLM Prompt by other components (e.g., classifiers, API endpoints). To add a new input, click the "+" icon next to the Inputs label and fill in the details in the Add Input modal.
+
+For each input, configure the following:
+
+- **Name (required):** Must be unique and self-explanatory to reflect the external input.
+  
+- **Type:** Choose from various data types:
+  - **Any:** Accepts any data format.
+  - **String:** Textual data.
+  - **Number:** Numerical values, including floating points.
+  - **Integer:** Whole numbers.
+  - **Boolean:** Binary values (`true` or `false`).
+  - **Array:** Ordered sequence of values.
+  - **Object:** Structured data with named fields.
+  - **Binary:** Data in binary form (e.g., files, Base64 strings).
+  - **Date:** ISO 8601 standard datetime.
+
+- **Color (optional):** Assign colors to represent priority levels or types of inputs for visual clarity.
+  
+- **Optional (optional):** Set non-mandatory inputs as optional by checking the Optional box, allowing the agent to proceed without them.
+  
+- **Default Value (optional):** A predefined value used if an explicit value is not supplied.
+
+---
+
+## Outputs
+
+The component has a built-in output called `Reply`, containing the content generated from the prompt.
+
+To add a new output, click the "➕" icon next to the Outputs label and fill in the details as necessary:
+
+- **Naming Outputs:** Outputs should be named as `{output_name}`. SmythOS auto-recognizes the single `Reply` output of the LLM Prompt component.
+
+- **Color (optional):** Assign colors to outputs for better visual management in workflows.
+
+- **Description (optional):** Enhance clarity and provide context for outputs, defining expected output formats.
+
+- **Expression (optional):** Convert output into a JSON Path to sift through arrays and objects in API bodies for specific data.

@@ -1,9 +1,157 @@
----
-title: jouber integration
----
+# Jobber
 
-# jouber integration
+`Jobber` is a comprehensive business management software designed for service-based businesses. It helps companies manage their operations, scheduling, client management, invoicing, and team coordination all in one place. Jobber streamlines day-to-day operations for field service businesses, enabling them to deliver exceptional service to their clients.
 
-This is the **jouber integration** page for Agent Studio.
+At `SmythOS`, we have fully integrated `Jobber` capabilities within our platform, providing custom components that facilitate seamless client management and business operations. This integration allows businesses to efficiently manage their client relationships, handle client communications, and maintain detailed client records directly through the SmythOS platform.
 
-_TODO: Add detailed content for jouber integration._
+## Integration Settings
+
+#### Jobber Client ID and Client Secret
+For seamless integration of `Jobber` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+1. **Visit the Jobber Developer Center**:
+   - Navigate to the [Jobber Developer Center](https://developer.getjobber.com).
+   - Signup for a new account or signin to an existing account.
+2. **Create Your First App**:
+   - Navigate to the apps page and click on the 'NEW' button to create your first app.
+3. **Configure the App Details**:
+   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application.
+   - Remember to specify the callback URL as `https://app.smythos.com/oauth/oauth2/callback` to ensure proper redirection after authentication.
+4. **Retrieve Client ID and Client Secret**:
+   - Once the app is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## List Clients
+Retrieves a comprehensive list of all clients in your Jobber account, including both active and archived clients.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **trigger (`required<any>`)**: Initiates the client list retrieval.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **clients**: Array of client objects containing detailed client information.
+- **totalCount**: Total number of clients in the account.
+
+> **Note:** Results may be paginated for large client lists.
+
+<Arcade src="https://demo.arcade.software/mzuaSl0jXm1HXGB8qOn6?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber List Clients" />
+
+## Add Client
+Creates a new client record in your Jobber account with specified details.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **email (`required<string>`)**: Client's email address.
+- **firstName (`optional<string>`)**: Client's first name.
+- **lastName (`optional<string>`)**: Client's last name.
+- **companyName (`optional<string>`)**: Client's company name.
+- **phone (`optional<string>`)**: Client's phone number.
+- **address (`optional<string>`)**: Client's street address.
+- **city (`optional<string>`)**: Client's city.
+- **country (`optional<string>`)**: Client's country.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **clientId**: Unique identifier for the newly created client.
+
+<Arcade src="https://demo.arcade.software/5HC4gHcjDbxPRoWi1T8P?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Add Client" />
+
+## Search Clients
+Searches for clients in your Jobber account based on a query string.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **query (`required<string>`)**: Search term to find matching clients.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **clients**: Array of client objects matching the search criteria.
+
+<Arcade src="https://demo.arcade.software/Fnd1vSY4ku1c0wmoXKC1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Search Clients" />
+
+## Archive Client
+Archives a specified client in your Jobber account.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **clientId (`required<string>`)**: Unique identifier of the client to archive.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **isArchived**: Boolean indicating successful archival.
+
+<Arcade src="https://demo.arcade.software/vDKvSEDHzq0x5X88YGPy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Archive Client" />
+
+## Add Note To Client
+Adds a note to a specific client's record in Jobber.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **clientId (`required<string>`)**: Unique identifier of the client.
+- **note (`required<string>`)**: Content of the note to be added.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **noteId**: Unique identifier for the created note.
+- **note**: Content of the created note.
+- **createdAt**: Timestamp of note creation.
+
+<Arcade src="https://demo.arcade.software/fPho3ISzTzf8gTNJQnkX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Add Note To Client" />
+
+## Remove Note From Client
+Removes a specific note from a client's record in Jobber.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the blue "Authenticate" button to authenticate the component.
+
+### Inputs
+- **noteId (`required<string>`)**: Unique identifier of the note to remove.
+
+### Outputs
+- **Response**: Complete API response object.
+- **Headers**: Response headers from the API.
+- **noteId**: Identifier of the removed note.
+
+> **Note:** Deleted notes cannot be recovered after removal
+
+<Arcade src="https://demo.arcade.software/lq1npAfACdc2TfUb3EBE?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Remove Note From Client" />

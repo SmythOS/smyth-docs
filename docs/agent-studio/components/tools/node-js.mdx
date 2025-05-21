@@ -1,0 +1,63 @@
+# 🚀 NodeJS (Serverless) Component
+
+With the NodeJS component, you can run advanced libraries and code directly in your agent workflow. Code is executed in a sandboxed AWS Lambda environment. We provide the environment for you without any configuration required [Account Management - Model Rates](account_management/modelRates), and the flexibility to bring your own server in Advanced settings.
+
+<Arcade src="https://demo.arcade.software/nGmhHgytddwjdFCedz9R?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="SmythOS | Serverless Code"/>
+
+---
+
+## Settings
+
+### 📝 Code Structure
+- JavaScript/Node.js in async function format
+- NPM package imports supported
+- Auto-synced function parameters with component inputs
+- Function return values bound to default "Output" endpoint
+
+```javascript
+// Package imports
+import axios from 'axios';
+import { parse } from 'date-fns';
+
+async function main(inputParam1, inputParam2) {
+  // Code logic here
+  return { result: "processed data" };
+}
+```
+
+> **Note:** Default execution on SmythOS infrastructure (consumes credits)
+
+---
+
+## Advanced Settings
+
+### 🌐 Deployment Configuration
+- **Use Custom Cloud Keys**: Toggle between SmythOS infrastructure and your own AWS account
+- **AWS Access Key ID**: Required when using your own AWS account
+- **AWS Secret Key**: Required when using your own AWS account
+- **AWS Region**: Specify the AWS region for function deployment (e.g., us-east-1)
+
+### 🚀 Use Cases
+- **Data Processing**: Transform and enrich data within workflows
+- **API Integration**: Connect to external services and APIs
+- **Custom Logic**: Implement complex calculations and validations
+- **Service Connectors**: Build custom integrations with third-party platforms
+- **Analysis**: Perform data analysis and generate insights
+
+---
+
+## Inputs/Outputs Configuration
+
+### 📥 Inputs
+- No default inputs; add custom inputs as needed
+- Supports various data types (Any, String, Number, Boolean, etc.)
+- Optional coloring and default values available
+
+### 📤 Outputs
+- **Primary Output**: Function return value
+- **Error Output**: Debug information
+- Customizable with JSON Path expressions
+
+---
+
+The NodeJS component bridges visual workflows with custom code, providing precisely tailored functionality while maintaining SmythOS's visual integration benefits.

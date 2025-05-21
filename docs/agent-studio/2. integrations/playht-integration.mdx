@@ -1,9 +1,212 @@
----
-title: playht integration
----
 
-# playht integration
+# PlayHT Integration
 
-This is the **playht integration** page for Agent Studio.
+`PlayHT` is a key player in artificial intelligence (AI) voice generation technology. They're a renowned producer of quality text-to-speech (TTS) and voice cloning services.
 
-_TODO: Add detailed content for playht integration._
+Understanding the great potential of `PlayHT`, we at `SmythOS` have developed bespoke components to streamline your integration journey with `PlayHT`. This guide offers a comprehensive walk-through on leveraging these components effectively.
+
+## PlayHT 2.0 - TTS
+
+Shining a spotlight on a pivotal feature within `SmythOS`, let's delve into the prowess of the `PlayHT 2.0 - TTS` component. Crafted with innovation in mind, this component stands as a streamlined solution for effortlessly transforming text into speech.
+
+### Settings
+
+#### `Secret Key` and `User ID`
+
+To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
+
+1. Create a `PlayHT` account if you don't already have one.
+2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](play.ht/studio/api-access).
+3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
+
+> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Output Format
+
+The service supports a variety of output formats for the speech file:
+
+- `mp3`: A commonly used format for consumer audio streaming or storage.
+- `wav`: An audio file format that retains the full quality of the original recording.
+- `ogg`: A free, open container format providing efficient streaming and manipulation of high-quality digital multimedia.
+- `flac`: An audio format similar to MP3, but lossless, meaning that audio is compressed without any loss in quality.
+- `mulaw`: An audio encoding format used in telephony systems and commonly used for voice encoding.
+
+#### Quality 
+
+The quality of the generated speech can be specified by choosing from the following options:
+
+- `draft`: Suitable for initial drafts or non-critical applications.
+- `low`: Basic audio quality for non-demanding applications.
+- `medium`: Standard audio quality that balances file size and fidelity.
+- `high`: Enhanced audio quality for clearer and more professional results.
+- `premium`: Highest audio quality with the most natural and life-like sound.
+
+#### Emotion 
+
+Personalize the speech by selecting an emotion tone:
+
+- **Female Voices:**
+  - `female_happy`: A cheerful and jubilant tone.
+  - `female_sad`: A sorrowful and dismal tone.
+  - `female_angry`: A heated and exasperated tone.
+  - `female_fearful`: A scared and apprehensive tone.
+  - `female_disgust`: A repulsed and disdainful tone.
+  - `female_surprised`: An astonished and amazed tone.
+
+- **Male Voices:**
+  - `male_happy`: A joyful and elated tone.
+  - `male_sad`: A downcast and melancholic tone.
+  - `male_angry`: A fierce and fervent tone.
+  - `male_fearful`: A panic-struck and fearful tone.
+  - `male_disgust`: A scornful and aversive tone.
+  - `male_surprised`: A shocked and astounded tone.
+
+#### Speed
+
+Control how fast the generated audio should be. A number greater than 0 and less than or equal to 5.0
+
+#### Sample Rate
+
+A number greater than or equal to 8000, and must be less than or equal to 48000
+
+#### Voice Guidance
+
+A number between 1 and 6. Use lower numbers to reduce how unique your chosen voice will be compared to other voices. 
+
+#### Style Guidance
+
+A number between 1 and 30. Use lower numbers to to reduce how strong your chosen emotion will be. Higher numbers will create a very emotional performance. 
+
+<Image src="/img/playht/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+This feature requires two default inputs:
+
+1. **text `required<string>`:** This is the textual data to be converted into speech.
+2. **voice_id `required<string>`:** The identifier for the desired voice to be used in the audio generation. This parameter comes with a predefined default value.
+
+<Image src="/img/playht/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon using this component, you'll receive two default outputs:
+
+1. **Response:** This is the received data, in this case, a speech representation of the input text. 
+2. **Headers:** These are the HTTP Headers included in the `PlayHT` server's response.
+3. **id:** The unique identifier assigned to the process that was executed.
+
+<Image src="/img/playht/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## PlayHT - Get Output
+
+This component allows you to obtain the results from a specific action.
+
+### Settings
+
+#### `Secret Key` and `User ID`
+
+To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
+
+1. Create a `PlayHT` account if you don't already have one.
+2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](play.ht/studio/api-access).
+3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
+
+> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/playht/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+This component requires the following input to function:
+
+- **id `required<string>`**: The identifier of the executed process.
+
+<Image src="/img/playht/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component will provide the following outputs upon execution:
+
+1. **Response:** The direct response generated based on the provided `id`.
+2. **Headers:** The HTTP Headers returned from the `PlayHT` server.
+3. **URL:** The URL where the generated content is located.
+
+<Image src="/img/playht/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## PlayHT 1.0 - TTS
+
+This documentation covers the PlayHT 1.0 Text to Speech (TTS) component, which converts text into speech.
+
+### Settings
+
+#### `Secret Key` and `User ID`
+
+To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
+
+1. Create a `PlayHT` account if you don't already have one.
+2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](play.ht/studio/api-access).
+3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
+
+> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Output Format
+
+The service supports a variety of output formats for the speech file:
+
+- `mp3`: A commonly used format for consumer audio streaming or storage.
+- `wav`: An audio file format that retains the full quality of the original recording.
+- `ogg`: A free, open container format providing efficient streaming and manipulation of high-quality digital multimedia.
+- `flac`: An audio format similar to MP3, but lossless, meaning that audio is compressed without any loss in quality.
+- `mulaw`: An audio encoding format used in telephony systems and commonly used for voice encoding.
+
+#### Quality 
+
+The quality of the generated speech can be specified by choosing from the following options:
+
+- `draft`: Suitable for initial drafts or non-critical applications.
+- `low`: Basic audio quality for non-demanding applications.
+- `medium`: Standard audio quality that balances file size and fidelity.
+- `high`: Enhanced audio quality for clearer and more professional results.
+- `premium`: Highest audio quality with the most natural and life-like sound.
+
+#### Speed
+
+Set the playback speed of the audio, where values can range from greater than 1 to 5.
+
+#### Sample Rate
+
+Specify the sample rate for the audio file, which must be between 8000 and 48000 Hz.
+
+<Image src="/img/playht/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+This feature requires two default inputs:
+
+1. **text `required<string>`:** This is the textual data to be converted into speech.
+2. **voice_id `required<string>`:** The identifier for the desired voice to be used in the audio generation. This parameter comes with a predefined default value.
+
+<Image src="/img/playht/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component will provide the following outputs upon execution:
+
+1. **Response:** The immediate response containing details about the process.
+2. **Headers:** The HTTP headers received from the `PlayHT` server.
+3. **id:** The unique identifier for the executed process.
+
+<Image src="/img/playht/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

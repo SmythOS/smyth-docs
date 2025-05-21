@@ -1,0 +1,188 @@
+# Code
+
+The `Code` component in SmythOS allows you to execute JavaScript within agents. Here are the key features:
+
+- **Vanilla JavaScript**: Use pure JavaScript without dependencies.
+- **Complex Logic**: Use API calls for complex logic.
+- **Input Variable Limit**: Inputs have a 5MB limit. Inform us if issues arise.
+- **Error Output**: Optional `_error` variable for debugging.
+
+<Arcade  src="https://demo.arcade.software/HbTFpYUtUTtU3ZpafjWU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Code | SmythOS" />
+
+---
+
+## Settings
+
+### Variables
+
+- Displays input and output variables.
+- Read-only and prefixed with `_` to avoid conflicts.
+
+### Code
+
+- Editable section for custom JavaScript.
+- Use input and output variables from the `Variables` section.
+- Bind results to `_output`.
+
+---
+
+## Inputs
+
+Two default input variables, `A` and `B`, which can be modified or removed.
+
+### Add Input
+
+- **Name (Required)**: Unique, concise, and descriptive.
+- **Type**:
+  - **Any**
+  - **String**
+  - **Number** (including floating point)
+  - **Integer**
+  - **Boolean**
+  - **Array**
+  - **Object**
+  - **Binary**
+  - **Date** (ISO 8601 format)
+- **Color (Optional)**: Visual differentiation.
+- **Optional (Optional)**: Mark if not always needed.
+- **Default Value (Optional)**: Fallback value.
+
+---
+
+## Outputs
+
+Two outputs:
+
+1. **Output**: Connected to `_output` variable.
+2. **Error Output**: Uses `_error` for debugging.
+
+### Add Output
+
+Customize outputs to extract specific data.
+
+- **Name (Required)**: Unique, formatted as JSON Path.
+  - **Option 1:** `Output.{{specific_label}}` (e.g., `Output.response_detail`)
+  - **Option 2:** Define name and JSON Path expression.
+    - **Name:** `user_response`
+    - **Expression:** `Output.response_detail`
+- **Color (Optional)**: Assign colors for clarity.
+- **Expression (Conditional)**: Define JSON Path.
+
+By following these guidelines, you can efficiently execute custom JavaScript within the `Code` component.
+
+---
+
+## Example: Handling External Files via URL
+
+This example demonstrates how to retrieve and process external files (like CSV files) directly from URLs using SmythOS components.
+
+### Workflow Overview
+
+1. **Agent Skill Component**: Receives the file URL from the user
+2. **API Call Component**: Fetches the file content
+3. **Code Component**: Processes the file data (e.g., parsing CSV)
+
+### Implementation Steps
+
+#### 1. Configure the Agent Skill Component
+
+Create an input parameter in your Agent Skill to receive the file URL from users:
+
+- Add an input parameter (e.g., `csvUrl`)
+- Set type to `String`
+- Add a description like "URL to the CSV file to process"
+
+#### 2. Set up the API Call Component
+
+Connect the Agent Skill to an API Call component:
+
+- **Method**: GET
+- **URL**: Use the dynamic value from Agent Skill input (e.g., `{{csvUrl}}`)
+- **Headers**: Usually not needed for public files, but can be added if authentication is required
+
+#### 3. Process the File with Code Component
+
+First, create an input in the Code component:
+- Add an input named `apiCallResponse` (Type: String)
+- Connect this input to the API Call component's Response output
+
+Then, add the following code to process the data:
+
+```javascript
+// The CSV data is available in the _apiCallResponse input variable
+const csvContent = _apiCallResponse;
+
+// Process CSV data
+const rows = csvContent.split('\n');
+const headers = rows[0].split(',').map(header => header.trim());
+    
+const parsedData = [];
+for (let i = 1; i < rows.length; i++) {
+  if (rows[i].trim() === '') continue;
+      
+  const values = rows[i].split(',');
+  const entry = {};
+      
+  for (let j = 0; j < headers.length; j++) {
+    entry[headers[j]] = values[j] ? values[j].trim() : '';
+  }
+      
+  parsedData.push(entry);
+}
+
+// Example: Calculate some statistics about the data
+const summary = {
+  totalRows: parsedData.length,
+  headers: headers,
+  // Add any other relevant information
+};
+
+// Bind the processed data to the output
+_output = {
+  success: true,
+  data: parsedData,
+  summary: summary
+};
+```
+
+### Component Configuration Details
+
+#### Agent Skill Component
+- **Input**: `csvUrl` (String) - The URL of the CSV file to process
+
+#### API Call Component
+- **Input**: Connect to Agent Skill's `csvUrl` output
+- **Settings**: 
+  - Method: GET
+  - URL: Dynamic value from input
+- **Output**: Response (contains the raw file content)
+
+#### Code Component
+- **Input**: `apiCallResponse` (String) - Connect to API Call's Response output
+- **Output**: Processed data structure with:
+  - `success`: Boolean indicating operation success
+  - `data`: Array of parsed objects from CSV
+  - `summary`: Metadata about the file
+
+### Next Steps After Processing
+
+After processing the file data, you can connect the Code component's output to:
+
+- **GenAI LLM**: For analysis, summarization, or generating insights
+- **RAG Remember**: To index and store the structured data
+- **Another Code component**: For further transformation or calculations
+
+### Handling Different File Types
+
+The same pattern works for different file types by adjusting the Code component:
+
+- **JSON files**: Use `JSON.parse(_apiCallResponse)` 
+- **XML files**: Use a simple XML parser or regex patterns
+- **Text files**: Process line by line with `split('\n')`
+
+### Best Practices
+
+1. **Validate URLs** in the Agent Skill component before processing
+2. **Handle errors** gracefully in the Code component
+3. **Set appropriate timeouts** in the API Call component for large files
+4. **Consider chunking** for very large files

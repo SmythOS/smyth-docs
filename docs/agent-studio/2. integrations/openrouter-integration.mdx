@@ -1,9 +1,47 @@
----
-title: openrouter integration
----
 
-# openrouter integration
+# OpenRouter Integration
 
-This is the **openrouter integration** page for Agent Studio.
+`OpenRouter` serves as a powerful gateway, enabling the integration of multiple NLP (Natural Language Processing) APIs into your application through a single, unified API endpoint. This tool streamlines the process of calling various NLP services, offering a consolidated approach to handle multiple API interactions.
 
-_TODO: Add detailed content for openrouter integration._
+At `SmythOS`, we've fully integrated `OpenRouter` within our platform, offering custom components that facilitate the easy inclusion of its advanced functionalities into your software solutions. By leveraging `OpenRouter`, you can enhance your application's capabilities, making it more robust and efficient in processing natural language data.
+
+## Chat Completion
+
+Unified interface for Language Models (LLMs)
+
+### Settings
+
+To utilize `OpenRouter` through this component, follow these authentication steps to acquire an `API Key`:
+
+1. If you don't already have an account, create one first.
+2. Navigate to the [Keys section](https://openrouter.ai/keys).
+3. Click the option to create a new key.
+4. Copy the `API Key` and enter it into the settings section of the component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/openrouter/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively use this component, supply the following information:
+
+- **prompt (`required<string>`)**: The input text to generate completion.
+- **model (`optional<string>`)**: Defaults to `openrouter/auto`. For a list of supported models, visit the [models documentation](https://openrouter.ai/docs#models).
+
+<Image src="/img/openrouter/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full server response including the text completion.
+- **Headers:** HTTP headers providing additional data details.
+- **id:** The unique identifier of the completion request.
+- **message_content:** The content of the generated message.
+
+<Image src="/img/openrouter/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

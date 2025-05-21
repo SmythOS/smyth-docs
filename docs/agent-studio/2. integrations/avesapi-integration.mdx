@@ -1,9 +1,48 @@
----
-title: avesapi integration
----
 
-# avesapi integration
+# AvesAPI Integration
 
-This is the **avesapi integration** page for Agent Studio.
+The `AvesAPI` is designed to efficiently scrape Google SERP data in real-time, simplifying the process by managing proxies and solving CAPTCHA challenges automatically. The service allows for quick data retrieval through a straightforward HTTP GET URL structure, providing results in either JSON or HTML format.
 
-_TODO: Add detailed content for avesapi integration._
+The integration with `SmythOS` enhances the system's capability to fetch and process external data without the overhead of handling complex network operations. It supports `SmythOS` in delivering more dynamic and responsive user experiences by leveraging real-time search engine data.
+
+## Integration Settings
+
+#### API Key
+To use AvesAPI integration in `SmythOs`, you must authenticate each integration component with an API key. Follow these steps to prepare your credentials:
+
+1. Log into your `AvesAPI` account and proceed to your [profile settings](https://app.avesapi.com/profile/).
+2. Find and copy your `API Key`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation. 
+
+## Google Web Search
+
+This integration empowers `SmythOS` users to access and retrieve Google Search Engine Results Page (SERP) data effortlessly in real-time. It automates the complexities associated with managing proxies and CAPTCHAs, enabling seamless queries across various categories such as web pages, images, news articles, and videos.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Adjust these inputs to refine your search requirements:
+
+1. **query `required<string>`**: The main expression or keywords for which the Google SERP is queried.
+2. **google_country_code `optional<string>`** (default: `us`): Designates the localized Google domain corresponding to a specific country.
+3. **google_ui_language `optional<string>`** (default: `en`): Sets the preferred language for the Google user interface.
+4. **google_domain `optional<string>`** (default: `google.com`): Specifies the Google domain to be queried.
+5. **num `optional<integer>`** (default: `10`): Determines the number of search results to retrieve per query.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Here are the predefined outputs available for detailed analysis and integration in your projects:
+
+1. **Response**: The primary data structure containing all the search results.
+2. **Headers**: Includes HTTP headers from the response, which are essential for debugging, performance analysis, or regulatory compliance.
+3. **organic_results**: Contains the standard non-paid search results.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/jI40g3xMeokhygxKqBmx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AvesAPI Google Web Search" />

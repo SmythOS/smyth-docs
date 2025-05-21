@@ -1,9 +1,77 @@
----
-title: keywords everywhere integration
----
 
-# keywords everywhere integration
+# Keywords Everywhere Integration
 
-This is the **keywords everywhere integration** page for Agent Studio.
+`Keywords Everywhere` is a versatile SEO tool available as a browser extension for Chrome and Firefox. It provides crucial keyword research data, such as search volume, cost per click (CPC), and competition level, directly within your browser. This tool integrates seamlessly with various platforms like Google Search, Google Analytics, Google Search Console, YouTube, and more, offering users valuable keyword insights without the need to switch between different tools.
 
-_TODO: Add detailed content for keywords everywhere integration._
+## Importance of Integrating `Keywords Everywhere` API into `SmythOS`
+
+Integrating the `Keywords Everywhere` API into `SmythOS` is essential for several reasons:
+
+1. **Enhanced SEO Capabilities**: By incorporating `Keywords Everywhere`'s data, `SmythOS` users can access real-time keyword metrics within the system, boosting their SEO strategy and content optimization efforts.
+2. **Time Efficiency**: With direct API integration, users no longer need to manually check keyword metrics on different platforms. This streamlines the workflow and saves valuable time.
+3. **Comprehensive Data Access**: Users gain access to extensive keyword research data, including search volume, CPC, competition levels, and related keywords, enabling more informed decision-making.
+4. **Competitive Edge**: Leveraging `Keywords Everywhere`'s insights allows users to stay ahead of competitors by identifying high-value keywords and emerging trends.
+5. **Improved Advertising Strategies**: Access to CPC and competition data helps in refining PPC campaigns, ensuring better allocation of advertising budgets.
+
+Integrating the `Keywords Everywhere` API into `SmythOS` enhances the platform's capabilities, making it an invaluable tool for digital marketers, SEO professionals, and content creators who aim to optimize their online presence effectively.
+
+## Get Keyword Data
+
+Retrieve search volume, CPC (Cost Per Click), and competition metrics for a set of keywords.
+
+### Settings
+
+#### API Key
+
+The first step is to acquire your `API Key`:
+
+1. **Sign Up / Log In**:
+   - Visit the Keywords Everywhere website and create an account or log in if you already have one.
+  
+2. **Navigate to API Key Section**:
+   - Once logged in, go to the `API Key` section in your account dashboard.
+  
+3. **Generate API Key**:
+   - Click on the button to generate a new API key. You can copy this key for later use.
+  
+4. **Copy the API Key**:
+   - Ensure that you copy the generated API key. Treat this as sensitive information.
+  
+5. **Set API Key in SmythOS**:
+   - Go to the `SmythOS` component settings and input the copied API key into the designated field.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Data Source
+
+The data source field allows you to define where the keyword data is sourced from. It has the following options:
+
+- **`gpk`**: This refers to Google Keyword Planner. Selecting this option will fetch keyword metrics from Google's Keyword Planner tool, which provides insights directly from Google's advertising platform.
+- **`cli`**: This stands for Custom List Input. Choosing this option allows users to use their own custom list of keywords, providing more flexibility in keyword analysis.
+
+By selecting the appropriate data source, you can tailor the keyword data retrieval to best suit your SEO or PPC campaign needs.
+
+<Image src="/img/keywords_everywhere/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **keywords (`required<array>`):** Default value is an empty array.
+2. **country (`optional<string>`):** Default value is `us`.
+
+<Image src="/img/keywords_everywhere/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** Contains the full API response.
+2. **Headers:** Metadata and headers from the API call.
+3. **data:** Parsed data specific to the keyword metrics.
+
+<Image src="/img/keywords_everywhere/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

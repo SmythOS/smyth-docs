@@ -1,9 +1,335 @@
----
-title: sharepoint integration
----
+# SharePoint Integration 🌐
 
-# sharepoint integration
+`Microsoft SharePoint` is a powerful web-based platform widely used for content management and collaboration. It allows organizations to store, manage, and share documents and resources securely. The SharePoint API provides seamless access to SharePoint data, enabling developers to integrate its functionalities into various applications.
 
-This is the **sharepoint integration** page for Agent Studio.
+Integrating the SharePoint API into SmythOS significantly enhances the platform's capabilities by:
+- **Streamlining Collaboration:** Facilitating seamless document sharing and collaboration among team members.
+- **Enhancing Productivity:** Automating workflows and processes, thereby reducing manual tasks.
+- **Centralizing Data Management:** Enabling centralized access to documents and resources, improving organizational efficiency.
+- **Ensuring Security:** Providing secure access to sensitive information, complying with organizational policies and regulations.
 
-_TODO: Add detailed content for sharepoint integration._
+## Get Root Site
+
+Retrieves the root SharePoint site within a tenant.
+
+### 🛠 Settings
+
+#### Client ID & Client Secret
+
+To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+
+1. **Register Your Application:**
+   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
+   - Navigate to **Azure Active Directory** and select **App registrations**.
+   - Click on **New registration** to create a new application.
+
+2. **Provide Application Details:**
+   - **Name:** Enter a name for your application.
+   - **Supported account types:** Choose the account types that you want to support. This can be:
+     - Accounts in this organizational directory only.
+     - Accounts in any organizational directory.
+     - Accounts in any organizational directory and personal Microsoft accounts.
+   - **Redirect URI:** Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
+   - Click on **Register**.
+
+3. **Obtain Client ID & Client Secret:**
+   - **Client ID:** Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
+   - **Client Secret:**
+     - Navigate to **Certificates & secrets**.
+     - In the **Client secrets** section, click on **New client secret**.
+     - Provide a description and choose an expiration period.
+     - Click on **Add**.
+     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
+
+4. **Configure API Permissions:**
+   - **API Permissions:** Ensure the necessary permissions to use SharePoint are configured. This usually includes granting permissions like `Sites.Read.All` and `Sites.ReadWrite.All`. For detailed steps, refer to the Microsoft documentation on configuring API permissions.
+
+5. **Enter Credentials in SmythOS:**
+   - Navigate to the settings section of the component in SmythOS.
+   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
+   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
+
+> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🔑 Authenticate/Sign Out Button
+
+The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
+
+- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
+- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
+
+This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
+- The token is invalid.
+- The token has expired.
+- Other token-related issues.
+
+In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
+
+<Image src="/img/sharepoint/screenshot1.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **tenant-name (`required<string>`):** The name of your tenant.
+
+<Image src="/img/sharepoint/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the Microsoft Sharepoint API, detailing the list of chats.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **id:** The unique identifier for the root site.
+4. **displayName:** The display name of the root site.
+5. **name:** The name of the root site.
+
+<Image src="/img/sharepoint/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Search Site
+
+Retrieve the team site for a group.
+
+### 🛠 Settings
+
+#### Client ID & Client Secret
+
+To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+
+1. **Register Your Application:**
+   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
+   - Navigate to **Azure Active Directory** and select **App registrations**.
+   - Click on **New registration** to create a new application.
+
+2. **Provide Application Details:**
+   - **Name:** Enter a name for your application.
+   - **Supported account types:** Choose the account types that you want to support. This can be:
+     - Accounts in this organizational directory only.
+     - Accounts in any organizational directory.
+     - Accounts in any organizational directory and personal Microsoft accounts.
+   - **Redirect URI:** Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
+   - Click on **Register**.
+
+3. **Obtain Client ID & Client Secret:**
+   - **Client ID:** Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
+   - **Client Secret:**
+     - Navigate to **Certificates & secrets**.
+     - In the **Client secrets** section, click on **New client secret**.
+     - Provide a description and choose an expiration period.
+     - Click on **Add**.
+     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
+
+4. **Configure API Permissions:**
+   - **API Permissions:** Ensure the necessary permissions to use SharePoint are configured. This usually includes granting permissions like `Sites.Read.All` and `Sites.ReadWrite.All`. For detailed steps, refer to the Microsoft documentation on configuring API permissions.
+
+5. **Enter Credentials in SmythOS:**
+   - Navigate to the settings section of the component in SmythOS.
+   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
+   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
+
+> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🔑 Authenticate/Sign Out Button
+
+The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
+
+- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
+- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
+
+This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
+- The token is invalid.
+- The token has expired.
+- Other token-related issues.
+
+In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
+
+<Image src="/img/sharepoint/screenshot4.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **query (`required<string>`):** The search query to find the group team site.
+
+<Image src="/img/sharepoint/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the Microsoft SharePoint API, detailing the list of chats.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **value:** The specific value retrieved based on the search query.
+
+<Image src="/img/sharepoint/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List All Sites
+
+Retrieve all sites in SharePoint.
+
+### 🛠 Settings
+
+#### Client ID & Client Secret
+
+To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+
+1. **Register Your Application:**
+   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
+   - Navigate to **Azure Active Directory** and select **App registrations**.
+   - Click on **New registration** to create a new application.
+
+2. **Provide Application Details:**
+   - **Name:** Enter a name for your application.
+   - **Supported account types:** Choose the account types that you want to support. This can be:
+     - Accounts in this organizational directory only.
+     - Accounts in any organizational directory.
+     - Accounts in any organizational directory and personal Microsoft accounts.
+   - **Redirect URI:** Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
+   - Click on **Register**.
+
+3. **Obtain Client ID & Client Secret:**
+   - **Client ID:** Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
+   - **Client Secret:**
+     - Navigate to **Certificates & secrets**.
+     - In the **Client secrets** section, click on **New client secret**.
+     - Provide a description and choose an expiration period.
+     - Click on **Add**.
+     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
+
+4. **Configure API Permissions:**
+   - **API Permissions:** Ensure the necessary permissions to use SharePoint are configured. This usually includes granting permissions like `Sites.Read.All` and `Sites.ReadWrite.All`. For detailed steps, refer to the Microsoft documentation on configuring API permissions.
+
+5. **Enter Credentials in SmythOS:**
+   - Navigate to the settings section of the component in SmythOS.
+   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
+   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
+
+> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🔑 Authenticate/Sign Out Button
+
+The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
+
+- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
+- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
+
+This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
+- The token is invalid.
+- The token has expired.
+- Other token-related issues.
+
+In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
+
+<Image src="/img/sharepoint/screenshot7.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **trigger (`required<any value>`):** This input is just required to trigger the execution of the component. It can hold any value.
+
+<Image src="/img/sharepoint/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the Microsoft SharePoint API, detailing the list of sites.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **sites:** List of sites retrieved from SharePoint.
+
+<Image src="/img/sharepoint/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Site Drive Items
+
+Get the drive’s files and folders in the root directory.
+
+### 🛠 Settings
+
+#### Client ID & Client Secret
+
+To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+
+1. **Register Your Application:**
+   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
+   - Navigate to **Azure Active Directory** and select **App registrations**.
+   - Click on **New registration** to create a new application.
+
+2. **Provide Application Details:**
+   - **Name:** Enter a name for your application.
+   - **Supported account types:** Choose the account types that you want to support. This can be:
+     - Accounts in this organizational directory only.
+     - Accounts in any organizational directory.
+     - Accounts in any organizational directory and personal Microsoft accounts.
+   - **Redirect URI:** Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
+   - Click on **Register**.
+
+3. **Obtain Client ID & Client Secret:**
+   - **Client ID:** Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
+   - **Client Secret:**
+     - Navigate to **Certificates & secrets**.
+     - In the **Client secrets** section, click on **New client secret**.
+     - Provide a description and choose an expiration period.
+     - Click on **Add**.
+     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
+
+4. **Configure API Permissions:**
+   - **API Permissions:** Ensure the necessary permissions to use SharePoint are configured. This usually includes granting permissions like `Sites.Read.All` and `Sites.ReadWrite.All`. For detailed steps, refer to the Microsoft documentation on configuring API permissions.
+
+5. **Enter Credentials in SmythOS:**
+   - Navigate to the settings section of the component in SmythOS.
+   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
+   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
+
+> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🔑 Authenticate/Sign Out Button
+
+The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
+
+- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
+- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
+
+This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
+- The token is invalid.
+- The token has expired.
+- Other token-related issues.
+
+In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
+
+<Image src="/img/sharepoint/screenshot10.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **site_id (`required<any value>`):** The ID of the site for which you want to list the drive items.
+
+<Image src="/img/sharepoint/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the Microsoft SharePoint API, detailing the list of items.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **items:** The list of files and folders retrieved from the root directory of the drive. 
+
+<Image src="/img/sharepoint/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

@@ -1,9 +1,647 @@
----
-title: asana integration
----
+# Asana Integration
 
-# asana integration
+`Asana` is a project management tool that helps teams organize, track, and manage their work. The `Asana` Integration in `SmythOS` allows users to seamlessly connect and synchronize their projects and tasks within their custom workflows, enhancing productivity and collaboration.
 
-This is the **asana integration** page for Agent Studio.
+## Integration Settings
 
-_TODO: Add detailed content for asana integration._
+#### Client ID and Client Secret
+To use Asana integration in `SmythOs`, you must authenticate each integration component with a client id and client secret. Follow these steps to prepare your credentials:
+
+1. **Access Asana**: Log into your Asana account and navigate to your profile settings.
+2. **Developer Apps**: Go to the `Apps` tab and click on `Manage Developer Apps`.
+3. **Create New App**:
+   - Click on `New App`.
+   - Fill in the application details, ensuring you include the necessary redirect URI as `https://app.smythos.com/oauth/oauth2/callback` to allow for proper authentication callbacks.
+   - Save these settings to generate your `Client ID` and `Client Secret`.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Get Project
+The `Get Project` component retrieves detailed information about a specific `Asana` project. This is particularly useful for teams needing real-time data access and manipulation capabilities in external applications.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Configure the input parameter based on your data retrieval needs:
+
+1. **project_gid `required<string>`:** The Globally Unique Identifier (GID) for the project.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides the following predefined outputs for detailed project data analysis:
+
+1. **Response:** Full data returned from the `Asana` API call.
+2. **Headers:** HTTP headers from the response, useful for debugging or compliance checks.
+3. **gid:** Unique identifier for the project.
+4. **name:** Name of the project.
+5. **createdAt:** Creation date and time of the project.
+6. **workspace_gid:** Identifier for the workspace containing the project.
+7. **team_gid:** Identifier for the team that owns the project.
+8. **members:** List of project members.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Project
+
+The `Create Project` component in `SmythOS` enables seamless integration with `Asana` to create new projects directly from your workflow environment. This functionality is essential for teams who need to establish new projects within `Asana` programmatically, enhancing productivity and operational efficiency.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Default View
+Configure the default display mode for your project upon creation. Choose from the following options to best suit the project's requirements and team preferences:
+
+- `list`: Displays tasks in a simple list format, ideal for straightforward task management.
+- `board`: Uses a Kanban-style board layout for visual task tracking.
+- `calendar`: Shows tasks on a calendar to help with scheduling and deadlines.
+- `timeline`: Arranges tasks along a timeline, useful for tracking project phases and duration. 
+
+### Inputs
+Input parameters need to be set up as follows for creating a new project in `Asana`:
+
+1. **name `required<string>`:** Specify the name of the new project.
+2. **workspace_gid `required<string>`:** Provide the GID of the workspace where the project will be created.
+3. **team_gid `optional<string>`:** Optionally, specify the team GID if the project belongs to a specific team in `Asana`.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon creating a project, the following outputs are generated to aid in further processes and integration:
+
+1. **Response:** Complete data set returned from the `Asana` API.
+2. **Headers:** HTTP headers for debugging or information about the request and response.
+3. **gid:** The newly created project's unique identifier.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Project Sections
+This component retrieves all sections within a specific project in `Asana`, facilitating detailed project organization and segmentation analysis directly through `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Configure the following input parameter to retrieve sections from a specified project:
+
+1. **project_gid `required<string>`:** The Globally Unique Identifier (GID) of the project from which to retrieve sections.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component yields detailed data, aiding further integration and analysis:
+
+1. **Response:** A comprehensive dataset returned from the `Asana` API.
+2. **Headers:** HTTP headers that can provide insights into the response's nature and debugging.
+3. **sections:** Structured details of each section within the project.
+4. **offset:** A pagination offset, if applicable, to handle large sets of data.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Section Tasks
+This component enables the retrieval of tasks from a specific section in `Asana`, streamlining task management and integration processes within `SmythOS`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+To retrieve tasks from a specified section within a project, configure the input as follows:
+
+1. **section_gid `required<string>`:** The Globally Unique Identifier (GID) of the section from which to fetch tasks.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+This component delivers the following outputs for enhanced data handling and integration:
+
+1. **Response:** The full data set returned from the Asana API.
+2. **Headers:** HTTP headers that provide insight into the request and response dynamics.
+3. **tasks:** Detailed information about each task within the section.
+4. **offset:** Pagination control, if applicable, to manage large data sets.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Task
+Retrieves a task from Asana, providing integration capabilities with its API.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Configure the inputs to retrieve tasks from a specific section within a project:
+
+1. **task_gid `required<string>`:** The globally unique identifier (gid) for the task you want to retrieve from `Asana`.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The outputs from this component include:
+
+1. **Response:** The complete dataset returned from the `Asana` API, containing all fields related to the retrieved task.
+2. **Headers:** HTTP headers that provide insights into the request-response mechanism, useful for debugging and ensuring API call integrity.
+3. **gid:** The unique ID of the retrieved task, useful for referencing the task in API or programmable operations.
+4. **name:** The name of the task, which describes or provides information about the task’s purpose.
+5. **workspace_gid:** The workspace ID within which the task exists, crucial for identifying the workspace scope in `Asana`.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Task
+Facilitates the creation of tasks within Asana, providing a seamless integration with its API for task management.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Resource Subtype
+
+This setting allows you to specify the type of task you wish to create. It includes the following options:
+
+- `default_task`: A standard task with no special classification.
+- `milestone`: A task designated as a milestone within a project.
+- `section`: A task that organizes or categorizes other tasks within a section.
+- `approval`: A task that requires or includes an approval process.
+
+#### Approval Status 
+
+This setting defines the approval status applicable to tasks requiring approvals:
+
+- `pending`: Awaiting approval.
+- `approved`: Approved.
+- `rejected`: Rejected.
+- `changes_requested`: Modifications requested.
+
+### Inputs
+To create a task, provide the necessary inputs specifying the task details:
+
+1. **name `required<string>`:** The name of the task to be created.
+2. **workspace_gid `required<string>`:** The global identifier for the workspace where the task will reside.
+3. **due_on `optional<string>`:** The due date for the task in YYYY-MM-DD format.
+4. **notes `optional<string>`:** Additional notes or details for the task.
+5. **start_on `optional<string>`:** The start date for the task in YYYY-MM-DD format.
+6. **project_gid `optional<string>`:** The global identifier for the project this task belongs to.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The outputs from this component provide detailed information about the task creation process:
+
+1. **Response:** The complete dataset returned from Asana, including all attributes of the created task.
+2. **Headers:** HTTP headers offering insights into the request and response, useful for debugging and compliance with API usage.
+3. **gid:** The unique identifier for the newly created task in Asana.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Multiple Tasks
+Retrieves multiple tasks from `Asana`, streamlining task management by allowing bulk operations directly through the API integration.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+To retrieve tasks, specify the necessary parameter:
+
+1. **project_gid `required<string>`:** The global identifier for the project from which tasks will be retrieved.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides the following outputs, making the integration more actionable and insightful:
+
+1. **Response:** The comprehensive dataset returned from `Asana`, encapsulating attributes of the retrieved tasks.
+2. **Headers:** HTTP headers that offer insights into the API request and response dynamics, serving as a valuable tool for debugging and ensuring compliance with API protocols.
+3. **tasks:** A collection of tasks retrieved in the response, formatted as an array with each entry containing detailed task information.
+4. **offset:** An optional field used for pagination, indicating the position from which the next batch of tasks should start if not all tasks could be retrieved in one API call.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Goal
+Retrieves a specified goal from `Asana`, enabling efficient goal management and tracking via API integration.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Specify the necessary parameter to retrieve a goal:
+
+1. **goal_gid `required<string>`:** The global identifier for the goal you wish to fetch from `Asana`.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The outputs provided by this component are integral for a comprehensive understanding and integration of the fetched goals:
+
+1. **Response:** The full dataset returned from the `Asana` API, which includes details of the fetched goal.
+2. **Headers:** HTTP headers that provide insights into the request-response mechanics, invaluable for debugging and ensuring compliance with API protocols.
+3. **gid:** The unique identifier of the retrieved goal.
+4. **name:** The name of the goal, providing context and details about its purpose.
+5. **workspace_gid:** The identifier for the workspace where the goal is located.
+6. **owner_gid:** The global identifier of the user who owns or created the goal.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Goal
+Updates an existing goal in Asana, allowing for dynamic changes to goal details directly through API integration.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Body
+This field allows you to enter updated information for the goal. Please follow the sample schema provided to ensure correct data formatting. 
+
+### Inputs
+Ensure to provide the necessary parameter to specify which goal to update:
+
+1. **goal_gid `required<string>`:** The global identifier for the goal you are updating.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+This component provides the following detailed outputs to ensure effective integration and data handling:
+
+1. **Response:** The complete dataset returned from `Asana`, including the updated details of the goal.
+2. **Headers:** HTTP headers offering insights into the request-response dynamics, valuable for debugging and compliance with API protocols.
+3. **gid:** The unique identifier of the updated goal.
+4. **name:** The updated name of the goal.
+5. **workspace_gid:** The identifier for the workspace where the goal resides.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Team Project
+Creates a project within a team environment on `Asana`, enabling structured project management and collaboration.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Default View
+
+Select the default project view from the following options to suit your workflow preferences:
+
+- `list`: A simple list view for task management.
+- `board`: A Kanban-style board for visual task tracking.
+- `calendar`: A calendar view for deadline-oriented task planning.
+- `timeline`: A timeline view for tracking project schedules.
+
+### Inputs
+Provide the necessary parameters to specify the project configuration:
+
+1. **team_gid `required<string>`:** The global identifier for the team in which the project is to be created.
+2. **name `required<string>`:** The name of the new project.
+3. **workspace_gid `required<string>`:** The global identifier for the workspace where the project will reside.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides the following detailed outputs for effective project management:
+
+1. **Response:** The full dataset returned after the project is created, including all project details.
+2. **Headers:** HTTP headers that provide insights into the API request-response dynamics, valuable for debugging.
+3. **gid:** The unique identifier of the newly created project.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Workspace Projects
+Retrieves all projects from a specified `Asana` workspace, providing a comprehensive view of current project configurations.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Specify the workspace for which projects will be retrieved:
+
+1. **workspace_gid `required<string>`:** The global identifier for the workspace whose projects you wish to fetch.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+This component provides detailed outputs for effective project retrieval and analysis:
+
+1. **Response:** The full dataset returned from `Asana`, including comprehensive details of all projects within the specified workspace.
+2. **Headers:** HTTP headers offering in-depth insights into the API request-response dynamics, invaluable for troubleshooting and compliance reviews.
+3. **data:** An array containing detailed information about each project retrieved.
+4. **offset:** An optional output, useful for pagination if the number of projects exceeds a single API call limit.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Section
+Retrieves a specific section from `Asana`, allowing for detailed project organization within `Asana` workspaces.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Provide the necessary parameter to identify the section:
+
+1. **section_gid `required<string>`:** The global identifier for the section you wish to fetch from `Asana`.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component ensures detailed, actionable outputs for optimal data utilization:
+
+1. **Response:** The complete data set returned from `Asana`, including detailed attributes of the retrieved section.
+2. **Headers:** HTTP headers providing insights into the API request-response dynamics, crucial for effective troubleshooting and API monitoring.
+3. **gid:** The unique identifier of the section retrieved.
+4. **name:** The name of the section, providing contextual information on its purpose and use within the project.
+5. **project_gid:** The global identifier of the project to which the section belongs.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Add Task to Section
+Adds a specific task to a designated section within `Asana`, streamlining task management and organizational structuring.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+Specify the necessary parameters to assign the task to the correct section:
+
+1. **section_gid `required<string>`:** The global identifier of the section where the task will be added.
+2. **task_gid `required<string>`:** The global identifier of the task to be added to the section.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The component provides detailed, actionable outputs for effective interaction and confirmation of task assignments:
+
+1. **Response:** The full dataset returned from `Asana`, detailing the updated section information and confirmation of task addition.
+2. **Headers:** HTTP headers that provide insights into the API request-response dynamics, crucial for effective troubleshooting and monitoring.
+3. **data:** Contains detailed information about the task and the section to which it was added.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Section
+Updates a section within `Asana`, allowing for real-time management and structuring of project components.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Body
+
+This field allows you to input updated information for the section. Ensure to follow the sample schema provided to format the payload correctly. 
+
+### Inputs
+Provide the necessary parameters to update the section effectively:
+
+1. **section_gid `required<string>`:** The global identifier of the section to be updated.
+2. **name `required<string>`:** The new name of the section.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+This component provides detailed, actionable outputs to confirm the updates:
+
+1. **Response:** A detailed reply from `Asana` confirming the successful update of the section.
+2. **Headers:** HTTP headers that provide insights into the API request-response dynamics, crucial for effective troubleshooting and monitoring.
+3. **gid:** The unique identifier of the updated section.
+4. **project_gid:** The identifier of the project containing the updated section.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Project Tasks
+Retrieves all tasks from a specified project in Asana, facilitating comprehensive project task management.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+To retrieve tasks from a specific project, provide the necessary parameter:
+
+1. **project_gid `required<string>`:** The global identifier for the project from which you want to fetch tasks.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+The outputs from this component provide actionable responses to aid in effective data handling and integration:
+
+1. **Response:** The comprehensive dataset returned from `Asana`, detailing each task within the specified project.
+2. **Headers:** HTTP headers offering insights into the API request-response process, crucial for debugging and API utilisation.
+3. **tasks:** An array of task objects, each containing detailed information about individual tasks.
+4. **offset:** An optional parameter used for pagination, indicating where the next set of results should begin.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Multiple Goals
+This component facilitates the retrieval of multiple goals from `Asana` within the `SmythOS` environment, helping teams track and manage their objectives more effectively.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+The component requires specific information to fetch goals effectively:
+
+- **workspace (`required<string>`)**: The identifier of the Asana workspace from which you intend to retrieve goals. This ensures that the correct data context is used in the query.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs that facilitate effective data handling and integration:
+
+1. **Response**: A comprehensive dataset returned from `Asana`, including all goals that match the query criteria.
+2. **Headers**: HTTP headers that offer insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **goals**: Specific details about each goal retrieved, formatted in a structured manner.
+4. **offset**: An offset value if pagination is used, helpful for fetching subsequent pages in large datasets.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Multiple Projects
+This guide helps you retrieve compact project records from Asana.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+The component requires specific information to fetch projects effectively:
+
+- **trigger (`required<any>`)**: This input is to trigger the component execution and can have any value.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs to facilitate effective data handling and integration:
+
+1. **Response**: A comprehensive dataset returned from `Asana`.
+2. **Headers**: HTTP headers that offer insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **data**: Data payload received from the API.
+4. **offset**: An offset value if pagination is used; helpful for fetching subsequent pages in large datasets.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Team Projects
+This component retrieves compact project records for all projects within a specified team in Asana.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+The component requires the following information to fetch team projects effectively:
+
+- **team_gid (`required<string>`)**: The global ID of the team whose projects you want to retrieve. This ID is essential for the component to pinpoint the specific team in `Asana`.
+- **limit (`optional<integer>`)**: The number of projects to return. The default value is 50, but you can specify any number as per your requirement.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs to facilitate effective data handling and integration:
+
+1. **Response**: A comprehensive dataset containing the project records returned from `Asana`. This includes vital information such as project ID, name, and other metadata.
+2. **Headers**: HTTP headers that provide insights into the API request-response process, which are essential for managing connectivity and troubleshooting potential issues. These headers include status codes, rate limits, and other key metadata.
+3. **data**: The actual data payload received from the API. This includes detailed information about the projects in the specified team.
+4. **offset**: An offset value used for pagination. This is helpful for fetching subsequent pages in large datasets when the number of projects exceeds the specified limit.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Workspace Users
+This component retrieves all members in an `Asana` workspace.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+The component requires the following information to fetch workspace users effectively:
+
+- **workspace_gid (`required<string>`)**: The global ID of the workspace whose members you want to retrieve. This ID is essential for the component to pinpoint the specific workspace in Asana.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs to facilitate effective data handling and integration:
+
+1. **Response**: A comprehensive dataset containing the user records returned from `Asana`. This includes vital information such as user ID, name, email, and other metadata.
+2. **Headers**: HTTP headers that provide insights into the API request-response process, which are essential for managing connectivity and troubleshooting potential issues. These headers include status codes, rate limits, and other key metadata.
+3. **data**: The actual data payload received from the API. This includes detailed information about the users in the specified workspace.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Task
+Deletes a task in `Asana`.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+### Inputs
+The component requires the following information to delete a task effectively:
+
+- **task_gid (`required<string>`)**: The unique identifier (GID) of the task to be deleted.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs to facilitate effective data handling and integration:
+
+1. **Response**: A dataset containing details about the deleted task returned from `Asana`.
+2. **Headers**: HTTP headers that offer insights into the API request-response process. These include status codes, rate limits, and other key metadata essential for managing connectivity and troubleshooting issues.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Task
+Updates a task in `Asana` with the specified fields.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Client ID` and `Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+- Click on the `Authenticate` button on the component to grant permission to your Asana account.
+
+#### Body
+
+This field is where the body payload to update a task goes. This field includes a sample schema of the data structure and can be edited as needed.
+
+### Inputs
+The component requires the following information to update a task effectively:
+
+- **task_gid (`required<string>`)**: The unique identifier (GID) of the task to be updated.
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+Upon executing the query, the component provides detailed outputs to facilitate effective data handling and integration:
+
+1. **Response**: Contains the dataset returned from `Asana`, including any relevant information about the updated task.
+2. **Headers**: HTTP headers that offer insights into the API request-response process. These headers include status codes, rate limits, and other key metadata.
+3. **permalink_url**: The direct URL to the updated task in `Asana`.
+4. **task_gid**: The unique identifier of the updated task.
+5. **project**: The project associated with the updated task.
+6. **section**: The section of the project where the updated task is located.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

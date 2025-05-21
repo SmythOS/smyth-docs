@@ -1,0 +1,70 @@
+
+# UUID Tools Integration
+
+Welcome to this super simple UUID API. This API allows you to create UUIDs and GUIDs quickly on-the-fly for testing purposes. No authentication is required.
+
+We support generating all major UUID versions, including version-1, version-3, version-4, version-5, and "timestamp-first" UUIDs. You can read more about the different UUID versions [here](https://uuid.tools/).
+
+Endpoints that accept a count argument allow you to create up to 100 UUIDs at once. All endpoints are limited to 60 requests per minute per IP address.
+
+Integrating `UUID Tools` into `SmythOS` offers several essential benefits:
+
+- **Rapid UUID Generation**: Quickly generate unique UUIDs for various purposes without the need for authentication.
+- **Support for All Major Versions**: Generate various versions of UUIDs, including version-1, version-3, version-4, version-5, and "timestamp-first" UUIDs, ensuring compatibility with different systems and standards.
+- **High Throughput**: Create up to 100 UUIDs at once, making it easy to generate large batches for testing and development.
+- **Rate Limiting**: Keep your workflow efficient with a generous limit of 60 requests per minute per IP address, preventing abuse while maintaining availability.
+
+By incorporating `UUID Tools` into `SmythOS`, users can enhance their testing and development processes with a reliable and straightforward solution for creating unique identifiers.
+
+## Generate UUID
+
+Generate a UUID using the `UUID Tools` API.
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **trigger (`required<any>`):** This input is used merely to trigger the component execution and can have any value.
+
+<Image src="/img/uuid_tools/screenshot1.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `UUID Tools` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **uuid:** The generated UUID.
+
+<Image src="/img/uuid_tools/screenshot2.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate Multiple UUIDs
+
+Generate multiple UUIDs using the UUID Tools API.
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **trigger (`required<any>`):** This input is used merely to trigger the component execution and can have any value.
+2. **count (`optional<integer>`):** The number of UUIDs to generate. The default value is `10`, but you can specify any number up to `100`.
+
+<Image src="/img/uuid_tools/screenshot3.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** The raw response received from the `UUID Tools` API.
+2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
+3. **uuids:** The generated list of UUIDs. 
+
+<Image src="/img/uuid_tools/screenshot4.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

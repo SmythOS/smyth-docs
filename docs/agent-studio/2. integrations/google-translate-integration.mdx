@@ -1,9 +1,82 @@
----
-title: google translate integration
----
 
-# google translate integration
+# Google Translate Integration
 
-This is the **google translate integration** page for Agent Studio.
+`Google Translate` is a widely-used machine translation service developed by Google, offering automated translation of text between different languages. It enables users to quickly and easily translate text, facilitating communication, language learning, and cross-cultural understanding. Supporting a vast array of languages and translation pairs, `Google Translate` is an invaluable tool in various contexts.
 
-_TODO: Add detailed content for google translate integration._
+At SmythOS, we've seamlessly integrated with `Google Translate`, providing custom components that simplify the incorporation of its powerful services into your applications.
+
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/googletranslate/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To utilize this component effectively, provide the following necessary information:
+
+1. **project_id `required<string>`:** Your specific Google Cloud project ID.
+2. **text `required<array string>`:** An array of text strings to be translated. This allows for the translation of multiple text segments in a single operation.
+3. **targetLanguageCode `required<string>`:** The language code (ISO-639-1) for the target translation language, e.g., `fr` for French.
+
+<Image src="/img/googletranslate/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Executing this component you will receive the following outputs:
+
+1. **Response:** An object providing the translations for each submitted text, with each original text paired with its translated counterpart.
+2. **Headers:** HTTP headers from the `Google Translate` response, containing metadata such as response status codes and content type.
+3. **translation:** The actual translated text for each input string.
+
+<Image src="/img/googletranslate/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Language Code Validator
+
+The `Language Code Validator` component uses sophisticated algorithms to determine the probable language of given text by analyzing its linguistic characteristics. This tool is essential for systems that need to automatically recognize and adjust to different languages.
+
+### Settings
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To set up this component for use with Google Translate, perform the following steps to obtain the `Client ID` and `Client Secret`:
+
+1. Go to the Google Cloud Console and select or create a new project.
+2. Navigate to the `APIs & Services` dashboard and select `Credentials` from the side menu.
+3. Click on `Create Credentials` and choose `OAuth client ID`.
+4. Add necessary details such as the application's name, email, and required scopes on the consent screen settings. Be sure to specify the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.
+5. Once the OAuth client ID and secret are created, note them down securely.
+6. Enter the `Client ID` and `Client Secret` in the OAuth section of the SmythOS settings.
+7. Click the `Authenticate` button on the component to begin the authentication process.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/googletranslate/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+Use these inputs to utilize the component effectively:
+
+1. **project_id `required<string>`:** Your specific Google Cloud project ID.
+2. **content `required<string>`:** The text content for which the language detection is desired.
+
+<Image src="/img/googletranslate/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Executing this component yields the following outputs:
+
+1. **Response:** Contains comprehensive details about the detected language, including confidence scores and suggestions.
+2. **Headers:** The HTTP headers from `Google Translate` that provide context such as response status codes and content types.
+3. **languageCode:** The standardized code for the detected language as per ISO norms.
+
+<Image src="/img/googletranslate/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

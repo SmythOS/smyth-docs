@@ -1,0 +1,43 @@
+# 🧹 RAG Forget
+
+The `RAG Forget` component deletes data sources indexed by the `Data Source Indexer`.
+
+> **Note:** Manually created data sources cannot be deleted by this component.
+
+<Arcade src="https://demo.arcade.software/JjTexW59LqsY5BfGNEEM?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="RAG Forget | SmythOS" />
+
+---
+
+## Settings
+
+### 📂 Namespace
+
+- **Namespace**: Select the namespace to identify and delete data sources.
+
+### 🔍 Source Identifier
+
+- **Source Identifier**: Specify the identifier of the data source to be deleted. Accepts input variables for dynamic identification.
+
+---
+
+## Inputs
+
+The `Source Cleaner` component does not have default inputs.
+
+### ➕ Add Input
+
+- **Name (Required):** Unique, short, and self-explanatory.
+- **Type:** Select data type (Any, String, Number, Integer, Boolean, Array, Object, Binary, Date).
+- **Color (Optional):** Adds visual clarity.
+- **Optional (Optional):** Mark as optional if not required.
+- **Default Value (Optional):** Predefined value if none is provided.
+
+---
+
+## Outputs
+
+### Success
+
+- **Success**: 
+  - Returns `true` if the data source is successfully deleted.
+  - Returns an empty value if the deletion fails.

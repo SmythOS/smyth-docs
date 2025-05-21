@@ -1,0 +1,62 @@
+# 🌟 GenAI LLM
+
+Generate AI responses using various input file types.
+
+> 📝 **Note:** We provide the model for you without any configuration required [Account Management - Model Rates](account_management/modelRates), and the flexibility to bring your own model.
+
+---
+
+## Settings
+
+### ✨ Prompt
+
+Default prompt: 
+`Summarize {{Input}} in one paragraph.`
+
+> 💡 **Note**: The prompt accounts for any files added to the Attachment input.
+> 
+> ➕ Additional inputs can be injected into the prompt.
+
+### 🤖 AI Model
+
+Choose an AI model to process the prompt.
+
+> ⚠️ **Note**: By default, some GPT models are available but limited to a 2K context window. To unlock full length or add more models, use the `Configure more models` option.
+
+### ⚙️ Advanced Settings
+
+- **🌡️ Temperature**: Controls response randomness. Default is 1 (range: 0-2).
+- **📝 Max Output Tokens**: Sets the limit for total tokens (input + output).
+- **🛑 Stop Sequence(s)**: Defines strings to halt token generation.
+- **🔝 Top P**: Considers tokens in the Top P probability mass. Adjust Temperature or Top P, not both.
+- **🔄 Frequency Penalty**: Reduces repetition by penalizing repeated tokens proportionally.
+- **📉 Presence Penalty**: Prevents repeated phrases with a constant penalty for repeated tokens. Adjust Frequency or Presence Penalty, not both.
+- **🔀 Passthrough Mode**: Controls streaming behavior
+  - When disabled (default): The agent automatically streams all responses
+  - When enabled: Gives you manual control over what content gets streamed to users
+  - Use this feature when you need to process LLM outputs before showing them or when implementing custom streaming logic.
+
+<Arcade  src="https://demo.arcade.software/As1gjawhDBX6BV3Y7CQz?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Settings | SmythOS"/>
+
+---
+
+## Inputs
+
+### 📝 Default Inputs
+
+- **📥 Input**: Can be renamed and edited.
+- **📎 Attachment**: Optional; can hold files and images. Supported files depend on the selected AI model. Can be provided via URL or base64 string.
+
+<Arcade  src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Inputs | SmythOS"/>
+
+---
+
+## Outputs
+
+The built-in output is **`Reply`**, containing the generated content.
+
+> 🛠️ **Default outputs are always in JSON format**.
+
+Additional outputs can be added to extract parameters from the `Reply` output, isolating specific data.
+
+<Arcade  src="https://demo.arcade.software/I35gGim7BajWDMmGkhBQ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Outputs | SmythOS"/>

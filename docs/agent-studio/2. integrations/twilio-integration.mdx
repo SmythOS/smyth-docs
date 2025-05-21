@@ -1,0 +1,300 @@
+
+# Twilio Integration
+
+`Twilio` is a cloud communications platform that allows software developers to programmatically make and receive phone calls, send and receive text messages, and perform other communication functions using its APIs. `Twilio` provides a range of services, including voice calling, SMS messaging, video calls, chat, and more, all accessible through simple RESTful APIs.
+
+At `SmythOS`, we prioritize seamless integration with `Twilio`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+
+## Send SMS
+
+Initiate the sending of an SMS message through `Twilio`.
+
+### Settings
+
+To initialize and configure the `Send SMS` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Send SMS` component, ensure the provision of the following input parameters:
+
+1. **accountSID `required<string>`:** The Account SID obtained from your Twilio account.
+2. **twilioPhoneNumber `required<string>`:** The phone number provided by Twilio that will be used to send the SMS.
+3. **recipientPhoneNumber `required<string>`:** The recipient's phone number. This number must be verified in your Twilio account.
+4. **body `required<string>`:** The content of the SMS message.
+
+<Image src="/img/twilio/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running the `Send SMS` component successfully, expect to obtain the following outputs:
+
+1. **Response:** This object is comprised of detailed information pertaining to the operation and includes specifics about the SMS that has been dispatched. It will typically capture the message content, recipient details, transmission timestamp, and any delivery reports or errors if encountered.
+2. **Headers:** The HTTP headers that have been extracted from the server's response as supplied by `Twilio`. These headers provide additional metadata that enhances the understanding of the response, such as status codes indicating the success or failure of the SMS send request, as well as the content type of the response.
+3. **messageSID:** A unique identifier, known as the Message SID (String Identifier), assigned by `Twilio` to the sent SMS message. This identifier is particularly useful for tracking the message, fetching its status, or referring to it in subsequent operations or support queries.
+4. **status:** A descriptor of the delivery status of the SMS message. It typically indicates whether the message has been queued, sent, delivered, or failed, and can be used to programmatically determine the next steps in a communication workflow or application logic.
+
+<Image src="/img/twilio/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send WhatsApp Message
+
+Initiate a WhatsApp message sending process.
+
+### Settings
+
+To initialize and configure the `Send WhatsApp Message` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Send WhatsApp Message` component, ensure the provision of the following input parameters:
+
+1. **accountSID `required<string>`:** The Account SID obtained from your Twilio account.
+2. **twilioWhatsAppNumber `required<string>`:** The phone number provided by Twilio that will be used to send the WhatsApp.
+3. **recipientWhatsAppNumber `required<string>`:** The recipient's phone number. This number must be verified in your Twilio account.
+4. **body `required<string>`:** The content of the WhatsApp message.
+
+<Image src="/img/twilio/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the `Send WhatsApp Message` component is successfully executed, the following outputs will be provided:
+
+1. **Response:** An object that contains thorough information about the operation, detailing specifics such as the content of the WhatsApp message sent, the recipient's number, and any feedback or errors related to the message delivery process.
+2. **Headers:** The set of HTTP headers retrieved from the server response as provided by `Twilio`. These headers present additional metadata, including response status codes, which help determine the success of the WhatsApp message send request, along with the content type of the data returned.
+3. **messageSID:** The unique String Identifier (SID) given to the sent WhatsApp message by `Twilio`. This messageSID is a valuable reference for tracking the message, obtaining its delivery status, or for use in subsequent follow-up actions or queries.
+4. **status:** The delivery status of the WhatsApp message. This status provides insights into the message's journey, indicating whether it has been queued, sent, delivered, or encountered any issues, allowing for informed decision-making in later stages of the communication process or application flow.
+
+<Image src="/img/twilio/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Rate Limit
+
+The `Create Rate Limit` component is designed to create rate limits for API endpoints or other resources to control the rate of incoming requests.
+
+### Settings
+
+To initialize and configure the `Create Rate Limit` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Create Rate Limit` component, ensure the provision of the following input parameters:
+
+1. **serviceSID `required<string>`:** The SID of the service associated with the resource.
+2. **description `required<string>`:** A description of this rate limit.
+3. **uniqueName `required<string>`:** A unique and addressable name assigned to this rate limit. It's assigned by the developer and can optionally be used in addition to the SID.
+
+<Image src="/img/twilio/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Following the successful execution of the `Create Rate Limit` component, you will receive the following detailed outputs:
+
+1. **Response:** This object offers thorough information about the operation, covering all the essential details of the rate limit that has been created. It includes specifics such as the limitations imposed, time intervals, any affected endpoints or user identifiers, and additional rules or configurations set during the creation process.
+2. **Headers:** These are the HTTP headers retrieved from the server's response, as provided by `Twilio`. They contain valuable metadata, including response status codes which highlight whether the operation was successful, and the content type detailing the format of the response data.
+3. **rateLimitSID:** A unique String Identifier (SID) assigned by `Twilio` to the newly established rate limit. This identifier is crucial for managing the rate limit going forward, enabling reference, modification, or deletion in subsequent operations.
+
+<Image src="/img/twilio/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Fetch Rate Limit
+
+The Fetch Rate Limit refers to the set limit on the number of fetch requests that can be made within a certain timeframe.
+
+### Settings
+
+To initialize and configure the `Fetch Rate Limit` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+For efficient use of the `Fetch Rate Limit` component, please provide the following necessary parameters:
+
+1. **serviceSID `required<string>`:** This is the Service Identifier (SID) of the service linked to the resource. 
+2. **rateLimitSID `required<string>`:** This is the unique string provided by Twilio that distinctly identifies the Rate Limit resource to be fetched.
+
+<Image src="/img/twilio/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon the successful execution of the `Fetch Rate Limit` component, the outputs you may anticipate are as follows:
+
+1. **Response:** An object that includes comprehensive information about the result of the operation. It will detail the specifics of the fetched rate limit, such as the parameters defining the limit, the scope of its application, and any associated metadata.
+2. **Headers:** The set of HTTP headers gleaned from the server response by `Twilio`. These headers provide further metadata that adds clarity to the outcome of the request, indicating success or failure through response status codes, as well as detailing the content type of the returned data.
+3. **url:** The URL that uniquely references the particular rate limit that has been retrieved. This can be used to directly access the rate limit's configuration details or to reference the rate limit in future API requests.
+4. **description:** A textual description of the rate limit that offers insights into its purpose, restrictions it imposes, and any specific conditions or triggers associated with it. This description aids in understanding the context and intended use of the rate limit within the application's flow.
+
+<Image src="/img/twilio/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Rate Limits
+
+The `List Rate Limits` component enables you to enumerate through all the existing rate limits that have been set.
+
+### Settings
+
+To initialize and configure the `List Rate Limits` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+To make effective use of the `List Rate Limits` component, ensure you provide the following essential parameter:
+
+1. **serviceSID `required<string>`:** This denotes the Service Identifier (SID) of the associated service.  
+
+<Image src="/img/twilio/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The `List Rate Limits` component, after successful invocation, provides a set of data points that detail the output of the operation:
+
+1. **Response:** This is a structured object that holds detailed information regarding the results of the operation. It gives an in-depth account of the data received from the operation, ensuring that users have a clear understanding of the outcome.
+2. **Headers:** The HTTP response headers originated from the `Twilio` server provide valuable metadata. This includes but is not limited to, the response status codes which indicate the success or failure of the request, and the Content-Type which describes the format of the returned data.
+3. **rateLimits:** This part of the output represents the set of rate limit information that has been concluded from the response. It generally includes an array or list of objects, each object explaining a certain rate limiting condition and the parameters that govern it.
+
+<Image src="/img/twilio/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Rate Limit
+
+The `Delete Rate Limit` function allows you to remove a specific rate limit that was previously set.
+
+### Settings
+
+To initialize and configure the `Delete Rate Limit` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot16.png" alt="alt text" />
+
+### Inputs
+
+For the `Delete Rate Limit` component to function correctly, make sure to provide the following critical parameters:
+
+1. **serviceSID `required<string>`:** This refers to the Service Identifier (SID) connected to the service.
+2. **rateLimitSID `required<string>`:** This is the unique identifier string supplied by Twilio that specifically identifies the Rate Limit resource that needs to be deleted.
+
+<Image src="/img/twilio/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After effectively employing the `Delete Rate Limit` component, anticipate the subsequent outputs:
+
+1. **Response:** This is an object containing all the detailed information relating to the outcomes of the operation.
+2. **Headers:** These are HTTP headers taken from the server's response supplied by Twilio, yielding more metadata, namely response status codes and the content type.
+
+<Image src="/img/twilio/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Webhook
+
+The `Create Webhook` component allows the establishment of a new Webhook.
+
+### Settings
+
+To initialize and configure the `Create Webhook` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `Twilio` platform to access its services.
+2. Navigate to the [Twilio Console](https://www.twilio.com/console) section in your `Twilio` dashboard.
+3. Obtain your `Account SID` and `Auth Token` from the dashboard.
+4. Twilio uses Basic Authentication, so you need to encode your `Account SID` and `Auth Token` in Base64 format.
+5. Once encoded, input the generated Base64 string into the specified section within the component settings.
+
+> **Note:** Treat the `Account SID` and `Auth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/twilio/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+For effective use of the `Create Webhook` component, the following necessary parameters should be provided:
+
+1. **serviceSID `required<string>`:** This signifies the Service Identifier (SID) linked with the service. 
+2. **webhookUrl `required<string>`:** This is the URL related to the Webhook being created.
+3. **friendlyName `required<string>`:** This is the descriptive string you have assigned to the Webhook for ease of identification.
+
+<Image src="/img/twilio/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the `Create Webhook` component is successfully executed, you will receive the following outputs:
+
+1. **Response:** An object full of detailed insights about the outcome of the operation. It is designed to give users a thorough understanding of the result, presenting the information in a well-defined format.
+2. **Headers:** These are the HTTP headers coming from `Twilio`'s server response. They provide pertinent metadata including the response's status codes, which help determine the request's success, and the content type, which informs about the format of the data returned.
+3. **webhookSID:** The unique identifier for the created webhook, also known as the Webhook Service ID (Webhook SID). It is a part of the output and serves as a key reference to the newly created resource within `Twilio`'s system.
+
+<Image src="/img/twilio/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

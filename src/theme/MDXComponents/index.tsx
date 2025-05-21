@@ -5,6 +5,8 @@ import Arcade from '@site/src/components/Arcade';
 import Card from '@site/src/components/Card';
 import CardGrid from '@site/src/components/CardGrid';
 import MDXComponents from '@theme-original/MDXComponents';
+import Button from '@site/src/components/Button';
+import Image from '@site/src/components/Image';
 
 export default {
   // keep defaults
@@ -15,4 +17,6 @@ export default {
   Arcade,
   Card,
   CardGrid,
+  Image,
+  Button,
 };

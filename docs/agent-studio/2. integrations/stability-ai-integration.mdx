@@ -1,9 +1,698 @@
----
-title: stauility ai integration
----
 
-# stauility ai integration
+# Stability AI Integration
 
-This is the **stauility ai integration** page for Agent Studio.
+`Stability AI` is a prominent company in the field of artificial intelligence, known for its contributions to open-source generative AI tools.
 
-_TODO: Add detailed content for stauility ai integration._
+At `SmythOS`, we prioritize seamless integration with `Stability AI`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+
+## Text-to-Image SD 1.6
+
+Utilize Stable Diffusion 1.6 for text to image generation with Stability AI.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+##### Clip Guidance Preset
+
+- `NONE`
+- `FAST_BLUE`
+- `FAST_GREEN`
+- `SIMPLE`
+- `SLOW`
+- `SLOWER`
+- `SLOWEST`
+
+##### Sampler
+
+- `DDIM`
+- `DDPM`
+- `K_DPMPP_2M`
+- `K_DPMPP_2S_ANCESTRAL`
+- `K_DPM_2`
+- `K_DPM_2_ANCESTRAL`
+- `K_EULER`
+- `K_EULER_ANCESTRAL`
+- `K_HEUN`
+- `K_LMS`
+
+##### Style Preset
+
+- `3d-model`
+- `analog-film`
+- `anime`
+- `cinematic`
+- `comic-book`
+- `digital-art`
+- `enhance`
+- `fantasy-art`
+- `isometric`
+- `line-art`
+- `low-poly`
+- `modeling-compound`
+- `neon-punk`
+- `origami`
+- `photographic`
+- `pixel-art`
+- `tile-texture`
+
+##### Image Dimension Settings
+
+- **Height:** Image height in pixels, must be divisible by 64. Default: `512`
+- **Width:** Image width in pixels, must be divisible by 64. Default: `512`
+
+##### Additional Configurations
+
+- **Cfg Scale:** Adherence level to the prompt (default: `7`).
+- **Steps:** Number of diffusion steps (default: `30`).
+
+<Image src="/img/stabilityai/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+Ensure you provide the necessary inputs for optimal image generation:
+
+1. **prompt_text `required<string>`:** The text prompt for the image.
+2. **prompt_weight `required<string>`**:
+3. **seed `required<integer>`:** Random seed for image generation consistency (default: `0`).
+
+<Image src="/img/stabilityai/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Successful execution provides:
+
+1. **Response:** Detailed JSON about the generated image.
+2. **Headers:** Server response headers from Stability AI.
+3. **url:** URL to the generated image.
+
+<Image src="/img/stabilityai/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Inpaint
+
+Modify images interactively using masking techniques through Stability AI's inpainting capability.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+Prepare your image for processing with these input parameters:
+
+1. **image_binary `required<binary>`**: Upload the primary image for modification.
+2. **prompt `required<string>`**: Describe your desired changes or additions to the image.
+3. **mask_image_binary `optional<binary>`**: Provide a mask image to specify areas for inpainting (modifies image based on pixel intensity).
+4. **negative_prompt `optional<string>`**: Define elements to exclude from the final image. Defaults to a comprehensive negative keyword list.
+5. **seed `optional<integer>`**: Set a seed for reproducibility. Default is `0`.
+6. **output_format `optional<string>`**: Specify the output image format. Default is `png`.
+
+<Image src="/img/stabilityai/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After successful image processing, the component will provide:
+
+1. **Response**: Detailed JSON object containing information about the processed image.
+2. **Headers**: HTTP headers from Stability AI's server response.
+3. **url**: URL to access the modified image.
+
+<Image src="/img/stabilityai/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Image to Image Upscale
+
+Enhance your images using the ESRGAN x2 upscaler with Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+Input the following parameters to effectively use the component:
+
+1. **image_binary `required<binary>`:** Upload the source image that needs upscaling.
+2. **width `required<integer>`:** Set the desired width for the output image. To ensure quality, the width should be at least 512 pixels.
+
+<Image src="/img/stabilityai/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Expect the following outputs after successfully using the component:
+
+1. **Response:** JSON object containing detailed information about the enhanced image.
+2. **Headers:** HTTP response headers from Stability AI.
+3. **url:** A direct link to the upscaled image. 
+
+<Image src="/img/stabilityai/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Outpaint
+
+The `Outpaint` component extends the borders of an image by generating additional content, seamlessly blending with the original image context.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+To utilize the `Outpaint` component, provide the following inputs:
+
+1. **image_binary `required<binary>`**: The source image for outpainting.
+2. **left `optional<integer>`**: Extension pixels on the left (default: `0`).
+3. **right `optional<integer>`**: Extension pixels on the right (default: `0`).
+4. **up `optional<integer>`**: Extension pixels above (default: `0`).
+5. **down `optional<integer>`**: Extension pixels below (default: `0`).
+6. **prompt `optional<string>`**: Descriptive text to guide image expansion.
+7. **seed `optional<integer>`**: Seed value for consistent imagery (default: `0`).
+8. **output_format `optional<string>`**: The desired format for the output image (default: `png`).
+
+<Image src="/img/stabilityai/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The `Outpaint` component generates the following outputs upon successful execution:
+
+1. **Response**: A JSON object with details about the generated image.
+2. **Headers**: HTTP headers from the `Stability AI` server response.
+3. **url**: URL of the generated image.
+
+<Image src="/img/stabilityai/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## SD3 Text to Image
+
+Experience the power of Stable Diffusion 3 for text-to-image generation with `Stability AI`.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+Configure the inputs for the SD3 Text to Image component as follows:
+
+1. **prompt `required<string>`**: Main text prompt to guide the image generation.
+2. **negative_prompt `optional<string>`**: Specifies undesired elements to avoid in the generated image (default: extensive list of negative keywords).
+3. **aspect_ratio `optional<string>`**: Desired aspect ratio of the output image (default: `1:1`).
+4. **seed `optional<integer>`**: Seed number for reproducibility (default: `0`).
+5. **output_format `optional<string>`**: Format of the generated image (default: `png`).
+
+<Image src="/img/stabilityai/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution, the `SD3 Text to Image` component produces the following outputs:
+
+1. **Response**: Detailed JSON object describing the generated image.
+2. **Headers**: HTTP headers from the `Stability AI` server's response.
+3. **url**: Link to the generated image.
+
+<Image src="/img/stabilityai/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## SD3 Image to Image
+
+Experience image generation with Stable Diffusion 3 via Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot16.png" alt="alt text" />
+
+### Inputs
+
+Customize the inputs as needed:
+
+1. **prompt `required<string>`**: Detailed description of the image.
+2. **image_binary `required<binary>`**: Initial image file in binary format.
+3. **strength `required<float>`**: Adjusts the influence of the prompt (default: `0.5`).
+4. **aspect_ratio `optional<string>`**: Set the output image's aspect ratio (default: `1:1`).
+5. **negative_prompt `optional<string>`**: Filters out undesired elements (default: uses an extensive negative keyword list).
+6. **seed `optional<integer>`**: Fixes the seed for image reproducibility (default: `0`).
+7. **output_format `optional<string>`**: Chooses the format for the generated image (default: `png`).
+
+<Image src="/img/stabilityai/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+This component outputs:
+
+1. **Response**: A JSON object with details of the generated image.
+2. **Headers**: HTTP response headers from Stability AI.
+3. **url**: Direct link to the generated image.
+
+<Image src="/img/stabilityai/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## SD3 Turbo Text to Image
+
+Experience rapid text-to-image generation with Stable Diffusion 3 via Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+Set up the input parameters:
+
+1. **prompt `required<string>`**: Describe the desired image.
+2. **aspect_ratio `optional<string>`**: Choose the aspect ratio of the output image (default: `1:1`).
+3. **seed `optional<integer>`**: Set a seed for consistent image generation (default: `0`).
+4. **output_format `optional<string>`**: Specify the image format (default: `png`).
+
+<Image src="/img/stabilityai/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component produces the following outputs:
+
+1. **Response**: Detailed JSON object with generated image information.
+2. **Headers**: Response headers from Stability AI.
+3. **url**: URL to the generated image.
+
+<Image src="/img/stabilityai/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Stable Image Core
+
+Utilize Stability AI's primary text-to-image generator for creative imaging solutions.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot22.png" alt="alt text" />
+
+### Inputs
+
+Define the following input parameters to customize your images:
+
+1. **prompt `required<string>`**: Concisely describe the image you want to generate.
+2. **aspect_ratio `optional<string>`**: Select the aspect ratio for the output image (default `1:1`).
+3. **negative_prompt `optional<string>`**: Specify elements to exclude from the image using a negative keyword list (default setting provided).
+4. **seed `optional<integer>`**: Define a seed number to ensure repeatability (default `0`).
+5. **style_preset `optional<string>`**: Choose a styling preset for image generation (default `3d-model`).
+6. **output_format `optional<string>`**: Select the format of the final image (default `png`).
+
+<Image src="/img/stabilityai/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful generation, the component yields:
+
+1. **Response**: A comprehensive JSON object detailing the generated image.
+2. **Headers**: HTTP headers as received from Stability AI.
+3. **url**: A direct link to the generated image.
+
+<Image src="/img/stabilityai/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## SD3 Turbo Image to Image
+
+Explore Stability AI's Stable Diffusion 3 turbo image-to-image generator.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot25.png" alt="alt text" />
+
+### Inputs
+
+Customize your image generation with these input parameters:
+
+1. **prompt `required<string>`**: Provide a clear description of the desired image.
+2. **image_binary `required<binary>`**: Upload the initial image file.
+3. **strength `required<float>`**: Adjust the transformation intensity (default: `0.5`).
+4. **aspect_ratio `optional<string>`**: Set the aspect ratio (default: `1:1`).
+5. **seed `optional<integer>`**: Set a seed for consistent output (default: `0`).
+6. **output_format `optional<string>`**: Choose the image format (default: `png`).
+
+<Image src="/img/stabilityai/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component provides the following outputs upon successful operation:
+
+1. **Response**: Detailed JSON object with info on the generated image.
+2. **Headers**: HTTP headers from the Stability AI server response.
+3. **url**: Direct link to the processed image.
+
+<Image src="/img/stabilityai/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Creative Upscale
+
+Enhance degraded images by 20-40X using Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot28.png" alt="alt text" />
+
+### Inputs
+
+Configure the component using the following parameters:
+
+1. **image_binary `required<binary>`**: Upload the image to be enhanced.
+2. **prompt `required<string>`**: Describe the enhancement requirements.
+3. **negative_prompt `optional<string>`**: List undesired image elements (default: provided).
+4. **seed `optional<integer>`**: Assign a seed for consistent output (default: `0`).
+5. **creativity `optional<float>`**: Set the creativity level (default: `0.3`).
+6. **output_format `optional<string>`**: Select the output image's format (default: `png`).
+
+<Image src="/img/stabilityai/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component provides the following outputs upon successful operation:
+
+1. **Response**: Detailed JSON object with info on the generated image.
+2. **Headers**: HTTP headers from the Stability AI server response.
+3. **id**: The id of a generation, typically used for async generations, that can be used to check the status of the generation or retrieve the result.
+
+<Image src="/img/stabilityai/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Creative Upscale Result
+
+Retrieve results from Stability AI's creative upscale process.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot31.png" alt="alt text" />
+
+### Inputs
+
+Configure the component to retrieve your image:
+
+1. **id `required<string>`**: Specify the unique identifier of the upscale operation.
+
+<Image src="/img/stabilityai/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful retrieval, the component provides:
+
+1. **Response**: A detailed JSON object containing information about the enhanced image.
+2. **Headers**: HTTP headers received from the Stability AI server.
+3. **url**: The URL to the processed image.
+
+<Image src="/img/stabilityai/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Search and Replace
+
+This component identifies and replaces specified objects in images using textual prompts on the Stability AI platform.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot34.png" alt="alt text" />
+
+### Inputs
+
+Configure these inputs to tailor image modifications:
+
+1. **image_binary `required<binary>`**: Upload the original image.
+2. **search_prompt `required<string>`**: Specify the object to be replaced.
+3. **prompt `required<string>`**: What you wish to see in the output image. A strong, descriptive prompt that clearly defines elements, colors, and subjects will lead to better results.
+4. **negative_prompt `optional<string>`**: Exclude certain elements (preset available).
+5. **seed `optional<integer>`**: Ensure consistent output for repeated operations (default: `0`).
+6. **output_format `optional<string>`**: Choose the desired image format (default: `png`).
+
+<Image src="/img/stabilityai/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component delivers the following outputs upon successful operation:
+
+1. **Response**: Detailed JSON object describing the altered image.
+2. **Headers**: HTTP headers from the Stability AI server.
+3. **url**: Direct link to the modified image.
+
+<Image src="/img/stabilityai/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Remove Background
+
+This component segments the foreground and removes the background from images using Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot37.png" alt="alt text" />
+
+### Inputs
+
+Customize the component with the following settings:
+
+1. **image_binary `required<binary>`**: Upload the image from which background needs to be removed.
+2. **output_format `optional<string>`**: Specify the format of the output image (default: `png`).
+
+<Image src="/img/stabilityai/screenshot38.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component provides the following outputs when successful:
+
+1. **Response**: A comprehensive JSON object detailing the process.
+2. **Headers**: HTTP headers received from Stability AI.
+3. **url**: A direct link to the image with the removed background.
+
+<Image src="/img/stabilityai/screenshot39.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Image to Video
+
+Transform images into videos with Stable Video Diffusion on the Stability AI platform.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot40.png" alt="alt text" />
+
+### Inputs
+
+Configure the component for video generation:
+
+1. **image_binary `required<binary>`**: The source image for video generation.
+2. **seed `optional<integer>`**: Seed value influencing randomness (default: `0`).
+3. **cfg_scale `optional<float>`**: Dictates adherence to the original image (default: `1.8`).
+4. **motion_bucket_id `optional<integer>`**: Controls motion intensity (default: `127`).
+
+<Image src="/img/stabilityai/screenshot41.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Successful operations yield the following outputs:
+
+1. **Response**: Detailed JSON object describing the video generation process.
+2. **Headers**: HTTP headers from Stability AI.
+3. **id**: The unique identifier for the generated video.
+
+<Image src="/img/stabilityai/screenshot42.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Image to Video Result
+
+Retrieve the results from the image to video conversion process powered by Stability AI.
+
+### Settings
+
+To initialize and configure the component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stability AI` platform to access its image generation features.
+2. Navigate to the [API Keys](https://platform.stability.ai/account/keys) section in your `Stability AI` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stabilityai/screenshot43.png" alt="alt text" />
+
+### Inputs
+
+Set up the component using the following input:
+
+1. **id `required<string>`**: The unique identifier for the video conversion job.
+
+<Image src="/img/stabilityai/screenshot44.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The component produces the following outputs upon successful completion:
+
+1. **Response**: A comprehensive JSON object detailing the video conversion process.
+2. **Headers**: HTTP headers from the Stability AI server.
+3. **url**: The direct link to the converted video.
+
+<Image src="/img/stabilityai/screenshot45.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

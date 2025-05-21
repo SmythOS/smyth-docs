@@ -1,9 +1,84 @@
----
-title: google maps integration
----
 
-# google maps integration
+# Google Maps Integration
 
-This is the **google maps integration** page for Agent Studio.
+`Google Maps` is a widely-used mapping service developed by Google. It provides detailed maps, satellite imagery, street views, and route planning functionality for users worldwide.
 
-_TODO: Add detailed content for google maps integration._
+At `SmythOS`, we've seamlessly integrated with `Google Maps`, offering custom components that simplify the incorporation of its powerful services into your agents.
+
+## Geocode Address
+
+The `Geocode Address` component simplifies the retrieval of geographical coordinates for a specified address, enabling precise location identification.
+
+### Settings
+
+To initialize this component, execute the following steps:
+
+1. Set up a new project in your `Google Cloud Platform` if you haven't one already.
+2. Enable the **Maps JavaScript API** within your project's settings.
+3. Generate an `API Key` that will be utilized by this component. Ensure to input this `API Key` into the designated section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/googlemaps/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+Provide the following input to make effective use of this component:
+
+1. **urlEncodedAddress `required<string>`:** The address you wish to geocode, URL-encoded to accommodate special characters and spaces.
+
+<Image src="/img/googlemaps/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Executing this component will yield the following outputs:
+
+1. **Response:** An object containing the geocoding results, detailed with latitude and longitude coordinates.
+2. **Headers:** HTTP headers from the `Google Maps` server response, which include metadata such as response status codes and content type.
+3. **location:** The detailed location information format you specified.
+
+<Image src="/img/googlemaps/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Nearby Places
+
+The `Get Nearby Places` component is designed to streamline the discovery of nearby locations such as restaurants, coffee shops, or any other points of interest, within a specified radius from a designated location. This component offers a robust solution for local exploration and data gathering.
+
+### Settings
+
+To set up this component, follow these steps:
+
+1. If not already created, start a new project in your `Google Cloud Platform`.
+2. Enable the Maps JavaScript API for your project.
+3. Generate an `API Key` and input this key into the designated field in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/googlemaps/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+Provide the following inputs to make use of this component effectively:
+
+1. **location `required<string>`:** The latitude and longitude coordinates (e.g., `34.0522,-118.2437`) of the location from which you wish to start your search.
+2. **radius `required<string>`:** The search radius in meters around the specified location.
+3. **keyword `required<string>`:** A keyword to match against places (e.g., `coffee`, `bookstore`), optimizing the relevance of search results.
+
+<Image src="/img/googlemaps/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The following outputs will be returned after executing this component:
+
+1. **Response:** Contains an array of nearby places, detailing each location’s name, address, coordinates, and other pertinent information, structured for easy usability.
+2. **Headers:** HTTP headers from the server response, offering metadata like response status codes and content types.
+3. **results:** Detailed breakdown of results including place identities and descriptions.
+
+<Image src="/img/googlemaps/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

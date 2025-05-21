@@ -1,9 +1,45 @@
----
-title: discord integration
----
 
-# discord integration
+# Discord Integration
 
-This is the **discord integration** page for Agent Studio.
+`Discord` is a widely-used communication platform known for its versatility, catering not only to gamers but also to diverse communities and interest groups.
 
-_TODO: Add detailed content for discord integration._
+At `SmythOS`, we've seamlessly integrated with `Discord`, providing custom components that make incorporating its powerful services into your agents effortless.
+
+## Send Message
+
+The `Send Message` component simplifies the process of sending messages to channels within Discord servers. With this component, you can efficiently engage with your community, share updates, or automate communication tasks.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `Bot Token`:
+
+1. Create an `Application` if you don't already have one.
+2. Navigate to your `Application Dashboard` and add a new Bot to obtain the `Bot Token`.
+3. Input this `Bot Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/discord/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following inputs:
+
+1. **channel_id `required<string>`:** The unique identifier of the channel where the message will be sent. You can find the channel ID by right-clicking on the channel name in Discord and selecting "Copy ID."
+2. **content `required<string>`:** The content of the message to be sent. This can include text, emojis, and Discord markdown syntax. The maximum length of the message is 2000 characters.
+
+<Image src="/img/discord/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When this component is executed, it yields the subsequent outputs:
+
+1. **Response**: This output is an object that conveys comprehensive details about the outcome of the operation to send a message. It includes information such as the message ID, timestamp, and other pertinent details.
+2. **Headers**: It comes with the HTTP headers that were part of the `Discord` server's response, adding extra metadata including response status codes and content type.
+3. **messageId**: This straightforwardly indicates the ID of the message that was sent.
+
+<Image src="/img/discord/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

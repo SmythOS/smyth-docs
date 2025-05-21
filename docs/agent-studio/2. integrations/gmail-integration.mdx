@@ -1,9 +1,524 @@
----
-title: gmail integration
----
 
-# gmail integration
+# Gmail Integration
 
-This is the **gmail integration** page for Agent Studio.
+`Gmail`, Google's ubiquitous email service, is widely recognized for its reliability, user-friendly interface, and powerful features that assist in effective communication and organization. Integrating `Gmail` with `SmythOS` can significantly enhance productivity by seamlessly combining email functionalities with other `SmythOS` tools and services. By connecting `Gmail` to `SmythOS`, users can streamline their workflows, reduce the need to switch between different tools, and maintain a centralized system for all their needs.
 
-_TODO: Add detailed content for gmail integration._
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/gmail/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the inputs accurately to access specific drafts:
+
+- **userId (`required<string>`)**: The user identifier.Default value is `me`.
+- **maxResults (`optional<integer>`)**: Maximum number of draft emails to list. Default value is `100`.
+- **includeSpamTrash (`optional<boolean>`)**: Whether to include drafts from spam and trash. Default value is `false`.
+
+<Image src="/img/gmail/screenshot2.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The component provides detailed outputs after execution, useful for further processing and analysis:
+
+1. **Response**: Delivers a detailed JSON response from `Gmail`, containing information about the drafts.
+2. **Headers**: Displays HTTP headers received with the API response, useful for understanding the transaction details.
+3. **drafts**: Lists the drafts retrieved, enabling quick access and actions on them.
+
+<Image src="/img/gmail/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Draft
+
+This component retrieves a specific draft from a user's `Gmail` account, enabling detailed review and further action directly within `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Format
+
+The `Get Draft` component supports several format options for how the draft data is returned:
+
+- `minimal`: Returns metadata such as IDs and labels only.
+- `full`: Provides complete email data, including all headers and body content.
+- `raw`: Delivers raw MIME data.
+- `metadata`: Supplies headers and label IDs without the email body.
+
+<Image src="/img/gmail/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+Accurately configure the inputs to retrieve the specific draft:
+
+- **userId (`required<string>`)**: The identifier for the user. Uses `me` as a placeholder for the current user.
+- **draftId (`required<string>`)**: The unique identifier for the draft to be retrieved.
+
+<Image src="/img/gmail/screenshot5.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+After executing the request, the system provides detailed outputs for further processing:
+
+1. **Response**: Contains the full JSON response from `Gmail`, detailing the draft content.
+2. **Headers**: Shows headers from the API response, which offers insights into the API interaction.
+3. **messageId**: The unique ID of the draft message.
+4. **labelIds**: The labels associated with the draft.
+
+<Image src="/img/gmail/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Draft
+
+This feature allows you to replace the content of an existing draft in a user's `Gmail` account via `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the inputs carefully to update the specific draft:
+
+- **userId (`required<string>`)**: The user's identifier, which defaults to `me` for the currently authenticated user.
+- **draftId (`required<string>`)**: The unique identifier of the draft that is to be updated.
+- **body_data_base64url_encode (`required<string>`)**: The message body that will replace the content of the draft, which should be provided as a raw or RFC 2822 formatted and base64url-encoded string.
+
+<Image src="/img/gmail/screenshot8.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+After submitting the update request, the following detailed outputs are provided for further action and verification:
+
+1. **Response**: A complete JSON response from `Gmail`, indicating the updated draft details.
+2. **Headers**: The HTTP headers returned from the API call, offering insights into the request/response cycle.
+3. **draftId**: The identifier of the updated draft.
+4. **messageId**: The identifier of the message linked to this draft.
+5. **threadId**: The thread identifier associated with this draft, if applicable.
+6. **labelIds**: Labels attached to the draft. 
+
+<Image src="/img/gmail/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Messages
+
+This component retrieves a list of messages from a user's `Gmail` mailbox, providing an organized overview directly within `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot10.png" alt="alt text" /> 
+
+### Inputs
+
+Configure these inputs carefully to list specific messages:
+
+- **userId (`required<string>`)**: The identifier for the user, typically set to `me` to refer to the current authenticated user.
+- **maxResults (`optional<integer>`)**: Specifies the maximum number of messages to return. Default value is `100`.
+- **includeSpamTrash (`optional<boolean>`)**: Indicates whether to include messages from spam and trash in the results. Default value is `false`.
+
+<Image src="/img/gmail/screenshot11.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+After executing the request, detailed outputs are provided for further analysis and processing:
+
+1. **Response**: A comprehensive JSON response from `Gmail` that includes details on the messages.
+2. **Headers**: HTTP headers returned with the API call, offering insights into the request/response dynamics.
+3. **messages**: An array of message details.
+4. **nextPageToken**: A token used to fetch the next page of results, if available.
+
+<Image src="/img/gmail/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Message
+
+This component allows users to retrieve a specific message from their `Gmail` account directly through `SmythOS`, providing detailed content and meta-information.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Format
+
+You can specify how detailed the message data should be using the following options:
+
+- **minimal**: Retrieves minimal metadata associated with the message.
+- **metadata**: Provides both metadata and certain header information without the body content.
+
+<Image src="/img/gmail/screenshot13.png" alt="alt text" /> 
+
+### Inputs
+
+To retrieve a specific message, configure the inputs as follows:
+
+- **userId (`required<string>`)**: This should be the `Gmail` user ID of the mailbox owner, typically set to `me` to represent the currently authenticated user.
+- **messageId (`required<string>`)**: The unique identifier of the `Gmail` message you wish to retrieve.
+
+<Image src="/img/gmail/screenshot14.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon executing the request to get a message, the following detailed information is made available:
+
+1. **Response**: Delivers a comprehensive JSON response containing the requested message details from `Gmail`.
+2. **Headers**: Provides the HTTP headers associated with the API response to help understand the nature of the API interaction.
+3. **messageId**: Confirms the unique identifier of the retrieved message.
+4. **threadId**: Indicates the thread ID to which this message belongs.
+5. **labelIds**: Lists all labels attached to the message.
+
+<Image src="/img/gmail/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Draft
+
+This component facilitates the creation of a new draft email in a user's `Gmail` account from within `SmythOS`, automatically applying the DRAFT label to it.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot16.png" alt="alt text" /> 
+
+
+### Inputs
+
+Specify the inputs to create the draft:
+
+- **userId (`required<string>`)**: The `Gmail` user ID of the mailbox owner, often set to `me` to denote the current authenticated user.
+- **body_data_base64url_encode (`required<string>`)**: The message content in raw or MIME type, encoded in base64url. Include headers and the body as specified by the `Gmail` API.
+
+<Image src="/img/gmail/screenshot17.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Once the request to create a draft is executed, the following outputs are generated:
+
+1. **Response**: Returns a detailed JSON structure from `Gmail` that includes information about the newly created draft.
+2. **Headers**: Lists HTTP headers from the API call, providing insights into the API communication.
+3. **draftId**: The unique identifier for the created draft.
+
+<Image src="/img/gmail/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send Draft
+
+This component allows users to send an existing draft, including any specified recipients in the To, Cc, and Bcc headers, directly from their `Gmail` account through `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot19.png" alt="alt text" /> 
+
+
+### Inputs
+
+To send a draft, provide the following inputs:
+
+- **userId (`required<string>`)**: The Gmail user ID, typically `me` for the currently authenticated user.
+- **draftId (`required<string>`)**: The unique identifier of the draft you intend to send.
+
+<Image src="/img/gmail/screenshot20.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the send request, the following outputs are provided:
+
+1. **Response**: A detailed JSON structure from `Gmail` confirming the send operation.
+2. **Headers**: HTTP headers associated with the API response, offering insights into the API communication.
+3. **messageId**: The unique identifier of the message that was sent.
+4. **threadId**: The thread ID associated with the message.
+5. **labelIds**: Any labels attached to the message. 
+
+<Image src="/img/gmail/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Draft
+
+This component allows users to immediately and permanently delete a specified draft from their `Gmail` account using `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot22.png" alt="alt text" /> 
+
+### Inputs
+
+To delete a draft, specify the following inputs:
+
+- **userId (`required<string>`)**: The `Gmail` user ID, typically set to `me` for the currently authenticated user.
+- **draftId (`required<string>`)**: The unique identifier of the draft you wish to delete.
+
+<Image src="/img/gmail/screenshot23.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful deletion of the draft, the following outputs are returned:
+
+1. **Response**: Provides a detailed JSON structure confirming deletion from `Gmail`.
+2. **Headers**: Displays HTTP headers from the API call, providing insights into the API communication.
+
+<Image src="/img/gmail/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Move to Trash
+
+This component allows users to move a specified message to the trash bin directly within their `Gmail` account via `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot25.png" alt="alt text" /> 
+
+### Inputs
+
+Specify the following inputs to move the message to the trash:
+
+- **userId (`required<string>`)**: The `Gmail` user ID, typically set to `me` for the currently authenticated user.
+- **id (`required<string>`)**: The unique identifier of the `Gmail` message you wish to move to trash.
+
+<Image src="/img/gmail/screenshot26.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Following the successful execution of moving a message to the trash, these outputs are provided:
+
+1. **Response**: A detailed JSON response from `Gmail` confirming the move to trash.
+2. **Headers**: Displays the HTTP headers associated with the API response, providing insights into the API communication.
+3. **id**: Returns the unique identifier of the message that has been moved to trash.
+
+<Image src="/img/gmail/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Message
+
+This component enables users to immediately and permanently delete a specified message from their `Gmail` account using `SmythOS`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot28.png" alt="alt text" /> 
+
+### Inputs
+
+To delete a message, specify the following inputs:
+
+- **userId (`required<string>`)**: The Gmail user ID, typically set to `me` for the currently authenticated user.
+- **id (`required<string>`)**: The unique identifier of the message you wish to delete.
+
+<Image src="/img/gmail/screenshot29.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the deletion command, these outputs are provided:
+
+1. **Response**: A detailed JSON response from `Gmail` confirming the message deletion.
+2. **Headers**: Displays HTTP headers from the API response, offering insights into the communication.
+
+<Image src="/img/gmail/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send Message
+
+This component allows users to send a specified message to recipients listed in the To, Cc, and Bcc headers using `SmythOS`'s `Gmail` integration.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To interact with `Gmail` through `SmythOS`, secure credentials such as `Client ID` and `Client Secret` are necessary. Follow these steps to obtain these credentials:
+
+1. **Visit Google Cloud Console**: Access the [Google Cloud Console](https://console.cloud.google.com/).
+2. **Create or Select Your Project**: Choose an existing project or create a new one if you haven't already.
+3. **Enable the Gmail API**: Navigate to the `API & Services` > `Library`, search for `Gmail` API, and enable it for your chosen project.
+4. **Generate OAuth 2.0 Credentials**: Visit the `Credentials` area, click `Create Credentials`, and select `OAuth client ID`. Complete the setup by specifying your application type and the necessary redirect URIs the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection post-authentication.. After setup, you will receive your `Client ID` and `Client Secret`.
+5. **Retrieve Client ID and Client Secret**: Once the OAuth client ID is created, you will be given a `Client ID` and `Client Secret`.
+6. **Enter and Authenticate**: Input these credentials in the settings section of the component within `SmythOS` and click on the `Authenticate` button to establish the connection.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/gmail/screenshot31.png" alt="alt text" /> 
+
+### Inputs
+
+Specify the following inputs to send the message:
+
+- **userId (`required<string>`)**: The Gmail user ID, typically set to `me` for the currently authenticated user.
+- **body_data_base64url_encode (`required<string>`)**: The full message content, including headers, encoded in base64url format.
+
+<Image src="/img/gmail/screenshot32.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the send operation, the following details are returned:
+
+1. **Response**: A comprehensive JSON structure from `Gmail` confirming the successful dispatch of the message.
+2. **Headers**: The HTTP headers associated with the API call, offering insights into the interaction.
+3. **id**: The unique identifier of the message sent.
+4. **threadId**: The thread ID associated with the message, if applicable.
+5. **labelIds**: Any labels attached to the message. 
+
+<Image src="/img/gmail/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

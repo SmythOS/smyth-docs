@@ -1,0 +1,282 @@
+
+# 🐵 PDF Monkey Integration
+
+## Overview
+PDF Monkey is a cloud-based tool that enables users to generate and manage PDF documents programmatically via its API (Application Programming Interface). This service offers features such as automated document creation from pre-defined templates, custom data integration for filling PDFs with dynamic content, handling batch requests for large document sets, and webhooks for seamless process integration.
+
+Integrating PDF Monkey into SmythOS provides several significant benefits:
+- **Automated PDF Generation**: Automatically create standardized documents like invoices, reports, tickets, or contracts directly from the application.
+- **Data-Driven Documentation**: Use dynamic data from SmythOS to populate PDF templates, ensuring that all documents are accurate and up-to-date.
+- **Scalability**: Handle large volumes of document generation requests efficiently, making it suitable for businesses with high document processing needs.
+- **Seamless Integration**: Utilize webhooks to trigger actions in SmythOS based on document status or other events, ensuring smooth workflows.
+
+## Generate Draft Document
+
+Create a new draft PDF document using PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+#### 📝 Body
+
+This field contains the sample schema of the payload to create the draft document. It can be edited as needed.
+
+<Image src="/img/pdf_monkey/screenshot1.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_template_id (`required<string>`):** The unique identifier for the document template.
+- **filename (`required<string>`):** The desired name for the generated PDF document.
+
+<Image src="/img/pdf_monkey/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full response from the API call, containing detailed information about the creation process.
+- **Headers:** HTTP headers providing additional data details.
+- **document_id:** The unique identifier of the generated document.
+- **preview_url:** A URL to preview the generated document.
+
+<Image src="/img/pdf_monkey/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate PDF
+
+Generate a new PDF document using PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+#### 📝 Body
+
+This field contains the sample schema of the payload to create the PDF. It can be edited as needed.
+
+<Image src="/img/pdf_monkey/screenshot4.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_template_id (`required<string>`):** The unique identifier for the document template.
+- **filename (`required<string>`):** The desired name for the generated PDF document.
+
+<Image src="/img/pdf_monkey/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full response from the API call, containing detailed information about the creation process.
+- **Headers:** HTTP headers providing additional data details.
+- **document_id:** The unique identifier of the generated document.
+- **download_url:** The URL to download the generated PDF document.
+
+<Image src="/img/pdf_monkey/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Document Info
+
+Fetch the DocumentCard data for a given document in PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+<Image src="/img/pdf_monkey/screenshot7.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_id (`required<string>`):** The unique identifier of the document for which you want to fetch details.
+
+<Image src="/img/pdf_monkey/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full API response containing details of the document.
+- **Headers:** HTTP headers providing additional data details.
+- **document_id:** The unique identifier of the document.
+- **document_template_id:** The identifier of the template used to create the document.
+- **download_url:** The URL to download the document.
+- **filename:** The name of the document.
+
+<Image src="/img/pdf_monkey/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Document Details
+
+Fetch the data for a given document in PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+<Image src="/img/pdf_monkey/screenshot10.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_id (`required<string>`):** The unique identifier of the document for which you want to fetch details.
+
+<Image src="/img/pdf_monkey/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full API response containing details of the document.
+- **Headers:** HTTP headers providing additional data details.
+- **document_id:** The unique identifier of the document.
+- **document_template_id:** The identifier of the template used to create the document.
+- **download_url:** The URL to download the document.
+- **filename:** The name of the document.
+- **payload:** The data payload used to generate the document.
+
+<Image src="/img/pdf_monkey/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete PDF Document
+
+Delete a document in PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+<Image src="/img/pdf_monkey/screenshot13.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_id (`required<string>`):** The unique identifier of the document you want to delete.
+
+<Image src="/img/pdf_monkey/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full API response containing details of the document deletion process.
+- **Headers:** HTTP headers providing additional data details.
+
+<Image src="/img/pdf_monkey/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate PDF from Draft
+
+Update an existing document using PDF Monkey.
+
+### ⚙️ Settings
+
+#### 🔑 API Key
+
+To utilize this component, follow these authentication steps to acquire an `API Key`:
+
+1. Navigate to the [PDF Monkey Dashboard](https://dashboard.pdfmonkey.io/).
+2. Sign in or create a new account if you don't have one.
+3. Go to your [account settings](https://dashboard.pdfmonkey.io/account) and find the section for API keys.
+4. Copy the generated key.
+5. Enter the `API Key` into the settings section of this component.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement).
+
+<Image src="/img/pdf_monkey/screenshot16.png" alt="alt text" />
+
+### 📥 Inputs
+
+To effectively use this component, supply the following information:
+
+- **document_id (`required<string>`):** The unique identifier of the document you want to update.
+- **document_template_id (`required<string>`):** The unique identifier of the template to apply.
+
+<Image src="/img/pdf_monkey/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon execution, this component produces the following outputs:
+
+- **Response:** The full API response with details of the document update process.
+- **Headers:** HTTP headers providing additional data details.
+- **document_id:** The unique identifier of the updated document.
+
+<Image src="/img/pdf_monkey/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

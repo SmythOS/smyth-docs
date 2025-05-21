@@ -1,9 +1,59 @@
----
-title: perplexity ai integration
----
 
-# perplexity ai integration
+# Perplexity AI Integration
 
-This is the **perplexity ai integration** page for Agent Studio.
+`Perplexity AI` operates as a sophisticated AI chatbot and research tool that leverages natural language processing to deliver conversational search capabilities. It responds to user queries by employing predictive text functionalities in natural language, allowing for intuitive and efficient information retrieval.
 
-_TODO: Add detailed content for perplexity ai integration._
+At `SmythOS`, we recognize the transformative potential of integrating `Perplexity AI` into diverse applications. To support this, we have developed specialized modules that facilitate seamless integration of `Perplexity AI`'s capabilities into your systems. This guide is designed to walk you through the setup and utilization of these modules to enhance your applications with advanced conversational AI features.
+
+## Chat Completion
+
+The Chat Completion feature within `SmythOS` integrates with `Perplexity AI` to provide enhanced chatbot capabilities, enabling natural language understanding and response generation. This integration utilizes `Perplexity AI`'s models to process and comprehend user inputs effectively.
+
+### Settings
+
+#### API Key 
+
+To initialize and use this feature, setting up the `API Key` is crucial. Here’s how you can set it up:
+
+1. **Create an Account:** If you do not have a Perplexity AI account, create one to get started.
+2. **Obtain the API Key:** Access your API Key from the account control panel. It can be found [here](https://www.perplexity.ai/settings/api).
+3. **Enter the API Key:** Input the acquired API Key into the designated settings section within `SmythOS`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Model 
+
+Choose from a variety of models based on the specific needs of your application:
+
+- `llama-3-sonar-small-32k-chat`
+- `llama-3-sonar-small-32k-online`
+- `llama-3-sonar-large-32k-chat`
+- `llama-3-sonar-large-32k-online`
+- `llama-3-8b-instruct`
+- `llama-3-70b-instruct`
+- `mixtral-8x7b-instruct`
+
+<Image src="/img/perplexityai/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the `Chat Completion` component, provide the following inputs:
+
+- **prompt (`required<string>`):** The user's input or question that the AI will respond to. Ensure this is clearly structured to get the best response from the AI model.
+
+<Image src="/img/perplexityai/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The following outputs are provided by the component after processing the inputs:
+
+1. **Response:** Displays the AI's complete textual response generated based on the input prompt.
+2. **Headers:** Details the HTTP headers included with the server's response, indicating aspects like content type and security measures.
+3. **id:** A unique identifier for the chat session, useful for tracking and analytics purposes.
+4. **message_content:** The detailed content of the AI's message, which could include additional structured data relevant to the user's query.
+
+<Image src="/img/perplexityai/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

@@ -1,9 +1,87 @@
----
-title: linear integration
----
 
-# linear integration
+# Linear Integration
 
-This is the **linear integration** page for Agent Studio.
+`Linear` is a pioneering company dedicated to crafting cutting-edge project management tools tailored specifically for software development teams. At the heart of their offerings is a robust issue tracker and project management software renowned for its elegance and user-centric design.
 
-_TODO: Add detailed content for linear integration._
+Here at SmythOS, we pride ourselves on seamlessly integrating with `Linear`, augmenting its capabilities with custom components that streamline the integration of its powerful services into your agents' workflow.
+
+## Create Linear Issue
+
+Introducing the `Create Linear Issue` component, a seamless addition to our integration suite that simplifies and accelerates the process of generating new issues within the `Linear` platform. This component not only enhances efficiency but also ensures a seamless transition between your existing workflow and `Linear's` feature-rich environment.
+
+### Settings
+
+To initialize and configure the `Create Linear Issue` component, follow these straightforward steps:
+
+1. If you haven't already done so, create an account on the `Linear` platform.
+2. Navigate to the `Account Settings` section within your `Linear` account interface.
+3. Within the `Account Settings`, locate the `API` section. Here, generate your unique `API Key` by following the provided instructions.
+4. Once you have obtained your `API Key`, return to the settings of the `Create Linear Issue` component. Locate the specified section designated for API integration and input your generated `API Key`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/linear/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively leverage the capabilities of the `Create Linear Issue` component, ensure to provide the following input parameters:
+
+1. **title `required<string>`:** Specify the title of the issue you intend to create. This serves as a concise identifier for the task at hand.
+2. **description `required<array string>`:** Provide a detailed description outlining the specifics of the issue. Utilize this space to articulate the problem, requirements, and any relevant information crucial for its resolution.
+3. **teamId `required<string>`:** Indicate the unique team ID where you intend to create the issue. This ensures proper allocation within the designated team's workflow.
+
+<Image src="/img/linear/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The `Create Linear Issue` component, upon being executed, produces the following outputs:
+
+1. **Response**: This output is an object that contains detailed information about the result of the issue creation operation. It encapsulates vital information about the new issue, thus enabling effective tracking and management within the `Linear` platform.
+2. **Headers**: These are HTTP headers that originate from the `Linear` server response. They provide additional metadata including response status codes and the content type, which are useful for understanding the server’s reply.
+3. **issueId**: Denotes the unique identifier assigned to the issue that has been created.
+
+<Image src="/img/linear/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Team Information
+
+Welcome to the introduction of our latest addition, the `Get Team Information` component. This seamless integration offers you effortless access to crucial details about your team, enhancing your project management capabilities.
+
+### Settings
+
+To initialize and configure the `Get Team Information` component, follow these straightforward steps:
+
+1. If you haven't already done so, create an account on the `Linear` platform.
+2. Navigate to the `Account Settings` section within your `Linear` account interface.
+3. Within the `Account Settings`, locate the `API` section. Here, generate your unique `API Key` by following the provided instructions.
+4. Once you have obtained your `API Key`, return to the settings of the `Get Team Information` component. Locate the specified section designated for API integration and input your generated `API Key`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/linear/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the functionalities of the `Get Team Information` component, ensure the provision of the following input parameter:
+
+1. **trigger `required<any value>`:** While not directly utilized by the `Linear` integration, this input serves as a trigger mechanism necessary for executing the component. You can assign any value to this parameter to initiate the component execution successfully.
+
+<Image src="/img/linear/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The `Get Team Information` component delivers the subsequent outputs upon execution:
+
+1. **Response**: An object that encompasses detailed information about your team, offering extensive insights into the team's organization, dynamics, and other critical attributes. This data aids in making informed choices and streamlining team coordination and management.
+2. **Headers**: Includes HTTP headers from the server response provided by `Linear`. These headers contribute additional metadata, like response status codes and content types, which are valuable in decoding and managing the communication from the server.
+3. **teamId**: Identifies the unique ID of the team whose information has been obtained.
+4. **teamName**: Represents the name of the team that has been detailed in the response.
+
+<Image src="/img/linear/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

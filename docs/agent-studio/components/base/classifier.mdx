@@ -1,0 +1,48 @@
+# 🏷️ Classifier
+
+The `Classifier` component categorizes input data into predefined groups for efficient data management.
+
+> 📝 **Note:** We provide the model for you without any configuration required [Account Management - Model Rates](account_management/modelRates), and the flexibility to bring your own model.
+
+<Arcade  src="https://demo.arcade.software/QvVcl616TZ2ubN30z5Nh?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+ title="Classifier | SmythOS"/>
+
+---
+
+## Settings
+
+- **Model:** Choose the appropriate model to sort incoming data into predetermined categories.
+
+> **Note:** By default, `OpenAI` models are available. Use your API key to unlock full-length models. Additional models like `Claude` can be added. For setup, visit [API Key Management](core_concepts/keysManagement.md).
+
+- **Prompt:** Includes a default prompt. Customize it as needed for more complex scenarios.
+
+---
+
+## Inputs
+
+- **Primary Input Field (`Input`):** Enter the data to be categorized.
+
+---
+
+## Outputs
+
+Create outputs corresponding to your data categories:
+
+- **Name (Required):** Unique and descriptive to reflect the data category (e.g., `positive_sentiment`, `high_risk`, `topic_a`).
+- **Color (Optional):** Use colors to visually distinguish between outputs (e.g., Green for `positive_sentiment`, Red for `high_risk`).
+- **Description (Optional):** Provide a brief description for clarity.
+
+### 📝 Example Descriptions:
+
+- **`positive_sentiment`**: Handles text with positive emotions.
+- **`high_risk`**: Identifies text relevant to risks.
+- **`topic_a`**: Sorts text related to Topic A.
+
+### ✨ Advanced Use Example:
+
+For versatile categorization needs, use detailed descriptions:
+
+- **`sales`**: Outputs the email associated with the input if categorized as sales.
+- **`marketing`**: Outputs the company name for marketing-related text.
+- **`support`**: Outputs the user’s name for support-related text.

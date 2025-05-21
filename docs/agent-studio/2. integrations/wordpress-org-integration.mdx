@@ -1,9 +1,183 @@
----
-title: wordpress org integration
----
+# WordPress *.ORG* Integration
 
-# wordpress org integration
+`WordPress .ORG` is an open-source content management system (CMS) that allows you to host and build websites. WordPress stores your content and enables you to create and manage websites through a user-friendly dashboard, which offers thousands of plugins and themes. Unlike WordPress.com, `WordPress .ORG` gives you full control over your site’s appearance and functionality.
 
-This is the **wordpress org integration** page for Agent Studio.
+At `SmythOS`, we have fully integrated `WordPress .ORG` capabilities within our platform, providing custom components that facilitate the seamless incorporation of its extensive features into your software solutions. This integration allows developers to leverage the robust capabilities of WordPress directly from `SmythOS`, enhancing productivity and streamlining web development processes.
 
-_TODO: Add detailed content for wordpress org integration._
+## Integration Settings
+
+#### Base64 Encoded Username and App Password
+To access this feature in the component, you must authenticate with a base64 encoded username and password combo. Follow these steps to prepare your credentials:
+1. **Login to WordPress**: Access your WordPress dashboard using your administrator account.
+2. **Generate App Password**:
+   - Navigate to **Users** > **Profile**.
+
+<Image src="/img/wordpress_org/screenshot19.png" alt="alt text" />
+
+   - Scroll down to the **App Passwords** section.
+   - Enter a new password name and click on **Add New Application Password**.
+   - Copy the generated app password and store it securely.
+
+<Image src="/img/wordpress_org/screenshot20.png" alt="alt text" />
+
+3. **Encode to Base64**:
+   - Combine your username and app password in the format `username:app_password`.
+   - Use the Encode/Decode component in SmythOS to encode this string to Base64. (Refer to the [Encode/Decode documentation](https://app.smythos.com/doc/#/components/FEncDec) for more details).
+
+> **Note:** Treat the `Base64 encoded username and app password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Update Post
+This component allows you to update the content of an existing post on a `WordPress .ORG` website.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Base 64 encoded username and app password` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To utilize this component effectively, you will need to provide the following details:
+- **domain_name (`required<string>`)**: The URL of your WordPress site.
+- **post_id (`required<string>`)**: The ID of the post you wish to update.
+- **content (`required<string>`)**: The text content of the post to update. Accepts raw text or HTML formatted string, enabling the inclusion of styling and links. For example, `<p>This is a paragraph.</p><a href='http://example.com'>Link</a>`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After executing the component, the following outputs are generated:
+- **Response:** The complete server response, including the updated post details.
+- **Headers:** HTTP headers returned by the server that include additional metadata.
+- **id:** The unique identifier of the updated post.
+- **content:** The updated content of the post.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Q0ceziGGQqDljUkhmyGx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Update Post" />
+
+## List Posts
+
+This component retrieves a collection of posts from a `WordPress .ORG` site, providing an efficient way to manage and review content.
+
+### Inputs
+For effective use of this component, provide the following information:
+- **domain_name (`required<string>`)**: The URL of your `WordPress .ORG` site where the posts are managed.
+- **per_page (`optional<integer>`)**: The number of posts to retrieve per page. Defaults to `10`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, this component provides detailed insights through the following outputs:
+- **Response:** The entire server response including data about the retrieved posts.
+- **Headers:** HTTP headers containing additional metadata from the response.
+- **posts:** A list of posts retrieved in the specified format.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/mV11AlNWcMy99D3Tl1gr?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org List Posts" />
+
+## Get Post
+Retrieve a specific post from your `WordPress .ORG` site by accessing its detailed record.
+
+### Inputs
+To effectively utilize this component, input the necessary information:
+- **domain_name (`required<string>`)**: The URL of your `WordPress .ORG` site.
+- **post_id (`required<string>`)**: The unique identifier of the post you wish to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+This component provides extensive details about the post through the following outputs:
+- **Response**: Contains the full server response including metadata and post data.
+- **Headers**: Related HTTP headers that provide additional context about the server response.
+- **title**: The title of the post fetched.
+- **content**: The main content or body of the post.
+- **link**: Direct URL to the retrieved post.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/2MAHfE57ztLT13OcD94n?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Get Post" />
+
+## Create Draft Post
+This component allows for the creation of a draft post on your `WordPress .ORG` site, providing a streamlined process for content creation.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Base 64 encoded username and app password` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Provide the following detailed information to create a draft post:
+- **domain_name (`required<string>`)**: The full URL of your `WordPress .ORG` site where the post will be created.
+- **title (`required<string>`)**: The title of the draft post. This should be a concise and descriptive headline for your post.
+- **content (`required<string>`)**: The main text content of the draft post. Accepts raw text or HTML formatted string, enabling the inclusion of styling and links. For example, `<p>This is a paragraph.</p><a href='http://example.com'>Link</a>`.
+- **meta_description (`required<string>`)**: A brief summary of the post used for search engine optimization (SEO). Typically around 155 characters.
+- **keywords (`required<string>`)**: Relevant SEO keywords associated with the post, separated by commas, such as `technology, software, WordPress`. 
+- **categories (`required<integer>`)**: The WordPress post categories.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon execution, this component generates comprehensive outputs that detail the results of the operation:
+- **Response:** Provides the full server response including all metadata related to the draft post created.
+- **Headers:** Displays HTTP headers that convey additional information about the API response.
+- **id:** Returns the unique identifier of the newly created draft post, which can be used for future reference or modification.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/7iSVJIIzcNmP39Ijs9UP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Create Draft Post" />
+
+## Create Post With Image
+This component facilitates the creation of a draft post with an image attachment on your `WordPress .ORG` site, enriching content with visual elements.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Base 64 encoded username and app password` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To create a draft post with an image, provide the following detailed information:
+- **domain_name (`required<string>`)**: The URL of your `WordPress .ORG` site.
+- **title (`required<string>`)**: The title of your post, which should be clear and descriptive.
+- **content (`required<string>`)**: The body of the post. It accepts either plain text or HTML formatted content, allowing for flexible content design like `<p>This is a sample paragraph.</p><a href='http://example.com'>Example Link</a>`.
+- **meta_description (`required<string>`)**: A concise SEO-friendly description of the post, usually around 155 characters.
+- **keywords (`required<string>`)**: Comma-separated keywords relevant to the post for SEO, such as `technology, software, WordPress`.
+- **image_id (`required<string>`)**: The ID of the image to be attached with the post. Ensure the image is already uploaded to your WordPress media library and you provide the media ID here.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+This component generates the following outputs upon successful execution:
+- **Response:** The complete server response, including all metadata related to the created draft post with an image.
+- **Headers:** HTTP headers that provide additional details about the server's response.
+- **id:** The unique identifier for the newly created draft post, useful for subsequent queries or updates.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/cyBLONuB5xxkBy4JZaSG?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WPorg Create Post With Image" />
+
+## Delete Post
+This component facilitates the deletion of a specific post from your `WordPress .ORG` site. It ensures secure and authenticated actions to manage your content seamlessly.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Base 64 encoded username and app password` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Provide the necessary information to identify and delete the desired post:
+- **domain_name (`required<string>`)**: The URL of your `WordPress .ORG` site where the post exists.
+- **post_id (`required<string>`)**: The unique identifier of the post you wish to delete. This ID can typically be found in the WordPress post editor URL or by querying your site's API.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon successful execution of this component, the following data is provided:
+- **Response:** Displays the full server response, which includes confirmation of the deletion or details about any errors encountered.
+- **Headers:** Lists HTTP headers that provide additional context about the response, such as status codes and security tokens.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/HWrgHHPEeyf9pwEchsrb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Delete Post" />

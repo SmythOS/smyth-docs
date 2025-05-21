@@ -1,0 +1,52 @@
+# 🌐 Subdomains
+
+Efficiently manage subdomains where your agents are hosted using SmythOS.
+
+<Arcade  src="https://demo.arcade.software/cmbVrrFyqmQPGI049spB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Subdomains | SmythOS"/>
+
+---
+
+## Add Subdomain
+
+1. **Initiate Addition**:
+   - Click `Add Subdomain`.
+
+2. **Input Subdomain**:
+   - Enter the subdomain and click `Next` to proceed to verification.
+
+3. **CNAME Registration**:
+   - Register a CNAME with your domain provider using the details from the verification step.
+   - Click `Verify` to complete the process.
+
+> **Note**: DNS propagation may take up to 24 hours.
+>
+> **Important for Cloudflare Users**: If you're using Cloudflare for DNS management, make sure to set the Proxy status to **DNS Only** (gray cloud icon) instead of **Proxied** (orange cloud icon) when adding the CNAME record. The Cloudflare proxy feature will interfere with the domain verification process.
+
+### Using Your Verified Subdomain
+
+After successful verification, your subdomain is ready to use as a production domain for your agent deployments:
+
+1. • Navigate to your agent's deployment settings.
+2. • When deploying a new version, select your verified subdomain from the domain dropdown.
+3. • Complete the deployment process as usual.
+
+For detailed instructions on deploying agents, see our [Deployment Guide](how-to/deployment).
+
+---
+
+## Delete Subdomain
+
+1. **Initiate Deletion**:
+   - Click the `Delete` button next to the subdomain listing.
+
+2. **Confirm Deletion**:
+   - Enter the subdomain name and click `Delete` to confirm.
+
+---
+
+## Best Practices
+
+### Handling Multiple Agents
+
+- Use a structured subdomain naming strategy, e.g., **{agent_name}.agents.your_domain.com** for 2nd level subdomains.
+- Verify each subdomain individually for effective organization within a single DNS delegated zone.

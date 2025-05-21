@@ -1,0 +1,42 @@
+# 🔗 Logic XOR
+
+The `Logic XOR` component performs logical `XOR` operations within your agents.
+
+## Definition & Rules
+
+### Operational Rules
+
+The component follows these rules:
+
+| Input 1           | Input 2            | Verified    | Unverified |
+|-------------------|--------------------|-------------|------------|
+| `Value`           | `Value`            | `No Value`  | `True`     |
+| `Value`           | `No Value/False`   | `True`      | `No Value` |
+| `No Value/False`  | `Value`            | `True`      | `No Value` |
+| `No Value/False`  | `No Value/False`   | `No Value`  | `True`     |
+
+
+
+---
+
+## Inputs
+
+### Boolean Values
+
+- **True**: Any non-empty value.
+- **False**: Specifically 'false' or unassigned (must be explicitly set as Boolean).
+
+### ➕ Add Input
+
+- **Name (Required):** Unique, concise name.
+- **Type:** Choose from Any, String, Number, Integer, Boolean, Array, Object, Binary.
+- **Color (Optional):** For visual clarity and priority.
+- **Optional (Optional):** Mark as optional if not required.
+- **Default Value (Optional):** Predefined value if none is provided.
+
+---
+
+## Outputs
+
+1. **Verified:** `True` if only one input holds a value, otherwise `No Value`.
+2. **Unverified:** Inverse of `Verified`, `True` in all other cases.

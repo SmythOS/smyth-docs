@@ -1,9 +1,1143 @@
----
-title: klaviyo integration
----
+# 🚀 Klaviyo Integration
 
-# klaviyo integration
+Klaviyo is a leading marketing automation platform focused on email marketing and SMS campaigns for eCommerce businesses. It provides powerful tools for personalized marketing, advanced analytics, and customer segmentation, enabling businesses to deliver more targeted and effective marketing campaigns.
 
-This is the **klaviyo integration** page for Agent Studio.
+The Klaviyo API offers a range of functionalities to facilitate seamless integration with various applications. Key features include:
 
-_TODO: Add detailed content for klaviyo integration._
+- **Customer Data Management:** Easily manage customer profiles, lists, and segments.
+- **Event Tracking:** Track and analyze customer activities in real-time.
+- **Email & SMS Campaigns:** Automate and personalize email and SMS marketing campaigns.
+- **Analytics & Reporting:** Access in-depth analytics and reporting to measure campaign performance.
+- **Integration Flexibility:** Integrate with popular eCommerce platforms and other third-party applications.
+
+Integrating Klaviyo into SmythOS offers numerous benefits, enhancing the platform's capabilities in marketing automation:
+
+1. **Enhanced Marketing Automation**: Klaviyo's extensive automation tools enable SmythOS to offer advanced marketing features, such as personalized email and SMS campaigns, to its users.
+2. **Real-Time Customer Insights**: With powerful analytics and event tracking, SmythOS can provide users with real-time insights into customer behavior, improving decision-making.
+3. **Improved Customer Segmentation**: By leveraging Klaviyo's customer data management and segmentation capabilities, SmythOS can help users create more targeted marketing campaigns.
+4. **Seamless Integration**: Klaviyo's APIs are designed for easy integration, enabling SmythOS to quickly implement and customize marketing solutions for its users.
+
+By integrating Klaviyo, SmythOS can deliver a more comprehensive and effective marketing automation solution, helping users achieve better engagement and higher ROI from their marketing efforts.
+
+## Get Email Campaigns
+
+Returns all email campaigns
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot1.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Email Campaigns` component, ensure the provision of the following input parameter:
+
+1. **trigger `required<any value>`:** This is just an input to trigger the execution of the component, so it can hold any value.
+
+<Image src="/img/klaviyo/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Email Campaigns` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the email campaigns, such as their ID, name, status, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed email campaign data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Profiles
+
+Returns all profiles in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot4.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Profiles` component, ensure the provision of the following input parameters:
+
+1. **trigger `required<any value>`:** This is just an input to trigger the execution of the component, so it can hold any value. For instance, you can set this to a timestamp or a random string to initiate the operation.
+2. **page_size `optional<integer>`:** The number of profiles to return per page. The default value is `20`.
+
+<Image src="/img/klaviyo/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Profiles` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the profiles, such as their ID, email, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed profile data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Search Profile
+
+Search for a profile in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot7.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Search Profile` component, provide the following input parameter:
+
+1. **email `required<string>`:** The email address of the profile you want to search for.
+
+<Image src="/img/klaviyo/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Search Profile` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the profile search operation. This output includes information about the profiles, such as their ID, email, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed profile data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get All Metrics
+
+Get all metrics in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot10.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get All Metrics` component, provide the following input parameter:
+
+1. **trigger `required<any value>`:** This is just an input to trigger the execution of the component, so it can hold any value. For example, you can set this to a timestamp or a random string to initiate the operation.
+
+<Image src="/img/klaviyo/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get All Metrics` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the metrics operation. This output includes information about each metric, such as its name, ID, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed metric data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Metric
+
+Retrieve details of a specific metric using the given metric ID.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot13.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Metric` component, provide the following input parameter:
+
+1. **metric_id `required<string>`:** The unique identifier of the metric you wish to retrieve.
+
+<Image src="/img/klaviyo/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Metric` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the metric operation. This output includes information about the specific metric, such as its name, ID, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the retrieved metric.
+4. **name:** The name of the retrieved metric.
+
+<Image src="/img/klaviyo/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Add Profile to List
+
+Add a profile to a list using the given list ID.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot16.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Add Profile to List` component, provide the following input parameters:
+
+1. **profile_id `required<string>`:** The unique identifier of the profile you wish to add to the list.
+2. **list_id `required<string>`:** The unique identifier of the list to which the profile will be added.
+
+<Image src="/img/klaviyo/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Add Profile to List` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information confirming the addition of the profile to the list, such as the profile ID, list ID, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+
+<Image src="/img/klaviyo/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Lists
+
+Retrieve all lists available in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot19.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Lists` component, provide the following input parameter:
+
+1. **trigger `required<any value>`:** This is an input to trigger the execution of the component, and it can hold any value. For example, you can set this to a timestamp or a random string to initiate the operation.
+
+<Image src="/img/klaviyo/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Lists` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the lists in the account, such as their names, IDs, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **lists:** Detailed information about each list returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Search List
+
+Search for a specific list in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot22.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Search List` component, provide the following input parameter:
+
+1. **name `required<string>`:** The name of the list you want to search for in the account.
+
+<Image src="/img/klaviyo/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Search List` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the search operation. This output includes information about the lists that match the search criteria, such as their names, IDs, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **lists:** Detailed information about each matching list returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Add New List
+
+Create a new list in your Klaviyo account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot25.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Add New List` component, provide the following input parameter:
+
+1. **name `required<string>`:** The name of the new list to be created in your Klaviyo account.
+
+<Image src="/img/klaviyo/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Add New List` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the newly created list, such as the list ID and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the newly created list.
+
+<Image src="/img/klaviyo/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Unsubscribe Profile
+
+Unsubscribe a profile from email marketing.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot28.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Unsubscribe Profile` component, provide the following input parameters:
+
+1. **email `required<string>`:** The email address of the profile to be unsubscribed.
+2. **list_id `required<string>`:** The unique identifier of the list from which the profile will be unsubscribed.
+
+<Image src="/img/klaviyo/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Unsubscribe Profile` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information confirming the profile has been unsubscribed from the list.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+
+<Image src="/img/klaviyo/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get List Profiles
+
+Retrieve all profiles within a list using the given list ID.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot31.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get List Profiles` component, provide the following input parameters:
+
+1. **list_id `required<string>`:** The unique identifier of the list for which you want to retrieve profiles.
+2. **page_size `optional<integer>`:** The number of profiles to retrieve per page. Default is `20`. Adjusting this value allows you to control the amount of data retrieved in each request, which can be beneficial for handling large datasets efficiently.
+
+<Image src="/img/klaviyo/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get List Profiles` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the retrieved profiles. This output includes information such as profile IDs, emails, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed profile data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Klaviyo Events
+
+Get all events in an account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot34.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Klaviyo Events` component, provide the following input parameters:
+
+1. **trigger `required<any value>`:** This input is just to trigger the execution of the component. It can hold any value.
+2. **page_size `optional<integer>`:** Default is `20`. This parameter specifies the number of events to be retrieved per API call. Adjust this value based on your requirements, keeping in mind that a higher number might increase the response time.
+
+<Image src="/img/klaviyo/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Klaviyo Events` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the retrieved events. This output includes information such as event IDs, event names, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed event data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Event Metric
+
+Retrieve the metric for an event using the given event ID.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot37.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Event Metric` component, provide the following input parameter:
+
+1. **event_id `required<string>`:** The unique identifier of the event for which you want to retrieve the metric.
+
+<Image src="/img/klaviyo/screenshot38.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Event Metric` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the event metric. This output includes information such as the event name, time, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed event metric data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot39.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Campaign
+
+Create a new campaign in your Klaviyo account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot40.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Create Campaign` component, provide the following input parameters:
+
+1. **name `required<string>`:** The name of the campaign to be created.
+2. **list_ids `required<array>`:** An array of list IDs to which the campaign will be sent.
+
+<Image src="/img/klaviyo/screenshot41.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Create Campaign` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the created campaign. This output includes information such as the campaign ID, name, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the newly created campaign.
+
+<Image src="/img/klaviyo/screenshot42.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Campaign
+
+Update a campaign using the given campaign ID.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 📄 Body
+
+Provide the body payload to update a campaign.
+
+<Image src="/img/klaviyo/screenshot43.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Update Campaign` component, provide the following input parameters:
+
+1. **campaign_id `required<string>`:** The unique identifier of the campaign you wish to update.
+
+<Image src="/img/klaviyo/screenshot44.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Update Campaign` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the updated campaign. This output includes information such as the campaign ID, updated fields, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the updated campaign.
+
+<Image src="/img/klaviyo/screenshot45.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Campaign Messages
+
+Retrieve all messages that belong to a given campaign.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot46.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Get Campaign Messages` component, provide the following input parameter:
+
+1. **campaign_id `required<string>`:** The unique identifier of the campaign you wish to retrieve messages for.
+
+<Image src="/img/klaviyo/screenshot47.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successful execution of the `Get Campaign Messages` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the messages that belong to the campaign. This output includes information such as message IDs, sent times, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **data:** Detailed message data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot48.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Template
+
+Create a new custom HTML template in your Klaviyo account.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot49.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Create Template` component, provide the following input parameters:
+
+1. **name `required<string>`:** The name of the new template.
+2. **html_content `required<string>`:** The HTML content for the new template.
+
+<Image src="/img/klaviyo/screenshot50.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Create Template` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the newly created template. This output includes information such as the template ID, name, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the newly created template.
+
+<Image src="/img/klaviyo/screenshot51.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Assign Campaign Message Template
+
+Create a non-reusable version of a template and assign it to a campaign message.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot52.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Assign Campaign Message Template` component, provide the following input parameters:
+
+1. **message_id `required<string>`:** The unique identifier of the campaign message you wish to update.
+2. **template_id `required<string>`:** The unique identifier of the template you wish to assign to the message.
+
+<Image src="/img/klaviyo/screenshot53.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Assign Campaign Message Template` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the newly assigned template. This output includes information such as the template ID, message ID, and other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the assigned template.
+
+<Image src="/img/klaviyo/screenshot54.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Campaign Send Job
+
+Trigger a campaign to send asynchronously.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot55.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Create Campaign Send Job` component, provide the following input parameter:
+
+1. **campaign_id `required<string>`:** The unique identifier of the campaign you wish to trigger.
+
+<Image src="/img/klaviyo/screenshot56.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Create Campaign Send Job` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the campaign send job. This output includes information such as the job ID, campaign ID, and status.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **id:** The unique identifier of the send job.
+4. **status:** The current status of the send job (e.g., queued, sending, completed).
+
+<Image src="/img/klaviyo/screenshot57.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Query Flow Values
+
+Retrieve the requested flow analytics values data.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot58.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Query Flow Values` component, provide the following input parameters:
+
+1. **timeframe `required<string>`:** The timeframe for the analytics data. Default is `today`.
+2. **statistics `required<string>`:** The metrics to retrieve (e.g., clicks, opens). Default is `clicks, opens`.
+3. **conversion_metric_id `required<string>`:** The unique identifier of the conversion metric.
+
+<Image src="/img/klaviyo/screenshot59.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Query Flow Values` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the queried flow values. This output includes information such as the timeframe, statistics, and other relevant data.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **results:** Detailed analytics data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot60.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Query Campaign Values
+
+Retrieve the requested campaign analytics values data.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot61.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Query Campaign Values` component, provide the following input parameters:
+
+1. **timeframe `required<string>`:** The timeframe for the analytics data. Default is `yesterday`.
+2. **statistics `required<string>`:** The metrics to retrieve. Default is `revenue_per_recipient, clicks_unique`.
+3. **conversion_metric_id `required<string>`:** The unique identifier of the conversion metric.
+
+<Image src="/img/klaviyo/screenshot62.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Query Campaign Values` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the queried campaign values. This output includes information such as the timeframe, statistics, and other relevant data.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **results:** Detailed analytics data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot63.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Query Flow Series
+
+Retrieve the requested flow analytics series data.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot64.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Query Flow Series` component, provide the following input parameters:
+
+1. **timeframe `required<string>`:** The timeframe for the analytics data. Default is `last_12_months`.
+2. **statistics `required<string>`:** The metrics to retrieve. Default is `clicks, opens`.
+3. **interval `required<string>`:** The interval for the series data. Default is `monthly`.
+4. **conversion_metric_id `required<string>`:** The unique identifier of the conversion metric.
+
+<Image src="/img/klaviyo/screenshot65.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Query Flow Series` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the queried flow series. This output includes information such as the timeframe, statistics, and other relevant data.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+3. **results:** Detailed analytics series data returned by the Klaviyo API.
+
+<Image src="/img/klaviyo/screenshot66.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Subscribe Profile
+
+Subscribe a profile to email marketing.
+
+### ⚙️ Settings
+
+#### 🗝️ Klaviyo API Key
+
+To initialize and configure the component, follow these simple guidelines to obtain and input your Klaviyo API key:
+
+1. **Get Your Klaviyo API Key:**
+   - **🔐 Sign In:**
+     - Go to the Klaviyo sign-in page: [Klaviyo Sign-In](https://www.klaviyo.com/login) and log into your account.
+   - **🔑 API Key Access:**
+     - In the Klaviyo Dashboard, navigate to the "Account" section.
+     - Select "Settings" and then "API Keys".
+     - Click on "Create API Key" to generate a new key, then copy it. Keep it confidential and do not share it publicly.
+
+2. **🛠️ Input Your API Key:**
+   - Return to the settings of the component and input your generated `API Key` into the section designated for API integration.
+
+
+> **Note:** Treat the `Klaviyo API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/klaviyo/screenshot67.png" alt="alt text" />
+
+### 📝 Inputs
+
+To effectively utilize the capabilities of the `Subscribe Profile` component, provide the following input parameters:
+
+1. **email `required<string>`:** The email address of the profile to be subscribed.
+2. **list_id `required<string>`:** The unique identifier of the list to which the profile will be subscribed.
+
+<Image src="/img/klaviyo/screenshot68.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the ### 📤 Outputs
+
+### 📤 Outputs
+
+Upon successful execution of the `Subscribe Profile` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the subscription operation. This output includes information confirming the subscription, such as the profile ID and list ID.
+2. **Headers:** HTTP headers extracted from the server response provided by Klaviyo.
+
+<Image src="/img/klaviyo/screenshot69.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

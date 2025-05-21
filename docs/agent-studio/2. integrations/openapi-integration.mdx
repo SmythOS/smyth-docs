@@ -1,9 +1,56 @@
+# 🌐 OpenAPI
+
+> 📝 **Note:** We provide the model for you without any configuration required [Account Management - Model Rates](account_management/modelRates), and the flexibility to bring your own model.
+
+<Arcade src="https://demo.arcade.software/ePHO36pfzhkHqMLU0Khy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="OpenAPI | SmythOS" />
 ---
-title: openapi integration
+
+## Overview
+
+The OpenAPI component in SmythOS allows you to integrate external tools and services that follow the OpenAPI specification. This powerful feature enables you to incorporate a wide range of pre-built tools directly into your SmythOS workflows by simply providing the tool's manifest URL.
+
+### ✨ Key Features
+
+- **🔌 Simple Integration**: Import any tool with an OpenAPI manifest URL (JSON or YAML format)
+- **🤖 AI-Powered Functionality**: Each OpenAPI component functions as an agent with LLM capabilities
+- **🧠 Model Flexibility**: Choose any compatible AI model for powering the component
+- **🔄 Universal Compatibility**: Works with any tool that follows the OpenAPI specification
+
 ---
 
-# openapi integration
+## How It Works
 
-This is the **openapi integration** page for Agent Studio.
+OpenAPI components bridge the gap between SmythOS workflows and external tools by leveraging standard OpenAPI specifications. Rather than building integrations from scratch, you can leverage existing tools and enhance them with AI capabilities.
 
-_TODO: Add detailed content for openapi integration._
+### 🛠️ Configuration
+
+To set up an OpenAPI component:
+
+1. **📝 Manifest URL**: Enter the URL of the OpenAPI manifest (JSON or YAML format)
+2. **🧪 Model Selection**: Choose which AI model will power the component
+3. **🎯 Behavior Definition**: Configure how the component should interact with the tool and process responses
+
+### 📥 Inputs and Outputs
+
+OpenAPI components have a streamlined interface:
+
+- **📤 Input**: A single `query` field that accepts user requests
+- **📥 Output**: A single `output` field that returns processed results
+
+---
+
+## Use Cases
+
+- 🔗 Integrate specialized tools into your agent workflows
+- 🚀 Extend your agents with capabilities from popular services 
+- 🧩 Create multi-tool agents that leverage various external APIs
+- 💪 Enhance existing OpenAPI tools with AI reasoning capabilities
+
+---
+
+## Benefits
+
+- **🌍 Ecosystem Access**: Tap into the vast ecosystem of OpenAPI-compatible tools
+- **⏱️ Rapid Development**: Skip building integrations from scratch
+- **🔄 Flexibility**: Choose the most appropriate AI model for each tool
+- **🔄 Seamless Workflows**: Connect external tools directly into your agent logic

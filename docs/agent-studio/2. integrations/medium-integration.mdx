@@ -1,9 +1,94 @@
----
-title: medium integration
----
 
-# medium integration
+# Medium Integration
 
-This is the **medium integration** page for Agent Studio.
+`Medium` is a renowned online publishing platform, providing a space for individuals, organizations, and businesses to share their ideas and stories with a vast audience.
 
-_TODO: Add detailed content for medium integration._
+At `SmythOS`, we've established seamless integration with `Medium`, delivering custom components that streamline the incorporation of their sophisticated services into your projects
+
+## Get User Details
+
+The `Get User Details` component facilitates the retrieval of authenticated user information from `Medium`.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `Integration Token`:
+
+1. Create a `Medium` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `Integration Token` [here](https://medium.com/me/settings/security).
+3. Input this `Integration Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Integration Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/medium/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **trigger `required<any value>`:** This input is not utilized by the Medium integration but is necessary to trigger the component execution. It can have any value.
+
+<Image src="/img/medium/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The execution of this component yields the following default outputs:
+
+1. **Response**: This output offers an object filled with details regarding the authenticated user's information, useful for confirming user identity and permissions within the `Medium` platform.
+2. **Headers**: These are the HTTP headers that come with the server's response from `Medium`, providing additional context such as the response status codes and any other relevant metadata.
+3. **userId**: Specifies the unique identifier for the user, enabling identification and reference within the system.
+
+<Image src="/img/medium/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Publish Blog
+
+The `Publish Blog` component streamlines the process of publishing a blog post on Medium.
+
+### Settings
+
+#### Integration Token
+
+To initialize this component, follow these steps to obtain your `Integration Token`:
+
+1. Create a `Medium` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `Integration Token` [here](https://medium.com/me/settings/security).
+3. Input this `Integration Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Integration Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Content Format
+
+It has 2 possibilities:
+
+- **html**
+- **markdown**
+
+<Image src="/img/medium/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **title `required<string>`:** The title of the post. This title is used for SEO and when rendering the post as a listing but will not appear in the actual post. If the title exceeds 100 characters, it will be ignored, and a title will be synthesized from the first content in the post when published.
+2. **content `required<string>`:** The body of the post in a valid, semantic HTML fragment, or Markdown. If you want your title to appear on the post page, you must also include it as part of the post content.
+3. **userId `optional<string>`**: The unique identifier corresponding to the user who will be listed as the author of the post. If you're posting on behalf of a user, you'll need their ID for this field.
+
+<Image src="/img/medium/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Execution of this component furnishes the following default outputs:
+
+1. **Response**: An object that delivers detailed information concerning the blog that has been published, inclusive of various elements and attributes of the blog post.
+2. **Headers**: The set of HTTP headers included with the response from the `Medium` server, which provide further metadata about the response, such as status codes.
+3. **blogId**: The unique identifier for the blog post that has been published.
+4. **blogUrl**: The direct link to the published blog post, facilitating access and sharing.
+
+<Image src="/img/medium/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

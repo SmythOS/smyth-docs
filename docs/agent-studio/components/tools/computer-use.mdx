@@ -1,0 +1,90 @@
+# 🌟 Computer Use
+
+The **Computer Use** component is an AI-powered virtual computer that executes tasks based on natural language instructions. It enables your agent to perform complex computer operations autonomously, providing results in a structured format.
+
+> **Note:** This component is exclusively available for Enterprise accounts. [Contact us](https://smythos.com/contact-us/) to get access.
+
+<Arcade src="https://demo.arcade.software/iA1SBPZMiyWMdwRUeTUP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Computer Use | SmythOS" />
+
+---
+
+## Overview
+
+The Computer Use component functions as a virtual computer operated by AI. It can perform a wide range of tasks that you would typically execute on a physical computer, from data analysis to web searches, all driven by natural language prompts. This reduces the need for custom code and enables non-technical users to automate complex operations.
+
+---
+
+## Settings
+
+Enter natural language instructions for the AI computer to execute. The component interprets these instructions and performs the requested tasks, leveraging advanced AI models to understand context and intent.
+
+For example:
+- "Search for the current weather in New York and extract the temperature and conditions"
+- "Find the latest stock price for Microsoft and calculate the 7-day average"
+- "Look up population data for the top 10 cities in California and create a summary table"
+
+---
+
+## Inputs
+
+The Computer Use component comes with a default input:
+
+- **Prompt**: The primary instruction that guides the AI computer's operations. Connect this to outputs from other components to dynamically generate tasks.
+
+To add additional inputs, click the "+" icon next to the **Inputs** label and enter required details:
+
+- **Name:** Unique, self-explanatory identifier (e.g., `location`, `query`)
+- **Type:** Supports `Any`, `String`, `Number`, `Integer`, `Boolean`, `Array`, `Object`, `Binary`, `Date`
+- **Color (optional):** Enhances visual clarity in workflows
+- **Optional (optional):** Mark non-mandatory inputs
+- **Default Value (optional):** Predefined value used when no explicit value is supplied
+
+---
+
+## Outputs
+
+The Computer Use component has a single built-in output named **`Output`**, containing the complete results of the executed tasks.
+
+To add additional custom outputs:
+- Click the "+" icon next to the **Outputs** label
+- Name your new output based on the specific data you want to extract (e.g., `weather`, `stockPrice`, `summary`)
+- SmythOS automatically recognizes that the source data comes from the default Output
+
+This capability allows you to route different result elements to various components in your workflow without complex data manipulation.
+
+---
+
+## Use Cases
+
+- **Data Retrieval and Analysis**: Extract and process information from multiple sources
+- **Research Automation**: Conduct web research and compile findings
+- **Content Generation**: Create structured content based on gathered information
+- **Report Creation**: Automatically generate reports from data sources
+- **System Automation**: Execute complex multi-step computer operations
+
+---
+
+### How It Works
+
+1. The component receives a natural language prompt describing the desired task
+2. The AI interprets the instructions and formulates an execution plan
+3. The virtual computer executes the necessary operations to fulfill the request
+4. Results are processed and structured into the output
+5. Additional outputs can extract specific elements from the results
+
+> **⚠️ Limitations**
+>
+> - Tasks are limited to operations that can be performed in a secure, isolated environment
+> - The component cannot access private systems or networks without proper authentication
+> - Complex or ambiguous instructions may require refinement for optimal results
+> - Processing time varies based on task complexity
+
+---
+
+### Best Practices
+
+- **Be Specific**: Provide clear, detailed instructions for best results
+- **Start Simple**: Begin with straightforward tasks and gradually increase complexity
+- **Test Iteratively**: Refine prompts based on output results
+- **Create Dedicated Outputs**: Set up specific outputs for each data element you need to extract
+- **Connect Strategically**: Feed results into appropriate downstream components for further processing

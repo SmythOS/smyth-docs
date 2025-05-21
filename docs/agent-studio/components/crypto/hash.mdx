@@ -1,0 +1,49 @@
+# Hash
+
+The Hash component in `SmythOS` is user-friendly and efficient for generating hashes. It simplifies securing data and verifying integrity, making it accessible for users with minimal technical background.
+
+<Arcade  src="https://demo.arcade.software/l8ZresAi5lORcDtYKQBN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Hash | SmythOS" />
+
+---
+
+## Settings
+
+### Hash Algorithm
+
+Select a hash algorithm to determine the cryptographic method for generating hash values:
+
+1. `md5` - Less secure, widely recognized.
+2. `sha1` - Commonly used in security applications.
+3. `sha224` - 224-bit truncated SHA-256.
+4. `sha256` - Robust 256-bit SHA-2 algorithm.
+5. `sha384` - 384-bit truncated SHA-512.
+6. `sha512` - Strong 512-bit SHA-2.
+7. `sha3-224` - 224-bit SHA-3 family.
+8. `sha3-256` - 256-bit SHA-3.
+9. `sha3-384` - 384-bit SHA-3.
+10. `sha3-512` - 512-bit SHA-3.
+11. `shake128` - Customizable-length hash.
+12. `shake256` - Stronger security variant of `shake128`.
+13. `blake2b512` - Fast, secure 512-bit Blake2.
+14. `blake2s256` - 256-bit Blake2, optimized for 32-bit.
+
+### Output Encoding
+
+Choose the format for the generated hash value:
+
+1. `hex` - Hexadecimal string, highly readable.
+2. `base64` - Base64 string, suitable for binary-unsafe mediums.
+3. `base64url` - URL and filename safe Base64.
+4. `latin1` - Western European Latin-1 character set.
+
+---
+
+## Inputs
+
+- **Data:** Input field for the information to be hashed.
+
+---
+
+## Outputs
+
+- **Hash:** The resulting hash value, encoded as specified.

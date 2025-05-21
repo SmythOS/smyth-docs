@@ -1,0 +1,97 @@
+# 🌟 MCP Client
+
+The **MCP Client** component enables integration with external Model Context Protocol (MCP) servers in your SmythOS agents, allowing seamless communication with tools, systems, and data sources that support the MCP standard.
+
+<Arcade src="https://demo.arcade.software/mFxqwnIRy91PWDmGwFcv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="MCP Client | SmythOS"/>
+
+---
+
+## Overview
+
+The Model Context Protocol (MCP) is an open standard designed to standardize how AI assistants exchange context with external tools and systems. MCP allows AI applications to:
+
+- Access files and documents
+- Execute functions in external systems
+- Maintain context across different environments
+- Exchange information with databases and APIs through a unified interface
+
+The MCP Client component serves as a bridge between your SmythOS agent and external MCP-compatible services.
+
+---
+
+## Important Limitations
+
+>**Current Limitations:**
+>- The MCP Client component in SmythOS currently only supports MCP servers that are exposed through the web
+>- It does not support connecting to local MCP servers running on your computer
+>- Local MCP server connections require a desktop application, which is not part of the current MCP Client component
+>
+>**Upcoming Features:**
+>- Local MCP servers will be supported in the upcoming SRE Local CLI
+>- This feature is currently under development
+
+---
+
+## Settings
+
+### 🔗 MCP URL
+Enter the Server-Sent Events (SSE) URL of the MCP server you want to integrate with. This URL is mandatory and must point to a valid MCP server endpoint.
+
+### 🧠 Model
+Select the model to use for processing requests. The component supports various models including:
+- OpenAI models (GPT-4o, GPT-4.1, etc.)
+- Claude models
+- Other compatible LLMs
+
+### ✍️ Prompt
+Enter the prompt to be used during component execution. You can utilize template variables (e.g., `{{prompt}}`) to incorporate dynamic content from agent inputs.
+
+### ⚙️ Advanced Settings
+- **System Prompt**: Define behavior instructions for the MCP client. This works like a behavior prompt, providing context and guidance for how the MCP server should process requests.
+
+---
+
+## Inputs
+
+The MCP Client component comes with a default input:
+
+- **Prompt**: This input is automatically injected into the prompt field using the `{{prompt}}` variable. When you connect another component's output to this input, its value will be used in the prompt template.
+
+To add additional inputs, click the "+" icon next to the **Inputs** label and enter required details:
+
+- **Name:** Unique, short, self-explanatory (e.g., `query`)
+- **Type:** Supports `Any`, `String`, `Number`, `Integer`, `Boolean`, `Array`, `Object`, `Binary`, `Date`
+- **Color (optional):** Enhances visual clarity
+- **Optional (optional):** Non-mandatory inputs can be marked as optional
+- **Default Value (optional):** Predefined value used if no explicit value is supplied
+
+---
+
+## Outputs
+
+The MCP Client component has a single built-in output named **`Output`**, containing the response from the MCP server.
+
+To add additional custom outputs:
+- Click the "+" icon next to the **Outputs** label
+- Simply name your new output (e.g., `summary`, `metadata`, `status`)
+- SmythOS automatically recognizes that the source data comes from the default Output
+- No need to use prefixes like "Output.label" as SmythOS handles this internally
+
+This simplifies creating multiple outputs from a single response, allowing you to route different parts of the MCP response to various components in your workflow.
+
+---
+
+## Use Cases
+
+- Connect your SmythOS agent to external MCP-enabled AI systems
+- Integrate with specialized tools and databases via MCP
+- Extend your agent's capabilities with third-party functions and data sources
+- Create multi-model workflows involving different AI providers
+
+> **⚠️ Troubleshooting**
+>
+> If your MCP Client component isn't responding as expected:
+>
+> 1. 🔍 **Verify the MCP URL**: Ensure the URL points to a valid MCP server endpoint
+> 2. 🔄 **Check Prompt Format**: Make sure your prompt properly instructs the MCP server
+> 3. 🛠️ **Test in Debug Mode**: Enable debugging to view detailed execution logs

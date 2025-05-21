@@ -1,9 +1,169 @@
----
-title: leia integration
----
 
-# leia integration
+# Leia Integration
 
-This is the **leia integration** page for Agent Studio.
+`Leia` Inc. is renowned for its pioneering advancements in Lightfield display technology, which enables the visualization of 3D content without the need for specialized glasses. This technology finds applications across a multitude of sectors including smartphones, advertising, and various consumer electronics, enhancing user interaction with multidimensional visuals.
 
-_TODO: Add detailed content for leia integration._
+At `SmythOS`, we recognize the potential of integrating such cutting-edge technology into our systems. Therefore, we offer dedicated modules specifically designed to facilitate seamless integration with `Leia`'s solutions. This guide is crafted to provide you with comprehensive instructions on how to effectively utilize these modules for optimal integration.
+
+## Get Pre-Signed URL
+
+Obtain a presigned URL for uploading files to Leia Storage, which expires after 24 hours.
+
+### Settings
+
+#### Client ID and Client Secret
+
+To begin utilizing this feature, it's essential to configure the `Client ID` and `Client Secret`. Follow these steps to set up:
+
+1. Create a Leiapix account if you don't already have one.
+2. Acquire the `API keys` from your account's control panel. You can find this [here](https://auth.leialoft.com/auth/realms/leialoft/account/client-credentials).
+3. Input the `Client ID` and `Client Secret` in the OAuth section of the SmythOS settings.
+4. Click the `Authenticate` button in the component to initiate authentication.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/leia/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+This feature requires the following default input:
+
+1. **trigger `required<string>`:** An input parameter used to trigger component execution. It can hold any value.
+
+<Image src="/img/leia/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, it delivers the following outputs:
+
+1. **Response:** The full server response, providing detailed information about the processing of the request.
+2. **Headers:** HTTP headers returned by the server that include metadata associated with the response.
+3. **resultPresignedUrl:** The presigned URL provided by `Leia` for uploading files. 
+
+<Image src="/img/leia/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate Disparity Map
+
+A disparity map is a crucial tool in computer vision, used to determine the pixel difference between corresponding points on stereo images captured from left and right cameras. With the LeiaPix Cloud API, you can effortlessly generate a disparity map from any standard 2D image, unlocking new dimensions in imaging technology.
+
+### Settings
+
+#### Client ID and Client Secret
+
+To begin utilizing this feature, it's essential to configure the `Client ID` and `Client Secret`. Follow these steps to set up:
+
+1. Create a Leiapix account if you don't already have one.
+2. Acquire the `API keys` from your account's control panel. You can find this [here](https://auth.leialoft.com/auth/realms/leialoft/account/client-credentials).
+3. Input the `Client ID` and `Client Secret` in the OAuth section of the SmythOS settings.
+4. Click the `Authenticate` button in the component to initiate authentication.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Input Type
+
+For processing images, two input types are supported, each requiring different handling based on their properties:
+
+- **Standard 2D images (`image2d`):** Regular images captured from standard cameras.
+- **360-degree images (`image360`):** These images, typically captured with a fisheye lens, demand different processing due to their seamless join requirements on the edges.
+
+#### Output Bit Depth
+
+Choose the desired bit depth for the generated disparity map, balancing between file size and detailed depth information:
+
+- **8-bit (`uint8`):** Generates a disparity map with a smaller file size.
+- **16-bit (`uint16`):** Produces a disparity map with greater depth definition for enhanced details.
+
+#### Dilation
+
+Dilation in disparity maps broadens the edge of objects, ensuring a cleaner edge representation by preventing color bleeding:
+
+- **No Dilation:** Without dilation, there may be color bleeding from the foreground into the background, affecting visual clarity.
+- **With Dilation:** Applying dilation incorporates background colors into the edges of foreground objects, broadening them slightly to produce cleaner edges. 
+
+This operation modifies the disparity map directly before the final output is rendered to enhance visual quality and object definition.
+
+<Image src="/img/leia/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+The disparity map generation requires the following inputs:
+
+1. **inputImageUrl `required<string>`:** The URL of the image you wish to process.
+2. **resultPresignedImageUrl `required<string>`:** A presigned URL with `PUT` permissions where the resulting disparity map will be uploaded. For more information on generating presigned URLs, consult your cloud provider’s documentation.
+
+<Image src="/img/leia/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, the following outputs are provided:
+
+1. **Response:** Contains the full server response, detailing the outcome of the disparity map processing.
+2. **Headers:** Lists the HTTP headers returned by the server, providing metadata about the server's response.
+3. **disparityUrl:** The presigned URL where the disparity map result has been uploaded.
+
+<Image src="/img/leia/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Generate animation
+
+This API facilitates the creation of compelling 3D animations by utilizing a disparity map and a single input image. The generated animation introduces depth and realism, enhancing the visual appeal of the image.
+
+### Settings
+
+#### Client ID and Client Secret
+
+To begin utilizing this feature, it's essential to configure the `Client ID` and `Client Secret`. Follow these steps to set up:
+
+1. Create a Leiapix account if you don't already have one.
+2. Acquire the `API keys` from your account's control panel. You can find this [here](https://auth.leialoft.com/auth/realms/leialoft/account/client-credentials).
+3. Input the `Client ID` and `Client Secret` in the OAuth section of the SmythOS settings.
+4. Click the `Authenticate` button in the component to initiate authentication.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Animation Parameters
+
+- **Animation Type**:
+  - `mp4`: For video animations.
+  - `gif`: For looping GIF animations.
+
+- **Animation Length**: Controls the speed of the animation. A lower value results in faster animation, while a higher value slows it down.
+
+- **Amplitude X/Y/Z**: Defines the amount of movement in each respective axis.
+
+- **Phase X/Y/Z**: Sets the starting point of the motion along each axis. A phase value of 0 starts the movement from the origin.
+
+- **Number of Loops**: Specifies how many times the animation should repeat. The default setting results in no looping.
+
+<Image src="/img/leia/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+For generating the animation, the following inputs are required:
+
+1. **inputImageUrl `required<string>`**: The URL for the input image.
+2. **resultPresignedUrl `required<string>`**: A presigned URL with `PUT` permission where the result will be uploaded.
+3. **inputDisparityUrl `required<string>`**: The URL for the input disparity map.
+
+<Image src="/img/leia/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The following outputs are generated upon execution:
+
+1. **Response**: Details of the server's response after processing the request.
+2. **Headers**: HTTP headers included in the response, providing additional metadata.
+3. **url**: The presigned URL where the result has been uploaded.
+
+<Image src="/img/leia/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

@@ -1,9 +1,482 @@
----
-title: replicate integration
----
 
-# replicate integration
+# Replicate Integration
 
-This is the **replicate integration** page for Agent Studio.
+`Replicate` platform enables users to deploy and execute machine learning models effortlessly. It serves both businesses and individuals seeking to harness AI capabilities without extensive machine learning expertise. Users can deploy custom models or utilize existing models available on the platform.
 
-_TODO: Add detailed content for replicate integration._
+At `SmythOS`, we've integrated seamlessly with `Replicate`, offering custom components that simplify the integration of their advanced services into your projects.
+
+## Llama 2 Chat
+
+Interact with the Llama 2 AI model.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **prompt `required<string>`:** Enter the prompt to use the AI model.
+
+<Image src="/img/replicate/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When this component is executed, it produces two standard outputs and includes an identifier key for further action:
+
+1. **Response:** This output provides a prediction object that comprises detailed information about the executed request. Given that model predictions may necessitate several seconds or longer to complete, the prediction output may not be instantaneous. To obtain the finalized results, you should utilize the [Get Prediction](#get-predictions) component.
+2. **Headers:** Included in this output are the HTTP Headers that are part of the response from `Replicate`. These headers offer valuable context and metadata, such as response status code and content type, which are crucial for processing the server's response.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Music Generator
+
+Generate music from a prompt.
+
+### Settings
+
+#### API Token
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Model Version
+
+This component has the following model versions:
+
+- `stereo-large`
+- `stereo-melody-large`
+- `melody-large`
+- `large`
+- `encode-decode`
+
+#### Output Format
+
+It supports the following output formats:
+
+- `wav`
+- `mp3`
+
+<Image src="/img/replicate/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **prompt `required<string>`:** A description of the music you want to generate.
+1. **duration `required<integer>`:** Duration of the generated audio in seconds.
+
+<Image src="/img/replicate/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Image Restoration
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **image_url `required<string>`:** The URL of the image to be processed.
+
+<Image src="/img/replicate/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Face Restoration
+
+This component helps to restore faces given an image.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **image_url `required<string>`:** The URL of the image to be processed.
+
+<Image src="/img/replicate/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Background Remover
+
+This component enables you to remove the background of a given image.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **image_url `required<string>`:** The URL of the image to be processed.
+
+<Image src="/img/replicate/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Answer Image Questions 
+
+This component allows you to answer questions about images using the Replicate model.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot16.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following inputs:
+
+1. **image_url `required<string>`:** The URL of the image to be processed.
+2. **question `optional<string>`:** (Optional) The question about the image.
+
+<Image src="/img/replicate/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Llama Text Generator
+
+The `Llama Text Generator` component is designed to assist users in generating text based on a provided prompt. This feature can be particularly useful for various applications, such as content generation, creative writing, or text completion tasks.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot22.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **prompt `required<string>`:** This input specifies the prompt used to generate text content. The prompt serves as the starting point or context for the generated text.
+
+<Image src="/img/replicate/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. Use the [Get Prediction](#get-predictions) component to get the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Face Swap
+
+The `Face Swap` component empowers users to seamlessly swap faces within images using a target image and a swap image.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot25.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **swap_image_url `required<string>`:** The URL of the target image where the face will be replaced.
+2. **target_image_url `required<string>`:** The URL of the image whose face will replace the face in the target image.
+
+<Image src="/img/replicate/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. You can use the [Get Predictions](#get-predictions) component to retrieve the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Upscale Image
+
+The `Upscale Image` component empowers users to enhance the resolution of an image using advanced AI-based upscaling techniques.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot28.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **image_url `required<string>`:** The URL of the input image to be upscaled.
+2. **prompt `required<string>`:** A prompt to guide the upscaling process, helping the AI model understand user preferences and desired outcomes better.
+
+<Image src="/img/replicate/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. You can use the [Get Predictions](#get-predictions) component to retrieve the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Stability Text Generation
+
+The `Stability Text Generation` component facilitates the generation of stable and coherent text based on user-provided prompts.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot31.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **prompt `required<string>`:** The prompt that guides the text generation process. This could be a question, a sentence, or any form of textual input that provides context for generating the desired text.
+
+<Image src="/img/replicate/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. You can use the [Get Predictions](#get-predictions) component to retrieve the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Stability AI Image Generation
+
+The `Stability AI Image Generation` component enables users to generate high-quality and stable images using advanced AI algorithms.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot34.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **prompt `required<string>`:** The prompt that guides the image generation process. This could be a description, a concept, or any form of textual input that provides context for generating the desired image.
+
+<Image src="/img/replicate/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. Note that as models may take several seconds or more to run, the output might not be available immediately. You can use the [Get Predictions](#get-predictions) component to retrieve the results.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+3. **id:** The output named `id` is provided as a unique identifier for the initiated request. This ID is essential for retrieving the results once they are ready and must be used in conjunction with the [Get Prediction](#get-predictions) component to access the outcome.
+
+<Image src="/img/replicate/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Predictions
+
+This component facilitates retrieving the results from a prediction. Upon successful execution, it returns an object containing the model's output. Any files will be represented as HTTPS URLs.
+
+### Settings
+
+To initialize this component, follow these steps to obtain your `API Token`:
+
+1. Create a `Replicate` account if you don't already have one.
+2. Navigate to your `Account Settings` and obtain your `API Token` [here](https://replicate.com/account/api-tokens).
+3. Input this `API Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/replicate/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, provide the following input:
+
+1. **prediction_id `required<string>`:** The prediction ID generated during the execution of previous models.
+
+<Image src="/img/replicate/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive two default outputs:
+
+1. **Response:** Provides the prediction object containing information about the request. In the case of success, the output will be an object containing the output of the model. Any files will be represented as HTTPS URLs, and you'll need to pass the Authorization header to request them. In the case of failure, the error will contain the error encountered during the prediction.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `Replicate`.
+
+<Image src="/img/replicate/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

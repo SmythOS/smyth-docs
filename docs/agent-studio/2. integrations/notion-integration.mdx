@@ -1,9 +1,284 @@
----
-title: notion integration
----
 
-# notion integration
+# Notion Integration
 
-This is the **notion integration** page for Agent Studio.
+`Notion` Labs Inc. is a software company known for its productivity and collaboration tool called `Notion`. `Notion` is an all-in-one workspace that allows users to create, organize, and collaborate on various types of content, including notes, documents, databases, tasks, and more.
 
-_TODO: Add detailed content for notion integration._
+At `SmythOS`, we've seamlessly integrated with `Notion` to bring you custom components that make incorporating their advanced services into your projects a breeze.
+
+## Integration Settings
+
+#### Notion Integration Secret
+To use Notion integration in `SmythOs`, you must authenticate each integration component with a notion integration secret. Follow these steps to prepare your credentials:
+1. Create a `Notion` account if you don't already have one.
+2. Navigate to your `My Integrations` and obtain your `Integration Secret`.
+
+> **Note:** Treat the `Integration Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+
+## List Users
+Returns a paginated list of Users for the workspace. 
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **trigger `required<string>`:** This input is used to trigger the execution of the component, so it can contain any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Executing this component yields two primary outputs along with a notable third one:
+1. **Response:** This output offers a comprehensive object that details the roster of users associated with the workspace. It's structured to give you an in-depth look at each user's information.
+2. **Headers:** This consists of the HTTP Headers that are integrated into the response received from `Notion`. These headers can provide additional context such as the status code, content type, etc.
+3. **users:** An important additional output is the `users` array. This array contains the list of users, effectively serving as an enumeration of all workspace participants.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/UeiRPqBeysePn4uiJoJp?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion List Users" />
+
+## Create Comment
+The `Create Comment` component allows you to create a comment in a page or an existing discussion thread.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **page_id `required<string>`:** The unique identifier of the page where you want to create the comment.
+2. **text `required<string>`:** The content of the comment.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon successfully executing this component, you will receive four key outputs:
+1. **Response:** This output delivers a comprehensive object that contains the details pertaining to the created comment. It ensures you have access to all relevant data about the comment's attributes.
+2. **Headers:** Included within this output are the HTTP Headers that are part of the server's response from `Notion`. These headers are crucial for understanding the metadata associated with the response, such as the response status code, content type, and others.
+3. **commentId:** A specifically tailored output, the `commentId` represents the unique identifier of the comment that has been created. This ID is essential for tasks that require referencing the specific comment.
+4. **discussionId:** Alongside the `commentId`, the `discussionId` is also provided. This is the distinct identifier for the discussion to which the comment is linked, allowing for easy navigation and contextual association within the workspace.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Lb1MgVQa4vqqD315UVAv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Create Comment" />
+
+## Create Page
+The `Create Page` component allows you to create a new page that is a child of an existing page.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **page_id `required<string>`:** The unique identifier of the parent page where you want to create the new page.
+2. **title `required<string>`:** The title of the new page.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Execution of this component results in two primary outputs, along with additional details about the created page:
+1. **Response:** This output conveys detailed information within an object that encapsulates all elements specific to the created page. The object is structured to deliver extensive insights into the page's properties and metadata.
+2. **Headers:** The server's response from `Notion` incorporates HTTP Headers, which are included in this output. These headers provide valuable context, such as response status and content-type, aiding in interpreting the server's response accurately.
+3. **pageId:** As an additional output, you will receive the `pageId`, which is the unique identifier assigned to the newly created page. This ID is critical for subsequent operations that might reference or modify the page.
+4. **pageUrl:** In parallel with the `pageId`, the `pageUrl` is also presented. This is the direct link to the created page, allowing users to easily access and share the page within their network.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/eDoLXMF4EACp0KuE4L0l?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Create Page" />
+
+## Fetch Page
+The `Fetch Page` component retrieves a Page object using the specified ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **page_id `required<string>`:** The unique identifier of the page you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, you will obtain the following outputs, which include default and specific information about the retrieved page:
+1. **Response:** This output comprises a detailed object that contains comprehensive data about the page that was retrieved. The object provides a full breakdown of the page's contents and metadata.
+2. **Headers:** This output encompasses the HTTP Headers that are part of the server response received from `Notion`. These headers are essential for understating various aspects of the response, such as the response's status code and the content type.
+3. **pageId:** As a targeted output, you will receive the `pageId`, the unique identifier for the requested page. This ID is critical for any further operations that need to reference this specific page within `Notion`.
+4. **pageUrl:** The output also includes the `pageUrl`, which is the web address of the requested page. The URL facilitates direct access to the page and is useful for sharing or linking purposes.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Z6VEVRNZWdlOTrL7ek2N?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Fetch Page" />
+
+## Retrieve Database
+The `Retrieve Database` component retrieves a database object, providing information about the structure and columns of a database.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **database_id `required<string>`:** The unique identifier of the database you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+When you execute this component, the following outputs are generated, outlining essential details and identifiers for the retrieved database:
+1. **Response:** This output contains a comprehensive object that details the information pertaining to the retrieved database. It provides an in-depth representation of the database’s attributes and associated metadata.
+2. **Headers:** Included in this output are the HTTP Headers from the server response issued by `Notion`. These headers carry critical information such as the response's status code and content type, which are necessary for interpreting the server's communication accurately.
+3. **databaseId:** The `databaseId` is also provided as a crucial output, representing the unique identifier of the retrieved database. This ID is key for referencing the database in further operations within the `Notion` environment.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/xEGKj7jhKQcd4TY2e0qc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Retrieve Database" />
+
+## Create Database
+The `Create Database` component facilitates the creation of a database as a subpage within the specified parent page.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Body
+The `body` field includes a sample schema of the payload required to create a database. This schema serves as a guideline and can be modified to suit your specific needs.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **page_id `required<string>`:** The unique identifier of the parent page where the new database will be created.
+2. **title `required<string>`:** The title of the new database.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+The execution of this component yields two primary outputs along with specific identifiers for the newly created database:
+1. **Response:** This output presents a richly detailed object containing all pertinent information about the database that has just been created. It encapsulates the database's properties, structure, and metadata, giving an exhaustive overview.
+2. **Headers:** The server's response from `Notion` includes HTTP Headers, which are captured in this output. These headers offer essential details, such as the status of the response and the content type, assisting in the interpretation of the server's reply.
+3. **databaseId:** Additionally, you will receive the `databaseId`, a unique identifier for the created database. This identifier is vital for referencing the database in future interactions within `Notion`.
+4. **databaseUrl:** Lastly, the output provides the `databaseUrl`, which is the direct link to the newly created database. This URL allows for straightforward access and can be shared or embedded as needed.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/s7NK5ifIfqyzljeVthgu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Create Database" />
+
+## Retrieve Comments
+The `Retrieve Comments` component retrieves a list of unresolved Comment objects from a page or block.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **block_id `required<string>`:** The unique identifier of the page or block from which comments will be retrieved.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon the successful execution of this component, the following outputs will be provided, which detail the information associated with unresolved Comments:
+1. **Response:** This output delivers a detailed object containing a collection of unresolved Comment objects. The data is comprehensive and organized, allowing for a clear understanding of each comment's content and status.
+2. **Headers:** Embedded within the server's response from `Notion`, this output includes the HTTP Headers. These headers are instrumental in providing context to the response, including details such as response status code and content type.
+3. **results:** Additionally, the output named `results` offers a dedicated list of the comments. This list specifically includes those comments that remain unresolved, streamlining the process for further review or action.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/VznBfq7mr7sB6CELtcdg?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Retrieve Comments" />
+
+## Query Database
+The `Query Database` component retrieves a list of Pages and/or Databases contained in the database. The results are filtered and ordered based on the provided filter conditions and sort criteria.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Body
+The `body` field provides a sample schema that outlines the structure of the payload needed for the associated operation. You are encouraged to modify this schema according to your requirements. Please click [here](https://developers.notion.com/reference/post-database-query-filter) to learn how to modify the schema.
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+1. **database_id `required<string>`:** The unique identifier of the database to query.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Execution of this component generates the following defined outputs, which encompass significant details obtained from running the associated query:
+1. **Response:** An output that reveals a detailed object which carries a comprehensive list of Pages and/or Databases that correspond to the set query parameters. It imparts an elaborate depiction, allowing for a full breakdown of the returned items.
+2. **Headers:** This output encapsulates the HTTP Headers that are part of the server's response from `Notion`. The headers convey necessary information that helps understand the compositional elements of the response, such as the HTTP status code and other relevant metadata.
+3. **results:** The `results` output specifically provides a curated list that includes the collected items based on the query executed. As an aggregation of results returned by the server, this list is pivotal for identifying and accessing the queried Pages and Databases.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/LOJdW372zgA0bY5DleLI?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Query Database" />
+
+## Update Database
+The `Update Database` component in SmythOS allows you to modify attributes of a database, such as title, description, or properties, seamlessly integrating with Notion's capabilities to manage data dynamically.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Body
+The `Body` field is for the payload containing the new database details to update. Ensure to include necessary attributes like title and description.
+
+### Inputs
+Provide the following input to utilize this component effectively:
+1. **database_id `required<string>`:** The unique identifier (ID) of the Notion database you wish to update.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Executing this component will generate the following outputs:
+1. **Response:** A JSON object that provides detailed feedback regarding the success or failure of the database update.
+2. **Headers:** The HTTP headers from Notion, offering metadata such as response status codes.
+3. **databaseId:** The ID of the updated database.
+4. **databaseUrl:** The URL to the updated database.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/MBuwxwM8v5aR0CjQjznu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Update Database" />
+
+## Search by Title
+Searches all parent or child pages and databases that have been shared with an integration.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Integration Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **query `required<string>`:** The text that the API compares page and database titles against.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+The execution of this component results in two main outputs, along with a focused presentation of the search results:
+1. **Response:** This output equips you with a detailed JSON object that relays comprehensive information regarding the execution of the query. It is structured to provide a meticulous account of the query's request details.
+2. **Headers:** This output consists of the HTTP Headers that are integrated with the server's response from `Notion`. These headers are crucial as they facilitate an understanding of the response's metadata, including the status code and content type.
+3. **results:** An additional key output is the `results`, which furnishes an isolated list of outcomes derived from the search. This specialized list enables you to access and examine the specific entries that the query has retrieved.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Hr6G92t5U7Kec1bGwXUB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Notion Search Title" />

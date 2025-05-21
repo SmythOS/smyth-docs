@@ -1,0 +1,73 @@
+# 🛠 Agent Skill
+
+Agent Skills in `SmythOS` define the capabilities of an agent. Each skill is added through the `Agent Skill` component, enabling advanced workflows and continuous functionality enhancement without coding.
+
+---
+
+## Settings
+
+- **📝 Skill Name:** Use clear, descriptive names (e.g., `smyth_questions`).
+- **📜 Instructions:** Provide a detailed purpose and function description. This field is exposed to AI.
+  > **Example:** Handles user queries about product availability by checking inventory systems.
+
+---
+
+## Inputs
+
+Add parameters by clicking the `➕` icon adjacent to the Parameters label:
+
+- **🏷️ Name (Required):** Unique, concise name (e.g., `question_id`).
+- **🔠 Type:** Choose from Text, Image, Audio, Video, and Others. Within Others, options include `Any`, `String`, `Number`, `Integer`, `Boolean`, `Array`, `Object`, `Binary`, `Date`.
+
+### 🔧 Advanced Options
+
+- **📝 Description (Optional):** Clarify each parameter's role (e.g., `Accepts identification numbers for user inquiries`).
+- **⚖️ Optional (Optional):** Mark if not always needed.
+- **🎨 Color (Optional):** Use colors for visual clarity.
+- **🛠️ Default Value (Optional):** Provide if no specific input is given.
+
+> **Note:** When an input is created, an output mirroring the input is automatically displayed.
+
+<Arcade src="https://demo.arcade.software/kwsoTMnZP38yLMH1LD3b?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Agent Skill | SmythOS"/>
+
+---
+
+## Advanced
+
+### 💡 Exposed to AI
+
+This option is advanced and enabled by default. When exposed to AI, the respective Agent Skill will be visible to the AI.
+
+### 📝 Description
+
+This is a documentation field for the Agent Skill.
+
+### 🛠️ Advanced Request Parts
+
+This is turned off by default. When enabled, the Agent Skill component will function more like an API endpoint, offering more technical control to users.
+
+> **Note:** This action cannot be undone. Once enabled, this option will be locked.
+
+### 🔍 Extra Features When Enabled
+
+- **📨 Method:** Choose between `POST` (for adding/updating data) and `GET` (for data retrieval).
+
+<br/>
+
+#### 📤 Default Outputs
+
+- **🗂️ Headers:** Contains metadata like Content-Type, Authorization.
+- **📄 Body:** Main content of the HTTP request/response, especially for `POST` method.
+- **🔗 Query:** Parameters in the URL for `GET` method.
+
+<br/>
+
+#### 🛠️ Additional Outputs
+
+You can create new outputs as needed to extract and parse data:
+
+- **🏷️ Name (Required):**  Use clear names formatted as a JSON Path (e.g., `body.response_detail`).
+- **🎨 Color (Optional):**  Use colors to distinguish outputs for better visual identification.
+- **🧩 Expression:**  The JSON Path described in the `Name` field can be used in this `Expression` field as well. This allows the `Name` to be any human-readable format while the actual path is maintained in the `Expression` field.
+
+<Arcade src="https://demo.arcade.software/EgJNBKCbaY7QJhBkBSl2?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Advanced Settings | SmythOS"/>

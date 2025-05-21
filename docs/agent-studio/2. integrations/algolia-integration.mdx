@@ -1,9 +1,46 @@
----
-title: algolia integration
----
 
-# algolia integration
+# Algolia Integration
 
-This is the **algolia integration** page for Agent Studio.
+`Algolia` is a globally recognized company that excels in providing state-of-the-art search and discovery solutions for websites and mobile applications. The company's key selling points include features such as instantaneous search results, typo-tolerance which tolerates minor spelling errors, and personalized recommendations to enhance the user experience.
 
-_TODO: Add detailed content for algolia integration._
+Within the broad and diverse ecosystem of `SmythOS` components, we provide dedicated modules that simplify integration with `Algolia`. The current section provides an in-depth guide of these modules and how to efficiently utilize them.
+
+## Integration Settings
+
+#### Search Only API Key
+To use Algolia integration in `SmythOs`, you must authenticate each integration component with a Search Only API Key. Follow these steps to prepare your credentials:
+
+1. Create an `Algolia` account if you don't already have one.
+2. When creating an account with `Algolia`, it offers the capability to create your first application and data index populated with testing data. You can use this or opt to create your unique index.
+3. Obtain the `Search Only API Key` from your account control panel, available [here](https://dashboard.algolia.com/account/api-keys/all).
+
+> **Note:** Treat the `Search Only API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Search
+This core component of `SmythOS` is meticulously designed to perform searches within a defined data source provided a user-query.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Search Only API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+This component necessitates 3 default inputs:
+
+1. **index `required<string>`:** The name of the index in which the search is to be performed.
+2. **text `required<string>`:** The query string that triggers the search action.
+3. **app_id `required<string>`:** The `Application ID` where your data index is hosted. It can be located [here](https://dashboard.algolia.com/account/api-keys/all). 
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+The component comes with 2 default outputs:
+
+1. **Response:** This output comprises the received response loaded with the results of the search query. 
+2. **Headers:** These contain the HTTP Headers provided in the response from the `Algolia` server.
+3. **results:** This output captures the actual results derived from the search query.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/ekl1C55DDJ4Rvo9E9JGZ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Algolia Search" />

@@ -1,9 +1,306 @@
----
-title: meilisearch integration
----
 
-# meilisearch integration
+# Meilisearch Integration
 
-This is the **meilisearch integration** page for Agent Studio.
+`Meilisearch` is a company that develops an open-source search engine that is fast, relevant, and easy to set up. `Meilisearch` provides developers with the tools to integrate powerful search capabilities into their applications quickly.
 
-_TODO: Add detailed content for meilisearch integration._
+At `SmythOS`, we've seamlessly integrated with `Meilisearch` to bring you custom components that make incorporating their advanced services into your projects a breeze.
+
+## Full Text Search
+
+The `Full Text Search` component empowers users to search for documents matching a specific query in the given index.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/meilisearch/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **index_uid `required<string>`:** The unique identifier of the index you want to search in.
+3. **query `required<integer>`:** The search query.
+
+<Image src="/img/meilisearch/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response:** This output is an object that provides detailed information, which includes the search results. It serves as a comprehensive overview of the generated output post-execution.
+2. **Headers:** The HTTP Headers within the response from the `Meilisearch` server are included here. These headers convey additional data such as status codes and metadata related to the response.
+3. **results:** This part of the output is dedicated to presenting the results derived from the search query. It typically consists of an array or a list of items that match the search criteria.
+
+<Image src="/img/meilisearch/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update a Document
+
+The `Update a Document` component allows you to add a list of documents or update them if they already exist in a specified index. If the provided index does not exist, it will be created automatically.
+
+### Settings
+
+#### Master Key
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+Provided within this field is a sample body payload designed for updating a document. You have the freedom to modify this template to suit the specific requirements of the document you intend to update.
+
+<Image src="/img/meilisearch/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
+
+<Image src="/img/meilisearch/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Execution of this component yields two primary outputs:
+
+1. **Response:** The response is a JSON object that details the operation's outcome. It presents comprehensive information on whether the execution was successful or if it encountered any failures.
+2. **Headers:** Embedded within the `Meilisearch` server's response, these HTTP Headers offer additional context such as status codes and metadata pertinent to the operation's response.
+3. **taskUid:** This identifier, known as the Task Unique Identifier (TaskUid), is provided as an output and is essential for tracking the status of the asynchronous task initiated by the operation.
+
+<Image src="/img/meilisearch/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete a Document
+
+The `Delete a Document` component allows you to delete a document.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/meilisearch/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
+3. **document_id `required<string>`:** It is the unique identifier of the document you want to delete.
+
+<Image src="/img/meilisearch/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Once this component has been executed, the system will deliver two standard outputs:
+
+1. **Response:** This output is a JSON object that serves up granular details regarding the execution's result. It clearly indicates the success or failure of the operation.
+2. **Headers:** The HTTP Headers from the response of the `Meilisearch` server are included in this output. These headers provide meta-information such as response status codes and other pertinent details.
+3. **taskUid:** The unique identifier for the task, or TaskUid, is also returned in the outputs. It is crucial for subsequent tracking and reference to the task that was initiated by the component.
+
+<Image src="/img/meilisearch/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Add a Single Document
+
+The `Add a Single Document` component allows you to add a single document to an index in Meilisearch.
+
+### Settings
+
+#### Master Key
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+In this section, you should provide the body payload required for adding a single document. An example schema is included to serve as a template and can be adjusted accordingly to meet the specific needs of the document being added.
+
+<Image src="/img/meilisearch/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
+
+<Image src="/img/meilisearch/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After the execution of this component, the following default outputs will be generated:
+
+1. **Response:** A JSON object containing detailed information regarding the outcome of the operation, detailing whether the operation was successful or if it failed.
+2. **Headers:** These are the HTTP Headers included in the server response from `Meilisearch`. The headers provide additional information, such as response status codes, related to the operation's outcome.
+3. **taskUid:** The `taskUid` is a specific output that represents the Task Unique Identifier. It is crucial for tracking the operation's progress and referencing the task initiated by the operation.
+
+<Image src="/img/meilisearch/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create an Index
+
+The `Create an Index` component allows you to create an index in Meilisearch.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/meilisearch/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **uid `required<string>`:** The unique identifier for the index.
+3. **primaryKey `required<string>`:** It specifies the primary key for the documents in the index.
+
+<Image src="/img/meilisearch/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The following default outputs are provided upon the successful execution of this component:
+
+1. **Response:** This is a JSON object that offers a detailed breakdown of information regarding the index that has been created. It serves to inform you of the characteristics and status of the new index.
+2. **Headers:** Included in this output are the HTTP Headers from the `Meilisearch` server response. They contain supplementary data such as status codes that pertain to the execution of the operation.
+3. **taskUid:** As part of the outputs, you will also receive a `taskUid`, which stands for Task Unique Identifier. This identifier is critical for tracking the progress of the operation and referencing the specific task that has been initiated.
+
+<Image src="/img/meilisearch/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Add Documents
+
+The `Add Documents` component allows you to add documents.
+
+### Settings
+
+#### Master Key
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+This field is designated for the body payload required to add documents. It comes with a schema example as a baseline, which you can modify to suit the specific parameters and content of the documents you wish to add.
+
+<Image src="/img/meilisearch/screenshot16.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **uid `required<string>`:** The unique identifier of the index.
+
+<Image src="/img/meilisearch/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Execution of this component results in two principal outputs:
+
+1. **Response:** This output is a JSON object that encapsulates detailed information regarding the operation. It outlines the essential data, reflecting the operation's execution and its outcome.
+2. **Headers:** The response from the `Meilisearch` server includes HTTP Headers, which form part of the outputs. These headers yield additional details like response status codes and other relevant metadata.
+3. **taskUid:** The Task Unique Identifier `taskUid` is also returned as an output. This identifier is vital for tracking the progress and status of the initiated operation.
+
+<Image src="/img/meilisearch/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Synonyms
+
+The `Update Synonyms` component allows you to update the list of synonyms of an index. Synonyms are normalized.
+
+### Settings
+
+#### Master Key
+
+To kickstart this component, follow these initial steps to obtain your `Master Key`:
+
+1. Create a `Meilisearch` account if you don't already have one.
+2. Navigate to your `Settings` and acquire your `Master Key`.
+3. Input this `Master Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+Here you will input the body payload which contains the list of associated words that should be treated in a similar fashion. An example schema is provided within the field to guide you, and you may adjust it as necessary to fit your specific use case.
+
+<Image src="/img/meilisearch/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
+2. **index_uid `required<string>`:** The unique identifier of the index.
+
+<Image src="/img/meilisearch/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When you execute this component, it generates the following standard outputs:
+
+1. **Response:** This is a JSON object that conveys detailed information regarding the operation, including any relevant data or statuses related to the process.
+2. **Headers:** These are the HTTP Headers that come with the `Meilisearch` server's response. They include supplementary metadata, such as response status codes, which provide insight into the operation's result.
+3. **taskUid:** The output also includes the `taskUid`, or Task Unique Identifier, which is essential for tracking the progress and identifying the specific operation that has been triggered.
+
+<Image src="/img/meilisearch/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

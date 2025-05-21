@@ -1,9 +1,44 @@
+# 🤖 SmythOS Agents
+
+The `SmythOS Agent` component allows you to reuse existing agents within other agents, creating more complex functionalities efficiently.
+
+### 🌟 Key Benefits
+
+- **♻️ Reusability**: Build advanced functionalities using existing agents.
+- **🧩 Modularity**: Break down complex tasks into manageable components.
+- **📈 Scalability**: Extend agent functionalities without duplicating efforts.
+
+<Arcade  src="https://demo.arcade.software/nBV1imZ1ZW7UyrhPH3ud?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Arcade Flow (Mon Feb 24 2025)" />
+
 ---
-title: smythos agents integration
+
+## Settings
+
+### 🧬 Model
+
+Choose an AI model to use:
+- **OpenAI Models**: Default options available.
+- **Other Models**: Add your keys in the [Vault](core_concepts/keysManagement.md)  to use other models.
+
+### 🛠️ Version
+
+Options for setting agent versions:
+- **Same As Parent**: Uses the version (Dev/Prod) of the parent agent.
+- **Dev**: Always uses the Dev version.
+- **Prod Latest**: Always uses the latest Prod version.
+
+### 📝 Description for Model
+
+Default content from the subagent's `Behavior` field, which can be modified.
+
 ---
 
-# smythos agents integration
+## Inputs
 
-This is the **smythos agents integration** page for Agent Studio.
+- **🔎 Prompt**: The default input required for the `SmythOS Agent` to function.
 
-_TODO: Add detailed content for smythos agents integration._
+---
+
+## Outputs
+
+- **📊 Response**: Holds the agent's response, varying based on the agent's nature and specific operations.

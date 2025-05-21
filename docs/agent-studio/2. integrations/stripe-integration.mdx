@@ -1,9 +1,91 @@
----
-title: stripe integration
----
 
-# stripe integration
+# Stripe Integration
 
-This is the **stripe integration** page for Agent Studio.
+`Stripe` is a technology company that provides payment processing software and APIs for online businesses. It allows businesses to accept payments over the internet, manage subscriptions, handle payouts, and more. `Stripe`'s platform is known for its ease of use, flexibility, and robust set of features. 
 
-_TODO: Add detailed content for stripe integration._
+At `SmythOS`, we prioritize seamless integration with `Stripe`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+
+## Create Customer
+
+Initiate the creation of a customer using the `Create Customer` component.
+
+### Settings
+
+#### API Secret
+
+To initialize and configure the `Create Customer` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stripe` platform to access its payment processing features.
+2. Navigate to the [Developers - API Keys](https://dashboard.stripe.com/test/apikeys) section in your Stripe dashboard.
+3. Generate your `API Secret` key by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Secret` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+By default, this field contains a sample payload schema for creating a customer. The example serves as a guideline for the required structure and data needed to successfully create a customer record. Please note that this field is editable, enabling you to modify the payload to meet the specific requirements of your request.
+
+<Image src="/img/stripe/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To make full use of the `Create Customer` component, it is essential to supply the following input parameter:
+
+1. **trigger `required<any value>`:** This parameter accepts any value and serves as the initiation point for the component's execution. It must be provided to start the process of creating a customer. 
+
+<Image src="/img/stripe/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the `Create Customer` component is executed successfully, you can expect to receive the following outputs:
+
+1. **Response:** This is an object that includes extensive information about the customer that has just been created. It encapsulates details such as the customer's identification number, the associated payment methods, contact information, and any relevant metadata.
+2. **Headers:** These are the HTTP headers retrieved from the server's response provided by `Stripe`. They contain additional metadata such as response status codes, which help determine the success of the operation, along with the content type of the response.
+3. **customerId:** A unique identifier allocated by `Stripe` for the customer that has been created. This identifier is essential for any future interactions with the customer's record, such as retrieving, updating, or deleting customer information.
+
+<Image src="/img/stripe/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Stripe Customer
+
+Retrieve detailed information about a Stripe customer using the `Get Stripe Customer` component.
+
+### Settings
+
+To initialize and configure the `Get Stripe Customer` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Stripe` platform to access its payment processing features.
+2. Navigate to the [Developers - API Keys](https://dashboard.stripe.com/test/apikeys) section in your Stripe dashboard.
+3. Generate your `API Secret` key by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Secret` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/stripe/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively leverage the capabilities of the `Get Stripe Customer` component, ensure the provision of the following input parameter:
+
+1. **customer_id `required<string>`:** Specify the unique identifier (ID) of the customer for which you want to retrieve detailed information. 
+
+<Image src="/img/stripe/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After the successful execution of the `Get Stripe Customer` component, you can expect to receive the following outputs:
+
+1. **Response:** An object that holds extensive details about the customer that was requested. It includes the customer's identification, payment methods, contact information, subscriptions, invoices, and other pertinent metadata.
+2. **Headers:** These are the HTTP headers that are part of the server response from `Stripe`. They offer additional context such as the response status codes that indicate whether the request was successful, and the content type of the returned data.
+3. **customerId:** The unique identifier for the customer as assigned by `Stripe`. This identifier is crucial for performing further actions related to the customer, such as updating their details or processing payments.
+4. **customerEmail:** The email address associated with the customer profile. This can be used for communication purposes or as part of your customer relationship management processes.
+
+<Image src="/img/stripe/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

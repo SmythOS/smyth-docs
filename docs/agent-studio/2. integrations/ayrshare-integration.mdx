@@ -1,9 +1,194 @@
----
-title: ayrshare integration
----
+# Ayrshare Integration
 
-# ayrshare integration
+`Ayrshare` is the premier social media API company, serving as the foundational infrastructure for social media posting, management, and analytics. Widely recognized as the leader in the MarTech market for social media management APIs, `Ayrshare` enables thousands of companies—from major enterprises to innovative startups—to manage their social media accounts efficiently. By using `Ayrshare`, businesses can concentrate on developing their products rather than managing multiple social media platforms.
 
-This is the **ayrshare integration** page for Agent Studio.
+At `SmythOS`, we've developed bespoke components for an effortless integration with `Ayrshare`'s services. This guide provides a comprehensive walkthrough to help you maximize the potential of these robust components.
 
-_TODO: Add detailed content for ayrshare integration._
+## Integration Settings
+
+#### API Key
+
+To use Ayrshare integration in `SmythOs`, you must authenticate each integration component with an API key. Follow these steps to prepare your credentials:
+
+1. Sign up for an account if you haven't already.
+2. Visit your account settings and retrieve your `API Key` from [here](https://app.ayrshare.com/api).
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Send a Post
+Easily publish post content directly to your social media channels.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Ayrshare API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Platforms
+This component supports publications to the following platforms:
+
+- `all`
+- `linkedin`
+- `telegram`
+- `twitter`
+- `gmb`
+- `facebook`
+- `fbg`
+
+### Inputs
+One default input is necessary to execute this component:
+
+1. **post `required<string>`:** The post text sent to the social networks specified in the platforms parameter. You can include URLs in the post.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After executing this component, you will receive the following outputs:
+
+1. **Response**: A detailed description of the response received from the platform.
+2. **Headers**: Specific headers returned during the request.
+3. **id**: A unique identifier for the operation.
+4. **status**: The status of the post-processing.
+5. **postIds:** The identifiers for the posts that were successfully published.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/tQ5DPnGP2d9zwmL054a5?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ayrshare Send Post" />
+
+## Send Post With Media
+Easily enhance your posts by including images or videos with this robust component designed for media-rich social media sharing.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Ayrshare API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Platforms
+This component supports publications to the following platforms:
+
+- `all`
+- `linkedin`
+- `telegram`
+- `twitter`
+- `gmb`
+- `facebook`
+- `fbg`
+
+### Inputs
+One default input is necessary to execute this component:
+
+1. **post `required<string>`:** The post text sent to the social networks specified in the platforms parameter. You can include URLs in the post.
+2. **mediaUrls `required<array>`:** An array containing the URLs of images or videos you wish to include in your post.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Following successful execution of this component, the following outputs will be generated:
+
+1. **Response**: Detailed information of the response from the platform.
+2. **Headers**: The headers that were returned during the request.
+3. **id**: A unique identifier for the process.
+4. **status**: The status of the post-processing.
+5. **postIds**: A list of identifiers for the posts that were successfully published.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/yUyqkNWlmq2hrI6xgX9X?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ayrshare Send Post With Media" />
+
+## Get a Post
+Retrieve detailed information about a specific post from your social media profiles using this component. Ideal for tracking post engagements and status.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Ayrshare API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To use this component, provide the following input:
+
+1. **id `required<string>`:** The unique identifier of the post you want to retrieve. Ensure this identifier corresponds to a post made via `Ayrshare`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Executing this component will generate the following outputs:
+
+1. **Response**: A detailed description of the response from the platform, including post details.
+2. **Headers**: Any headers returned during the retrieval process.
+3. **status**: The current status of the post based on the latest data available.
+4. **postIds**: Identifiers of the post retrieved, useful for further integrations or audits.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/788xfkMWgHUld2yXJeQl?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ayrshare Get a Post" />
+
+## Send YouTube Post
+Easily publish video content directly to YouTube, managing how it's shared publicly or privately to optimize your content's reach and engagement.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Ayrshare API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Visibility
+Configure the visibility of your YouTube post with the following options:
+
+- `public`: Visible to all users on YouTube.
+- `unlisted`: Accessible to anyone with the link but not listed publicly on YouTube.
+- `private`: Only accessible by you and specific users you choose.
+
+### Inputs
+To fully utilize this component, provide the following inputs:
+
+1. **post `required<string>`:** The description of the video.
+2. **mediaUrls `required<array>`:** URLs of the videos you wish to publish.
+3. **title `required<string>`:** The title of your video.
+4. **thumbNailUrl `required<string>`:** URL of the video thumbnail.
+5. **playlistId `required<string>`:** ID of the playlist to add this video to (if applicable).
+6. **tags `required<array>`:** Tags associated with the video for better discoverability.
+7. **categoryId `required<string>`:** YouTube category ID for the video.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Upon executing this component, the following outputs will be generated:
+
+1. **Response**: Detailed information regarding the outcome of the post.
+2. **Headers**: Any headers returned during the operation.
+3. **id**: A unique identifier for the operation.
+4. **status**: The current status of the post, reflecting real-time updates.
+5. **postIds**: Identifiers for the published posts, valuable for subsequent referencing or analysis.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/dcA3wY6ZARp6Ud04TQGD?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ayrshare Send YouTube Post" />
+
+## Delete a Post
+Efficiently remove a specific post from your social media platform, ensuring complete control over your published content through an easy automated process.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Ayrshare API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+Provide the following input to delete a post:
+
+1. **postId `required<string>`:** The unique identifier of the post to be deleted.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Executing this component results in the following outputs:
+
+1. **Response**: A detailed description of the operation’s outcome.
+2. **Headers**: Any headers received during the operation.
+3. **status**: The current status of the post deletion process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/5XT0LvwhKmJL6ymc02P0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Ayrshare Delete a Post" />

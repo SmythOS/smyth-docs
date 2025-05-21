@@ -1,9 +1,359 @@
----
-title: google chat integration
----
+# Google Chat Integration
 
-# google chat integration
+`Google Chat` is an intelligent and secure communication tool from Google Workspace that streamlines collaboration and simplifies team interactions. The `Google Chat` API extends the capabilities of `Google Chat`, allowing developers to create powerful integrations and automate workflows to enhance productivity.
 
-This is the **google chat integration** page for Agent Studio.
+The `Google Chat` API enables programmatic access to `Google Chat` features, allowing developers to interact with `Google Chat` spaces, messages, and bots. With the API, you can build custom bots, automate message handling, and facilitate real-time communication within your organization. The API supports a range of functionalities, such as sending messages, managing chat spaces, and integrating with other tools and services.
 
-_TODO: Add detailed content for google chat integration._
+Integrating `Google Chat` capabilities within `SmythOS` offers significant advantages for enhancing team collaboration and streamlining operations. Here’s why integrating `Google Chat` API in `SmythOS` is essential:
+
+1. **Enhanced Communication**: Enable seamless and real-time communication directly within `SmythOS`, facilitating better team collaboration and faster decision-making.
+2. **Automated Workflows**: Automate routine tasks and notifications by leveraging `Google Chat` bots, reducing manual effort, and increasing efficiency.
+3. **Centralized Collaboration**: Create a centralized communication hub within `SmythOS`, where team members can discuss projects, share updates, and resolve issues without switching platforms.
+4. **Custom Bot Integration**: Build and deploy custom bots that guide users, answer queries, and automate repetitive tasks, thus improving user engagement and support.
+5. **Real-Time Notifications**: Receive real-time updates on critical events, such as bug reports or documentation changes, ensuring the team stays informed and can respond promptly.
+6. **Improved User Experience**: Offer a more cohesive and integrated user experience by combining `SmythOS`’s project management capabilities with `Google Chat`'s communication tools.
+
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/google_chat/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for creating a `Google Chat` message, provide the following inputs:
+
+- **spaceId (`required<string>`)**: The unique identifier of the `Google Chat` space where the message will be posted.
+- **text (`required<string>`)**: The content of the message to be posted.
+
+<Image src="/img/google_chat/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from `Google Chat` API, including details about the created message.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+3. **name**: The unique name of the created message.
+4. **createTime**: The timestamp indicating when the message was created.
+5. **text**: The content of the created message.
+6. **thread**: Information about the thread to which the message belongs.
+7. **formattedText**: The formatted text of the created message.
+
+<Image src="/img/google_chat/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Message
+
+Delete a message in `Google Chat`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+For seamless integration of `Google Chat` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Create a new project or select an existing project that is appropriate for your needs.
+
+2. **Enable the Google Chat API**:
+   - Proceed to the `Library` section within the Developers Console.
+   - Search for the `Google Chat API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Go to the `OAuth consent screen` tab.
+   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+   - Save and continue to set up the OAuth consent screen.
+
+4. **Create Credentials**:
+   - Navigate to the `Credentials` tab in the console.
+   - Click `Create credentials`, then select `OAuth client ID`.
+   - Choose `Web application` as the application type.
+   - Under `Authorized redirect URIs`, add the following URL: `https://app.smythos.com/oauth/google/callback`
+   - Click `Create` to generate your OAuth client ID and client secret.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+   - Copy and store these credentials securely as they are necessary for configuring the Google Chat integration in SmythOS.
+
+6. **Enter and Authenticate**:
+   - Input the acquired `Client ID` and `Client Secret` into the relevant fields in the SmythOS settings for the Google Chat component.
+   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Chat within SmythOS efficiently.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_chat/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for deleting a `Google Chat` message, provide the following inputs:
+
+- **spaceId (`required<string>`)**: The unique identifier of the `Google Chat` space where the message will be deleted.
+- **messageId (`required<string>`)**: The unique identifier of the message to be deleted.
+
+<Image src="/img/google_chat/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from the `Google Chat` API, confirming the deletion of the message.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+
+<Image src="/img/google_chat/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Message
+
+Retrieve details about a specific message in `Google Chat`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+For seamless integration of `Google Chat` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Create a new project or select an existing project that is appropriate for your needs.
+
+2. **Enable the Google Chat API**:
+   - Proceed to the `Library` section within the Developers Console.
+   - Search for the `Google Chat API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Go to the `OAuth consent screen` tab.
+   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+   - Save and continue to set up the OAuth consent screen.
+
+4. **Create Credentials**:
+   - Navigate to the `Credentials` tab in the console.
+   - Click `Create credentials`, then select `OAuth client ID`.
+   - Choose `Web application` as the application type.
+   - Under `Authorized redirect URIs`, add the following URL: `https://app.smythos.com/oauth/google/callback`
+   - Click `Create` to generate your OAuth client ID and client secret.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+   - Copy and store these credentials securely as they are necessary for configuring the Google Chat integration in SmythOS.
+
+6. **Enter and Authenticate**:
+   - Input the acquired `Client ID` and `Client Secret` into the relevant fields in the SmythOS settings for the Google Chat component.
+   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Chat within SmythOS efficiently.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/google_chat/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving a `Google Chat` message, provide the following input:
+
+- **message_name (`required<string>`)**: The unique name of the message to be retrieved. The format should be: `spaces/{space}/messages/{message}`.
+
+<Image src="/img/google_chat/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from the `Google Chat` API, providing details about the retrieved message.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+3. **text**: The content of the message.
+4. **thread_name**: The name of the thread the message belongs to.
+5. **space_name**: The name of the space where the message was posted.
+6. **createTime**: The timestamp indicating when the message was created.
+7. **sender_name**: The name of the sender who posted the message.
+
+<Image src="/img/google_chat/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Messages
+
+List messages in a `Google Chat` space where the caller is a member.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+For seamless integration of `Google Chat` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Create a new project or select an existing project that is appropriate for your needs.
+
+2. **Enable the Google Chat API**:
+   - Proceed to the `Library` section within the Developers Console.
+   - Search for the `Google Chat API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Go to the `OAuth consent screen` tab.
+   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+   - Save and continue to set up the OAuth consent screen.
+
+4. **Create Credentials**:
+   - Navigate to the `Credentials` tab in the console.
+   - Click `Create credentials`, then select `OAuth client ID`.
+   - Choose `Web application` as the application type.
+   - Under `Authorized redirect URIs`, add the following URL: `https://app.smythos.com/oauth/google/callback`
+   - Click `Create` to generate your OAuth client ID and client secret.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+   - Copy and store these credentials securely as they are necessary for configuring the Google Chat integration in SmythOS.
+
+6. **Enter and Authenticate**:
+   - Input the acquired `Client ID` and `Client Secret` into the relevant fields in the SmythOS settings for the Google Chat component.
+   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Chat within SmythOS efficiently.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Order By
+
+Specify the order in which messages should be listed:
+
+- **createTime ASC**: List messages in ascending order of creation time.
+- **createTime DESC**: List messages in descending order of creation time.
+
+<Image src="/img/google_chat/screenshot10.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for listing messages in `Google Chat`, provide the following inputs:
+
+- **spaceId (`required<string>`)**: The unique identifier of the `Google Chat` space where messages will be retrieved.
+- **pageSize (`optional<integer>`)**: The maximum number of messages to retrieve. 
+
+<Image src="/img/google_chat/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from the `Google Chat` API, providing details about the retrieved messages.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+3. **messages**: A list of messages retrieved from the specified `Google Chat` space.
+4. **nextPageToken**: A token to retrieve the next page of results, if applicable.
+
+<Image src="/img/google_chat/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Message
+
+Update a message in `Google Chat`.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+For seamless integration of `Google Chat` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+
+1. **Visit the Google Developers Console**:
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Create a new project or select an existing project that is appropriate for your needs.
+
+2. **Enable the Google Chat API**:
+   - Proceed to the `Library` section within the Developers Console.
+   - Search for the `Google Chat API` and enable it for your selected project.
+
+3. **Configure the OAuth Consent Screen**:
+   - Go to the `OAuth consent screen` tab.
+   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+   - Save and continue to set up the OAuth consent screen.
+
+4. **Create Credentials**:
+   - Navigate to the `Credentials` tab in the console.
+   - Click `Create credentials`, then select `OAuth client ID`.
+   - Choose `Web application` as the application type.
+   - Under `Authorized redirect URIs`, add the following URL: `https://app.smythos.com/oauth/google/callback`
+   - Click `Create` to generate your OAuth client ID and client secret.
+
+5. **Retrieve Client ID and Client Secret**:
+   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+   - Copy and store these credentials securely as they are necessary for configuring the Google Chat integration in SmythOS.
+
+6. **Enter and Authenticate**:
+   - Input the acquired `Client ID` and `Client Secret` into the relevant fields in the SmythOS settings for the Google Chat component.
+   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Chat within SmythOS efficiently.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+This is the body payload used to update a message. This field can be edited as needed and includes a sample of the body payload by default.
+
+<Image src="/img/google_chat/screenshot13.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for updating a `Google Chat` message, provide the following inputs:
+
+- **message_name (`required<string>`)**: The unique name of the message to be updated.
+- **updateMask (`optional<string>`)**: The fields to update within the message. The default value is `text`.
+
+<Image src="/img/google_chat/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from the `Google Chat` API, providing details about the updated message.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+3. **text**: The content of the message.
+4. **thread_name**: The name of the thread the message belongs to.
+5. **space_name**: The name of the space where the message was posted.
+6. **sender_name**: The name of the sender who posted the message.
+
+<Image src="/img/google_chat/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send Webhook Messages
+
+Send messages via Google Chat webhooks easily and effectively!
+
+### 🔧 Inputs
+
+To utilize the component for updating a `Google Chat` message, provide the following inputs:
+
+- **`webhookUrl`** (*required\<string\>*): The URL of the webhook to which the message will be sent.
+- **`text`** (*optional\<string\>*): The text content of the message to be sent.
+
+<Image src="/img/google_chat/screenshot16.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the response from the `Google Chat` API, providing details about the updated message.
+1. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes and metadata.
+
+<Image src="/img/google_chat/screenshot17.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

@@ -1,9 +1,43 @@
----
-title: slack integration
----
 
-# slack integration
+# Slack Integration
 
-This is the **slack integration** page for Agent Studio.
+`Slack` is an extensively utilized communication platform constructed for teams and corporate environments. It extends varied features intended to enhance collaboration and interaction within organizations.
 
-_TODO: Add detailed content for slack integration._
+In `SmythOS`, we value the singularity inherent in each agent's workflow. Therefore, our bespoke components crafted for `Slack` integration are tailored to support necessary modifications. This renders our features flexible, enabling the selection, modification, and integration of functionalities aligning with your agent's specific prerequisites and preferences.
+
+## Integration Settings
+To use Slack integration in `SmythOs`, you must authenticate the integration component with a `Bot User OAuth Token`. Follow these steps to prepare your credentials:
+1. If you have not done so already, begin by creating a new account.
+2. Create a new application and incorporate it into your workspace.
+3. Proceed to the `OAuth & Permissions` section and retrieve your `Bot User OAuth Token`.
+4. Enter this token into the component settings section.
+
+> **Note:** Treat the `Bot User OAuth Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+## Send Message
+
+Transmitting Messages.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `Bot User OAuth Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+For the efficient operation of the `Send Message` component, it is crucial to provide the following input parameters:
+1. **channel_id `required<string>`:** This signifies the specific ID of the channel.
+2. **text `required<string>`:** This encompasses the text or content of the message.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+Following the effective operation of the `Send Message` component, you will be presented with these outputs:
+1. **Response:** An object replete with expansive details concerning the outcome of the send message operation. It would typically contain a status indicator, any messages relayed from the server, or error information should there be issues during the process.
+2. **Headers:** The collection of HTTP headers sourced from the server response issued by `Slack`. These headers extend further metadata that enriches the context of the response, such as the given response status codes which denote the request's success or failure, and the content type that specifies the format of the returned data.
+3. **status:** A succinct descriptor of the operation's success or failure. This is usually a code that can be referenced for troubleshooting or confirmation of message delivery.
+4. **msgObj:** The message object containing the specifics of the message that was sent using the component, including message content, recipient details, timestamp, and other relevant data that can be utilized for logging or follow-up actions.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/d5EsV77rWKnQr8ewjSyY?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Slack Send Message" />

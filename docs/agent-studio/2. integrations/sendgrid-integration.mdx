@@ -1,9 +1,107 @@
----
-title: sendgrid integration
----
 
-# sendgrid integration
+# Sendgrid Integration
 
-This is the **sendgrid integration** page for Agent Studio.
+`SendGrid` stands out as a renowned cloud-based email delivery platform, renowned for facilitating the reliable transmission of both transactional and marketing emails for businesses. With features encompassing email marketing tools, transactional email services, and advanced analytics, `SendGrid` empowers businesses with enhanced email delivery optimization and campaign management capabilities.
 
-_TODO: Add detailed content for sendgrid integration._
+At SmythOS, we take pride in our seamless integration with `SendGrid`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+
+## Send Dynamic Email
+
+Enter the `Send Dynamic Email` component, an effortless addition designed to simplify the email sending process. This component seamlessly integrates with `SendGrid`, empowering you to effortlessly send dynamic emails tailored to your specific requirements.
+
+### Settings
+
+To initialize and configure the `Send Dynamic Email` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `SendGrid` platform to access its robust email delivery services.
+2. Navigate to the `Account Settings` section within your `SendGrid` account interface.
+3. Within the `Account Settings`, locate the [API Keys](https://app.sendgrid.com/settings/api_keys) section. Follow the provided instructions to generate your unique `API Key`, granting access to `SendGrid`'s API functionalities.
+4. After obtaining your `API Key`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/sendgrid/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To effectively leverage the capabilities of the component, ensure to provide the following input parameters:
+
+1. **from `required<string>`:** Specify the `From` email address utilized for delivering the message. 
+2. **to `required<string>`:** Indicate the recipient's email address to which any replies will be directed. 
+3. **template_id `required<string>`:** Provide the unique identifier of the email template to be utilized for message composition.
+4. **JSON_template_handlebars `required<JSON object>`:** Supply dynamic template data leveraging Handlebars syntax in Dynamic Transactional Templates. This JSON object facilitates the customization of email content, enabling personalized and contextually relevant communication.
+   1. **Example:**
+
+```json
+{
+  "guest": "Jane Doe",
+  "partysize": "4",
+  "english": true,
+  "date": "April 1st, 2021"
+}
+```
+
+<Image src="/img/sendgrid/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Send Dynamic Email` component, anticipate receiving the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the status of the email delivery. This output encapsulates crucial information such as delivery status, recipient details, and any relevant error messages, facilitating effective monitoring and management of email transmission.
+2. **Headers:** HTTP headers extracted from the server response provided by `SendGrid`. 
+
+<Image src="/img/sendgrid/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send Static Email
+
+Introducing the `Send Static Email` component, an effortless addition crafted to streamline the static email sending process. Seamlessly integrated with SendGrid, this component empowers you to effortlessly dispatch static emails tailored to your specific requirements.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Send Static Email` component, adhere to these straightforward guidelines:
+
+1. If you haven't already, register for an account on the `SendGrid` platform to access its robust email delivery services.
+2. Navigate to the `Account Settings` section within your `SendGrid` account interface.
+3. Within the `Account Settings`, locate the [API Keys](https://app.sendgrid.com/settings/api_keys) section. Follow the provided instructions to generate your unique `API Key`, granting access to `SendGrid`'s API functionalities.
+4. After obtaining your `API Key`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key`.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Content Type
+
+When configuring the `Send Static Email` component, you have the flexibility to choose from the following content types for your email content:
+
+- **text/plain**
+- **text/html**
+
+<Image src="/img/sendgrid/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To effectively leverage the capabilities of the component, ensure to provide the following input parameters:
+
+1. **from `required<string>`:** Specify the `From` email address utilized for delivering the message. This address must be a verified sender within your Twilio SendGrid account to ensure successful email transmission.
+2. **to `required<string>`:** Indicate the recipient's email address to which any replies will be directed. 
+3. **subject `required<string>`:** Define the subject line of the email. 
+4. **content `required<string>`:** Provide the main body content of the email.
+
+<Image src="/img/sendgrid/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the component, anticipate receiving the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the status of the email delivery. 
+2. **Headers:** HTTP headers extracted from the server response provided by `SendGrid`. These headers encompass essential metadata, including response status codes and content type, contributing to the effective interpretation and management of server communication within your integrated environment.
+
+<Image src="/img/sendgrid/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

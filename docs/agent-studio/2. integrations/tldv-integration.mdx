@@ -1,9 +1,303 @@
----
-title: tldv integration
----
+# tl;dv Integration
 
-# tldv integration
+tl;dv (Too Long; Didn't View) is a powerful tool designed to make remote meetings more efficient by allowing users to record, transcribe, and highlight important moments in their meetings. With tl;dv, you can effortlessly capture the essence of lengthy meetings and review, share, or revisit key points anytime. 
 
-This is the **tldv integration** page for Agent Studio.
+The tl;dv API provides programmatic access to tl;dv's features, allowing developers to integrate meeting recording, transcription, and highlighting functionalities into their applications. By leveraging the tl;dv API, you can automate the capture of critical meeting data and integrate it into your workflow, making it easier to analyze and utilize this information.
 
-_TODO: Add detailed content for tldv integration._
+Integrating tl;dv with SmythOS brings numerous benefits to users by enhancing the platform's capabilities and offering a more efficient way to handle meetings. Here are some key advantages:
+
+1. **Enhanced Productivity**: Automate meeting recordings and transcriptions, freeing up time for more critical tasks.
+2. **Seamless Collaboration**: Easily share meeting highlights and transcriptions with team members, fostering better collaboration.
+3. **Centralized Information**: Keep all meeting data within SmythOS, providing a unified platform for managing your work.
+4. **Improved Accessibility**: Search through meeting transcriptions to quickly find relevant information, making knowledge retrieval easier.
+5. **Data-Driven Decisions**: Use insights from meeting transcriptions to make informed decisions and track action items more effectively.
+
+## Integration Settings
+
+#### TLDV API Key
+To use TLDV integration in `SmythOs`, you must authenticate each integration component with a TLDV API key. Follow these steps to prepare your credentials:
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+## Get Meeting
+Retrieves a meeting by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `TLDV API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+For the effective operation of the component, it is essential to provide the following input parameter:
+1. **meetingId (`required<string>`):** The ID of the meeting you want to retrieve.
+<Image src="/img/tldv/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The unique identifier for the meeting.
+4. **name:** The name of the meeting.
+5. **happenedAt:** The date and time when the meeting happened.
+6. **url:** The URL to access the meeting.
+7. **organizer:** The person who organized the meeting.
+8. **invitees:** The list of people invited to the meeting.
+
+<Image src="/img/tldv/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Transcript
+
+Retrieves the transcript of a meeting using its ID.
+
+### Settings
+
+#### 🔑 TLDV API Key
+
+For the successful initialization and configuration of the component, follow these simple steps:
+
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+3. **Enter the API Key in SmythOS:**
+   - Input this API key into the component settings section in SmythOS. This step is vital in linking your bot to the component.
+
+> **Note:** Treat the `TLDV API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/tldv/screenshot4.png" alt="alt text" />
+
+### 📝 Inputs
+
+For the effective operation of the component, it is essential to provide the following input parameter:
+
+1. **meetingId (`required<string>`):** The unique identifier of the meeting whose transcript you want to retrieve. 
+
+<Image src="/img/tldv/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The unique identifier of the process.
+4. **meetingId:** The ID of the specific meeting.
+5. **data:** The actual transcript data fetched from the meeting.
+
+<Image src="/img/tldv/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Highlights
+
+Retrieve the highlights of a meeting using its ID.
+
+### Settings
+
+#### 🔑 TLDV API Key
+
+For the successful initialization and configuration of the component, follow these simple steps:
+
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+3. **Enter the API Key in SmythOS:**
+   - Input this API key into the component settings section in SmythOS. This step is vital in linking your bot to the component.
+
+> **Note:** Treat the `TLDV API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/tldv/screenshot7.png" alt="alt text" />
+
+### 📝 Inputs
+
+For the effective operation of the component, it is essential to provide the following input parameter:
+
+1. **meetingId (`required<string>`):** The unique identifier of the meeting whose highlights you want to retrieve.
+
+<Image src="/img/tldv/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **data:** The extracted highlights from the meeting.
+
+<Image src="/img/tldv/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Meetings List
+
+Retrieve all meetings using the TLDV API.
+
+### Settings
+
+#### 🔑 TLDV API Key
+
+For the successful initialization and configuration of the component, follow these simple steps:
+
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+3. **Enter the API Key in SmythOS:**
+   - Input this API key into the component settings section in SmythOS. This step is vital in linking your bot to the component.
+
+> **Note:** Treat the `TLDV API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/tldv/screenshot10.png" alt="alt text" />
+
+### 📝 Inputs
+
+For the effective operation of the component, it is essential to provide the following input parameters:
+
+1. **trigger (`required<any value>`):** A value to trigger the execution of the component; it can hold any value.
+2. **page (`optional<integer>`):** The page number to retrieve, default is `1`.
+3. **limit (`optional<integer>`):** The number of meetings to retrieve per page, default is `50`.
+
+<Image src="/img/tldv/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **meetings:** The list of meetings retrieved.
+
+<Image src="/img/tldv/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.  
+
+## Search Meetings
+
+Query and search for meetings using specific criteria.
+
+### Settings
+
+#### 🔑 TLDV API Key
+
+For the successful initialization and configuration of the component, follow these simple steps:
+
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+3. **Enter the API Key in SmythOS:**
+   - Input this API key into the component settings section in SmythOS. This step is vital in linking your bot to the component.
+
+> **Note:** Treat the `TLDV API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/tldv/screenshot13.png" alt="alt text" />
+
+### 📝 Inputs
+
+For the effective operation of the component, it is essential to provide the following input parameter:
+
+1. **query (`required<string>`):** The search query to filter meetings.
+
+<Image src="/img/tldv/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **results:** The search results for the query.
+
+<Image src="/img/tldv/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example. 
+
+## Get Meetings By Date
+
+Retrieve meetings within a specified date range using the TLDV API.
+
+### Settings
+
+#### 🔑 TLDV API Key
+
+For the successful initialization and configuration of the component, follow these simple steps:
+
+1. **Create a TLDV Account:**
+   - If you don't already have an account, create one at [tl;dv](https://tldv.io).
+
+2. **Generate Your API Key:**
+   - Navigate to your account settings in the tl;dv dashboard.
+   - Go to the **API Keys** section.
+   - Click on **Generate API Key** to create a new API key.
+   - Copy the generated API key.
+
+3. **Enter the API Key in SmythOS:**
+   - Input this API key into the component settings section in SmythOS. This step is vital in linking your bot to the component.
+
+> **Note:** Treat the `TLDV API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/tldv/screenshot16.png" alt="alt text" />
+
+### 📝 Inputs
+
+For the effective operation of the component, it is essential to provide the following input parameters:
+
+1. **date_from (`required<string>`):** The start date for the date range in YYYY-MM-DD format.
+2. **date_to (`required<string>`):** The end date for the date range in YYYY-MM-DD format.
+
+<Image src="/img/tldv/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+When the component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** The raw response from the tl;dv API containing the meeting details.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **results:** The meetings retrieved for the specified date range.
+
+<Image src="/img/tldv/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example. 

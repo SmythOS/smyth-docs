@@ -1,9 +1,924 @@
----
-title: githuu integration
----
 
-# githuu integration
+# GitHub Integration
 
-This is the **githuu integration** page for Agent Studio.
+`GitHub` is a web-based platform that provides hosting for software development and version control using Git. It offers a variety of collaborative features, allowing developers to work together on projects, track changes, and manage code repositories.
 
-_TODO: Add detailed content for githuu integration._
+At `SmythOS`, we've seamlessly integrated with `GitHub` to bring you custom components that make incorporating their advanced services into your projects a breeze. This guide is your go-to resource for a comprehensive walkthrough, ensuring you harness the full potential of these cutting-edge components.
+
+## Add Labels to Issues
+
+The `Add Labels to Issues` component empowers users to add labels to issues reported in a GitHub repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+To execute this component, you need to provide four default inputs:
+
+1. **repo_owner `required<string>`:** The account owner of the repository. The name is not case sensitive.
+2. **repo_name `required<string>`:** The name of the repository without the `.git` extension. The name is not case sensitive.
+3. **issue_number `required<integer>`:** The number that identifies the issue.
+4. **label `required<string>`:** The name of the label to add to the issue's existing labels.
+
+<Image src="/img/github/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Following the execution of this component, two default outputs are provided:
+
+1. **Response:** This output consists of a detailed JSON object containing information on the results of adding labels to an issue. It includes success messages or details about any encountered errors.
+2. **Headers:** The output includes the HTTP Headers found within the server response from `GitHub`. These headers give additional context and metadata about the response, such as status codes.
+3. **labels:** The `labels` output lists the labels that have been successfully added to the issue. This section provides visibility into the outcome of the operation and confirms the modification of the issue's labels.
+
+<Image src="/img/github/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Branch
+
+The `Create Branch` component empowers users to create a branch in a GitHub repository. Creates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To execute this component, you need to provide four default inputs:
+
+1. **branch_name `required<string>`:** The branch name reference from where the new branch is going to be created.
+2. **hash_to_branch_from `required<string>`:** The SHA1 value for this reference
+3. **repo_owner `required<string>`:** The account owner of the repository. The name is not case sensitive.
+4. **repo_name `required<string>`:** The name of the repository without the `.git` extension. The name is not case sensitive.
+
+<Image src="/img/github/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the `Create Branch` component is executed, the following default outputs are obtained:
+
+1. **Response:** A comprehensive JSON object is returned, providing details about the branch that was created. It captures all pertinent information, including success messages and potential error descriptions.
+2. **Headers:** This includes the HTTP Headers extracted from the `GitHub` server response, which supply additional metadata regarding the response, such as status codes.
+3. **branchRef:** The output delivers the reference to the newly created branch, often as a fully qualified reference name (e.g., `refs/heads/new-branch`).
+4. **branchUrl:** The URL endpoint for the created branch is provided, facilitating direct access to the branch on the `GitHub` platform.
+5. **sha:** The SHA (Secure Hash Algorithm) output refers to the commit identifier of the branch's head, serving as a unique reference to the most recent commit on the branch.
+
+<Image src="/img/github/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Commit File
+
+The `Commit File` component empowers users to create a new file in a GitHub repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot7.png" alt="alt text" />
+
+### Inputs
+
+Before you run this component, you'll need to provide some information to tell it what to do:
+
+1. **repo_owner `required<string>`:** This is the username or organization that owns the repository where you want to create the file. Don't worry about capitalization here, it won't matter.
+2. **repo_name `required<string>`:** This is the name of the repository itself, without the `.git` extension at the end. Similar to the owner, capitalization isn't important.
+3. **commit_message `required<string>`:** This is a short message that describes the changes you're making by creating this file. It helps others understand what you've done.
+4. **content `required<string>`:** This is the actual content you want to put inside the new file. However, it needs to be encoded in a special format called Base64.
+5. **file_name `required<string>`:** This tells the component exactly where to put the new file within the repository.  Think of it like an address for the file. It should include the entire path, starting from the root directory of the repository, and ending with the desired filename. 
+   1. **Example:** If you want to create a new file named `config.txt` inside a folder called `settings`, your file name and path would be `settings/config.txt`.
+
+
+<Image src="/img/github/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon initiating this component, the following information is produced to convey the result of the operation:
+
+1. **Response:** This output is an in-depth JSON object that delineates the events that transpired during the creation of the file. It confirms whether the file creation was executed successfully and, in the case of errors, it supplies explicit messages to assist in the troubleshooting process.
+2. **Headers:** These outputs are comprised of the technical HTTP Headers that are part of the response from the `GitHub` server. While they are valuable for technical scrutiny and resolving difficulties, they are typically not a concern unless issues arise.
+3. **commitSha:** The `commitSha` is an essential output consisting of the SHA (Secure Hash Algorithm) identifier that corresponds to the commit which included the newly created file. It is a vital piece of information for referencing the specific commit in future interactions or queries.
+
+<Image src="/img/github/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Issue Labels
+
+The `Get Issue Labels` component is your one-stop shop for retrieving all the labels associated with a specific issue.  
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot10.png" alt="alt text" />
+
+### Inputs
+
+Before diving in and grabbing those labels, you'll need to provide the component with a little information:
+
+1. **repo_owner `required<string>`:** This is the username or organization that owns the repository. Don't worry about capitalization here, it won't matter.
+2. **repo_name `required<string>`:** This is the name of the repository itself, without the `.git` extension at the end. Similar to the owner, capitalization isn't important.
+3. **issue_number `required<integer>`:** The number that identifies the issue.
+
+
+<Image src="/img/github/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Executing this component yields two essential pieces of information that clarify the outcome:
+
+1. **Response:** The primary output is a JSON object that lists all the labels that are applied to the issue at present. It provides a detailed overview of the issue's current labeling status.
+2. **Headers:** These consist of a set of technical HTTP Headers sent as part of the response from the `GitHub` server. They offer valuable insights that can aid in debugging and should be examined if you run into any problems.
+3. **labels:** The `labels` output provides the actual array or collection of label names that have been successfully associated with the issue. This data verifies the changes made to the issue's labels and facilitates a quick visual confirmation.
+
+<Image src="/img/github/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Count Open Issues
+
+The `Count Open Issues` component allows you to get the number of open issues.  
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+You'll need to provide the component with a little information:
+
+1. **repo_owner `required<string>`:** This is the username or organization that owns the repository. Don't worry about capitalization here, it won't matter.
+2. **repo_name `required<string>`:** This is the name of the repository itself, without the `.git` extension at the end. Similar to the owner, capitalization isn't important.
+
+<Image src="/img/github/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When you run this component, it will return three pieces of information to help you understand the outcome:
+
+1. **Response:** This is the key output, containing a complete information about the GitHub repository. 
+2. **Headers:** These are technical details sent by the `GitHub` server when it responds to your request. They can be helpful for debugging purposes, but you usually don't need to worry about them unless you're encountering issues.
+3. **openIssues:** It contains the number of open issues.
+
+<Image src="/img/github/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Pull Request
+
+The `Create Pull Request` component streamlines the process of creating pull requests on GitHub. Pull requests are a way to propose changes to code in a repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot16.png" alt="alt text" />
+
+### Inputs
+
+You'll need to provide the component with a little information:
+
+1. **owner `required<string>`:** The account owner of the repository. The name is not case sensitive.
+2. **repo_name `required<string>`:** This is the name of the repository itself, without the `.git` extension at the end.
+3. **title `required<string>`:** The title of the new pull request.
+4. **body `optional<string>`:** The contents of the pull request.
+5. **pull_branch `required<string>`:** The name of the branch where your changes are implemented.
+6. **base_branch `required<string>`:** The name of the branch you want the changes pulled into. This should be an existing branch on the current repository.
+
+<Image src="/img/github/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing the `Create Pull Request` component, the following outputs are returned:
+
+1. **Response:** This JSON object provides a comprehensive rundown of the pull request's particulars that was generated. It includes the pull request's unique identification number and its web address within GitHub.
+2. **Headers:** The headers form part of the server's response data from `GitHub`. They encompass technical details that can be pertinent when diagnosing responses from the server.
+3. **id:** The unique identifier (ID) for the newly created pull request is supplied. This ID is critical for any subsequent operations or queries involving the pull request.
+4. **url:** The output also includes the direct URL to the pull request on GitHub, allowing for easy access and review of the pull request details.
+5. **mergeCommitSha:** This output relays the SHA (Secure Hash Algorithm) hash of the merge commit that will be created once the pull request is accepted and merged. The 'mergeCommitSha' provides a reference point for identifying the specific merge action related to the pull request.
+
+<Image src="/img/github/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Fetch GitHub User
+
+The `Fetch GitHub User` component makes it a breeze to retrieve information about a GitHub user.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+Before fetching user information, the component needs a little nudge:
+
+1. **username `required<string>`:** This is the handle, or alias, that identifies the GitHub user you're interested in. It's like their online nickname on GitHub. 
+
+<Image src="/img/github/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After initiating the `Fetch GitHub User` component, two pivotal outputs are presented:
+
+1. **Response:** Enclosed within this response is an assemblage of details about the GitHub user in question. The information spans from public profile details like the user's username, biography, and location (subject to disclosure) to a roster of their publicly accessible repositories.
+2. **Headers:** The headers represent the series of technical specifications transmitted by the `GitHub` server concurrent to its response to the fetch request.
+3. **id:** This output yields the unique identifier (ID) of the GitHub user. It's a critical data point for programmatic identification and interaction with the user’s profile on GitHub.
+4. **name:** The name associated with the GitHub user’s profile is provided, which sometimes differs from the username and can be the user’s full personal or organizational name.
+5. **email:** In cases where the user’s email is set to public, this output will relay the user's email address affiliated with their GitHub account.
+
+<Image src="/img/github/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Issue
+
+The `Get Issue` component simplifies the process of fetching information about an issue from a GitHub repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot22.png" alt="alt text" />
+
+### Inputs
+
+To utilize this component effectively, you need to provide the following inputs:
+
+1. **repo_owner `required<string>`:** The owner of the repository where the issue is located. Case sensitivity is not a concern.
+2. **repo_name `required<string>`:** The name of the repository (without the `.git` extension). Case sensitivity is not a concern.
+3. **issue_number `required<integer>`:** The unique identifier of the issue.
+
+<Image src="/img/github/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After performing the operation with this component, it delivers the following standard outputs:
+
+1. **Response:** The response encompasses a robust JSON object that carves out all the intricate information regarding the issue in question. It details elements like the issue's title, body content, current status, assigned labels, among other attributes.
+2. **Headers:** These are the HTTP Headers that come packaged within the `GitHub` server's response. They are essentially bits of metadata that provide additional context about the response, such as status codes and content types.
+3. **id:** The `id` is a specific output that denotes the unique identifier assigned to the issue by `GitHub`. This ID is a crucial component for referencing and managing the issue within the `GitHub` ecosystem.
+4. **issueUrl:** The output also includes the direct URL to the issue on `GitHub`. This URL serves as a point of access where you can view the issue in a web browser and examine its details more closely.
+
+<Image src="/img/github/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Branch Info
+
+Retrieves detailed information about a specific branch within a `GitHub` repository, allowing for streamlined access to branch data and modifications.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot25.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **repo_owner `required<string>`:** The owner of the repository where the commit resides. Case sensitivity is not a concern.
+2. **repo_name `required<string>`:** The name of the repository (without the `.git` extension). Case sensitivity is not a concern.
+3. **branch_name `required<string>`:** The exact name of the branch for which the information is requested. Case sensitivity may apply based on repository settings.
+
+<Image src="/img/github/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon execution, this component yields two default outputs:
+
+1. **Response:** A JSON object providing detailed information about the branch, including its latest commit, associated pull requests, and metadata.
+2. **Headers:** Contains the HTTP Headers embedded within the server response from `GitHub`.
+3. **sha:** The latest commit SHA of the queried branch.
+
+<Image src="/img/github/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Fetch Commits since Timestamp
+
+The `Fetch Commits since Timestamp` component simplifies the process of retrieving information about commits made since a specific timestamp in a GitHub repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot28.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **repo_owner `required<string>`:** The repository owner's username or organization name. Case sensitivity is not an issue.
+2. **repo_name `required<string>`:** The name of the repository, excluding the `.git` extension. Case sensitivity is not an issue.
+3. **branch_name `required<string>`:** The name of the branch from which commits will be retrieved.
+4. **timestamp `required<string>`:** The timestamp should follow the format: `2019-07-09T18:32:01Z`.
+
+<Image src="/img/github/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When this component is executed, the following standardized outputs are produced:
+
+1. **Response:** A JSON object that compiles and conveys detailed information regarding all the commits that have occurred since a certain timestamp is provided. It encapsulates data such as commit messages, the identities of the authors, timestamps associated with each commit, and other pertinent details.
+2. **Headers:** This part of the output contains the HTTP Headers that are incorporated into the server response from GitHub. These headers offer supportive metadata, which can be useful for understanding more about the response sent by the server.
+3. **commits:** The `commits` output is a list or array of commit entities, each detailing an individual commit's unique identifiers and metadata including messages, authorship, and the precise time at which the commit was made.
+
+<Image src="/img/github/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Repo Directory Content
+
+The `Get Repo Directory Content` component facilitates the retrieval of the contents within a specific directory of a GitHub repository. By providing the `path` parameter, you can specify which directory's contents to fetch. If no `path` parameter is provided, the component will return the contents of the repository's root directory.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot31.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following inputs:
+
+1. **repo_owner `required<string>`:** The username or organization name of the repository owner. Case sensitivity is not important.
+2. **repo_name `required<string>`:** The name of the repository, excluding the `.git` extension. Case sensitivity is not important.
+3. **directory_path `required<string>`:** The specific path parameter to the directory.
+
+<Image src="/img/github/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+This component generates detailed and actionable information upon success:
+
+1. **Response:** Contains JSON formatted data detailing each item within the directory, including files and subdirectories.
+2. **Headers:**  HTTP headers returned from `GitHub` that provide metadata about the response, such as content types and status codes.
+3. **content:** The actual content of files within the directory, typically encoded.
+4. **sha:** The SHA hash of the directory or file, useful for version control and verification.
+5. **html_url:** The HTML URL that links directly to the item on `GitHub`, providing easy access.
+
+<Image src="/img/github/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Search GitHub
+
+The `Search GitHub` component simplifies the process of searching for query terms within a file. This method returns up to 100 results per page.
+
+When searching for code, you can obtain text match metadata for the file content and file path fields by passing the text-match media type. For more details on receiving highlighted search results, refer to [Text match metadata](https://docs.github.com/rest/search/search#text-match-metadata).
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot34.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **query `required<string>`:** The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. For more information about constructing a search query, refer to [Constructing a search query](https://docs.github.com/rest/search/search#constructing-a-search-query).
+
+<Image src="/img/github/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+This component, upon execution, generates the following default outputs:
+
+1. **Response:** The response is comprehensive, supplying a list that includes in-depth details on the results that match the query or execution parameters.
+2. **Headers:** Included within this output are the HTTP headers that accompany the server response from GitHub. These headers consist of additional data that may be useful for understanding the server response more thoroughly.
+3. **results:** The `results` output is an extensive collection of the search or query results, displaying the pertinent data tied to each match within the list.
+
+<Image src="/img/github/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Fetch Latest Release
+
+The `Fetch Latest Release` component retrieves the latest published full release for the repository.
+
+The latest release refers to the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. Please note that the `created_at` attribute represents the date of the commit used for the release, not the date when the release was drafted or published.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot37.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize this component, you need to provide the following input:
+
+1. **repo_owner `required<string>`:** The username or organization name of the repository owner. Case sensitivity is not important.
+2. **repo_name `required<string>`:** The name of the repository, excluding the `.git` extension. Case sensitivity is not important.
+
+<Image src="/img/github/screenshot38.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Following the execution of this component, the system returns two principal outputs:
+
+1. **Response:** This output is a comprehensive detailing of information regarding the most recent release. It includes specifics about the release’s content, such as release notes, tag name, and assets associated with it.
+2. **Headers:** These are the HTTP headers that are included as part of the GitHub server’s response. They provide supplementary details that can be instrumental in understanding and processing the response.
+3. **id:** The output presents the unique identifier (ID) for the latest release. This ID is crucial for any further actions or references to this particular release within the GitHub system.
+4. **createdAt:** Included is the timestamp indicating when the release was created. This information is valuable for tracking the development timeline and version history.
+5. **publishedAt:** This field specifies the timestamp for when the release was made publicly available. It is an essential data point for release management and distribution activities.
+
+<Image src="/img/github/screenshot39.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update File Content
+
+Updates the content of a file in a `GitHub` repository.
+
+### Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. Create a `GitHub` account if you don't already have one.
+2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot40.png" alt="alt text" />
+
+### Inputs
+
+Provide the following information to update the file content effectively:
+
+1. **content `required<string>`**: Base64 encoded string of the content to be updated.
+2. **repo_owner `required<string>`**: Username or organization name under which the repository is listed.
+3. **repo_name `required<string>`**: Repository name.
+4. **path `required<string>`**: Full path to the file within the repository.
+5. **sha `required<string>`**: SHA hash of the file to ensure correct file version is updated.
+6. **commit_message `required<string>`**: Description of what the update entails. 
+
+<Image src="/img/github/screenshot41.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the update.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+3. **sha**: SHA of the updated file.
+4. **path**: Path to the updated file.
+5. **url**: URL to the updated file on GitHub.
+6. **file_name**: Name of the file updated.
+
+<Image src="/img/github/screenshot42.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Pull Request
+
+Lists details of a pull request by providing its number.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot43.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to fetch the pull request details effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+
+<Image src="/img/github/screenshot44.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the pull request.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+3. **title**: The title of the pull request.
+4. **body**: The body content of the pull request.
+5. **state**: The current state of the pull request (e.g., open, closed).
+6. **requester**: The user who created the pull request.
+7. **changed_files**: The number of files changed in the pull request.
+8. **deletions**: The number of lines deleted in the pull request.
+9. **additions**: The number of lines added in the pull request.
+10. **commits**: The number of commits in the pull request.
+11. **html_url**: The URL of the pull request on GitHub.
+
+<Image src="/img/github/screenshot45.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pull Requests
+
+Lists pull requests in a specified repository.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot46.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to fetch the pull request details effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+
+<Image src="/img/github/screenshot47.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the pull requests.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+
+<Image src="/img/github/screenshot48.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pull Request Commits
+
+Lists a maximum of 250 commits for a pull request.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot49.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to fetch the pull request commits effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request. 
+
+<Image src="/img/github/screenshot50.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the commits.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+
+<Image src="/img/github/screenshot51.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Merge Pull Request
+
+Merges a pull request into the base branch.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot52.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to merge the pull request effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+4. **commit_title (`required<string>`)**: The title for the merge commit.
+5. **commit_message (`required<string>`)**: A detailed message for the merge commit.
+6. **merge_method (`required<string>`)**: The method to use for the merge. Default is `merge`.
+
+<Image src="/img/github/screenshot53.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the merge operation.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+3. **sha**: The SHA hash of the merge commit.
+4. **merged**: Indicates whether the merge was successful.
+5. **message**: A message pertaining to the merge status.
+
+<Image src="/img/github/screenshot54.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pull Request Files
+
+Lists the files in a specified pull request.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot55.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to list the pull request files effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+
+<Image src="/img/github/screenshot56.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the pull request files.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+3. **files (`array<object>`)**: The list of files included in the pull request.
+
+<Image src="/img/github/screenshot57.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pull Request Review Comments
+
+Lists all review comments for a specified pull request.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot58.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to list the pull request review comments effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+
+<Image src="/img/github/screenshot59.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the pull request review comments.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+
+<Image src="/img/github/screenshot60.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Reply to Review Comment
+
+Creates a reply to a review comment for a pull request.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot61.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to create a reply to a review comment effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+4. **comment_id (`required<string>`)**: The ID of the comment you are replying to.
+5. **body (`required<string>`)**: The content of your reply.
+
+<Image src="/img/github/screenshot62.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the reply.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+3. **pull_request_review_id (`string`)**: The ID of the pull request review.
+4. **url (`string`)**: The URL of the reply.
+5. **id (`string`)**: The ID of the reply.
+
+<Image src="/img/github/screenshot63.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pull Request Reviews
+
+Lists all reviews for a specified pull request.
+
+### ⚙️ Settings
+
+To kickstart this component, follow these initial steps to obtain your `Access Token`:
+
+1. **Create a `GitHub` account** if you don't already have one.
+2. 🌐 Navigate to your **Developer Settings** and generate your `Access Token` by clicking [here](https://github.com/settings/tokens).
+3. 🔑 Input this `Access Token` into the specified section in the component's settings.
+
+> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/github/screenshot64.png" alt="alt text" />
+
+### 🛠️ Inputs
+
+Provide the following information to list the pull request reviews effectively:
+
+1. **repo_owner (`required<string>`)**: The owner of the repository.
+2. **repo_name (`required<string>`)**: The name of the repository.
+3. **pull_number (`required<string>`)**: The number of the pull request.
+
+<Image src="/img/github/screenshot65.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+The execution of this component provides the following outputs:
+
+1. **Response**: JSON data including details of the reviews.
+2. **Headers**: HTTP headers from GitHub showing metadata about the response.
+
+<Image src="/img/github/screenshot66.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

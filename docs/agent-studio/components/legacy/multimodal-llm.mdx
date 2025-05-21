@@ -1,0 +1,67 @@
+# 🌟 Multimodal LLM
+
+The **Multimodal LLM** processes various inputs like images, videos, and text to generate context-aware outputs.
+
+---
+
+## Supported File Formats
+
+- **Video:** `mp4`, `mpeg`, `mov`, `avi`, `x-flv`, `mpg`, `webm`, `wmv`, `3gpp`
+- **Image:** `png`, `jpeg`, `jpg`, `webp`, `heic`, `heif`
+- **Audio:** `wav`, `mp3`, `aiff`, `aac`, `ogg`, `flac`
+- **Text:** `plain`, `html`, `css`, `javascript`, `x-javascript`, `x-typescript`, `x-python`, `csv`, `markdown`, `json`, `xml`, `rtf`
+
+### 🔗 Input Methods
+
+Files can be provided by:
+- **URL**: Direct link
+- **Base64 Encoding**: Base64 representation of the file
+
+---
+
+## Settings
+
+### 🧠 Model
+
+Currently, only Google models are supported. Add your Google AI API key to the [Vault](core_concepts/keysManagement) to populate available models.
+
+### ✍️ Prompt
+
+Enter the prompt to execute the component, utilizing **Agent Variables** or **Input Variables** for dynamic prompts.
+
+### ⚙️ Advanced Settings
+
+- **Maximum Output Tokens:** Limits total tokens (input + output). Shortens output if input is near the limit.
+
+---
+
+## Inputs
+
+Inputs are essential data supplied to the **LLM**.
+
+To add a new input, click the "+" icon next to the **Inputs** label and enter required details:
+
+- **Name:** Unique, short, self-explanatory (e.g., `email`)
+- **Type:** Supports `Any`, `String`, `Number`, `Integer`, `Boolean`, `Array`, `Object`, `Binary`, `Date`
+
+- **Color (optional):** Enhances visual clarity.
+- **Optional (optional):** Non-mandatory inputs can be marked as optional.
+- **Default Value (optional):** Predefined value used if no explicit value is supplied.
+
+---
+
+## Outputs
+
+The component has a built-in output named **`Reply`**, containing the generated content.
+
+To add a new output:
+
+- **Name:** Unique, short, self-explanatory, formatted as a JSON Path. 
+  - Format examples: 
+    - **Option 1:** `Reply.{{specific_label}}` (e.g., `Reply.body`)
+    - **Option 2:** Name with expression as JSON Path
+      - **Name:** `body`
+      - **Expression:** `Reply.body`
+
+- **Color (optional):** Enhances visual clarity in workflows.
+- **Expression (optional):** Converts output into a JSON Path to navigate arrays and objects in API responses.

@@ -1,0 +1,53 @@
+# 📦 RAG Remember
+
+The `RAG Remember` component enhances the utilization of **Namespaces** by creating new data sources, expanding your agent's knowledge base.
+
+<Arcade src="https://demo.arcade.software/ecoKltQXUAtdueZrVaXn?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="RAG Remember | SmythOS" />
+
+---
+
+## Settings
+
+### 📂 Namespace
+
+- **Namespace**: Select a namespace to store the new data sources.
+
+### 🔍 Source Identifier
+
+- **Source Identifier**: Unique ID for the data source. Accepts characters: `'a-z', 'A-Z', '0-9', '-', '_', '.'`.
+  - **Example**: `brand_agent`
+
+### 🏷️ Label
+
+- **Label**: Human-readable description for the data source.
+  - **Example**: `tutorial_meme_generator_agent`
+
+### 📝 Metadata (Optional)
+
+- **Metadata**: Additional information to enhance the understanding of the data source.
+
+---
+
+## Inputs
+
+### Source
+
+- **Source**: Data to be stored in the new data source.
+
+### ➕ Add Input
+
+- **Name (Required):** Unique and self-explanatory.
+- **Type:** Select data type (Any, String, Number, Integer, Boolean, Array, Object, Binary, Date).
+- **Color (Optional):** Visual clarity.
+- **Optional (Optional):** Mark as optional if not required.
+- **Default Value (Optional):** Predefined value if none is provided.
+
+---
+
+## Outputs
+
+### Success
+
+- **Success**: Indicates the result of the data source creation.
+  - **Output on Success**: `true`
+  - **Output on Failure**: Empty value.

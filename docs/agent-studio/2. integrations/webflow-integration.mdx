@@ -1,0 +1,829 @@
+
+# Webflow Integration
+
+The `Webflow` API allows developers to interact with their `Webflow` projects programmatically. By using this API, you can automate various aspects of your `Webflow` sites, such as managing content, form submissions, and collections, directly from your applications or workflows. This API is essential for developers who need to integrate `Webflow` with other services, build custom features, or enhance automation capabilities.
+
+Integrating the `Webflow` API into `SmythOS` provides several benefits:
+
+- **Centralized Management**: Manage all your `Webflow` projects and content directly from the `SmythOS` platform, ensuring a centralized location for your web development tasks.
+- **Automation**: Automate repetitive tasks, such as updating content or processing form submissions, to save time and reduce manual workload.
+- **Custom Integrations**: Connect `Webflow` with other tools and services you use, enabling a more seamless and integrated workflow.
+- **Enhanced Capabilities**: Leverage `SmythOS`'s features, such as task management and project tracking, in conjunction with `Webflow`'s web development capabilities.
+
+With `Webflow` integration in `SmythOS`, users can streamline their web project management and enhance overall productivity by combining the robust features of both platforms.
+
+## Delete Collection Item
+
+Delete an item from a collection in `Webflow`.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for deleting collection items, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+- **item_id (`required<string>`)**: The unique identifier of the item to be deleted.
+
+<Image src="/img/webflow/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including any relevant information about the deleted item.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+
+<Image src="/img/webflow/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Collection Item
+
+Retrieve details of a selected collection item from `Webflow`.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving collection items, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+- **item_id (`required<string>`)**: The unique identifier of the item.
+
+<Image src="/img/webflow/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including any relevant information about the retrieved item.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **lastPublished**: The timestamp of when the item was last published.
+4. **lastUpdated**: The timestamp of when the item was last updated.
+5. **createdOn**: The timestamp of when the item was created.
+6. **fieldData**: The data fields associated with the collection item.
+
+<Image src="/img/webflow/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Collection Items
+
+Retrieve a list of all items within a Webflow collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving collection items, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+- **limit (`optional<integer>`)**: Specifies the maximum number of items to retrieve. The default value is `100`.
+
+<Image src="/img/webflow/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved items.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **items**: An array of items within the collection.
+
+<Image src="/img/webflow/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Collection Item
+
+Create an item in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+This field is where the payload to store a new item goes. By default, this field has a sample schema of the payload and it can be edited as needed.
+
+<Image src="/img/webflow/screenshot10.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for creating collection items, provide the following input:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+
+<Image src="/img/webflow/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the created item.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the created item.
+
+<Image src="/img/webflow/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Collection Item
+
+Update a selected item in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+This field is where the payload to update an item goes. By default, this field has a sample schema of the payload and it can be edited as needed.
+
+<Image src="/img/webflow/screenshot13.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for updating collection items, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+- **item_id (`required<string>`)**: The unique identifier of the item to be updated.
+
+<Image src="/img/webflow/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the updated item.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the updated item.
+
+<Image src="/img/webflow/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Publish Item
+
+Publish an item or multiple items in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot16.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for publishing collection items, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection.
+- **itemIds (`required<string>`)**: A comma-separated list of item IDs to be published.
+
+<Image src="/img/webflow/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the published items.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **publishedItemIds**: A list of item IDs that were successfully published.
+4. **errors**: Any errors that occurred during the publishing process.
+
+<Image src="/img/webflow/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Sites
+
+Retrieve a list of all sites in your `Webflow` account.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot19.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for listing sites, provide the following input:
+
+- **trigger (`required<any>`)**: This is just an input to trigger the component execution. It can have any value.
+
+<Image src="/img/webflow/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved sites.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **sites**: An array of sites available in your Webflow account.
+
+<Image src="/img/webflow/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Site
+
+Retrieve a `Webflow` site by its site ID.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot22.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving site details, provide the following input:
+
+- **site_id (`required<string>`)**: The unique identifier of the site you want to retrieve. 
+
+<Image src="/img/webflow/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved site.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **workspaceId**: The unique identifier of the workspace to which the site belongs.
+4. **displayName**: The display name of the site.
+5. **lastPublished**: The timestamp of when the site was last published.
+6. **customDomains**: A list of custom domains associated with the site.
+7. **primaryLocale**: The primary locale (language and region) of the site.
+
+<Image src="/img/webflow/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Pages
+
+Retrieve a list of all pages for a `Webflow` site.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot25.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving pages, provide the following input:
+
+- **site_id (`required<string>`)**: The unique identifier of the site for which you want to retrieve the pages.
+
+<Image src="/img/webflow/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved pages.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **pages**: An array of pages associated with the specified site.
+
+<Image src="/img/webflow/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Page Metadata
+
+Retrieve metadata information for a single page in `Webflow`.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot28.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for retrieving page metadata, provide the following input:
+
+- **page_id (`required<string>`)**: The unique identifier of the page for which you want to retrieve metadata.
+
+<Image src="/img/webflow/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved page metadata.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **siteId**: The ID of the site to which the page belongs.
+4. **title**: The title of the page.
+5. **slug**: The slug (URL path) of the page.
+6. **collectionId**: The ID of the collection to which the page belongs, if applicable.
+7. **seo**: SEO metadata such as meta description and meta keywords.
+8. **openGraph**: Open Graph metadata for social media sharing, such as OG title, description, and image. 
+
+<Image src="/img/webflow/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Page Metadata
+
+Update page-level metadata, including SEO and Open Graph fields, in `Webflow`.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+this is the field where the payload to update the page metadata goes. it has a sample schema of the payload and it can be edited as needed.
+
+<Image src="/img/webflow/screenshot31.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for updating page metadata, provide the following input:
+
+- **page_id (`required<string>`)**: The unique identifier of the page.
+
+<Image src="/img/webflow/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the updated page metadata.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **siteId**: The ID of the site to which the page belongs.
+4. **title**: The title of the page.
+5. **slug**: The slug (URL path) of the page.
+6. **collectionId**: The ID of the collection to which the page belongs, if applicable.
+7. **seo**: SEO metadata such as meta description and meta keywords.
+8. **openGraph**: Open Graph metadata for social media sharing, such as OG title, description, and image. 
+
+<Image src="/img/webflow/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Collections
+
+Retrieve a list of all collections within a `Webflow` site.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot34.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for listing collections, provide the following input:
+
+- **site_id (`required<string>`)**: The unique identifier of the site for which you want to retrieve collections.
+
+<Image src="/img/webflow/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved collections.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **collections**: An array of collections available in the specified site.
+
+<Image src="/img/webflow/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Collection Details
+
+Retrieve comprehensive details of a collection using its ID.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot37.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for listing collections, provide the following input:
+
+- **collection_id (`required<string>`)**: The unique identifier for the collection you want to retrieve.
+
+<Image src="/img/webflow/screenshot38.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the retrieved collections.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the collection.
+4. **displayName**: The display name of the collection.
+5. **singularName**: The singular name of the collection.
+6. **slug**: The slug or URL-friendly version of the collection name.
+7. **createdOn**: The timestamp indicating when the collection was created.
+8. **lastUpdated**: The timestamp indicating when the collection was last updated.
+9. **fields**: The fields present in the collection.
+
+<Image src="/img/webflow/screenshot39.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Collection
+
+Create a new collection for a specific site.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot40.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for creating collections, provide the following inputs:
+
+- **site_id (`required<string>`)**: The unique identifier for the site where the collection will be created.
+- **displayName (`required<string>`)**: The display name of the collection.
+- **singularName (`required<string>`)**: The singular name of the collection.
+- **slug (`required<string>`)**: The slug or URL-friendly version of the collection name.
+
+<Image src="/img/webflow/screenshot41.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the created collection.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the new collection.
+4. **fields**: The fields present in the collection. 
+
+<Image src="/img/webflow/screenshot42.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Create Collection Field
+
+Create a custom field in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot43.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for creating collection fields, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection where the field will be created.
+- **type (`required<string>`)**: The type of the field to be created (e.g., text, number, date).
+- **displayName (`required<string>`)**: The display name of the field.
+- **helpText (`optional<string>`)**: Additional help text for the field. The default value is an empty string.
+
+<Image src="/img/webflow/screenshot44.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the created field.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the created field.
+4. **isRequired**: Indicates if the field is mandatory.
+5. **type**: The type of the created field.
+6. **displayName**: The display name of the created field.
+7. **helpText**: The help text associated with the created field.
+
+<Image src="/img/webflow/screenshot45.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Collection Field
+
+Update a custom field in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+This is the field where the payload to update a field goes. By default, it has a sample schema of the payload which can be modified as needed.
+
+<Image src="/img/webflow/screenshot46.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for updating collection fields, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection where the field exists.
+- **field_id (`required<string>`)**: The unique identifier of the field that you want to update.
+
+<Image src="/img/webflow/screenshot47.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the updated field.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **id**: The unique identifier of the updated field.
+4. **isRequired**: Indicates if the field is mandatory.
+5. **type**: The type of the updated field.
+6. **slug**: The slug or URL-friendly version of the field name.
+7. **displayName**: The display name of the updated field.
+8. **helpText**: The help text associated with the updated field.
+
+<Image src="/img/webflow/screenshot48.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Collection Field
+
+Delete a custom field in a `Webflow` collection.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot49.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for deleting collection fields, provide the following inputs:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection where the field exists.
+- **field_id (`required<string>`)**: The unique identifier of the field that you want to delete.
+
+<Image src="/img/webflow/screenshot50.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the operation performed.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+
+<Image src="/img/webflow/screenshot51.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Collection
+
+Delete a collection using its ID.
+
+### Settings
+
+#### API Token
+
+To utilize the Webflow API, you will need an `API Token`. Follow these steps to get your API Token:
+
+1. **Log in to Webflow**: Access your Webflow account and navigate to the dashboard.
+2. **Access Account Settings**: Click on your profile icon and go to `Account Settings`.
+3. **Generate a New API Token**: Look for the API section, select `Generate New Token`, and follow the prompts to create a new API token.
+4. **Save Your Token**: Once generated, copy the token and store it securely as it will only be shown once.
+5. **Enter Credentials in SmythOS**: Input the acquired `API Token` into the designated settings section within the component.
+
+> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/webflow/screenshot52.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize the component for deleting collections, provide the following input:
+
+- **collection_id (`required<string>`)**: The unique identifier of the collection you want to delete.
+
+<Image src="/img/webflow/screenshot53.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After processing the inputs, this feature generates detailed outputs, including:
+
+1. **Response**: Contains the dataset returned from `Webflow`, including relevant information about the operation performed.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+
+<Image src="/img/webflow/screenshot54.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

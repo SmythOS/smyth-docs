@@ -1,9 +1,87 @@
----
-title: telegram integration
----
+# Telegram Integration
 
-# telegram integration
+`Telegram` is a versatile, cloud-based instant messaging application that allows its users to exchange a range of multimedia content, encompassing messages, photos, videos, stickers, audio, and files of diverse types. Its architectural design is built around ensuring easy and quick communication among individuals and groups.
 
-This is the **telegram integration** page for Agent Studio.
+Here at `SmythOS`, we champion a significant focus on seamless amalgamation with such platforms. Therefore, we have specifically designed components to expediently integrate `Telegram` into your agents' workflow. This integration is engineered with the main aim of amplifying the bountiful features that `Telegram` intrinsically hosts.
 
-_TODO: Add detailed content for telegram integration._
+This synergy enhances the communication experience, transcending the standard text messages to an interactive exchange involving visuals, audios, files, and personalized stickers. Moreover, considering `Telegram`'s extensive reach and popularity, its integration in `SmythOS` enhances user engagement extensively, providing an easy, familiar, and satisfying user interface.
+
+We understand that each agent's workflow is unique; ergo, our tailor-made components in `SmythOS` for `Telegram` integration come prepared to support customizations. This means you can pick and choose or modify features as per your agent's needs and demands. Our flexible yet robust infrastructure is designed to handle, support, and complement `Telegram's` powerful features, making it a win-win for your operations' effectiveness and efficiency.
+
+## Send Audio With Telegram
+
+The `Send Audio With Telegram` function facilitates the transmission of audio files via the Telegram platform.
+
+### Settings
+
+For the successful initialization and configuration of the `Send Audio With Telegram` component, follow these simple steps:
+
+1. Begin by creating a new bot or opt to use an existing one.
+2. During the bot creation, the BotFather will furnish a token. This token functions as your bot's API token, enabling access to the HTTP API.
+3. Take this token and input it into the component settings section. This step is vital in linking your bot to the `Send Audio With Telegram` component.
+
+> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/telegram/screenshot1.png" alt="alt text" />
+
+### Inputs
+
+For the effective operation of the `Send Audio With Telegram` component, it is essential to provide the following input parameters:
+
+1. **chat_id `required<string>`:** This is a unique identifier intended for the target chat or the username of the desirable channel (presented in the format @channelusername).
+2. **audio_url `required<string>`:** Insert an HTTP URL in String format. This URL directs Telegram to fetch an audio file from the Internet.
+
+<Image src="/img/telegram/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+When the `Send Audio With Telegram` component is effectively executed, the following outputs will be delivered:
+
+1. **Response:** An object that encapsulates the complete details regarding the results of the operation. It includes the specifics about the audio file that was sent, confirmation of the successful dispatch, and if applicable, any error messages that occurred during the process.
+2. **Headers:** The set of HTTP headers extracted from the server's response as provided by `Telegram`. This collection of headers includes useful metadata, such as the response status codes which indicate the success or failure of the audio message send request, and the content type of the response data.
+3. **messageId:** A unique identifier assigned by `Telegram` to the sent audio message. This `messageId` can be used to reference, track, or manage the audio message within the chat.
+
+<Image src="/img/telegram/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Send Message
+
+The `Send Message` function facilitates the transmission of text-based messages..
+
+### Settings
+
+For the successful initialization and configuration of the `Send Message` component, follow these simple steps:
+
+1. Begin by creating a new bot or opt to use an existing one.
+2. During the bot creation, the BotFather will furnish a token. This token functions as your bot's API token, enabling access to the HTTP API.
+3. Take this token and input it into the component settings section. This step is vital in linking your bot to the `Send Message` component.
+
+> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/telegram/screenshot4.png" alt="alt text" />
+
+### Inputs
+
+To ensure the `Send Message` component functions correctly, the following vital parameters should be provided:
+
+1. **chat_id `required<string>`:** This denotes a unique identifier for the target chat or the username of the intended channel (formatted as @channelusername).
+2. **text `required<string>`:** This encompasses the content of the message.
+
+<Image src="/img/telegram/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+With the successful operation of the `Send Message` function, the following outcomes will be provided:
+
+1. **Response:** An object brimming with in-depth details regarding the results of the send message operation. This will include specifics such as the properties of the message that was sent, whether it was delivered successfully, and details of any issues if the message failed to send.
+2. **Headers:** The HTTP headers that are part of the server's response from `Telegram`. These headers contain additional metadata, including response status codes that denote whether the operation succeeded or failed, and the content type indicating the data format of the server's response.
+3. **messageId:** The unique identifier associated with the sent message, as generated by `Telegram`. This messageId is crucial for future reference to the message, allowing for actions such as updates, deletions, or tracking the message's delivery status and interactions.
+
+<Image src="/img/telegram/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

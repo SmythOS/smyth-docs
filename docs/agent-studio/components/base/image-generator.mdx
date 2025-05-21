@@ -1,0 +1,38 @@
+# 🌟 Image Generator
+
+The **Image Generator** component uses advanced models to generate images, enhancing the agent's capabilities for sophisticated image manipulation.
+
+> 📝 **Note:** We provide the model for you without any configuration required [Account Management - Model Rates](account_management/modelRates).
+
+<Arcade  src="https://demo.arcade.software/AroFQEL8xuIPIjCGhH7H?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Image Generator | SmythOS"/>
+
+---
+
+## Settings
+
+- **Model Choice:** Select from `GPT Image 1`, `FLUX Dev`, or `FLUX Schnell`
+- **Prompt:** Default `Prompt` input is editable and can include references to any text inputs created for the component.
+
+### Advanced Settings
+
+- **Image Dimensions:** Choose from `1024x1024`, `1792x1024`, `1024x1792`
+- **Image Quality:** Select quality level
+- **Output Format:** Choose your preferred image format
+- **Strength:** (For FLUX models) Control how much influence the input image has on the output
+- **Negative Prompt:** (For FLUX models) Specify elements to exclude from the generated image
+
+---
+
+## Inputs
+
+- **Prompt:** Provides the textual prompt for image generation.
+- **Attachment:** Optional binary input that can receive images for image-to-image generation.
+
+> **Note:** You can create additional text inputs that can be referenced in the prompt field. You can also create additional binary inputs which the component will automatically recognize without needing to reference them in the prompt.
+
+---
+
+## Outputs
+
+- **Output Name:** `Output`
+- **Description:** Reference point for accessing the generated image.

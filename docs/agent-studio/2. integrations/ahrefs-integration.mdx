@@ -1,9 +1,176 @@
----
-title: ahrefs integration
----
 
-# ahrefs integration
+# Ahrefs Integration
 
-This is the **ahrefs integration** page for Agent Studio.
+`Ahrefs` is a comprehensive SEO toolset that provides invaluable insights into search engine optimization, digital marketing, and content creation. Its extensive database and advanced analytics help businesses and SEO professionals improve their online visibility, track their performance, and outsmart competitors. `Ahrefs` offers a range of features, from keyword research and rank tracking to site audits and competitive analysis. One of the most powerful aspects of `Ahrefs` is its API, which allows users to integrate `Ahrefs` data into their own applications and workflows seamlessly.
 
-_TODO: Add detailed content for ahrefs integration._
+Integrating the `Ahrefs` API with `SmythOS` enhances the platform’s capabilities, providing users with powerful SEO insights directly within their workflow. The inclusion of `Ahrefs` data allows for comprehensive SEO analysis, performance tracking, and strategic planning, all from within the `SmythOS` environment. Here’s why having `Ahrefs` integration in `SmythOS` is essential:
+
+1. **Enhanced SEO Insights**: Access to `Ahrefs`’ rich dataset provides deeper insights into websites’ SEO performance, helping users make informed decisions.
+2. **Automated Reporting**: Users can automate the generation of SEO reports, saving time and ensuring accuracy by leveraging real-time data from `Ahrefs`.
+3. **Custom Dashboards**: Build tailored dashboards that incorporate `Ahrefs` data, allowing for a unified view of key SEO metrics and performance indicators.
+4. **Competitor Analysis**: Gain a competitive edge by analyzing competitors’ SEO strategies, backlink profiles, and keyword performance using `Ahrefs` data.
+5. **Streamlined Workflows**: Integration with `SmythOS` streamlines SEO tasks, making it easier to manage projects, track progress, and implement SEO improvements.
+
+In conclusion, integrating `Ahrefs` API into `SmythOS` significantly boosts the platform's SEO capabilities, providing users with essential tools and data to optimize their websites effectively, stay ahead of competitors, and achieve their digital marketing goals.
+
+## Integration Settings
+
+#### Aggregation
+Specify how backlinks should be aggregated:
+- **similar_links**: Group similar backlinks together.
+- **1_per_domain**: Only one backlink per domain.
+- **all**: Include all backlinks.
+
+
+#### Mode
+Specify the mode of the backlink report:
+- **exact**: Backlinks for the exact target URL.
+- **prefix**: Backlinks for all URLs with the specified prefix.
+- **domain**: Backlinks for the entire domain.
+- **subdomains**: Backlinks for all subdomains of the specified domain.
+
+
+
+#### Output
+Specify the format of the output:
+- **json**
+- **csv**
+- **xml**
+- **php**
+
+
+
+#### API Key
+To utilize the Ahrefs API, you will need an `API Key`. Follow these steps to obtain your API Key:
+1. **Log in to Ahrefs**: Visit the Ahrefs website and log in to your account.
+2. **Navigate to API Settings**: Go to the `Settings` section from the dashboard.
+3. **Access API Details**: Find the API section within the settings.
+4. **Generate a New API Key**: Select `Generate New API Key` and follow the prompts to create a new key.
+5. **Save Your Key**: Once generated, copy the key and store it securely, as it will only be shown once.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/ahrefs/screenshot1.png" alt="alt text" />
+## List All Backlinks
+Explore all site backlinks using the `Ahrefs` API.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Choose an `Aggregation`.
+- Select `Mode`.
+- Specify `Output`.
+- Add your `Ahrefs API Key` from the `vault`. 
+
+>Please refer to the [Integration Settings](#integration-settings) to learn more. 
+
+### Inputs
+To effectively utilize the component for listing backlinks, provide the following inputs:
+- **target (`required<string>`)**: The target URL or domain for which backlinks should be retrieved.
+- **select (`required<string>`)**: The fields to include in the output. The default value is: `url_from`, `link_group_count`, `title`, `languages`, `powered_by`, `link_type`, `redirect_code`, `first_seen_link`, `lost_reason`, `drop_reason`, `http_code`, `discovered_status`, `source_page_author`, `is_dofollow`, `is_nofollow`, `is_ugc`, `is_sponsored`, `is_content`, `domain_rating_source`, `traffic_domain`, `is_root_source`, `root_name_source`, `traffic`, `positions`, `links_external`, `url_rating_source`, `last_visited`, `refdomains_source`, `linked_domains_source_page`, `snippet_left`, `anchor`, `snippet_right`, `url_to`, `js_crawl`, `http_crawl`, `redirect_kind`, `url_redirect`, `broken_redirect_source`, `broken_redirect_new_target`, `broken_redirect_reason`, `last_seen`.
+- **limit (`optional<integer>`)**: The maximum number of backlinks to retrieve. The default value is `100`.
+
+<Image src="/img/ahrefs/screenshot2.png" alt="alt text" />
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After processing the inputs, this feature generates detailed outputs, including:
+1. **Response**: Contains the dataset returned from `Ahrefs`, including relevant information about the retrieved backlinks.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **Backlinks**: Detailed information about the backlinks retrieved.
+
+<Image src="/img/ahrefs/screenshot3.png" alt="alt text" />
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Broken Backlinks
+Explore all broken backlinks for a site using the `Ahrefs` API.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Choose an `Aggregation`.
+- Select `Mode`.
+- Specify `Output`.
+- Add your `Ahrefs API Key` from the `vault`. 
+
+>Please refer to the [Integration Settings](#integration-settings) to learn more.
+
+### Inputs
+To effectively utilize the component for listing broken backlinks, provide the following inputs:
+- **target (`required<string>`)**: The target URL or domain for which broken backlinks should be retrieved.
+- **select (`required<string>`)**: The fields to include in the output. The default value is: `url_from`, `link_group_count`, `title`, `languages`, `powered_by`, `link_type`, `redirect_code`, `first_seen_link`, `lost_reason`, `drop_reason`, `http_code`, `discovered_status`, `source_page_author`, `is_dofollow`, `is_nofollow`, `is_ugc`, `is_sponsored`, `is_content`, `domain_rating_source`, `traffic_domain`, `is_root_source`, `root_name_source`, `traffic`, `positions`, `links_external`, `url_rating_source`, `last_visited`, `refdomains_source`, `linked_domains_source_page`, `snippet_left`, `anchor`, `snippet_right`, `url_to`, `js_crawl`, `http_crawl`, `redirect_kind`, `url_redirect`, `broken_redirect_source`, `broken_redirect_new_target`, `broken_redirect_reason`, `last_seen`.
+- **limit (`optional<integer>`)**: The maximum number of broken backlinks to retrieve. The default value is `100`.
+
+<Image src="/img/ahrefs/screenshot4.png" alt="alt text" />
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After processing the inputs, this feature generates detailed outputs, including:
+1. **Response**: Contains the dataset returned from `Ahrefs`, including relevant information about the retrieved broken backlinks.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **Backlinks**: Detailed information about the broken backlinks retrieved.
+
+<Image src="/img/ahrefs/screenshot5.png" alt="alt text" />
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Referring Domains (Refdomains)
+Explore all referring domains for a site using the `Ahrefs` API.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Choose an `Aggregation`.
+- Select `Mode`.
+- Specify `Output`.
+- Add your `Ahrefs API Key` from the `vault`. 
+
+>Please refer to the [Integration Settings](#integration-settings) to learn more.
+
+### Inputs
+To effectively utilize the component for listing referring domains, provide the following inputs:
+- **target (`required<string>`)**: The target URL or domain for which referring domains should be retrieved.
+- **select (`required<string>`)**: The fields to include in the output. The default value is: `url_from`, `link_group_count`, `title`, `languages`, `powered_by`, `link_type`, `redirect_code`, `first_seen_link`, `lost_reason`, `drop_reason`, `http_code`, `discovered_status`, `source_page_author`, `is_dofollow`, `is_nofollow`, `is_ugc`, `is_sponsored`, `is_content`, `domain_rating_source`, `traffic_domain`, `is_root_source`, `root_name_source`, `traffic`, `positions`, `links_external`, `url_rating_source`, `last_visited`, `refdomains_source`, `linked_domains_source_page`, `snippet_left`, `anchor`, `snippet_right`, `url_to`, `js_crawl`, `http_crawl`, `redirect_kind`, `url_redirect`, `broken_redirect_source`, `broken_redirect_new_target`, `broken_redirect_reason`, `last_seen`.
+- **limit (`optional<integer>`)**: The maximum number of referring domains to retrieve. The default value is `100`.
+
+<Image src="/img/ahrefs/screenshot6.png" alt="alt text" />
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After processing the inputs, this feature generates detailed outputs, including:
+1. **Response**: Contains the dataset returned from `Ahrefs`, including relevant information about the retrieved referring domains.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **refdomains**: A list of referring domains.
+
+<Image src="/img/ahrefs/screenshot7.png" alt="alt text" />
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## List Anchors
+Explore all site anchors using the `Ahrefs` API.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Choose an `Aggregation`.
+- Select `Mode`.
+- Specify `Output`.
+- Add your `Ahrefs API Key` from the `vault`. 
+
+>Please refer to the [Integration Settings](#integration-settings) to learn more.
+
+### Inputs
+To effectively utilize the component for listing anchors, provide the following inputs:
+- **target (`required<string>`)**: The target URL or domain for which anchors should be retrieved.
+- **select (`required<string>`)**: The fields to include in the output. The default value is: `url_from`, `link_group_count`, `title`, `languages`, `powered_by`, `link_type`, `redirect_code`, `first_seen_link`, `lost_reason`, `drop_reason`, `http_code`, `discovered_status`, `source_page_author`, `is_dofollow`, `is_nofollow`, `is_ugc`, `is_sponsored`, `is_content`, `domain_rating_source`, `traffic_domain`, `is_root_source`, `root_name_source`, `traffic`, `positions`, `links_external`, `url_rating_source`, `last_visited`, `refdomains_source`, `linked_domains_source_page`, `snippet_left`, `anchor`, `snippet_right`, `url_to`, `js_crawl`, `http_crawl`, `redirect_kind`, `url_redirect`, `broken_redirect_source`, `broken_redirect_new_target`, `broken_redirect_reason`, `last_seen`.
+- **limit (`optional<integer>`)**: The maximum number of anchors to retrieve. The default value is `100`.
+
+<Image src="/img/ahrefs/screenshot8.png" alt="alt text" />
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After processing the inputs, this feature generates detailed outputs, including:
+1. **Response**: Contains the dataset returned from Ahrefs, including relevant information about the retrieved anchors.
+2. **Headers**: Includes HTTP headers that provide insights into the API request-response process, such as status codes, rate limits, and other key metadata.
+3. **anchors**: A list of retrieved anchors.
+
+<Image src="/img/ahrefs/screenshot9.png" alt="alt text" />
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

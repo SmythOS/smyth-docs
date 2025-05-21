@@ -1,0 +1,33 @@
+# 🌟 Vision LLM
+
+The `Vision LLM` component analyzes and interprets images, providing detailed responses based on the detected content using advanced AI models.
+
+---
+
+## Settings
+
+Configure the following for optimal performance:
+
+- **Model Selection:** Choose your AI model.
+
+> **Note:** By default, `OpenAI` models are available. Use your API key for full-length models. Additional models like `Claude` can be added. For setup, visit [API Key Management](core_concepts/keysManagement.md).
+  
+- **Prompt Configuration:**
+  - **Input Field:** Enter the question or instruction for the AI.
+  - **Dynamic Variables:** Make prompts adaptive with variables.
+  - **Default Prompt Example:** `What’s in this image?’`
+  
+- **Advanced Settings:**
+  - **Max Output Tokens:** Ensure input and output tokens do not exceed the limit. The output is dynamically adjusted to fit within the allowed token count.
+
+---
+
+## Inputs
+
+- **Image Uploads:** Accepts images via URL or as a Base64 encoded string. Multiple images should be provided as an array.
+
+---
+
+## Outputs
+
+- **Standard Output:** Named `Reply`, contains responses from the analyzed images.

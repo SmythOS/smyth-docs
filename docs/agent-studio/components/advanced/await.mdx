@@ -1,0 +1,31 @@
+# Await
+
+The `Await` component pauses the flow until specified asynchronous job conditions are met.
+
+<Arcade  src="https://demo.arcade.software/Zm414J05Em9ruNick1Uy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Await | SmythOS" />
+
+---
+
+## Settings
+
+- **Minimum Jobs Count:**
+  - **Default:** `1`
+  - **Description:** Number of completed async jobs required to continue.
+  
+- **Maximum Wait Time (Seconds):**
+  - **Default:** `1`
+  - **Description:** Time limit before workflow resumes.
+
+---
+
+## Inputs
+
+- **Jobs:**
+  - **Role:** Accepts an array of `JobIDs` from `Async` component.
+
+---
+
+## Outputs
+
+- **Results:**
+  - **Function:** Delivers outcomes of monitored async jobs.

@@ -1,9 +1,71 @@
----
-title: elevenlaus integration
----
 
-# elevenlaus integration
+# Elevenlabs Integration
 
-This is the **elevenlaus integration** page for Agent Studio.
+Unlock the power of natural-sounding speech synthesis and text-to-speech capabilities with `Elevenlabs`, a software company dedicated to leveraging artificial intelligence (AI) and deep learning techniques.
 
-_TODO: Add detailed content for elevenlaus integration._
+At `SmythOS`, we've seamlessly integrated with `Elevenlabs` to bring you custom components that make incorporating their advanced services into your projects a breeze. This guide is your go-to resource for a comprehensive walkthrough, ensuring you harness the full potential of these cutting-edge components.
+
+Let's dive into the world of effortless and natural speech synthesis with `Elevenlabs` on SmythOS!
+
+## Text to Speech
+
+The `Text to Speech` component empowers users to seamlessly generate audio from input text.
+
+### Settings
+
+#### API Key
+
+To kickstart this component, follow these initial steps to obtain your `API Key`:
+
+1. Create a `Elevenlabs` account if you don't already have one.
+2. Navigate to your `Profile` and acquire your `API Key` by clicking [here](https://elevenlabs.io/).
+3. Input this `API Key` into the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Model ID
+
+The `Model ID` is a select field featuring a list of available model IDs. Select the appropriate model ID from the list to tailor the audio output based on your specific requirements.
+
+#### Similarity Boost
+
+This setting adjusts the level of vocal similarity to the chosen voice model:
+
+- Increase the similarity for more closeness to the model's voice.
+- A higher setting results in greater resemblance but may impact the naturalness.
+
+#### Stability
+
+The Stability setting helps to maintain consistent voice quality and pacing:
+
+- A higher stability selects for a smoother and more consistent output.
+- Adjust this setting to find the right balance between dynamism and steadiness.
+
+#### Style
+
+Customize the speaking style of the voice output to suit the context and content.
+
+<Image src="/img/elevenlabs/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To execute this component, you need to provide the following inputs:
+
+1. **text `required<string>`:** Specify the text to be used for generating the audio.
+2. **voice_id `required<string>`:** Provide the voice ID used for generating the audio. It defaults to a preselected voice ID, but you can use any other voice ID from your account.
+
+<Image src="/img/elevenlabs/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon executing this component, you will receive the following outputs:
+
+1. **Response:** Contains the binary data of the generated audio.
+2. **Headers:** Includes the HTTP headers extracted from the `Elevenlabs` server response.
+3. **url:** The URL of the generated audio.
+
+<Image src="/img/elevenlabs/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

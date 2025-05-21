@@ -1,9 +1,163 @@
----
-title: google analytics integration
----
 
-# google analytics integration
+# Google Analytics Integration
 
-This is the **google analytics integration** page for Agent Studio.
+`Google Analytics` is a powerful tool for understanding and enhancing website performance through data-driven insights. It provides detailed statistics about a website's traffic, user behavior, and content interactions, which are crucial for digital marketing success and website optimization.
 
-_TODO: Add detailed content for google analytics integration._
+Integrating `Google Analytics` into `SmythOS` enables users to directly access and leverage these analytics within their operational environment, streamlining workflows and enhancing decision-making processes. This integration facilitates real-time data access, allowing users to monitor their website's performance without switching between platforms.
+
+## Google OAuth Setup
+
+For a visual step-by-step guide, watch the video below:
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+  <Image src="/img/google_analytics/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the following inputs to customize your `Google Analytics` report:
+
+- **GA4_property_id (`required<string>`)**: The Google Analytics 4 property ID for which you are generating the report.
+
+<Image src="/img/google_analytics/screenshot2.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The endpoint provides detailed analytical data as output:
+
+- **Response**: Contains the full API response with metrics and dimensions specified in the request.
+- **Headers**: Headers from the `Google Analytics` API that provide context about the response.
+- **rows**: Data rows that contain the report's analytics.
+- **rowCount**: The number of rows returned in the report.
+
+<Image src="/img/google_analytics/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Run Real-Time Report
+
+This component generates a customized report of real-time event data for your `Google Analytics` property, enabling immediate insights into user activities and site interactions.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To establish a secure connection with `Google Analytics` using `SmythOS`, you need authenticated credentials, specifically a `Client ID` and `Client Secret`. Here's a detailed guide on how to obtain these credentials for the `Google Analytics` API:
+
+1. **Visit the Google Developers Console**: 
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Select an existing project or create a new project dedicated to your integration.
+
+2. **Enable the Google Analytics API**: 
+   - Go to the `Library` section within the Developers Console.
+   - Search for and enable the Google Analytics API for your project.
+
+3. **Configure the OAuth Consent Screen**: 
+   - Access the OAuth consent screen settings and fill in necessary information such as your application's name, support email, and the scopes required for your application.
+
+4. **Generate Credentials**:
+   - Visit the `Credentials` tab in the Google Developers Console.
+   - Click `Create credentials` and choose `OAuth client ID`.
+   - Select the application type that best represents your application.
+   - Complete the configurations and specify the callback URL as `https://app.smythos.com/oauth/google/callback`. This URL is crucial as it handles the redirection after successful authentication.
+
+5. **Authenticate in SmythOS**: 
+   - Enter the `Client ID` and `Client Secret` in the respective fields within the SmythOS component settings.
+   - Click the `Authenticate` button to finalize the connection and start utilizing Google Analytics with SmythOS.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+The body of the request is where you define the payload to run your real-time report. A sample schema is provided to outline the structure of data, which is customizable based on your specific needs.
+
+<Image src="/img/google_analytics/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+To tailor the real-time `Google Analytics` report, configure the following inputs:
+
+- **GA4_property_id (`required<string>`)**: Input the Google Analytics 4 property ID for which the real-time report will be generated.
+
+<Image src="/img/google_analytics/screenshot5.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+Upon execution, the endpoint delivers detailed analytical data:
+
+- **Response**: The full API response containing real-time metrics and dimensions as specified.
+- **Headers**: The HTTP headers provided by the `Google Analytics` API, offering context for the response.
+- **rows**: The rows of data illustrating the real-time analytics of the report.
+- **rowCount**: The total number of rows returned in the response.
+
+<Image src="/img/google_analytics/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Batch Run Reports
+
+This component facilitates the retrieval of multiple reports simultaneously from `Google Analytics`, enabling comprehensive analysis and insights across different metrics and dimensions in a single request.
+
+### Settings
+
+#### Client ID & Client Secret
+
+For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+
+To establish a secure connection with `Google Analytics` using `SmythOS`, you need authenticated credentials, specifically a `Client ID` and `Client Secret`. Here's a detailed guide on how to obtain these credentials for the `Google Analytics` API:
+
+1. **Visit the Google Developers Console**: 
+   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
+   - Select an existing project or create a new project dedicated to your integration.
+
+2. **Enable the Google Analytics API**: 
+   - Go to the `Library` section within the Developers Console.
+   - Search for and enable the Google Analytics API for your project.
+
+3. **Configure the OAuth Consent Screen**: 
+   - Access the OAuth consent screen settings and fill in necessary information such as your application's name, support email, and the scopes required for your application.
+
+4. **Generate Credentials**:
+   - Visit the `Credentials` tab in the Google Developers Console.
+   - Click `Create credentials` and choose `OAuth client ID`.
+   - Select the application type that best represents your application.
+   - Complete the configurations and specify the callback URL as `https://app.smythos.com/oauth/google/callback`. This URL is crucial as it handles the redirection after successful authentication.
+
+5. **Authenticate in SmythOS**: 
+   - Enter the `Client ID` and `Client Secret` in the respective fields within the SmythOS component settings.
+   - Click the `Authenticate` button to finalize the connection and start utilizing Google Analytics with SmythOS.
+
+> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Body
+
+The body section is designated for defining the payload necessary to run batch reports. A customizable sample schema is provided to illustrate the typical data structure for these requests.
+
+<Image src="/img/google_analytics/screenshot7.png" alt="alt text" /> 
+
+### Inputs
+
+Configure the following inputs to generate tailored reports efficiently:
+
+- **GA4_property_id (`required<string>`)**: Specify the Google Analytics 4 property ID from which the data will be sourced for the reports.
+
+<Image src="/img/google_analytics/screenshot8.png" alt="alt text" />
+
+> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+
+### Outputs
+
+The component provides detailed analytical output upon execution:
+
+- **Response**: Detailed API response containing multiple report data.
+- **Headers**: HTTP headers from `Google Analytics` that contextualize the response.
+- **reports**: An array of report objects, each containing specific analytics data.
+
+<Image src="/img/google_analytics/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

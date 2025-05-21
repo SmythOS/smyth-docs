@@ -1,9 +1,518 @@
----
-title: falai integration
----
+# Fal.ai Integration
 
-# falai integration
+`Fal.ai` is a frontrunner in the domain of Artificial Intelligence (AI), offering robust solutions related to AI model deployment and execution. Leveraging Serverless GPU Cloud, Real-time AI applications, and Pre-trained AI Models, they strive to deliver high-performance AI inference.
 
-This is the **falai integration** page for Agent Studio.
+Recognizing the immense potential of `Fal.ai`, we at `SmythOS` have designed custom components to seamlessly integrate `Fal.ai` services. This guide provides a detailed walkthrough on how to effectively utilize these components.
 
-_TODO: Add detailed content for falai integration._
+## Generate Animation
+
+A standout feature of our `Fal.ai` integration is the **Generate Animation** component. This powerful tool enables users to create animations effortlessly and efficiently.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 📏 Video Size
+
+You can choose from the following video size options:
+
+- **square_hd**
+- **square**
+- **portrait_4_3**
+- **portrait_16_9**
+- **landscape_4_3**
+- **landscape_16_9**
+
+#### ⏳ Steps
+
+This parameter defines the number of steps for the model to run. A higher number results in better quality but may take longer to generate. The default value is set to **4**.
+
+<Image src="/img/falai/screenshot1.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To execute this feature, the following inputs are necessary:
+
+1. **prompt (`required<string>`)**: The primary instruction or description for the animation.
+2. **negative_prompt (`optional<string>`)**: Specifies undesired outcomes, with a default value of **(bad quality, worst quality:1.2), ugly faces, bad anime**.
+3. **num_frames (`optional<integer>`)**: The number of frames to generate, default is **16**.
+4. **fps (`optional<integer>`)**: Frames per second for the animation, default is **8**.
+
+<Image src="/img/falai/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon successfully generating an animation, the following outputs will be available:
+
+1. **Response**: Contains essential information about the created animation, including the video URL or file name.
+2. **Headers**: Displays the HTTP headers from the response received from the **Fal.ai** server, providing insights into the characteristics of the transmitted data.
+3. **video_url**: Direct URL link to the generated video, allowing immediate access and sharing options.
+
+<Image src="/img/falai/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Whisper
+
+The `Whisper` component in the SmythOS's `Fal.ai` Integration offers users the ability to convert speech to text.
+
+### Settings
+
+To initialize this feature, the following steps must be taken to get your `Authentication Key`:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `Authentication Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `Authentication Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `Authentication Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/falai/screenshot4.png" alt="alt text" /> 
+
+### Inputs
+
+One default input is necessary to execute this feature:
+
+1. **audio_url `required<string>`:** This refers to the URL of the audio to be converted into text. Supported audio formats include mp3, mp4, mpeg, mpga, m4a, wav, or webm.
+
+<Image src="/img/falai/screenshot5.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+The application of this component yields 3 default outputs:
+
+1. **Response:** The resulting data usually includes essential information about the formed text.
+2. **Headers:** These encompass the HTTP Headers embedded within the `Fal.ai` server response.
+3. **text:** This output isolate the text parameter from the response.
+
+<Image src="/img/falai/screenshot6.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Flux.1[dev] Text To Image
+
+The **Text to Image** component in `SmythOS` seamlessly integrates with **Fal.ai**, a cutting-edge tool for converting text prompts into vivid images. This functionality allows you to input a descriptive text, and it will generate a corresponding image—significantly enhancing workflows that involve image generation.
+
+In this document, we'll guide you through the feature's settings, required inputs, and output data to help you utilize it effectively.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Generated Image Size
+
+There are several image size options available:
+
+- **Square High Definition `(square_hd)`**
+- **Square `(square)`**
+- **4:3 Portrait `(portrait_4_3)`**
+- **16:9 Portrait `(portrait_16_9)`**
+- **4:3 Landscape `(landscape_4_3)`**
+- **16:9 Landscape `(landscape_16_9)`**
+
+<Image src="/img/falai/screenshot7.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To use this feature effectively, two default inputs are required:
+
+1. **prompt (`required<string>`)**: This essential input is the descriptive text that users provide, which will be transformed into the corresponding visual image.
+2. **num_inference_steps (`optional<integer>`)**: This optional parameter controls the number of inference steps, with a default value set to **28**.
+3. **guidance_scale (`optional<float>`)**: This parameter adjusts the influence of the text prompt on the generated image. A higher value places more emphasis on the prompt, potentially leading to more accurate representations of the input text. Default value `3.5`.
+4. **enable_safety_checker (`optional<boolean>`)**:This boolean parameter determines whether to enable the safety checker, which filters out potentially unsafe content from the generated images. Default value `true`.
+
+<Image src="/img/falai/screenshot8.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running the **Text to Image** function, you will receive the following default outputs:
+
+1. **Response**: The resulting data includes essential information about the generated image.
+2. **Headers**: These contain the HTTP headers included in the response from the **Fal.ai** server.
+3. **image_url**: A direct URL link to the generated image.
+
+<Image src="/img/falai/screenshot9.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Flux.1[Schnell] Text To Image
+
+**Flux.1 [Schnell]** is a distilled version of Flux.1 that operates up to 10 times faster, enabling rapid image generation from text prompts.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🖼️ Generated Image Size
+
+You can choose from several image size options:
+
+- **Square High Definition** `(square_hd)`
+- **Square** `(square)`
+- **4:3 Portrait** `(portrait_4_3)`
+- **16:9 Portrait** `(portrait_16_9)`
+- **4:3 Landscape** `(landscape_4_3)`
+- **16:9 Landscape** `(landscape_16_9)`
+
+<Image src="/img/falai/screenshot10.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, the following inputs are required:
+
+1. **prompt (`required<string>`)**: 
+   - **Description**: The descriptive text input by the user, which will be transformed into an image.
+   - **Examples**: 
+     - “A tranquil beach at sunset”
+     - “A bustling city street during the day”
+   - **Character Limit**: Maximum of **512 characters** recommended for effective processing.
+
+2. **num_inference_steps (`optional<integer>`)**: 
+   - **Description**: This parameter specifies how many inference steps the model should perform to generate the image. More steps can lead to better quality, but longer processing times.
+   - **Default Value**: **4**
+   - **Range**: A suggested range of **1 to 10** for optimal performance, balancing speed and quality.
+
+3. **enable_safety_checker (`optional<boolean>`)**: 
+   - **Description**: This boolean parameter determines whether to activate a safety checker to filter out inappropriate content from the generated images.
+   - **Default Value**: `true`
+   - **Recommendation**: It is advisable to keep this enabled to ensure output appropriateness for all audiences.
+
+<Image src="/img/falai/screenshot11.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After running the component, you'll receive the following default outputs:
+
+1. **Response**: This contains essential information about the generated image.
+2. **Headers**: The HTTP headers included in the response from the **Fal.ai** server.
+3. **image_url**: A direct URL to the generated image for easy access.
+
+<Image src="/img/falai/screenshot12.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## HQ Video Generator
+
+Generate short video clips from your images using **SVD v1.1**.
+
+### ⚙️ Settings
+
+#### 🔑 Authentication Key
+
+To kickstart this feature, follow these steps to obtain your `Authentication Key`:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `Authentication Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `Authentication Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `Authentication Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### 🌪️ Motion Bucket ID
+
+The **Motion Bucket ID** determines the amount of motion in the generated video. A higher number corresponds to increased motion. The default value is **127**.
+
+#### 🎛️ Conditioning Augmentation (Cond Aug)
+
+**Conditioning Augmentation (Cond Aug)** decides the level of noise added to the conditioning frame. A higher value results in increased noise, decreasing the resemblance of the video to the initial image and promoting more motion. The default value is **0.02**.
+
+<Image src="/img/falai/screenshot13.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, only one default input is necessary:
+
+1. **image_url (`required<string>`)**: This is the URL of the image used as a starting point for video generation.
+
+<Image src="/img/falai/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After executing the component, the following default outputs will be generated:
+
+1. **Response**: Provides crucial details about the produced video, which is part of the data outcome.
+2. **Headers**: Displays the HTTP headers included in the response from the **Fal.ai** server, indicating specific parameters and protocols followed during the transaction.
+3. **video_url**: Specifies the web address where the newly created video can be accessed.
+
+<Image src="/img/falai/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Flux Realism LoRA
+
+Introducing **Flux Realism LoRA**, a cutting-edge solution for generating highly realistic images using the state-of-the-art (SOTA) Flux model. This feature enhances your capabilities in image generation, making it ideal for applications requiring photorealistic visuals.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Image Size
+
+You can choose from several image size options:
+
+- **Square High Definition** `(square_hd)`
+- **Square** `(square)`
+- **4:3 Portrait** `(portrait_4_3)`
+- **16:9 Portrait** `(portrait_16_9)`
+- **4:3 Landscape** `(landscape_4_3)`
+- **16:9 Landscape** `(landscape_16_9)`
+
+<Image src="/img/falai/screenshot16.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, the following inputs are required:
+
+1. **prompt (`required<string>`)**:
+   - **Description**: This is the descriptive text input by the user that will be transformed into a realistic image.
+   - **Example**: "A close-up of a sunset at the beach."
+   - **Character Limit**: Maximum of **512 characters** recommended for optimal processing.
+
+2. **num_inference_steps (`optional<integer>`)**:
+   - **Description**: Specifies the number of inference steps the model should perform to generate the image, influencing quality and processing time.
+   - **Default Value**: **28**
+   - **Range**: Suggested range is **1 to 100** based on workflow demands.
+
+3. **guidance_scale (`optional<float>`)**:
+   - **Description**: Adjusts the influence of the text prompt on the generated image; a higher value leads to more accurate adherence to the prompt.
+   - **Default Value**: **3.5**
+   - **Range**: Values typically range from **1 to 10** for fine-tuning the output.
+
+4. **enable_safety_checker (`optional<boolean>`)**:
+   - **Description**: Determines whether to enable a safety mechanism to filter out inappropriate content.
+   - **Default Value**: `true`
+   - **Recommendation**: It is advisable to keep this enabled for outputs that are appropriate for all audiences.
+
+<Image src="/img/falai/screenshot17.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+After executing the component, you will receive the following default outputs:
+
+1. **Response**: Provides crucial details about the generated image, allowing you to understand the characteristics and attributes of the output.
+2. **Headers**: Displays the HTTP headers included in the response from the **Fal.ai** server, indicating the specifics of the transaction.
+3. **image_url**: A direct URL link to the generated image for easy access and sharing.
+
+<Image src="/img/falai/screenshot18.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Flux.1[Dev] Image To Image
+
+**Flux.1 [Dev]** is an advanced image-to-image model with 12 billion parameters, delivering outstanding aesthetics for generating stunning transformations of images based on user-defined prompts.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Image Size
+
+You can choose from several image size options:
+
+- **Square High Definition** `(square_hd)`
+- **Square** `(square)`
+- **4:3 Portrait** `(portrait_4_3)`
+- **16:9 Portrait** `(portrait_16_9)`
+- **4:3 Landscape** `(landscape_4_3)`
+- **16:9 Landscape** `(landscape_16_9)`
+
+<Image src="/img/falai/screenshot19.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, the following inputs are required:
+
+1. **prompt (`required<string>`)**:
+   - **Description**: The descriptive text input that directs the transformation of the source image.
+   - **Example**: "Transform this image of a forest into a magical landscape."
+   - **Character Limit**: Recommended maximum of **512 characters**.
+
+2. **image_url (`required<string>`)**:
+   - **Description**: The URL link to the source image that you want to transform into new art.
+   - **Example**: "https://example.com/my-image.jpg"
+
+3. **strength (`required<float>`)**:
+   - **Description**: This parameter controls the degree of influence of the original image on the final output.
+   - **Default Value**: `0.95`
+   - **Range**: Values typically range from **0.0** (no influence) to **1.0** (full influence of the original image).
+
+4. **num_inference_steps (`required<integer>`)**:
+   - **Description**: Specifies the number of inference steps the model should carry out when generating the output image.
+   - **Default Value**: `40`
+   - **Range**: Commonly, a range of **10 to 100** works well, depending on quality requirements.
+
+5. **guidance_scale (`required<float>`)**:
+   - **Description**: This parameter dictates how strongly to adhere to the provided prompt when generating the image; higher values yield more fidelity to the prompt.
+   - **Default Value**: `3.5`
+   - **Range**: Typically ranges from **1.0** to **10.0** for optimal results.
+
+6. **enable_safety_checker (`required<boolean>`)**:
+   - **Description**: Indicates whether to use a safety mechanism to filter out inappropriate content from the generated images.
+   - **Default Value**: `true`
+   - **Recommendation**: Keeping this enabled is recommended for all audiences.
+
+<Image src="/img/falai/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon executing the component, you will receive the following default outputs:
+
+1. **Response**: Contains key details about the generated image, providing insight into the output's characteristics.
+2. **Headers**: Lists the HTTP headers included in the response from the **Fal.ai** server, detailing specifics of the transaction.
+3. **image_url**: A direct URL link to access the generated image effortlessly for sharing or storage.
+
+<Image src="/img/falai/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## FLUX1.1 [Pro] Text To Image
+
+The leading version of FLUX1.1, now updated for faster speed and higher generation quality.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### generated Image Size
+
+You can choose from several image size options:
+
+- **Square High Definition** `(square_hd)`
+- **Square** `(square)`
+- **4:3 Portrait** `(portrait_4_3)`
+- **16:9 Portrait** `(portrait_16_9)`
+- **4:3 Landscape** `(landscape_4_3)`
+- **16:9 Landscape** `(landscape_16_9)`
+
+<Image src="/img/falai/screenshot22.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, the following inputs are required:
+
+1. **prompt (`required<string>`):**
+   - **Description:** The descriptive text input that directs the transformation of the source image.
+
+2. **safety_tolerance (`required<integer>`):**
+   - **Description:** The level of safety tolerance applied to the image generation process.
+   - **Default Value:** `2`.
+
+3. **enable_safety_checker (`required<boolean>`):**
+   - **Description:** Indicates whether to use a safety mechanism to filter out inappropriate content from the generated images.
+   - **Default Value:** `true`.
+
+<Image src="/img/falai/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon executing the component, you will receive the following default outputs:
+
+1. **Response**: Contains key details about the generated image, providing insight into the output's characteristics.
+2. **Headers**: Lists the HTTP headers included in the response from the Fal.ai server, detailing specifics of the transaction.
+3. **request_id**: The ID of the request made for generating the image.
+
+<Image src="/img/falai/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## FLUX1.1 [Pro] Get Result
+
+Fetch a result using a request ID.
+
+### ⚙️ Settings
+
+#### 🔑 Fal.ai API Key
+
+To initialize this feature, you must first formulate and secure your `API Key` through the following steps:
+
+1. Create a `Fal.ai` account if you don't already have one.
+2. Navigate to your account control panel and generate your `API Key`. You can do this by clicking [here](https://fal.ai/dashboard/keys).
+3. Input this `API Key` in the specified section in the component's settings.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/falai/screenshot25.png" alt="alt text" /> 
+
+### 📝 Inputs
+
+To effectively utilize this component, the following input is required:
+
+1. **request_id (`required<string>`):** The ID of the request for which you want to fetch the result.
+
+<Image src="/img/falai/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### 📤 Outputs
+
+Upon executing the component, you will receive the following default outputs:
+
+1. **Response:** Contains key details about the generated image, providing insight into the output's characteristics.
+2. **Headers:** Lists the HTTP headers included in the response from the Fal.ai server, detailing specifics of the transaction.
+3. **image_url:** The URL of the generated image.
+
+<Image src="/img/falai/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

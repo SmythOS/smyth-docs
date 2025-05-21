@@ -1,9 +1,96 @@
----
-title: newsapi integration
----
 
-# newsapi integration
+# NewsAPI Integration
 
-This is the **newsapi integration** page for Agent Studio.
+`NewsAPI` is a service that provides easy access to a vast array of news articles from various sources and blogs worldwide. With endpoints that allow you to fetch the latest headlines, search for specific articles, and retrieve lists of news sources, `NewsAPI` serves as an invaluable tool for applications needing real-time news updates.
 
-_TODO: Add detailed content for newsapi integration._
+## Importance of Integrating `NewsAPI` into `SmythOS`
+
+Integrating the `NewsAPI` service into `SmythOS` brings several significant benefits:
+
+1. **Real-Time News Updates**:
+   - Access the latest news articles and headlines as they are published, ensuring you stay updated with current events.
+   - Easily fetch top headlines from various sources globally or within specific countries, enriching your data feed.
+
+2. **Enhanced Content Creation**:
+   - Source the most recent and relevant news articles to complement your content creation process.
+   - Improve the quality and diversity of content available within `SmythOS`, making it a more valuable tool for users.
+
+3. **Market and Trend Analysis**:
+   - Utilize the `NewsAPI` to gather insights into market trends, financial news, and global events that can impact business decisions.
+   - Provide users with the ability to track news related to specific industries, companies, or topics of interest.
+
+4. **Customizable News Feeds**:
+   - Allow users to customize their news feeds based on keywords, categories, languages, and sources.
+   - Offer tailored news content, helping users focus on the information most relevant to them.
+
+5. **Improved Research Capabilities**:
+   - Enhance research tools within `SmythOS` by integrating a wealth of news articles and sources.
+   - Enable users to perform comprehensive searches through millions of articles for specific information.
+
+6. **Sentiment and Public Opinion Analysis**:
+   - Integrate `NewsAPI` data to perform sentiment analysis on news articles, understanding public opinion on various topics.
+   - Provide users with insights into general sentiment trends and how they may affect markets or public perception.
+
+By integrating `NewsAPI` into `SmythOS`, users gain access to a powerful resource for staying informed, creating high-quality content, conducting in-depth research, and analyzing market trends. This integration significantly enhances the capabilities and value of `SmythOS` as a comprehensive platform for managing and utilizing news data.
+
+## Everything
+
+Search through millions of news articles.
+
+### Settings
+
+#### API Key
+
+To use the NewsAPI service, you need to acquire your `API Key` by following these steps:
+
+1. **Sign Up / Log In**:
+   - Visit the [NewsAPI website](https://newsapi.org/) and create an account or log in if you already have one.
+
+2. **Access API Key Section**:
+   - Once logged in, navigate to the 'API' or 'API Key' section in your account dashboard.
+
+3. **Generate API Key**:
+   - Click on the button to generate a new `API key`. This key will be used to authenticate your requests.
+
+4. **Copy the API Key**:
+   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
+
+5. **Set API Key in SmythOS**:
+   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
+
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/newsapi/screenshot1.png" alt="alt text" /> 
+
+### Inputs
+
+To effectively utilize this component, provide the following inputs:
+
+1. **keyword (`required<string>`):** The keyword or phrase to search for in the news articles.
+2. **from (`optional<string>`):** The start date for the articles to be retrieved (e.g., "2023-01-01").
+3. **to (`optional<string>`):** The end date for the articles to be retrieved (e.g., "2023-12-31").
+4. **sortBy (`optional<string>`):** The order to sort the articles by. Default value is `publishedAt`.
+5. **searchIn (`optional<string>`):** Fields to search in; options are `title`, `description`, and `content`. Default value is `title,description,content`.
+6. **language (`optional<string>`):** The language of the articles. Default value is `en`.
+7. **page (`optional<integer>`):** The page number for pagination. Default value is `1`.
+8. **pageSize (`optional<integer>`):** The number of articles per page. Default value is `100`.
+9. **domains (`optional<string>`):** A comma-separated string of domains to include in the search.
+10. **excludeDomains (`optional<string>`):** A comma-separated string of domains to exclude from the search.
+
+<Image src="/img/newsapi/screenshot2.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After running this component, the following default outputs are generated:
+
+1. **Response**: The full API response.
+2. **Headers**: Metadata and headers from the API call.
+3. **totalResults**: The total number of results matching the query.
+4. **articles**: A list of articles retrieved based on the search criteria.
+
+<Image src="/img/newsapi/screenshot3.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

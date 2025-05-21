@@ -1,9 +1,1098 @@
----
-title: gohighlevel integration
----
+# GoHighLevel Integration
 
-# gohighlevel integration
+GoHighLevel is a comprehensive platform designed to help businesses manage their marketing, sales, and customer service operations from a single dashboard. With a robust set of tools including CRM, email marketing, SMS marketing, and more, GoHighLevel aims to streamline business processes and improve overall efficiency.
 
-This is the **gohighlevel integration** page for Agent Studio.
+The GoHighLevel API allows developers to integrate GoHighLevel's powerful features into their own applications. The API provides access to various functionalities such as contact management, lead generation, appointment scheduling, and more, making it a vital tool for businesses looking to enhance their operational capabilities.
 
-_TODO: Add detailed content for gohighlevel integration._
+Integrating the GoHighLevel API into SmythOS significantly enhances the platform's capabilities by:
+- **Streamlining Operations:** Facilitating seamless management of marketing, sales, and customer service processes.
+- **Improving Efficiency:** Automating repetitive tasks and workflows, thereby boosting productivity.
+- **Centralizing Data Management:** Providing a single platform to manage all customer interactions and data.
+- **Enhancing Customer Engagement:** Utilizing advanced marketing tools to engage with customers more effectively.
+
+## Integration Settings
+
+#### GoHighLevel Location API Key
+To integrate this component, please follow these steps to obtain your GoHighLevel Location API Key:
+1. **Log in to GoHighLevel:**
+   - Navigate to the [GoHighLevel Dashboard](https://app.gohighlevel.com/dashboard/).
+2. **Access Sub account:**
+   - Select a **sub account** from the side menu.
+   - From the sub account dashboard, go to **Settings**.
+   - Select **Business Info** from the side menu.
+   - Select **API Keys** from the side menu.
+   - Click on **Generate API Key** if you do not already have one. 
+3. **Copy the API Key:**
+   - Once generated, copy your **Location API Key**.
+
+#### GoHighLevel Agency API key
+To integrate this component, please follow these steps to obtain your GoHighLevel Agency API Key:
+1. **Log in to GoHighLevel:**
+   - Navigate to the [GoHighLevel Dashboard](https://app.gohighlevel.com/dashboard/).
+2. **Access the Agency Settings:**
+   - From the dashboard, go to **Settings**.
+   - Select **API Keys** from the side menu.
+   - Select **Agency API Keys**.
+   - Click on **Generate API Key** if you do not already have one.
+
+> **Note:** Treat the `GoHighLevel Location API Key` as sensitive data. In SmythOS, you can securely manage it using the `Vault` feature. For more details, please refer to [this section](https://app.smythos.com/doc/#/vault/keysManagement) in the documentation.
+
+## Get Contacts
+Retrieve all contacts.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **trigger (`required<any value>`):** This input is required to trigger the execution of the component; it can hold any value.
+2. **limit (`optional<integer>`):** This input sets the maximum number of contacts to retrieve. The default value is `20`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **contacts:** The list of retrieved contacts.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Ngk5eDBHrJ6PuVKVeO7x?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Contacts" />
+
+## Create Contact
+Creates a new contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **email (`required<string>`):** The email address of the contact.
+2. **firstName (`optional<string>`):** The first name of the contact. Default is `N/A`.
+3. **lastName (`optional<string>`):** The last name of the contact. Default is `N/A`.
+4. **name (`optional<string>`):** The full name of the contact. Default is `N/A`.
+5. **dateOfBirth (`optional<string>`):** The date of birth of the contact. Default is `N/A`.
+6. **address1 (`optional<string>`):** The primary address of the contact. Default is `N/A`.
+7. **city (`optional<string>`):** The city of the contact. Default is `N/A`.
+8. **state (`optional<string>`):** The state of the contact. Default is `N/A`.
+9. **postalCode (`optional<string>`):** The postal code of the contact. Default is `N/A`.
+10. **companyName (`optional<string>`):** The company name of the contact. Default is `N/A`.
+11. **website (`optional<string>`):** The website of the contact. Default is `N/A`.
+12. **tags (`optional<array>`):** Tags associated with the contact. Default is `[]`.
+13. **customField (`optional<object>`):** Additional custom fields for the contact. Default is `{}`.
+14. **phone (`optional<string>`):** The phone of the contact. Default is `N/A`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the newly created contact.
+4. **locationId:** The location ID associated with the contact.
+5. **email:** The email address of the contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Kz97j2yHDm6vxNOs7dz9?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Create Contact" />
+
+## Search Contact By Email
+Retrieve a matching contact for the given email query.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **email_query (`required<string>`):** The email address to search for a contact.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **contacts:** The list of contacts matching the email query.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/vY5DfOWUKzqhCeFUYx2m?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Search Contact By Email" />
+
+## Search Contact By Phone
+Retrieve matching contacts for the search query by phone number.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **phone_query (`required<string>`):** The phone number to search for a contact.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **contacts:** The list of contacts matching the phone query.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/4nhzaUvEMKYxnK9QdEiW?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Search Contact By Phone" />
+
+## Get Contact
+Retrieve a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **contactId (`required<string>`):** The ID of the contact to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the retrieved contact.
+4. **email:** The email address of the retrieved contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/tOIgOzH28as9ohsr9tRi?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Contact" />
+
+## Update Contact
+Updates a contact field by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+#### Body
+This field is meant for the body payload to update a contact. It has a default schema of the payload that can be edited as needed.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact to update.
+2. **email (`required<string>`):** The email address of the contact.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated contact.
+4. **email:** The email address of the updated contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/oPEM3F49XNKZCsZ9MkDd?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Contact" />
+
+## Delete Contact
+Deletes a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **contactId (`required<string>`):** The ID of the contact to delete.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/HU555no3HpVwQJ5QWXJV?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Contact" />
+
+## Get Workflows
+Retrieve all workflows.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **trigger (`required<any value>`):** This input is required to trigger the execution of the component and can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **workflows:** The list of retrieved workflows.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/pzhZ8TgmNw1X5HPIViYb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Workflows" />
+
+## Add Contact Tags
+Adds tags to a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact to add tags to.
+2. **tags (`required<array>`):** The tags to add to the contact.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **tags:** The tags added to the contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/O1aYUFkiPFMYdejxBLRa?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Add Contact Tags" />
+
+## Get Contact Notes
+Retrieve all notes for a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **contactId (`required<string>`):** The ID of the contact whose notes you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **notes:** The list of notes associated with the contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/Q6zJDe6r7y2IQrFZxSCO?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Contact Notes" />
+
+## Get Note
+Retrieve a specific note for a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact whose note you want to retrieve.
+2. **noteId (`required<string>`):** The ID of the specific note to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the retrieved note.
+4. **body:** The content of the retrieved note.
+5. **createdAt:** The creation date of the retrieved note.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/7YNtZfvHYCCzN46OxOwG?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Note" />
+
+## Delete Note
+Delete a note for a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact whose note you want to delete.
+2. **noteId (`required<string>`):** The ID of the specific note to delete.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API. If successful, it returns an empty object.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/hxA74oYdWH9NeD9bQr65?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Note" />
+
+## Update Note
+Update a contact's note.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact whose note you want to update.
+2. **noteId (`required<string>`):** The ID of the specific note to update.
+3. **body (`required<string>`):** The updated content of the note.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated note.
+4. **body:** The content of the updated note.
+5. **createdAt:** The date the note was updated.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/wwlVNksb5zTA77D6L7Q2?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Note" />
+
+## Create Note
+Add a note to a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact you want to add a note to.
+2. **body (`required<string>`):** The content of the note.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the created note.
+4. **body:** The content of the created note.
+5. **createdAt:** The date the note was created.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/3jI3k4MIwqaAeQEVXrZg?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Create Note" />
+
+## Get All Tags
+Retrieve all tags.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **trigger (`required<any value>`):** This input is required to trigger the execution of the component; it can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **tags:** The list of all retrieved tags.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/rJqMBI0aXUZcnLF7kqwT?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get All Tags" />
+
+## Create Tag
+Create a new tag.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **name (`required<string>`):** The name of the new tag.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the newly created tag.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/SY31KFVZjcHPLdh65ruP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Create Tag" />
+
+## Get Tag
+Retrieve a tag by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **tagId (`required<string>`):** The ID of the tag to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the retrieved tag.
+4. **name:** The name of the retrieved tag.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/JNNADrUYk6Y9h0ZEbdcj?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Tag" />
+
+## Update Tag
+Update a tag by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **tagId (`required<string>`):** The ID of the tag to update.
+2. **name (`required<string>`):** The new name for the tag.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated tag.
+4. **name:** The updated name of the tag.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/HC2W46L1JKLlKWjkBWls?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Tag" />
+
+## Delete Tag
+Delete a tag by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **tagId (`required<string>`):** The ID of the tag to delete.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API. If successful, it returns an empty object.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/13pLDue2ejBk86Chc5Q0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Tag" />
+
+## Get Pipelines
+Retrieve all pipelines.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **trigger (`required<any value>`):** This input is required to trigger the execution of the component; it can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **pipelines:** The list of pipelines retrieved.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/4ZEH3a0P6ImIHq54xNEG?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Pipelines" />
+
+## Get Opportunities
+Retrieve all opportunities.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline to retrieve opportunities from.
+2. **limit (`optional<string>`):** The maximum number of opportunities to retrieve. Default is `20`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **opportunities:** The list of retrieved opportunities.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/jEMuwLp6PUZzsutdBcFX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Get Opportunities" />
+
+## Get Opportunity
+Retrieve a specific opportunity by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline to retrieve opportunities from.
+2. **opportunityId (`optional<string>`):** The ID of the specific opportunity to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the retrieved opportunity.
+4. **name:** The name of the retrieved opportunity.
+5. **pipelineId:** The pipeline ID associated with the retrieved opportunity.
+6. **status:** The current status of the retrieved opportunity.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/q2PgtHmbEWCM548IIcUu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Opportunity" />
+
+## Delete Opportunity
+Delete an opportunity by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline associated with the opportunity.
+2. **opportunityId (`required<string>`):** The ID of the specific opportunity to delete.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/t1JVHrSuhwGcs2n0FPGO?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Opportunity" />
+
+## Create Opportunity
+Create a new opportunity.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline associated with the opportunity.
+2. **title (`required<string>`):** The title of the opportunity.
+3. **status (`required<string>`):** The status of the opportunity. Default is `open`.
+4. **stageId (`required<string>`):** The stage ID of the opportunity within the pipeline.
+5. **contactId (`required<string>`):** The contact ID associated with the opportunity.
+6. **monetaryValue (`optional<float>`):** The monetary value of the opportunity. Default is `0.00`.
+7. **source (`optional<string>`):** The source of the opportunity. Default is `SmythOS`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the created opportunity.
+4. **name:** The name of the created opportunity.
+5. **pipelineId:** The ID of the pipeline associated with the opportunity.
+6. **pipelineStageId:** The ID of the stage within the pipeline associated with the opportunity.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/EA6Drz8EOisOunOVduBA?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Create Opportunity" />
+
+## Update Opportunity
+Update an existing opportunity.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline associated with the opportunity.
+2. **opportunityId (`required<string>`):** The ID of the specific opportunity to update.
+3. **status (`required<string>`):** The status of the opportunity. Default is `open`.
+4. **stageId (`required<string>`):** The stage ID of the opportunity within the pipeline.
+5. **title (`required<string>`):** The title of the opportunity.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated opportunity.
+4. **body:** The details of the updated opportunity.
+5. **pipelineId:** The associated pipeline ID.
+6. **status:** The current status of the updated opportunity.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/WSASzzBQvT1J4RJrFKlT?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Opportunity" />
+
+## Update Opportunity Status and Stage
+Update an opportunity's status and stage.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **pipelineId (`required<string>`):** The ID of the pipeline associated with the opportunity.
+2. **opportunityId (`required<string>`):** The ID of the specific opportunity to update.
+3. **status (`required<string>`):** The status of the opportunity. Default is `open`.
+4. **stageId (`required<string>`):** The stage ID of the opportunity within the pipeline.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/lDA8DvhkIGch0skNHsFF?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Opportunity Status and Stage" />
+
+## Create Tasks
+Create a new task for a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact for whom the task is being created.
+2. **title (`required<string>`):** The title of the task.
+3. **dueDate (`required<string>`):** The due date of the task.
+4. **description (`required<string>`):** The description of the task. Default is `""`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the created task.
+4. **title:** The title of the created task.
+5. **description:** The description of the created task.
+6. **dueDate:** The due date of the created task.
+7. **isCompleted:** The completion status of the created task.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/YsBagH1D1OnrszRuHJUR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Create Task" />
+
+## Get Task
+Retrieves a task for a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact for whom the task is being retrieved.
+2. **taskId (`required<string>`):** The ID of the task being retrieved.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the retrieved task.
+4. **title:** The title of the retrieved task.
+5. **description:** The description of the retrieved task.
+6. **dueDate:** The due date of the retrieved task.
+7. **isCompleted:** The completion status of the retrieved task.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/zpJUq0VgTcGzKymBNgCO?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Task" />
+
+## Update Task
+Updates a task for a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact whose task you want to update.
+2. **taskId (`required<string>`):** The ID of the task you want to update.
+3. **title (`required<string>`):** The title of the task.
+4. **dueDate (`required<string>`):** The due date of the task.
+5. **description (`required<string>`):** The description of the task. Default is `""`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated task.
+4. **title:** The title of the updated task.
+5. **description:** The description of the updated task.
+6. **dueDate:** The due date of the updated task.
+7. **isCompleted:** The completion status of the updated task.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/wibLkm6YWS5HeBNp0vUK?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Task" />
+
+## Update Task Status
+Updates a task status for a contact by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact for whom the task status is being updated.
+2. **taskId (`required<string>`):** The ID of the task being updated.
+3. **status (`required<string>`):** The new status of the task. It is either `completed` or `incompleted`.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the updated task.
+4. **title:** The title of the updated task.
+5. **description:** The description of the updated task.
+6. **dueDate:** The due date of the updated task.
+7. **isCompleted:** The completion status of the updated task.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/JaKixUSDll6ATsef5SSd?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Update Task Status" />
+
+## Delete Task
+Deletes a task for a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact for whom the task is being deleted.
+2. **taskId (`required<string>`):** The ID of the task being deleted.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/UavWFwv3mh6DNvaWI56M?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Task" />
+
+## Get Contact Tasks
+Retrieves all tasks for a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **contactId (`required<string>`):** The ID of the contact whose tasks you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **tasks:** Parsed list of tasks for the contact.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/gQV6hguA3eNXVhP2bDZH?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Contact Tasks" />
+
+## Get Campaigns
+Retrieve all campaigns.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **trigger (`required<any value>`):** This input serves as a trigger for the execution of the component and can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **campaigns:** Parsed list of campaigns retrieved from the GoHighLevel API.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/IjdDahRZzB2UeNys2rUU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Campaigns" />
+
+## Find User by Email
+Finds a user by email.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Agency API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **email (`required<string>`):** The email address of the user you want to find.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the user found by the specified email.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/lt3xtY8mKyFIfetws4hq?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Find User by Email" />
+
+## Get All Agency Users
+Retrieves all users in an agency.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Agency API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following inputs:
+1. **trigger (`required<any value>`):** This input serves as a trigger for the execution of the component and can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **users:** Parsed list of users retrieved from the GoHighLevel API.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/wps7mQRb7zHKFhKmAEaE?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get All Agency Users" />
+
+## Get Agency User
+Retrieves an agency user by ID.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Agency API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **userId (`required<string>`):** The ID of the user you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **id:** The ID of the user.
+4. **firstName:** The first name of the user.
+5. **lastName:** The last name of the user.
+6. **email:** The email address of the user.
+7. **roles:** The roles assigned to the user.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/mZPaqSqdwHuhSxDWeL8V?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Agency User" />
+
+## Get Location Users
+Retrieves users for a specific location.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **trigger (`required<any value>`):** This input serves as a trigger for the execution of the component and can hold any value.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+3. **users:** Parsed list of users retrieved from the GoHighLevel API.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/nyq40BplvtG1g1aa9uMA?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Location Users" />
+
+## Get Contact Appointments
+Retrieves all appointments for a contact.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **contactId (`required<string>`):** The ID of the contact whose appointments you want to retrieve.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+<Arcade src="https://demo.arcade.software/ONZEn9saleVTM8uymauV?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Get Contact Appointments" />
+
+## Delete Contact Campaigns
+Removes a contact from all campaigns.
+
+### Component Settings
+To use this component:
+- Click on the component settings.
+- Add your `GoHighLevel Location API Key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+- Confirm and close the settings.
+
+### Inputs
+To effectively utilize this component, you need to provide the following input:
+1. **contactId (`required<string>`):** The identifier for the contact you wish to remove from campaigns.
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+After running this component, the following default outputs are generated:
+1. **Response:** The raw response from the GoHighLevel API.
+2. **Headers:** HTTP headers detailing the API request-response process.
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example. 
+
+<Arcade src="https://demo.arcade.software/D1yuksq3HcBQ2MgLcif4?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GHL Delete Contact Campaign" />

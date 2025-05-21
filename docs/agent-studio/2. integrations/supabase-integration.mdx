@@ -1,9 +1,437 @@
----
-title: supauase integration
----
+# Supabase Integration
 
-# supauase integration
+`Supabase` is a company that provides an open-source alternative to Firebase, focusing on providing developers with a suite of tools and services to build scalable applications. It offers a range of features, including real-time databases, authentication, file storage, and more, all while leveraging the power of PostgreSQL.
 
-This is the **supauase integration** page for Agent Studio.
+At `SmythOS`, we prioritize seamless integration with `Supabase`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
 
-_TODO: Add detailed content for supauase integration._
+## List Projects
+
+Retrieve a list of `Supabase` projects using the `List Projects` component.
+
+### Settings
+
+To initialize and configure the `List Projects` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+<Image src="/img/supabase/screenshot13.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `List Projects` component, ensure the provision of the following input parameter:
+
+1. **trigger `required<any value>`:** This input is used solely to trigger the execution of the component. It can be any value, as it serves as a placeholder to initiate the component's operation.
+
+<Image src="/img/supabase/screenshot14.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `List Projects` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the list of `Supabase` projects, such as their names, IDs, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **projects**: This is an array that enumerates the projects available, providing a structured collection of each project's attributes.
+
+<Image src="/img/supabase/screenshot15.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Insert a Row 
+
+Create a row using the Service key.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Insert a Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+This parameter can take one of two options:
+
+- `return=minimal`: When utilized, this option prompts the server to return only the necessary details in response to a request that successfully creates or modifies a resource. It's aimed at minimizing the size of the response payload.
+- `return=representation`: Opting for this tells the server to include a full representation of the modified or newly created resource as part of the response, allowing for immediate verification of the changes.
+
+#### Table Row
+
+This configuration includes a default body payload provided as an example. It guides the user on how to properly set up the payload to add a new row within the system.
+
+<Image src="/img/supabase/screenshot19.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Insert a Row` component, ensure the provision of the following input parameters:
+
+1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
+2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
+
+<Image src="/img/supabase/screenshot20.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Insert a Row` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the created row, such as its ID and any other relevant data.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **id:** The ID of the created row.
+
+<Image src="/img/supabase/screenshot21.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Delete Row
+
+Delete a row using the service key.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Delete Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+<Image src="/img/supabase/screenshot22.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Delete Row` component, ensure the provision of the following input parameters:
+
+1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
+2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
+3. **id `required<string>`:** Specify the ID of the specific record you want to delete. 
+
+<Image src="/img/supabase/screenshot23.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Delete Row` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output confirms the successful deletion of the specified row and may include additional information such as the number of affected rows or any other relevant data.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **id:** The unique identifier of the deleted row.
+
+<Image src="/img/supabase/screenshot24.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Columns
+
+Retrieve columns from `Supabase` using the service key.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Get Columns` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+<Image src="/img/supabase/screenshot25.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Get Columns` component, ensure the provision of the following input parameters:
+
+1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
+2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
+
+<Image src="/img/supabase/screenshot26.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Get Columns` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the columns retrieved from the specified table, such as their names, data types, constraints, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **columns**: This object houses the collection of columns that have been retrieved, effectively displaying the schema of the specified table.
+
+<Image src="/img/supabase/screenshot27.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Get Row
+
+Retrieve a row from `Supabase` using the service key.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Get Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+<Image src="/img/supabase/screenshot28.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Get Row` component, ensure the provision of the following input parameters:
+
+1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account. 
+2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
+2. **id `required<string>`:** Specify the ID of the row that you want to retrieve.
+
+<Image src="/img/supabase/screenshot29.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Get Row` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the retrieved row from the specified table, such as its data fields, values, and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **id**: This refers to the distinct identifier that is assigned to the row. It is vital for unique identification and future reference within the table.
+
+<Image src="/img/supabase/screenshot30.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Update Row
+
+Update a row in `Supabase` using the service key.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Update Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+#### Body
+
+The `Body` field holds the content of the request. It is editable, allowing for customization as necessary to meet the specific requirements of the request.
+
+<Image src="/img/supabase/screenshot31.png" alt="alt text" />
+
+### Inputs
+
+To effectively utilize the capabilities of the `Update Row` component, ensure the provision of the following input parameters:
+
+1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account. 
+2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
+3. **id `required<string>`:** Specify the ID of the row that you want to update.
+
+<Image src="/img/supabase/screenshot32.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+Upon successful execution of the `Update Row` component, expect to receive the following outputs:
+
+1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the update operation, such as the updated row data and any other relevant metadata.
+2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
+3. **id:** This represents the unique identifier for the row that has undergone the update process.
+
+<Image src="/img/supabase/screenshot33.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Read Rows
+
+This component retrieves rows from a specific table in your `Supabase` project, providing efficient access to your database data directly through `SmythOS`.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Update Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+<Image src="/img/supabase/screenshot34.png" alt="alt text" />
+
+### Inputs
+
+Provide these inputs to configure the retrieval of rows from your `Supabase` table:
+
+- **project_id (`required<string>`)**: Your specific `Supabase` project identifier.
+- **table (`required<string>`)**: The name of the `Supabase` table from which to retrieve rows.
+
+<Image src="/img/supabase/screenshot35.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+After executing the `Read Rows` component, it generates detailed outputs, including:
+
+1. **Response**: This provides the complete API response from `Supabase`, containing the data of the retrieved rows.
+2. **Headers**: Displays the HTTP headers that came with the server's response, offering meta-information.
+3. **id**: The id of the actual data retrieved from the `Supabase` table, structured as an array of row objects.
+
+<Image src="/img/supabase/screenshot36.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+
+## Insert Rows
+
+This component enables the insertion of multiple rows at once into a specified table in a Supabase project using `SmythOS`.
+
+### Settings
+
+#### API Key
+
+To initialize and configure the `Update Row` component, follow these simple guidelines:
+
+1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
+2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
+3. Generate your `API Key` by following the provided instructions.
+4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+
+#### Role Secret
+
+1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
+2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
+
+> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+
+#### Prefer
+
+It has the following options:
+
+- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
+- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
+
+#### Body
+
+To insert rows, structure your payload carefully according to your table schema. This area allows for the specification of the data to be inserted.
+
+<Image src="/img/supabase/screenshot37.png" alt="alt text" />
+
+### Inputs
+
+Specify these inputs for effective operation:
+
+- **project_id (`required<string>`)**: The identifier of your `Supabase` project.
+- **table (`required<string>`)**: The name of the table into which the rows will be inserted.
+
+<Image src="/img/supabase/screenshot38.png" alt="alt text" />
+
+> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+
+### Outputs
+
+On successful execution, the component provides comprehensive outputs:
+
+1. **Response**: The full response from Supabase detailing the insertion results.
+2. **Headers**: HTTP headers indicating the status and particulars of your request.
+3. **rows**: Detailed information on the rows that were successfully inserted including their data and unique IDs.
+
+<Image src="/img/supabase/screenshot39.png" alt="alt text" />
+
+> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

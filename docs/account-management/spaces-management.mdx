@@ -1,0 +1,103 @@
+# Spaces Management
+
+Spaces in SmythOS help organize your work and control access to resources. Each space acts as a separate workspace with its own team members, agents, and data.
+
+## Understanding Spaces
+
+### What is a Space?
+- • A contained environment for your work
+- • Separate from other spaces in your organization
+- • Has its own team members, permissions, and resources
+
+### When to Create a Space
+- • Working with different clients
+- • Separating development and production environments
+- • Organizing different departments or projects
+
+## Roles and Permissions
+
+SmythOS uses role-based permissions to manage access:
+
+### Super Admin
+- • Full access to all features
+- • Can manage billing and organization settings
+- • Typically organization owners and senior leadership
+
+### Admin
+- • Can manage space settings and members
+- • Full access to all resources within the space
+- • Cannot modify billing or organization settings
+
+### Editor
+- • Can create and modify agents and resources
+- • Cannot manage team members or space settings
+- • Ideal for developers and project managers
+
+### Viewer
+- • Can view and interact with deployed agents
+- • Cannot modify any settings or resources
+- • Perfect for stakeholders and clients
+
+### Permission Details
+
+| Page               | Super Admin        | Admin             | Edit Role         | View Role      |
+|--------------------|--------------------|-------------------|-------------------|----------------|
+| **Dashboard**      | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Agent Settings** | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Agent Builder**  | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Templates**      | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Domains**        | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Data Pool**      | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Vault**          | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **Analytics**      | View and Edit      | View and Edit     | View and Edit     | View Only      |
+| **My Plan**        | View and Edit      | View Only         | View Only         | View Only      |
+| **Team Roles**     | View and Edit      | View and Edit     | View Only         | View Only      |
+| **Team Members**   | View and Edit      | View and Edit     | View Only         | View Only      |
+
+## Managing Your Space
+
+### Creating a Space
+1. Open the spaces dropdown in the top navigation
+2. Select "Create New Space"
+3. Enter a name and optional description
+4. Add initial team members (optional)
+
+### Deleting a Space
+Only the creator can delete a space. Follow these steps:
+1. **Cleanup:** Remove all subdomains, data spaces, members, and agents.
+2. **Delete Option:** Enable and proceed to delete the space once cleared.
+
+### Adding Team Members
+1. **After Creation:** Use the modal prompt OR
+2. **Space Settings:** Navigate to `Space Settings` and add members
+3. Enter email addresses
+4. Select appropriate roles
+5. Send invitations
+
+### Removing Members
+1. **Space Settings:** Go to Space Settings of the desired space.
+2. **Member List:** Find the list of members.
+3. **Remove Member:** Click the remove option next to the member's name.
+
+Note: Space creators cannot be removed, and members cannot remove themselves.
+
+2. **Security**
+   - • Assign minimum required permissions
+   - • Regularly audit team member access
+   - • Remove inactive members promptly
+   
+---
+
+## Company Branding
+Customize your space with your company's branding.
+
+### 🔄 Change the Space Logo
+1. **Space Settings:** Go to settings from the sidebar of the selected space.
+2. **Change Logo Button:** Find and click `Change Logo`.
+3. **Upload New Logo:** Upload an image that represents your company's branding.
+
+By organizing with spaces, you ensure a clean, efficient workflow, isolating resources and ensuring secure collaboration.
+
+<Arcade 
+src="https://demo.arcade.software/lW4Mz6IcJLe8NzckhbPt?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" 
+title="Company Branding | SmythOS" />

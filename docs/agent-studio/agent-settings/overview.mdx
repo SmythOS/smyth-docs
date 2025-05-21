@@ -1,0 +1,64 @@
+# Agent Settings Overview
+
+Configure your agent's core settings to define its behavior, appearance, and capabilities.
+
+<Arcade src="https://demo.arcade.software/SlE2b4llRxs1HP7PNwqP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Agent Overview | SmythOS" /> 
+
+## Basic Configuration
+
+### Identity
+- • **Name** - Unique identifier for your agent
+    - Choose descriptive names for easy recognition
+    - Used in UI and API interactions
+- • **Avatar** - Visual representation
+    - Auto-generate based on name
+    - Upload custom image (recommended: 256x256px)
+- • **Description** - Brief summary of agent's purpose
+
+### Behavior Settings
+- • **Default LLM** - Primary language model
+    - Used for chat and chatbot interactions
+    - Affects response quality and capabilities
+- • **Intro Message** - Initial chatbot greeting
+    - Customizes user's first interaction
+    - Sets expectations for agent capabilities
+- • **Behavior Description** - Detailed functionality guide
+    - Acts as system prompt for the LLM
+    - Defines agent's personality and responses
+
+## Global Variables
+
+Variables accessible throughout your agent's components.
+
+### Key Features
+- • **Universal Access** - Available to all components
+- • **Dynamic Updates** - Changes reflect immediately in workflow
+
+### Common Uses
+- • API endpoints
+- • Configuration values
+- • Shared constants
+
+> **Security Note**: Store sensitive information like API keys in the [Vault](core_concepts/keysManagement.md) instead of global variables.
+
+## Best Practices
+
+1. **Naming**
+   - • Use clear, descriptive names
+   - • Follow consistent naming conventions
+   - • Avoid generic terms
+
+2. **Configuration**
+   - • Test LLM responses before deployment
+   - • Keep behavior descriptions focused
+   - • Update global variables carefully
+
+3. **Security**
+   - • Use Vault for sensitive data
+   - • Review access permissions
+   - • Monitor usage patterns
+
+## Related Resources
+- • [Authentication Settings](agent-settings/auth_settings.md)
+- • [Logs Management](agent-settings/logs.md)
+- • [Vault Guide](core_concepts/keysManagement.md)

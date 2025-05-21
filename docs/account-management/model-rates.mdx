@@ -1,0 +1,164 @@
+# Model Rates
+
+This document provides detailed information about the rates for various models from different providers to help you choose the best model for your use case. The rates are categorized based on the provider, creator, model name, variant, and various pricing metrics.
+
+---
+
+## How Billing Works
+- • Your plan includes free credits to get you started
+- • AI model usage is billed pay-as-you-go monthly (or at billing threshold)
+- • External AI service charges are non-refundable as they're paid to vendors
+
+### Using SmythOS-Recommended Models
+Benefits of using our recommended models:
+- • No individual API keys needed
+- • Consolidated cost reporting
+- • Base pricing matches vendor rates
+- • Plan tier discounts available
+
+### Bringing Your Own API Keys
+Available on all plans, including free tier:
+- • Eliminates model cost markup
+- • Pay only for:
+    - • Task execution
+    - • Weaver usage
+    - • NodeJS runtime
+
+Note: All plans include credits to help cover typical usage costs.
+
+---
+
+## Usage Analytics and Reporting
+
+SmythOS provides comprehensive analytics tools to help you monitor and manage your model usage and costs:
+
+### Analytics Dashboard
+- • Access your detailed analytics dashboard at [analytics page](https://app.smythos.com/analytics)
+- • Track real-time usage metrics for all AI models and services
+- • View breakdowns by model type, tasks, tools, weaver
+- • Monitor token consumption
+- • Identify usage patterns and optimize your resource allocation
+- • Download detailed CSV reports of your model usage
+
+### Cost Control Features
+- • Configure automatic pause when thresholds are reached
+- • Manage spending caps in the [plan page](https://app.smythos.com/my-plan)
+- • Receive notifications before reaching spending limits
+
+---
+
+## Rate Details
+
+Base rates are multiplied based on your plan. Eg: "1.3x model usage cost" with a base rate of $0.1 would result in a usage charge of $0.13. Your plans' included free credits are exhausted first, afterwards we switch to pay-per-use billing. You can track your usage in the [analytics page](https://app.smythos.com/analytics) and limit spending in the [plan page](https://app.smythos.com/my-plan).
+
+### SmythOS Core Services
+
+| Service | Cost |
+|---------|------|
+| Weaver | $3.00/1M input tokens, $12.00/1M output tokens |
+| Task Execution | $0.001 per task |
+| Code: VanillaJS | Free |
+| Code: NodeJS | $0.0001 per second |
+
+#### Understanding Task Execution
+
+**What is a Task?**
+A "task" represents each successful component execution within an agent's workflow. Tasks are the fundamental unit of agent work in SmythOS.
+
+**When Tasks Are Consumed:**
+- Each successful component execution in an agent counts as 1 task
+- Tasks are only consumed in the deployed (production) environment
+- Tasks can be initiated through chat interactions, bulk operations, or scheduled tasks
+
+**When Tasks Are NOT Consumed:**
+- Failed component executions do not consume tasks
+- Using the development version of your agent does not consume tasks
+- Component testing in the agent builder does not count as a billable task
+
+**Task Billing Examples:**
+
+| Action | Tasks Consumed |
+|--------|---------------|
+| Agent chat response using 3 components | 3 tasks |
+| Bulk operation with 100 rows, each using 2 components | 200 tasks |
+| Failed component execution | 0 tasks |
+| Dev environment testing | 0 tasks |
+
+### GenAI Language Models
+
+#### OpenAI Models
+
+| Model | Input* | Cached Input* | Output* | Context | Image Processing |
+|-------|--------|---------------|---------|---------|------------------|
+| GPT-4o | $2.50 | $1.25 | $10.00 | 128k | Text tokens** |
+| GPT-4o mini | $0.15 | $0.075 | $0.60 | 128k | Text tokens** |
+| GPT-4.1 | $2.00 | $0.50 | $8.00 | 1M | Text tokens** |
+| GPT-4.1 mini | $0.40 | $0.10 | $1.60 | 1M | Text tokens** |
+| GPT-4.1 nano | $0.10 | $0.025 | $0.40 | 1M | Text tokens** |
+| o1 | $15.00 | $7.50 | $60.00 | 200k | Text tokens** |
+| o3-mini | $1.10 | $0.55 | $4.40 | 200k | Text tokens** |
+
+*Per 1M tokens
+**Image tokens = (width × height)/750
+
+### Google & Anthropic Models
+
+| Model | Search Cost | Input* | Output* | Context | Media Processing |
+|-------|-------------|---------|---------|----------|------------------|
+| Gemini 2.0 Flash | $0.035 | $0.10 | $0.40 | 1M |<br/> 0.7/1M tok (image)<br/>0.1/1M tok (audio/video) |
+| Gemini 2.5 Pro (= 200k) | $0.035 | $1.25 | $10.00 | 1M | 0.7/1M tok (image)<br/>0.1/1M tok (audio/video) |
+| Gemini 2.5 Pro (> 200k) | $0.035 | $2.50 | $15.00 | 1M | 0.7/1M tok (image)<br/>0.1/1M tok (audio/video) |
+| Claude 3.5 Haiku | - | $0.80 | $4.00 | 200k | Text tokens** |
+| Claude 3.7 Sonnet | - | $3.00 | $15.00 | 200k | Text tokens** |
+
+### Perplexity Models
+
+| Model | Search Cost | Input* | Output* | Context | Additional |
+|-------|-------------|---------|---------|--------|------------|
+| Sonar | $0.005 | $1.00 | $1.00 | 128k | - |
+| Sonar PRO | $0.005 | $3.00 | $15.00 | 200k | - |
+| Sonar Reasoning Pro | $0.005 | $2.00 | $8.00 | 128k | - |
+| Sonar Deep Research | $0.005 | $2.00 | $8.00 | 128k | $3.00 (reasoning tokens)* |
+
+### Additional Services
+
+#### Image Generation
+
+| Service | Provider | Cost |
+|---------|----------|------|
+| GPT Image | OpenAI | Text input: $5/1M tokens<br/>Image input: $10/1M tokens<br/>Image output: $40/1M tokens |
+| HD 8 Steps | Flux Schnell | $0.001/request |
+| HD 50 Steps | Flux Dev | $0.008/request |
+
+#### Web Tools
+
+| Service | Provider | Cost |
+|---------|----------|------|
+| Web Search Component | Tavily | $0.008 per search |
+| Web Scraping Component | ScrapFly | $0.00015 per credit |
+
+#### System Tools
+
+| Service | Provider | Cost |
+|---------|----------|------|
+| NodeJS Component | SmythOS | $0.0001 / sec |
+| MCP Component | Varies | standard LLM model charge |
+| Computer Use Component | SmythOS | $0.0025 / sec |
+
+### Plan Tiers and Credits
+
+Each plan includes different pricing, seats, credit amounts, and model rate multipliers:
+
+| Plan | Price | Seats | Monthly Credits | Model Cost Multiplier | Key Features |
+|------|-------|-------|----------------|---------------------|-------------|
+| Free Forever | $0 | 1 | $5 | 2.5x | Public agents, Local deployment |
+| Private Builder | $39/seat/mo | 1 | $20 | 1.5x | Private agents, 100 API calls/day |
+| Startup | $399/mo | 3 | $200 | 1.3x | RAG agents, 5,000 API calls/day |
+| Scaleup | $1,499/mo | 5 | $300 | 1.1x | White labeling, 25,000 API calls/day |
+| Enterprise | Custom | Custom | Custom | Custom | On-prem deployment, unlimited API calls, [chat with us](https://smythos.com/pricing-enquiry/) |
+
+> **Free Plan Note:** When free credits are exhausted on the Free Forever plan, AI model calls pause until credits refresh the following month ($5). No payment method is required, so there's no automatic billing.
+
+> **Important Note about RAG Components:** RAG (Retrieval Augmented Generation) components are only available on Startup plans and higher. Users on the Builder plan who need RAG capabilities should upgrade to the Startup plan.
+
+See our [pricing page](https://smythos.com/pricing/) for complete plan details and features.

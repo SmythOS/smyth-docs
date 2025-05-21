@@ -1,0 +1,103 @@
+# Authentication Settings
+
+SmythOS offers two authentication methods to secure your agent access:
+- • Bearer Token - Simple API key authentication
+- • OAuth OIDC - Advanced user authentication with SSO support
+
+<Arcade src="https://demo.arcade.software/b9DNcjegkwRtT1JqrVYX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Auth Settings | SmythOS" />
+## Bearer Token Authentication
+
+Simple API key authentication using a token in request headers.
+
+### Setup
+1. Generate a secure random string for your token
+2. Add token in agent settings
+3. Include in API requests: `Authorization: Bearer your-token-here`
+
+### Example
+```bash
+curl https://your-agent.smythos.com/api/v1/chat \
+  -H "Authorization: Bearer abc123xyz789"
+```
+
+## OAuth OIDC Authentication
+
+SmythOS supports OAuth 2.0 with OpenID Connect (OIDC) for secure user authentication and authorization.
+
+- **OAuth**: Delegate access without exposing credentials.
+- **OIDC**: Manage user identity and secure authentication.
+
+### Required Configuration
+
+| Setting | Description | Example |
+|---------|-------------|---------|
+| OIDC Config Endpoint | Provider's configuration URL | `https://example.com/.well-known/openid-configuration` |
+| Client ID | Public application identifier | Provided by OAuth provider |
+| Client Secret | Private application key | Provided by OAuth provider |
+| Allowed Emails | Permitted email addresses/domains | `["user@example.com", "*.example.org"]` |
+| Callback URL | OAuth redirect URI | `https://{subdomain}/chatbot/callback` |
+
+The OIDC configuration endpoint returns a JSON document containing:
+```json
+{
+  "authorization_endpoint": "https://example.com/auth",
+  "token_endpoint": "https://example.com/token",
+  "userinfo_endpoint": "https://example.com/userinfo",
+  "jwks_uri": "https://example.com/.well-known/jwks.json"
+}
+```
+
+### Obtaining OIDC Config Data
+1. Log into your OAuth OIDC provider's dashboard.
+2. Navigate to the API section.
+3. Access the configuration document via an endpoint like `/.well-known/openid-configuration`.
+
+Public identifier for your application. Obtain it from your OAuth OIDC provider's application management page.
+
+### Client Secret
+
+Confidential string for authentication. Keep it secure. Obtain from your application's detail page.
+
+### Email Allowlist
+Control access by specifying allowed email patterns:
+```plaintext
+ Individual emails: user@example.com
+ Entire domains: @example.com
+ Wildcards: *.example.com
+```
+
+### 🔄 Callback URL
+Essential for OAuth 2.0 authentication flow. Configure it with your agent and OAuth provider.
+
+Constructing the Callback URL
+- 1. **Get Agent’s Subdomain** from Agent Studio settings.
+- 2. **Format**: `https://{agent_subdomain}/chatbot/callback`
+
+For example, for subdomain `myagent`, the callback URL is:
+`https://myagent/chatbot/callback`
+
+**Setting the Callback URL with Your OAuth Provider**
+Once you have your callback URL, you need to configure it with your OAuth provider:
+1. **Log in to Your OAuth Provider’s Dashboard**: Access your OAuth provider's platform.
+2. **Navigate to Application Settings**: Go to the section where you manage your registered applications.
+3. **Add or Update the Callback URL**: Enter your constructed callback URL in the designated field for redirect URIs.
+4. **Save Changes**: Ensure you save any changes to apply the new configuration.
+
+**Importance of a Secure Callback URL**
+- **Use HTTPS**: Always use HTTPS to ensure secure transmission of data.
+- **Exact Matching**: The callback URL must exactly match the registered URL with your OAuth provider to avoid validation issues.
+
+---
+### Common issues and solutions:
+1. **Invalid Callback URL**
+  - • Verify HTTPS protocol
+  - • Check for exact match in provider settings
+  - • Ensure subdomain is correct
+2. **Authentication Failures**
+  - • Verify client ID and secret
+  - • Check allowed email configuration
+  - • Validate OIDC endpoint accessibility
+3. **Bearer Token Issues**
+  - • Confirm token format in header
+  - • Check for token expiration
+  - • Verify token matches configuration

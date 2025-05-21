@@ -1,0 +1,129 @@
+# Agent Tasks
+
+SmythOS provides three ways to interact with your agents:
+- • Chat - Direct conversations and queries
+- • Bulk Operations - Process multiple tasks at once
+- • Scheduled Tasks - Automate recurring operations
+
+---
+
+## Chat Interface
+
+Interact directly with your agent through a conversational interface.
+
+### Requirements
+- • Agent must be deployed
+- • Chat button enabled on agent card
+- • Character limit: 8000 per message
+
+### Features
+- • Code block support with syntax highlighting
+- • Copy code or response to clipboard
+- • Real-time interaction
+
+> **Note:** Chat history is not stored. Save important information manually.
+
+<Arcade src="https://demo.arcade.software/6WzsfgFB0IBL2m7V6o3f?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Chat with Agent | SmythOS"/>
+
+---
+
+## Bulk Runs
+
+Execute multiple tasks simultaneously using your agent's endpoints.
+
+### Single Task Execution
+1. Click on the agent card to access the Agent Settings page.
+2. Select endpoint and click `Call`
+3. Enter input data
+4. Click `Call Endpoint`
+5. View results
+
+### Bulk Processing
+1. Navigate to Agent Settings
+2. Click `Bulk Work` on desired endpoint
+3. Add data either:
+   - • Manually via `Add Row`
+   - • Upload CSV file for multiple entries
+4. Execute:
+   - • Individual rows using `Run`
+   - • All rows using `Run in Bulk`
+
+> 📋 **CSV File Format Requirements**
+>
+> When uploading a CSV file for bulk operations, you must follow this specific format:
+>
+> 🔤 **First row**: Must contain the names of the inputs that match your endpoint's input parameters
+> 
+> 📊 **Second row onwards**: Contains the actual data to be processed by the endpoint
+>
+> For example, if your endpoint requires inputs named "query" and "max_results", your CSV should look like:
+>
+> | query | max_results |
+> |-------|-------------|
+> | digital marketing trends 2023 | 5 |
+> | AI developments healthcare | 10 |
+> | sustainable energy innovations | 7 |
+> | remote work best practices | 8 |
+>
+> ⚠️ **Important**: Failing to include the proper input names in the first row will result in processing errors, as the system won't be able to match your data with the endpoint's required inputs.
+
+<Arcade src="https://demo.arcade.software/AqIFSwVYbUUxd2ndStlu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Bulk | SmythOS" />
+
+---
+
+## Scheduled Tasks
+
+Automate recurring operations with the Scheduler.
+
+### Requirements
+- • Agent must be deployed. See [How to Deploy Your Agent](how-to/deployment.md)
+- • Valid endpoint configuration
+- • Appropriate permissions
+
+---
+
+### Creating a Routine
+
+#### Non-Repeating Routine
+
+1. **Go to Agent Settings**: Open Agent Settings from the Agents page.
+2. **Schedule Section**: Click `Add New` in the Schedule section.
+3. **Select Endpoint**: Choose the endpoint to execute.
+4. **Provide Inputs**: Enter required inputs for the endpoint.
+5. **Set Schedule**: Define the execution time.
+6. **No Repeats**: Ensure the routine is set to `No Repeat`.
+7. **Name Routine**: Optionally name the routine or let SmythOS assign one.
+8. **Finalize**: Click `Done` to create the routine.
+
+#### Repeating Routine
+
+1. **Go to Agent Settings**: Open Agent Settings from the Agents page.
+2. **Schedule Section**: Click `Add New` in the Schedule section.
+3. **Select Endpoint**: Choose the endpoint to execute.
+4. **Provide Inputs**: Enter required inputs for the endpoint.
+5. **Set Schedule**: Define the execution time.
+6. **Set Repetitions**: Choose `Repeat`.
+7. **Configure Repetitions**:
+    - **Repeat Every**: Interval of repetitions.
+    - **Repeat On**: Days of the week.
+    - **End Condition**: Set conditions (Never, On a date, After occurrences).
+8. **Name Routine**: Optionally name the routine or let SmythOS assign one.
+9. **Finalize**: Click `Done` to create the routine.
+
+<Arcade src="https://demo.arcade.software/5NPb5R6hXdIqrB6Pozxc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Scheduler | SmythOS" />
+---
+
+### Routine Information
+
+Select a routine to view detailed information:
+
+1. **Info Tab**: Routine details, including name, endpoint, creation date, and next execution time.
+2. **Triggers Tab**: History of executions.
+3. **Logs Tab**: Link to `View in Logs Explorer` for detailed logs.
+
+Efficiently monitor and manage routine activities using these tabs.
+
+### Scheduling
+- • Set appropriate intervals
+- • Monitor task completion
+- • Review logs regularly

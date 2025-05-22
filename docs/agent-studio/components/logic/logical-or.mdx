@@ -1,6 +1,8 @@
-# 🔗 Logic AND
+# Logic OR
 
-The `Logic AND` component performs logical `AND` operations within your agents.
+The `Logic OR` component performs logical `OR` operations within your agents — ideal when **at least one** input needs to be present to trigger a condition.
+
+---
 
 ## Definition and Rules
 
@@ -11,13 +13,12 @@ The component follows these rules:
 | Input 1          | Input 2          | Verified   | Unverified |
 |------------------|------------------|------------|------------|
 | `Value`          | `Value`          | `True`     | `No Value` |
-| `Value`          | `No Value/False` | `No Value` | `True`     |
-| `No Value/False` | `Value`          | `No Value` | `True`     |
+| `Value`          | `No Value/False` | `True`     | `No Value` |
+| `No Value/False` | `Value`          | `True`     | `No Value` |
 | `No Value/False` | `No Value/False` | `No Value` | `True`     |
 
-> **Note:** `Verified` is `True` only if all inputs have value. `Unverified` is the inverse, activating workflows when conditions are unmet.
-
-
+> **Note:** `Verified` is `True` if **any** input has a value.  
+> `Unverified` is `True` only when **all** inputs are missing or explicitly false.
 
 ---
 
@@ -26,19 +27,19 @@ The component follows these rules:
 ### Boolean Values
 
 - **True**: Any non-empty value.
-- **False**: Specifically 'false' or unassigned (must be explicitly set as Boolean).
+- **False**: Explicit `false` or no value provided.
 
 ### ➕ Add Input
 
-- **Name (Required):** Unique, concise name.
-- **Type:** Choose from Any, String, Number, Integer, Boolean, Array, Object, Binary.
-- **Color (Optional):** For visual clarity and priority.
-- **Optional (Optional):** Mark as optional if not required.
-- **Default Value (Optional):** Predefined value if none is provided.
+- **Name (Required):** A unique and descriptive name.
+- **Type:** Choose from: Any, String, Number, Integer, Boolean, Array, Object, Binary.
+- **Color (Optional):** Optional for visual organization.
+- **Optional (Optional):** Mark if the input isn’t required.
+- **Default Value (Optional):** Fallback value if nothing is passed.
 
 ---
 
 ## Outputs
 
-1. **Verified:** `True` if all inputs have value, otherwise `No Value`.
-2. **Unverified:** Inverse of `Verified`, `True` when conditions are unmet.
+1. **Verified:** Returns `True` if **any input** has value. Otherwise, returns `No Value`.
+2. **Unverified:** Logical inverse of `Verified`. Returns `True` when **no inputs** have value.

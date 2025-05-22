@@ -1,6 +1,80 @@
 ---
-title: Overview
 sidebar_position: 1
 ---
 
-# Agent Studio
+# Studio - What Can It Do?
+
+Studio is the cloud-based interface for building and managing agents in SmythOS. You define workflows using modular components that control how an agent behaves.
+
+---
+
+## What is an Agent?
+
+An agent includes:
+
+-  Language models for reasoning  
+-  APIs and tools for actions  
+-  Workflows to structure logic  
+-  Memory to keep context
+
+---
+
+## Key Capabilities
+
+- **Cloud-Based:** Build directly in the browser  
+- **API Ready:** Turn workflows into endpoints  
+- **Integrations:** Connect to services, tools, and databases  
+- **Multi-Data Support:** Work with text, images, files, and more  
+- **Templates:** Use ready-made setups if needed (see [Templates](#))  
+
+---
+
+## Building Workflows
+
+Workflows define how the agent operates. They're built from components connected in a sequence.
+
+### Components
+
+-  Perform specific tasks  
+-  Have inputs, outputs, and settings  
+-  Can handle data, logic, or external calls
+
+### Component States
+
+-  **Success** (🟢): All required inputs available  
+-  **Missing Input** (🟠): One or more required inputs missing  
+-  **Optional** (🔵): Executes if input is present  
+-  **Default** (⚙️): Uses fallback value if input is missing  
+
+<Arcade src="https://demo.arcade.software/I7zvsF8kvMTOtfvP9AqI?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Input & Outputs | SmythOS" />
+
+---
+
+## SmythOS Templates To Use
+
+If you want a ready-made agent or workflow, you can browse [our available templates](../agent-templates/overview). A few examples:
+
+- [Lead Enrichment Agent](../agent-templates/lead-enrichment-agent/guide)  
+- [LinkedIn Leads Builder](../agent-templates/linkedin-leads-builder-agent/guide)  
+- [News Researcher](../agent-templates/news-research-agent/guide)  
+- [SEO Content Writer](../agent-templates/seo-content-writer-agent/guide)  
+---
+
+## Best Practices
+
+**Design**
+-  Keep it simple early on  
+-  Name components clearly  
+-  Test as you go  
+
+**Build**
+-  Use version history  
+-  Monitor logs  
+-  Validate logic and outputs  
+
+**Deploy**
+-  Test before going live  
+-  Watch usage  
+-  Handle errors in workflows
+
+---

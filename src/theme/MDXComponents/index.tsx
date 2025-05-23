@@ -8,6 +8,8 @@ import MDXComponents from '@theme-original/MDXComponents';
 import Button from '@site/src/components/Button';
 import Image from '@site/src/components/Image';
 import PageFeedback from '@site/src/components/PageFeedback';
+import ValueCard from '@site/src/components/ValueCard';
+import ValueGrid from '@site/src/components/ValueGrid';
 
 export default {
   // keep defaults
@@ -20,4 +22,6 @@ export default {
   Image,
   PageFeedback,
   Button,
+  ValueCard,
+  ValueGrid,
 };

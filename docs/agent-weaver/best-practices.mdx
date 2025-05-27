@@ -60,21 +60,10 @@ Push to a *dev* subdomain first; let the intern break it before customers do.
 
 <Divider/>
 
-## Security Snapshot
-
-| Tip | Why |
-|-----|-----|
-| Store secrets in **Vault** | Encrypted, masked in logs |
-| Apply **least-privilege** roles | Viewers read, Editors tinker |
-| Rotate API keys **quarterly** | Block ex-employees & bots |
-
-<Divider/>
-
 ## Performance Baseline
 
 | Optimise | How |
 |----------|-----|
-| **Cache** static prompts | The Note component is free|
 | **Choose models wisely** | GPT-4o mini beats full GPT-4o on price |
 | **Throttle loops** | Drop an *FSleep* after 10 iterations |
 

@@ -26,11 +26,11 @@ sidebar_position: 8
 
 ## Understand How Data Flows in Agent Weaver
 
-Whether you’re a developer or a business user, learning how inputs and outputs work in Weaver is essential to building reliable agents. This guide walks you through port types, input formats, chaining logic, and more — all part of the **SmythOS AI design environment** and its **no-code agent orchestration** framework.
+Learning how inputs and outputs work in Weaver is essential to building reliable agents. This guide walks you through port types, input formats, chaining logic, and more... as  part of the **SmythOS AI design environment** and its **no-code agent orchestration** framework.
 
 <Divider/>
 
-## 1 Port Primer
+## 1. What Each I/O Port Typically Means
 
 | Symbol | Colour | Meaning |
 |--------|--------|---------|
@@ -42,9 +42,9 @@ Whether you’re a developer or a business user, learning how inputs and outputs
 
 <Divider/>
 
-## 2 Input Types (and Gotchas)
+## 2. Input Types (and Gotchas)
 
-### 🎛️ Input Categories
+### Input Categories
 
 Agent Weaver supports several **drag-and-drop AI tool** input types:
 
@@ -70,13 +70,13 @@ Agent Weaver supports several **drag-and-drop AI tool** input types:
 | `date` | `2025-01-01` | ISO 8601 format |
 | `any` | Flexible fallback (not validated) |
 
-✅ Inputs can also be styled using color labels for better workflow clarity.
+Inputs can also be styled using color labels for better workflow clarity.
 
 <PromptCard prompt={`Goal: Summarise weekly_sales.csv then email report\n\nSkills:\n1. Read file from S3 (file input)\n2. Summarise table (json output)\n3. Email summary (string input)`} />
 
 <Divider/>
 
-## 3 Outputs You’ll See Most
+## 3. Outputs You’ll See Most
 
 In an AI workflow builder like Weaver, outputs can vary by skill — but the most common ones include:
 
@@ -96,7 +96,7 @@ In an AI workflow builder like Weaver, outputs can vary by skill — but the mos
 ```
 
 <Divider/>
-## 4C haining Outputs to Inputs
+## 4. Chaining Outputs to Inputs
 
 **Rule of thumb:** blue → red only.
 - Drag from blue output ports to red input ports

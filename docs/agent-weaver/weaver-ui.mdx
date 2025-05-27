@@ -9,7 +9,7 @@ keywords:
 sidebar_position: 4
 ---
 
-#  Weaver User Inteface: Chat-To-Agent
+#  Weaver UI: Chat-To-Agent
 
 > **Meet Agent Smyth Weaver.**  
 > Weaver’s interface looks minimal, but every pixel hides a power shortcut.
@@ -20,11 +20,10 @@ sidebar_position: 4
 
 | Panel | What lives here |
 |-------|-----------------|
-| **Chat panel** | The conversation + run logs (Screenshot A) |
-| **Skill suggestions sidebar** | Auto-proposed components after every prompt (Screenshot B) |
-| **Component canvas** *(read-only preview)* | The wired workflow Weaver just built for you (Screenshot C) |
+| **Chat panel** | The conversation + run logs|
+| **Skill suggestions sidebar** | Auto-proposed components after every prompt |
+| **Component canvas** *(read-only preview)* | The wired workflow Weaver just built for you |
 
-*(Screenshots A–C: drop the PNGs you posted into `/static/img` and embed here.)*
 
 <Divider/>
 
@@ -33,8 +32,6 @@ sidebar_position: 4
 - **Single-click** a block to open its inspector.  
 - **Ctrl/Cmd + click** to multi-select *(great for chain re-runs)*.  
 - **Shift + click empty grid** clears your selection.
-
-`![Multi-select GIF](/img/ui-multiselect.gif "Holding Cmd to multi-select")`
 
 <Divider/>
 
@@ -69,28 +66,38 @@ Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
       label: 'macOS',
       content: (
         <ul>
-          <li><kbd>⌘</kbd> + <kbd>Enter</kbd> – run prompt</li>
-          <li><kbd>⌘</kbd> + <kbd>R</kbd> – re-run selection</li>
-          <li><kbd>⌘</kbd> + <kbd>Z</kbd> – undo wiring</li>
-          <li><kbd>⌘</kbd> + <kbd>/</kbd> – toggle cheat-sheet</li>
+          <li><kbd>⌘</kbd> + <kbd>Scroll Up</kbd> – Zoom in</li>
+          <li><kbd>⌘</kbd> + <kbd>Scroll Down</kbd> – Zoom out</li>
+          <li><kbd>⌘</kbd> + <kbd>Left Click</kbd> + <kbd>Drag</kbd> – Select multiple components</li>
+          <li><kbd>⌘</kbd> + <kbd>C</kbd>, <kbd>⌘</kbd> + <kbd>V</kbd> – Duplicate selected components</li>
+          <li><kbd>Delete</kbd> – Delete selected components</li>
+          <li><kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> – Export agent</li>
+          <li><kbd>Drag & Drop</kbd> .smyth file – Import agent</li>
+          <li><kbd>⌘</kbd> + <kbd>Z</kbd> – Undo</li>
+          <li><kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> – Redo</li>
         </ul>
       ),
     },
-
     {
       label: 'Windows / Linux',
       content: (
         <ul>
-          <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> – run prompt</li>
-          <li><kbd>Ctrl</kbd> + <kbd>R</kbd> – re-run selection</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Z</kbd> – undo wiring</li>
-          <li><kbd>Ctrl</kbd> + <kbd>/</kbd> – toggle cheat-sheet</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Scroll Up</kbd> – Zoom in</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Scroll Down</kbd> – Zoom out</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd> + <kbd>Drag</kbd> – Select multiple components</li>
+          <li><kbd>Ctrl</kbd> + <kbd>C</kbd>, <kbd>Ctrl</kbd> + <kbd>V</kbd> – Duplicate selected components</li>
+          <li><kbd>Delete</kbd> – Delete selected components</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> – Export agent</li>
+          <li><kbd>Drag & Drop</kbd> .smyth file – Import agent</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Z</kbd> – Undo</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> – Redo</li>
         </ul>
       ),
     },
   ]}
 />
 </details>
+
 
 <Divider/>
 
@@ -99,12 +106,6 @@ Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
 *(Yes, the very bar users follow from start to finish.)*
 
 <Divider/>
-
-## Ready? Debug Your Agent
-
-Feeling comfy with the controls? Head straight to the fixer-upper guide:
-
-👉 <DocLink to="/docs/agent-weaver/debugging-agents">Debugging Agents in Weaver</DocLink>
 
 <InfoCallout>
 **Pro Tip:** Status colours are your early-warning radar. Orange banners mean “connect a wire”, red means “hit Fix with AI”.

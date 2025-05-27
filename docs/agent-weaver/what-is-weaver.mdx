@@ -15,14 +15,46 @@ sidebar_position: 2
 <Divider/>
 
 ## Understand Agent Weaver in 3 Minutes
+While **Studio** gives you a classic drag-and-drop canvas for building agents manually, **Weaver tarts with natural conversation.
 
-While **Studio** offers a drag-and-drop canvas for agent design, **Weaver** flips the starting point. It begins with conversation, a blank input box where you tell SmythOS what you need. From there, Weaver starts with conversation with you:
+Instead of wires, buttons, and config panels up front, Weaver begins with a single prompt box.
 
-1. **You describe a goal**  
-2. Weaver interprets the intent  
-3. It adds skills from the SmythOS library  
-4. It auto-wires an executable workflow  
-5. You test, tweak, and ship—without leaving chat
+> Just describe what you need. Weaver thinks, plans, and builds it for you; piece by piece.
+
+Here’s how it works:
+
+1. **You describe your goal**  
+   _e.g. "Help me write SEO-optimized articles for my blog about calculators"_
+
+2. **Weaver interprets your intent**  
+   It enters a “Thinking...” state where it analyzes what kind of agent you might need.
+
+3. **It asks clarifying questions**  
+   Weaver ensures it gets things right by prompting you for context like:
+   - Which platforms you publish to  
+   - What type or tone of content you prefer  
+   - Whether you need research assistance or just writing  
+
+4. **It proposes a workflow plan**  
+   Example:
+   - Generate blog structure  
+   - Write full content  
+   - Research topics  
+   - Publish (optional)
+
+5. **Weaver auto-creates the workflow**  
+   Using skills from the **SmythOS library**, Weaver:
+   - Picks components  
+   - Connects them based on data needs  
+   - Assigns inputs/outputs, types, and even color codes
+
+6. **You test, tweak, and ship — all within chat**  
+   Just type. No config panels, no handoffs, no code.
+
+> Behind the scenes, Weaver behaves like a **LLM orchestration engine** paired with a smart schema-aware composer, but you never see the wiring unless you want to.
+
+-> Try a prompt like:  
+<PromptCard prompt="Create a research agent that finds product reviews and summarizes them in markdown." />
 
 That makes Weaver the fastest way to **build AI agents in SmythOS**.
 
@@ -56,14 +88,19 @@ We call this flow **Chat-to-Agent**:
    <PromptCard prompt= {`Create an agent that writes SEO articles and posts to WordPress.`}/>
 2. **(Optionally) list its skills**:  
    <PromptCard prompt= {`The agent should have the following skills...It should write SEO-optimised articles, extract primary and secondary keywords, and post content to Wordpress.`}/>
-3. **Weaver maps those into 3 components:**
+3. **Weaver thinks aloud and asks smart questions**  
+   Weaver responds with a **preview of its planned workflows**, then follows up with clarifying questions like:  
+   - *What kind of blogs are you targeting?*  
+   - *Do you want keyword extraction to be optional or required?*  
+   - *Which CMS platform are you using — WordPress.com or self-hosted?*
+4. **Weaver maps those into 3 components:**
 - GenAI LLM (to write the article)
 - Classifier (to extract keywords)
 - APICall (to post the content)
-4. **It wires them into a functional layout**... like magic, but with schema integrity. Weaver also sets names, descriptions, inputs, and outputs, ensuring clarity and relevance.
-5. **Test the agent directly in chat.**
-6. **Fix any breakage with a single click.**
-7. **Deploy and go live without writing any code.**
+5. **It wires them into a functional layout**... like magic, but with schema integrity. Weaver also sets names, descriptions, inputs, and outputs, ensuring clarity and relevance.
+6. **Test the agent directly in chat.**
+7. **Fix any breakage with a single click or asking Weaver to fix the issues by prompting it.**
+8. **Deploy and go live without writing any code.**
 
 > Weaver even lets you attach images or flow diagrams to describe what you want.  
 > Great for visual thinkers, or folks who like whiteboarding their way through a build.
@@ -116,7 +153,7 @@ If you’ve ever thought *“I know what I want, I just don’t know how to buil
 Agents in SmythOS consist of **skills** (logic blocks) and **components**. Weaver encourages:
 
 - Task-based thinking (“extract keywords” > “run NLP”)  
-- Smaller, focused agents  
+- Smaller, focused workflows  
 - Reuse over reinvention
 
 <InfoCallout>

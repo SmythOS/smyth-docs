@@ -10,9 +10,10 @@ keywords:
 sidebar_position: 5
 ---
 # Prompt Engineering with Weaver
+
 > **Good prompt ⇒ Great agent**  
 > Weaver will try its best with whatever you throw at it, but the clearer the ask, the cleaner the wiring.  
-> Think *tasks*, not *code* — your job is to be the **product manager**, Weaver is the **dev team**.
+> Think *tasks*, not *code* ... your job is to explain specifically what you want and let Weaver do the rest.
 
 <InfoCallout>
 **TL;DR:** State a goal ➜ list skills ➜ add constraints. That’s 95 % of prompt craft.
@@ -50,8 +51,7 @@ Skills:
 Constraints:
 - [Any mandatory formats, limits, sources]
 
-Use **Goal → Skills → Constraints** every time.
-Weaver will map each numbered skill to an existing component (or ask you to build one).
+>Use **Goal → Skills → Constraints** every time.
 
 <Divider/>
 
@@ -96,9 +96,7 @@ Constraints:
 - Preserve Markdown formatting
 - Keep code blocks untouched
 
-
 ### 📊 Airtable → Slack Snapshot
-
 
 Goal: Send daily Airtable summary to Slack.
 
@@ -114,19 +112,12 @@ Constraints:
 
 <Divider/>
 
-## Re-usability Tips
-
-* **Name reusable blocks** — e.g. “Keyword Extractor”, not “Skill 3”.
-* **Break big asks** into smaller skills — easier to debug, easier to re-wire.
-
-<Divider/>
-
 ## Prompt Debugging 101
 
 1. **Locate the misbehaving component** (red border).
-2. Click **Suggest Fix** and *explain what changed*:
+2. Click on the component and ask Weaver to fix it and *explain what changed* (or click Fix with AI button on the componenet):
    \<PromptCard prompt={`Output missed the bullet list. Ensure summary is bullet-pointed.`} />
-3. Re-run just that block, not the whole agent.
+3. Re-run just that block with debug mode enabled and step through it, not the whole agent.
 4. Rinse, repeat, ship.
 
 > 👉 *Still wrong?* Break the skill in two. Smaller skills fail more loudly.

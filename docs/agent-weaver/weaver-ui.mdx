@@ -17,13 +17,34 @@ sidebar_position: 4
 <Divider/>
 
 ## Main Panels
+Weaver’s chat-first UI is a full-blown **AI workflow builder** that thinks, plans, and asks questions before it creates anything.
+
+> **Fun fact:** Weaver pauses to *think aloud* between prompts, sharing why it asks what it asks. This help you have transparency and confidence in every build step.
+
 
 | Panel | What lives here |
 |-------|-----------------|
-| **Chat panel** | The conversation + run logs|
-| **Skill suggestions sidebar** | Auto-proposed components after every prompt |
-| **Component canvas** *(read-only preview)* | The wired workflow Weaver just built for you |
+| **Chat Panel** | This is where you describe your goal, chat with Weaver, view its thinking process, and answer clarifying questions. Logs, prompts, and test runs also appear here. |
+| **Planned Workflows and Skill Suggestions** | Weaver proposes what the agent should do (e.g. blog writing, research) and suggests components for each step. These are context-aware and based on your responses. |
+| **Component canvas** *(auto-generated)* | A live visual preview of the wired agent: includes skills, ports, and connections. |
 
+<Divider/>
+
+## Planned Workflows
+
+Weaver starts by understanding what kind of agent you're trying to build and then assembles the necessary flows step by step. For example if you asked it to help you write a blog, it will share something like:
+
+- **Generate Blog Structure** *(outline with title, headings, and subheadings)*
+• **Write Complete Blog Content**
+• **Research Topics** *(gather relevant information)*
+• **Blog Publishing** *(optional)*
+
+Before Weaver assembles the agent, it may ask clarifying questions like:
+
+- **What type of blogs do you want to write?** (Technical, lifestyle, marketing, etc.)  
+- **What’s the typical length of blogs you need?** (Short-form, long-form, word count range)
+
+This ensures your **prompt-based agent creation** is fully tailored from the start.
 
 <Divider/>
 
@@ -53,7 +74,7 @@ Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
 |--------|--------------|-----------|
 | **Fix with AI** | Component red / orange | Opens a prompt box pre-filled with error context. |
 | **Explain Component** | Any block | Weaver summarises purpose, inputs, and outputs. |
-| 🗑 **Trash** | Hover a block | Deletes component and auto-rewires downstream if possible. |
+| **Trash** | Hover a block | Deletes component and auto-rewires downstream if possible. |
 
 <Divider/>
 
@@ -108,5 +129,5 @@ Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
 <Divider/>
 
 <InfoCallout>
-**Pro Tip:** Status colours are your early-warning radar. Orange banners mean “connect a wire”, red means “hit Fix with AI”.
+**Pro Tip:** Status colours are your early-warning radar.
 </InfoCallout>

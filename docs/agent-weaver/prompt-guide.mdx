@@ -1,0 +1,153 @@
+---
+description: Craft clear prompts that get the results you want from Weaver.
+keywords:
+  - SmythOS
+  - Weaver
+  - prompt design
+  - prompt-based agent creation
+  - AI workflow builder
+  - no-code agent orchestration
+sidebar_position: 5
+---
+# Prompt Engineering with Weaver: Writing Effective Prompts for Weaver
+> **Good prompt ⇒ Great agent**  
+> Weaver will try its best with whatever you throw at it, but the clearer the ask, the cleaner the wiring.  
+> Think *tasks*, not *code* — your job is to be the **product manager**, Weaver is the **dev team**.
+
+<InfoCallout>
+**TL;DR:** State a goal ➜ list skills ➜ add constraints. That’s 95 % of prompt craft.
+</InfoCallout>
+
+<Divider/>
+
+## Mind-set Shift — Describe Jobs, Not Code
+
+Bad habit (thinking like a developer):
+
+> “Call the `summarise()` function with the weekly_sales dataset.”
+
+Better habit (thinking like a PM):
+
+> “Summarise weekly sales data for Monday stand-up.”
+
+More examples:
+
+- “Translate this blog post to Spanish.”  
+- “Email the summary to the team every Friday at 4 PM.”  
+- “Resize all images in `/uploads` to 1024 px wide.”
+
+<Divider/>
+
+## The Universal Prompt Framework
+
+Goal: [What you want to achieve]
+
+Skills:
+1. [Skill 1]
+2. [Skill 2]
+3. …
+
+Constraints:
+- [Any mandatory formats, limits, sources]
+
+Use **Goal → Skills → Constraints** every time.
+Weaver will map each numbered skill to an existing component (or ask you to build one).
+
+<Divider/>
+
+## Good vs Poor Prompts (Kyoto Edition)
+
+<PromptCard prompt={`Goal: Draft a 600-word travel article about Kyoto.\n\nSkills:\n1. Research attractions and local cuisine\n2. Generate SEO-friendly title and slug\n3. Produce Markdown article\n4. Extract five focus keywords\n\nConstraints:\n- Formal tone\n- UK English`} />
+
+<PromptCard prompt={`Write something about Kyoto. Make it good for SEO.`} />
+
+> The first prompt gives Weaver four precise blocks to assemble.
+> The second leaves enough ambiguity to fill a Zen garden.
+
+<Divider/>
+
+## Advanced Examples — Copy & Paste
+
+### ✉️ Weekly Sales Digest
+
+Goal: Deliver a Monday-morning sales digest email.
+
+Skills:
+1. Fetch weekly_sales.csv from S3
+2. Summarise trends into 5 bullet points
+3. Generate chart PNG
+4. Email to sales-team@acme.com
+
+Constraints:
+- Use “Sales Digest” as subject
+- Skip weeks with less than 100 rows
+
+### 🌍 Multilingual Blog Pipeline
+
+Goal: Publish each post in EN → ES → FR.
+
+Skills:
+1. Detect new post published to WordPress
+2. Translate Markdown to Spanish
+3. Translate Spanish to French
+4. Post translations under /es/ and /fr/
+
+Constraints:
+- Preserve Markdown formatting
+- Keep code blocks untouched
+
+
+### 📊 Airtable → Slack Snapshot
+
+
+Goal: Send daily Airtable summary to Slack.
+
+Skills:
+1. Query “Tasks” base, get today’s records
+2. Count tasks by status
+3. Format a Slack message
+4. Post to #daily-ops
+
+Constraints:
+- Run at 17:00 UTC
+- Use Slack block-kit
+
+<Divider/>
+
+## Re-usability Tips
+
+* **Name reusable blocks** — e.g. “Keyword Extractor”, not “Skill 3”.
+* **Break big asks** into smaller skills — easier to debug, easier to re-wire.
+
+<Divider/>
+
+## Prompt Debugging 101
+
+1. **Locate the misbehaving component** (red border).
+2. Click **Suggest Fix** and *explain what changed*:
+   \<PromptCard prompt={`Output missed the bullet list. Ensure summary is bullet-pointed.`} />
+3. Re-run just that block, not the whole agent.
+4. Rinse, repeat, ship.
+
+> 👉 *Still wrong?* Break the skill in two. Smaller skills fail more loudly.
+
+<Divider/>
+
+## Cheatsheet
+
+| If you want…              | Add this to **Skills**          |
+| ------------------------- | ------------------------------- |
+| Ranking or classification | “Classify text sentiment”       |
+| Extraction                | “Extract company names”         |
+| Transformation            | “Convert JSON to CSV”           |
+| Messaging                 | “Send message to Teams channel” |
+
+<Divider/>
+
+## Next Up
+
+* Practice in the playground → <DocLink to="/docs/agent-weaver/quickstart">Build your first agent</DocLink>
+
+<InfoCallout>
+**Remember:** A clear **Goal**, numbered **Skills**, and explicit **Constraints** let Weaver be the best **AI workflow composer** you’ve ever met.
+</InfoCallout>

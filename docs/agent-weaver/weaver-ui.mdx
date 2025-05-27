@@ -1,10 +1,111 @@
 ---
-title: Weaver UI
-sidebar_position: 2
+description: Learn the panels, shortcuts, and AI actions that power Weaver’s chat-first agent builder.
+keywords:
+  - SmythOS
+  - Weaver
+  - UI tour
+  - chat-driven builder
+  - no-code agent orchestration
+sidebar_position: 4
 ---
 
-# Weaver UI
+#  Weaver User Inteface: Chat-To-Agent
 
-This is the **Weaver UI** page for  Weaver.
+> **Meet Agent Smyth Weaver.**  
+> Weaver’s interface looks minimal, but every pixel hides a power shortcut.
 
-_TODO: Add detailed content Weaver UI._
+<Divider/>
+
+## Main Panels
+
+| Panel | What lives here |
+|-------|-----------------|
+| **Chat panel** | The conversation + run logs (Screenshot A) |
+| **Skill suggestions sidebar** | Auto-proposed components after every prompt (Screenshot B) |
+| **Component canvas** *(read-only preview)* | The wired workflow Weaver just built for you (Screenshot C) |
+
+*(Screenshots A–C: drop the PNGs you posted into `/static/img` and embed here.)*
+
+<Divider/>
+
+## Selecting Components
+
+- **Single-click** a block to open its inspector.  
+- **Ctrl/Cmd + click** to multi-select *(great for chain re-runs)*.  
+- **Shift + click empty grid** clears your selection.
+
+`![Multi-select GIF](/img/ui-multiselect.gif "Holding Cmd to multi-select")`
+
+<Divider/>
+
+## Attach Images & Diagrams
+
+Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
+
+1. OCRs diagrams for text.  
+2. Reads arrows as tentative data-flow.  
+3. Generates component suggestions that mirror the picture.
+
+> **Tip:** Use a white-board snapshot to sketch a flow in seconds.
+
+<Divider/>
+
+## Contextual Actions
+
+| Button | Appears when | Does what |
+|--------|--------------|-----------|
+| **Fix with AI** | Component red / orange | Opens a prompt box pre-filled with error context. |
+| **Explain Component** | Any block | Weaver summarises purpose, inputs, and outputs. |
+| 🗑 **Trash** | Hover a block | Deletes component and auto-rewires downstream if possible. |
+
+<Divider/>
+
+ <details>
+<summary>### Keyboard Shortcuts (click to expand)</summary>
+
+<Tabs
+  tabs={[
+    {
+      label: 'macOS',
+      content: (
+        <ul>
+          <li><kbd>⌘</kbd> + <kbd>Enter</kbd> – run prompt</li>
+          <li><kbd>⌘</kbd> + <kbd>R</kbd> – re-run selection</li>
+          <li><kbd>⌘</kbd> + <kbd>Z</kbd> – undo wiring</li>
+          <li><kbd>⌘</kbd> + <kbd>/</kbd> – toggle cheat-sheet</li>
+        </ul>
+      ),
+    },
+
+    {
+      label: 'Windows / Linux',
+      content: (
+        <ul>
+          <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> – run prompt</li>
+          <li><kbd>Ctrl</kbd> + <kbd>R</kbd> – re-run selection</li>
+          <li><kbd>Ctrl</kbd> + <kbd>Z</kbd> – undo wiring</li>
+          <li><kbd>Ctrl</kbd> + <kbd>/</kbd> – toggle cheat-sheet</li>
+        </ul>
+      ),
+    },
+  ]}
+/>
+</details>
+
+<Divider/>
+
+<FlowBar items={['Prompt', 'Skill Suggestions', 'Visual Flow', 'Live Test', 'Fix/Deploy']} />
+
+*(Yes, the very bar users follow from start to finish.)*
+
+<Divider/>
+
+## Ready? Debug Your Agent
+
+Feeling comfy with the controls? Head straight to the fixer-upper guide:
+
+👉 <DocLink to="/docs/agent-weaver/debugging-agents">Debugging Agents in Weaver</DocLink>
+
+<InfoCallout>
+**Pro Tip:** Status colours are your early-warning radar. Orange banners mean “connect a wire”, red means “hit Fix with AI”.
+</InfoCallout>

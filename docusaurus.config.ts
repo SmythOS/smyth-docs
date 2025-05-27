@@ -1,6 +1,23 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
+const tailwindPostcss = require('@tailwindcss/postcss');
+
+async function tailwindPlugin() {
+  return {
+    name: 'tailwindcss-loader',
+    configurePostCss(postcssOptions) {
+      postcssOptions.plugins.push(
+        tailwindPostcss({
+          config: './tailwind.config.js',
+        })
+      );
+      postcssOptions.plugins.push(require('autoprefixer'));
+      return postcssOptions;
+    },
+  };
+}
+
 const config: Config = {
 
   title: 'SmythOS Documentation',
@@ -56,6 +73,19 @@ const config: Config = {
         indexBlog: false,
       },
     ],
+    tailwindPlugin,
+    // async function tailwindPlugin() {
+    //   return {
+    //     name: 'tailwindcss-loader',
+    //     configurePostCss(postcssOptions) {
+    //       postcssOptions.plugins.push(require('tailwindcss'));
+    //       postcssOptions.plugins.push(require('autoprefixer'));
+    //       return postcssOptions;
+    //     },
+    //   };
+    // },
+  ],
+  clientModules: [require.resolve('./src/css/tailwind.css'),
   ],
 
   themeConfig: {

@@ -1,0 +1,83 @@
+---
+description: Proven tips for designing reliable, maintainable SmythOS agents.
+keywords:
+  - SmythOS
+  - Weaver
+  - best practices
+  - robust workflows
+  - debugging strategies
+  - no-code agent orchestration
+sidebar_position: 7
+---
+# Weaver Best Practices
+
+> **Cut future pain now.**  
+> Smart habits in **Weaver** will save you late-night bug-hunts and surprise token bills.
+
+<InfoCallout>
+**TL;DR:** Build small ➜ test fast ➜ deploy in stages.  Everything else is icing. (There's plenty...)
+</InfoCallout>
+
+<Divider/>
+
+## Why Best Practices Matter
+
+Hours saved debugging **≠** hours you can spend writing release notes about how little debugging you did.  
+Tokens = money; broken flows = sad work DMs. Let’s stay happy.
+
+<Divider/>
+
+## How to Build, Test, and Deploy Your AI Agent Workflow
+
+<FlowBar items={['Build small', 'Test early', 'Deploy staging', 'Ship to prod']} />
+
+### Build Small
+Add **one skill at a time**. If it fails, you know the culprit instantly.
+
+### Test Early
+Toggle **Debug Mode** every run until borders turn 🟢 green.
+
+### Deploy Staging
+Push to a *dev* subdomain first; let the intern break it before customers do.
+
+<Divider/>
+
+## Embrace Modularity
+
+- Break big goals into **numbered skills** (Weaver parses lists).  
+- Turn patterns into **Templates** (see 👉 <DocLink to="../agent-templates">Agent Templates</DocLink>).  
+- Keep each skill single-purpose.
+
+<Divider/>
+
+## Naming Conventions
+
+| Item | Convention | Example |
+|------|------------|---------|
+| **Agent** | Verb + Outcome | Generate SEO Article |
+| **Skill** | Action + Object | Extract Keywords |
+| **Inputs** | `snake_case` | `max_results` |
+
+<Divider/>
+
+## Security Snapshot
+
+| Tip | Why |
+|-----|-----|
+| Store secrets in **Vault** | Encrypted, masked in logs |
+| Apply **least-privilege** roles | Viewers read, Editors tinker |
+| Rotate API keys **quarterly** | Block ex-employees & bots |
+
+<Divider/>
+
+## Performance Baseline
+
+| Optimise | How |
+|----------|-----|
+| **Cache** static prompts | The Note component is free|
+| **Choose models wisely** | GPT-4o mini beats full GPT-4o on price |
+| **Throttle loops** | Drop an *FSleep* after 10 iterations |
+
+<InfoCallout>
+**Remember:** Good names, small skills, and colour-coded sanity checks = a joyous Weaver life.
+</InfoCallout>

@@ -1,0 +1,117 @@
+---
+description: Create and deploy your first agent in under five minutes.
+keywords: [SmythOS, Weaver, quickstart, AI agent]
+sidebar_position: 3
+---
+# Quickstart: How to Create Your First Agent with Weaver
+
+> **Need an agent in five minutes?**  
+> **Agent Weaver** is the **no-code AI workflow builder** inside SmythOS.  
+> Describe a goal in plain language → Weaver assembles, wires, and tests the agent for you.
+
+<InfoCallout>
+**TL;DR:** In the next three minutes you’ll create, debug, and deploy a working agent without touching YAML, APIs, or the visual canvas.
+</InfoCallout>
+
+<Divider/>
+
+## Step 0 · One-Minute Setup
+
+- A SmythOS account (<DocLink to="https://app.smythos.com/signup">sign up</DocLink> if you’re new).  
+- Zero coding skills — Weaver handles the heavy lifting.
+- Think of a goal — e.g. *“Send daily summaries from Airtable to Slack.”*
+
+That’s it. **No config files, no JSON, just intention.**
+
+<Divider/>
+
+## Step 1 · Describe What You Want
+
+Open Weaver and paste the prompt below:
+
+<PromptCard prompt={`Create an agent that writes SEO-optimized blog posts and publishes them to WordPress.\n\nThe agent should have the following skills:\n- Write article from a topic\n- Extract research keywords\n- Post article to WordPress using a given URL`} />
+
+Weaver will instantly:
+
+- Parse the prompt  
+- Suggest matching components  
+- Build the first draft visually  
+
+<Divider/>
+
+## Step 2 · Review the Draft
+
+You’ll see a canvas with three cards:
+
+- **GenAI Writer**  
+- **Keyword Extractor**  
+- **WordPress Poster**
+
+Hover to inspect inputs/outputs, click to edit, or drag to adjust wiring.
+
+> **Circles legend** — ● = required input, ○ = optional
+
+<Divider/>
+
+## Step 3 · Run It Live
+
+Ask the agent:
+
+<PromptCard prompt={`Write a post about “Top AI trends in 2025.”`} />
+
+Watch real-time outputs:
+
+- Article text  
+- Extracted keywords  
+- WordPress publish confirmation  
+
+Weaver’s **LLM orchestration framework** gives inline feedback—no silent errors.
+
+<Divider/>
+
+## Step 4 · Debug in Place
+
+If a step fails:
+
+1. Click the red-bordered component.  
+2. Review the snapshot of I/O and Weaver’s explanation.  
+3. Hit **Fix with AI** — often one click is enough.  
+4. Multi-select with <kbd>Cmd/Ctrl</kbd> + click to repair several blocks together.
+
+<Divider/>
+
+## Step 5 · Save & Launch
+
+When everything passes:
+
+1. Click **Save Agent**.  
+2. Choose **Deploy as Chat Widget** *or* **API Endpoint**.  
+3. Tag your version.
+
+Weaver returns:
+
+- Shareable URLs to <DocLink to='../agent-collaborations/overview>'> collaborate</DocLink> with your friends and colleagues
+- Embed code for apps/sites  
+- Activity logs for future debugging  
+
+<InfoCallout>
+**You did it!** You used prompt-based agent creation to build, test, and deploy without ever opening the drag-and-drop canvas. That’s true **no-code agent orchestration**.
+</InfoCallout>
+
+<Divider/>
+
+## Common Mistakes and How to Avoid Them
+
+- Writing developer-style prompts like "call GenAI then pass JSON."
+- ✅ Describing tasks: “Write article” → “Extract keywords” → “Post to site.”
+- Making single monolithic agents
+- ✅ Breaking workflows into modular, reusable skills
+
+## What’s Next?
+
+- **Write smarter prompts** → <Link href ='./prompt-guide'>`Prompt Design`</Link>
+- **Explore advanced skills** → `/weaver/components-primer`  
+- **See community agents** → `/weaver/integrations`  
+
+Now, you're not only vibe-coding, you’re **Smyth-ing** things into existence.
+

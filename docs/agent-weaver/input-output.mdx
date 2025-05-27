@@ -1,0 +1,109 @@
+---
+description: Learn how data flows through Agent Weaver — from required inputs to advanced error handling — using the no-code agent orchestration tools in SmythOS.
+keywords:
+  - Agent Weaver
+  - AI workflow builder
+  - no-code agent orchestration
+  - build AI agents SmythOS
+  - prompt-based agent creation
+  - AI automation designer
+  - drag-and-drop AI tool
+  - LLM orchestration framework
+  - workflow composer for agents
+  - SmythOS AI design environment
+sidebar_position: 8
+---
+# Understanding Inputs & Outputs in  Weaver
+
+> **Ports make the magic happen.**  
+> Mastering Weaver’s ● and ○ ports turns tangled flows into rock-solid agents.
+
+<InfoCallout>
+**TL;DR:** ● = required data, ○ = optional.  Blue ports carry data forward; red means “feed me first.”
+</InfoCallout>
+
+<Divider/>
+
+## Understand How Data Flows in Agent Weaver
+
+Whether you’re a developer or a business user, learning how inputs and outputs work in Weaver is essential to building reliable agents. This guide walks you through port types, input formats, chaining logic, and more — all part of the **SmythOS AI design environment** and its **no-code agent orchestration** framework.
+
+<Divider/>
+
+## 1 Port Primer
+
+| Symbol | Colour | Meaning |
+|--------|--------|---------|
+| **● Solid** | Red input | Required — the agent pauses until this is filled |
+| **○ Hollow** | Red input | Optional — executes only if input is passed |
+| **● Solid** | Blue output | Main output — passed to the next block |
+| **○ Hollow** | Blue output | Derived or secondary output |
+
+
+<Divider/>
+
+## 2 Input Types (and Gotchas)
+
+### 🎛️ Input Categories
+
+Agent Weaver supports several **drag-and-drop AI tool** input types:
+
+| Category | Description |
+|----------|-------------|
+| **Text** | Freeform entry, LLM prompts |
+| **Image** | Upload or pass image files (JPG, PNG) |
+| **Audio** | Voice/audio inputs |
+| **Video** | Short video clips or references |
+| **Others** | Advanced structured types (JSON, boolean, etc.) |
+
+### Subtypes (under “Others”)
+
+| Subtype | Example | Notes |
+|---------|---------|-------|
+| `string` | `"Write a haiku"` | Common for prompt-based agent creation |
+| `number` | `3.14` | Float or decimal input |
+| `integer` | `42` | Whole numbers only |
+| `boolean` | `true`, `false` | Used for toggles |
+| `array` | `["one", "two"]` | Great for batching LLM calls |
+| `object` | `{ "key": "value" }` | Structured payloads |
+| `binary` | PNG, CSV | Stored in object store; returns signed URL |
+| `date` | `2025-01-01` | ISO 8601 format |
+| `any` | Flexible fallback (not validated) |
+
+✅ Inputs can also be styled using color labels for better workflow clarity.
+
+<PromptCard prompt={`Goal: Summarise weekly_sales.csv then email report\n\nSkills:\n1. Read file from S3 (file input)\n2. Summarise table (json output)\n3. Email summary (string input)`} />
+
+<Divider/>
+
+## 3 Outputs You’ll See Most
+
+In an AI workflow builder like Weaver, outputs can vary by skill — but the most common ones include:
+
+1. **`reply`** — The LLM’s natural language output  
+2. **Structured JSON** — For chaining into later steps  
+3. **Binary link** — A signed URL from a file-producing skill  
+4. **`_error`** — A machine-readable error object
+
+### Example `_error` Format
+
+```json
+{
+  "issue": "Slack token revoked",
+  "raw_response": { "status": 401 },
+  "suggested_fix": "Reconnect Slack OAuth"
+}
+```
+
+<Divider/>
+## 4C haining Outputs to Inputs
+
+**Rule of thumb:** blue → red only.
+- Drag from blue output ports to red input ports
+
+
+<Divider/>
+
+<InfoCallout>
+**Key Takeaway:** Treat ports like API parameters — respect types, honor required flags, and your agent will hum.
+</InfoCallout>

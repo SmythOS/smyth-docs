@@ -10,6 +10,20 @@ import Image from '@site/src/components/Image';
 import PageFeedback from '@site/src/components/PageFeedback';
 import ValueCard from '@site/src/components/ValueCard';
 import ValueGrid from '@site/src/components/ValueGrid';
+import PromptCard from '@site/src/components/PromptCard';
+import Spacer from '@site/src/components/Spacer';
+import Divider from '@site/src/components/Divider';
+import BaseCallout from '@site/src/components/BaseCallout';
+import { InfoCallout } from '@site/src/components/InfoCallout';
+import { WarningCallout } from '@site/src/components/WarningCallout';
+import { Tip } from '@site/src/components/Tip';
+import Steps from '@site/src/components/Steps';
+import TermTable from '@site/src/components/TermTable';
+import ComponentCard from '@site/src/components/ComponentCard';
+import FeatureGrid from '@site/src/components/FeatureGrid';
+import FlowBar from '@site/src/components/FlowBar';
+import DocLink from '@site/src/components/DocLink';
+import Tabs from '@site/src/components/Tabs';
 
 export default {
   // keep defaults
@@ -24,4 +38,18 @@ export default {
   Button,
   ValueCard,
   ValueGrid,
+  PromptCard,
+  Spacer,
+  Divider,
+  BaseCallout,
+  InfoCallout,
+  WarningCallout, 
+  Tip,
+  FeatureGrid,
+  ComponentCard,
+  Steps,
+  TermTable,
+  FlowBar,
+  DocLink,
+  Tabs,
 };

@@ -1,501 +1,143 @@
 ---
-title: Deployments with SmythOS
+description: Ship your agents to the cloud, on-prem, or local dev with version control and zero-downtime rollouts.
+keywords: [SmythOS, deployments, agent cloud, self-host, runtime local, CI/CD]
 sidebar_position: 1
 ---
 
 # Deployments with SmythOS
 
-<CardGrid>
-  <Card
-    title="Subdomains"
-    description="Manage subdomains where your agents are hosted"
-    to="/docs/agent-deployments/deploying-agents/subodomains"
-  />
-</CardGrid>
+> **Build once ➜ run anywhere.**  
+> SmythOS gives you three deployment modes; pick what fits your workflow today and upgrade later without code changes.
 
-# Deployment Guide
+<InfoCallout>
+**TL;DR:** Agent Cloud for most users, Enterprise for regulated environments, Local Runtime for devs and air-gapped POCs.
+</InfoCallout>
 
-SmythOS provides multiple deployment options to suit different use cases and environments. This guide covers deployment workflows, version management, and configuration options. Deploy your agents to:
+<Divider/>
 
-- • **Run Stable Versions:** Ensures your services stay up and running without interruption.
-- • **Develop Concurrently:** Develop multiple, safe environments to rapidly iterate and test changes.
-- • **Access Additional Features:** Unlock chatbot deployment, custom domain options, and more.
+## Understanding Your Deployment Options
 
----
+SmythOS supports three distinct deployment paths; each is designed to match a different stage of development or production use case. Here's how to choose:
 
-## Changelog
+- **Agent Cloud**: Perfect for most users. It’s fast, managed, and requires zero infra knowledge.
+- **Enterprise Deployments**: Tailored for organizations with strict security, compliance, or hosting needs.
+- **Local Runtime**: Great for isolated dev/testing environments or air-gapped prototypes.
 
-The `Changelog` provides version control and tracking capabilities:
+<Divider/>
 
-- • Records version numbers and deployment dates
-- • Tracks component and configuration changes
-- • Maintains detailed release notes
-- • Enables rollback to previous versions
+## Deployment Modes Explained
 
-## Deploy Agent
+| Mode              | Infrastructure     | Who It's For           | Highlights                               | How to Access                         |
+| ----------------- | ------------------ | ---------------------- | ---------------------------------------- | ------------------------------------- |
+| **Agent Cloud**   | SmythOS-hosted     | Builders & teams       | Free subdomain, SSL, autoscaling         | Agent Settings → Deploy → Agent Cloud |
+| **Enterprise**    | Private / On-prem  | Regulated enterprises  | Custom SLAs, private cloud, full control | Contact Sales                         |
+| **Local Runtime** | Your local machine | Devs & offline testers | Lightweight, no internet needed          | Download SRL → Run locally            |
+
+<Divider/>
+## The 3 Main Options to Deploy Agent
 
 Choose your deployment method through the `Deploy` button in the top right corner:
 
-### Agent Cloud
+## Agent Cloud: Fastest Way to Go Live
 
-Required Configuration:
-- • Title - Name for this deployment
-- • Version - Semantic version number
-- • Domain - Target deployment domain
-- • Release Notes - Document changes (optional)
+Deploy your agent to **SmythOS-hosted infrastructure**, which is ideal for most use cases if you don't want to worry about infrastruture. It offers:
+
+* **No setup required** — preconfigured with staging domains like `youragent.agent.pstage.smyth.ai`
+* **Auto-provisioned SSL** - secure HTTPS served instantly
+* **Autoscaling built-in** - handles load without extra steps
+
+### Why Use Agent Cloud?
+- You don’t want to worry about servers, scaling, or SSL certificates.
+- You want to deploy instantly to a shareable live URL.
+- You want free infrastructure for testing or lightweight production use.
 
 <Arcade src="https://demo.arcade.software/XsYTxEJvIx0uRY9nZqn1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Deployment | SmythOS" />
 
-### Enterprise
+### Optional: Use Your Own Domain
 
-For organizations requiring enhanced control:
-- • On-premises deployment
-- • Private cloud options
-- • Unlimited task execution
-- • Advanced security features
-- • Custom SLAs available
+You can point your custom domain to SmythOS in three simple steps:
 
-### Local Development
+1. Go to [Subdomains](https://app.smythos.com/domains)
+2. Click **Add Subdomain** and enter the subdomain (e.g., `test.smyth.com`)
+3. You'll receive DNS instructions — create a **CNAME** record:
+   - **Host**: `test.smyth.com`
+   - **Target**: `b3830d6590893c02fbab61b0e08b4f8c.proxy.stage.smyth.ai`
+4. Click **Verify** after setting your DNS. It may take up to 24 hours for DNS changes to propagate.
 
-Use Smyth Runtime Local (SRL) for development and testing:
+<PromptCard prompt="Deploy to Agent Cloud using custom domain: support.acme.com" />
+
+<Divider/>
+
+## Enterprise Deployments
+
+SmythOS supports highly customized deployments for organizations that need full control:
+
+* On-premise or private VPC hosting
+* Advanced network + data security
+* Seamless LLM integration via custom endpoints
+* Service-Level Agreements (SLAs) available
+
+<WarningCallout>
+Enterprise plans are not self-service. Please [contact Sales](mailto:sales@smythos.com) to discuss deployment options.
+</WarningCallout>
+
+<Divider/>
+
+## Local Runtime
+
+Use **Smyth Runtime Local (SRL)** for local testing and development. It is fast, private, and offline.
+
+<InfoCallout>
+**Use case:** When you need to test workflows in isolated environments or run proof-of-concept demos with zero internet.
+</InfoCallout>
+
+### How to Deploy Locally
+
+1. Click `Export Agent` in Builder (`Ctrl + Shift + E` or `Cmnd + Shift + E`)
+2. Save the exported `agent.json`
+3. Download SRL: [GitHub → Smyth Runtime Local](https://github.com/Smyth-ai/smyth-runtime-local)
+4. Run your agent locally:
 
 ```bash
-# Export your agent configuration
-ctrl + shift + e
-
-# Run locally with SRL
 srl run agent.json
 ```
 
-### Key Features:
-- • **Free Use**
-- • **Super lightweight** made to run efficiently on minimal hardware.
-- • **Self-Contained**
+<WarningCallout>
+If you need local model inference or full API capabilities, please follow updates in [our GitHub](https://github.com/Smyth-ai/smyth-runtime-local) issue tracker.
+</WarningCallout>
 
-### ⚠️ Beta Limitations:
-- • **❌ No Local Models**
-- • **❌ No Web Server (API)**
+## Versioning & Changelog
 
-For latest updates, see our [GitHub repository](https://github.com/Smyth-ai/smyth-runtime-local).
+Every deployment is **semantic-versioned** (`Major.Minor`).
 
-## ChatBot Deployment
+- **Major** = breaking workflow changes
+- **Minor** = additive or bug-fix updates
 
-Create an embeddable chatbot for your website.
+Release notes are **optional but recommended** — users see them in **Agent Settings → Deployments**.
 
-<Arcade src="https://demo.arcade.software/Oud3dQuNbwya8h2fQq2q?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Deploy as Chatbot | SmythOS" />
+<Divider/>
 
-### Follow these steps to deploy your chatbot:
+## Which Mode Should I Use?
 
-1. Domain Configuration
-   - • SmythOS provides a default subdomain if needed
-   - • If you would like use a custom subdomain, you can do so by completing the domain verification process by going to [Subdomains tab](https://app.smythos.com/domains) and clicking `Verify`
+| Mode            | Best For         | Highlights                                | Limits                                      |
+|----------------|------------------|-------------------------------------------|---------------------------------------------|
+| **Agent Cloud**  | Most users       | Free test domain, SSL, autoscaling        | None                                        |
+| **Enterprise**   | Regulated orgs   | Private VPC / on-prem, custom SLAs        | Contact Sales                               |
+| **Local Runtime**| Offline dev, POCs| Runs on laptop, free                      | No local models, no web server (beta)       |
+<Divider/>
 
-2. Activate ChatBot Embodiment
-   - • Enable ChatBot embodiment in Agent Settings
-   - • Configure basic settings (optional)
-     - • Name - Unique identifier for the chatbot
-     - • Introduction Message - Initial greeting
-     - • GPT Model - Select language model
-     - • Personality - Define agent behavior
-  
-3. Configure Security (optional)
-   - • Allowed Domains - Control where chatbot can run
-   - • Authentication - Set access requirements
-   - • Debug Mode - For development testing
+## Deployment Quick-Start (Agent Cloud)
 
-4. Configure Chatbot Settings (optional)
-   - • Specify the primary domain, e.g., `smythos.com`.
-   - • Separate multiple domains with commas.
+Follow these steps to get your agent live in minutes:
 
-5. Customize Styles (optional)
-   - • **Company Branding:** Match chatbot styles with your branding.
-   - • **Layout:** Display as chat bubble or pre-expanded message view.
-   - • **Colors:** Customize the chatbot's color scheme.
+1. Click **Deploy** in the builder header.
+2. Choose **Agent Cloud** tab.
+3. Enter version number (e.g. `1.0`).
+4. Pick a **Test Subdomain** or your **custom domain**.
+5. (Optional) Add **release notes** (we recommend it so you can document your releases).
+6. Hit **Deploy**.
 
-6. Deploy Your Agent
-   - • Deploy at least one version.
-   - • This version will be available to users.
+> **Boom.** Just like that, SmythOS provisions SSL, runs health checks, and returns a live URL.
 
-7. Embed the Chatbot
-   - • Generate the embed snippet from settings.
-   - • Place the script at the end of your `body` tag.
+<PromptCard prompt={`Deploy version 1.0 to Agent Cloud on subdomain “salesbot” with release note: ‘Adds lead scoring and CRM integration.’`} />
 
-And that's it! Your chatbot is now deployed and ready to use.
-
-### Additional Customization for ChatBot
-
-To include your custom styles anywhere on your website, use these classes in `ChatBot.init({})`:
-
-- **`humanBubbleClass`:** For user messages.
-- **`botBubbleClass`:** For bot messages.
-
-**Example:**
-
-```javascript
-ChatBot.init({
- name: 'My Agent 101',
- introMessage: 'Happy to see you, how can I be of assistance today?',
- // humanBubbleClass: 'human-chatbox-bubble',
- // botBubbleClass: 'bot-chatbox-bubble',
-});
-```
-
-```html
-<style>
- .human-chatbox-bubble {
- font-size: 24px !important;
- }
- .bot-chatbox-bubble {
- font-size: 30px !important;
- }
-</style>
-```
-
-To override specific HTML elements like h1 and h2 for the chatbot:
-
-```html
-<style>
-  .bot-chatbox-bubble h1 {
-    color: #000000;
-  }
-</style>
-```
-
-### ChatBot UI Settings
-
-1. **Select the Agent**:
-    - • Navigate to the `Agents Settings` page and click on the Deployment tab. 
-    - • Click on the `Configuration` button.
-    - • A modal with ChatBot settings will appear.
-
-2. **Basic Settings**:
-    - • **Name** - Chatbot identifier for default messages and system references
-        > Note: This is separate from your agent's name
-    - • **Introduction Message** - Custom greeting shown at conversation start
-    - • **GPT Model** - Select the AI model powering your chatbot
-    - • **Personality** - Define custom behavior (overrides agent's default persona)
-
-3. **Domain & Security**:
-    - • **Allowed Domains** - Comma-separated list of domains where the chatbot can run
-    - • **Authentication** - Manage access requirements
-        > See [authentication documentation](how-to/auth_settings.md) for details
-    - • **Debug Mode** - Enable for testing without authentication
-
-4. **Visual Configuration**:
-    - • **Icon** - Custom avatar URL (appears in top-left corner)
-    - • **Code Theme** - Syntax highlighting for code blocks (includes live preview)
-    - • **Layout Mode** - Choose between popup window or full-screen display
-    - • **Color Scheme** - Customize chat interface colors with live preview
-
-These settings let you fully customize your chatbot's appearance and behavior while maintaining security and functionality.
-
----
-
-## Deploy Agent as Custom GPT
-
-Create a custom GPT with your SmythOS agent by following these steps:
-
-### Steps to Create a Custom GPT
-
-### 1. Access
-- • **Action:** Click [here](https://chat.openai.com/gpts/editor).
-
-### 2. Configure
-- • **Action:** Click the `Configure` tab.
-
-### 3. Enter Information
-- • **Action:** Enter your information.
-- **Tip:** Copy SmythOS Agent behavior into `Instructions`.
-
-### 4. Create New Action
-- • **Action:** Click `Create new action`.
-
-### 5. Import URL
-- • **Test Agent:**
-  - • **Action:** Enter `https://{{dev_subdomain}}/api-docs/openapi-llm.json`
-- • **Production Agent:**
-  - • **Action:** Enter `https://{{prod_subdomain}}/api-docs/openapi-llm.json`
-
-### 6. Finalize
-- • **Action:** Click `Create` in the top right corner.
-
-### 7. Customize
-- • **Action:** Further customize or start using your GPT immediately.
-
-For issues, contact support. Enjoy your custom GPT! 🎉
-
----
-
-## Use Agent via API
-
-The **API Embodiment** feature enables direct interaction with your agent's API endpoints using Swagger for seamless integration.
-
----
-
-### Servers
-Select your development server from the `🔽 Servers` dropdown to perform exploratory tasks and verification.
-
----
-
-### OpenAPI URL
-The `🔗 OpenAPI URL` points to your agent's `openapi.json` file, essential for integrating with ChatGPT or other OpenAI models.
-
----
-
-### API Endpoints
-To use an endpoint:
-1. **🔍 Select an Endpoint**: Click to view the description and functionality.
-2. **🛠️ Try It Out**: Click `Try it out` to open an editable section for crafting the payload.
-3. **🚀 Execute the Request**: Click `Execute` to view a detailed response including headers.
-
-> **Note:** ⚠️ Avoid new lines in JSON payloads as Swagger expects strict data formats.
-
-Engage confidently with the API Embodiment feature for a robust and user-friendly experience in leveraging your agent's capabilities.
-
-<Arcade src="https://demo.arcade.software/19MkrFlgUstBWbLndXB9?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Use Agent via API | SmythOS" />
-
----
-
-## Use Agent as LLM
-
-### Overview
-The **Agent LLM** feature enables using your agent as a Large Language Model (LLM), compatible with the OpenAI library in various programming languages like Python and JavaScript, as well as via API. This lets you encapsulate your agent and treat it as an LLM, seamlessly integrating its multiple skills.
-
-### Unified Endpoint Implementation
-The Agent LLM embodiment is an elegant solution for applications that need to access multiple specialized skills through a single endpoint:
-
-- **Simplify Frontend Integration:** Instead of implementing question-type detection in your frontend or maintaining multiple endpoint connections, Agent LLM automatically handles query routing.
-
-- **How It Works:**
-  - Build your agent with multiple skills or endpoints (e.g., car_policy_questions, loan_questions)
-  - Each skill is defined as a separate workflow within your agent
-  - When a query arrives through the LLM interface, the agent automatically determines which skill to use
-  - No need for explicit classification or endpoint selection in your application code
-
----
-
-### Integration
-
-#### Code
-- • **Base URL:** `https://llm.emb.smyth.ai/_openai/v1`
-- • **Endpoint:** `POST /chat/completions`
-- • **Compatibility:** Works as a drop-in replacement for the OpenAI API, requiring no SDK changes.
-
-#### Keys
-- • **Authorization:** Use a Bearer token.
-- • **Key Management:** Create and manage multiple keys as needed.
-
----
-
-### Agent Versions
-Access different versions of the agent using the `model` parameter:
-- • **Development:** `{Agent ID}@dev`
-- • **Production:** `{Agent ID}@prod`
-- • **Specific Version:** `{Agent ID}@1.3`
-
----
-
-### Streaming
-Enable streaming by setting the `stream` parameter to `true`. Example request body:
-
-```json
-{
-  "model": "{Agent ID}@dev",
-  "messages": [{
-    "role": "user",
-    "content": "Hello"
-  }],
-  "stream": true
-}
-```
-
-> **⚠️ Troubleshooting**
->
-> If your agent isn't responding as expected:
->
-> 1. 🔍 **Check Agent Logs**: Review execution logs to see which skills are being triggered
-> 2. 🔄 **Refine Agent Behavior**: Modify the behavior description to better direct requests
-> 3. 🛠️ **Test Using the Builder**: Use the SmythOS builder interface to debug workflow issues
-
-> **⚙️ Limitations**
->
-> - 🧩 Agent LLM is subject to the capabilities and limitations of the skills configured in your agent
-> - ⏱️ Response time may vary based on the complexity of your agent's workflow
-
-<Arcade src="https://demo.arcade.software/6z1nIJBpdysEM5TSsiku?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Use Agent as LLM | SmythOS" />
-
----
-
-## Use Agent as MCP
-
-### Overview
-The **Model Context Protocol (MCP)** embodiment allows you to integrate your SmythOS agent with platforms and applications that support the MCP standard. MCP is an open protocol designed to standardize how AI assistants exchange context with tools, systems, and data sources, making integration simpler and more powerful.
-
-### What is MCP?
-Model Context Protocol is an open standard that enables LLM applications to interact seamlessly with external tools and data sources. It provides a standardized way for AI assistants to:
-- Access files and documents
-- Execute functions in external systems
-- Maintain context across different environments
-- Interact with databases and APIs through a unified interface
-
-### Security and Authentication Limitations
-
-> **⚠️ Important Security Notice**
->
-> - The MCP protocol currently does not provide a standardized authentication method. The community is still discussing different approaches to solving this.
-> - If your SmythOS agent is configured with OAuth protection, it will not work as an MCP server. The system will return a message indicating that the agent is protected.
-> - Currently, the only available authentication solution requires using a proxy with third-party code running locally. This code acts as an MCP server and authenticates against your API.
-
-### Integration
-#### MCP URLs
-SmythOS provides two MCP URLs for each agent:
-- **Development URL:** `https://{agent-id}.agent.stage.smyth.ai/mcp/sse`
-- **Production URL:** `https://{agent-domain}/mcp/sse`
-
-Simply copy the appropriate URL based on your environment needs and integrate it with any platform or application that supports MCP servers.
-
-### How to Enable MCP
-1. Navigate to your agent builder page
-2. Locate the MCP section under Test sidebar
-3. Copy either the Development or Production MCP URL for integration
-
-> **💡 Pro Tip**
->
-> Use the Development URL during testing and the Production URL for live implementations. This allows you to test changes to your agent without affecting your production environment.
-
-### Use Cases
-- Integrate your SmythOS agent with MCP-compatible AI workbenches
-- Connect your agent to code editors and IDEs that support MCP
-- Use your agent in enterprise environments that have standardized on MCP
-- Build complex workflows involving multiple tools and data sources
-
-<Arcade  src="https://demo.arcade.software/wZ54BUXXKNiB8itDGd7f?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="MCP Embodiment | SmythOS" />
-
----
-
-## Use Agent as Alexa Skill
-
-### Overview
-
-The SmythOS Alexa embodiment allows you to connect your SmythOS agents with Amazon Alexa, enabling users to interact with your agents via voice commands through Alexa-enabled devices. This integration expands the reach of your SmythOS agents into the voice assistant ecosystem, creating new interaction possibilities.
-
-### Prerequisites
-
-- A SmythOS account with at least one deployed public agent
-- An Amazon Developer account (free to create at [Amazon Developer Console](https://developer.amazon.com/alexa/console/ask))
-- A SmythOS agent that doesn't require authentication (currently only public agents are supported)
-
-### Setup Process
-
-Setting up the SmythOS Alexa embodiment involves two main parts:
-1. • Finding your SmythOS Alexa endpoint
-2. • Creating and configuring an Alexa skill
-
-#### Part 1: Finding Your SmythOS Alexa Endpoint
-
-1. • Navigate to your SmythOS Dashboard
-2. • Select the agent you want to connect to Alexa
-3. • Go to the Test sidebar
-4. • Select the "Alexa" tab
-5. • Copy the Alexa endpoint URL shown
-
-The Alexa endpoint URL follows this structure:
-`https://[YOUR_AGENT_DOMAIN]/alexa`
-
-Where:
-- • `[YOUR_AGENT_DOMAIN]` is your agent's domain (e.g., `cma3x279t1rjoee5xc2mgdqfp.agent.stage.smyth.ai`)
-- • For development environments, SmythOS automatically provides this domain
-- • For production environments, you can either use a SmythOS-provided domain or configure your own custom domain
-
-Example: `https://cma3x279t1rjoee5xc2mgdqfp.agent.stage.smyth.ai/alexa`
-
-#### Part 2: Creating an Alexa Skill
-
-##### Step 1: Create a New Skill
-
-1. • Go to the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask)
-2. • Sign in with your Amazon Developer account (or create one)
-3. • Click on "Create Skill"
-4. • Enter a skill name (e.g., "My SmythOS Assistant")
-5. • Select "Custom" as the model
-6. • Choose "Start from scratch" as the template
-7. • Click "Create skill"
-
-##### Step 2: Configure the Endpoint
-
-1. • In the skill builder, navigate to the "Endpoint" section in the left sidebar
-2. • Select "HTTPS" as the service endpoint type
-3. • Paste your SmythOS Alexa endpoint URL in the "Default Region" field
-4. • Under "Certificate for Default Endpoint," select "My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority"
-5. • Click "Save Endpoints"
-
-##### Step 3: Configure the Invocation Name
-
-1. • Navigate to the "Invocation" section in the left sidebar
-2. • Enter a skill invocation name (what users will say to activate your skill, e.g., "my assistant" or "my agent")
-3. • Click "Save Model"
-
-##### Step 4: Add the SmythOS Agent Intent
-
-1. • Navigate to the "Intents" section in the left sidebar
-2. • Click "Add Intent"
-3. • Create a custom intent named "SmythOSAgentIntent"
-4. • Click "Create custom intent"
-
-##### Step 5: Configure Utterances and Slots
-
-1. • In the "Sample Utterances" section, add the following utterances (exactly as shown):
-   - • `{searchQuery}`
-   - • `ask {searchQuery}`
-   - • `tell me {searchQuery}`
-   - • `find {searchQuery}`
-   - • `search for {searchQuery}`
-
-2. • When you add these utterances, Alexa will prompt you to create a new slot. Click "Add" to create the `searchQuery` slot.
-
-3. • Scroll down to the "Intent Slots" section
-4. • For the `searchQuery` slot, select "AMAZON.SearchQuery" as the slot type
-5. • Click "Save Model"
-
-##### Step 6: Build and Test Your Skill
-
-1. • Click on the "Build Model" button (this may take a minute or two)
-2. • Once the build is complete, click on the "Test" tab at the top of the page
-3. • Enable testing for your skill by selecting "Development" in the dropdown menu
-4. • Test your skill by typing or speaking:
-   - • First say the invocation name: "Alexa, open [your invocation name]"
-   - • Then ask a question: "tell me [your query]"
-
-For example:
-- • "Alexa, open my assistant"
-- • "tell me what's the weather in New York"
-
-### How It Works
-
-When a user interacts with your Alexa skill:
-
-1. • The user speaks the invocation name to activate your skill
-2. • The user then speaks their query, which is captured by the `searchQuery` slot
-3. • Alexa sends this query to your SmythOS Alexa endpoint
-4. • Your SmythOS agent processes the query and returns a response
-5. • Alexa speaks the response back to the user
-
->**Limitations**
->
->- • Currently, only public SmythOS agents without authentication are supported
->- • There may be a character limit on responses due to Alexa's limitations
->- • Complex interactions that require visual elements are not fully supported in voice-only interfaces
->- • The skill must be invoked each time (session ends after each interaction by default)
-
-### Publishing Your Skill (Optional)
-
-To make your skill available to other Alexa users:
-
-1. • Navigate to the "Distribution" section
-2. • Complete all required fields:
-   - • Skill description
-   - • Example phrases
-   - • Skill icons (108x108px and 512x512px)
-   - • Privacy policy URL
-   - • Terms of service URL
-3. • Submit your skill for certification

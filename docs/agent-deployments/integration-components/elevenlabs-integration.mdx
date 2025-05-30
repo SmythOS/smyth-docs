@@ -1,0 +1,114 @@
+---
+title: ElevenLabs Integration
+description: Connect SmythOS to ElevenLabs for advanced text-to-speech synthesis.
+keywords: [SmythOS, ElevenLabs, TTS, speech synthesis, AI voice, voice agent, text-to-speech, API key, voice model]
+---
+
+# Use ElevenLabs with SmythOS
+
+> Bring natural voice synthesis into your SmythOS agents. This integration lets your agents speak using ElevenLabs’ high-fidelity text-to-speech.
+
+<InfoCallout>
+**TL;DR:** Add your ElevenLabs API key, configure your voice and model settings, and connect the component to your workflows.
+</InfoCallout>
+
+<Divider />
+
+## Why Use ElevenLabs?
+
+ElevenLabs offers some of the most realistic voice synthesis on the market — perfect for:
+
+- Voice assistants that sound human
+- Audio responses in chatbot or phone interfaces
+- Multilingual or styled speech output for brand tone
+- Enhancing accessibility with high-quality text-to-speech
+
+With SmythOS, you can plug ElevenLabs directly into your agent using a visual component, no SDKs or scripts required.
+
+<Divider />
+
+## Prerequisites
+
+Before using this component, make sure you have:
+
+- A valid [ElevenLabs account](https://elevenlabs.io/) and API key
+- A deployed agent with audio or voice functionality
+- Optional: access to different voice IDs or model styles from your ElevenLabs dashboard
+- Optionally configured Vault access in [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault-sharing) for managing secrets securely
+
+<Divider />
+
+## Step-by-Step: Integrate ElevenLabs
+
+### Step 1: Add Your API Key
+
+1. Go to your [ElevenLabs profile](https://elevenlabs.io/)
+2. Copy your **API Key**
+3. In SmythOS, open the component settings
+4. Paste your key under **API Key**
+
+<InfoCallout>
+For secure storage and reuse, we recommend saving your API key in [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault-sharing) and to not share it with others.
+</InfoCallout>
+
+### Step 2: Configure the Text-to-Speech Component
+
+The ElevenLabs **Text to Speech** component includes the following key settings:
+
+- **Model ID**: Choose from the available voice synthesis models
+- **Similarity Boost**: Adjust how closely the voice mimics the target
+- **Stability**: Control output pacing and tonal consistency
+- **Style**: Set tone and inflection style
+
+These let you dial in exactly how your agent should sound.
+
+<Divider />
+
+### Step 3: Define Your Inputs for Audio Generation
+
+To generate audio, your agent will need:
+
+- **text** (`required<string>`): The message or response to convert to speech  
+- **voice_id** (`required<string>`): The unique ID of the voice profile from your ElevenLabs account
+
+```json
+{
+  "text": "Welcome to SmythOS!",
+  "voice_id": "your-voice-id"
+}
+```
+
+<InfoCallout>
+Use **+ Add Input** in Studio to define these inputs explicitly. For passing values between components, see [Using Inputs and Outputs](/docs/agent-weaver/input-output).
+</InfoCallout>
+
+<Divider />
+
+### Step 4: Use and Reuse the Outputs
+
+When the component runs, it returns several useful outputs:
+
+- **response**: The raw audio stream (binary) — can be passed into a media player or stored
+- **headers**: HTTP metadata returned from ElevenLabs — optional but useful for debugging
+- **url**: A direct link to the audio file — use this to embed audio in chatbots, apps, or email responses
+
+You can use these outputs in follow-up steps to:
+
+- Play the audio inside a [Chatbot](/docs/agent-deployments/deployments/deploy-as-chatbot)
+- Send the audio URL to a client-facing app via [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api)
+
+<Divider />
+
+
+## What’s Next?
+
+Now that you’ve added voice:
+
+- Pair this with [Deploy as Chatbot](/docs/agent-deployments/deployments/deploy-as-chatbot) for spoken responses or [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api) if you want to expose voice functionality programmatically.
+- You can combine ElevenLabs with conditional logic for language or user-type based voice selection.
+- Route user text to ElevenLabs output via conditional workflows
+- Use different voices for multilingual experiences or brand personas
+- Monitor audio request patterns in [Agent Logs](/docs/agent-studio/agent-settings/logs)
+- Deploy this voice capability to a [Custom Domain](/docs/agent-deployments/deployments/deploy-to-your-domain) for a branded experience
+
+<PromptCard prompt="Add ElevenLabs voice synthesis to your agent with API key, voice_id, and text input." />

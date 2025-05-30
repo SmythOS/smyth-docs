@@ -1,0 +1,225 @@
+---
+title: Deploy with Webhooks
+description: Integrate SmythOS agents with external platforms like Discord or Google Chat using webhook deployments.
+keywords: [webhooks, SmythOS, deployment, integrations, Discord, Google Chat, automation, real-time updates]
+---
+
+# Deploy with Webhooks
+
+> Use SmythOS agents as event-driven webhooks to connect with external services like Discord, Google Chat, and more — enabling real-time automation.
+
+<InfoCallout>
+**TL;DR:** Deploy your agent with a webhook endpoint and connect it to external systems like Discord, Google Chat, or Zapier. Format responses with API Output components to meet payload requirements.
+</InfoCallout>
+
+<Divider />
+
+## Why Use Webhooks?
+
+Webhooks let your SmythOS agent act like an event listener. When a trigger happens elsewhere — like a form being submitted, a database record changing, or a user message coming in — the source system instantly sends a payload to your agent’s webhook URL. This is ideal for:
+
+- Real-time message posting (e.g., [Discord integration](/docs/integrations/discord))
+- Task automation (e.g., Google Chat or Notion updates)
+- Event-based workflows with external triggers
+
+Unlike polling, webhooks are instantaneous, efficient, and perfect for reactive agent workflows.
+
+<Divider />
+
+## How to Deploy as a Webhook
+
+### Step 1: Deploy Your Agent
+
+Go to your agent in SmythOS and:
+
+1. Click **Deploy** in the top-right
+2. Name the deployment
+3. Select your **version** (e.g., `v1.0.0`)
+4. Choose or confirm your subdomain (or use a custom domain)
+5. Hit **Publish**
+
+You’ll now get a stable, production-grade webhook URL like:
+
+```bash
+https://your-agent.smythos.com/api/v1/chat
+```
+
+<InfoCallout>
+You can also [Deploy via MCP Server](/docs/agent-deployments/mcp-server) if you need additional authentication, throttling, or multi-agent routing.
+</InfoCallout>
+
+<Divider />
+
+### Step 2: Secure the Webhook
+
+There are two main ways to secure your webhook:
+
+- **Bearer Token:**
+```bash
+curl https://your-agent.smythos.com/api/v1/chat \
+  -H "Authorization: Bearer abc123securetoken"
+```
+Generate your token in agent settings and store it in Vault.
+
+- **OIDC (OAuth) Authentication:**
+For advanced setups needing SSO, configure your OIDC client credentials and allowlist email domains.
+
+See [Authentication Setup](/docs/agent-deployments/security/authentication-options) for full details.
+
+<Divider />
+
+### Step 3: Handle Incoming Payloads
+
+Inside your agent, use a combination of:
+
+- **Agent Skill (Webhook Handler)** – this acts as the webhook endpoint
+- **Code Component** – to parse and validate incoming data
+- **LLM Prompt** – to generate a response
+- **API Output** – to return the payload in the format expected by the receiving platform
+
+#### Example: Discord Webhook
+If you’re sending output to Discord:
+
+```json
+{
+  "content": "Here’s your update!",
+  "embeds": [{
+    "title": "SmythOS Webhook Triggered",
+    "description": "Workflow completed with output: ${data.output}"
+  }]
+}
+```
+
+Learn more in the full [Discord Integration Guide](/docs/integrations/discord).
+
+<Divider />
+
+### Step 4: Register the Webhook
+
+Depending on the platform, you’ll register your SmythOS URL in different ways:
+
+- **Discord** → Create webhook in server settings
+- **Google Chat** → Use incoming webhook in space settings
+- **Notion** → Use automation tools like Zapier or Make to send data
+- **Zapier** → Select “Webhook” as your Zap trigger or action
+
+Once registered, these services can POST data to your agent whenever events happen.
+
+<Divider />
+
+## What’s Next?
+
+- Combine with [Scheduled Tasks](/docs/agent-studio/scheduled-tasks) for hybrid trigger setups
+- Track activity via [Agent Logs](/docs/agent-studio/agent-settigns/logs)
+- Add retry + fallback logic in case of external failures
+- Trigger multi-step automations or AI decision trees inside your workflow
+
+<PromptCard prompt="Deploy your agent as a secure webhook and connect to platforms like Discord, Google Chat, or Zapier." />
+
+
+
+---
+title: Deploy with Webhooks
+description: Extend your SmythOS agent functionality using webhook-based integrations like Discord, Google Chat, and more.
+keywords: [SmythOS, webhook integration, Discord, Google Chat, Zapier, real-time automation, event-driven agents]
+---
+
+# Extend Agents with Webhooks
+
+> Make your agent react to the world in real time. Connect it to Discord, Google Chat, Zapier, or any webhook-based platform.
+
+<InfoCallout>
+**TL;DR:** Deploy your agent with a public endpoint, secure it, and connect any platform that supports outbound HTTP requests.
+</InfoCallout>
+
+<Divider />
+
+## Prerequisites
+
+Before you begin, make sure you:
+
+- Have an existing deployed SmythOS agent. If not, [deploy your agent here](/docs/agent-deployments/overview).
+- Understand the webhook format of your target platform (e.g., Discord, Google Chat).
+- Have appropriate authentication set up via [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault-sharing).
+
+<Divider />
+
+## Step 1: Create a Webhook-Ready Endpoint in Your Agent
+
+1. In your SmythOS Agent:
+   - Add an **Agent Skill** component and name it something like `WebhookReceiver`.
+   - Define the inputs your target service will send (e.g., `event`, `message`, `timestamp`).
+
+2. Follow it with a **Code Component** or **LLM Component** to process the input.
+
+3. End the workflow with an **API Output** component to format and return a valid HTTP response to the caller.
+
+<InfoCallout>
+Need a working example? [See the Discord webhook integration](/docs/integrations/discord) for a live use case.
+</InfoCallout>
+
+<Divider />
+
+## Step 2: Secure Your Endpoint
+
+> Open webhooks are risky. Always protect your endpoints.
+
+You can secure your agent endpoint using:
+
+- **Bearer Token Authentication:**
+  - Generate a token and store it in Vault.
+  - In the agent settings, enable Bearer Token Auth and provide your token.
+  - All incoming webhook requests must include: `Authorization: Bearer your-token`.
+
+- **OAuth OIDC (Optional):**
+  - For advanced use cases like SSO or email domain restrictions.
+  - Set up via your SmythOS organization settings.
+
+<Divider />
+
+## Step 3: Configure Your Webhook Platform
+
+Once your agent has a public, secure endpoint:
+
+- Go to your target platform (e.g., Discord, Google Chat, Notion, etc.)
+- Create or access their webhook configuration interface
+- Paste your SmythOS agent URL (e.g., `https://myagent.agent.pa.smyth.ai/api/v1/chat`)
+- Map outgoing fields from the service to your agent’s expected inputs
+
+For example:
+- In **Google Chat**, the payload must be structured as:
+
+```json
+{
+  "text": "Hello from SmythOS!"
+}
+```
+
+- In **Discord**, it looks like:
+
+```json
+{
+  "content": "Alert: New event triggered by your agent!"
+}
+```
+
+<Divider />
+
+## Advanced Use Case: Zapier + SmythOS
+
+You can use [Zapier](https://zapier.com) to act as a middleware between dozens of apps and your SmythOS agent:
+
+1. Create a Zapier trigger based on an app event (e.g., "New row in Google Sheet").
+2. Use a **Webhook Action** in Zapier to POST to your agent.
+3. Parse the payload in your agent and respond accordingly.
+
+<Divider />
+
+## What's Next?
+
+- Connect your agent to Slack, WhatsApp, or Telegram using webhook-compatible flows.
+- Automate multi-step workflows triggered by external platforms.
+- Add [logging](/docs/agent-studio/agent-settigns/logs) to track and debug webhook events.
+- Explore advanced deployment options via [Model Context Protocol (MCP)](/docs/agent-deployments/deploy-with-mcp) if you want tighter service coupling.
+
+<PromptCard prompt="Connect SmythOS agents to Discord, Google Chat, or any platform that supports webhooks. Secure, scalable, and real-time." />

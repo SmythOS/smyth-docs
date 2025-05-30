@@ -1,126 +1,4 @@
 ---
-title: Use Google Gemini with SmythOS
-description: Connect your SmythOS agent to Google Gemini for LLM-based completions and chat responses.
-keywords: [SmythOS, Google Gemini, LLM integration, API call, AI agents, generative AI]
----
-
-# Use Google Gemini with SmythOS
-
-> Connect to Google's powerful Gemini LLM to add text generation, chat completions, and AI reasoning to your SmythOS agent workflows.
-
-<InfoCallout>
-**TL;DR:** Add your Gemini API Key, choose the right model, and plug into your workflow with the `API Call` component.
-</InfoCallout>
-
-<Divider />
-
-## Why Google Gemini?
-
-Google Gemini offers a family of large language models that support a range of use cases including:
-
-- Text generation and completion
-- Code explanation
-- Content rewriting and summarization
-- Reasoning, planning, and structured output
-
-You can use Gemini directly within your SmythOS agents via simple API integration, no special SDKs needed.
-
-<Divider />
-
-## Prerequisites
-
-Before integrating Gemini:
-
-- Create a [Google AI Studio](https://aistudio.google.com/) account
-- Generate a Gemini API Key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-- Store this key securely in your [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault-sharing)
-
-<Divider />
-
-## Step-by-Step: Add Gemini to Your Agent
-
-### Step 1: Add the API Call Component
-
-1. In your agent, click **+ Add Component**
-2. Choose **API Call** from the list
-3. Open the settings and name it something like `CallGemini`
-
-<Divider />
-
-### Step 2: Configure Component Settings
-
-Set these values:
-
-- **URL**: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent`
-- **Method**: POST
-- **Headers**:
-
-```json
-{
-  "Content-Type": "application/json",
-  "x-goog-api-key": "${GEMINI_API_KEY}"
-}
-```
-
-- Replace `${GEMINI_API_KEY}` with the variable from your Vault
-
-<Divider />
-
-### Step 3: Define Inputs
-
-Example input payload:
-
-```json
-{
-  "contents": [
-    {
-      "parts": [
-        {
-          "text": "Write a blog post about SmythOS integrations."
-        }
-      ]
-    }
-  ]
-}
-```
-
-<InfoCallout>
-You can dynamically pass user inputs into the `text` field using mapped variables or prior component outputs.
-</InfoCallout>
-
-<Divider />
-
-### Step 4: Use Outputs
-
-You’ll receive a JSON response with:
-
-- `candidates[0].content.parts[0].text`: The generated text
-- `promptFeedback`: Safety and model usage metadata
-
-Use the **Output Mapping** to extract and reuse the result elsewhere in your workflow (e.g., in a Slack message, email, or UI element).
-
-<Divider />
-
-## Use Cases
-
-- Dynamic blog/article drafting
-- Interactive chatbot responses
-- LLM-powered summarization or rephrasing
-- Generating user-specific instructions or recommendations
-
-<Divider />
-
-## What’s Next?
-
-- Try combining Gemini with [Slack](/docs/integrations/slack) or [Discord](/docs/integrations/discord) for interactive bots
-- Deploy your Gemini agent via [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api)
-- Log all completions in [Agent Logs](/docs/agent-studio/agent-settigns/logs)
-
-<PromptCard prompt="Use Google Gemini with SmythOS to generate responses, summarize data, or co-write content." />
-
-
-
----
 title: Integrate Google Gemini with SmythOS
 description: Use the Gemini API to generate content within your SmythOS agent workflows.
 keywords: [Google Gemini, SmythOS, generative AI, Gemini API, API Call, Vault]
@@ -203,7 +81,42 @@ https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateConte
 
 <Divider />
 
-### Step 3: Parse the Response
+### Step 3: Define Inputs
+
+Example input payload:
+
+```json
+{
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "Write a blog post about SmythOS integrations."
+        }
+      ]
+    }
+  ]
+}
+```
+
+<InfoCallout>
+You can dynamically pass user inputs into the `text` field using mapped variables or prior component outputs.
+</InfoCallout>
+
+<Divider />
+
+### Step 4: Use Outputs
+
+You’ll receive a JSON response with:
+
+- `candidates[0].content.parts[0].text`: The generated text
+- `promptFeedback`: Safety and model usage metadata
+
+Use the **Output Mapping** to extract and reuse the result elsewhere in your workflow (e.g., in a Slack message, email, or UI element).
+
+<Divider />
+
+### Step 5: Parse the Response
 
 The response contains a `candidates` array. Add a **Code** or **Transform** component to:
 
@@ -219,8 +132,9 @@ You can log outputs using [Agent Logs](/docs/agent-studio/agent-settigns/logs) f
 
 ## What’s Next?
 
-- Use Gemini output in Slack, Discord, or WhatsApp integrations
-- Connect to a webhook or use [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api)
+- Try combining Gemini with [Slack](/docs/agent-deployments/integration-components/slack-integration) or [Discord](docs/agent-deployments/integration-components/discord-integration) for interactive bots
+- Deploy your Gemini agent via [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api)
+- Log all completions in [Agent Logs](/docs/agent-studio/agent-settigns/logs)
 - Chain with multiple LLMs for content ranking or decision making
 
-<PromptCard prompt="Connect Gemini to SmythOS and generate intelligent responses via API." />
+<PromptCard prompt="Use Google Gemini with SmythOS to generate responses, summarize data, or co-write content." />

@@ -1,0 +1,215 @@
+---
+title: Google Sheets Integration
+sidebar_position: 1
+---
+
+# 🧮 Google Sheets Integration
+
+> Connect, sync, and supercharge your spreadsheet workflows directly inside SmythOS agents.
+
+<InfoCallout>
+**TL;DR:** This guide walks you through integrating Google Sheets with SmythOS — from authenticating with OAuth to automating data updates, appends, and even spreadsheet creation. Real-time Arcade embeds and example structures included.
+</InfoCallout>
+
+<Divider />
+
+## 🚦 Prerequisites
+
+Before diving in, make sure you have:
+
+- A Google Account
+- At least one existing spreadsheet (or plan to create one)
+- A SmythOS agent open in Studio or Playground
+
+<WarningCallout>
+Your spreadsheet should be accessible via API and not restricted to private domains. Always test with a dummy file first.
+</WarningCallout>
+
+<Divider />
+
+## 🔐 Authentication Workflow
+
+All Google Sheets components require OAuth authentication.
+
+### ✅ Authenticate
+1. Open the component.
+2. Go to the **OAuth** tab.
+3. Click **Authenticate**.
+4. Sign in to Google.
+5. Grant permissions.
+6. Return to SmythOS — you’re in!
+
+<Arcade src="https://demo.arcade.software/0yZN1r9Y94cQUDNIZMqj?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Authenticate" />
+
+### 🔓 Deauthenticate
+- Go to the **OAuth** tab in the same component.
+- Click **Sign Out**.
+
+<Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Sign Out" />
+
+<Divider />
+
+## 📚 Core Components
+
+Each Google Sheets component does one thing well. Below is the breakdown — grouped by use case.
+
+---
+
+### 🔍 Read Data
+
+#### 📥 Get Values
+Pull a specific range from a spreadsheet.
+
+**Inputs:**
+- `spreadsheetId`
+- `range` (e.g., `Sheet1!A1:B10`)
+- `majorDimension` (default: `ROWS`)
+
+**Outputs:**
+- `values[]`
+- `Response`
+- `Headers`
+
+<Arcade src="https://demo.arcade.software/JkOmFsCnG6kec09YC3rI?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Get Values" />
+
+---
+
+### 📝 Write Data
+
+#### 📤 Update Values
+Push new data into a defined range.
+
+**Inputs:**
+- `spreadsheetId`
+- `range`
+- `values` (array of arrays)
+- `valueInputOption`
+- `majorDimension`
+
+**Outputs:**
+- `updatedRange`
+- `updatedCells`
+
+<Arcade src="https://demo.arcade.software/7t0NJfRE2u9RflVtldBP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Update Values" />
+
+#### ➕ Append Values
+Add new data after the last used row.
+
+**Inputs:** Same as `Update Values`, plus `insertDataOption`
+
+<Arcade src="https://demo.arcade.software/peIoD0Ic7az1Pb1I0TWn?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Append Values" />
+
+#### 🧩 Batch Update
+Write to multiple ranges in one API call.
+
+**Inputs:**
+- `spreadsheetId`
+- `valueInputOption`
+- `data[]`: Each item contains a `range` and `values`
+
+**Outputs:**
+- `responses[]`
+
+<Arcade src="https://demo.arcade.software/QVIij47tDdWlygH70YkB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Batch Update Values" />
+
+---
+
+### 🧪 Spreadsheet Management
+
+#### 📄 Create Spreadsheet
+Generate a new sheet from scratch.
+
+**Inputs:**
+- `title`
+
+**Outputs:**
+- `spreadsheetId`
+
+<Arcade src="https://demo.arcade.software/XZnWtTpLTQfCltxOD5NO?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Create Spreadsheet" />
+
+#### 🔍 Get Spreadsheet Metadata
+Retrieve metadata and sheet structure.
+
+**Inputs:**
+- `spreadsheetId`
+
+**Outputs:**
+- `sheets[]`
+
+<Arcade src="https://demo.arcade.software/cRCgBViZQhS5XCUJ34Nu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Get Spreadsheet" />
+
+#### ➕ Add Sheet
+Add a tab to an existing spreadsheet.
+
+**Inputs:**
+- `spreadsheetId`
+- `title`
+
+**Outputs:**
+- `sheetId`
+
+<Arcade src="https://demo.arcade.software/nmTYnb8SJRBpDWYjBhzY?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Add Sheet" />
+
+---
+
+### ✨ Visual Tuning
+
+#### 🧠 Auto Resize Column
+Adjusts column width based on content.
+
+**Inputs:**
+- `sheetId`
+- `startIndex`
+- `endIndex`
+
+<Arcade src="https://demo.arcade.software/gU3Z4jMtKzJmYmlwzeD6?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Auto Resize Columns" />
+
+#### 🧠 Auto Resize Row
+Same logic, but for rows.
+
+**Inputs:** Same as column version
+
+<Arcade src="https://demo.arcade.software/ERwh9QUOzws6QuIYgsud?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Auto Resize Rows" />
+
+#### 🎨 Format Header Row
+Make your headers bold, centered, and beautiful.
+
+**Inputs:**
+- `sheetId`
+- `startRowIndex`, `endRowIndex`
+- `fontSize`, `horizontalAlignment`
+
+<Arcade src="https://demo.arcade.software/IgYFAV0RFA94CdlpxiYW?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Format Header Row" />
+
+<Divider />
+
+## 🛠 Use Cases
+
+- Send survey responses to Sheets via Webhook
+- Format data then hand-off to GPT for insights
+- Summarize spreadsheet content and route by logic
+
+<InfoCallout>
+Example: "On form submit → Append to sheet → Trigger Slack notification with summarized key inputs."
+</InfoCallout>
+
+<Divider />
+
+## 📸 Suggested Enhancements
+
+- [ ] **Visual diagrams**: Component flow map for new users
+- [ ] **QuickStart template**: Build a sheet-push agent in under 3 mins
+- [ ] **Mini GIF**: Show the full loop from form to row
+- [ ] **Skill bundle**: Prebuilt agent including Google Sheets components
+
+<Divider />
+
+## ✅ You're Good to Go
+
+Google Sheets is now an official data highway inside SmythOS.
+
+You can read, write, append, and format just like you would in the UI — but 100% automated.
+
+<InfoCallout>
+Use the Weaver assistant to test input formats and preview API responses directly.
+</InfoCallout>

@@ -54,10 +54,10 @@ export default function DocItemLayout({children}: Props): ReactNode {
             <DocVersionBadge />
             {docTOC.mobile}
             <DocItemContent>{children}</DocItemContent>
+            <DocItemPaginator />
             <PageFeedback/>
             <DocItemFooter />
           </article>
-          <DocItemPaginator />
         </div>
       </div>
       {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>}

@@ -14,7 +14,7 @@ description: How to test and integrate your SmythOS agent using Postman collecti
 
 <Divider />
 
-## Why Use Postman with SmythOS?
+## Why Test Your Agent in Postman?
 
 Postman is a trusted tool for testing APIs and managing request workflows. By using Postman with SmythOS, you can:
 
@@ -27,7 +27,7 @@ This guide works best alongside [Use via API](/docs/agent-deployments/deployment
 
 <Divider />
 
-## Prerequisites
+## What You Need Before You Start
 
 Before exporting or importing Postman collections:
 
@@ -41,37 +41,37 @@ Before exporting or importing Postman collections:
 
 Exporting a Postman collection lets you test your agent’s endpoints externally and share with other teams.
 
-### Export Test Collection
+### Test Environment Collection
 
 Use for internal or staging testing:
 
 - Available for all agents (even before full deployment)
 - Uses the **test subdomain**
 
-Example test subdomain:
+Example:
 ```text
 https://myagent.agent.stage.smyth.ai
 ```
 
-### Export Production Collection
+### Production Environment Collection
 
 Use once the agent is ready for production:
 
 - Requires deployed production version
 - Uses the **production subdomain**
 
-Example production subdomain:
+Example:
 ```text
 https://myagent.agent.pstage.smyth.ai
 ```
 
 > Want to configure your own custom domain or learn more about subdomains? Check out [Managing Subdomains](/docs/agent-deployments/subdomains).
 
-### Steps
+### Steps to Download Postman Collection
 
-1. Open your agent in **Studio**
-2. Navigate to **Deployments → Postman**
-3. Choose **Export Test** or **Export Production**
+1. Open your agent in **Studio**  
+2. Navigate to **Deployments → Postman**  
+3. Choose **Export Test** or **Export Production**  
 4. Download the generated `.json` Postman collection
 
 <Arcade src="https://demo.arcade.software/CI0fMYdVuulWQlXdLHHo?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Export Agent to Postman | SmythOS" />
@@ -82,11 +82,11 @@ https://myagent.agent.pstage.smyth.ai
 
 Already using Postman for API calls? Bring that logic directly into SmythOS.
 
-1. Open **Builder** from the left sidebar
-2. Drag and drop your `.json` Postman collection file into the canvas
+1. Open **Builder** from the left sidebar  
+2. Drag and drop your `.json` Postman collection file into the canvas  
 3. SmythOS automatically converts each request into an **API Call** component
 
-This is ideal if you:
+Use this if you:
 
 - Want to reuse complex request flows
 - Are migrating existing Postman logic into a SmythOS agent
@@ -96,7 +96,7 @@ This is ideal if you:
 
 <Divider />
 
-## Tips for Working with Postman + SmythOS
+## Tips for Better Postman + SmythOS Workflow
 
 - Use Vault keys as environment variables in Postman
 - Match request payloads with the schema shown in Swagger or "Try It Out"
@@ -115,3 +115,5 @@ Once you’ve verified your agent via Postman:
 - Export updated collections whenever your agent logic changes
 
 Want to explore more deployment methods? Check out [Deploy as ChatGPT](/docs/agent-deployments/deployments/deploy-as-chatgpt) or [Deploy as LLM](/docs/agent-deployments/deployments/deploy-as-llm) to plug your agent into custom GPTs and OpenAI-style endpoints.
+
+<Divider />

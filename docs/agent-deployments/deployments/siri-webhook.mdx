@@ -9,14 +9,14 @@ keywords: [Siri, SmythOS, Webhook, Shortcuts, voice automation, iOS automation, 
 > Trigger agents with your voice. Connect Apple’s Siri Shortcuts to SmythOS using secure webhook URLs and unlock hands-free workflows on iOS.
 
 <InfoCallout>
-**TL;DR:** Set up a Siri Shortcut that sends an HTTP request to your SmythOS agent's webhook endpoint — and your voice becomes your interface.
+**TL;DR:** Set up a Siri Shortcut that sends an HTTP request to your SmythOS agent's webhook endpoint, and your voice becomes your interface.
 </InfoCallout>
 
 <Divider />
 
-## Why Use Siri with SmythOS?
+## Why Use Siri to Activate Your SmythOS Agent?
 
-Siri is already built into your iPhone, iPad, and Apple Watch — so why not turn it into a control center for your AI agent?
+Siri is already built into your iPhone, iPad, and Apple Watch... so why not turn it into a control center for your AI agent?
 
 With this integration, you can:
 
@@ -27,7 +27,7 @@ With this integration, you can:
 
 <Divider />
 
-## Prerequisites
+## What You Need to Get Started
 
 - A deployed SmythOS agent with webhook support
 - Your agent must be publicly accessible (e.g., [Deploy via Webhook](/docs/agent-deployments/deploy-as-webhook))
@@ -36,42 +36,42 @@ With this integration, you can:
 
 <Divider />
 
-## Step-by-Step: Connect Siri to SmythOS
+## Step 1: Get Your SmythOS Webhook URL
 
-### Step 1: Copy Your Webhook URL
-
-1. Go to your deployed agent in SmythOS
-2. Click **Deploy** and select **Webhook**
-3. Copy the generated URL (it will look like `https://your-agent.smythos.com/api/v1/chat`)
+1. Go to your deployed agent in SmythOS  
+2. Click **Deploy** and select **Webhook**  
+3. Copy the generated URL (e.g., `https://your-agent.smythos.com/api/v1/chat`)  
 4. If needed, configure authentication using a **Bearer Token** or set up [Vault access](/docs/agent-collaboration/working-with-agents/vault-sharing)
 
 <InfoCallout>
-You can test this webhook first using [Postman](https://www.postman.com/) or `curl` to ensure it responds correctly before adding it to Siri.
+You can test this webhook first using [Postman](https://www.postman.com/) - [we also have a guide on how](/docs/agent-deployments/deployments/use-postman) - or `curl` to ensure it responds correctly before adding it to Siri.
 </InfoCallout>
 
 <Divider />
 
-### Step 2: Create a Siri Shortcut
+## Step 2: Set Up Your Siri Shortcut
 
-1. Open the **Shortcuts** app on your iOS device
-2. Tap **+** to create a new Shortcut
-3. Tap **Add Action** and search for `Get Contents of URL`
+1. Open the **Shortcuts** app on your iOS device  
+2. Tap **+** to create a new Shortcut  
+3. Tap **Add Action** and search for `Get Contents of URL`  
 4. Select it and configure:
-   - **Method**: POST
-   - **URL**: Paste your webhook URL from SmythOS
+   - **Method**: POST  
+   - **URL**: Paste your webhook URL from SmythOS  
    - **Request Body**: Select `JSON` and add key-value pairs based on your agent inputs
-     ```json
-     {
-       "prompt": "Summarize the latest updates",
-       "user": "siri-user"
-     }
-     ```
-5. (Optional) Add a **Text** action or `Show Result` to display the response
+
+```json
+{
+  "prompt": "Summarize the latest updates",
+  "user": "siri-user"
+}
+```
+
+5. (Optional) Add a **Text** action or `Show Result` to display the response  
 6. Name your Shortcut (e.g., "Run SmythOS Agent") and enable Siri by tapping **Add to Siri**
 
 <Divider />
 
-### Step 3: Trigger It with Your Voice
+## Step 3: Trigger the Agent with Your Voice
 
 Once added, just say:
 
@@ -81,11 +81,12 @@ Once added, just say:
 
 <Divider />
 
-## Output Handling
+## Handle and Display the Agent Response
 
 You can enhance the Shortcut by:
-- Showing the response using **Show Result**
-- Logging it in **Notes** or **Reminders**
+
+- Showing the response using **Show Result**  
+- Logging it in **Notes** or **Reminders**  
 - Sending it via iMessage or Email
 
 <InfoCallout>
@@ -96,8 +97,10 @@ Pro tip: Use the response JSON fields to power conditional logic or route data t
 
 ## What’s Next?
 
-- [Deploy more endpoints](/docs/agent-deployments/overview) to link multiple voice commands
-- [Log all invocations](/docs/agent-studio/agent-settigns/logs) in SmythOS to track Siri activity
+- [Deploy more endpoints](/docs/agent-deployments/overview) to link multiple voice commands  
+- [Log all invocations](/docs/agent-studio/agent-settings/logs) in SmythOS to track Siri activity  
 - Use **Scheduled Tasks** to mix hands-free and timed automations
 
 <PromptCard prompt="Use Siri to trigger your SmythOS agent via webhook and complete tasks using just your voice." />
+
+<Divider />

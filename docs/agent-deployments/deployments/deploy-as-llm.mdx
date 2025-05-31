@@ -14,7 +14,7 @@ description: How to deploy your SmythOS agent as an OpenAI-compatible LLM endpoi
 
 <Divider />
 
-## Why Use Agent LLM Deployment?
+## Why Deploy Your Agent as an LLM Endpoint?
 
 Instead of juggling multiple functions or setting up complex routing, deploy your SmythOS agent as a **single, unified LLM endpoint**. It works like a drop-in replacement for OpenAI.
 
@@ -36,7 +36,7 @@ You just send the prompt and SmythOS handles the rest.
 
 <Divider />
 
-## Prerequisites
+## Prerequisites to Enable LLM Deployment
 
 Make sure you have these ready before making your first call:
 
@@ -46,23 +46,27 @@ Make sure you have these ready before making your first call:
 - The **Agent ID** from your deployment (e.g., `cmb5b4js00fmjh6333d0foxjr`)
 
 To get your agent's ID, extract the prefix from your URL:
+
 ```text
 https://cmb5b4js00fmjh6333d0foxjr.agent.stage.smyth.ai
 ```
+
 Here, the agent ID is:
+
 ```text
 cmb5b4js00fmjh6333d0foxjr
 ```
-- The **model name** from your deployment -> Agent ID + tag (e.g., `cmb5b4js00fmjh6333d0foxjr@prod`)
+
+- The **model name** from your deployment → Agent ID + tag (e.g., `cmb5b4js00fmjh6333d0foxjr@prod`)
 
 <Divider />
 
-## Step-by-Step: How to Use Your Agent as an LLM
+## Step-by-Step: Deploy Your Agent as an LLM
 
 ### Step 1: Enable LLM Access
 
-1. Go to **Agent Settings**
-2. Scroll to the **LLM** section
+1. Go to **Agent Settings**  
+2. Scroll to the **LLM** section  
 3. Toggle on LLM access for your agent
 
 <InfoCallout>
@@ -71,10 +75,10 @@ You won’t see an API key here... because that’s managed via Vault.
 
 <Divider />
 
-### Step 2: Create a Vault Key
+### Step 2: Create a Vault API Key
 
-1. Navigate to the **Vault** in the left sidebar
-2. Click **API Keys → + Add Key**
+1. Navigate to the **Vault** in the left sidebar  
+2. Click **API Keys → + Add Key**  
 3. Choose the agent, assign scopes, and copy the generated token
 
 <InfoCallout>
@@ -83,7 +87,7 @@ Use a test-scoped token while you’re developing, and a production-scoped key w
 
 <Divider />
 
-### Step 3: Build Your OpenAI-Compatible Request
+### Step 3: Send OpenAI-Compatible Requests
 
 All requests go through the SmythOS proxy endpoint:
 
@@ -116,7 +120,7 @@ Use the following fields:
   }'`}</code></pre>
       )
     },
- {
+    {
       label: 'Python',
       content: (
         <pre><code>{`from openai import OpenAI
@@ -160,7 +164,7 @@ const response = await openai.chat.completions.create({
 
 <Divider />
 
-Request format:
+## Example Request Format
 
 ```json
 {
@@ -182,7 +186,7 @@ Authorization: Bearer <your-vault-api-key>
 
 <Divider/>
 
-## Common Use Cases
+## Common Use Cases for LLM Deployment
 
 - **Build LLM chat tools** without extra server logic
 - **Power frontend interfaces** with smart agent routing

@@ -14,7 +14,7 @@ keywords: [SmythOS, custom domain, agent deployment, DNS, CNAME, subdomain setup
 
 <Divider />
 
-## Why Use a Custom Domain?
+## Why Deploy Your Agent to a Custom Domain?
 
 Deploying to your own domain allows you to:
 
@@ -26,7 +26,7 @@ Linking your domain puts you in control if you're launching a support assistant,
 
 <Divider />
 
-## Prerequisites
+## What You Need Before You Begin
 
 To connect a domain, you’ll need:
 
@@ -36,31 +36,32 @@ To connect a domain, you’ll need:
 
 <Divider />
 
-## Step-by-Step: Set Up a Custom Domain
+## Step 1: Register Your Domain in SmythOS
 
-### Step 1: Add the Domain in SmythOS
-
-1. Go to [Subdomains](https://app.smythos.com/domains) from the left sidebar
-2. Click **Add Subdomain**
-3. Enter your desired domain or subdomain (e.g., `ai.mycompany.com`)
+1. Go to [Subdomains](https://app.smythos.com/domains) from the left sidebar  
+2. Click **Add Subdomain**  
+3. Enter your desired domain or subdomain (e.g., `ai.mycompany.com`)  
 4. SmythOS will generate a unique **CNAME target** for your domain
 
-You’ll see something like this:
+You’ll see something like:
 
-```
+```text
 Host: ai.mycompany.com
 Target: ca0e27d8eeec9ebf4c62a76719df460a.proxy.stage.smyth.ai
 ```
 
-### Step 2: Add a CNAME Record in Your DNS
+<Divider />
+
+## Step 2: Configure Your DNS with a CNAME Record
 
 In your DNS provider (like Namecheap, Route53, or Cloudflare):
 
-1. Create a new **CNAME** record
-2. Use your subdomain as the **Host**
+1. Create a new **CNAME** record  
+2. Use your subdomain as the **Host**  
 3. Paste the full target from SmythOS into the **Value**
 
 Example:
+
 ```text
 Type:   CNAME
 Name:   ai
@@ -73,12 +74,12 @@ DNS propagation may take up to 24 hours depending on your provider. Wait until i
 
 <Divider />
 
-### Step 3: Verify the Domain
+## Step 3: Verify the Domain in SmythOS
 
 Once the CNAME is live:
 
-1. Go back to **Subdomains** in SmythOS
-2. Click **Verify** next to your domain
+1. Go back to **Subdomains** in SmythOS  
+2. Click **Verify** next to your domain  
 3. When verified, it will appear in the domain selector during agent [deployment](/docs/agent-deployments/overview)
 
 <InfoCallout>
@@ -87,11 +88,11 @@ See [Subdomains docs](/docs/agent-deployments/subdomains) for troubleshooting ti
 
 <Divider />
 
-### Step 4: Deploy Agent to the Domain
+## Step 4: Deploy Your Agent to the Verified Domain
 
-1. Go to your agent’s **Deployments → Agent Cloud** tab
-2. Select the domain from the **Subdomain** dropdown (now includes verified domains)
-3. Enter your version number and optional release notes
+1. Go to your agent’s **Deployments → Agent Cloud** tab  
+2. Select the domain from the **Subdomain** dropdown (now includes verified domains)  
+3. Enter your version number and optional release notes  
 4. Click **Deploy**
 
 Your agent is now live at your own domain.
@@ -109,3 +110,5 @@ Now that your agent is running on your own domain, you can:
 - Pair it with custom workflows, dashboards, or integrations
 
 <PromptCard prompt="Add a CNAME record to your DNS and verify it in SmythOS to connect your domain to an agent." />
+
+<Divider />

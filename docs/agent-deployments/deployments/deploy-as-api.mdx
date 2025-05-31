@@ -14,7 +14,7 @@ description: How to use your SmythOS agent via direct API calls using Swagger UI
 
 <Divider />
 
-## Why Use the API Embodiment?
+## Why Access Your Agent via API?
 
 This method is ideal if you want to:
 
@@ -25,22 +25,22 @@ This method is ideal if you want to:
 
 <Divider />
 
-## Prerequisites
+## What You Need Before You Start
 
 Before interacting with the API embodiment, make sure:
 
 - Your agent is deployed (test, production, or versioned)
 - You have a Vault API key with the correct scopes
-- You know your environment’s [subdomain](/docs/agent-deployments/subdomaoins) URL (`stage` or `pstage`)
+- You know your environment’s [subdomain](/docs/agent-deployments/subdomains) URL (`stage` or `pstage`)
 
 <Divider />
 
-## Step-by-Step: Explore and Integrate via API
+## Step-by-Step: Use the SmythOS Agent API
 
-### Step 1: Open the API Embodiment
+### Step 1: Open the API Embodiment in Your Dashboard
 
-1. Navigate to your agent’s **Deployments** tab
-2. Find and click on the **API** embodiment in the Environment section
+1. Navigate to your agent’s **Deployments** tab  
+2. Find and click on the **API** embodiment in the Environment section  
 3. A Swagger UI will load with all available endpoints
 
 <InfoCallout>
@@ -49,7 +49,7 @@ Each endpoint maps to a callable block or function in your agent logic.
 
 <Divider />
 
-### Step 2: Find Your OpenAPI URL
+### Step 2: Get the OpenAPI URL for Your Agent
 
 The OpenAPI schema is located at:
 
@@ -58,8 +58,9 @@ https://<your-agent-subdomain>/api-docs/openapi.json
 ```
 
 Examples:
+
 ```text
-Test: https://salesbot.agent.stage.smyth.ai/api-docs/openapi.json
+Test: https://salesbot.agent.stage.smyth.ai/api-docs/openapi.json  
 Prod: https://salesbot.agent.pstage.smyth.ai/api-docs/openapi.json
 ```
 
@@ -69,13 +70,13 @@ You can import this URL into third-party tools like Postman or [GPT Builder](/do
 
 <Divider />
 
-### Step 3: Test Endpoints via Swagger
+### Step 3: Test and Explore Endpoints with Swagger
 
-1. Select your **Server** from the dropdown (e.g., test or production)
-2. Click on any endpoint to expand it
-3. Click **Try it out** to activate edit mode
-4. Modify the payload as needed
-5. Click **Execute** to send the request and see the response
+1. Select your **Server** from the dropdown (e.g., test or production)  
+2. Click on any endpoint to expand it  
+3. Click **Try it out** to activate edit mode  
+4. Modify the payload as needed  
+5. Click **Execute** to send the request and view the response
 
 <WarningCallout>
 Swagger does not support multi-line JSON by default. Keep payloads single-line or escape newline characters.
@@ -83,7 +84,7 @@ Swagger does not support multi-line JSON by default. Keep payloads single-line o
 
 <Divider />
 
-## What’s Next
+## What Comes After API Integration?
 
 Now that your API is live:
 
@@ -91,6 +92,6 @@ Now that your API is live:
 - Use the same OpenAPI URL in SDKs or GPT Builder
 - Combine this embodiment with LLM or ChatBot deployment to serve multiple access channels
 
-Want to make it conversational? Learn how to [Deploy as ChatBot](/deployments/chatbot) and embed the same logic into your site’s UI.
+Want to make it conversational? Learn how to [Deploy as ChatBot](/docs/agent-deployments/deployments/deploy-as-chatbot) and embed the same logic into your site’s UI.
 
 <Divider />

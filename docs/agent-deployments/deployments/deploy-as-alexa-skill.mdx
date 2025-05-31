@@ -11,10 +11,8 @@ description: How to deploy your SmythOS agent as an Alexa Skill using Amazon Dev
 <InfoCallout>
 **TL;DR:** Copy your SmythOS Alexa endpoint → set up a Custom Alexa Skill → wire the endpoint as your handler. Alexa now speaks for your agent.
 </InfoCallout>
-
 <Divider />
-
-## Why Deploy to Alexa?
+## Why Deploy Your Agent to Alexa?
 
 Voice extends your agent’s reach. Alexa integration lets users interact naturally with no screens or keyboards required. It’s ideal for:
 
@@ -24,25 +22,23 @@ Voice extends your agent’s reach. Alexa integration lets users interact natura
 - Productivity helpers
 
 All it takes is one endpoint and a little setup.
-
 <Divider />
-
 ## Prerequisites
 
 Make sure you have the following ready:
 
-- A deployed SmythOS agent (must be public — no authentication)
+- A deployed SmythOS agent (must be public; no authentication)
 - An Amazon Developer account ([sign up here](https://developer.amazon.com/alexa))
 - Basic agent behavior already configured
 
 <Divider />
 
-## Step 1: Copy the Alexa Endpoint
+## Step 1: Get Your SmythOS Alexa Endpoint URL
 
 1. Go to your **SmythOS Dashboard**
 2. Select your deployed agent
 3. Open the **Test** sidebar and click the **Alexa** tab
-4. Copy the provided endpoint — it looks like this:
+4. Copy the provided endpoint... it looks like this:
 
 ```text
 https://<your-agent>.agent.stage.smyth.ai/alexa
@@ -54,7 +50,7 @@ For production, swap `stage` with `pstage`.
 </InfoCallout>
 <Divider />
 
-## Step 2: Create an Alexa Skill
+## Step 2: Create a New Alexa Skill in the Developer Console
 
 1. Visit the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask)
 2. Click **Create Skill**
@@ -65,7 +61,7 @@ For production, swap `stage` with `pstage`.
 
 <Divider />
 
-## Step 3: Add the SmythOS Endpoint
+## Step 3: Add Your SmythOS Endpoint as the Skill Handler
 
 1. In the left sidebar, go to **Endpoint**
 2. Set **Service Endpoint Type** to `HTTPS`
@@ -76,7 +72,7 @@ For production, swap `stage` with `pstage`.
 
 <Divider />
 
-## Step 4: Configure the Invocation Name
+## Step 4: Choose an Invocation Name for Your Skill
 
 1. In the sidebar, go to **Invocation**
 2. Enter how users will launch your agent (e.g., "my agent")
@@ -84,7 +80,7 @@ For production, swap `stage` with `pstage`.
 
 <Divider />
 
-## Step 5: Add the Agent Intent
+## Step 5: Add a Custom Intent for User Queries
 
 1. Navigate to **Intents** → click **Add Intent**
 2. Name it `SmythOSAgentIntent`
@@ -104,7 +100,7 @@ search for {searchQuery}
 
 <Divider />
 
-## Step 6: Build and Test
+## Step 6: Build and Test Your Alexa Skill
 
 1. Click **Build Model** (wait for it to finish)
 2. Open the **Test** tab
@@ -118,7 +114,7 @@ Alexa, ask what’s the weather in New York
 
 <Divider />
 
-## How It Works
+## How Your Alexa-Connected Agent Works Behind the Scenes
 
 - The invocation triggers your agent via the Alexa endpoint
 - Alexa sends the query using the `searchQuery` slot
@@ -127,7 +123,7 @@ Alexa, ask what’s the weather in New York
 
 <Divider />
 
-## Limitations
+## Known Limitations and Constraints
 
 - Only public agents without authentication are supported
 - Alexa limits the character count in responses
@@ -136,7 +132,7 @@ Alexa, ask what’s the weather in New York
 
 <Divider />
 
-## (Optional) Publish Your Skill
+## Optional: Publish Your Alexa Skill to the Public
 
 Want to go public?
 

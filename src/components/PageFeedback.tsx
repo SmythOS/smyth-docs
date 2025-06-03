@@ -3,11 +3,10 @@ import { ThumbsUp, ThumbsDown, Send } from "lucide-react";
 
 type Vote = "up" | "down" | null;
 interface Props {
-  /** slug override – defaults to current pathname in browser */
   pageId?: string;
 }
 
-/* SmythOS palette ---------------------------------------------------*/
+/* SmythOS palette */
 const C = {
   mint:       "#3EFCC2",  // main accent
   mintDark:   "#08B68F",  // 4.7 : 1 contrast on white
@@ -20,7 +19,6 @@ export default function PageFeedback({ pageId }: Props) {
   const id  = pageId ?? (typeof window !== "undefined" ? window.location.pathname : "unknown");
   const KEY = `smythos-feedback-${id}`;
 
-  /* ---------------------------------------------------------------- */
   const [vote,    setVote]    = useState<Vote>(null);     // up / down / null
   const [comment, setComment] = useState("");
   const textareaRef           = useRef<HTMLTextAreaElement>(null);
@@ -28,19 +26,6 @@ export default function PageFeedback({ pageId }: Props) {
   /* restore vote from localStorage */
   useEffect(() => { setVote(localStorage.getItem(KEY) as Vote); }, [KEY]);
 
-  /* keyboard shortcuts */
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const isTyping = (e.target as HTMLElement).tagName === "TEXTAREA";
-      if (isTyping) return;
-      if (e.key === "u") toggleVote("up");
-      if (e.key === "d") toggleVote("down");
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  });
-
-  /* helpers ---------------------------------------------------------*/
   const toggleVote = (v: Vote) => {
     const newVote = vote === v ? null : v; 
     setVote(newVote);
@@ -78,9 +63,7 @@ export default function PageFeedback({ pageId }: Props) {
     );
   };
 
-  /* render ----------------------------------------------------------*/
   return (
-    /* center the compact card */
     <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
       <section
         style={{

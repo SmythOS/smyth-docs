@@ -1,310 +1,897 @@
+---
+title: Google Sheets Integration
+description: Connect SmythOS to Google Sheets. Automate updates, retrieve data, and generate reports directly from your agents, making your spreadsheets truly dynamic!
+og:title: SmythOS & Google Sheets Unleash Your Spreadsheet Superpowers!
+og:description: Learn to integrate Google Sheets with SmythOS. Empower your agents to read, write, and manage spreadsheet data, transforming them into active participants in your automated workflows.
+og:image: /img/integrations/smythos_google_sheets.png
+keywords: [Google Sheets SmythOS Integration, Connect Google Sheets to SmythOS, SmythOS Google Sheets Components, Automate Google Sheets, SmythOS Spreadsheet Automation, No-Code Google Sheets, Spreadsheet Automation]
+---
+# Google Sheets Integration with SmythOS
 
-# Google Sheets Integration
-`Google Sheets` is a powerful, cloud-based spreadsheet application that facilitates data analysis, storage, and real-time collaboration. It enables users to create, edit, and share spreadsheets online, providing essential tools for numbers calculation, data organization, and complex data manipulation through formulas and functions.
+This page shows you how to connect Google Sheets to SmythOS and pick the right component for every spreadsheet task.
 
-Integrating `Google Sheets` with `SmythOS` brings numerous benefits, making it an essential component for enhancing productivity and enhancing data-driven workflows. This integration allows seamless access and manipulation of spreadsheet data directly within `SmythOS`, providing a unified platform for managing various data tasks.
+> **Want your spreadsheets to work smarter?** Connect Google Sheets to SmythOS and let your agents read, write, and automate data in real time.
 
-## Integration Settings
-To use Google sheets integration in `SmythOs`, you must authenticate each integration component by signing in to your Google account. Follow these steps to set up the Google sheets components:
+<InfoCallout title="TL;DR"> Link your Google Account to SmythOS in a few steps. Then, use our Google Sheets components to enable your agents to automate various spreadsheet tasks and reduce manual data entry.</InfoCallout>
 
-### Authenticate 
-To authenticate the Google Sheets component:
-1. **Authenticate button:** Click on the blue `Authenticate` button on the Google Sheets component or the authenticate button in the component setting, under the OAuth tab.
-2. **Google Sign In:** You'll be directed to sign in to your Google account.
-3. **Grant consent:** Once you're successfully signed in to your Google account, you'll be directed to the Google consent screen where you'll be required to grant the necessary permissions to use the Google Sheets integration component in `SmythOs`.
-4. **Component authenticated:** Once the necessary permissions are granted, you'll be redirected to `SmythOs` and the Google Sheets component is authenticated to your Google account and ready to be used in your workflow.
+**Quick Links:**
+* [Why Integrate with Google Sheets?](#why-integrate-google-sheets-with-your-agent)
+* [Getting Started: Prerequisites & Connection](#prerequisites-what-youll-need-to-get-started)
+* [Components Overview](#google-sheets-components-an-overview)
+* [Understanding Common Fields](#understanding-common-component-fields)
+* [Detailed Component Guides](#detailed-component-guides)
+* [Best Practices & Advanced Tips](#best-practices--advanced-tips)
+* [Troubleshooting](#troubleshooting-common-issues)
+* [What's Next?](#whats-next)
 
-<Arcade src="https://demo.arcade.software/0yZN1r9Y94cQUDNIZMqj?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets authenticate" />
+<Divider />
 
-### Deauthenticate
-To deauthenticate the Google Sheets components:
-- Click on the component settings, click on the OAuth tab and click on the `Sign Out` button. 
+## Why Integrate Google Sheets
 
-<Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Sign Out" />
+Google Sheets is a powerful tool for data management:
 
-## Update Values
-The **Update Values** function sets values in a specified range within a `Google Sheets` spreadsheet, providing a straightforward way to update data in bulk. This functionality is particularly useful for updating and manipulating data programmatically, significantly improving efficiency in data management tasks.
+- **Auto-generate reports:** Agents can pull data from various sources and format reports in Google Sheets -> daily, weekly, or on demand.
+- **Log actions as they happen:** Track key events, agent activities, and metrics in Sheets as your automated processes run.
+- **Live configurations:** Use Google Sheets to manage lookup tables, configuration parameters, or dynamic settings that your agents can read and use in their decision-making.
+- **Two-way sync:** Enable agents to not only read from but also write to Sheets, creating truly dynamic and interactive workflows where spreadsheets become active participants.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+Essentially, this integration transforms your Google Sheets from static documents into intelligent, interactive parts of your SmythOS ecosystem. The result? Less manual effort for you, fewer errors, timely information, and more capacity to focus on higher-value tasks.
+
+<InfoCallout>
+<details>
+  <summary>Why Integrate Google Sheets with Your Agent?</summary>
+
+Google Sheets is a powerful tool for data management. Each component handles a specific kind of operation
+
+- **Auto-generate reports:** Agents can pull data from various sources and format reports in Google Sheets -> daily, weekly, or on demand.
+- **Log actions as they happen:** Track key events, agent activities, and metrics in Sheets as your automated processes run.
+- **Live configurations:** Use Google Sheets to manage lookup tables, configuration parameters, or dynamic settings that your agents can read and use in their decision-making.
+- **Two-way sync:** Enable agents to not only read from but also write to Sheets, creating truly dynamic and interactive workflows where spreadsheets become active participants.
+
+Essentially, this integration transforms your Google Sheets from static documents into intelligent, interactive parts of your SmythOS ecosystem. The result? Less manual effort for you, fewer errors, timely information, and more capacity to focus on higher-value tasks.
+
+</details>
+</InfoCallout>
+
+<Divider />
+
+## Prerequisites: What You'll Need to Get Started
+
+Before you begin the integration, please ensure you have the following:
+
+- An active **SmythOS account**. (If you're new to SmythOS, [you can sign up here](https://app.smythos.com/signup).)
+- A **Google Account** that has access to the Google Sheets you plan to use.
+- You will need to grant SmythOS permission to interact with your Google Sheets during the authentication process.
+
+<Divider />
+
+## Step-by-Step: Connecting Your Google Sheets Account
+
+Let's establish the connection between SmythOS and your Google Sheets. This is typically a one-time setup per Google account.
+
+### Step 1: Head to the Integrations Hub
+
+1.  In your SmythOS dashboard, locate and click on the **Integrations** section. This is your center for connecting SmythOS to external services.
+2.  Click the **Add Integration** button (often represented by a `+` icon).
+3.  From the list of available integrations, select **Google Sheets**.
+
+<Divider />
+
+### Step 2: Authenticate Your Google Account
+
+This grants SmythOS secure permission to access your Google Sheets. You have two straightforward ways to initiate this:
+
+* **Option A: The Direct `Authenticate` Button**
+    You'll often see a clear, blue **`Authenticate`** button directly on a Google Sheets component when you first add it, or if it's not yet connected. This is usually the quickest method.
+    <Arcade src="https://demo.arcade.software/0yZN1r9Y94cQUDNIZMqj?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Authenticating via the direct blue button" />
+    _Image: The direct 'Authenticate' button often found on a Google Sheets component._
+
+* **Option B: Via Component Settings**
+    If the direct button isn't visible, or if you prefer, you can usually find an **`Authenticate`** button within the settings of any Google Sheets component. Look for a tab labeled something like "OAuth," "Authentication," or "Connection."
+
+**Authentication Process (Common to both options):**
+1.  You'll be guided to a Google Sign-In page. Log in using the Google account that owns or has access to the spreadsheets you wish to use with SmythOS.
+2.  Google will then display a consent screen. This screen details the permissions SmythOS is requesting (e.g., to view and manage your spreadsheets). Take a moment to review these, then click **Allow** or **Grant** to proceed. SmythOS only requests permissions essential for the integration's functionality.
+3.  Once you've granted permission, you'll be returned to SmythOS. The Google Sheets integration or component should now indicate that it's authenticated and ready for use. **Connection Confirmed!** Your Google Sheets are now connected to SmythOS. ✨
+
+<InfoCallout collapsible >
+    **Switching Google Accounts or Reconnecting?**
+    If you ever need to connect a different Google Account or just want to refresh an existing connection, you can typically find a `Sign Out` or `Deauthenticate` button within the Google Sheets integration settings in SmythOS, or on the "OAuth" tab of a component. After deauthenticating, simply repeat the authentication steps above with the new account.
+    <Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Deauthenticating Google Sheets" />
+    _Image: Deauthenticating your Google Sheets account in SmythOS settings._
+</InfoCallout>
+
+<Divider />
+
+## Google Sheets Components: An Overview
+
+With your Google Account successfully linked, you gain access to a range of Google Sheets components within SmythOS. These components are specialized tools your agents can use to perform specific operations on your spreadsheets.
+
+Click any component name to jump directly to its detailed guide. Here’s what's available:
+
+| Component | Action Type | Summary |
+|----------|-------------|---------|
+| [Get Values](#get-values) | Read | Fetch values from a defined range.<br /><Badge type="required" /> `spreadsheetId`, `range` |
+| [Append Values](#append-values) | Write | Add new rows to the bottom.<br /><Badge type="required" /> `spreadsheetId`, `range`, `values` |
+| [Update Values](#update-values) | Write | Update data in a specific range.<br /><Badge type="required" /> `spreadsheetId`, `range`, `values` |
+| [Batch Update Values](#batch-update-values) | Write | Update multiple ranges at once.<br /><Badge type="required" /> `spreadsheetId`, `data` |
+| [Create Spreadsheet](#create-spreadsheet) | Setup | Generate a new Google Sheet.<br /><Badge type="required" /> `title` |
+| [Get Spreadsheet](#get-spreadsheet) | Read | Fetch spreadsheet metadata.<br /><Badge type="required" /> `spreadsheetId` |
+| [Add Sheet](#add-sheet) | Setup | Insert a new tab inside a spreadsheet.<br /><Badge type="required" /> `spreadsheetId`, `title` |
+| [Auto Resize Columns](#auto-resize-columns) | Format | Auto-fit column widths.<br /><Badge type="required" /> `spreadsheetId`, `sheetId`, `startIndex`, `endIndex` |
+| [Auto Resize Rows](#auto-resize-rows) | Format | Auto-fit row heights.<br /><Badge type="required" /> `spreadsheetId`, `sheetId`, `startIndex`, `endIndex` |
+| [Format Header Row](#format-header-row) | Format | Apply bold, centered styling to headers.<br /><Badge type="required" /> `spreadsheetId`, `sheetId` |
+
+<InfoCallout>
+    **Good to Know!** That initial authentication you performed in Step 2 covers **all** these components. You won't need to re-authenticate for each individual component you decide to use.
+</InfoCallout>
+
+<Divider />
+
+## Shared Fields Cheat-sheet
+
+Many Google Sheets components share the same input and output fields. Below are the **standard parameters** so you don’t have to memorize them per-component. Component tables later only list *extra* or *unique* fields.
+
+<Tabs
+  tabs={[
+    {
+      label: 'Inputs',
+      content: (
+        <div className="tab-content">
+          {/* Standard Input Parameters table */}
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th><th>Type</th><th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>spreadsheetId</code></td><td>string</td><td>Unique Sheet ID (found in the URL between <code>/d/</code> and <code>/edit</code>).</td></tr>
+              <tr><td><code>sheet</code></td><td>string</td><td>Tab name (e.g. <code>Sheet1</code>). Case‑sensitive. Defaults to first tab when omitted.</td></tr>
+              <tr><td><code>sheetId</code></td><td>string / integer</td><td>Numeric ID for a sheet. First tab is typically <code>0</code>. Needed by formatting components.</td></tr>
+              <tr><td><code>range</code></td><td>string</td><td>A1 notation (<code>Sheet1!A1:C10</code>) or sheet name (<code>Sheet1</code>). Determines target cells.</td></tr>
+              <tr><td><code>majorDimension</code></td><td>string</td><td><em>(Optional)</em> <code>ROWS</code> (default) or <code>COLUMNS</code>; affects array orientation.</td></tr>
+              <tr><td><code>valueInputOption</code></td><td>string</td><td><em>(Optional)</em> <code>USER_ENTERED</code> (auto‑parse) or <code>RAW</code> (literal).</td></tr>
+              <tr><td><code>startIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based start index when operating on sequences (rows/columns).</td></tr>
+              <tr><td><code>endIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based end index (exclusive) for sequences.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      ),
+    },
+    {
+      label: 'Outputs',
+      content: (
+        <div className="tab-content">
+          {/* Standard Output Parameters table */}
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th><th>Type</th><th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>spreadsheetId</code></td><td>string</td><td>ID of the Sheet that was accessed or modified.</td></tr>
+              <tr><td><code>response</code></td><td>object</td><td>Full raw response returned by Google Sheets API (helpful for advanced debugging).</td></tr>
+              <tr><td><code>headers</code></td><td>object</td><td>HTTP headers from the API response (rate‑limit data, request IDs, etc.).</td></tr>
+            </tbody>
+          </table>
+        </div>
+      ),
+    },
+  ]}
+/>
+<small>
+<strong>Footnotes</strong><br/>
+1. <code>spreadsheetId</code> — copy the long ID string in your browser’s address bar.<br/>
+2. <code>sheet</code> — <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are treated as different names.
+</small>
+
+## Standard Parameters Used Across Google Sheets Components
+
+Switch between **Inputs** and **Outputs** below to see detailed explanations, examples, and troubleshooting notes.
+
+<Tabs
+  tabs={[
+    {
+      label: 'Inputs (Detailed)',
+      content: (
+        <Tabs
+          tabs={[
+            {
+              label: 'spreadsheetId',
+              content: (
+                <div className="tab-content">
+                  <h4><code>spreadsheetId</code></h4>
+                  <p>Unique Google Sheet ID &mdash; it sits between <code>/d/</code> and <code>/edit</code> in the URL.</p>
+                  <pre><code>https://docs.google.com/spreadsheets/d/**SPREADSHEET_ID**/edit</code></pre>
+                </div>
+              ),
+            },
+            {
+              label: 'sheet',
+              content: (
+                <div className="tab-content">
+                  <h4><code>sheet</code></h4>
+                  <WarningCallout title="Case-Sensitive">
+                    <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are all different. Double-check spelling in the Sheets UI.
+                  </WarningCallout>
+                </div>
+              ),
+            },
+            {
+              label: 'range',
+              content: (
+                <div className="tab-content">
+                  <h4><code>range</code></h4>
+                  <p>A1 notation, named range, or just the sheet name.</p>
+
+                  <Tabs
+                    tabs={[
+                      {
+                        label: 'A1 Notation',
+                        content: (
+                          <div className="tab-content">
+                            <code>Sheet1!A1:C10</code> &nbsp;— targets A1&nbsp;→&nbsp;C10 in <code>Sheet1</code>.
+                          </div>
+                        ),
+                      },
+                      {
+                        label: 'Named Range',
+                        content: (
+                          <div className="tab-content">
+                            <code>SalesData2024</code> &nbsp;— uses a named range you created.
+                          </div>
+                        ),
+                      },
+                      {
+                        label: 'Append Mode',
+                        content: (
+                          <div className="tab-content">
+                            <code>Sheet1</code> &nbsp;— appends to the first empty row in <code>Sheet1</code>.
+                          </div>
+                        ),
+                      },
+                    ]}
+                  />
+
+                  <InfoCallout>
+                    <strong>Troubleshooting:</strong>
+                    <ul>
+                      <li>Confirm sheet name spelling/capitalisation.</li>
+                      <li>Ensure A1 syntax is valid.</li>
+                      <li>Check that the range isn’t protected/hidden.</li>
+                    </ul>
+                  </InfoCallout>
+                </div>
+              ),
+            },
+            {
+              label: 'majorDimension',
+              content: (
+                <div className="tab-content">
+                  <h4><code>majorDimension</code></h4>
+                  <p>Optional &mdash; controls array orientation.</p>
+                  <ul>
+                    <li><code>ROWS</code> (default)</li>
+                    <li><code>COLUMNS</code></li>
+                  </ul>
+                  <pre><code>{`{
+  "majorDimension": "ROWS"
+}`}</code></pre>
+                </div>
+              ),
+            },
+            {
+              label: 'start / end Index',
+              content: (
+                <div className="tab-content">
+                  <h4><code>startIndex</code> / <code>endIndex</code></h4>
+                  <p>0-based indices for row/column sequences.</p>
+                  <pre><code>{`{
+  "startIndex": 0,
+  "endIndex": 3
+}`}</code></pre>
+                  <p>Affects columns/rows <strong>0&nbsp;–&nbsp;2</strong> (end index exclusive).</p>
+                </div>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
+    {
+      label: 'Outputs (Detailed)',
+      content: (
+        <Tabs
+          tabs={[
+            {
+              label: 'spreadsheetId',
+              content: (
+                <div className="tab-content">
+                  <h4><code>spreadsheetId</code></h4>
+                  <p>ID of the sheet that was accessed or modified.</p>
+                </div>
+              ),
+            },
+            {
+              label: 'response',
+              content: (
+                <div className="tab-content">
+                  <h4><code>response</code></h4>
+                  <p>Raw Google Sheets API payload &mdash; inspect for error detail.</p>
+                </div>
+              ),
+            },
+            {
+              label: 'headers',
+              content: (
+                <div className="tab-content">
+                  <h4><code>headers</code></h4>
+                  <p>HTTP headers from the API response.</p>
+                  <pre><code>{`{
+  "headers": {
+    "Content-Type": "application/json",
+    "X-Request-ID": "123abc456def"
+  }
+}`}</code></pre>
+                </div>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
+  ]}
+/>
+<InfoCallout>Component guides list only extra fields. Refer back here whenever you need a refresher on shared parameters.</InfoCallout>
+<Divider/>
+## Quick Reference: Google Sheets Components
+
+Use this table to quickly compare inputs, outputs, and typical use cases for each Google Sheets component.
+
+| Component | Input Fields (Type, Required, Description) | Output Fields (Type, Description) | Use Case & Details |
+|---|---|---|---|
+| **Get Values** | `spreadsheetId` (string, Yes): ID from URL between `/d/` and `/edit`.<br />`range` (string, Yes): A1-style like `Sheet1!A1:C10`.<br />`sheet` (string, Yes): Tab name. Default: `Sheet1`.<br />`majorDimension` (string, No): `ROWS` (default) or `COLUMNS`. | `values` (array): 2D array of data.<br />`response` (object): API response.<br />`headers` (object): HTTP headers. | Reads a defined data range. <br />**Example:** Fetch customer emails. |
+| **Update Values** | `spreadsheetId` (string, Yes)<br />`range` (string, Yes)<br />`sheet` (string, Yes)<br />`values` (array, Yes)<br />`majorDimension` (string, No)<br />`valueInputOption` (string, No)<br />`includeValuesInResponse` (boolean, No) | `spreadsheetId` (string)<br />`updatedRange` (string)<br />`updatedCells` (number)<br />`response` (object), `headers` (object) | Updates existing cells.<br />**Example:** Change order status. |
+| **Append Values** | `spreadsheetId` (string, Yes)<br />`range` (string, Yes)<br />`sheet` (string, Yes)<br />`values` (array, Yes)<br />`majorDimension`, `valueInputOption`, `insertDataOption` (all optional) | `spreadsheetId`<br />`updates` (object)<br />`response`, `headers` | Adds new rows at the end.<br />**Example:** Log feedback. |
+| **Batch Update Values** | `spreadsheetId` (string, Yes)<br />`valueInputOption` (string, No)<br />`includeValuesInResponse` (boolean, No)<br />`data` (array, Yes) | `spreadsheetId`<br />`responses` (array)<br />`response`, `headers` | Multi-range updates.<br />**Example:** Update status, date, and note. |
+| **Create Spreadsheet** | `title` (string, Yes)<br />`locale`, `timeZone` (optional) | `spreadsheetId`<br />`spreadsheetUrl`<br />`response`, `headers` | Creates new sheet.<br />**Example:** Start a fresh spreadsheet. |
+| **Get Spreadsheet** | `spreadsheetId` (string, Yes) | `spreadsheetId`, `properties`, `sheets`, `spreadsheetUrl`, `response`, `headers` | Gets structure info.<br />**Example:** Check if tab exists. |
+| **Add Sheet** | `spreadsheetId` (string, Yes)<br />`title` (string, Yes) | `replies` (array)<br />`spreadsheetId`<br />`response`, `headers` | Adds new tab.<br />**Example:** Create tab "June 2025". |
+| **Auto Resize Column(s)** | `spreadsheetId` (string, Yes)<br />`sheetId` (string, Yes)<br />`startIndex` (int, Yes)<br />`endIndex` (int, Yes) | `spreadsheetId`, `response`, `headers` | Auto-fits columns.<br />**Example:** Adjust widths after input. |
+| **Auto Resize Row(s)** | `spreadsheetId` (string, Yes)<br />`sheetId` (string, Yes)<br />`startIndex`, `endIndex` (int, Yes) | `spreadsheetId`, `response`, `headers` | Auto-fits rows.<br />**Example:** Expand tall cells. |
+| **Format Header Row** | `spreadsheetId`, `sheetId` (Yes)<br />`startRowIndex`, `endRowIndex`, `horizontalAlignment`, `fontSize` (optional) | `spreadsheetId`, `replies` (array), `response`, `headers` | Style headers.<br />**Example:** Bold and center top row. |
+
+## Which Google Sheet Component Should I Use With My Agent?
+
+| If you need to… | Typical Range / Target | Use this Component | Why this one? |
+|-----------------|------------------------|-------------------|--------------|
+| **Read** a static block of data | `Sheet1!A1:D20` | **Get Values** | Fast, single‑range read. |
+| **Log** events (append a row) | `Logs` (sheet name only) | **Append Values** | Automatically finds the next empty row. |
+| **Update** a single cell or small range | `Sheet1!C3` | **Update Values** | Direct, atomic overwrite. |
+| **Write** multiple disparate ranges in one call | Two or more A1 notations | **Batch Update Values** | Minimises API round‑trips. |
+| **Create** a brand‑new spreadsheet | — | **Create Spreadsheet** | Returns a fresh `spreadsheetId` for downstream steps. |
+| **Add** a new monthly tab | — | **Add Sheet** | Inserts a sheet titled e.g. “June 2025”. |
+| **Auto‑fit** column widths | Column indices | **Auto Resize Columns** | Adjusts width based on cell content. |
+| **Style** the header row | Row index 0 | **Format Header Row** | Bold, centre, and optionally recolour headers. |
+
+<InfoCallout>Still unsure? Start with **Get Values** for reads and **Append Values** for writes—then graduate to the others as your workflow grows.</InfoCallout>
+
+## Detailed Component Guides
+
+This section provides detailed information for each Google Sheets component. Remember to refer to the [Shared Fields Cheat-sheet](#shared-fields-cheat-sheet) and [Standard Parameters Used Across Google Sheets Components](#standard-parameters-used-across-google-sheets-components) for explanations of common inputs and outputs. Each component guide below will highlight any unique fields or provide specific context.
+
+## <a name="get-values"></a>Get Values — Read a Range
+
+Retrieves data from a defined range. Ideal for reading lists, logs, or configuration tables so your agent can act on live spreadsheet data.
+
+<InfoCallout>This component primarily uses fields defined in the [Standard Parameters](#standard-parameters-used-across-google-sheets-components) section. Unique outputs like <code>values</code> are detailed below.</InfoCallout>
 
 ### Inputs
-Configure the following inputs to perform the update operation effectively:
-- **spreadsheetId (`required<string>`)**: The unique identifier of the Google Sheets spreadsheet to be updated. This ID is crucial for specifying which spreadsheet the API should interact with.
-- **range (`required<string>`)**: The specific range within the spreadsheet to update, default is `A:B`. It defines the cells that will be updated.
-- **includeValuesInResponse (`optional<boolean>`)**: Whether to include the updated values in the response. The default is `true`. This option can be useful for verification purposes.
-- **majorDimension (`optional<string>`)**: The major dimension of the values, either `ROWS` or `COLUMNS`. The default is `ROWS`. This specifies how the data is structured.
-- **valueInputOption (`optional<string>`)**: Determines how input data should be interpreted. The default is `USER_ENTERED`, which means the data is parsed as if the user had entered it directly into the Google Sheets.
-- **sheet (`required<string>`)**: Specify the sheet name, default is `Sheet1`. This tells the API which sheet to update within the spreadsheet.
-- **values (`required`)**: The update values in each column specified in the `range` input. This follows a strict format:
-
-> **`Values` input structure**: `[ ["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"] ]`
-
-1. It must be an array of arrays.
-2. Each child array represents an existing row in the spreadsheet.
-3. Each item in the child array represents a column. Therefore, the number of items in the child array must match the number of columns specified in the `range` input.
-For example, to update the values "Smyth" and "Google" in the `range A:B` to "SmythOs" and "Updated", the values would be structured in this format: `[ ["SmythOs", "Updated"] ]`
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL (`/d/{id}/edit`). |
+| `range` | <Badge type="required" /> | A1 notation (e.g. <code>Sheet1!A1:C10</code>) or named range. |
+| `sheet` | <Badge type="required" /> | Tab name; defaults to <code>Sheet1</code>. |
+| `majorDimension` | <Badge type="optional" /> | <code>ROWS</code> (default) or <code>COLUMNS</code>. |
 
 ### Outputs
-Upon executing the update, detailed information about the update status is provided. This includes:
-- **Response**: The full API response detailing the outcome of the update operation. This provides comprehensive information on whether the update was successful or if any errors occurred.
-- **Headers**: The contextual HTTP headers returned by the `Google Sheets` API. These headers can provide additional metadata about the API response.
-- **spreadsheetId**: The identifier for the spreadsheet. This helps confirm the specific spreadsheet that was updated.
-- **updatedRange**: The actual range that was updated. This confirms the exact cells that were modified.
-- **updatedRows**: The number of rows affected by the update.
-- **updatedColumns**: The number of columns affected by the update.
-- **updatedCells**: The total number of cells updated. This gives a clear picture of the extent of the update operation.
+| Field | Description |
+|-------|-------------|
+| `values` | 2‑D array of returned data. |
+| `response` | Raw API payload (for debugging). |
+| `headers` | HTTP headers (rate-limit info, etc). |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Pull a customer email list stored in a sheet, then loop through the <code>values</code> array to trigger personalised emails.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/7t0NJfRE2u9RflVtldBP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Update Values" />
+```json
+{
+  "component": "sheets.getValues",
+  "spreadsheetId": "1AbcXYZexampleId",
+  "range": "SupportTickets!A2:E",
+  "sheet": "SupportTickets",
+  "majorDimension": "ROWS"
+}
+```
 
-## Get Values
-The **Get Values** component retrieves a specific range of values from a `Google Sheets` spreadsheet, making it an essential tool for accessing precise data slices for review or further processing within `SmythOS`.
+<WarningCallout title="Troubleshooting">
+Empty array returned? Verify the range points to non‑blank cells and the tab name is correct.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+404 error? Double‑check <code>spreadsheetId</code> and sheet spelling/case.
+</WarningCallout>
+
+<Divider/>
+
+## <a name="update-values"></a>Update Values — Modify a Range
+
+Overwrites existing data in a specified range. Use this to modify individual cells or update entire rows/columns with new values reflecting the latest status or calculations.
+
+<InfoCallout>This component uses several Standard Parameters (like <code>spreadsheetId</code>, <code>range</code>). Unique fields include <code>values</code> (the data to write) and options like <code>valueInputOption</code>.</InfoCallout>
 
 ### Inputs
-To successfully retrieve values from a spreadsheet, specify the following inputs:
-- **spreadsheetId (`required<string>`)**: The unique identifier for the Google Sheets document from which data is to be extracted. This ID specifies which spreadsheet the API should interact with.
-- **range (`required<string>`)**: The specific range within the spreadsheet from which to pull data. This helps narrow down the data to the exact rows and columns needed.
-- **majorDimension (`optional<string>`)**: Dictates the major dimension for the output data; can be either `ROWS` or `COLUMNS`, with the default set to `ROWS`. This specifies how the retrieved data is structured.
-- **sheet (`required<string>`)**: Specifies the sheet name, with the default set to `Sheet1`. This tells the API which sheet to retrieve data from within the spreadsheet.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `range` | <Badge type="required" /> | A1 notation for cells to update (e.g., <code>Sheet1!B2</code>). |
+| `sheet` | <Badge type="required" /> | Tab name where update occurs. |
+| `values` | <Badge type="required" /> | 2D array of data to write. E.g., <code>[["Shipped"]]</code> or <code>[["Row1Col1", "Row1Col2"]]</code>. |
+| `majorDimension` | <Badge type="optional" /> | Layout of values: <code>ROWS</code> (default) or <code>COLUMNS</code>. |
+| `valueInputOption` | <Badge type="optional" /> | How Google parses input: <code>USER_ENTERED</code> (default) or <code>RAW</code>. |
+| `includeValuesInResponse` | <Badge type="optional" /> | <code>true</code> (default) or <code>false</code>; include updated values in output. |
 
 ### Outputs
-The response from this component provides detailed data pulled from the specified range:
-- **Response**: Contains the full API response including the data retrieved from the specified range.
-- **Headers**: HTTP headers returned by the `Google Sheets` API that provide context for the response.
-- **values**: The actual values retrieved from the specified range in the spreadsheet.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the updated sheet. |
+| `updatedRange` | A1 notation of the range that was updated. |
+| `updatedRows` | Count of rows affected. |
+| `updatedColumns` | Count of columns affected. |
+| `updatedCells` | Total cells modified. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+An agent processes an online order and needs to update the "Order Status" column in an orders spreadsheet from "Processing" to "Shipped."
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/JkOmFsCnG6kec09YC3rI?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Get Values" />
+```json
+{
+  "component": "sheets.updateValues",
+  "spreadsheetId": "yourSpreadsheetId",
+  "range": "Orders!C2",
+  "sheet": "Orders",
+  "values": [["Shipped"]],
+  "valueInputOption": "USER_ENTERED"
+}
+```
 
-## Append Values
-This operation appends values to a specified range within a `Google Sheets` spreadsheet, allowing for the efficient addition of data without disrupting existing content.
+<WarningCallout title="Troubleshooting">
+Data not updating? Ensure values array structure matches range and majorDimension.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+PERMISSION_DENIED? Check sheet sharing settings for edit access for the authenticated Google account.
+</WarningCallout>
+
+## <a name="append-values"></a>Append Values — Add Rows to Sheet
+
+Adds new data as additional rows to an existing sheet. It automatically finds the last filled row in the specified range (or entire sheet) and inserts content after it.
+
+<InfoCallout>Key unique inputs are <code>values</code> (data to add) and <code>insertDataOption</code>. Other fields like <code>spreadsheetId</code> are covered in Standard Parameters.</InfoCallout>
 
 ### Inputs
-Configure the inputs necessary to append data to your spreadsheet:
-- **spreadsheetId (`required<string>`)**: The ID of the spreadsheet to which data will be appended.
-- **range (`required<string>`)**: Specifies the range within the spreadsheet where the data should begin appending. The default is `A:B`.
-- **majorDimension (`optional<string>`)**: Specifies whether the data should be appended by `ROWS` or `COLUMNS`, with the default set to `ROWS`.
-- **valueInputOption (`optional<string>`)**: Determines if the data should be treated as user-entered (`USER_ENTERED`) or in raw format (`RAW`). The default is `USER_ENTERED`.
-- **insertDataOption (`optional<string>`)**: Specifies how new data rows should be added. The default value is `INSERT_ROWS`.
-- **sheet (`required<string>`)**: Specifies the sheet name, with the default set to `Sheet1`.
-- **values (`required`)**: The input values in each column specified in the `range` input. This follows a strict format:
-
-> **`Values` input structure**: `[ ["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"] ]`
-
-1. It must be an array of arrays.
-2. Each array in the parent array represents a new row in the spreadsheet.
-3. Each item in the child array represents a column. Therefore, the number of items in the child array must match the number of columns specified in the `range` input.
-For example, to append the values "Smyth" and "Google" into the default range (A:B), the values would be structured in this format: `[ ["Smyth", "Google"] ]`
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `range` | <Badge type="required" /> | Sheet name (e.g., <code>Sheet1</code>) or A1 range (e.g., <code>Sheet1!A:C</code>) to append to. |
+| `sheet` | <Badge type="required" /> | Tab name to append to. |
+| `values` | <Badge type="required" /> | 2D array of new row data. E.g., <code>[["New Feedback", "Positive"]]</code>. |
+| `majorDimension` | <Badge type="optional" /> | Layout of values: <code>ROWS</code> (default) or <code>COLUMNS</code>. |
+| `valueInputOption` | <Badge type="optional" /> | How Google parses input: <code>USER_ENTERED</code> (default) or <code>RAW</code>. |
+| `insertDataOption` | <Badge type="optional" /> | <code>INSERT_ROWS</code> (default) or <code>OVERWRITE</code>. |
 
 ### Outputs
-The completion of the append operation yields detailed responses:
-- **Response**: Offers the complete API response, showing details of the appended operation.
-- **Headers**: HTTP headers provided by `Google Sheets` API that contextualize the response.
-- **spreadsheetId**: Shares the ID of the spreadsheet updated.
-- **updatedRange**: Shows the range that was updated.
-- **updatedRows**: Number of rows affected.
-- **updatedColumns**: Number of columns affected.
-- **updatedCells**: Total number of cells that were updated.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the modified sheet. |
+| `updates` | Object with details: <code>updatedRange</code>, <code>updatedRows</code>, <code>updatedColumns</code>, <code>updatedCells</code>. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Your agent collects new customer feedback. Each piece of feedback can be appended as a new row to a "Customer Feedback Log" spreadsheet.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/peIoD0Ic7az1Pb1I0TWn?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="G-Sheets Append Values" />
+```json
+{
+  "component": "sheets.appendValues",
+  "spreadsheetId": "yourSpreadsheetId",
+  "range": "FeedbackLog!A:B",
+  "sheet": "FeedbackLog",
+  "values": [["Great service!", "5 Stars"]],
+  "insertDataOption": "INSERT_ROWS"
+}
+```
 
-## Batch Update Values
-The **Batch Update Values** component allows you to set values across multiple ranges within a `Google Sheets` spreadsheet. This feature is particularly effective for making bulk updates efficiently, which is essential for large-scale data manipulations and optimizations.
+<WarningCallout title="Troubleshooting">
+Appending in wrong place? If range specifies columns (e.g., <code>Sheet1!A:C</code>), it appends after the last row with data within those columns.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+Data overwriting? Ensure <code>insertDataOption</code> is <code>INSERT_ROWS</code> unless overwriting is intended.
+</WarningCallout>
 
-#### Body
-This area defines the payload for performing batch updates. It includes a typical schema that can be customized based on your specific operation needs.
+<Divider/>
+## <a name="batch-update-values"></a>Batch Update Values — Multiple Updates at Once
+
+Performs multiple updates across different ranges within a single sheet in one API call. Ideal for efficiency when several areas need modification.
+
+<InfoCallout>The core unique input is <code>data</code>, an array of individual update operations. <code>spreadsheetId</code> and other options are detailed in Standard Parameters.</InfoCallout>
 
 ### Inputs
-To execute a batch update, the following inputs are required:
-- **spreadsheetId (`required<string>`)**: The unique identifier for the spreadsheet you are updating.
-- **includeValuesInResponse (`optional<boolean>`)**: Determines whether to include the full values of the updated cells in the response. Defaults to `true`.
-- **valueInputOption (`optional<string>`)**: Specifies how the API should interpret the input data (e.g., `USER_ENTERED` or `RAW`). Defaults to `USER_ENTERED`.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `valueInputOption` | <Badge type="optional" /> | Default input parsing for all blocks: <code>USER_ENTERED</code> (default) or <code>RAW</code>. Can be overridden per block. |
+| `includeValuesInResponse` | <Badge type="optional" /> | <code>true</code> (default) or <code>false</code>; return written values in output. |
+| `data` | <Badge type="required" /> | Array of update blocks. Each block needs <code>range</code> (string) and <code>values</code> (2D array). Optional: <code>majorDimension</code>. |
 
 ### Outputs
-Upon execution, the batch update operation provides detailed response data:
-- **Response**: The complete API response, detailing the execution of each range in the batch update.
-- **Headers**: The HTTP headers from the **Google Sheets** API response that provide additional context about the response.
-- **responses**: An array of individual responses for each batch request, detailing the outcome and affected ranges.
-- **spreadsheetId**: The ID of the updated spreadsheet.  
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the target sheet. |
+| `totalUpdatedRows` | Sum of rows updated across all batches. |
+| `totalUpdatedColumns` | Sum of columns updated. |
+| `totalUpdatedCells` | Sum of cells updated. |
+| `responses` | Array of results, one for each update block in <code>data</code>. |
+| `response` | Raw API payload for the entire batch operation. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+An agent finalizes a project: updates status in <code>Sheet1!C5</code>, logs completion date in <code>Sheet1!D5</code>, and adds a note to <code>NotesSheet!A20</code>—all in one go.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/QVIij47tDdWlygH70YkB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Batch Update Values" />
+```json
+{
+  "component": "sheets.batchUpdateValues",
+  "spreadsheetId": "yourSpreadsheetId",
+  "data": [
+    {
+      "range": "Sheet1!C5",
+      "values": [["Complete"]]
+    },
+    {
+      "range": "Sheet1!D5",
+      "values": [["2024-01-15"]]
+    },
+    {
+      "range": "NotesSheet!A20",
+      "values": [["Project XYZ finalized."]]
+    }
+  ]
+}
+```
 
-## Create Spreadsheet
-This operation creates a new `Google Sheets` spreadsheet, returning the newly created document's details, which makes it integral for generating data repositories on-the-fly within `SmythOS`.
+<WarningCallout title="Troubleshooting">
+One update fails, others succeed? Check the <code>responses</code> array for individual error details.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+Complex data structure issues? Validate your JSON carefully, ensuring each object in the <code>data</code> array has the required <code>range</code> and <code>values</code>.
+</WarningCallout>
+
+<Divider/>
+
+## <a name="create-spreadsheet"></a>Create Spreadsheet — New Blank Sheet
+
+Instructs your agent to generate a brand new Google Sheet document.
+
+<InfoCallout>This component has unique inputs <code>title</code> and <code>sheetName</code>. It does not use standard inputs like <code>spreadsheetId</code> since it's creating a new one.</InfoCallout>
 
 ### Inputs
-To create a spreadsheet, specify the necessary inputs:
-- **title (`required<string>`)**: The name/title of the spreadsheet being created. This parameter is essential to identify the document within your Google Drive.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `title` | <Badge type="required" /> | The title for the new spreadsheet document. |
+| `sheetName` | <Badge type="optional" /> | Name for the first sheet (tab) in the new document. Defaults to <code>Sheet1</code>. |
 
 ### Outputs
-After successfully creating a spreadsheet, the detailed response includes:
-- **Response**: The complete API response containing details of the created spreadsheet.
-- **Headers**: Contextual HTTP headers returned by the `Google Sheets` API.
-- **spreadsheetId**: The unique identifier for the newly created spreadsheet, which can be used for subsequent operations like reading or modifying the spreadsheet.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | Crucial: The ID of the newly created spreadsheet. |
+| `properties` | Object with details: <code>title</code>, <code>locale</code>, <code>timeZone</code>. |
+| `sheets` | Array of sheet objects (initially one). |
+| `spreadsheetUrl` | Direct link to the new Google Sheet. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Your agent needs to create a new spreadsheet each month to log daily performance metrics. The output <code>spreadsheetId</code> is then used in subsequent steps to populate this new sheet.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/XZnWtTpLTQfCltxOD5NO?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Create Spreadsheet" />
+```json
+{
+  "component": "sheets.createSpreadsheet",
+  "title": "Monthly Performance - July 2024",
+  "sheetName": "Daily Metrics"
+}
+```
 
-## Get Spreadsheet
-This component retrieves detailed information about a spreadsheet using its unique ID, allowing for in-depth data access and analysis within `SmythOS`.
+<WarningCallout title="Troubleshooting">
+PERMISSION_DENIED? Ensure the authenticated Google account has permission to create new files in Google Drive.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refre to [integrating settings](#integration-settings) for more information.
+Title conflicts? While Google Sheets allows duplicate titles, it's best practice to ensure your agent generates unique titles if needed for your workflow.
+</WarningCallout>
+
+## <a name="get-spreadsheet"></a>Get Spreadsheet — Retrieve Sheet Details
+
+Retrieves structural information and metadata about an existing Google Sheet, such as its properties, all its sheets (tabs), and named ranges.
+
+<InfoCallout>This component primarily uses the standard <code>spreadsheetId</code> input. Its outputs provide detailed metadata about the spreadsheet.</InfoCallout>
 
 ### Inputs
-Configure the following input to retrieve the desired spreadsheet details:
-- **spreadsheetId (`required<string>`)**: The unique identifier for the Google Sheets document you wish to access. This ID is essential to direct the API to the correct spreadsheet.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL to inspect. |
 
 ### Outputs
-Upon successful retrieval of the spreadsheet, you will receive detailed information:
-- **Response**: The full API response, including all details about the spreadsheet.
-- **Headers**: The HTTP headers returned by `Google Sheets` API that contextualize the response.
-- **title**: The title of the retrieved spreadsheet.
-- **sheets**: A list of sheets within the spreadsheet.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the queried sheet. |
+| `properties` | Object with general details: <code>title</code>, <code>locale</code>, <code>timeZone</code>, <code>autoRecalc</code>. |
+| `sheets` | Array of all sheet (tab) objects in the document, each with <code>sheetId</code>, <code>title</code>, <code>index</code>, <code>sheetType</code>, <code>gridProperties</code>. |
+| `namedRanges` | Array of all named ranges, each with <code>name</code>, <code>range</code>, <code>namedRangeId</code>. |
+| `spreadsheetUrl` | Direct link to the Google Sheet. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Before writing to a sheet named "Q3-Data," use this component to ensure it exists and retrieve its <code>sheetId</code> if needed for other operations like formatting.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/cRCgBViZQhS5XCUJ34Nu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Get Spreadsheet" />
+```json
+{
+  "component": "sheets.getSpreadsheet",
+  "spreadsheetId": "yourExistingSpreadsheetId"
+}
+```
 
-## Add Sheet
-The **Add Sheet** operation allows you to add a new sheet to an existing `Google Sheets` spreadsheet, enabling further data organization and management within `SmythOS`.
+<WarningCallout title="Troubleshooting">
+404 Not Found? Double‑check the <code>spreadsheetId</code> is correct and the authenticated user has at least view access.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+Missing sheet details? Ensure the <code>sheets</code> array in the output is iterated correctly to find specific tab information.
+</WarningCallout>
+
+## <a name="add-sheet"></a>Add Sheet — New Tab in Existing Spreadsheet
+
+Inserts a new sheet (tab) into an existing Google Spreadsheet document.
+
+<InfoCallout>Uses standard <code>spreadsheetId</code>. The unique input is <code>title</code> for the new tab.</InfoCallout>
 
 ### Inputs
-Configure the following inputs to add a new sheet to your spreadsheet:
-- **spreadsheetId (`required<string>`)**: The unique ID of the spreadsheet where the new sheet will be added.
-- **title (`required<string>`)**: The title of the new sheet.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | ID of the spreadsheet to add the new tab to. |
+| `title` | <Badge type="required" /> | Name for the new sheet/tab. Must be unique within the spreadsheet. |
 
 ### Outputs
-Upon successfully adding a new sheet, you will receive detailed information:
-- **Response**: Provides the full API response, detailing the operation's outcome.
-- **Headers**: The HTTP headers returned by the `Google Sheets` API that provide context for the response.
-- **spreadsheetId**: The ID of the updated spreadsheet.
-- **sheetId**: The unique ID of the newly added sheet.
-- **title**: The title of the new sheet. 
+| Field | Description |
+|-------|-------------|
+| `replies` | Array containing an <code>addSheet</code> object with the new tab's properties (like <code>sheetId</code>, <code>title</code>, <code>index</code>). |
+| `spreadsheetId` | ID of the modified spreadsheet. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Your agent creates a new sheet for each month’s sales data, naming it "July 2024 Sales" and adding it to a master sales tracking spreadsheet.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/nmTYnb8SJRBpDWYjBhzY?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Add Sheet" />
+```json
+{
+  "component": "sheets.addSheet",
+  "spreadsheetId": "yourMasterSpreadsheetId",
+  "title": "July 2024 Sales"
+}
+```
 
-## Auto Resize Column
-The **Auto Resize Column** operation allows you to automatically resize a column within a `Google Sheets` spreadsheet, optimizing the column width based on its content.
+<WarningCallout title="Troubleshooting">
+"Duplicate sheet name" error? Ensure the <code>title</code> for the new sheet is not already in use within that spreadsheet.
 
-### Component Settings
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+New sheet not appearing where expected? The <code>index</code> property in the output <code>replies[0].addSheet.properties.index</code> indicates its position (0-based).
+</WarningCallout>
+
+<Divider/>
+
+## <a name="auto-resize-columns"></a>Auto Resize Column(s) — Fit Content Width
+
+Automatically resizes one or more columns in a specified sheet to match the width of their contents, improving readability.
+
+<InfoCallout>Key inputs are <code>sheetId</code> (numerical ID of the tab) and the <code>startIndex</code>/<code>endIndex</code> for columns.</InfoCallout>
 
 ### Inputs
-Configure the following inputs to auto resize a column in your spreadsheet:
-- **spreadsheetId (`required<string>`)**: The unique ID of the spreadsheet where the column will be resized.
-- **sheetId (`required<string>`)**: The ID of the specific sheet containing the column. The default value is `0`.
-- **startIndex (`required<string>`)**: The starting index of the column to be resized. The default value is `0`.
-- **endIndex (`required<string>`)**: The ending index of the column to be resized. The default value is `3`.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `sheetId` | <Badge type="required" /> | Numerical ID of the sheet (tab) containing columns to resize. Often <code>0</code> for the first sheet. |
+| `startIndex` | <Badge type="required" /> | 0-based starting column index to resize (e.g., <code>0</code> for column A). |
+| `endIndex` | <Badge type="required" /> | 0-based ending column index (exclusive). To resize column A only, <code>startIndex=0</code>, <code>endIndex=1</code>. |
 
 ### Outputs
-Upon successfully resizing the column, you will receive detailed information:
-- **Response**: Provides the full API response, detailing the operation's outcome.
-- **Headers**: The HTTP headers returned by the `Google Sheets` API that provide context for the response.
-- **spreadsheetId**: The ID of the updated spreadsheet.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the updated spreadsheet. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+After an agent inserts data of varying widths into columns A through C, this component auto-adjusts their widths to prevent content from being cut off.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/gU3Z4jMtKzJmYmlwzeD6?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Auto Resize Columns" />
+```json
+{
+  "component": "sheets.autoResizeColumns",
+  "spreadsheetId": "yourSpreadsheetId",
+  "sheetId": 0,
+  "startIndex": 0,
+  "endIndex": 3
+}
+```
 
-## Auto Resize Row
-Automatically resizes specified rows to fit their contents.
+<WarningCallout title="Troubleshooting">
+Wrong columns resized? Double-check <code>sheetId</code> (use "Get Spreadsheet" to find it if unsure) and ensure <code>startIndex</code> and <code>endIndex</code> correctly define your target column range.
 
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+No visible change? Ensure there's content in the columns that would necessitate a resize.
+</WarningCallout>
+
+<Divider/>
+
+## <a name="auto-resize-rows"></a>Auto Resize Row(s) — Fit Content Height
+
+Automatically adjusts the height of one or more rows in a specified sheet to fit their content. Ideal for multi-line text entries.
+
+<InfoCallout>Key inputs are <code>sheetId</code> (numerical ID of the tab) and the <code>startIndex</code>/<code>endIndex</code> for rows.</InfoCallout>
 
 ### Inputs
-Configure the following inputs to auto resize rows in your spreadsheet:
-- **spreadsheetId (`required<string>`)**: The unique ID of the spreadsheet where the row will be resized.
-- **sheetId (`required<string>`)**: The ID of the specific sheet containing the row. The default value is `0`.
-- **startIndex (`required<string>`)**: The starting index of the row to be resized. The default value is `0`.
-- **endIndex (`required<string>`)**: The ending index of the row to be resized. The default value is `3`.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `sheetId` | <Badge type="required" /> | Numerical ID of the sheet (tab) containing rows to resize. |
+| `startIndex` | <Badge type="required" /> | 0-based starting row index to resize (e.g., <code>0</code> for row 1). |
+| `endIndex` | <Badge type="required" /> | 0-based ending row index (exclusive). To resize row 1 only, <code>startIndex=0</code>, <code>endIndex=1</code>. |
 
 ### Outputs
-Upon successfully resizing the row, you will receive detailed information:
-- **Response**: Provides the full API response, detailing the operation's outcome.
-- **Headers**: The HTTP headers returned by the `Google Sheets` API that provide context for the response.
-- **spreadsheetId**: The ID of the updated spreadsheet.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the modified sheet. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+After an agent enters long-form text or notes into cells in rows 5 through 10, this component ensures the full text is visible by adjusting row heights.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/ERwh9QUOzws6QuIYgsud?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Auto Resize Rows" />
+```json
+{
+  "component": "sheets.autoResizeRows",
+  "spreadsheetId": "yourSpreadsheetId",
+  "sheetId": 0,
+  "startIndex": 4,
+  "endIndex": 10
+}
+```
 
-## Format Header Row
-Formats a header row in a `Google Sheets` spreadsheet.
+<WarningCallout title="Troubleshooting">
+Wrong rows resized? Verify <code>sheetId</code> and that <code>startIndex</code>/<code>endIndex</code> accurately target the desired rows.
 
-#### OAuth Tab
-This is where you can authenticate and deauthenticate the component. Please refer to [integrating settings](#integration-settings) for more information.
+Content still cut off? This adjusts to content; if content is truly larger than what Sheets can display even when auto-resized (rare), the issue might be elsewhere.
+</WarningCallout>
+
+<Divider/>
+
+## <a name="format-header-row"></a>Format Header Row — Style a Row
+
+Applies consistent styling (e.g., bold text, center alignment, background color) to a specified header row, making tables easier to read.
+
+<InfoCallout>Unique inputs define formatting aspects like alignment, font size, and colors. <code>spreadsheetId</code>, <code>sheetId</code>, and other common fields are detailed in Standard Parameters.</InfoCallout>
 
 ### Inputs
-Configure the following inputs to format a header row in your spreadsheet:
-- **spreadsheetId (`required<string>`)**: The unique ID of the spreadsheet where the row will be formatted.
-- **sheetId (`required<string>`)**: The ID of the specific sheet containing the row. The default value is `0`.
-- **startRowIndex (`optional<integer>`)**: The starting index of the row to be formatted. The default value is `0`.
-- **endRowIndex (`optional<integer>`)**: The ending index of the row to be formatted. The default value is `1`.
-- **horizontalAlignment (`optional<string>`)**: Specifies the horizontal alignment for the row. The default value is `CENTER`.
-- **fontSize (`optional<integer>`)**: Specifies the text font size. The default value is `12`.
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `spreadsheetId` | <Badge type="required" /> | Sheet ID from URL. |
+| `sheetId` | <Badge type="required" /> | Numerical ID of the sheet (tab). Default is usually <code>0</code>. |
+| `startRowIndex` | <Badge type="optional" /> | 0-based row index to start formatting. Default: <code>0</code> (first row). |
+| `endRowIndex` | <Badge type="optional" /> | 0-based row index to end formatting (exclusive). Default: <code>1</code> (formats only <code>startRowIndex</code>). |
+| `horizontalAlignment` | <Badge type="optional" /> | Text alignment: <code>CENTER</code> (default), <code>LEFT</code>, <code>RIGHT</code>. |
+| `fontSize` | <Badge type="optional" /> | Font size for header text. Default: <code>12</code>. |
+| `bold` | <Badge type="optional" /> | Make text bold: <code>true</code> (default) or <code>false</code>. |
+| `backgroundColor` | <Badge type="optional" /> | Object defining RGB color. E.g., {` "red": 0.8, "green": 0.8, "blue": 0.8`}. |
 
 ### Outputs
-Upon successfully formatting the row, you will receive detailed information:
-- **Response**: Provides the full API response, detailing the operation's outcome.
-- **Headers**: The HTTP headers returned by the `Google Sheets` API that provide context for the response.
-- **spreadsheetId**: The ID of the updated spreadsheet.
-- **replies**: Includes detailed replies about the formatting changes made.
+| Field | Description |
+|-------|-------------|
+| `spreadsheetId` | ID of the updated spreadsheet. |
+| `replies` | Array of responses for formatting requests. |
+| `response` | Raw API payload. |
+| `headers` | HTTP headers. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+After your agent populates a new sheet with structured data, use this component to automatically format the top row (row 1, index 0) so it clearly stands out as a header.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/IgYFAV0RFA94CdlpxiYW?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GSheets Format Header Row" />
+```json
+{
+  "component": "sheets.formatHeaderRow",
+  "spreadsheetId": "yourSpreadsheetId",
+  "sheetId": 0,
+  "startRowIndex": 0,
+  "endRowIndex": 1,
+  "horizontalAlignment": "CENTER",
+  "bold": true,
+  "backgroundColor": { "red": 0.9, "green": 0.9, "blue": 0.9 }
+}
+```
+
+<WarningCallout title="Troubleshooting">
+Formatting not applied? Ensure <code>sheetId</code> is correct. Verify <code>startRowIndex</code> and <code>endRowIndex</code> target the intended row(s).
+
+Colors incorrect? RGB values in <code>backgroundColor</code> are decimals between <code>0</code> and <code>1</code> (e.g., <code>0.5</code> for 50% intensity).
+</WarningCallout>
+
+## Best Practices & Advanced Tips
+
+To make the most of your Google Sheets integration, consider these tips:
+
+* **Use "Batch Update Values" for Efficiency:** When you need to make multiple changes to a sheet (e.g., updating several cells, writing multiple rows), the "Batch Update Values" component is significantly more efficient than making individual "Update Values" calls. This reduces the number of API requests and can help avoid rate limits.
+* **Manage IDs Dynamically:** Instead of hardcoding `spreadsheetId` or `sheetId`, use outputs from previous steps (like "Create Spreadsheet" or "Get Spreadsheet") or SmythOS variables to manage these IDs dynamically. This makes your agents more robust and adaptable.
+* **Error Handling:**
+    * Always check the outputs of components for success or failure indicators.
+    * Use the `response` object (see [Common Output Fields](#common-output-fields)) from components to get detailed error messages from the Google Sheets API, which can be invaluable for debugging.
+    * Implement conditional logic in your agent to handle potential errors gracefully (e.g., retry an operation, send a notification, or take an alternative path).
+* **Data Validation:** Before writing data to Google Sheets, especially if it comes from external sources or user input, validate it within your SmythOS agent to ensure it's in the correct format and type. This prevents errors and maintains data integrity in your spreadsheets.
+* **Understand Quotas and Limits:** Be aware of Google Sheets API usage quotas (e.g., requests per minute, requests per day). Design your agents to stay within these limits. For very frequent operations, consider strategies like queuing requests or summarizing data before writing. Refer to Google's official documentation for the most current quota information.
+* **Secure Your Sheets:**
+    * Grant the Google Account connected to SmythOS only the necessary permissions (e.g., if an agent only needs to read data, ensure the account doesn't have unnecessary write access to sensitive sheets).
+    * Regularly review who has access to your integrated spreadsheets.
+* **Clear Naming Conventions:** Use clear and consistent names for your spreadsheets, sheets (tabs), and named ranges. This makes it easier to configure components and maintain your agents.
+* **Optimize `range` Specificity:**
+    * For "Append Values," if you want to append to the very end of all data in a sheet, providing just the sheet name (e.g., `Sheet1`) in the `range` input is often best.
+    * For "Get Values" or "Update Values," be as specific as possible with your `range` to avoid processing unnecessary data.
+* **Test Thoroughly:** Before deploying agents that interact with critical spreadsheets, test them thoroughly in a development or staging environment with sample data.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+Encountering an issue with your Google Sheets integration? Here are solutions to some common problems:
+
+* **Error: `Requested entity was not found` (or a `404` error)**
+    * **Possible Cause(s):** Could be an incorrect `spreadsheetId`, a mistyped `sheet` name (remember, tab names are case-sensitive!), or an invalid `range`.
+    * **Solution(s):** Carefully double-check the `spreadsheetId` from your Google Sheet's URL. Ensure the `sheet` name is an exact match, character for character. Verify that your `range` (e.g., `Sheet1!A1:C5`) is valid for that specific sheet.
+
+* **Error: `PERMISSION_DENIED` (or a `403` error)**
+    * **Possible Cause(s):** Either SmythOS lacks the necessary permissions for your Google Account, or the specific Google Sheet has restrictive sharing settings.
+    * **Solution(s):**
+        1.  Try re-authenticating: Go to SmythOS Integrations, find Google Sheets, deauthenticate, and then authenticate again. Make sure you grant all requested permissions during the Google consent process.
+        2.  Check the Google Sheet's "Share" settings. The Google account you've connected to SmythOS must have "Editor" access for writing/updating or at least "Viewer" access for read-only operations like "Get Values."
+
+* **Data Not Updating Correctly or Appearing in the Wrong Cells**
+    * **Possible Cause(s):** Often an incorrect `range` specification in components like "Update Values," or a mismatch between your `majorDimension` setting and the structure of your `values` array.
+    * **Solution(s):** Meticulously review your `range` input. For "Update Values" and "Append Values," ensure your `values` data structure aligns perfectly with the columns in your `range` and your `majorDimension` setting.
+
+* **Exceeding API Rate Limits or Other Google Quotas**
+    * **Possible Cause(s):** Google Sheets, like many services, imposes limits on API call frequency, the number of characters in a cell, and overall spreadsheet size.
+    * **Solution(s):** For large data operations, consider processing your data in smaller batches. If you're making very frequent updates, the "Batch Update Values" component is your best friend where possible. You might also introduce slight, strategic delays in your agent's workflow. For the most current details, Google's official API documentation is the place to look.
+
+<InfoCallout>
+    If you're still facing issues, the SmythOS support team is always ready to help. Plus, the `response` output from the Google Sheets components often contains detailed error messages directly from Google that can provide excellent clues. [Link to SmythOS Support Page]
+</InfoCallout>
+
+<Divider />
+
+## What's Next?
+
+Congratulations! You've successfully set up the **SmythOS Google Sheets integration** and explored its powerful components. You're now equipped to build agents that can intelligently interact with your spreadsheet data in all sorts of creative ways.
+
+Consider these next steps on your journey:
+
+* **Build an Agent That...**
+    * Reads a to-do list from a Google Sheet each morning and sends you a personalized summary via email or Slack (by combining this with other SmythOS integrations!).
+    * Collects entries from a web form, processes the data, and then neatly logs each submission into a new row in a Google Sheet.
+    * Monitors a specific range in a Google Sheet for new entries and automatically triggers a downstream workflow when new data appears.
+    * Combine the power of Google Sheets with other SmythOS integrations to create sophisticated, multi-step automations. Consider exploring our [Email Integration](link-to-email-integration-doc) or our [Database Connectors](link-to-database-integration-docs).

@@ -1,66 +1,164 @@
-/* src/components/mdx/PromptCard.tsx */
-import React, { useCallback, useState } from 'react';
-import { Clipboard, Edit3, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { Copy, Check } from 'lucide-react';
 
-export type PromptCardProps = { prompt: string; className?: string };
+interface PromptCardProps {
+  prompt: string;
+  title?: string;
+  tags?: string[];
+  collapsible?: boolean;
+  maxChars?: number;
+}
 
-const PromptCard: React.FC<PromptCardProps> = ({ prompt, className }) => {
+const PromptCard = ({
+  prompt,
+  title,
+  tags = [],
+  collapsible = false,
+  maxChars = 220,
+}: PromptCardProps) => {
   const [copied, setCopied] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(prompt);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1_000);
-  }, [prompt]);
+  const isLong = prompt.length > maxChars && collapsible;
+  const displayText = !isLong || expanded ? prompt : `${prompt.slice(0, maxChars)}...`;
 
-  const handleEdit = useCallback(() => {
-    window.open(`/studio?prompt=${encodeURIComponent(prompt)}`, '_blank', 'noopener');
-  }, [prompt]);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Copy failed', err);
+    }
+  };
 
   return (
-    <section
-      className={`overflow-hidden rounded-md border border-slate-200 shadow-sm dark:border-slate-700 ${className ?? ''}`}
-    >
-      {}
-      <div className="flex items-center justify-end gap-3 bg-slate-100 px-3 py-1.5 dark:bg-slate-800">
-        <ToolbarBtn onClick={handleCopy} label="Copy">
-          {copied ? <Check className="h-4 w-4" /> : <Clipboard className="h-4 w-4" />}
-        </ToolbarBtn>
-        <ToolbarBtn onClick={handleEdit} label="Edit">
-          <Edit3 className="h-4 w-4" />
-        </ToolbarBtn>
+    <div className="prompt-card-container">
+      <div className="prompt-card-header">
+        {title && <div className="prompt-card-title">{title}</div>}
+        <button className="copy-btn" onClick={handleCopy} aria-label="Copy">
+          {copied ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
+        </button>
       </div>
 
-      {}
-      <pre className="whitespace-pre-wrap break-words bg-slate-50 px-5 py-4 font-mono text-sm leading-relaxed text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-        {prompt.split(/(\{\{.*?\}\})/g).map((chunk, i) =>
-          /\{\{.*\}\}/.test(chunk) ? (
-            <span key={i} className="text-emerald-600 dark:text-emerald-400">
-              {chunk}
-            </span>
-          ) : (
-            chunk
-          ),
-        )}
+      {tags.length > 0 && (
+        <div className="prompt-card-tags">
+          {tags.map((tag, index) => (
+            <span key={index} className="prompt-tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <pre className="prompt-card-content">
+        <code>{displayText}</code>
       </pre>
-    </section>
+
+      {isLong && (
+        <div className="toggle-expand" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show less' : 'Show more'}
+        </div>
+      )}
+
+      <style>
+        {`
+          .prompt-card-container {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: system-ui, sans-serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            position: relative;
+            transition: all 0.3s ease;
+          }
+
+          .prompt-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+          }
+
+          .prompt-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+          }
+
+          .prompt-card-tags {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+          }
+
+          .prompt-tag {
+            background: #eef2ff;
+            color: #3730a3;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+          }
+
+          .prompt-card-content {
+            font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+            background: #f3f4f6;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #1f2937;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            margin-bottom: 0;
+          }
+
+          .toggle-expand {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #2563eb;
+            cursor: pointer;
+          }
+
+          .copy-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: #6b7280;
+          }
+
+          .copy-btn:hover {
+            color: #374151;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            .prompt-card-container {
+              background-color: #1e293b;
+              border-color: #334155;
+              color: #e2e8f0;
+            }
+            .prompt-card-title,
+            .toggle-expand {
+              color: #e2e8f0;
+            }
+            .prompt-card-content {
+              background: #111827;
+              color: #f3f4f6;
+            }
+            .prompt-tag {
+              background: #312e81;
+              color: #c7d2fe;
+            }
+            .copy-btn {
+              color: #cbd5e1;
+            }
+          }
+        `}
+      </style>
+    </div>
   );
 };
 
 export default PromptCard;
-
-type BtnProps = React.PropsWithChildren<{ onClick: () => void; label: string }>;
-
-const ToolbarBtn: React.FC<BtnProps> = ({ onClick, label, children }) => (
-  <button
-    onClick={onClick}
-    aria-label={label}
-    className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium
-               text-slate-600 hover:bg-slate-200 hover:text-slate-900
-               dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
-  >
-    {children}
-    {}
-    <span className="hidden select-none sm:inline">{label}</span>
-  </button>
-);

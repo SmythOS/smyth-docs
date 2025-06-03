@@ -7,15 +7,15 @@ import {
 } from 'lucide-react';
 
 interface Props {
-  type?: 'info' | 'warn' | 'tip';
   title?: string;
   children: ReactNode;
   collapsible?: boolean;
   defaultOpen?: boolean;
+  type: 'info' | 'warn' | 'tip';
 }
 
 const BaseCallout = ({
-  type = 'info',
+  type,
   title,
   children,
   collapsible = false,
@@ -43,25 +43,16 @@ const BaseCallout = ({
 
   const { icon, label, borderColor } = typeStyles[type];
 
-  const toggle = () => setIsOpen((prev) => !prev);
+  const toggle = () => setIsOpen(prev => !prev);
 
   return (
     <div
       className={`final-callout callout-${type}`}
-      style={{
-        borderLeft: `6px solid ${borderColor}`, // fallback to always show the line
-      }}
+      style={{ borderLeft: `6px solid ${borderColor}` }}
     >
-      {/* Header */}
       <div
+        className={`callout-header${collapsible ? ' callout-clickable' : ''}`}
         onClick={collapsible ? toggle : undefined}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          cursor: collapsible ? 'pointer' : 'default',
-          padding: '16px 20px 0 20px',
-        }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {icon}
@@ -82,7 +73,7 @@ const BaseCallout = ({
           <ChevronDown
             size={18}
             style={{
-              transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               transition: 'transform 0.2s ease-in-out',
               marginTop: 1,
               opacity: 0.75,
@@ -91,21 +82,19 @@ const BaseCallout = ({
         )}
       </div>
 
-      {/* Content */}
-      {(!collapsible || isOpen) && (
-        <div
-          style={{
-            marginTop: 10,
-            padding: '0 20px 16px 20px',
-            fontSize: '1.075rem',
-            lineHeight: '1.6',
-          }}
-        >
-          {children}
-        </div>
-      )}
+      {collapsible && !isOpen && <div style={{ height: '10px' }} />}
 
-      {/* Static Theme-aware CSS */}
+      <div
+        className="callout-body-wrapper"
+        style={{
+          maxHeight: !collapsible || isOpen ? 1000 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.3s ease-in-out',
+        }}
+      >
+        <div className="callout-body">{children}</div>
+      </div>
+
       <style>
         {`
           .final-callout {
@@ -117,8 +106,43 @@ const BaseCallout = ({
             transition: all 0.3s ease-in-out;
           }
 
-          .final-callout:hover {
-            ${collapsible ? 'box-shadow: 0 3px 6px rgba(0,0,0,0.06);' : ''}
+          .callout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px 0 20px;
+            transition: background-color 0.2s ease-in-out;
+          }
+
+          .callout-clickable {
+            cursor: pointer;
+          }
+
+          .callout-clickable:hover {
+            background-color: rgba(0, 0, 0, 0.025);
+          }
+
+          :root[data-theme='dark'] .callout-clickable:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+          }
+
+          .callout-body-wrapper {
+            transition: max-height 0.3s ease-in-out;
+          }
+
+          .callout-body {
+            padding: 12px 20px 16px 20px;
+            font-size: 1.075rem;
+            line-height: 1.6;
+          }
+
+          .callout-body code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: #b45309;
+            font-family: SFMono-Regular, Menlo, Consolas, monospace;
           }
 
           :root[data-theme='light'] .callout-info {
@@ -149,6 +173,11 @@ const BaseCallout = ({
           :root[data-theme='dark'] .callout-tip {
             background-color: #065f4622;
             color: #bbf7d0;
+          }
+
+          :root[data-theme='dark'] .callout-body code {
+            background-color: #334155;
+            color: #fbbf24;
           }
         `}
       </style>

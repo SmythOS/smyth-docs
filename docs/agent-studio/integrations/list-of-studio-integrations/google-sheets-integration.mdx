@@ -94,12 +94,9 @@ This grants SmythOS secure permission to access your Google Sheets. You have two
 2.  Google will then display a consent screen. This screen details the permissions SmythOS is requesting (e.g., to view and manage your spreadsheets). Take a moment to review these, then click **Allow** or **Grant** to proceed. SmythOS only requests permissions essential for the integration's functionality.
 3.  Once you've granted permission, you'll be returned to SmythOS. The Google Sheets integration or component should now indicate that it's authenticated and ready for use. **Connection Confirmed!** Your Google Sheets are now connected to SmythOS. ✨
 
-<InfoCallout collapsible >
-    **Switching Google Accounts or Reconnecting?**
-    If you ever need to connect a different Google Account or just want to refresh an existing connection, you can typically find a `Sign Out` or `Deauthenticate` button within the Google Sheets integration settings in SmythOS, or on the "OAuth" tab of a component. After deauthenticating, simply repeat the authentication steps above with the new account.
-    <Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Deauthenticating Google Sheets" />
-    _Image: Deauthenticating your Google Sheets account in SmythOS settings._
-</InfoCallout>
+
+<InfoCallout title="Switching Google Accounts or Reconnecting?" collapsible >If you ever need to connect a different Google Account or just want to refresh an existing connection, you can typically find a `Sign Out` or `Deauthenticate` button within the Google Sheets integration settings in SmythOS, or on the "OAuth" tab of a component. After deauthenticating, simply repeat the authentication steps above with the new account.
+    <Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Deauthenticating Google Sheets" /> _Image: Deauthenticating your Google Sheets account in SmythOS settings._ </InfoCallout>
 
 <Divider />
 
@@ -187,7 +184,7 @@ Many Google Sheets components share the same input and output fields. Below are 
 2. <code>sheet</code> — <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are treated as different names.
 </small>
 
-## Standard Parameters Used Across Google Sheets Components
+## Deep Dive into Sheets I/O Fields
 
 Switch between **Inputs** and **Outputs** below to see detailed explanations, examples, and troubleshooting notes.
 
@@ -367,14 +364,14 @@ Use this table to quickly compare inputs, outputs, and typical use cases for eac
 
 | If you need to… | Typical Range / Target | Use this Component | Why this one? |
 |-----------------|------------------------|-------------------|--------------|
-| **Read** a static block of data | `Sheet1!A1:D20` | **Get Values** | Fast, single‑range read. |
-| **Log** events (append a row) | `Logs` (sheet name only) | **Append Values** | Automatically finds the next empty row. |
-| **Update** a single cell or small range | `Sheet1!C3` | **Update Values** | Direct, atomic overwrite. |
-| **Write** multiple disparate ranges in one call | Two or more A1 notations | **Batch Update Values** | Minimises API round‑trips. |
-| **Create** a brand‑new spreadsheet | — | **Create Spreadsheet** | Returns a fresh `spreadsheetId` for downstream steps. |
-| **Add** a new monthly tab | — | **Add Sheet** | Inserts a sheet titled e.g. “June 2025”. |
-| **Auto‑fit** column widths | Column indices | **Auto Resize Columns** | Adjusts width based on cell content. |
-| **Style** the header row | Row index 0 | **Format Header Row** | Bold, centre, and optionally recolour headers. |
+| **Read** a static block of data | `Sheet1!A1:D20` | [Get Values](#get-values) | Fast, single-range read. |
+| **Log** events (append a row) | `Logs` (sheet name only) | [Append Values](#append-values) | Automatically finds the next empty row. |
+| **Update** a single cell or small range | `Sheet1!C3` | [Update Values](#update-values) | Direct, atomic overwrite. |
+| **Write** multiple disparate ranges in one call | Two or more A1 notations | [Batch Update Values](#batch-update-values) | Minimises API round-trips. |
+| **Create** a brand-new spreadsheet | — | [Create Spreadsheet](#create-spreadsheet) | Returns a fresh `spreadsheetId` for downstream steps. |
+| **Add** a new monthly tab | — | [Add Sheet](#add-sheet) | Inserts a sheet titled for example “June 2025”. |
+| **Auto-fit** column widths | Column indices | [Auto Resize Columns](#auto-resize-columns) | Adjusts width based on cell content. |
+| **Style** the header row | Row index 0 | [Format Header Row](#format-header-row) | Bold, centre, and optionally recolour headers. |
 
 <InfoCallout>Still unsure? Start with **Get Values** for reads and **Append Values** for writes—then graduate to the others as your workflow grows.</InfoCallout>
 

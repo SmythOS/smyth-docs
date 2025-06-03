@@ -1,162 +1,323 @@
+---
+title: Google Analytics Integration with SmythOS
+description: Integrate Google Analytics with SmythOS to access website performance data, automate reporting, and enhance data-driven decision-making within your agent workflows.
+og:title: SmythOS & Google Analytics - Unlock Your Website Insights
+og:description: Learn how to integrate Google Analytics (GA4) with SmythOS. Use components to run reports, real-time reports, and batch reports directly through your agents.
+og:image: /img/integrations/smythos_google_analytics.png # Replace with actual image path
+keywords: [Google Analytics SmythOS Integration, Connect Google Analytics to SmythOS, SmythOS Google Analytics Components, Automate Google Analytics Reporting, SmythOS GA4 Integration, Website Analytics Automation]
+---
 
-# Google Analytics Integration
+# Integrating Google Analytics with SmythOS
 
-`Google Analytics` is a powerful tool for understanding and enhancing website performance through data-driven insights. It provides detailed statistics about a website's traffic, user behavior, and content interactions, which are crucial for digital marketing success and website optimization.
+> **TL;DR:** Connect SmythOS to Google Analytics (GA4) to empower your agents to fetch website analytics, generate custom reports, and automate data retrieval, bringing powerful insights directly into your operational workflows.
 
-Integrating `Google Analytics` into `SmythOS` enables users to directly access and leverage these analytics within their operational environment, streamlining workflows and enhancing decision-making processes. This integration facilitates real-time data access, allowing users to monitor their website's performance without switching between platforms.
+**Quick Links:**
+* [Why Connect Google Analytics?](#why-connect-google-analytics-with-smythos)
+* [Prerequisites](#prerequisites-what-youll-need)
+* [Step 1: Setting Up the Integration (OAuth)](#step-1-setting-up-the-google-analytics-integration-oauth-in-smythos)
+* [Components Overview](#exploring-the-google-analytics-integration-components)
+* [Understanding Common Fields](#understanding-common-component-fields)
+* [Detailed Component Guides](#detailed-component-guides)
+* [Best Practices & Advanced Tips](#best-practices--advanced-tips)
+* [Troubleshooting](#troubleshooting-common-issues)
+* [What's Next?](#youve-connected-google-analytics-whats-next)
 
-## Google OAuth Setup
+<Divider />
 
-For a visual step-by-step guide, watch the video below:
+## Why Connect Google Analytics with SmythOS?
 
-  <Image src="/img/google_analytics/screenshot1.png" alt="alt text" /> 
+Integrating Google Analytics with SmythOS enhances automation, decision-making, and efficiency by enabling:
 
-### Inputs
+- Automated Reporting: Schedule agents to deliver GA4 reports regularly.
+- Trigger-Based Actions: Launch workflows if metrics fall below set thresholds.
+- Data Enrichment: Merge GA data with CRM and marketing tools for deeper insights.
+- Easy Access: Skip manual report pulling; view data directly in SmythOS.
+- Real-Time Monitoring: Stay updated on live site performance and act quickly.
 
-Configure the following inputs to customize your `Google Analytics` report:
+This integration turns analytics into actionable, automated workflows.
 
-- **GA4_property_id (`required<string>`)**: The Google Analytics 4 property ID for which you are generating the report.
+<Divider />
 
-<Image src="/img/google_analytics/screenshot2.png" alt="alt text" />
+## Prerequisites: What You'll Need
+
+Before you begin, ensure you have the following:
+
+<InfoCallout>
+  **Your Quick Setup Checklist:**
+</InfoCallout>
+
+* An active **SmythOS account**. (New here? [Sign up and get started!](https://app.smythos.com/signup))
+* A **Google Account** with access to the Google Analytics 4 (GA4) property you wish to integrate.
+* You'll need to generate OAuth 2.0 credentials (`Client ID` and `Client Secret`) from the Google Cloud Console.
+* The ability to configure an OAuth consent screen in the Google Cloud Console.
+
+<Divider />
+
+## Step 1: Setting Up the Google Analytics Integration (OAuth) in SmythOS
+
+Connecting Google Analytics involves a one-time setup to authorize SmythOS to access your analytics data securely using OAuth 2.0. This involves getting credentials from Google and then authenticating within SmythOS.
+
+<InfoCallout>
+  The following steps guide you through creating Google OAuth credentials. For a visual step-by-step guide, the original documentation mentioned a video; ensure you have access to this resource if needed.
+  _Placeholder: [Link to or embed your Google OAuth Setup Video Guide here]_
+</InfoCallout>
+
+### Part A: Obtaining Your `Client ID` and `Client Secret` from Google
+
+1.  **Go to the Google Cloud Console:**
+    * Navigate to [https://console.cloud.google.com/](https://console.cloud.google.com/).
+    * Sign in with the Google account that has access to the GA4 property.
+    * Create a new project or select an existing one.
+
+2.  **Enable the Google Analytics Data API & Google Analytics Admin API:**
+    * In the Google Cloud Console, use the search bar or navigate to "APIs & Services" > "Library."
+    * Search for and enable both the "Google Analytics Data API" (for running reports) and the "Google Analytics Admin API" (if you intend to manage account/property settings, though primarily Data API is needed for reporting components).
+    * Click `Enable` for each API.
+
+3.  **Configure the OAuth Consent Screen:**
+    * Go to "APIs & Services" > "OAuth consent screen."
+    * Choose the "User Type" (likely "External"). Click `Create`.
+    * Fill in the required information:
+        * **App name:** E.g., "SmythOS Analytics Integration."
+        * **User support email:** Your email.
+        * **Developer contact information:** Your email.
+    * Click `Save and Continue`.
+    * **Scopes:** Click `Add or Remove Scopes`. Search for and add the necessary Google Analytics API scopes. Typically, you'll need:
+        * `https://www.googleapis.com/auth/analytics.readonly` (View your Google Analytics data)
+        * *(If performing write operations or needing broader access, consult Google's documentation for other relevant scopes like `https://www.googleapis.com/auth/analytics` or `https://www.googleapis.com/auth/analytics.edit`)*.
+    * Click `Update`, then `Save and Continue`.
+    * **Test users (if External & in testing mode):** Add email addresses. Click `Save and Continue`.
+    * Review and click `Back to Dashboard`.
+
+4.  **Create OAuth 2.0 Credentials:**
+    * Navigate to "APIs & Services" > "Credentials."
+    * Click `+ Create Credentials` and select `OAuth client ID`.
+    * **Application type:** Select `Web application`.
+    * **Name:** E.g., "SmythOS Analytics Web Client."
+    * **Authorized redirect URIs:** Click `+ Add URI` and enter:
+        `https://app.smythos.com/oauth/google/callback`
+        *(Ensure this URL is exact.)*
+    * Click `Create`.
+
+5.  **Note Your Credentials:**
+    * A pop-up will display your **`Client ID`** and **`Client Secret`**.
+    * **Copy these values immediately and store them securely.**
+    <WarningCallout>
+        Treat your `Client ID` and `Client Secret` like passwords. SmythOS provides a `Vault` feature for secure storage. [Learn more about SmythOS Vault here.](https://app.smythos.com/doc/#/vault/keysManagement)
+    </WarningCallout>
+
+### Part B: Authenticating in SmythOS
+
+1.  **Navigate to SmythOS Integrations:** In your SmythOS dashboard.
+2.  **Add Google Analytics Integration:** Find and add "Google Analytics."
+3.  **Enter Credentials:** Provide the `Client ID` and `Client Secret`.
+4.  **Authenticate:** Click `Authenticate` in SmythOS.
+    * You'll be redirected to Google's sign-in and consent screen.
+    * Choose the Google account.
+    * Review permissions and click `Allow`.
+5.  **Connection Complete!** You should be redirected to SmythOS, and the integration will show as connected.
+
+<Divider />
+
+## Exploring the Google Analytics Integration Components
+
+Once connected, you can use these components in your agent workflows:
+
+* **[Run Report](#component-run-report):** Fetches a customized report with specified dimensions and metrics from your GA4 property.
+* **[Run Real-Time Report](#component-run-real-time-report):** Generates a report of real-time event data.
+* **[Batch Run Reports](#component-batch-run-reports):** Retrieves multiple reports in a single request.
+
+<InfoCallout>
+  The OAuth setup in Step 1 handles authentication for all these components.
+</InfoCallout>
+
+<Divider />
+
+## Understanding Common Component Fields
+
+### Common Input Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `GA4_property_id` | string | **Required.** The Google Analytics 4 property ID (e.g., "properties/123456789"). |
+
+### Common Output Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response` | object | The full, raw JSON response from the Google Analytics Data API. Useful for accessing all returned data or for debugging. |
+| `Headers` | object | The HTTP headers associated with the API response. |
+
+<Divider />
+
+## Detailed Component Guides
+
+### <a name="component-run-report"></a>Component: Run Report
+
+This component allows your agent to fetch a standard analytics report from your GA4 property by defining dimensions, metrics, date ranges, and filters.
+
+<InfoCallout>
+  **Use Case Example:** An agent generates a weekly report of website traffic sources and top landing pages.
+</InfoCallout>
+
+**Inputs:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `GA4_property_id` | string | Yes | Your GA4 Property ID. See [Common Input Fields](#common-input-fields). |
+| **Body (Report Request Payload)** | object | Yes | A JSON object defining the report. Key properties include:<br/>- `dateRanges`: Array of date range objects (e.g., `[{ "startDate": "7daysAgo", "endDate": "today" }]`).<br/>- `dimensions`: Array of dimension objects (e.g., `[{ "name": "country" }, { "name": "browser" }]`).<br/>- `metrics`: Array of metric objects (e.g., `[{ "name": "activeUsers" }, { "name": "sessions" }]`).<br/>- `dimensionFilter`: Optional filter for dimensions.<br/>- `metricFilter`: Optional filter for metrics.<br/>- `limit`: Optional number of rows to return. <br/>*(Refer to Google Analytics Data API `runReport` method documentation for the full request body schema.)* |
+
+<Image src="/img/google_analytics/screenshot1.png" alt="Illustrative screenshot of Run Report inputs/body configuration in SmythOS" />
+_Image: Configuring the report request body (dimensions, metrics, date ranges)._
+
+<Image src="/img/google_analytics/screenshot2.png" alt="Illustrative screenshot of GA4_property_id input" />
+_Image: Specifying the GA4_property_id._
 
 > **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
 
-### Outputs
+**Outputs:**
 
-The endpoint provides detailed analytical data as output:
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response` | object | Full API response. See [Common Output Fields](#common-output-fields). |
+| `Headers` | object | HTTP headers. See [Common Output Fields](#common-output-fields). |
+| `rows` | array | An array of data rows. Each row object contains `dimensionValues` and `metricValues`. |
+| `rowCount` | integer | The number of rows returned in the report. |
+| `dimensionHeaders` | array | Describes the dimension columns in the report. |
+| `metricHeaders` | array | Describes the metric columns in the report. |
 
-- **Response**: Contains the full API response with metrics and dimensions specified in the request.
-- **Headers**: Headers from the `Google Analytics` API that provide context about the response.
-- **rows**: Data rows that contain the report's analytics.
-- **rowCount**: The number of rows returned in the report.
-
-<Image src="/img/google_analytics/screenshot3.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Run Real-Time Report
-
-This component generates a customized report of real-time event data for your `Google Analytics` property, enabling immediate insights into user activities and site interactions.
-
-### Settings
-
-#### Client ID & Client Secret
-
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
-
-To establish a secure connection with `Google Analytics` using `SmythOS`, you need authenticated credentials, specifically a `Client ID` and `Client Secret`. Here's a detailed guide on how to obtain these credentials for the `Google Analytics` API:
-
-1. **Visit the Google Developers Console**: 
-   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
-   - Select an existing project or create a new project dedicated to your integration.
-
-2. **Enable the Google Analytics API**: 
-   - Go to the `Library` section within the Developers Console.
-   - Search for and enable the Google Analytics API for your project.
-
-3. **Configure the OAuth Consent Screen**: 
-   - Access the OAuth consent screen settings and fill in necessary information such as your application's name, support email, and the scopes required for your application.
-
-4. **Generate Credentials**:
-   - Visit the `Credentials` tab in the Google Developers Console.
-   - Click `Create credentials` and choose `OAuth client ID`.
-   - Select the application type that best represents your application.
-   - Complete the configurations and specify the callback URL as `https://app.smythos.com/oauth/google/callback`. This URL is crucial as it handles the redirection after successful authentication.
-
-5. **Authenticate in SmythOS**: 
-   - Enter the `Client ID` and `Client Secret` in the respective fields within the SmythOS component settings.
-   - Click the `Authenticate` button to finalize the connection and start utilizing Google Analytics with SmythOS.
-
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-The body of the request is where you define the payload to run your real-time report. A sample schema is provided to outline the structure of data, which is customizable based on your specific needs.
-
-<Image src="/img/google_analytics/screenshot4.png" alt="alt text" /> 
-
-### Inputs
-
-To tailor the real-time `Google Analytics` report, configure the following inputs:
-
-- **GA4_property_id (`required<string>`)**: Input the Google Analytics 4 property ID for which the real-time report will be generated.
-
-<Image src="/img/google_analytics/screenshot5.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-Upon execution, the endpoint delivers detailed analytical data:
-
-- **Response**: The full API response containing real-time metrics and dimensions as specified.
-- **Headers**: The HTTP headers provided by the `Google Analytics` API, offering context for the response.
-- **rows**: The rows of data illustrating the real-time analytics of the report.
-- **rowCount**: The total number of rows returned in the response.
-
-<Image src="/img/google_analytics/screenshot6.png" alt="alt text" />
+<Image src="/img/google_analytics/screenshot3.png" alt="Illustrative screenshot of Run Report outputs in SmythOS" />
+_Image: Example outputs from the Run Report component._
 
 > **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
 
-## Batch Run Reports
+<Divider />
 
-This component facilitates the retrieval of multiple reports simultaneously from `Google Analytics`, enabling comprehensive analysis and insights across different metrics and dimensions in a single request.
+### <a name="component-run-real-time-report"></a>Component: Run Real-Time Report
 
-### Settings
+This component generates a customized report of real-time event data for your GA4 property, enabling immediate insights into user activities and site interactions.
 
-#### Client ID & Client Secret
+<InfoCallout>
+  **Use Case Example:** An agent monitors real-time active users on key campaign landing pages immediately after a campaign launch.
+</InfoCallout>
 
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+**Inputs:**
 
-To establish a secure connection with `Google Analytics` using `SmythOS`, you need authenticated credentials, specifically a `Client ID` and `Client Secret`. Here's a detailed guide on how to obtain these credentials for the `Google Analytics` API:
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `GA4_property_id` | string | Yes | Your GA4 Property ID. See [Common Input Fields](#common-input-fields). |
+| **Body (Real-Time Report Request Payload)** | object | Yes | A JSON object defining the real-time report. Key properties include:<br/>- `dimensions`: Array of dimension objects (e.g., `[{ "name": "unifiedScreenName" }]`).<br/>- `metrics`: Array of metric objects (e.g., `[{ "name": "activeUsers" }]`).<br/>- `dimensionFilter`: Optional filter for dimensions.<br/>- `metricFilter`: Optional filter for metrics.<br/>- `limit`: Optional number of rows to return. <br/>*(Refer to Google Analytics Data API `runRealtimeReport` method documentation for the full request body schema.)* |
 
-1. **Visit the Google Developers Console**: 
-   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
-   - Select an existing project or create a new project dedicated to your integration.
+<Image src="/img/google_analytics/screenshot4.png" alt="Illustrative screenshot of Run Real-Time Report body configuration" />
+_Image: Configuring the real-time report request body._
 
-2. **Enable the Google Analytics API**: 
-   - Go to the `Library` section within the Developers Console.
-   - Search for and enable the Google Analytics API for your project.
+<Image src="/img/google_analytics/screenshot5.png" alt="Illustrative screenshot of GA4_property_id input for real-time report" />
+_Image: Specifying the GA4_property_id for a real-time report._
 
-3. **Configure the OAuth Consent Screen**: 
-   - Access the OAuth consent screen settings and fill in necessary information such as your application's name, support email, and the scopes required for your application.
+> **Note:** You can extend this list by adding new inputs with the `+` button in the `Inputs` section.
 
-4. **Generate Credentials**:
-   - Visit the `Credentials` tab in the Google Developers Console.
-   - Click `Create credentials` and choose `OAuth client ID`.
-   - Select the application type that best represents your application.
-   - Complete the configurations and specify the callback URL as `https://app.smythos.com/oauth/google/callback`. This URL is crucial as it handles the redirection after successful authentication.
+**Outputs:**
 
-5. **Authenticate in SmythOS**: 
-   - Enter the `Client ID` and `Client Secret` in the respective fields within the SmythOS component settings.
-   - Click the `Authenticate` button to finalize the connection and start utilizing Google Analytics with SmythOS.
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response` | object | Full API response. See [Common Output Fields](#common-output-fields). |
+| `Headers` | object | HTTP headers. See [Common Output Fields](#common-output-fields). |
+| `rows` | array | An array of data rows containing real-time `dimensionValues` and `metricValues`. |
+| `rowCount` | integer | The number of rows returned in the real-time report. |
 
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<Image src="/img/google_analytics/screenshot6.png" alt="Illustrative screenshot of Run Real-Time Report outputs" />
+_Image: Example outputs from the Run Real-Time Report component._
 
-#### Body
+> **Note:** You can add new outputs by clicking on the `+` button in the `Outputs` section.
 
-The body section is designated for defining the payload necessary to run batch reports. A customizable sample schema is provided to illustrate the typical data structure for these requests.
+<Divider />
 
-<Image src="/img/google_analytics/screenshot7.png" alt="alt text" /> 
+### <a name="component-batch-run-reports"></a>Component: Batch Run Reports
 
-### Inputs
+This component facilitates the retrieval of multiple standard analytics reports simultaneously from GA4 in a single API request.
 
-Configure the following inputs to generate tailored reports efficiently:
+<InfoCallout>
+  **Use Case Example:** An agent needs to generate several distinct reports (e.g., user demographics, traffic acquisition, and event counts) for a monthly performance overview.
+</InfoCallout>
 
-- **GA4_property_id (`required<string>`)**: Specify the Google Analytics 4 property ID from which the data will be sourced for the reports.
+**Inputs:**
 
-<Image src="/img/google_analytics/screenshot8.png" alt="alt text" />
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `GA4_property_id` | string | Yes | Your GA4 Property ID. See [Common Input Fields](#common-input-fields). |
+| **Body (Batch Report Request Payload)** | object | Yes | A JSON object containing a `requests` array. Each element in the `requests` array is a standard report request object (similar to the body of the "Run Report" component, defining `dateRanges`, `dimensions`, `metrics`, etc., for each individual report).<br/>*(Refer to Google Analytics Data API `batchRunReports` method documentation for the full request body schema.)* |
 
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+<Image src="/img/google_analytics/screenshot7.png" alt="Illustrative screenshot of Batch Run Reports body configuration" />
+_Image: Configuring the batch report request body with multiple report definitions._
 
-### Outputs
+<Image src="/img/google_analytics/screenshot8.png" alt="Illustrative screenshot of GA4_property_id input for batch reports" />
+_Image: Specifying the GA4_property_id for batch reports._
 
-The component provides detailed analytical output upon execution:
+> **Note:** You can extend this list by adding new inputs with the `+` button in the `Inputs` section.
 
-- **Response**: Detailed API response containing multiple report data.
-- **Headers**: HTTP headers from `Google Analytics` that contextualize the response.
-- **reports**: An array of report objects, each containing specific analytics data.
+**Outputs:**
 
-<Image src="/img/google_analytics/screenshot9.png" alt="alt text" />
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response` | object | Full API response. See [Common Output Fields](#common-output-fields). |
+| `Headers` | object | HTTP headers. See [Common Output Fields](#common-output-fields). |
+| `reports` | array | An array of report objects. Each object in this array corresponds to one of the requested reports and contains its own `dimensionHeaders`, `metricHeaders`, `rows`, `rowCount`, etc. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Image src="/img/google_analytics/screenshot9.png" alt="Illustrative screenshot of Batch Run Reports outputs" />
+_Image: Example outputs from the Batch Run Reports component, showing an array of reports._
+
+> **Note:** You can add new outputs by clicking on the `+` button in the `Outputs` section.
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Understand GA4 Quotas:** Be aware of Google Analytics Data API quotas (tokens per project per hour, concurrent requests, etc.). Design agents to be efficient. Use batch requests where appropriate.
+* **Specific Dimensions & Metrics:** Request only the dimensions and metrics you need for each report to improve performance and stay within quota limits.
+* **Filtering:** Utilize `dimensionFilter` and `metricFilter` in your report requests to narrow down results and retrieve more relevant data.
+* **Date Ranges:** Use relative date ranges like `"7daysAgo"`, `"yesterday"`, `"today"` where possible for dynamic reporting.
+* **Error Handling:** Parse the `Response` object for any errors returned by the API. Implement retry logic or notifications in your agents for failed API calls.
+* **Real-Time vs. Standard Reports:** Use real-time reports for immediate insights into current activity. For historical analysis and trends, use standard reports.
+* **Data Interpretation:** Familiarize yourself with GA4's data model, dimensions, and metrics to correctly interpret the report data.
+* **Incremental Data Fetching:** For large datasets or ongoing monitoring, explore strategies for fetching data incrementally if supported by API features (e.g., using date ranges to avoid re-fetching all data).
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Authentication Errors (`invalid_client`, `redirect_uri_mismatch`, `invalid_grant`):**
+    * *Cause:* Incorrect `Client ID`/`Secret`, misconfigured redirect URI, or issues with user consent/refresh tokens.
+    * *Solution:* Verify credentials and redirect URI (`https://app.smythos.com/oauth/google/callback`) in Google Cloud Console. Ensure the user has granted necessary permissions. You may need to re-authenticate in SmythOS.
+* **Permission Denied / `403 Forbidden` Errors (e.g., "User does not have sufficient permissions for this property"):**
+    * *Cause:* The authenticated Google account lacks access to the specified `GA4_property_id`, or the OAuth token doesn't have the required scopes (e.g., `analytics.readonly`).
+    * *Solution:* Confirm the user has access to the GA4 property in the Google Analytics interface. Check and update OAuth scopes in Google Cloud Console and re-authenticate.
+* **Invalid Argument / `400 Bad Request` (e.g., "Invalid GaxProperty Id Format", "Invalid dimension name"):**
+    * *Cause:* Incorrectly formatted `GA4_property_id` (should be `properties/YOUR_ID`), invalid dimension/metric names in the request body, or malformed request syntax.
+    * *Solution:* Double-check the `GA4_property_id` format. Verify all dimension and metric names against the GA4 API documentation. Validate the JSON structure of your request body.
+* **Quota Exceeded / `429 Resource Exhausted` Errors:**
+    * *Cause:* Making too many API requests in a short period.
+    * *Solution:* Optimize report requests (request less data if possible). Use "Batch Run Reports" for multiple reports. Implement delays or exponential backoff in your agents if making frequent calls. Check your project's quota in Google Cloud Console.
+* **No Data Returned (`rowCount` is 0 or `rows` is empty):**
+    * *Cause:* The GA4 property might not have data for the specified dimensions, metrics, and date range. Filters might be too restrictive.
+    * *Solution:* Verify data exists in the GA4 interface for the query. Widen date ranges or simplify dimensions/metrics for testing. Check filter logic.
+
+<InfoCallout>
+  For persistent issues, examine the full `Response` object from the component for detailed error messages from the Google Analytics API. The SmythOS support team is also available to assist. [Link to SmythOS Support Page]
+</InfoCallout>
+
+<Divider />
+
+## You've Connected Google Analytics! What's Next?
+
+With SmythOS integrated with Google Analytics, you can unlock powerful automations:
+
+* **Build an Agent That...**
+    * Sends a daily performance snapshot (key metrics from "Run Report") to a Slack channel or email.
+    * Monitors real-time active users ("Run Real-Time Report") on a new product page and alerts the marketing team if numbers are unexpectedly low.
+    * Generates a comprehensive monthly analytics dashboard by fetching multiple reports using "Batch Run Reports" and storing the data in a Google Sheet or database.
+* **Enhance Your Workflows:**
+    * Correlate website conversion data from GA4 with sales data from your CRM (via another SmythOS integration) to analyze marketing ROI.
+    * Trigger personalized follow-up actions based on user behavior tracked in GA4 (e.g., if a user visits a pricing page multiple times but doesn't convert).
+    * Use GA4 data to A/B test different agent interaction flows or content presentations.
+
+Happy Automating with Data!

@@ -1,237 +1,372 @@
+---
+title: Google Calendar Integration with SmythOS
+description: Seamlessly connect Google Calendar with SmythOS to automate event creation, retrieve event details, and manage your calendar directly within your agent workflows.
+og:title: SmythOS & Google Calendar - Master Your Schedule with Automation
+og:description: Learn how to integrate Google Calendar with SmythOS. Use components to create, get, list, and update calendar events through your agents.
+og:image: /img/integrations/smythos_google_calendar.png # Replace with actual image path
+keywords: [Google Calendar SmythOS Integration, Connect Google Calendar to SmythOS, SmythOS Google Calendar Component, Automate Google Calendar, SmythOS Calendar Automation]
+primaryKeyword: Google Calendar SmythOS Integration
+---
+# Integrating Google Calendar with SmythOS
 
-# Google Calendar Integration
+> **TL;DR:** Connect SmythOS to Google Calendar to let your agents manage your schedule, create events based on triggers, and keep your calendar in sync with your automated workflows. Say goodbye to manual calendar entries for system-driven events!
 
-`Google Calendar` is a widely-used scheduling and time-management tool that helps individuals and organizations organize their appointments, meetings, and daily activities efficiently. Its integration into `SmythOS` provides seamless synchronization of events and schedules across different platforms, enhancing productivity and ensuring consistent communication.
+**Quick Links:**
+* [Why Connect Google Calendar?](#why-connect-google-calendar-with-smythos)
+* [Prerequisites](#prerequisites-what-youll-need)
+* [Step 1: Setting Up the Integration](#step-1-setting-up-the-google-calendar-integration-in-smythos)
+* [Components Overview](#exploring-the-google-calendar-integration-components)
+* [Understanding Common Fields](#understanding-common-component-fields)
+* [Detailed Component Guides](#detailed-component-guides)
+* [Best Practices & Advanced Tips](#best-practices--advanced-tips)
+* [Troubleshooting](#troubleshooting-common-issues)
+* [What's Next?](#youve-connected-google-calendar-whats-next)
 
-By incorporating `Google Calendar`, `SmythOS` ensures users can easily connect their calendars, view upcoming events, and even automate event creation based on system actions, providing a holistic and unified approach to time management within the ecosystem.
+<Divider />
 
-## Google OAuth Setup
+## Why Connect Google Calendar with SmythOS?
 
-For a visual step-by-step guide, watch the video below:
+Google Calendar is a cornerstone for managing time, scheduling meetings, and tracking important dates. By integrating it with SmythOS, you transform your calendar from a passive scheduling tool into an active, automated participant in your workflows.
 
-  <Image src="/img/google_calendar/screenshot1.png" alt="alt text" /> 
+Here’s how the **SmythOS Google Calendar integration** can streamline your operations:
+
+* **Automate Event Creation:** Imagine an agent automatically scheduling a follow-up meeting in Google Calendar after a customer support ticket is resolved, or creating a project deadline event when a new project is initiated in another system.
+* **Keep Systems in Sync:** Agents can read your Google Calendar to check for availability before scheduling resources or triggering actions, preventing conflicts.
+* **Enhance Productivity:** Reduce the manual effort of switching between applications to manage your schedule. Let SmythOS agents handle calendar updates based on events and triggers within your ecosystem.
+* **Centralize Time Management:** Use SmythOS as a hub to orchestrate actions that have time-sensitive components, reflecting these directly in the calendars of relevant team members.
+
+This integration allows your agents to intelligently interact with Google Calendar, ensuring your schedule accurately reflects automated processes and that your team stays informed and organized.
+
+<Divider />
+
+## Prerequisites: What You'll Need
+
+Before you get started, please have the following ready:
+
+<InfoCallout>
+  **Your Quick Setup Checklist:**
+</InfoCallout>
+
+* An active **SmythOS account**. (New here? [Sign up and get started!](https://app.smythos.com/signup))
+* A **Google Account** with access to Google Calendar.
+* You'll need to generate OAuth 2.0 credentials (`Client ID` and `Client Secret`) from the Google Cloud Console. We'll guide you through this in the setup steps below.
+* The ability to configure an OAuth consent screen in the Google Cloud Console.
+
+<Divider />
+
+## Step 1: Setting Up the Google Calendar Integration in SmythOS
+
+Connecting Google Calendar involves a one-time setup to authorize SmythOS to access your calendar data securely using OAuth 2.0. This involves getting credentials from Google and then authenticating within SmythOS.
+
+<InfoCallout>
+  The following steps guide you through creating Google OAuth credentials and connecting to SmythOS. For a visual walkthrough, ensure you have access to any video guides provided by your team.
+  _Placeholder: [Link to or embed your Google OAuth Setup Video Guide here]_
+</InfoCallout>
+
+### Part A: Obtaining Your `Client ID` and `Client Secret` from Google
+
+1.  **Go to the Google Cloud Console:**
+    * Navigate to [https://console.cloud.google.com/](https://console.cloud.google.com/).
+    * Sign in with the Google account associated with the calendar you want to integrate.
+    * Create a new project or select an existing one.
+
+2.  **Enable the Google Calendar API:**
+    * In the Google Cloud Console, use the search bar or navigate to "APIs & Services" > "Library."
+    * Search for "Google Calendar API" and select it.
+    * Click `Enable` to activate the API for your project.
+
+3.  **Configure the OAuth Consent Screen:**
+    * Go to "APIs & Services" > "OAuth consent screen."
+    * Choose the "User Type" (likely "External" if users outside your Google Workspace org will authenticate, or "Internal" if it's only for users within your org). Click `Create`.
+    * Fill in the required information:
+        * **App name:** Something descriptive, like "SmythOS Calendar Integration."
+        * **User support email:** Your email address.
+        * **App logo (optional):** Add your logo if desired.
+        * **Developer contact information:** Your email address.
+    * Click `Save and Continue`.
+    * **Scopes:** Click `Add or Remove Scopes`. Search for and add the necessary Google Calendar API scopes. Typically, you'll need scopes like:
+        * `.../auth/calendar` (Manage primary calendar and other calendars you have access to)
+        * `.../auth/calendar.events` (View and edit events on all your calendars)
+        * *(Consult Google's documentation for the minimal necessary scopes for the actions you intend to perform.)*
+    * Click `Update`, then `Save and Continue`.
+    * **Test users (if External):** Add email addresses of users who will test the integration during development. Click `Save and Continue`.
+    * Review the summary and click `Back to Dashboard` or `Publish App` (if ready, though for internal use, "testing" mode is often fine).
+
+4.  **Create OAuth 2.0 Credentials:**
+    * Navigate to "APIs & Services" > "Credentials."
+    * Click `+ Create Credentials` and select `OAuth client ID`.
+    * For "Application type," select `Web application`.
+    * Give it a name (e.g., "SmythOS Calendar Web Client").
+    * Under "Authorized redirect URIs," click `+ Add URI` and enter:
+        `https://app.smythos.com/oauth/google/callback`
+        *(This is a crucial step. Ensure this URL is exactly as provided by SmythOS.)*
+    * Click `Create`.
+
+5.  **Note Your Credentials:**
+    * A pop-up will display your **`Client ID`** and **`Client Secret`**.
+    * **Copy these values immediately and store them securely.** You will need them to configure the integration in SmythOS.
+    <WarningCallout>
+        Treat your `Client ID` and `Client Secret` like passwords. Do not share them publicly. SmythOS provides a `Vault` feature for securely storing such sensitive credentials. [Learn more about SmythOS Vault here.](https://app.smythos.com/doc/#/vault/keysManagement)
+    </WarningCallout>
+
+### Part B: Authenticating in SmythOS
+
+1.  **Navigate to SmythOS Integrations:** Go to the "Integrations" section in your SmythOS dashboard.
+2.  **Add Google Calendar Integration:** Find and add the "Google Calendar" integration.
+3.  **Enter Credentials:** You will be prompted to enter the `Client ID` and `Client Secret` you obtained from the Google Cloud Console.
+4.  **Authenticate:** Click the `Authenticate` button in SmythOS.
+    * You'll be redirected to Google's sign-in and consent screen.
+    * Choose the Google account you want to connect.
+    * Review the permissions SmythOS is requesting (based on the scopes you configured) and click `Allow`.
+5.  **Connection Complete!** You should be redirected back to SmythOS, and the Google Calendar integration will now show as connected.
+
+<Divider />
+
+## Exploring the Google Calendar Integration Components
+
+Once your Google Calendar is connected to SmythOS, you can use the following components in your agent workflows to manage your schedule:
+
+* **[Create Event](#component-create-event):** Adds a new event to a specified calendar.
+* **[Get Event](#component-get-event):** Retrieves detailed information about a specific event.
+* **[List Events](#component-list-events):** Fetches a list of events from a calendar.
+* **[Patch Update Event](#component-patch-update-event):** Modifies specific details of an existing event.
+
+<InfoCallout>
+  The OAuth setup you completed in Step 1 handles the authentication for all these components. You won't need to re-enter Client IDs or Secrets for each one.
+</InfoCallout>
+
+<Divider />
+
+## Understanding Common Component Fields
+
+To streamline component descriptions, this section defines fields commonly used across Google Calendar components. Refer back to these definitions when reviewing individual component details. Always check the "Required" column in each component's specific table.
+
+### Common Input Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `calendarId` | string | The identifier of the calendar. Use `primary` for the authenticated user's primary calendar, or the calendar's email address-like ID for other calendars (requires appropriate access). Default is often `primary`. |
+| `eventId` | string | The unique identifier of a specific event. Typically obtained from "Create Event" or "List Events" outputs. |
+
+### Common Output Fields (Event Object Structure)
+
+Many components return or operate on an "Event Object." Key fields within this object typically include:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique identifier of the event. |
+| `status` | string | The status of the event (e.g., `confirmed`, `tentative`, `cancelled`). |
+| `htmlLink` | string | A direct link to view the event in the Google Calendar web interface. |
+| `iCalUID` | string | The iCalendar Unique ID for the event. |
+| `summary` | string | The title or summary of the event. |
+| `description` | string | A more detailed description of the event. |
+| `start` | object | An object specifying the start date/time (e.g., `{ "dateTime": "YYYY-MM-DDTHH:mm:ssZ", "timeZone": "TZ" }` or `{ "date": "YYYY-MM-DD" }`). |
+| `end` | object | An object specifying the end date/time (similar structure to `start`). |
+| `attendees` | array | An array of attendee objects (e.g., `[{ "email": "user@example.com" }]`). |
+| `location` | string | The location of the event. |
+
+### General Output Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response` | object | The full, raw response object returned directly by the Google Calendar API. Useful for advanced troubleshooting or accessing details not explicitly exposed. |
+| `Headers` | object | The HTTP headers associated with the API response. |
+
+<Divider />
+
+## Detailed Component Guides
+
+This section provides detailed information for each Google Calendar component.
+## <a name="component-create-event"></a>Create Event — Add New Calendar Entry
+
+Adds a new event to a specified calendar. Supports both timed and all-day events, attendee invitations, and event metadata.
+
+<InfoCallout>
+Use this when you want your agent to automate scheduling, like setting reminders, creating meetings, or logging key dates.
+</InfoCallout>
 
 ### Inputs
-
-Configure the inputs accurately to create and manage events:
-
-- **calendarId (`required<string>`)**: This parameter specifies the calendar ID within which the event will be created. Ensure this ID is linked to the user account authenticated via OAuth credentials. The default value for is `primary`.
-
-<Image src="/img/google_calendar/screenshot2.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `calendarId` | <Badge type="required" /> | Use `primary` for the authenticated user’s main calendar or provide the calendar ID. |
+| `summary` | <Badge type="required" /> | Event title. |
+| `description` | <Badge type="optional" /> | Full description of the event. |
+| `start` | <Badge type="required" /> | Object for start time (use `dateTime` or `date`). Must include timeZone if `dateTime`. |
+| `end` | <Badge type="required" /> | Same format as `start`. |
+| `attendees` | <Badge type="optional" /> | Array of objects: `[{"email": "user@example.com"}]`. |
+| `location` | <Badge type="optional" /> | Where the event takes place. |
 
 ### Outputs
+| Field | Description |
+|-------|-------------|
+| `id` | Event ID for future reference. |
+| `htmlLink` | URL to view the event in calendar. |
+| `summary`, `description`, `start`, `end`, etc. | Event fields as stored. |
+| `response` | Full API payload. |
+| `headers` | HTTP headers. |
 
-The endpoint outputs detailed information after event creation, which is useful for further processing and analysis:
+```json
+{
+  "component": "calendar.createEvent",
+  "calendarId": "primary",
+  "summary": "Client Demo Call",
+  "start": {"dateTime": "2025-07-12T09:00:00-07:00", "timeZone": "America/Los_Angeles"},
+  "end": {"dateTime": "2025-07-12T10:00:00-07:00", "timeZone": "America/Los_Angeles"},
+  "attendees": [{"email": "client@example.com"}]
+}
+```
 
-- **Response**: Contains the full API response including event details.
-- **Headers**: Provides the headers returned by the API call.
-- **id**: Unique identifier of the created event.
-- **status**: Status of the event after creation (e.g., confirmed).
-- **htmlLink**: Direct link to the event in Google Calendar.
-- **iCalUID**: Universal ID for iCalendar format.
+<Divider/>
 
-<Image src="/img/google_calendar/screenshot3.png" alt="alt text" />
+## <a name="component-get-event"></a>Get Event — Fetch Details
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+Retrieves a specific event by its ID from a given calendar.
 
-## Get Event
-
-This component retrieves detailed information about an event based on its `Google Calendar` ID.
-
-### Settings
-
-#### Client ID & Client Secret
-
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
-
-To effectively integrate `Google Calendar` with `SmythOS`, acquiring secure credentials such as `Client ID` and `Client Secret` is essential. Below is a comprehensive guide on obtaining these credentials:
-
-1. **Visit the Google Developers Console**:
-   - Go to the [Google Developers Console](https://console.developers.google.com/).
-   - Either start a new project or choose an existing one that suits your requirements.
-
-2. **Enable the Google Calendar API**:
-   - In the Developers Console, head over to the `Library` section.
-   - Search for the `Google Calendar API` and enable it for your chosen project.
-
-3. **Configure the OAuth Consent Screen**:
-   - Fill out the necessary information on the consent screen settings, including your application's name, email, and the scopes needed for operation.
-
-4. **Create Credentials**:
-   - Navigate to the `Credentials` tab.
-   - Select `Create credentials` and then opt for `OAuth client ID`.
-   - Specify the type of application, add required redirect URIs, and ensure to configure the credential details properly.
-   - Crucially, set the callback URL as `https://app.smythos.com/oauth/google/callback` to facilitate correct redirection after authentication.
-
-5. **Retrieve Client ID and Client Secret**:
-   - Post the setup of your OAuth client ID, you will receive your `Client ID` and `Client Secret`, which are crucial for the next steps.
-
-6. **Enter and Authenticate**:
-   - In the SmythOS settings for the component, enter the retrieved `Client ID` and `Client Secret`.
-   - Click on the `Authenticate` button to initiate and secure a connection, enabling you to synchronize and manage your Google Calendar within SmythOS.
-
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/google_calendar/screenshot4.png" alt="alt text" /> 
+<InfoCallout>
+Great for previewing event details before an update, or confirming time/location for workflows.
+</InfoCallout>
 
 ### Inputs
-
-Provide accurate inputs to retrieve event details:
-
-- **calendarId (`optional<string>`)**: Specifies the calendar ID to look for the event. The default is set to `primary` if not specified.
-- **eventId (`required<string>`)**: The unique identifier for the event you want to retrieve.
-
-<Image src="/img/google_calendar/screenshot5.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `calendarId` | <Badge type="required" /> | Calendar identifier. Default: `primary`. |
+| `eventId` | <Badge type="required" /> | ID of the event to retrieve. |
 
 ### Outputs
+| Field | Description |
+|-------|-------------|
+| `summary`, `description`, `start`, `end`, etc. | Standard event fields. |
+| `response` | Raw event object. |
+| `headers` | HTTP headers. |
 
-The response provides detailed information after fetching the event:
+<Divider/>
 
-- **Response**: Full API response including all event details.
-- **Headers**: Headers returned by the API call.
-- **summary**: Summary or title of the event.
-- **description**: Description of the event.
-- **htmlLink**: Direct URL to view the event in `Google Calendar`.
-- **iCalUID**: Universal identifier in iCalendar format, useful for syncing across calendar services. 
+## <a name="component-list-events"></a>List Events — Calendar Scan
 
-<Image src="/img/google_calendar/screenshot6.png" alt="alt text" />
+Returns a list of upcoming or past events within a specified date range.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## List Events
-
-This component retrieves a list of events from a specified `Google Calendar` via `SmythOS`.
-
-### Settings
-
-#### Client ID & Client Secret
-
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
-
-To effectively integrate `Google Calendar` with `SmythOS`, acquiring secure credentials such as `Client ID` and `Client Secret` is essential. Below is a comprehensive guide on obtaining these credentials:
-
-1. **Visit the Google Developers Console**:
-   - Go to the [Google Developers Console](https://console.developers.google.com/).
-   - Either start a new project or choose an existing one that suits your requirements.
-
-2. **Enable the Google Calendar API**:
-   - In the Developers Console, head over to the `Library` section.
-   - Search for the `Google Calendar API` and enable it for your chosen project.
-
-3. **Configure the OAuth Consent Screen**:
-   - Fill out the necessary information on the consent screen settings, including your application's name, email, and the scopes needed for operation.
-
-4. **Create Credentials**:
-   - Navigate to the `Credentials` tab.
-   - Select `Create credentials` and then opt for `OAuth client ID`.
-   - Specify the type of application, add required redirect URIs, and ensure to configure the credential details properly.
-   - Crucially, set the callback URL as `https://app.smythos.com/oauth/google/callback` to facilitate correct redirection after authentication.
-
-5. **Retrieve Client ID and Client Secret**:
-   - Post the setup of your OAuth client ID, you will receive your `Client ID` and `Client Secret`, which are crucial for the next steps.
-
-6. **Enter and Authenticate**:
-   - In the SmythOS settings for the component, enter the retrieved `Client ID` and `Client Secret`.
-   - Click on the `Authenticate` button to initiate and secure a connection, enabling you to synchronize and manage your Google Calendar within SmythOS.
-
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/google_calendar/screenshot7.png" alt="alt text" /> 
+<InfoCallout>
+Useful for summarising daily/weekly meetings, syncing with Slack/email, or scheduling decisions.
+</InfoCallout>
 
 ### Inputs
-
-Accurately provide inputs to fetch the desired event details:
-
-- **calendarId (`required<string>`)**: The calendar ID from which to retrieve events. The default is `primary` if not specified.
-
-<Image src="/img/google_calendar/screenshot8.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `calendarId` | <Badge type="required" /> | Calendar to query. Default: `primary`. |
+| `timeMin` | <Badge type="optional" /> | Start of search window. RFC3339 format. |
+| `timeMax` | <Badge type="optional" /> | End of search window. |
+| `q` | <Badge type="optional" /> | Keyword search filter. |
+| `maxResults` | <Badge type="optional" /> | Number of results to return. |
+| `orderBy` | <Badge type="optional" /> | Use `startTime` for chronological sort. |
 
 ### Outputs
+| Field | Description |
+|-------|-------------|
+| `items` | Array of event objects. |
+| `response` | Full API response. |
+| `headers` | HTTP headers. |
 
-Upon querying, the endpoint delivers detailed response information:
+<Divider/>
 
-- **Response**: The full API response with a list of events.
-- **Headers**: The HTTP headers returned by the `Google Calendar` API.
-- **items**: List of events returned.
-- **nextSyncToken**: Token used to sync future requests.
-- **timezone**: The time zone set for the returned events.
-- **summary**: A summary or title for each event.
+## <a name="component-patch-update-event"></a>Patch Update Event — Modify an Event
 
-<Image src="/img/google_calendar/screenshot9.png" alt="alt text" />
+Partially update an existing event’s data, such as title, description, or time.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Patch Update Event
-
-This component allows you to selectively update specific attributes of an existing event in `Google Calendar` through `SmythOS`.
-
-### Settings
-
-#### Client ID & Client Secret
-
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
-
-To effectively integrate `Google Calendar` with `SmythOS`, acquiring secure credentials such as `Client ID` and `Client Secret` is essential. Below is a comprehensive guide on obtaining these credentials:
-
-1. **Visit the Google Developers Console**:
-   - Go to the [Google Developers Console](https://console.developers.google.com/).
-   - Either start a new project or choose an existing one that suits your requirements.
-
-2. **Enable the Google Calendar API**:
-   - In the Developers Console, head over to the `Library` section.
-   - Search for the `Google Calendar API` and enable it for your chosen project.
-
-3. **Configure the OAuth Consent Screen**:
-   - Fill out the necessary information on the consent screen settings, including your application's name, email, and the scopes needed for operation.
-
-4. **Create Credentials**:
-   - Navigate to the `Credentials` tab.
-   - Select `Create credentials` and then opt for `OAuth client ID`.
-   - Specify the type of application, add required redirect URIs, and ensure to configure the credential details properly.
-   - Crucially, set the callback URL as `https://app.smythos.com/oauth/google/callback` to facilitate correct redirection after authentication.
-
-5. **Retrieve Client ID and Client Secret**:
-   - Post the setup of your OAuth client ID, you will receive your `Client ID` and `Client Secret`, which are crucial for the next steps.
-
-6. **Enter and Authenticate**:
-   - In the SmythOS settings for the component, enter the retrieved `Client ID` and `Client Secret`.
-   - Click on the `Authenticate` button to initiate and secure a connection, enabling you to synchronize and manage your Google Calendar within SmythOS.
-
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-This area houses the payload to update the event. It comes with a sample schema of the data structure which can be customized as needed.
-
-<Image src="/img/google_calendar/screenshot10.png" alt="alt text" /> 
+<InfoCallout>
+Prefer this over full overwrite to keep other event properties intact.
+</InfoCallout>
 
 ### Inputs
-
-Ensure to provide the following inputs accurately for event modification:
-
-- **calendarId (`required<string>`)**: Specifies the calendar in which the event resides. Defaults to `primary` if not explicitly mentioned.
-- **eventId (`required<string>`)**: The unique identifier of the event you wish to update.
-
-<Image src="/img/google_calendar/screenshot11.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+| Field | Required | Notes |
+|-------|----------|-------|
+| `calendarId` | <Badge type="required" /> | Target calendar. |
+| `eventId` | <Badge type="required" /> | Event to modify. |
+| Body (JSON) | <Badge type="required" /> | Fields to update. E.g., `{ "summary": "New Title" }`. |
 
 ### Outputs
+| Field | Description |
+|-------|-------------|
+| `summary`, `start`, `end`, etc. | Updated fields. |
+| `response` | Raw updated object. |
+| `headers` | HTTP headers. |
 
-The server response upon a successful update contains detailed information:
+```json
+{
+  "component": "calendar.patchUpdateEvent",
+  "calendarId": "primary",
+  "eventId": "abcd12345",
+  "body": {
+    "location": "Zoom Meeting Room",
+    "description": "Updated with Zoom link"
+  }
+}
+```
 
-- **Response**: The complete API response.
-- **Headers**: The returned HTTP headers from the `Google Calendar` API.
-- **htmlLink**: Direct link to view the updated event in the browser.
-- **iCalUID**: Universal identifier for the event in iCalendar format.
-- **summary**: Summary or title of the updated event.
+<WarningCallout title="Troubleshooting">
+404? Double-check the `eventId`. 
+403? Ensure your calendar permissions and OAuth scopes are correct.
+</WarningCallout>
 
-<Image src="/img/google_calendar/screenshot12.png" alt="alt text" />
+<Divider/>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+## Best Practices & Advanced Tips
+
+* **Minimal Scopes:** During OAuth setup, only request the scopes your agents absolutely need to minimize security exposure.
+* **Use `primary` for User's Calendar:** For operations on the authenticated user's main calendar, `primary` is the standard `calendarId`.
+* **Time Zones:** Be explicit with time zones in `start` and `end` objects for events to avoid ambiguity, especially when dealing with users or calendars in different time zones.
+* **Error Handling:** Check component outputs for errors. The `Response` object often contains detailed error messages from Google.
+* **Idempotency:** When creating events, consider how to avoid duplicates if an agent run is retried. You might store created `eventId`s or use `iCalUID` for checks if appropriate.
+* **`singleEvents=true` for Listing:** When listing events for a date range (e.g., "today's events"), using `singleEvents=true` is often helpful as it expands recurring events into individual instances.
+* **Patch vs. Update:** Prefer "Patch Update Event" for modifying existing events as it only changes specified fields, reducing the risk of unintentionally overwriting other details. A full "Update Event" (if available as a separate component) would replace the entire event resource.
+* **Rate Limiting:** Be mindful of Google Calendar API rate limits. For high-volume operations, implement appropriate delays or batching if possible.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+If you encounter issues with the **Google Calendar SmythOS Integration**, here are some common troubleshooting steps:
+
+* **Authentication Errors (e.g., `invalid_client`, `redirect_uri_mismatch`):**
+    * *Cause:* Incorrect `Client ID`, `Client Secret`, or misconfigured "Authorized redirect URIs" in the Google Cloud Console.
+    * *Solution:* Double-check that the `Client ID` and `Client Secret` entered in SmythOS exactly match those from your Google Cloud Console project. Ensure the "Authorized redirect URI" in Google Cloud Console is precisely `https://app.smythos.com/oauth/google/callback`.
+
+* **Permission Denied / `403 Forbidden` Errors when using components:**
+    * *Cause:* The authenticated user may not have sufficient permissions for the target calendar, or the necessary API scopes were not requested/granted during the OAuth consent screen setup.
+    * *Solution:*
+        1.  Verify the Google account authenticated with SmythOS has appropriate access (e.g., edit rights) to the `calendarId` being used.
+        2.  Review the "OAuth consent screen" configuration in your Google Cloud Console project. Ensure all required scopes (like `.../auth/calendar.events` or `.../auth/calendar`) are added. You might need to re-authenticate in SmythOS after updating scopes.
+
+* **Event Not Found / `404 Not Found` Errors (for "Get Event" or "Patch Update Event"):**
+    * *Cause:* The `eventId` is incorrect, or the event does not exist in the specified `calendarId`.
+    * *Solution:* Verify that the `eventId` is correct and that the event belongs to the calendar identified by `calendarId`.
+
+* **Incorrect `calendarId`:**
+    * *Cause:* Using an invalid calendar ID.
+    * *Solution:* Remember `primary` refers to the authenticated user's main calendar. For other calendars, you typically use the calendar's email address-like ID. Ensure the authenticated user has access to this calendar.
+
+* **Invalid Date/Time Format:**
+    * *Cause:* The `start` or `end` date/time objects are not in the correct RFC3339 format.
+    * *Solution:* Ensure dateTime strings are like `YYYY-MM-DDTHH:mm:ssZ` or `YYYY-MM-DDTHH:mm:ss±HH:mm`. For all-day events, date strings should be `YYYY-MM-DD`.
+
+<InfoCallout>
+  For persistent issues, consult the detailed `Response` output from the component, which often contains specific error messages from the Google Calendar API. The SmythOS support team is also available to assist. [Link to SmythOS Support Page]
+</InfoCallout>
+
+<Divider />
+
+## You've Connected Google Calendar! What's Next?
+
+Fantastic! You've successfully set up the **SmythOS Google Calendar integration** and learned about its components. Your agents are now ready to help you manage your schedule more effectively.
+
+Here are some ideas to inspire your next automation:
+
+* **Build an Agent That...**
+    * Monitors a project management tool for new tasks with due dates and automatically creates corresponding events in a shared team calendar using "Create Event."
+    * Allows users to request meetings via a SmythOS-powered chatbot, which then checks availability in relevant calendars ("List Events") and proposes meeting times before creating an event.
+    * Sends a daily summary of upcoming Google Calendar events ("List Events") to a Slack channel.
+* **Enhance Your Workflows:**
+    * Combine Google Calendar components with [SmythOS Email Integration](link-to-email-integration-doc) to send custom event invitations or reminders.
+    * Use data from [SmythOS Database Connectors](link-to-database-integration-docs) to populate event details dynamically for "Create Event."
+    * Update event descriptions ("Patch Update Event") with meeting notes or links after a meeting concludes.
+
+Happy Automating!

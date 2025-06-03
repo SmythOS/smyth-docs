@@ -57,7 +57,22 @@ Constraints:
 
 ## Good vs Poor Prompts (Kyoto Edition)
 
-<PromptCard prompt={`Goal: Draft a 600-word travel article about Kyoto.\n\nSkills:\n1. Research attractions and local cuisine\n2. Generate SEO-friendly title and slug\n3. Produce Markdown article\n4. Extract five focus keywords\n\nConstraints:\n- Formal tone\n- UK English`} />
+<PromptCard
+  title="Blog Prompt: Travel"
+  tags={['SEO', 'Formal tone', 'Markdown']}
+  collapsible
+  prompt={`Goal: Draft a 600-word travel article about Kyoto.
+
+Skills:
+1. Research attractions and local cuisine
+2. Generate SEO-friendly title and slug
+3. Produce Markdown article
+4. Extract five focus keywords
+
+Constraints:
+– Formal tone
+– UK English`}
+/>
 
 <PromptCard prompt={`Write something about Kyoto. Make it good for SEO.`} />
 
@@ -116,7 +131,7 @@ Constraints:
 
 1. **Locate the misbehaving component** (red border).
 2. Click on the component and ask Weaver to fix it and *explain what changed* (or click Fix with AI button on the componenet):
-   \<PromptCard prompt={`Output missed the bullet list. Ensure summary is bullet-pointed.`} />
+   <PromptCard prompt={`Output missed the bullet list. Ensure summary is bullet-pointed.`} />
 3. Re-run just that block with debug mode enabled and step through it, not the whole agent.
 4. Rinse, repeat, ship.
 

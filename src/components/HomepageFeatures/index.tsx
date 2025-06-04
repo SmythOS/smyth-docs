@@ -1,7 +1,6 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
-import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
@@ -44,11 +43,11 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, Svg, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+    <div className={clsx('col col--4', 'homepage-feature')}>
+      <div className="feature-svg">
+        <Svg role="img" />
       </div>
-      <div className="text--center padding-horiz--md">
+      <div className="feature-content">
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
       </div>
@@ -58,14 +57,38 @@ function Feature({title, Svg, description}: FeatureItem) {
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+    <>
+      <section className="homepage-features">
+        <div className="container">
+          <div className="row">
+            {FeatureList.map((props, idx) => (
+              <Feature key={idx} {...props} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <style>{`
+        .homepage-features {
+          display: flex;
+          align-items: center;
+          padding: 2rem 0;
+          width: 100%;
+      }
+
+      .feature-svg {
+        text-align: center;
+      }
+
+      .feature-svg svg {
+        height: 200px;
+        width: 200px;
+      }
+
+        .feature-content {
+          text-align: center;
+          padding: 0 1rem;
+        }
+      `}</style>
+    </>
   );
 }

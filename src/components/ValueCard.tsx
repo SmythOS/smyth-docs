@@ -12,27 +12,31 @@ const ValueCard: React.FC<ValueCardProps> = ({
   highlightColor = '#3efcc2', // YHellow -> #ffff00
 }) => {
   return (
-    <div
-      style={{
-        padding: '1rem',
-        margin: '0.5rem 0',
-        fontFamily: 'sans-serif',
-      }}
-    >
-      <h3
-        style={{
-          fontWeight: 'bold',
-          display: 'inline',
-          backgroundColor: highlightColor,
-          padding: '0 0.25rem',
-          borderRadius: '4px',
-        }}
-      >
+    <div className="value-card">
+      <h3 style={{ backgroundColor: highlightColor }}>
         {title}
       </h3>
-      <p style={{ marginTop: '0.75rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
-        {description}
-      </p>
+      <p>{description}</p>
+      <style>{`
+        .value-card {
+          padding: 1rem;
+          margin: 0.5rem 0;
+          font-family: sans-serif;
+        }
+
+        .value-card h3 {
+          font-weight: bold;
+          display: inline;
+          padding: 0 0.25rem;
+          border-radius: 4px;
+        }
+
+        .value-card p {
+          margin-top: 0.75rem;
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+      `}</style>
     </div>
   );
 };

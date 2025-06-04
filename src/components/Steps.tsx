@@ -2,10 +2,30 @@ import React, { ReactNode } from 'react';
 
 export default function Steps({ children }: { children: ReactNode }) {
   return (
-    <ol className="ml-6 list-decimal space-y-3 text-base text-gray-800 dark:text-gray-200">
+    <ol className="steps-list">
       {React.Children.map(children, (child) => (
-        <li className="[&>*]:pl-1">{child}</li>
+        <li className="steps-item">{child}</li>
       ))}
+      <style>{`
+        .steps-list {
+          margin-left: 1.5rem;
+          list-style: decimal;
+          font-size: 1rem;
+          color: #1f2937;
+        }
+
+        .steps-item > * {
+          padding-left: 0.25rem;
+        }
+
+        .steps-item {
+          margin-bottom: 0.75rem;
+        }
+
+        :root[data-theme='dark'] .steps-list {
+          color: #e2e8f0;
+        }
+      `}</style>
     </ol>
   );
 }

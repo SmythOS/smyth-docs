@@ -21,24 +21,30 @@ const bgMap: Record<string, string> = {
 };
 
 export default function Badge({ type = 'default', children }: Props) {
-  const color = colorMap[type.toLowerCase()] || colorMap.default;
-  const background = bgMap[type.toLowerCase()] || bgMap.default;
-
+  const badgeType = type.toLowerCase();
   return (
-    <span
-      style={{
-        backgroundColor: background,
-        color: color,
-        borderRadius: '0.375rem',
-        padding: '2px 8px',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-        textTransform: 'uppercase',
-        display: 'inline-block',
-        lineHeight: 1.4,
-      }}
-    >
-      {children || type}
+    <span className={`badge badge-${badgeType}`}>{children || type}
+      <style>{`
+        .badge {
+          border-radius: 0.375rem;
+          padding: 2px 8px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          display: inline-block;
+          line-height: 1.4;
+        }
+
+        .badge-required { background-color: #fee2e2; color: #b91c1c; }
+        .badge-optional { background-color: #dbeafe; color: #2563eb; }
+        .badge-recommended { background-color: #d1fae5; color: #059669; }
+        .badge-default { background-color: #e5e7eb; color: #6b7280; }
+
+        :root[data-theme='dark'] .badge-required { background-color: #4c0519; color: #fecaca; }
+        :root[data-theme='dark'] .badge-optional { background-color: #1e3a8a; color: #bfdbfe; }
+        :root[data-theme='dark'] .badge-recommended { background-color: #064e3b; color: #86efac; }
+        :root[data-theme='dark'] .badge-default { background-color: #374151; color: #d1d5db; }
+      `}</style>
     </span>
   );
 }

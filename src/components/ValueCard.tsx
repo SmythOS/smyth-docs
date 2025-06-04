@@ -9,7 +9,7 @@ export interface ValueCardProps {
 const ValueCard: React.FC<ValueCardProps> = ({
   title,
   description,
-  highlightColor = '#3efcc2', // YHellow -> #ffff00
+  highlightColor = '#3efcc2', // Yellow -> #ffff00
 }) => {
   return (
     <div

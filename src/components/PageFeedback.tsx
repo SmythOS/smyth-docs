@@ -48,15 +48,7 @@ export default function PageFeedback({ pageId }: Props) {
         onClick={() => toggleVote(dir)}
         aria-label={dir === "up" ? "Helpful" : "Not helpful"}
         aria-pressed={active}
-        style={{
-          background: "#fff",
-          border: `2px solid ${active ? C.mintDark : C.border}`,
-          color: active ? C.mintDark : C.text,
-          borderRadius: 6,
-          padding: "0.35rem 0.65rem",
-          marginInlineEnd: 6,
-          cursor: "pointer",
-        }}
+        className={`feedback-btn${active ? " active" : ""}`}
       >
         <Icon size={18} strokeWidth={2} />
       </button>
@@ -64,18 +56,8 @@ export default function PageFeedback({ pageId }: Props) {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
-      <section
-        style={{
-          display: "inline-block",
-          padding: "0.8rem 1rem",
-          background: C.bg,
-          border: `1px solid ${C.border}`,
-          borderRadius: 10,
-          fontSize: "0.85rem",
-          color: C.text,
-        }}
-      >
+    <div className="feedback-wrapper">
+      <section className="feedback-section">
         <span style={{ marginRight: 10 }}>Was this page helpful?</span>
         <Btn dir="up" />
         <Btn dir="down" />
@@ -89,42 +71,79 @@ export default function PageFeedback({ pageId }: Props) {
 
         {/* follow-up textarea only for 👎 */}
         {vote === "down" && (
-          <div style={{ marginTop: 10 }}>
+          <div className="feedback-comment">
             <textarea
               ref={textareaRef}
               rows={3}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="What could be better? (optional)"
-              style={{
-                width: 260,
-                maxWidth: "100%",
-                border: `1px solid ${C.border}`,
-                borderRadius: 6,
-                padding: "0.5rem",
-                fontSize: "0.8rem",
-              }}
+              className="feedback-textarea"
             />
-            <button
-              onClick={submitComment}
-              style={{
-                marginTop: 6,
-                background: C.mintDark,
-                color: "#fff",
-                border: "none",
-                padding: "0.35rem 0.8rem",
-                borderRadius: 6,
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-                cursor: "pointer",
-              }}
-            >
+            <button onClick={submitComment} className="feedback-send">
               <Send size={14} /> Send
             </button>
           </div>
         )}
       </section>
+      <style>{`
+        .feedback-wrapper {
+          display: flex;
+          justify-content: center;
+          margin-top: 2.5rem;
+        }
+
+        .feedback-section {
+          display: inline-block;
+          padding: 0.8rem 1rem;
+          background: ${C.bg};
+          border: 1px solid ${C.border};
+          border-radius: 10px;
+          font-size: 0.85rem;
+          color: ${C.text};
+        }
+
+        .feedback-btn {
+          background: #fff;
+          border: 2px solid ${C.border};
+          color: ${C.text};
+          border-radius: 6px;
+          padding: 0.35rem 0.65rem;
+          margin-inline-end: 6px;
+          cursor: pointer;
+        }
+
+        .feedback-btn.active {
+          border-color: ${C.mintDark};
+          color: ${C.mintDark};
+        }
+
+        .feedback-comment {
+          margin-top: 10px;
+        }
+
+        .feedback-textarea {
+          width: 260px;
+          max-width: 100%;
+          border: 1px solid ${C.border};
+          border-radius: 6px;
+          padding: 0.5rem;
+          font-size: 0.8rem;
+        }
+
+        .feedback-send {
+          margin-top: 6px;
+          background: ${C.mintDark};
+          color: #fff;
+          border: none;
+          padding: 0.35rem 0.8rem;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,46 +1,63 @@
 import React from 'react';
 
 const Button = ({ href, title, description, marginTop = 0 }) => {
-  const containerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop,
-  };
-
-  const buttonStyle = {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    padding: 20,
-    textDecoration: 'none',
-    color: 'rgb(69, 201, 169)',
-    backgroundColor: 'white',
-    border: '2px solid rgb(69, 201, 169)',
-    borderRadius: 10,
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-  };
-
   return (
-    <div style={containerStyle}>
-      <a
-        href={href}
-        style={buttonStyle}
-        onMouseOver={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgb(69, 201, 169)';
-          e.currentTarget.style.color = 'white';
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.backgroundColor = 'white';
-          e.currentTarget.style.color = 'rgb(69, 201, 169)';
-        }}
-      >
+    <div className="docs-btn-wrapper" style={{ marginTop }}>
+      <a href={href} className="docs-btn">
         <div>
-          <span style={{ fontWeight: 'bold', fontSize: 22, display: 'block' }}>{title}</span>
-          <span style={{ fontWeight: 300, fontSize: 14, display: 'block' }}>{description}</span>
+          <span className="docs-btn-title">{title}</span>
+          <span className="docs-btn-desc">{description}</span>
         </div>
       </a>
+      <style>{`
+        .docs-btn-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .docs-btn {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          padding: 20px;
+          text-decoration: none;
+          color: #08b68f;
+          background-color: #ffffff;
+          border: 2px solid #08b68f;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .docs-btn:hover {
+          background-color: #08b68f;
+          color: #ffffff;
+        }
+
+        .docs-btn-title {
+          font-weight: bold;
+          font-size: 22px;
+          display: block;
+        }
+
+        .docs-btn-desc {
+          font-weight: 300;
+          font-size: 14px;
+          display: block;
+        }
+
+        :root[data-theme='dark'] .docs-btn {
+          background-color: #0f172a;
+          color: #3efcc2;
+          border-color: #3efcc2;
+        }
+
+        :root[data-theme='dark'] .docs-btn:hover {
+          background-color: #3efcc2;
+          color: #0f172a;
+        }
+      `}</style>
     </div>
   );
 };

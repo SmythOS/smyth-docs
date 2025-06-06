@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
@@ -90,23 +91,23 @@ const config: Config = {
 
   themeConfig: {
     sidebar: {},
-    navbar: {
-      title: 'SmythOS',
-      logo: {
-        alt: 'SmythOS Logo',
-        src: 'img/smythos-500px.png',
-      },
-      items: [
-        // { to: '/docs', label: 'Docs Home', position: 'left' },
-        { to: '/docs/agent-studio/overview', label: 'Studio', position: 'left' },
-        { to: '/docs/agent-weaver/overview', label: 'Weaver', position: 'left' },
-        { to: '/docs/agent-runtime/overview', label: 'Runtime', position: 'left' },
-        { to: '/docs/agent-deployments/overview', label: 'Deployments', position: 'left' },
-        { to: '/docs/agent-collaboration/overview', label: 'Collaboration', position: 'left' },
-        { to: '/docs/agent-templates/overview', label: 'Templates', position: 'left' },
-        { href: 'https://github.com/Smyth-ai', label: 'GitHub', position: 'right' },
-      ],
-    },
+    // navbar: {
+    //   title: 'SmythOS',
+    //   logo: {
+    //     alt: 'SmythOS Logo',
+    //     src: 'img/smythos-500px.png',
+    //   },
+    //   items: [
+    //     // { to: '/docs', label: 'Docs Home', position: 'left' },
+    //     { to: '/docs/agent-studio/overview', label: 'Studio', position: 'left' },
+    //     { to: '/docs/agent-weaver/overview', label: 'Weaver', position: 'left' },
+    //     { to: '/docs/agent-runtime/overview', label: 'Runtime', position: 'left' },
+    //     { to: '/docs/agent-deployments/overview', label: 'Deployments', position: 'left' },
+    //     { to: '/docs/agent-collaboration/overview', label: 'Collaboration', position: 'left' },
+    //     { to: '/docs/agent-templates/overview', label: 'Templates', position: 'left' },
+    //     { href: 'https://github.com/Smyth-ai', label: 'GitHub', position: 'right' },
+    //   ],
+    // },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,

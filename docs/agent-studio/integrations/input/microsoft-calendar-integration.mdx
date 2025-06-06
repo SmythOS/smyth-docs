@@ -1,25 +1,25 @@
 ---
-title: Microsoft Outlook Integration with SmythOS
-description: Seamlessly connect Microsoft Outlook Calendar with SmythOS to automate event creation, retrieve event details, and manage your calendar directly within your agent workflows.
-og:title: SmythOS & Microsoft Outlook Calendar - Master Your Schedule with Automation
-og:description: Learn how to integrate Microsoft Outlook Calendar with SmythOS. Use components to create calendars, manage events, and automate scheduling through your agents.
-og:image: /img/integrations/smythos_microsoft_outlook.png
-keywords: [Microsoft Outlook SmythOS Integration, Outlook Calendar SmythOS, Connect Outlook Calendar to SmythOS, SmythOS Outlook Calendar Components, Automate Outlook Calendar, SmythOS Microsoft 365 Calendar Automation]
+title: Microsoft Integration with SmythOS
+description: Seamlessly connect Microsoft Calendar with SmythOS to automate event creation, retrieve event details, and manage your calendar directly within your agent workflows.
+og:title: SmythOS & Microsoft Calendar - Master Your Schedule with Automation
+og:description: Learn how to integrate Microsoft Calendar with SmythOS. Use components to create calendars, manage events, and automate scheduling through your agents.
+og:image: /img/integrations/smythos_microsoft_.png
+keywords: [Microsoft SmythOS Integration, Calendar SmythOS, Connect Calendar to SmythOS, SmythOS Calendar Components, Automate Calendar, SmythOS Microsoft 365 Calendar Automation]
 ---
 
-# Integrating Microsoft Outlook Calendar with SmythOS
+# Integrating Microsoft Calendar with SmythOS
 
-This page shows you how to connect Microsoft Outlook Calendar to SmythOS and pick the right component for every calendar and scheduling task.
+This page shows you how to connect Microsoft Calendar to SmythOS and pick the right component for every calendar and scheduling task.
 
-> **Want your Outlook Calendar to work smarter, not harder?** Connect SmythOS to Microsoft Outlook Calendar to empower your agents to create calendars, manage events, and automate scheduling, bringing powerful organizational capabilities directly into your operational workflows.
+> **Want your Calendar to work smarter, not harder?** Connect SmythOS to Microsoft Calendar to empower your agents to create calendars, manage events, and automate scheduling, bringing powerful organizational capabilities directly into your operational workflows.
 
-<InfoCallout title="TL;DR"> Link your Microsoft Account to SmythOS by setting up OAuth 2.0 credentials in the Microsoft Entra (Azure AD) portal. Then, use our Microsoft Outlook Calendar components to enable your agents to automate various calendar tasks, reducing manual scheduling and event management.</InfoCallout>
+<InfoCallout title="TL;DR"> Link your Microsoft Account to SmythOS by setting up OAuth 2.0 credentials in the Microsoft Entra (Azure AD) portal. Then, use our Microsoft Calendar components to enable your agents to automate various calendar tasks, reducing manual scheduling and event management.</InfoCallout>
 
 **Quick Links:**
-* [Why Integrate Microsoft Outlook Calendar?](#why-integrate-microsoft-outlook-calendar)
+* [Why Integrate Microsoft Calendar?](#why-integrate-microsoft--calendar)
 * [Getting Started: Prerequisites & Connection](#prerequisites-what-youll-need-to-get-started)
-* [Components Overview](#microsoft-outlook-calendar-components-an-overview)
-* [Understanding Common Fields](#understanding-common-outlook-calendar-component-io-fields)
+* [Components Overview](#microsoft-calendar-components-an-overview)
+* [Understanding Common Fields](#understanding-common--calendar-component-io-fields)
 * [Detailed Component Guides](#detailed-component-guides)
 * [Best Practices & Advanced Tips](#best-practices--advanced-tips)
 * [Troubleshooting](#troubleshooting-common-issues)
@@ -27,30 +27,30 @@ This page shows you how to connect Microsoft Outlook Calendar to SmythOS and pic
 
 <Divider />
 
-## Why Integrate Microsoft Outlook Calendar
+## Why Integrate Microsoft Calendar
 
-Microsoft Outlook Calendar is a critical tool within the Microsoft 365 suite, offering robust features for managing schedules, appointments, and events. By integrating it with SmythOS, you empower your agents to interact with your calendar programmatically, unlocking significant automation potential.
+Microsoft Calendar is a critical tool within the Microsoft 365 suite, offering robust features for managing schedules, appointments, and events. By integrating it with SmythOS, you empower your agents to interact with your calendar programmatically, unlocking significant automation potential.
 
-- **Automated Calendar & Event Management**: Agents can create new calendars for specific projects or teams, schedule meetings, block out time, or create reminders in Outlook Calendar based on triggers from other systems or agent logic.
+- **Automated Calendar & Event Management**: Agents can create new calendars for specific projects or teams, schedule meetings, block out time, or create reminders in Calendar based on triggers from other systems or agent logic.
 - **Dynamic Scheduling & Resource Allocation**: Agents can read calendar availability (if list/get event components support this) to make intelligent scheduling decisions, preventing conflicts and finding optimal times for events or team activities.
-- **Centralized Scheduling Operations**: Manage all your Outlook Calendar scheduling needs from within SmythOS, reducing the need to switch between multiple applications and streamlining workflows.
+- **Centralized Scheduling Operations**: Manage all your Calendar scheduling needs from within SmythOS, reducing the need to switch between multiple applications and streamlining workflows.
 - **Real-time Updates & Synchronization**: Enable agents to update event details (like attendees, time, or location – if update event components are available) as circumstances change within your automated workflows.
 - **Enhanced Team Collaboration**: Facilitate team collaboration by allowing agents to manage shared calendars and schedule meetings directly through automated processes.
 
-Essentially, this integration transforms your Microsoft Outlook Calendar from a manual scheduling tool into an intelligent, interactive part of your SmythOS ecosystem. The result? Less manual effort, fewer scheduling errors, timely information, and more capacity for your team to focus on strategic tasks.
+Essentially, this integration transforms your Microsoft Calendar from a manual scheduling tool into an intelligent, interactive part of your SmythOS ecosystem. The result? Less manual effort, fewer scheduling errors, timely information, and more capacity for your team to focus on strategic tasks.
 
 <InfoCallout>
 <details>
-  <summary>Why Integrate Microsoft Outlook Calendar with Your Agent?</summary>
+ <summary>Why Integrate Microsoft Calendar with Your Agent?</summary>
 
-Integrating Microsoft Outlook Calendar with SmythOS allows your agents to become active participants in your organization's scheduling and time management processes. Each component is designed for a specific calendar operation:
+Integrating Microsoft Calendar with SmythOS allows your agents to become active participants in your organization's scheduling and time management processes. Each component is designed for a specific calendar operation:
 
 - **Automated Calendar Setup:** For new projects or teams, agents can automatically create dedicated shared calendars, ensuring everyone has access to relevant schedules from the start.
-- **Automated Event Creation:** Let agents automatically schedule project kick-offs, client follow-ups, or internal reminders directly in team members' Outlook calendars when certain conditions are met in your workflows.
+- **Automated Event Creation:** Let agents automatically schedule project kick-offs, client follow-ups, or internal reminders directly in team members' calendars when certain conditions are met in your workflows.
 - **Streamlined Meeting Coordination (Future Potential):** While current components focus on calendar and event creation/listing, future enhancements could allow agents to check for free/busy times, propose meeting slots, and manage invitations more dynamically.
-- **Centralized Logging of Time-Sensitive Tasks:** If your agent manages tasks with deadlines, it can create corresponding events in Outlook Calendar to ensure visibility and timely reminders for the team.
+- **Centralized Logging of Time-Sensitive Tasks:** If your agent manages tasks with deadlines, it can create corresponding events in Calendar to ensure visibility and timely reminders for the team.
 
-By connecting Microsoft Outlook Calendar, you reduce manual data entry for scheduling, minimize conflicts (with smarter future components), and ensure that team calendars accurately reflect activities and commitments managed by your automated SmythOS agents.
+By connecting Microsoft Calendar, you reduce manual data entry for scheduling, minimize conflicts (with smarter future components), and ensure that team calendars accurately reflect activities and commitments managed by your automated SmythOS agents.
 </details>
 </InfoCallout>
 
@@ -61,60 +61,60 @@ By connecting Microsoft Outlook Calendar, you reduce manual data entry for sched
 Before you begin the integration, please ensure you have the following:
 
 - An active **SmythOS account**. (If you're new to SmythOS, [you can sign up here](https://app.smythos.com/signup).)
-- A **Microsoft Account** (Work or School account, or a personal Microsoft account, depending on your setup and API permissions) with access to Microsoft Outlook Calendar and permissions to grant access to applications.
-- You will need to generate **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Microsoft Entra admin center (formerly Azure Active Directory portal). This process also involves configuring an OAuth consent screen and granting API permissions for Microsoft Graph (which includes Outlook Calendar). Detailed steps are provided below.
+- A **Microsoft Account** (Work or School account, or a personal Microsoft account, depending on your setup and API permissions) with access to Microsoft Calendar and permissions to grant access to applications.
+- You will need to generate **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Microsoft Entra admin center (formerly Azure Active Directory portal). This process also involves configuring an OAuth consent screen and granting API permissions for Microsoft Graph (which includes Calendar). Detailed steps are provided below.
 - The **Authorized redirect URI** for SmythOS, which is: `https://app.smythos.com/oauth/oauth2/callback` (You'll need this when creating credentials in Microsoft Entra).
 
 <Divider />
 
-## Step-by-Step: Connecting Your Microsoft Outlook Account (for Calendar Access)
+## Step-by-Step: Connecting Your Microsoft Account (for Calendar Access)
 
-Let's establish the connection between SmythOS and your Microsoft Outlook Calendar. This involves obtaining OAuth 2.0 credentials from Microsoft Entra and then using them to authenticate within SmythOS. This is typically a one-time setup per Microsoft account you wish to integrate.
+Let's establish the connection between SmythOS and your Microsoft Calendar. This involves obtaining OAuth 2.0 credentials from Microsoft Entra and then using them to authenticate within SmythOS. This is typically a one-time setup per Microsoft account you wish to integrate.
 
 ### Part A: Obtaining Your `Client ID` and `Client Secret` from Microsoft Entra
 
-1.  **Navigate to Microsoft Entra Portal:**
-    * Go to the [Microsoft Entra admin center](https://entra.microsoft.com/).
-    * Sign in with an account that has permissions to register applications (usually an administrator account for your Microsoft 365 tenant or a developer account).
+1. **Navigate to Microsoft Entra Portal:**
+  * Go to the [Microsoft Entra admin center](https://entra.microsoft.com/).
+  * Sign in with an account that has permissions to register applications (usually an administrator account for your Microsoft 365 tenant or a developer account).
 
-2.  **Register Your Application:**
-    * In the left navigation pane, go to **Identity** > **Applications** > **App registrations**.
-    * Click on **+ New registration**.
+2. **Register Your Application:**
+  * In the left navigation pane, go to **Identity** > **Applications** > **App registrations**.
+  * Click on **+ New registration**.
 
-3.  **Provide Application Details:**
-    * **Name**: Enter a descriptive name for your application (e.g., "SmythOS Outlook Calendar Integration").
-    * **Supported account types**: Choose the appropriate option based on who will be using this integration. For broad access, you might choose "Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)". If it's just for your organization, select "Accounts in this organizational directory only ([Your Tenant Name] only - Single tenant)".
-    * **Redirect URI (optional but recommended for web apps):**
-        * Select `Web` from the platform dropdown.
-        * Enter the SmythOS callback URL: `https://app.smythos.com/oauth/oauth2/callback`
-        * *This URI must be an exact match for the OAuth flow to complete successfully.*
-    * Click on **Register**. Your application is now registered.
+3. **Provide Application Details:**
+  * **Name**: Enter a descriptive name for your application (e.g., "SmythOS Calendar Integration").
+  * **Supported account types**: Choose the appropriate option based on who will be using this integration. For broad access, you might choose "Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)". If it's just for your organization, select "Accounts in this organizational directory only ([Your Tenant Name] only - Single tenant)".
+  * **Redirect URI (optional but recommended for web apps):**
+    * Select `Web` from the platform dropdown.
+    * Enter the SmythOS callback URL: `https://app.smythos.com/oauth/oauth2/callback`
+    * *This URI must be an exact match for the OAuth flow to complete successfully.*
+  * Click on **Register**. Your application is now registered.
 
-4.  **Obtain Client ID:**
-    * Once registered, you'll be taken to the application's **Overview** page.
-    * Your **Application (client) ID** is displayed here. Copy this value and store it securely. This is your `Client ID`.
+4. **Obtain Client ID:**
+  * Once registered, you'll be taken to the application's **Overview** page.
+  * Your **Application (client) ID** is displayed here. Copy this value and store it securely. This is your `Client ID`.
 
-5.  **Generate a Client Secret:**
-    * In the application's menu (left navigation), go to **Certificates & secrets**.
-    * Under the **Client secrets** tab, click on **+ New client secret**.
-    * **Description**: Provide a description for the secret (e.g., "SmythOS Outlook Integration Secret").
-    * **Expires**: Choose an expiration period for the secret. Note that you'll need to renew it before it expires.
-    * Click on **Add**.
-    * **Important:** The client secret **Value** will be displayed *once* immediately after creation. Copy this value and store it securely (e.g., in SmythOS Vault or a password manager). You will not be able to retrieve it again after leaving this page. This is your `Client Secret`.
+5. **Generate a Client Secret:**
+  * In the application's menu (left navigation), go to **Certificates & secrets**.
+  * Under the **Client secrets** tab, click on **+ New client secret**.
+  * **Description**: Provide a description for the secret (e.g., "SmythOS Integration Secret").
+  * **Expires**: Choose an expiration period for the secret. Note that you'll need to renew it before it expires.
+  * Click on **Add**.
+  * **Important:** The client secret **Value** will be displayed *once* immediately after creation. Copy this value and store it securely (e.g., in SmythOS Vault or a password manager). You will not be able to retrieve it again after leaving this page. This is your `Client Secret`.
 
-6.  **Configure API Permissions (Microsoft Graph):**
-    * In the application's menu, go to **API permissions**.
-    * Click on **+ Add a permission**.
-    * Select **Microsoft Graph** from the list of commonly used Microsoft APIs.
-    * Choose the type of permissions your application requires:
-        * **Delegated permissions**: If your SmythOS agent will act on behalf of a signed-in user.
-        * **Application permissions**: If your agent will run as a background service or daemon without a signed-in user (requires admin consent and is often used for broader organizational access). *For most user-centric calendar operations, Delegated permissions are common.*
-    * Search for and add the necessary permissions for calendar access. Common permissions include:
-        * `Calendars.ReadWrite` (Allows the app to create, read, update, and delete events in all calendars the user can access, including delegate and shared calendars).
-        * `Calendars.Read` (Allows the app to read events in all calendars the user can access).
-        * `offline_access` (Maintains access to data you have authorized it to access, even when you are not currently using the application). This is crucial for refresh tokens.
-    * Select the permissions and click **Add permissions**.
-    * **Grant Admin Consent:** For some permissions, especially Application permissions or higher-privilege delegated permissions, an administrator may need to grant admin consent for your organization. If you see a button like "Grant admin consent for [Your Organization]," click it if you have the necessary admin rights. Otherwise, an admin will need to do this.
+6. **Configure API Permissions (Microsoft Graph):**
+  * In the application's menu, go to **API permissions**.
+  * Click on **+ Add a permission**.
+  * Select **Microsoft Graph** from the list of commonly used Microsoft APIs.
+  * Choose the type of permissions your application requires:
+    * **Delegated permissions**: If your SmythOS agent will act on behalf of a signed-in user.
+    * **Application permissions**: If your agent will run as a background service or daemon without a signed-in user (requires admin consent and is often used for broader organizational access). *For most user-centric calendar operations, Delegated permissions are common.*
+  * Search for and add the necessary permissions for calendar access. Common permissions include:
+    * `Calendars.ReadWrite` (Allows the app to create, read, update, and delete events in all calendars the user can access, including delegate and shared calendars).
+    * `Calendars.Read` (Allows the app to read events in all calendars the user can access).
+    * `offline_access` (Maintains access to data you have authorized it to access, even when you are not currently using the application). This is crucial for refresh tokens.
+  * Select the permissions and click **Add permissions**.
+  * **Grant Admin Consent:** For some permissions, especially Application permissions or higher-privilege delegated permissions, an administrator may need to grant admin consent for your organization. If you see a button like "Grant admin consent for [Your Organization]," click it if you have the necessary admin rights. Otherwise, an admin will need to do this.
 
 <WarningCallout title="Secure Your Credentials!">
 Your `Client ID` and especially your `Client Secret` are highly sensitive. Treat them like passwords.
@@ -125,23 +125,23 @@ Your `Client ID` and especially your `Client Secret` are highly sensitive. Treat
 
 ### Part B: Authenticating in SmythOS
 
-1.  **Navigate to SmythOS Integrations:** In your SmythOS dashboard, find and click on the "Integrations" section.
-2.  **Add or Configure Microsoft Outlook (Calendar) Integration:**
-    * Look for "Microsoft Outlook," "Microsoft 365," or a specific "Microsoft Calendar" integration in the list and click to add or configure it.
-3.  **Enter Your OAuth Credentials:**
-    * You will see fields to input the `Client ID` (Application (client) ID) and `Client Secret` that you obtained from the Microsoft Entra admin center in Part A.
-    * You might also need to specify the **Tenant ID** (Directory (tenant) ID), which can also be found on the Overview page of your app registration in Azure.
-    * Carefully paste these values into the respective fields.
-4.  **Initiate Authentication (OAuth Flow):**
-    * Click the `Authenticate`, `Connect`, or `Sign In` button within the SmythOS integration settings.
-    * This will typically redirect you to a Microsoft sign-in page.
-5.  **Microsoft Authorization Flow:**
-    * Sign in using the Microsoft account whose calendar you want SmythOS to access.
-    * Microsoft will then display a consent screen, showing the name of your registered application (e.g., "SmythOS Outlook Calendar Integration") and the permissions it's requesting (based on the scopes you configured in Azure). Review these permissions.
-    * Click `Accept` or `Allow` to authorize SmythOS to access your Microsoft Outlook Calendar data.
-6.  **Redirection to SmythOS:**
-    * After successful authorization, you'll be redirected back to SmythOS.
-    * The Microsoft Outlook (Calendar) integration should now indicate that it's connected and authenticated. **Connection Confirmed!**
+1. **Navigate to SmythOS Integrations:** In your SmythOS dashboard, find and click on the "Integrations" section.
+2. **Add or Configure Microsoft (Calendar) Integration:**
+  * Look for "Microsoft ," "Microsoft 365," or a specific "Microsoft Calendar" integration in the list and click to add or configure it.
+3. **Enter Your OAuth Credentials:**
+  * You will see fields to input the `Client ID` (Application (client) ID) and `Client Secret` that you obtained from the Microsoft Entra admin center in Part A.
+  * You might also need to specify the **Tenant ID** (Directory (tenant) ID), which can also be found on the Overview page of your app registration in Azure.
+  * Carefully paste these values into the respective fields.
+4. **Initiate Authentication (OAuth Flow):**
+  * Click the `Authenticate`, `Connect`, or `Sign In` button within the SmythOS integration settings.
+  * This will typically redirect you to a Microsoft sign-in page.
+5. **Microsoft Authorization Flow:**
+  * Sign in using the Microsoft account whose calendar you want SmythOS to access.
+  * Microsoft will then display a consent screen, showing the name of your registered application (e.g., "SmythOS Calendar Integration") and the permissions it's requesting (based on the scopes you configured in Azure). Review these permissions.
+  * Click `Accept` or `Allow` to authorize SmythOS to access your Microsoft Calendar data.
+6. **Redirection to SmythOS:**
+  * After successful authorization, you'll be redirected back to SmythOS.
+  * The Microsoft (Calendar) integration should now indicate that it's connected and authenticated. **Connection Confirmed!**
 
 <InfoCallout title="The Authenticate/Sign Out Button" collapsible >
 The component settings may provide a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state.
@@ -149,19 +149,19 @@ The component settings may provide a versatile button designed to toggle between
 - **Sign Out Button**: Allows users to disconnect the current Microsoft account from the SmythOS integration.
 This button is critical if the component cannot retrieve a valid token due to issues like invalidity, expiration, or other token-related problems. Using sign-out and then re-authenticating can resolve these.
 </InfoCallout>
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Outlook Calendar Authentication Settings in SmythOS" />
+<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Example of Authentication/Sign Out button in component settings._
 <Divider />
 
-## Microsoft Outlook Calendar Components: An Overview
+## Microsoft Calendar Components: An Overview
 
-With your Microsoft Account successfully linked via OAuth 2.0, you gain access to a suite of Microsoft Outlook Calendar components within SmythOS. These components are designed to automate various calendar and event management tasks.
+With your Microsoft Account successfully linked via OAuth 2.0, you gain access to a suite of Microsoft Calendar components within SmythOS. These components are designed to automate various calendar and event management tasks.
 
 Click any component name to jump directly to its detailed guide. Here’s what's available based on your provided text:
 
 | Component | Action Type | Summary |
 |----------|-------------|---------|
-| [Create Calendar](#create-calendar) | Write | Creates a new calendar in the user's Outlook account.<br /><Badge type="required" /> `userId`, `name` |
+| [Create Calendar](#create-calendar) | Write | Creates a new calendar in the user's account.<br /><Badge type="required" /> `userId`, `name` |
 | [Update Calendar](#update-calendar) | Write | Modifies the properties of an existing calendar.<br /><Badge type="required" /> `userId`, `calendarId`, `Body` (calendar properties) |
 | [Delete Calendar](#delete-calendar) | Write | Deletes an existing calendar.<br /><Badge type="required" /> `userId`, `calendarId` |
 | [Create Event](#create-event) | Write | Adds a new event to a specified calendar.<br /><Badge type="required" /> `userId`, `Body` (event properties) |
@@ -171,127 +171,101 @@ Click any component name to jump directly to its detailed guide. Here’s what's
 <Divider />
 <Divider />
 
-## Understanding Common Outlook Calendar Component I/O Fields
+## Understanding Common Calendar Component I/O Fields
 
-Many Microsoft Outlook Calendar components in SmythOS share common input parameters for identifying users or specific calendar entities, as well as common output structures for API responses from Microsoft Graph. This section defines these common elements to avoid repetition in the detailed component guides.
-
-<Tabs>
-  <TabItem value="common-inputs" label="Common Inputs">
-    <div className="tab-content">
+Many Microsoft Calendar components in SmythOS share common input parameters for identifying users or specific calendar entities, as well as common output structures for API responses from Microsoft Graph. This section defines these common elements to avoid repetition in the detailed component guides.
+<Tabs
+ tabs={[
+  {
+   label: 'Common Inputs',
+   content: (
+    <>
+     <div className="tab-content">
+      <p><strong>Required input fields used across multiple components:</strong></p>
       <table>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>userId</code></td>
-            <td>string</td>
-            <td><strong>Required for all listed components.</strong> The user's ID (GUID), user principal name (e.g., <code>adelev@contoso.com</code>), or <code>me</code> to indicate the authenticated user. Defaults to <code>me</code>.</td>
-          </tr>
-          <tr>
-            <td><code>calendarId</code></td>
-            <td>string</td>
-            <td>Unique identifier of a specific calendar. Required for "Update Calendar" and "Delete Calendar". Can also target non-default calendars.</td>
-          </tr>
-          <tr>
-            <td><code>eventId</code></td>
-            <td>string</td>
-            <td>Unique identifier for a specific event. Required for components like Get/Update/Delete Event.</td>
-          </tr>
-          <tr>
-            <td><code>Body</code></td>
-            <td>object</td>
-            <td><strong>Required for "Update Calendar", "Create Event".</strong> A JSON object representing the calendar or event data.</td>
-          </tr>
-          <tr>
-            <td><code>name</code></td>
-            <td>string</td>
-            <td><strong>Required for "Create Calendar".</strong> Name of the new calendar.</td>
-          </tr>
-        </tbody>
+       <thead>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+       </thead>
+       <tbody>
+        <tr><td><code>userId</code></td><td>string</td><td><strong>Required.</strong> User ID (GUID), UPN, or <code>me</code>.</td></tr>
+        <tr><td><code>calendarId</code></td><td>string</td><td>Calendar ID for targeting specific calendars.</td></tr>
+        <tr><td><code>eventId</code></td><td>string</td><td>Used to retrieve or manipulate a specific event.</td></tr>
+        <tr><td><code>Body</code></td><td>object</td><td>JSON body payload for event/calendar data.</td></tr>
+        <tr><td><code>name</code></td><td>string</td><td>Name for a new calendar.</td></tr>
+       </tbody>
       </table>
-    </div>
-  </TabItem>
-
-  <TabItem value="calendar-outputs" label="Common Outputs (Calendar Resource)">
-    <div className="tab-content">
-      <p>Fields from the Calendar resource (Microsoft Graph API):</p>
+     </div>
+    </>
+   )
+  },
+  {
+   label: 'Calendar Outputs',
+   content: (
+    <>
+     <div className="tab-content">
+      <p>These fields come from the Microsoft Graph Calendar resource:</p>
       <table>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code>id</code></td><td>string</td><td>Unique calendar ID.</td></tr>
-          <tr><td><code>name</code></td><td>string</td><td>Calendar name.</td></tr>
-          <tr><td><code>color</code></td><td>string</td><td>Pre-defined color value (e.g., <code>lightBlue</code>).</td></tr>
-          <tr><td><code>changeKey</code></td><td>string</td><td>Version key that updates on changes.</td></tr>
-          <tr><td><code>canEdit</code></td><td>boolean</td><td>True if user can edit the calendar.</td></tr>
-          <tr><td><code>canShare</code></td><td>boolean</td><td>True if user can share the calendar.</td></tr>
-          <tr><td><code>canViewPrivateItems</code></td><td>boolean</td><td>True if user can see private events.</td></tr>
-          <tr><td><code>owner</code></td><td>object</td><td>Owner information (name and email).</td></tr>
-        </tbody>
+       <thead>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+       </thead>
+       <tbody>
+        <tr><td><code>id</code></td><td>string</td><td>Unique calendar identifier.</td></tr>
+        <tr><td><code>name</code></td><td>string</td><td>Calendar name.</td></tr>
+        <tr><td><code>color</code></td><td>string</td><td>Calendar color label (e.g., <code>lightBlue</code>).</td></tr>
+        <tr><td><code>changeKey</code></td><td>string</td><td>Versioning key for change detection.</td></tr>
+        <tr><td><code>owner</code></td><td>object</td><td>Information about the calendar owner.</td></tr>
+       </tbody>
       </table>
-    </div>
-  </TabItem>
-
-  <TabItem value="event-outputs" label="Common Outputs (Event Resource)">
-    <div className="tab-content">
-      <p>Fields from the Event resource (Microsoft Graph API):</p>
+     </div>
+    </>
+   )
+  },
+  {
+   label: 'Event Outputs',
+   content: (
+    <>
+     <div className="tab-content">
+      <p>These fields come from the Microsoft Graph Event resource:</p>
       <table>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code>id</code></td><td>string</td><td>Event ID.</td></tr>
-          <tr><td><code>iCalUId</code></td><td>string</td><td>Unique recurring event identifier.</td></tr>
-          <tr><td><code>subject</code></td><td>string</td><td>Event title.</td></tr>
-          <tr><td><code>body</code></td><td>object</td><td>Message body (HTML/Text).</td></tr>
-          <tr><td><code>start</code></td><td>object</td><td>Start datetime and timezone.</td></tr>
-          <tr><td><code>end</code></td><td>object</td><td>End datetime and timezone.</td></tr>
-          <tr><td><code>attendees</code></td><td>array</td><td>List of attendees.</td></tr>
-          <tr><td><code>location</code></td><td>object</td><td>Main location info.</td></tr>
-          <tr><td><code>locations</code></td><td>array</td><td>Additional location objects.</td></tr>
-          <tr><td><code>webLink</code></td><td>string</td><td>URL to open in Outlook.</td></tr>
-          <tr><td><code>isAllDay</code></td><td>boolean</td><td>True if all-day event.</td></tr>
-          <tr><td><code>organizer</code></td><td>object</td><td>Organizer info (emailAddress object).</td></tr>
-          <tr><td><code>recurrence</code></td><td>object</td><td>Recurrence pattern, null if one-time.</td></tr>
-          <tr><td><code>createdDateTime</code></td><td>string</td><td>ISO 8601 timestamp (created).</td></tr>
-          <tr><td><code>lastModifiedDateTime</code></td><td>string</td><td>ISO 8601 timestamp (last modified).</td></tr>
-        </tbody>
+       <thead>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+       </thead>
+       <tbody>
+        <tr><td><code>id</code></td><td>string</td><td>Unique event identifier.</td></tr>
+        <tr><td><code>subject</code></td><td>string</td><td>Title or subject of the event.</td></tr>
+        <tr><td><code>body</code></td><td>object</td><td>Message content (HTML or plain text).</td></tr>
+        <tr><td><code>start</code></td><td>object</td><td>Start time and timezone.</td></tr>
+        <tr><td><code>end</code></td><td>object</td><td>End time and timezone.</td></tr>
+        <tr><td><code>organizer</code></td><td>object</td><td>Organizer details.</td></tr>
+        <tr><td><code>attendees</code></td><td>array</td><td>List of attendees.</td></tr>
+        <tr><td><code>location</code></td><td>object</td><td>Primary location of the event.</td></tr>
+       </tbody>
       </table>
-    </div>
-  </TabItem>
-
-  <TabItem value="general-outputs" label="General Outputs">
-    <div className="tab-content">
+     </div>
+    </>
+   )
+  },
+  {
+   label: 'General Outputs',
+   content: (
+    <>
+     <div className="tab-content">
+      <p>General response values applicable to most components:</p>
       <table>
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code>Response</code></td><td>object</td><td>Full raw JSON response from Microsoft Graph.</td></tr>
-          <tr><td><code>Headers</code></td><td>object</td><td>HTTP response headers (e.g., <code>request-id</code>, <code>Retry-After</code>).</td></tr>
-        </tbody>
+       <thead>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+       </thead>
+       <tbody>
+        <tr><td><code>Response</code></td><td>object</td><td>Raw JSON output from Graph API.</td></tr>
+        <tr><td><code>Headers</code></td><td>object</td><td>HTTP headers (e.g., <code>request-id</code>, <code>Retry-After</code>).</td></tr>
+       </tbody>
       </table>
-    </div>
-  </TabItem>
-</Tabs>
+     </div>
+    </>
+   )
+  }
+ ]}
+/>
 
 <small>
 <strong>Footnotes</strong><br/>
@@ -301,134 +275,134 @@ Many Microsoft Outlook Calendar components in SmythOS share common input paramet
 
 <Divider />
 
-## Deep Dive into Outlook Calendar I/O Fields
+## Deep Dive into Calendar I/O Fields
 
-Switch between **Inputs** and **Outputs** below to see more detailed explanations and examples for parameters frequently used across multiple Microsoft Outlook Calendar components.
+Switch between **Inputs** and **Outputs** below to see more detailed explanations and examples for parameters frequently used across multiple Microsoft Calendar components.
 
 <Tabs
-  tabs={[
-    {
-      label: 'Inputs (Detailed)',
-      content: (
-        <Tabs
-          tabs={[
-            {
-              label: 'userId',
-              content: (
-                <div className="tab-content">
-                  <h4><code>userId</code> (string)</h4>
-                  <p><strong>Required for all listed components.</strong> Identifies the user whose calendar data is being accessed.</p>
-                  <ul>
-                    <li>Use the special value <code>me</code> to refer to the currently signed-in user.</li>
-                    <li>Alternatively, use the user's ID (GUID) or User Principal Name (UPN, e.g., <code>alexw@contoso.onmicrosoft.com</code>).</li>
-                  </ul>
-                  <WarningCallout title="Permissions">
-                    Accessing another user's data (not <code>me</code>) requires delegated or application permissions and admin consent.
-                  </WarningCallout>
-                </div>
-              ),
-            },
-            {
-              label: 'calendarId',
-              content: (
-                <div className="tab-content">
-                  <h4><code>calendarId</code> (string)</h4>
-                  <p>The unique identifier for a specific calendar. Required for components like "Update Calendar" and "Delete Calendar".</p>
-                  <p>You can obtain a <code>calendarId</code> from "Create Calendar", "List Calendars", or known values.</p>
-
-{`{
-  "calendarId": "AAMkAGI2TgwAAA="
-}`}
-
-                </div>
-              ),
-            },
-            {
-              label: 'Body (for Create/Update Calendar)',
-              content: (
-                <div className="tab-content">
-                  <h4><code>Body</code> (object for Create/Update Calendar)</h4>
-                  <p>Defines the calendar to be created or updated.</p>
-
-{`{
-  "name": "Project Alpha Team Calendar"
-}`}
-                  <p>To rename an existing calendar:</p>
-{`{
-  "name": "Project Alpha (Archived)"
-}`}
-                </div>
-              ),
-            },
-            {
-              label: 'Body (for Create Event)',
-              content: (
-                <div className="tab-content">
-                  <h4><code>Body</code> (object for Create Event)</h4>
-                  <p>Defines the event details:</p>
-                  <ul>
-                    <li><code>subject</code>: Title</li>
-                    <li><code>body</code>: Description with <code>contentType</code> and <code>content</code></li>
-                    <li><code>start</code> and <code>end</code>: Timestamps</li>
-                    <li><code>location</code> (optional)</li>
-                    <li><code>attendees</code> (optional)</li>
-                  </ul>
-                  <InfoCallout title="API Reference">
-                    Refer to Microsoft Graph documentation for full schema.
-                  </InfoCallout>
-                  <pre>
-{`{
-  "subject": "Team Sync Meeting",
-  "body": {
-    "contentType": "HTML",
-    "content": "Discuss project updates and next steps."
-  },
-  "start": {
-    "dateTime": "2025-10-15T14:00:00",
-    "timeZone": "Eastern Standard Time"
-  },
-  "end": {
-    "dateTime": "2025-10-15T15:00:00",
-    "timeZone": "Eastern Standard Time"
-  },
-  "location": {
-    "displayName": "Conference Room 3 / Teams Meeting"
-  },
-  "attendees": [
-    {
-      "emailAddress": {
-        "address": "adelev@contoso.com",
-        "name": "Adele Vance"
+ tabs={[
+  {
+   label: 'Inputs (Detailed)',
+   content: (
+    <Tabs
+     tabs={[
+      {
+       label: 'userId',
+       content: (
+        <div className="tab-content">
+         <h4><code>userId</code> (string)</h4>
+         <p><strong>Required for all listed components.</strong> Identifies the user whose calendar data is being accessed.</p>
+         <ul>
+          <li>Use the special value <code>me</code> to refer to the currently signed-in user.</li>
+          <li>Alternatively, use the user's ID (GUID) or User Principal Name (UPN, e.g., <code>alexw@contoso.onmicrosoft.com</code>).</li>
+         </ul>
+         <WarningCallout title="Permissions">
+          Accessing another user's data (not <code>me</code>) requires delegated or application permissions and admin consent.
+         </WarningCallout>
+        </div>
+       ),
       },
-      "type": "required"
-    },
-    {
-      "emailAddress": {
-        "address": "gradya@contoso.com",
-        "name": "Grady Archie"
-      },
-      "type": "optional"
-    }
-  ]
+      {
+       label: 'calendarId',
+       content: (
+        <div className="tab-content">
+         <h4><code>calendarId</code> (string)</h4>
+         <p>The unique identifier for a specific calendar. Required for components like "Update Calendar" and "Delete Calendar".</p>
+         <p>You can obtain a <code>calendarId</code> from "Create Calendar", "List Calendars", or known values.</p>
+
+{`{
+ "calendarId": "AAMkAGI2TgwAAA="
 }`}
-                  </pre>
-                </div>
-              ),
-            }
-          ]}
-        />
-      ),
-    }
-  ]}
+
+        </div>
+       ),
+      },
+      {
+       label: 'Body (for Create/Update Calendar)',
+       content: (
+        <div className="tab-content">
+         <h4><code>Body</code> (object for Create/Update Calendar)</h4>
+         <p>Defines the calendar to be created or updated.</p>
+
+{`{
+ "name": "Project Alpha Team Calendar"
+}`}
+         <p>To rename an existing calendar:</p>
+{`{
+ "name": "Project Alpha (Archived)"
+}`}
+        </div>
+       ),
+      },
+      {
+       label: 'Body (for Create Event)',
+       content: (
+        <div className="tab-content">
+         <h4><code>Body</code> (object for Create Event)</h4>
+         <p>Defines the event details:</p>
+         <ul>
+          <li><code>subject</code>: Title</li>
+          <li><code>body</code>: Description with <code>contentType</code> and <code>content</code></li>
+          <li><code>start</code> and <code>end</code>: Timestamps</li>
+          <li><code>location</code> (optional)</li>
+          <li><code>attendees</code> (optional)</li>
+         </ul>
+         <InfoCallout title="API Reference">
+          Refer to Microsoft Graph documentation for full schema.
+         </InfoCallout>
+         <pre>
+{`{
+ "subject": "Team Sync Meeting",
+ "body": {
+  "contentType": "HTML",
+  "content": "Discuss project updates and next steps."
+ },
+ "start": {
+  "dateTime": "2025-10-15T14:00:00",
+  "timeZone": "Eastern Standard Time"
+ },
+ "end": {
+  "dateTime": "2025-10-15T15:00:00",
+  "timeZone": "Eastern Standard Time"
+ },
+ "location": {
+  "displayName": "Conference Room 3 / Teams Meeting"
+ },
+ "attendees": [
+  {
+   "emailAddress": {
+    "address": "adelev@contoso.com",
+    "name": "Adele Vance"
+   },
+   "type": "required"
+  },
+  {
+   "emailAddress": {
+    "address": "gradya@contoso.com",
+    "name": "Grady Archie"
+   },
+   "type": "optional"
+  }
+ ]
+}`}
+         </pre>
+        </div>
+       ),
+      }
+     ]}
+    />
+   ),
+  }
+ ]}
 />
 
 <InfoCallout> Component guides will primarily list outputs specific to the action. Always refer to the `Response` output for the complete data structure returned by the Microsoft Graph API. </InfoCallout>
 
 <Divider/>
 
-## Quick Reference: Microsoft Outlook Calendar Components
+## Quick Reference: Microsoft Calendar Components
 
-Use this table to quickly compare inputs, outputs, and typical use cases for each Microsoft Outlook Calendar component.
+Use this table to quickly compare inputs, outputs, and typical use cases for each Microsoft Calendar component.
 
 | Component | Key Input Fields (Type, Required, Description) | Key Output Fields (Type, Description) | Use Case & Details |
 |---|---|---|---|
@@ -440,7 +414,7 @@ Use this table to quickly compare inputs, outputs, and typical use cases for eac
 
 <Divider/>
 
-## Which Microsoft Outlook Calendar Component Should I Use With My Agent?
+## Which Microsoft Calendar Component Should I Use With My Agent?
 
 | If you need to… | Typical Target / Key Inputs | Use this Component | Why this one? |
 |-----------------|----------------------------|-------------------|---------------|
@@ -458,11 +432,11 @@ Use this table to quickly compare inputs, outputs, and typical use cases for eac
 
 ## Detailed Component Guides
 
-This section provides detailed information for each Microsoft Outlook Calendar component. Remember to refer to the [Understanding Common Outlook Calendar Component I/O Fields](#understanding-common-outlook-calendar-component-io-fields) and [Deep Dive Into Outlook Calendar I/O Fields](#deep-dive-into-outlook-calendar-io-fields) for explanations of common inputs (like `userId`, `calendarId`, `Body`) and outputs (like Calendar resources, Event resources, `Response`, `Headers`). Each component guide below will highlight specific inputs and outputs for that action.
+This section provides detailed information for each Microsoft Calendar component. Remember to refer to the [Understanding Common Calendar Component I/O Fields](#understanding-common--calendar-component-io-fields) and [Deep Dive Into Calendar I/O Fields](#deep-dive-into-calendar-io-fields) for explanations of common inputs (like `userId`, `calendarId`, `Body`) and outputs (like Calendar resources, Event resources, `Response`, `Headers`). Each component guide below will highlight specific inputs and outputs for that action.
 
 ### <a name="create-calendar"></a>Create Calendar
 
-Create a new calendar in the default calendar group or a specified calendar group for a user in Microsoft Outlook Calendar.
+Create a new calendar in the default calendar group or a specified calendar group for a user in Microsoft Calendar.
 
 <InfoCallout title="Use Case Example">
 An agent automatically creates a new shared "Q4 Marketing Campaigns" calendar when a new Q4 planning cycle is initiated in a project management tool, making it accessible to the marketing team.
@@ -471,7 +445,7 @@ An agent automatically creates a new shared "Q4 Marketing Campaigns" calendar wh
 #### Settings
 
 ##### Client ID & Client Secret
-To kickstart this component, refer to **Part 1, Step 1: Setting Up the Microsoft Outlook Integration (OAuth) in SmythOS** for detailed instructions on obtaining your `Client ID` and `Client Secret` using Microsoft Entra and configuring API permissions. Essential permissions typically include `Calendars.ReadWrite`.
+To kickstart this component, refer to **Part 1, Step 1: Setting Up the Microsoft Integration (OAuth) in SmythOS** for detailed instructions on obtaining your `Client ID` and `Client Secret` using Microsoft Entra and configuring API permissions. Essential permissions typically include `Calendars.ReadWrite`.
 
 > **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
 ##### 🔑 Authenticate/Sign Out Button
@@ -479,7 +453,7 @@ The component provides a versatile button designed to toggle between **Authentic
 - **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
 - **Sign Out Button**: Allows users to sign out when they are currently authenticated.
 This button is critical for resolving token-related issues.
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Outlook Calendar Authentication Settings in SmythOS" />
+<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Example of Authentication/Sign Out button in component settings._
 
 #### Inputs
@@ -509,11 +483,11 @@ _Image: Outputs from the Create Calendar component._
 
 ```json
 {{
-  "component": "microsoftOutlook.createCalendar",
-  "userId": "me",
-  "Body": {`{{
-    "name": "New Project Team Calendar"
-  }}`}
+ "component": "microsoft.createCalendar",
+ "userId": "me",
+ "Body": {`{{
+  "name": "New Project Team Calendar"
+ }}`}
 }}
 ```
 
@@ -526,7 +500,7 @@ _Image: Outputs from the Create Calendar component._
 
 ### <a name="update-calendar"></a>Update Calendar
 
-Update the properties of an existing calendar object in Microsoft Outlook Calendar, such as its name or color.
+Update the properties of an existing calendar object in Microsoft Calendar, such as its name or color.
 
 <InfoCallout title="Use Case Example">
 After a project is completed, an agent renames the project's shared calendar to "Project Phoenix (Archived)" and changes its color to grey.
@@ -534,7 +508,7 @@ After a project is completed, an agent renames the project's shared calendar to 
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Outlook Calendar Authentication Settings in SmythOS" />
+<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 
 #### Body (Input)
 This is the field where the JSON data to update the calendar properties goes. You only need to include the properties you want to change.
@@ -567,13 +541,13 @@ _Image: Outputs from the Update Calendar component._
 
 ```json
 {`{{
-  "component": "microsoftOutlook.updateCalendar",
-  "userId": "me",
-  "calendarId": "AQMkAGUzYjVlZmQ0LTNiZTItNGIwMi04RIGUzYjVlZmQ0LTNiZTItNGIwMi04NjRkLTQ4YjU0MjExN2YyZgBGAAADnhyYqXJ_S0aH8YQAAA==",
-  "Body": {{
-    "name": "Team Holidays (2025)",
-    "color": "lightOrange"
-  }}
+ "component": "microsoft.updateCalendar",
+ "userId": "me",
+ "calendarId": "AQMkAGUzYjVlZmQ0LTNiZTItNGIwMi04RIGUzYjVlZmQ0LTNiZTItNGIwMi04NjRkLTQ4YjU0MjExN2YyZgBGAAADnhyYqXJ_S0aH8YQAAA==",
+ "Body": {{
+  "name": "Team Holidays (2025)",
+  "color": "lightOrange"
+ }}
 }}`}
 ```
 
@@ -586,15 +560,15 @@ _Image: Outputs from the Update Calendar component._
 
 ### <a name="delete-calendar"></a>Delete Calendar
 
-This component is used to delete a calendar object in Microsoft Outlook Calendar. This action is permanent.
+This component is used to delete a calendar object in Microsoft Calendar. This action is permanent.
 
 <InfoCallout title="Use Case Example">
-When a temporary project concludes, an agent automatically deletes the associated project calendar to keep the user's Outlook clean and organized.
+When a temporary project concludes, an agent automatically deletes the associated project calendar to keep the user's clean and organized.
 </InfoCallout>
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot7.png" alt="Microsoft Outlook Calendar Authentication Settings in SmythOS" />
+<Image src="/img/microsoft_calendar/screenshot7.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Authentication settings, similar for all components._
 
 #### Inputs
@@ -620,9 +594,9 @@ _Image: Outputs from the Delete Calendar component._
 
 ```json
 {`{{
-  "component": "microsoftOutlook.deleteCalendar",
-  "userId": "me",
-  "calendarId": "AQMkAGUzYjVlZmQ0LTNiZTItNGIwMi04NjRkLTQ4YjU0MjExN2YyZgBGAAADnhyYqXJ_S0aH8YQAAA=="
+ "component": "microsoft.deleteCalendar",
+ "userId": "me",
+ "calendarId": "AQMkAGUzYjVlZmQ0LTNiZTItNGIwMi04NjRkLTQ4YjU0MjExN2YyZgBGAAADnhyYqXJ_S0aH8YQAAA=="
 }}`}
 ```
 
@@ -634,10 +608,10 @@ Deleting a calendar is permanent and will also delete all events within that cal
 
 ### <a name="create-event"></a>Create Event
 
-Create a new event by posting to the events collection of a user's primary calendar or a specified calendar in Microsoft Outlook.
+Create a new event by posting to the events collection of a user's primary calendar or a specified calendar in Microsoft .
 
 <InfoCallout title="Use Case Example">
-An agent processes a new employee onboarding form and automatically schedules a "Welcome Meeting" in the new employee's Outlook calendar, inviting their manager and HR representative.
+An agent processes a new employee onboarding form and automatically schedules a "Welcome Meeting" in the new employee's calendar, inviting their manager and HR representative.
 </InfoCallout>
 
 #### Settings
@@ -667,7 +641,7 @@ _Image: Inputs for the Create Event component._
 | `Headers` | object | HTTP headers from the API response. |
 | `id` | string | The unique ID of the newly created event. Extracted from `Response.id`. |
 | `iCalUId` | string | The unique iCalendar identifier for the event. Extracted from `Response.iCalUId`. |
-| `webLink` | string | A direct link to view the event in Outlook on the web. Extracted from `Response.webLink`. |
+| `webLink` | string | A direct link to view the event in on the web. Extracted from `Response.webLink`. |
 | `subject` | string | The subject of the created event. Extracted from `Response.subject`. |
 | `start_dateTime` | string | The start date and time of the event. Extracted from `Response.start.dateTime`. |
 | `end_dateTime` | string | The end date and time of the event. Extracted from `Response.end.dateTime`. |
@@ -677,34 +651,34 @@ _Image: Outputs from the Create Event component._
 
 ```json
 {{
-  "component": "microsoftOutlook.createEvent",
-  "userId": "me",
-  "Body": {{
-    "subject": "Quarterly Business Review",
-    "body": {{
-      "contentType": "HTML",
-      "content": "Agenda: Review Q3 performance and plan for Q4."
-    }},
-    "start": {{
-      "dateTime": "2025-11-05T10:00:00",
-      "timeZone": "Pacific Standard Time"
-    }},
-    "end": {{
-      "dateTime": "2025-11-05T11:30:00",
-      "timeZone": "Pacific Standard Time"
-    }},
-    "attendees": [
-      {{
-        "emailAddress": {{ "address":"alexw@contoso.com", "name": "Alex Wilber" }},
-        "type": "required"
-      }},
-      {{
-        "emailAddress": {{ "address":"meganb@contoso.com", "name": "Megan Bowen" }},
-        "type": "optional"
-      }}
-    ],
-    "location": {{ "displayName":"Boardroom A" }}
-  }}
+ "component": "microsoft.createEvent",
+ "userId": "me",
+ "Body": {{
+  "subject": "Quarterly Business Review",
+  "body": {{
+   "contentType": "HTML",
+   "content": "Agenda: Review Q3 performance and plan for Q4."
+  }},
+  "start": {{
+   "dateTime": "2025-11-05T10:00:00",
+   "timeZone": "Pacific Standard Time"
+  }},
+  "end": {{
+   "dateTime": "2025-11-05T11:30:00",
+   "timeZone": "Pacific Standard Time"
+  }},
+  "attendees": [
+   {{
+    "emailAddress": {{ "address":"alexw@contoso.com", "name": "Alex Wilber" }},
+    "type": "required"
+   }},
+   {{
+    "emailAddress": {{ "address":"meganb@contoso.com", "name": "Megan Bowen" }},
+    "type": "optional"
+   }}
+  ],
+  "location": {{ "displayName":"Boardroom A" }}
+ }}
 }}
 ```
 
@@ -717,7 +691,7 @@ _Image: Outputs from the Create Event component._
 
 ### <a name="list-events"></a>List Events
 
-Retrieve a list of events from a user's primary calendar or a specified calendar in Microsoft Outlook. Supports filtering and pagination.
+Retrieve a list of events from a user's primary calendar or a specified calendar in Microsoft . Supports filtering and pagination.
 
 <InfoCallout title="Use Case Example">
 An agent fetches all events scheduled for "today" for a specific user to provide them with a daily agenda summary via a chat interface or email.
@@ -725,7 +699,7 @@ An agent fetches all events scheduled for "today" for a specific user to provide
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot13.png" alt="Microsoft Outlook Calendar Authentication Settings in SmythOS" />
+<Image src="/img/microsoft_calendar/screenshot13.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Authentication settings, similar for all components._
 
 #### Inputs
@@ -757,12 +731,12 @@ _Image: Outputs from the List Events component._
 
 ```json
 {{
-  "component": "microsoftOutlook.listEvents",
-  "userId": "me",
-  "$filter": "start/dateTime ge '2025-12-24T00:00:00Z' and end/dateTime le '2025-12-26T00:00:00Z'",
-  "$select": "subject,start,end,location,webLink",
-  "$orderby": "start/dateTime asc",
-  "$top": 5
+ "component": "microsoft.listEvents",
+ "userId": "me",
+ "$filter": "start/dateTime ge '2025-12-24T00:00:00Z' and end/dateTime le '2025-12-26T00:00:00Z'",
+ "$select": "subject,start,end,location,webLink",
+ "$orderby": "start/dateTime asc",
+ "$top": 5
 }}
 ```
 
@@ -781,9 +755,9 @@ _Image: Outputs from the List Events component._
 * **Understanding `userId`:** Use `me` for operations on the authenticated user's own calendar. When accessing other users' calendars (e.g., shared calendars or as an administrator), use their User Principal Name (UPN) or GUID, and ensure appropriate delegated (`Calendars.Read.Shared`, `Calendars.ReadWrite.Shared`) or application permissions have been granted and consented to.
 * **Time Zone Handling:** Microsoft Graph API is particular about time zones for events. Always specify the `timeZone` property within the `start` and `end` objects for events. Use valid IANA time zone names (e.g., "Pacific Standard Time", "UTC", "FLE Standard Time"). When filtering events by date/time using OData (`$filter`), it's often best to use ISO 8601 UTC format (e.g., `YYYY-MM-DDTHH:mm:ssZ`).
 * **OData Query Parameters for Listing Events:** Leverage OData system query options like `$filter`, `$select`, `$top`, `$skip`, and `$orderby` with the "List Events" component to efficiently retrieve only the data you need.
-    * `$select`: Reduces payload size by only returning specified properties.
-    * `$filter`: Crucial for fetching events within specific date ranges or matching other criteria.
-    * `$top` & `$skip` (or `@odata.nextLink`): Essential for pagination.
+  * `$select`: Reduces payload size by only returning specified properties.
+  * `$filter`: Crucial for fetching events within specific date ranges or matching other criteria.
+  * `$top` & `$skip` (or `@odata.nextLink`): Essential for pagination.
 * **Error Handling:** Check the `Response` object from components for errors. Microsoft Graph API provides detailed error codes and messages. Implement robust error handling and retry logic (with exponential backoff for throttling) in your agents.
 * **Idempotency for Event Creation:** If an agent might retry creating an event, consider strategies to avoid duplicates. Microsoft Graph event creation is not idempotent by default. You might need to list existing events to check for similar ones before creating, or store IDs of created events. The `iCalUId` can be useful for identifying unique events across systems.
 * **Pagination for "List Events":** If "List Events" might return many results, always check for an `@odata.nextLink` property in the `Response`. Use this URL to fetch subsequent pages of data until no `@odata.nextLink` is returned.
@@ -794,29 +768,29 @@ _Image: Outputs from the List Events component._
 
 ## Troubleshooting Common Issues
 
-Encountering an issue with your Microsoft Outlook Calendar integration? Here are solutions to some common problems:
+Encountering an issue with your Microsoft Calendar integration? Here are solutions to some common problems:
 
 * **Authentication Errors (e.g., `invalid_client`, `AADSTS...` errors, token acquisition failure):**
-    * **Cause:** Incorrect `Client ID` or `Client Secret`; misconfigured Redirect URI in Microsoft Entra (must be `https://app.smythos.com/oauth/oauth2/callback`); app registration issues; user not consenting to required permissions; token expired or revoked.
-    * **Solution:** Verify `Client ID`, `Client Secret`, and `Tenant ID` (if applicable) in SmythOS settings against your Microsoft Entra app registration. Ensure the Redirect URI is exact. Confirm the user has granted consent to all required API permissions during the OAuth flow. Try re-authenticating the integration in SmythOS.
+  * **Cause:** Incorrect `Client ID` or `Client Secret`; misconfigured Redirect URI in Microsoft Entra (must be `https://app.smythos.com/oauth/oauth2/callback`); app registration issues; user not consenting to required permissions; token expired or revoked.
+  * **Solution:** Verify `Client ID`, `Client Secret`, and `Tenant ID` (if applicable) in SmythOS settings against your Microsoft Entra app registration. Ensure the Redirect URI is exact. Confirm the user has granted consent to all required API permissions during the OAuth flow. Try re-authenticating the integration in SmythOS.
 * **`403 Forbidden` / Permission Denied Errors (e.g., "Access is denied. Check credentials and try again.", "Caller does not have permission"):**
-    * **Cause:** The authenticated user or the application itself (if using application permissions) lacks the necessary Microsoft Graph API permissions (scopes) for the requested operation (e.g., trying to write to a calendar with only `Calendars.Read`).
-    * **Solution:** In Microsoft Entra, go to your app registration > API permissions. Ensure the required scopes (like `Calendars.ReadWrite`, `Calendars.Read`) are added and have been granted admin consent if necessary. If using delegated permissions, ensure the signed-in user has permissions on the specific calendar.
+  * **Cause:** The authenticated user or the application itself (if using application permissions) lacks the necessary Microsoft Graph API permissions (scopes) for the requested operation (e.g., trying to write to a calendar with only `Calendars.Read`).
+  * **Solution:** In Microsoft Entra, go to your app registration > API permissions. Ensure the required scopes (like `Calendars.ReadWrite`, `Calendars.Read`) are added and have been granted admin consent if necessary. If using delegated permissions, ensure the signed-in user has permissions on the specific calendar.
 * **`404 Not Found` Errors (for Update/Delete Calendar, or specific Event operations):**
-    * **Cause:** The provided `calendarId` or `eventId` is incorrect, does not exist, or the authenticated user lacks permission to access it.
-    * **Solution:** Double-check the ID for typos. Confirm the calendar or event exists in the user's Outlook. Verify permissions.
+  * **Cause:** The provided `calendarId` or `eventId` is incorrect, does not exist, or the authenticated user lacks permission to access it.
+  * **Solution:** Double-check the ID for typos. Confirm the calendar or event exists in the user's . Verify permissions.
 * **`400 Bad Request` (often with `Body` for Create/Update operations):**
-    * **Cause:** The JSON `Body` provided for creating/updating a calendar or event is malformed, missing required fields (like `subject`, `start`, `end` for events, or `name` for calendars), or contains invalid values/formats for properties.
-    * **Solution:** Carefully validate the JSON structure of your `Body` against the Microsoft Graph API documentation for the Calendar or Event resource type. Ensure all required fields are present and data types/formats are correct (especially for date/time strings and time zones).
+  * **Cause:** The JSON `Body` provided for creating/updating a calendar or event is malformed, missing required fields (like `subject`, `start`, `end` for events, or `name` for calendars), or contains invalid values/formats for properties.
+  * **Solution:** Carefully validate the JSON structure of your `Body` against the Microsoft Graph API documentation for the Calendar or Event resource type. Ensure all required fields are present and data types/formats are correct (especially for date/time strings and time zones).
 * **Date/Time and Time Zone Issues with Events:**
-    * **Cause:** Incorrectly formatted `dateTime` strings (must be ISO 8601); missing or invalid `timeZone` property within `start` and `end` objects; confusion between UTC and local times.
-    * **Solution:** Ensure `dateTime` is in a format like `"YYYY-MM-DDTHH:mm:ss"` (e.g., `"2025-12-01T14:30:00"`). Always provide a valid `timeZone` (e.g., `"Pacific Standard Time"`, `"UTC"`, `"FLE Standard Time"`) within the `start` and `end` objects. For OData filters on dates, typically use UTC format (`Z` suffix).
+  * **Cause:** Incorrectly formatted `dateTime` strings (must be ISO 8601); missing or invalid `timeZone` property within `start` and `end` objects; confusion between UTC and local times.
+  * **Solution:** Ensure `dateTime` is in a format like `"YYYY-MM-DDTHH:mm:ss"` (e.g., `"2025-12-01T14:30:00"`). Always provide a valid `timeZone` (e.g., `"Pacific Standard Time"`, `"UTC"`, `"FLE Standard Time"`) within the `start` and `end` objects. For OData filters on dates, typically use UTC format (`Z` suffix).
 * **Events Not Appearing in "List Events" as Expected:**
-    * **Cause:** Incorrect `$filter` syntax; `start/dateTime` and `end/dateTime` in filter not matching event times due to time zone differences; pagination not handled (only first page shown); `$top` too small.
-    * **Solution:** Test `$filter` queries using Microsoft Graph Explorer first. Ensure date/time values in filters are correctly formatted (usually UTC for comparisons). Implement pagination using `@odata.nextLink`. Increase `$top` if expecting more results per page.
+  * **Cause:** Incorrect `$filter` syntax; `start/dateTime` and `end/dateTime` in filter not matching event times due to time zone differences; pagination not handled (only first page shown); `$top` too small.
+  * **Solution:** Test `$filter` queries using Microsoft Graph Explorer first. Ensure date/time values in filters are correctly formatted (usually UTC for comparisons). Implement pagination using `@odata.nextLink`. Increase `$top` if expecting more results per page.
 * **Throttling / `429 Too Many Requests` or `503 Service Unavailable`:**
-    * **Cause:** Making too many API requests to Microsoft Graph in a short period, exceeding service protection limits.
-    * **Solution:** Reduce request frequency. Implement delays or exponential backoff strategies in agent logic. Check the `Retry-After` header in the `Headers` output and wait for the specified duration before retrying. Optimize queries using `$select` to fetch only necessary data.
+  * **Cause:** Making too many API requests to Microsoft Graph in a short period, exceeding service protection limits.
+  * **Solution:** Reduce request frequency. Implement delays or exponential backoff strategies in agent logic. Check the `Retry-After` header in the `Headers` output and wait for the specified duration before retrying. Optimize queries using `$select` to fetch only necessary data.
 
 <InfoCallout>
 For persistent issues, the `Response` object from the component is invaluable. It contains the raw JSON error message from the Microsoft Graph API, which usually provides specific error codes (e.g., `ErrorAccessDenied`, `ErrorItemNotFound`) and messages to help diagnose the problem. The SmythOS support team is also available to assist. [Link to SmythOS Support Page]
@@ -826,21 +800,21 @@ For persistent issues, the `Response` object from the component is invaluable. I
 
 ## What's Next?
 
-With SmythOS now integrated with your Microsoft Outlook Calendar, your agents are empowered to automate and streamline your scheduling, event management, and time-based workflows.
+With SmythOS now integrated with your Microsoft Calendar, your agents are empowered to automate and streamline your scheduling, event management, and time-based workflows.
 
 Here are some ideas to inspire your next automation:
 
 * **Build an Agent That...**
-    * Monitors a project management tool for new task assignments with deadlines and automatically creates corresponding events in the assignee's Outlook Calendar using "Create Event".
-    * Allows users to request meetings via a SmythOS chatbot. The agent could then (with future "Get Free/Busy" components or by listing events) check availability and schedule the meeting using "Create Event", inviting all required attendees.
-    * Sends a daily or weekly agenda summary to users via Microsoft Teams or email, by fetching upcoming events ("List Events") from their Outlook Calendar.
-    * When a new team member is onboarded (triggered by an HR system), automatically creates a "New Team Onboarding" calendar ("Create Calendar") and schedules introductory meetings ("Create Event") with key colleagues.
+  * Monitors a project management tool for new task assignments with deadlines and automatically creates corresponding events in the assignee's Calendar using "Create Event".
+  * Allows users to request meetings via a SmythOS chatbot. The agent could then (with future "Get Free/Busy" components or by listing events) check availability and schedule the meeting using "Create Event", inviting all required attendees.
+  * Sends a daily or weekly agenda summary to users via Microsoft Teams or email, by fetching upcoming events ("List Events") from their Calendar.
+  * When a new team member is onboarded (triggered by an HR system), automatically creates a "New Team Onboarding" calendar ("Create Calendar") and schedules introductory meetings ("Create Event") with key colleagues.
 * **Enhance Your Workflows by Combining Data & Actions:**
-    * Use [SmythOS Email Integration (Outlook or Gmail)](link-to-email-integration-doc) to send customized email notifications or meeting invitations with additional context beyond the standard Outlook invites.
-    * Trigger calendar events based on data received from [SmythOS Database Connectors](link-to-database-integration-docs) or other third-party API integrations (e.g., creating a calendar event when a new sales lead reaches a certain stage in a CRM).
-    * Update a central dashboard or log file (e.g., using Google Sheets or SharePoint via SmythOS) with details of important meetings or calendar events managed by your agents for reporting or team visibility.
-    * If an event is created for a customer meeting, an agent could also create a reminder task in Microsoft To Do or Planner (via other potential Microsoft Graph integrations).
+  * Use [SmythOS Email Integration ( or Gmail)](link-to-email-integration-doc) to send customized email notifications or meeting invitations with additional context beyond the standard invites.
+  * Trigger calendar events based on data received from [SmythOS Database Connectors](link-to-database-integration-docs) or other third-party API integrations (e.g., creating a calendar event when a new sales lead reaches a certain stage in a CRM).
+  * Update a central dashboard or log file (e.g., using Google Sheets or SharePoint via SmythOS) with details of important meetings or calendar events managed by your agents for reporting or team visibility.
+  * If an event is created for a customer meeting, an agent could also create a reminder task in Microsoft To Do or Planner (via other potential Microsoft Graph integrations).
 
-Explore the full potential of calendar automation with SmythOS and Microsoft Outlook!
+Explore the full potential of calendar automation with SmythOS and Microsoft !
 
 Happy Automating!

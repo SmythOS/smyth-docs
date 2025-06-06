@@ -402,13 +402,13 @@ Switch between **Inputs** and **Outputs** below to see detailed explanations, ex
 
 ## Component Details
 
-This section provides detailed information for each Google Sheets component. Remember to refer to the [Shared Fields Cheat-sheet](#shared-fields-cheat-sheet) and [Standard Parameters Used Across Google Sheets Components](#standard-parameters-used-across-google-sheets-components) for explanations of common inputs and outputs. Each component guide below will highlight any unique fields or provide specific context.
+This section provides detailed information for each Google Sheets component.
 
 ### <a name="get-values"></a>Get Values — Read a Range
 
 Retrieves data from a defined range. Ideal for reading lists, logs, or configuration tables so your agent can act on live spreadsheet data.
 
-<InfoCallout>This component primarily uses fields defined in the [Standard Parameters](#standard-parameters-used-across-google-sheets-components) section. Unique outputs like <code>values</code> are detailed below.</InfoCallout>
+<InfoCallout>This component primarily uses fields defined in the [Standard Parameters](#common-google-sheets-parameters) section. Unique outputs like <code>values</code> are detailed below.</InfoCallout>
 
 #### Inputs
 | Field | Required | Notes |
@@ -860,7 +860,7 @@ To make the most of your Google Sheets integration, consider these tips:
 * **Manage IDs Dynamically:** Instead of hardcoding `spreadsheetId` or `sheetId`, use outputs from previous steps (like "Create Spreadsheet" or "Get Spreadsheet") or SmythOS variables to manage these IDs dynamically. This makes your agents more robust and adaptable.
 * **Error Handling:**
     * Always check the outputs of components for success or failure indicators.
-    * Use the `response` object (see [Common Output Fields](#common-output-fields)) from components to get detailed error messages from the Google Sheets API, which can be invaluable for debugging.
+    * Use the `response` object from components to get detailed error messages from the Google Sheets API, which can be invaluable for debugging.
     * Implement conditional logic in your agent to handle potential errors gracefully (e.g., retry an operation, send a notification, or take an alternative path).
 * **Data Validation:** Before writing data to Google Sheets, especially if it comes from external sources or user input, validate it within your SmythOS agent to ensure it's in the correct format and type. This prevents errors and maintains data integrity in your spreadsheets.
 * **Understand Quotas and Limits:** Be aware of Google Sheets API usage quotas (e.g., requests per minute, requests per day). Design your agents to stay within these limits. For very frequent operations, consider strategies like queuing requests or summarizing data before writing. Refer to Google's official documentation for the most current quota information.

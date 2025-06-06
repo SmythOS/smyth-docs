@@ -29,9 +29,10 @@ export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
         ))}
       </div>
 
-      <div className="tab-content">
-        {tabs[index].content}
+      <div key={tabs[index].label} className="tab-content">
+      {tabs[index].content}
       </div>
+
 
       <style>{`
         .tabs-container {

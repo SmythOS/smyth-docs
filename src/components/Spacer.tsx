@@ -1,4 +1,8 @@
 export default function Spacer({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
-  const map = { sm: 'my-6', md: 'my-16', lg: 'my-24' };
-  return <div className={map[size]} />;
+  const sizes = {
+    sm: 'my-6',
+    md: 'my-12',
+    lg: 'my-20',
+  };
+  return <div className={sizes[size]} />;
 }

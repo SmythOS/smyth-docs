@@ -1,62 +1,262 @@
-# GenAI LLM
-
-Generate AI responses using various input file types.
-
-> 📝 **Note:** We provide the model for you without any configuration required [Account Management - Model Rates](account_management/modelRates), and the flexibility to bring your own model.
-
+---
+title: GenAI LLM
+description: Generate AI responses using prompt-driven input, with built-in models or custom APIs.
+keywords: [GenAI, LLM, language model, prompt, OpenAI, outputs, attachments]
+toc_max_heading_level: 2
 ---
 
-## Settings
+# GenAI LLM Component
 
-### ✨ Prompt
+Use the **GenAI LLM** component to generate dynamic responses using a prompt and an LLM like OpenAI or Anthropic. It's perfect for summaries, content generation, extraction, and more.
 
-Default prompt: 
-`Summarize {{Input}} in one paragraph.`
+<InfoCallout title="Why this matters">
+With GenAI LLM, you can transform inputs like text or files into structured or styled output.  
+No custom code needed. You only need a prompt, a model, and the right inputs.
+</InfoCallout>
 
-> 💡 **Note**: The prompt accounts for any files added to the Attachment input.
-> 
-> ➕ Additional inputs can be injected into the prompt.
+<Spacer size="md" />
 
-### 🤖 AI Model
+## What You’ll Configure
 
-Choose an AI model to process the prompt.
+- [Model Selection](#step-1-choose-a-model)
+- [Prompt Setup](#step-2-define-the-prompt)
+- [Input Binding](#step-3-add-inputs)
+- [Advanced Parameters](#step-4-configure-advanced-settings)
+- [Output Mapping](#step-5-define-outputs)
+- [Testing & Debug](#step-6-debug-and-preview)
+- [Best Practices](#best-practices)
+- [Troubleshooting Tips](#troubleshooting-tips)
+- [What to Try Next](#what-to-try-next)
 
-> ⚠️ **Note**: By default, some GPT models are available but limited to a 2K context window. To unlock full length or add more models, use the `Configure more models` option.
+<Spacer size="md" />
 
-### ⚙️ Advanced Settings
+<InfoCallout title="Model setup">
+SmythOS includes default models (e.g. OpenAI GPT).  
+You can also connect custom providers like Claude or Gemini.  
+See [Model Rates →](/docs/account-management/model-rates) for cost and usage.
+</InfoCallout>
 
-- **🌡️ Temperature**: Controls response randomness. Default is 1 (range: 0-2).
-- **📝 Max Output Tokens**: Sets the limit for total tokens (input + output).
-- **🛑 Stop Sequence(s)**: Defines strings to halt token generation.
-- **🔝 Top P**: Considers tokens in the Top P probability mass. Adjust Temperature or Top P, not both.
-- **🔄 Frequency Penalty**: Reduces repetition by penalizing repeated tokens proportionally.
-- **📉 Presence Penalty**: Prevents repeated phrases with a constant penalty for repeated tokens. Adjust Frequency or Presence Penalty, not both.
-- **🔀 Passthrough Mode**: Controls streaming behavior
-  - When disabled (default): The agent automatically streams all responses
-  - When enabled: Gives you manual control over what content gets streamed to users
-  - Use this feature when you need to process LLM outputs before showing them or when implementing custom streaming logic.
+<Spacer size="md" />
+## Step 1 – Choose a Model
 
-<Arcade  src="https://demo.arcade.software/As1gjawhDBX6BV3Y7CQz?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Settings | SmythOS"/>
+| Field            | Required? | Description                                     | Tips |
+|------------------|-----------|-------------------------------------------------|------|
+| **Model**        | <Badge type="required">Yes</Badge> | The LLM used for classification                 | By default you will see **GPT 4o Mini (SmythOS 128K)**. You can also choose GPT 4.1 Nano, GPT 4.1 Mini, GPT o1, Claude Sonnet 3.7, Gemini 2.5 Pro, Sonar or other supported engines. |
+| **Custom Model** | <Badge type="optional">No</Badge>    | Use your own hosted model or external API        | You can connect to OpenAI, Claude, Google AI, Grok, or any endpoint compatible with your workflow. |
 
----
+<InfoCallout title="Token limits">
+Default models have token windows from 128K to 1M tokens (shown next to each model name). If you need to classify very large inputs or include extra context, use a custom model with extended limits.
+</InfoCallout>
 
-## Inputs
+<Spacer size="md" />
 
-### 📝 Default Inputs
+## Step 2: Define the Prompt
 
-- **📥 Input**: Can be renamed and edited.
-- **📎 Attachment**: Optional; can hold files and images. Supported files depend on the selected AI model. Can be provided via URL or base64 string.
+<PromptCard
+  title="Basic Prompt"
+  prompt="Summarize {{Input}} into one paragraph."
+  tags={['LLM', 'prompt', 'template']}
+/>
 
-<Arcade  src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Inputs | SmythOS"/>
+<TipCallout title="Prompt inputs">
+Use `{{Input}}`, `{{input.email}}`, or even `{{Attachment.text}}` in your prompt.  
+Files like PDFs or DOCX will be auto-processed into text where possible.
+</TipCallout>
 
----
+<Spacer size="md" />
 
-## Outputs
+## Step 3: Add Inputs
 
-The built-in output is **`Reply`**, containing the generated content.
+| Input Name    | Required? | Description                          | Notes |
+|---------------|-----------|--------------------------------------|-------|
+| **Input**     | <Badge type="required">Yes</Badge> | Main prompt content | Injected as `{{Input}}` |
+| **Attachment**| <Badge type="optional">No</Badge> | Files or images (PDF, DOCX, JPG, etc.) | Converted to text for model input |
 
-> 🛠️ **Default outputs are always in JSON format**.
+<TipCallout>
+You can rename inputs, assign types (string, file, etc.), and set defaults or make them optional.
+</TipCallout>
 
-Additional outputs can be added to extract parameters from the `Reply` output, isolating specific data.
+<Arcade
+  src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="GenAI LLM Inputs | SmythOS"
+/>
 
-<Arcade  src="https://demo.arcade.software/I35gGim7BajWDMmGkhBQ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Outputs | SmythOS"/>
+<Spacer size="md" />
+
+## Step 4: Configure Advanced Settings
+
+<Tabs
+  tabs={[
+    {
+      label: 'Temperature',
+      content: (
+        <>
+          <p><strong>Temperature</strong> controls randomness in model output.</p>
+          <p>Lower = focused. Higher = creative.</p>
+        </>
+      )
+    },
+    {
+      label: 'Max Tokens',
+      content: (
+        <>
+          <p><strong>Max Tokens</strong> limits the output length.</p>
+          <p>Total = prompt + reply must fit within this cap.</p>
+        </>
+      )
+    },
+    {
+      label: 'Top P',
+      content: (
+        <>
+          <p><strong>Top P</strong> is an alternative to Temperature that affects token-selection diversity.</p>
+        </>
+      )
+    },
+    {
+      label: 'Stop Sequences',
+      content: (
+        <>
+          <p><strong>Stop Sequences</strong> let you define when the model should stop generating.</p>
+        </>
+      )
+    },
+    {
+      label: 'Penalty Settings',
+      content: (
+        <>
+          <p><strong>Frequency Penalty</strong> discourages repeated tokens.</p>
+          <p><strong>Presence Penalty</strong> lowers repetition of ideas or topics.</p>
+          <TipCallout>Use only one at a time for best results.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Passthrough Mode',
+      content: (
+        <>
+          <p><strong>Passthrough Mode</strong> gives you full control of LLM output without formatting.</p>
+          <ul>
+            <li><strong>Off:</strong> Output is parsed and streamed automatically</li>
+            <li><strong>On:</strong> You decide how it’s displayed or used</li>
+          </ul>
+        </>
+      )
+    },
+   {
+      label: 'Agent System Prompt',
+      content: (
+        <>
+          <p><strong>Agent System Prompt</strong> injects your agent’s top-level instructions or persona into this LLM call.</p>
+          <p>Enable when you need consistent tone or behavior across the agent.</p>
+          <TipCallout>Handy for ensuring any global “You are a helpful assistant” or custom instructions are applied here.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Context Window',
+      content: (
+        <>
+          <p><strong>Context Window</strong> includes recent conversation history or memory in this LLM request.</p>
+          <p>Enable to give the model visibility of prior messages, so it can maintain continuity.</p>
+          <TipCallout>Ideal for multi-turn dialogues where the model needs context from earlier exchanges.</TipCallout>
+        </>
+      )
+    }
+  ]}
+/>
+
+<Arcade
+  src="https://demo.arcade.software/As1gjawhDBX6BV3Y7CQz?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="GenAI LLM Settings | SmythOS"
+/>
+
+<Spacer size="md" />
+
+## Step 5: Define Outputs
+
+| Field           | Required? | Description                        | Notes |
+|----------------|-----------|------------------------------------|-------|
+| **Reply**       | <Badge type="required">Yes</Badge> | The model's main output         | Default output |
+| **Custom Output** | <Badge type="optional">No</Badge> | Extract fields using expressions | `Reply.title`, `Reply.summary`, etc. |
+
+```json
+{
+  "Name": "summary",
+  "Expression": "Reply.summary",
+  "Format": "markdown",
+  "Description": "The generated summary"
+}
+```
+
+<TipCallout title="Format values">
+Set `Format` to `text`, `markdown`, `html`, or `json` for downstream handling.
+</TipCallout>
+
+<InfoCallout title="Validation">
+SmythOS won’t validate your Custom Output expressions.  
+Make sure field names like `Reply.title` exist.
+</InfoCallout>
+
+<Arcade
+  src="https://demo.arcade.software/I35gGim7BajWDMmGkhBQ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="GenAI LLM Outputs | SmythOS"
+/>
+
+<Spacer size="md" />
+
+## Step 6: Debug and Preview
+
+<InfoCallout title="Live preview">
+Use **Debug** to run your prompt with real or sample input.  
+You’ll see live results and can tweak output mappings right away.
+</InfoCallout>
+
+**Example Prompt Input:**  
+“Write a short article about the Sakura tree.”
+
+**Example Custom Output Mapping:**
+
+```json
+[
+  { "Name": "title", "Expression": "Reply.title" },
+  { "Name": "content", "Expression": "Reply.body" },
+  { "Name": "keywords", "Expression": "Reply.keywords", "Format": "json" }
+]
+```
+
+<Spacer size="md" />
+
+## Best Practices
+
+- Use specific prompts: "List 3 key points from..." is better than "Summarize"
+- Format custom outputs if needed (`text`, `html`, `json`)
+- Use mock inputs in Debug to test multiple prompt paths
+- Avoid putting complex logic inside a prompt — let the model generate clean data
+- Use `Passthrough Mode` for total control over rendering or streaming
+- Use Retry + Condition blocks to handle failed outputs or empty results
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If your prompt isn't working...">
+- Confirm that your prompt references actual inputs (like `{{Input}}`)  
+- Check for typos in custom output expressions (e.g., `Reply.summary` vs `Reply.summray`)  
+- Make sure your model isn’t hitting token limits — reduce long attachments or prompts  
+- If file inputs aren’t being read, verify they are processed into `Attachment.text`  
+- For empty outputs, try lowering **Temperature** and simplifying your prompt  
+- Run in **Debug Mode** and inspect full raw output to fine-tune your extraction fields
+</InfoCallout>
+
+<Spacer size="md" />
+## What to Try Next
+
+- Combine **GenAI LLM** with **[Agent Skill](../skills/base/agent-skill)** to let users submit prompts naturally
+- Pipe GenAI output into **[RAG Remember](../components/rag-data/rag-remember)** to store facts for reuse
+- Use **[Code Component](../components/advanced/code)** downstream to transform, filter, or validate replies
+- Explore **[Output Recipes](/docs/patterns/structured-outputs)** for common JSON or Markdown use cases
+
+<TipCallout>
+Looking for good prompt patterns? Visit our [Prompt Guide →](/docs/agent-weaver/prompt-guide).
+</TipCallout>

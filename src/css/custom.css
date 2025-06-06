@@ -45,3 +45,16 @@ html {
 hidden {
 display: none !important;
 }
+.theme-doc-sidebar-container {
+  border-right: none !important;
+}
+/* hides the sidebar links of categroy
+a.menu__link[href="/docs/agent-studio/overview"].menu__link--active,
+a.menu__link[href="/docs/agent-weaver/overview"].menu__link--active,
+a.menu__link[href="/docs/agent-runtime/overview"].menu__link--active,
+a.menu__link[href="/docs/agent-deployments/overview"].menu__link--active,
+a.menu__link[href="/docs/agent-templates/overview"].menu__link--active,
+a.menu__link[href="/docs/agent-collaboration/overview"].menu__link--active
+ {
+  display: none;
+} */

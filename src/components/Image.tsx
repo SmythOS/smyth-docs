@@ -1,32 +1,25 @@
-import React from 'react';
-
-/**
- * Image component – centers an image, constrains it to a max width,
- * and (optionally) adds a green border + rounded corners. Supports optional aspect ratio.
+import React from "react";
+ /* @component Image
  *
- * Props
- * ─────
- * src            – required, image URL
- * alt            – optional, alt text (default '')
- * caption        – optional string shown under the image
- * bordered       – boolean, show green border (default true)
- * maxWidth       – number | string, inner container max width (default 700)
- * wrapperStyle   – object, extra styles for the outer wrapper
- * containerStyle – object, extra styles for the inner container
- * imgStyle       – object, extra styles for <img>
- * aspectRatio    – optional string like "4:3" or "16:9"
+ * Centers an image, constrains it to a max width,
+ * and (optionally) adds a subtle border + drop shadow.
+ * Supports an optional aspect ratio box.
+ *
+ * @prop {string}   src            – required, image URL (e.g. "/img/foo.png" or external link)
+ * @prop {string}   [alt='']       – optional, alt text for accessibility
+ * @prop {string}   [caption]      – optional caption shown under the image
+ * @prop {boolean}  [bordered=true]– whether to draw a 1px gray border + soft shadow
+ * @prop {number|string} [maxWidth=700] – max width for container (px or CSS unit)
+ * @prop {React.CSSProperties} [wrapperStyle]   – extra styles for the outer wrapper
+ * @prop {React.CSSProperties} [containerStyle] – extra styles for the inner container
+ * @prop {React.CSSProperties} [imgStyle]       – extra styles for the <img> itself
+ * @prop {string}   [aspectRatio] – optional aspect ratio string like "16:9" or "4:3"
+ * @prop {string}   [className]   – extra CSS class(es) for the outer wrapper
+ *
+ * Supports lazy loading via `loading="lazy"`.
  */
-const Image = ({
-  src,
-  alt = '',
-  caption,
-  bordered = true,
-  maxWidth = 700,
-  wrapperStyle = {},
-  containerStyle = {},
-  imgStyle = {},
-  aspectRatio, // Optional: e.g., "4:3"
-}  : {
+interface ImageProps {
+
   src: string;
   alt?: string;
   caption?: string;
@@ -36,62 +29,87 @@ const Image = ({
   containerStyle?: React.CSSProperties;
   imgStyle?: React.CSSProperties;
   aspectRatio?: string;
-}) => {
-  
-  // Outer <div> – matches the flex-center + top/bottom margin
+  className?: string;
+}
+
+export default function Image({
+  src,
+  alt = "",
+  caption,
+  bordered = true,
+  maxWidth = 700,
+  wrapperStyle = {},
+  containerStyle = {},
+  imgStyle = {},
+  aspectRatio,
+  className = "",
+}: ImageProps): React.ReactElement {
+
   const outer: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     marginTop: 20,
     marginBottom: 20,
     ...wrapperStyle,
   };
 
-  // Handle aspect ratio if provided
-  let aspectPadding = null;
-  if (aspectRatio && aspectRatio.includes(':')) {
-    const [w, h] = aspectRatio.split(':').map(Number);
+  let aspectPadding: string | null = null;
+  if (aspectRatio && aspectRatio.includes(":")) {
+    const [w, h] = aspectRatio.split(":").map(Number);
     if (!isNaN(w) && !isNaN(h) && w > 0 && h > 0) {
       aspectPadding = `${(h / w) * 100}%`;
     }
   }
-  // Inner <div> – replicates the max-width:700px container
+
   const inner: React.CSSProperties = {
     maxWidth,
-    width: '100%',
-    position: aspectPadding ? 'relative' : 'static',
+    width: "100%",
+    position: aspectPadding ? "relative" : "static",
     ...(aspectPadding ? { paddingTop: aspectPadding } : {}),
     ...containerStyle,
   };
-  // Actual <img>
-  const img: React.CSSProperties = {
-    display: 'block',
-    margin: 'auto',
-    maxWidth: '100%',
-    width: aspectPadding ? '100%' : 'auto',
-    height: aspectPadding ? '100%' : 'auto',
-    objectFit: aspectPadding ? 'cover' : 'initial',
-    position: aspectPadding ? 'absolute' : 'static',
+
+  const imgStyles: React.CSSProperties = {
+    display: "block",
+    margin: "auto",
+    maxWidth: "100%",
+    width: aspectPadding ? "100%" : "auto",
+    height: aspectPadding ? "100%" : "auto",
+    objectFit: aspectPadding ? "cover" : "initial",
+    position: aspectPadding ? "absolute" : "static",
     top: 0,
     left: 0,
-    border: bordered ? '3px solid #3efcc2' : 'none',
-    borderRadius: bordered ? 10 : 0,
+    border: bordered ? "1px solid #ccc" : "none",
+    borderRadius: bordered ? 8 : 0,
+    boxShadow: bordered
+      ? "0 2px 8px rgba(0, 0, 0, 0.1)"
+      : "none",
     ...imgStyle,
   };
 
   return (
-    <div style={outer}>
+    <div className={className} style={outer}>
       <div style={inner}>
-        <img src={src} alt={alt} style={img} />
+        <img
+          src={src}
+          alt={alt}
+          style={imgStyles}
+          loading="lazy"
+        />
+        {caption && (
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: 14,
+              marginTop: 10,
+              width: "100%",
+            }}
+          >
+            {caption}
+          </p>
+        )}
       </div>
-      {caption && (
-        <p style={{ textAlign: 'center', fontSize: 14, marginTop: 10 }}>
-          {caption}
-        </p>
-      )}
     </div>
   );
-};
-
-export default Image;
+}

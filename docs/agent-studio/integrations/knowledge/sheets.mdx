@@ -1,109 +1,8 @@
----
-title: Google Sheets Integration
-description: Connect SmythOS to Google Sheets. Automate updates, retrieve data, and generate reports directly from your agents, making your spreadsheets truly dynamic!
-og:title: SmythOS & Google Sheets Unleash Your Spreadsheet Superpowers!
-og:description: Learn to integrate Google Sheets with SmythOS. Empower your agents to read, write, and manage spreadsheet data, transforming them into active participants in your automated workflows.
-og:image: /img/integrations/smythos_google_sheets.png
-keywords: [Google Sheets SmythOS Integration, Connect Google Sheets to SmythOS, SmythOS Google Sheets Components, Automate Google Sheets, SmythOS Spreadsheet Automation, No-Code Google Sheets, Spreadsheet Automation]
----
 # Google Sheets Integration with SmythOS
+<InfoCallout>Connect SmythOS to Google Sheets to automate spreadsheet operations directly from your agents. Read, write, and manage data in real-time with powerful components designed for workflow automation.</InfoCallout>
+> **Learn how to connect Google Sheets to SmythOS**
 
-This page shows you how to connect Google Sheets to SmythOS and pick the right component for every spreadsheet task.
-
-> **Want your spreadsheets to work smarter?** Connect Google Sheets to SmythOS and let your agents read, write, and automate data in real time.
-
-<InfoCallout title="TL;DR"> Link your Google Account to SmythOS in a few steps. Then, use our Google Sheets components to enable your agents to automate various spreadsheet tasks and reduce manual data entry.</InfoCallout>
-
-**Quick Links:**
-* [Why Integrate with Google Sheets?](#why-integrate-google-sheets-with-your-agent)
-* [Getting Started: Prerequisites & Connection](#prerequisites-what-youll-need-to-get-started)
-* [Components Overview](#google-sheets-components-an-overview)
-* [Understanding Common Fields](#understanding-common-component-fields)
-* [Detailed Component Guides](#detailed-component-guides)
-* [Best Practices & Advanced Tips](#best-practices--advanced-tips)
-* [Troubleshooting](#troubleshooting-common-issues)
-* [What's Next?](#whats-next)
-
-<Divider />
-
-## Why Integrate Google Sheets
-
-Google Sheets is a powerful tool for data management:
-
-- **Auto-generate reports:** Agents can pull data from various sources and format reports in Google Sheets -> daily, weekly, or on demand.
-- **Log actions as they happen:** Track key events, agent activities, and metrics in Sheets as your automated processes run.
-- **Live configurations:** Use Google Sheets to manage lookup tables, configuration parameters, or dynamic settings that your agents can read and use in their decision-making.
-- **Two-way sync:** Enable agents to not only read from but also write to Sheets, creating truly dynamic and interactive workflows where spreadsheets become active participants.
-
-Essentially, this integration transforms your Google Sheets from static documents into intelligent, interactive parts of your SmythOS ecosystem. The result? Less manual effort for you, fewer errors, timely information, and more capacity to focus on higher-value tasks.
-
-<InfoCallout>
-<details>
-  <summary>Why Integrate Google Sheets with Your Agent?</summary>
-
-Google Sheets is a powerful tool for data management. Each component handles a specific kind of operation
-
-- **Auto-generate reports:** Agents can pull data from various sources and format reports in Google Sheets -> daily, weekly, or on demand.
-- **Log actions as they happen:** Track key events, agent activities, and metrics in Sheets as your automated processes run.
-- **Live configurations:** Use Google Sheets to manage lookup tables, configuration parameters, or dynamic settings that your agents can read and use in their decision-making.
-- **Two-way sync:** Enable agents to not only read from but also write to Sheets, creating truly dynamic and interactive workflows where spreadsheets become active participants.
-
-Essentially, this integration transforms your Google Sheets from static documents into intelligent, interactive parts of your SmythOS ecosystem. The result? Less manual effort for you, fewer errors, timely information, and more capacity to focus on higher-value tasks.
-
-</details>
-</InfoCallout>
-
-<Divider />
-
-## Prerequisites: What You'll Need to Get Started
-
-Before you begin the integration, please ensure you have the following:
-
-- An active **SmythOS account**. (If you're new to SmythOS, [you can sign up here](https://app.smythos.com/signup).)
-- A **Google Account** that has access to the Google Sheets you plan to use.
-- You will need to grant SmythOS permission to interact with your Google Sheets during the authentication process.
-
-<Divider />
-
-## Step-by-Step: Connecting Your Google Sheets Account
-
-Let's establish the connection between SmythOS and your Google Sheets. This is typically a one-time setup per Google account.
-
-### Step 1: Head to the Integrations Hub
-
-1.  In your SmythOS dashboard, locate and click on the **Integrations** section. This is your center for connecting SmythOS to external services.
-2.  Click the **Add Integration** button (often represented by a `+` icon).
-3.  From the list of available integrations, select **Google Sheets**.
-
-<Divider />
-
-### Step 2: Authenticate Your Google Account
-
-This grants SmythOS secure permission to access your Google Sheets. You have two straightforward ways to initiate this:
-
-* **Option A: The Direct `Authenticate` Button**
-    You'll often see a clear, blue **`Authenticate`** button directly on a Google Sheets component when you first add it, or if it's not yet connected. This is usually the quickest method.
-    <Arcade src="https://demo.arcade.software/0yZN1r9Y94cQUDNIZMqj?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Authenticating via the direct blue button" />
-    _Image: The direct 'Authenticate' button often found on a Google Sheets component._
-
-* **Option B: Via Component Settings**
-    If the direct button isn't visible, or if you prefer, you can usually find an **`Authenticate`** button within the settings of any Google Sheets component. Look for a tab labeled something like "OAuth," "Authentication," or "Connection."
-
-**Authentication Process (Common to both options):**
-1.  You'll be guided to a Google Sign-In page. Log in using the Google account that owns or has access to the spreadsheets you wish to use with SmythOS.
-2.  Google will then display a consent screen. This screen details the permissions SmythOS is requesting (e.g., to view and manage your spreadsheets). Take a moment to review these, then click **Allow** or **Grant** to proceed. SmythOS only requests permissions essential for the integration's functionality.
-3.  Once you've granted permission, you'll be returned to SmythOS. The Google Sheets integration or component should now indicate that it's authenticated and ready for use. **Connection Confirmed!** Your Google Sheets are now connected to SmythOS. ✨
-
-
-<InfoCallout title="Switching Google Accounts or Reconnecting?" collapsible >If you ever need to connect a different Google Account or just want to refresh an existing connection, you can typically find a `Sign Out` or `Deauthenticate` button within the Google Sheets integration settings in SmythOS, or on the "OAuth" tab of a component. After deauthenticating, simply repeat the authentication steps above with the new account.
-    <Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Deauthenticating Google Sheets" /> _Image: Deauthenticating your Google Sheets account in SmythOS settings._ </InfoCallout>
-
-<Divider />
-
-## Google Sheets Components: An Overview
-
-With your Google Account successfully linked, you gain access to a range of Google Sheets components within SmythOS. These components are specialized tools your agents can use to perform specific operations on your spreadsheets.
-
+## List of Google Sheets Components
 Click any component name to jump directly to its detailed guide. Here’s what's available:
 
 | Component | Action Type | Summary |
@@ -120,229 +19,79 @@ Click any component name to jump directly to its detailed guide. Here’s what's
 | [Format Header Row](#format-header-row) | Format | Apply bold, centered styling to headers.<br /><Badge type="required" /> `spreadsheetId`, `sheetId` |
 
 <InfoCallout>
-    **Good to Know!** That initial authentication you performed in Step 2 covers **all** these components. You won't need to re-authenticate for each individual component you decide to use.
+    **Good to Know!** After successful authentication (Step 2[link]), you will atomatically gain access all the Google Sheets components.
 </InfoCallout>
 
 <Divider />
 
-## Shared Fields Cheat-sheet
+## Prerequisites
 
-Many Google Sheets components share the same input and output fields. Below are the **standard parameters** so you don’t have to memorize them per-component. Component tables later only list *extra* or *unique* fields.
+Before you begin the integration, please ensure you have the following:
 
-<Tabs
-  tabs={[
-    {
-      label: 'Inputs',
-      content: (
-        <div className="tab-content">
-          {/* Standard Input Parameters table */}
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th><th>Type</th><th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td><code>spreadsheetId</code></td><td>string</td><td>Unique Sheet ID (found in the URL between <code>/d/</code> and <code>/edit</code>).</td></tr>
-              <tr><td><code>sheet</code></td><td>string</td><td>Tab name (e.g. <code>Sheet1</code>). Case‑sensitive. Defaults to first tab when omitted.</td></tr>
-              <tr><td><code>sheetId</code></td><td>string / integer</td><td>Numeric ID for a sheet. First tab is typically <code>0</code>. Needed by formatting components.</td></tr>
-              <tr><td><code>range</code></td><td>string</td><td>A1 notation (<code>Sheet1!A1:C10</code>) or sheet name (<code>Sheet1</code>). Determines target cells.</td></tr>
-              <tr><td><code>majorDimension</code></td><td>string</td><td><em>(Optional)</em> <code>ROWS</code> (default) or <code>COLUMNS</code>; affects array orientation.</td></tr>
-              <tr><td><code>valueInputOption</code></td><td>string</td><td><em>(Optional)</em> <code>USER_ENTERED</code> (auto‑parse) or <code>RAW</code> (literal).</td></tr>
-              <tr><td><code>startIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based start index when operating on sequences (rows/columns).</td></tr>
-              <tr><td><code>endIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based end index (exclusive) for sequences.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    {
-      label: 'Outputs',
-      content: (
-        <div className="tab-content">
-          {/* Standard Output Parameters table */}
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th><th>Type</th><th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td><code>spreadsheetId</code></td><td>string</td><td>ID of the Sheet that was accessed or modified.</td></tr>
-              <tr><td><code>response</code></td><td>object</td><td>Full raw response returned by Google Sheets API (helpful for advanced debugging).</td></tr>
-              <tr><td><code>headers</code></td><td>object</td><td>HTTP headers from the API response (rate‑limit data, request IDs, etc.).</td></tr>
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-  ]}
-/>
-<small>
-<strong>Footnotes</strong><br/>
-1. <code>spreadsheetId</code> — copy the long ID string in your browser’s address bar.<br/>
-2. <code>sheet</code> — <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are treated as different names.
-</small>
+- A **Google Account** that has access to the Google Sheets you plan to use.
+- A valid OAuth connections with permissions to allow [read/edit/etc.] with your Google Sheets.
 
-## Deep Dive into Sheets I/O Fields
+<Divider />
 
-Switch between **Inputs** and **Outputs** below to see detailed explanations, examples, and troubleshooting notes.
+## Getting Started
 
-<Tabs
-  tabs={[
-    {
-      label: 'Inputs (Detailed)',
-      content: (
-        <Tabs
-          tabs={[
-            {
-              label: 'spreadsheetId',
-              content: (
-                <div className="tab-content">
-                  <h4><code>spreadsheetId</code></h4>
-                  <p>Unique Google Sheet ID &mdash; it sits between <code>/d/</code> and <code>/edit</code> in the URL.</p>
-                  <pre><code>https://docs.google.com/spreadsheets/d/**SPREADSHEET_ID**/edit</code></pre>
-                </div>
-              ),
-            },
-            {
-              label: 'sheet',
-              content: (
-                <div className="tab-content">
-                  <h4><code>sheet</code></h4>
-                  <WarningCallout title="Case-Sensitive">
-                    <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are all different. Double-check spelling in the Sheets UI.
-                  </WarningCallout>
-                </div>
-              ),
-            },
-            {
-              label: 'range',
-              content: (
-                <div className="tab-content">
-                  <h4><code>range</code></h4>
-                  <p>A1 notation, named range, or just the sheet name.</p>
+### [Step 1: Head to the Integrations Hub]
 
-                  <Tabs
-                    tabs={[
-                      {
-                        label: 'A1 Notation',
-                        content: (
-                          <div className="tab-content">
-                            <code>Sheet1!A1:C10</code> &nbsp;— targets A1&nbsp;→&nbsp;C10 in <code>Sheet1</code>.
-                          </div>
-                        ),
-                      },
-                      {
-                        label: 'Named Range',
-                        content: (
-                          <div className="tab-content">
-                            <code>SalesData2024</code> &nbsp;— uses a named range you created.
-                          </div>
-                        ),
-                      },
-                      {
-                        label: 'Append Mode',
-                        content: (
-                          <div className="tab-content">
-                            <code>Sheet1</code> &nbsp;— appends to the first empty row in <code>Sheet1</code>.
-                          </div>
-                        ),
-                      },
-                    ]}
-                  />
+1.  In your SmythOS dashboard, locate and click on the **Integrations** section. This is your center for connecting SmythOS to external services.
+2.  Click the **Add Integration** button (often represented by a `+` icon).
+3.  From the list of available integrations, select **Google Sheets**.
 
-                  <InfoCallout>
-                    <strong>Troubleshooting:</strong>
-                    <ul>
-                      <li>Confirm sheet name spelling/capitalisation.</li>
-                      <li>Ensure A1 syntax is valid.</li>
-                      <li>Check that the range isn’t protected/hidden.</li>
-                    </ul>
-                  </InfoCallout>
-                </div>
-              ),
-            },
-            {
-              label: 'majorDimension',
-              content: (
-                <div className="tab-content">
-                  <h4><code>majorDimension</code></h4>
-                  <p>Optional &mdash; controls array orientation.</p>
-                  <ul>
-                    <li><code>ROWS</code> (default)</li>
-                    <li><code>COLUMNS</code></li>
-                  </ul>
-                  <pre><code>{`{
-  "majorDimension": "ROWS"
-}`}</code></pre>
-                </div>
-              ),
-            },
-            {
-              label: 'start / end Index',
-              content: (
-                <div className="tab-content">
-                  <h4><code>startIndex</code> / <code>endIndex</code></h4>
-                  <p>0-based indices for row/column sequences.</p>
-                  <pre><code>{`{
-  "startIndex": 0,
-  "endIndex": 3
-}`}</code></pre>
-                  <p>Affects columns/rows <strong>0&nbsp;–&nbsp;2</strong> (end index exclusive).</p>
-                </div>
-              ),
-            },
-          ]}
-        />
-      ),
-    },
-    {
-      label: 'Outputs (Detailed)',
-      content: (
-        <Tabs
-          tabs={[
-            {
-              label: 'spreadsheetId',
-              content: (
-                <div className="tab-content">
-                  <h4><code>spreadsheetId</code></h4>
-                  <p>ID of the sheet that was accessed or modified.</p>
-                </div>
-              ),
-            },
-            {
-              label: 'response',
-              content: (
-                <div className="tab-content">
-                  <h4><code>response</code></h4>
-                  <p>Raw Google Sheets API payload &mdash; inspect for error detail.</p>
-                </div>
-              ),
-            },
-            {
-              label: 'headers',
-              content: (
-                <div className="tab-content">
-                  <h4><code>headers</code></h4>
-                  <p>HTTP headers from the API response.</p>
-                  <pre><code>{`{
-  "headers": {
-    "Content-Type": "application/json",
-    "X-Request-ID": "123abc456def"
-  }
-}`}</code></pre>
-                </div>
-              ),
-            },
-          ]}
-        />
-      ),
-    },
-  ]}
-/>
-<InfoCallout>Component guides list only extra fields. Refer back here whenever you need a refresher on shared parameters.</InfoCallout>
-<Divider/>
+<Divider />
+
+### Step 2: Authenticate Your Google Account
+
+This grants SmythOS secure permission to access your Google Sheets. You have two straightforward ways to initiate this:
+
+* **(Recommended) Preconfigured `OAuth`**
+    You'll often see a clear, blue **`Authenticate`** button directly on a Google Sheets component when you first add it, or if it's not yet connected. This is usually the quickest method.
+    <Arcade src="https://demo.arcade.software/0yZN1r9Y94cQUDNIZMqj?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Authenticating via the direct blue button" />
+    _Image: The direct 'Authenticate' button often found on a Google Sheets component._
+
+* **Custom Configuration**
+    If the direct button isn't visible, or if you prefer, you can usually find an **`Authenticate`** button within the settings of any Google Sheets component. Look for a tab labeled something like "OAuth," "Authentication," or "Connection."
+
+**Authentication Process (Common to both options):**
+1.  You'll be guided to a Google Sign-In page[link or image]. Log in using the Google account that owns or has access to the spreadsheets you wish to use with SmythOS.
+2.  Google will then display a consent screen. This screen details the permissions SmythOS is requesting (e.g., to view and manage your spreadsheets). Take a moment to review these, then click **Allow** or **Grant** to proceed. SmythOS only requests permissions essential for the integration's functionality.
+3.  Once you've granted permission, you'll be returned to SmythOS. The Google Sheets integration or component should now indicate that it's authenticated and ready for use. **Connection Confirmed!** Your Google Sheets are now connected to SmythOS. ✨
+
+
+<InfoCallout title="Switching Google Accounts or Reconnecting?" collapsible >If you ever need to connect a different Google Account or just want to refresh an existing connection, you can typically find a `Sign Out` or `Deauthenticate` button within the Google Sheets integration settings in SmythOS, or on the "OAuth" tab of a component. After deauthenticating, simply repeat the authentication steps above with the new account.
+    <Arcade src="https://demo.arcade.software/O4XiABuBEZ4pMw1pnKP5?embed&theme=light&embed_mobile=tab&embed_desktop=inline" title="Deauthenticating Google Sheets" /> _Image: Deauthenticating your Google Sheets account in SmythOS settings._ </InfoCallout>
+
+### Step 3: Test the Connection
+
+Before diving into complex workflows, it's crucial to verify that your Google Sheets integration is working correctly. This simple test will confirm everything is set up properly and help you understand the basic workflow.
+Quick Connection Test:
+
+1. Create a Test Spreadsheet (or use an existing one):
+- Open Google Sheets in your browser
+- Create a new spreadsheet or select an existing one that you can safely test with
+- Add some sample data to a few cells (e.g., "Name" in A1, "Email" in B1, "John Doe" in A2, "john@example.com" in B2)
+- Copy the spreadsheet ID from the URL [example]
+
+
+2. Test with Get Values Component:
+- In SmythOS, add a Get Values component to a test workflow
+- Configure it with:
+spreadsheetId: Your test spreadsheet ID
+range: Sheet1!A1:B2 (or adjust based on your test data)
+sheet: Sheet1 (or your actual sheet name)
+- Run the component
+3. Verify the Results:
+- Check that the component returns your test data in the values output
+- The data should appear as a 2D array matching your spreadsheet content
+- Look for any error messages in the response or headers outputs
+
+<InfoCallout>Testing a connection only checks whether SmythOS can successfully connect to the resource. It cannot check whether the provided credentials have sufficient privileges or can perform every supported action.</InfoCallout>
+
+<Divider />
+
 ## Quick Reference: Google Sheets Components
 
 Use this table to quickly compare inputs, outputs, and typical use cases for each Google Sheets component.
@@ -829,6 +578,225 @@ Formatting not applied? Ensure <code>sheetId</code> is correct. Verify <code>sta
 
 Colors incorrect? RGB values in <code>backgroundColor</code> are decimals between <code>0</code> and <code>1</code> (e.g., <code>0.5</code> for 50% intensity).
 </WarningCallout>
+
+## Parameters Cheat-sheet
+
+Many Google Sheets components share the same input and output fields. Below are the **standard parameters** so you don’t have to memorize them per-component. Component tables later only list *extra* or *unique* fields.
+
+<Tabs
+  tabs={[
+    {
+      label: 'Inputs',
+      content: (
+        <div className="tab-content">
+          {/* Standard Input Parameters table */}
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th><th>Type</th><th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>spreadsheetId</code></td><td>string</td><td>Unique Sheet ID (found in the URL between <code>/d/</code> and <code>/edit</code>).</td></tr>
+              <tr><td><code>sheet</code></td><td>string</td><td>Tab name (e.g. <code>Sheet1</code>). Case‑sensitive. Defaults to first tab when omitted.</td></tr>
+              <tr><td><code>sheetId</code></td><td>string / integer</td><td>Numeric ID for a sheet. First tab is typically <code>0</code>. Needed by formatting components.</td></tr>
+              <tr><td><code>range</code></td><td>string</td><td>A1 notation (<code>Sheet1!A1:C10</code>) or sheet name (<code>Sheet1</code>). Determines target cells.</td></tr>
+              <tr><td><code>majorDimension</code></td><td>string</td><td><em>(Optional)</em> <code>ROWS</code> (default) or <code>COLUMNS</code>; affects array orientation.</td></tr>
+              <tr><td><code>valueInputOption</code></td><td>string</td><td><em>(Optional)</em> <code>USER_ENTERED</code> (auto‑parse) or <code>RAW</code> (literal).</td></tr>
+              <tr><td><code>startIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based start index when operating on sequences (rows/columns).</td></tr>
+              <tr><td><code>endIndex</code></td><td>integer</td><td><em>(Optional)</em> 0‑based end index (exclusive) for sequences.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      ),
+    },
+    {
+      label: 'Outputs',
+      content: (
+        <div className="tab-content">
+          {/* Standard Output Parameters table */}
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th><th>Type</th><th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>spreadsheetId</code></td><td>string</td><td>ID of the Sheet that was accessed or modified.</td></tr>
+              <tr><td><code>response</code></td><td>object</td><td>Full raw response returned by Google Sheets API (helpful for advanced debugging).</td></tr>
+              <tr><td><code>headers</code></td><td>object</td><td>HTTP headers from the API response (rate‑limit data, request IDs, etc.).</td></tr>
+            </tbody>
+          </table>
+        </div>
+      ),
+    },
+  ]}
+/>
+<small>
+<strong>Footnotes</strong><br/>
+1. <code>spreadsheetId</code> — copy the long ID string in your browser’s address bar.<br/>
+2. <code>sheet</code> — <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are treated as different names.
+</small>
+
+## Deep Dive into Sheets I/O Fields
+
+Switch between **Inputs** and **Outputs** below to see detailed explanations, examples, and troubleshooting notes.
+
+<Tabs
+  tabs={[
+    {
+      label: 'Inputs (Detailed)',
+      content: (
+        <Tabs
+          tabs={[
+            {
+              label: 'spreadsheetId',
+              content: (
+                <div className="tab-content">
+                  <h4><code>spreadsheetId</code></h4>
+                  <p>Unique Google Sheet ID &mdash; it sits between <code>/d/</code> and <code>/edit</code> in the URL.</p>
+                  <pre><code>https://docs.google.com/spreadsheets/d/**SPREADSHEET_ID**/edit</code></pre>
+                </div>
+              ),
+            },
+            {
+              label: 'sheet',
+              content: (
+                <div className="tab-content">
+                  <h4><code>sheet</code></h4>
+                  <WarningCallout title="Case-Sensitive">
+                    <code>Sheet1</code>, <code>sheet1</code>, and <code>SHEET1</code> are all different. Double-check spelling in the Sheets UI.
+                  </WarningCallout>
+                </div>
+              ),
+            },
+            {
+              label: 'range',
+              content: (
+                <div className="tab-content">
+                  <h4><code>range</code></h4>
+                  <p>A1 notation, named range, or just the sheet name.</p>
+
+                  <Tabs
+                    tabs={[
+                      {
+                        label: 'A1 Notation',
+                        content: (
+                          <div className="tab-content">
+                            <code>Sheet1!A1:C10</code> &nbsp;— targets A1&nbsp;→&nbsp;C10 in <code>Sheet1</code>.
+                          </div>
+                        ),
+                      },
+                      {
+                        label: 'Named Range',
+                        content: (
+                          <div className="tab-content">
+                            <code>SalesData2024</code> &nbsp;— uses a named range you created.
+                          </div>
+                        ),
+                      },
+                      {
+                        label: 'Append Mode',
+                        content: (
+                          <div className="tab-content">
+                            <code>Sheet1</code> &nbsp;— appends to the first empty row in <code>Sheet1</code>.
+                          </div>
+                        ),
+                      },
+                    ]}
+                  />
+
+                  <InfoCallout>
+                    <strong>Troubleshooting:</strong>
+                    <ul>
+                      <li>Confirm sheet name spelling/capitalisation.</li>
+                      <li>Ensure A1 syntax is valid.</li>
+                      <li>Check that the range isn’t protected/hidden.</li>
+                    </ul>
+                  </InfoCallout>
+                </div>
+              ),
+            },
+            {
+              label: 'majorDimension',
+              content: (
+                <div className="tab-content">
+                  <h4><code>majorDimension</code></h4>
+                  <p>Optional &mdash; controls array orientation.</p>
+                  <ul>
+                    <li><code>ROWS</code> (default)</li>
+                    <li><code>COLUMNS</code></li>
+                  </ul>
+                  <pre><code>{`{
+  "majorDimension": "ROWS"
+}`}</code></pre>
+                </div>
+              ),
+            },
+            {
+              label: 'start / end Index',
+              content: (
+                <div className="tab-content">
+                  <h4><code>startIndex</code> / <code>endIndex</code></h4>
+                  <p>0-based indices for row/column sequences.</p>
+                  <pre><code>{`{
+  "startIndex": 0,
+  "endIndex": 3
+}`}</code></pre>
+                  <p>Affects columns/rows <strong>0&nbsp;–&nbsp;2</strong> (end index exclusive).</p>
+                </div>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
+    {
+      label: 'Outputs (Detailed)',
+      content: (
+        <Tabs
+          tabs={[
+            {
+              label: 'spreadsheetId',
+              content: (
+                <div className="tab-content">
+                  <h4><code>spreadsheetId</code></h4>
+                  <p>ID of the sheet that was accessed or modified.</p>
+                </div>
+              ),
+            },
+            {
+              label: 'response',
+              content: (
+                <div className="tab-content">
+                  <h4><code>response</code></h4>
+                  <p>Raw Google Sheets API payload &mdash; inspect for error detail.</p>
+                </div>
+              ),
+            },
+            {
+              label: 'headers',
+              content: (
+                <div className="tab-content">
+                  <h4><code>headers</code></h4>
+                  <p>HTTP headers from the API response.</p>
+                  <pre><code>{`{
+  "headers": {
+    "Content-Type": "application/json",
+    "X-Request-ID": "123abc456def"
+  }
+}`}</code></pre>
+                </div>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
+  ]}
+/>
+<InfoCallout>Component guides list only extra fields. Refer back here whenever you need a refresher on shared parameters.</InfoCallout>
+<Divider/>
 
 ## Best Practices & Advanced Tips
 

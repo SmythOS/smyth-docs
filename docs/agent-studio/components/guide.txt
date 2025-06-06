@@ -1,0 +1,137 @@
+---
+<!-- ===================================================== -->
+<!--  UNIVERSAL COMPONENT DOC TEMPLATE  ·  SmythOS Docs   -->
+<!--  Copy this MDX file, then replace every {{……}}        -->
+<!--  comment with real content. Keep the overall order.  -->
+<!-- ===================================================== -->
+---
+title: {{Component Name}}
+description: {{Short one‑liner value‑prop}}
+keywords: [{{keyword1}}, {{keyword2}}]
+---
+
+# {{Component Name}}
+
+<InfoCallout>
+{{Elevator‑pitch · why the block exists in ≤2 sentences}}
+</InfoCallout>
+
+<Divider /> <!-- ✅ exactly ONE divider in the whole page -->
+
+<!-- █████████████  STEP 1  █████████████ -->
+### Step&nbsp;1 — Core Request Fields
+| Field | Required? | Purpose | Quick tips |
+| --- | --- | --- | --- |
+| **Example Field** | <Badge type="required">Yes</Badge> | Concise goal | e.g. “GET /users” |
+
+<!-- Optional H4s, Tabs, or Callouts go HERE (still inside Step 1). -->
+
+<!-- █████████████  STEP 2  █████████████ -->
+### Step&nbsp;2 — Add Inputs
+| Field | Required? | Purpose | Notes |
+| --- | --- | --- | --- |
+| **Input** | <Badge type="required">Yes</Badge> | Main text / ID | Appears as <code>{{Input}}</code> |
+
+<TipCallout>Rename, color‑code, or mark inputs optional.</TipCallout>
+
+<!-- █████████████  STEP 3  █████████████ -->
+### Step&nbsp;3 — Add Authentication <!-- Omit if N/A -->
+<InfoCallout>Explain Vault keys or OAuth flows in ≤3 sentences.</InfoCallout>
+
+| Grant type | Supported? | Notes |
+| --- | --- | --- |
+| **OAuth 2.0 Auth Code** | ✅ | Auto‑refresh handled |
+| **OAuth 1.0a** | ✅ | Request + Access token URLs required |
+| **Client Credentials** | ✅ | Good for server‑to‑server |
+
+<!-- █████████████  STEP 4  █████████████ -->
+### Step&nbsp;4 — Pagination & Rate Limits <!-- Delete if not relevant -->
+<InfoCallout title="Handling paginated APIs">
+Place this **Condition** block immediately after the component to loop through <code>next_page</code> keys:
+<codeblock>
+{`{
+  "if": "Response.next_page != null",
+  "then": "Loop again"
+}`}
+</codeblock>
+</InfoCallout>
+
+<!-- █████████████  STEP 5  █████████████ -->
+### Step&nbsp;5 — Mock Mode
+<TipCallout>
+Enable **Use Mock Data** to develop without live creds. Max mock size: **5 MB** per response.
+</TipCallout>
+
+| Output | Example Value |
+| --- | --- |
+| **Response** | <code>{"status":200,"data":{…}}</code> |
+| **Error demo** | <code>{"status":429,"error":"rate_limit"}</code> |
+
+<Image src="/img/components/{{slug}}-mock-ui.png" alt="{{Component}} Mock JSON editor" maxWidth={500} />
+
+<!-- █████████████  STEP 6  █████████████ -->
+### Step&nbsp;6 — Define Outputs
+| Field | Required? | Purpose | Notes |
+| --- | --- | --- | --- |
+| **Response** | <Badge type="required">Yes</Badge> | Raw body | Always present |
+| **Custom** | <Badge type="optional">No</Badge> | Extract via JSON Path | Name & Expression |
+
+<!-- █████████████  STEP 7  █████████████ -->
+### Step&nbsp;7 — Examples
+<Tabs>
+<TabItem value="POST" label="Slack POST" default>
+<codeblock>
+{`{
+  "url": "https://hooks.slack.com/services/XXX/YYY/ZZZ",
+  "method": "POST",
+  "headers": { "Content-Type": "application/json" },
+  "body": { "text": "Hello {{User}}" }
+}`}
+</codeblock>
+</TabItem>
+<TabItem value="GET" label="GitHub GET">
+<codeblock>
+{`{
+  "url": "https://api.github.com/repos/{{owner}}/{{repo}}/issues",
+  "method": "GET"
+}`}
+</codeblock>
+</TabItem>
+<TabItem value="UPLOAD" label="Multipart PUT">
+<codeblock>
+{`{
+  "url": "https://api.imgur.com/3/upload",
+  "method": "POST",
+  "headers": { "Authorization": "Client-ID {{clientId}}" },
+  "body": {
+    "image": "{{BinaryFile}}",
+    "type": "file"
+  }
+}`}
+</codeblock>
+</TabItem>
+</Tabs>
+
+<!-- █████████████  STEP 8  █████████████ -->
+### Step&nbsp;8 — Troubleshooting <!-- NEW universal section -->
+| Symptom | Likely Cause | Quick Fix |
+| --- | --- | --- |
+| **4xx error** | Bad auth / missing header | Verify Vault key & header spelling |
+| **Empty response** | Wrong JSON Path in output | Check <em>Define Outputs</em> expressions |
+| **Request timeout** | Large payload or slow API | Lower file size, increase timeout, or add Retry |
+
+<WarningCallout>
+For intermittent 5xx errors wrap the component in a **Retry** block (max 3 attempts).
+</WarningCallout>
+
+<!-- █████████████  BEST PRACTICES  █████████████ -->
+## Best Practices
+* Preview in **Debug** with varied inputs
+* Use **Retry** wrappers for flaky endpoints
+* Short‑circuit on 4xx using a **Condition** block
+* Explicitly set output formats (JSON / HTML / Markdown)
+
+<!-- █████████████  LEARN MORE  █████████████ -->
+## Learn More
+* [Pattern: Structured Outputs →](../patterns/structured-outputs)
+* [Runtime Debugging →](../debugging/test-agent)

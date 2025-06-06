@@ -26,6 +26,7 @@ import DocLink from '@site/src/components/DocLink';
 import Tabs from '@site/src/components/Tabs';
 import SectionHeading from '@site/src/components/SectionHeading';
 import Badge from '@site/src/components/Badge';
+import HeaderSubmenu from '@site/src/components/HeaderSubmenu';
 
 export default {
   // keep defaults
@@ -56,4 +57,5 @@ export default {
   Tabs,
   SectionHeading,
   Badge,
+  HeaderSubmenu,
 };

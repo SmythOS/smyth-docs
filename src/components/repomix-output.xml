@@ -1,0 +1,1713 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+HomepageFeatures/
+  index.tsx
+  styles.module.css
+Arcade.tsx
+Badge.tsx
+BaseCallout.tsx
+Button.tsx
+Card.module.css
+Card.tsx
+CardGrid.tsx
+ComponentCard.tsx
+Divider.tsx
+DocLink.tsx
+FeatureGrid.tsx
+FlowBar.tsx
+HeaderSubmenu.tsx
+Image.tsx
+InfoCallout.tsx
+PageFeedback.tsx
+PromptCard.tsx
+SectionHeading.tsx
+Spacer.tsx
+Steps.tsx
+Tabs.tsx
+TermTable.tsx
+TipCallout.tsx
+ValueCard.tsx
+ValueGrid.tsx
+WarningCallout.tsx
+Youtube.tsx
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="HomepageFeatures/index.tsx">
+import type {ReactNode} from 'react';
+import clsx from 'clsx';
+import Heading from '@theme/Heading';
+import styles from './styles.module.css';
+
+type FeatureItem = {
+  title: string;
+  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  description: ReactNode;
+};
+
+const FeatureList: FeatureItem[] = [
+  {
+    title: 'Easy to Use',
+    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    description: (
+      <>
+        Docusaurus was designed from the ground up to be easily installed and
+        used to get your website up and running quickly.
+      </>
+    ),
+  },
+  {
+    title: 'Focus on What Matters',
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    description: (
+      <>
+        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
+        ahead and move your docs into the <code>docs</code> directory.
+      </>
+    ),
+  },
+  {
+    title: 'Powered by React',
+    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    description: (
+      <>
+        Extend or customize your website layout by reusing React. Docusaurus can
+        be extended while reusing the same header and footer.
+      </>
+    ),
+  },
+];
+
+function Feature({title, Svg, description}: FeatureItem) {
+  return (
+    <div className={clsx('col col--4')}>
+      <div className="text--center">
+        <Svg className={styles.featureSvg} role="img" />
+      </div>
+      <div className="text--center padding-horiz--md">
+        <Heading as="h3">{title}</Heading>
+        <p>{description}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function HomepageFeatures(): ReactNode {
+  return (
+    <section className={styles.features}>
+      <div className="container">
+        <div className="row">
+          {FeatureList.map((props, idx) => (
+            <Feature key={idx} {...props} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+</file>
+
+<file path="HomepageFeatures/styles.module.css">
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
+</file>
+
+<file path="Arcade.tsx">
+import React from 'react';
+
+interface ArcadeEmbedProps {
+  src: string;
+  title: string;
+}
+
+export default function Arcade({ src, title }: ArcadeEmbedProps) {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        paddingBottom: '56.25%',
+        height: 0,
+        overflow: 'hidden',
+        borderRadius: '8px',
+        marginBottom: '1rem',
+      }}
+    >
+      <iframe
+        src={src}
+        title={title}
+        frameBorder="0"
+        loading="lazy"
+        allow="clipboard-write"
+        allowFullScreen
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          colorScheme: 'light',
+          border: 'none',
+        }}
+      />
+    </div>
+  );
+}
+</file>
+
+<file path="Badge.tsx">
+// src/components/mdx/Badge.tsx
+import React from 'react';
+
+interface Props {
+  type?: 'required' | 'optional' | 'recommended' | string;
+  children?: React.ReactNode;
+}
+
+const colorMap: Record<string, string> = {
+  required: '#b91c1c',      // red
+  optional: '#2563eb',      // blue
+  recommended: '#059669',   // green
+  default: '#6b7280',       // gray
+};
+
+const bgMap: Record<string, string> = {
+  required: '#fee2e2',
+  optional: '#dbeafe',
+  recommended: '#d1fae5',
+  default: '#e5e7eb',
+};
+
+export default function Badge({ type = 'default', children }: Props) {
+  const color = colorMap[type.toLowerCase()] || colorMap.default;
+  const background = bgMap[type.toLowerCase()] || bgMap.default;
+
+  return (
+    <span
+      style={{
+        backgroundColor: background,
+        color: color,
+        borderRadius: '0.375rem',
+        padding: '2px 8px',
+        fontSize: '0.75rem',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        display: 'inline-block',
+        lineHeight: 1.4,
+      }}
+    >
+      {children || type}
+    </span>
+  );
+}
+</file>
+
+<file path="BaseCallout.tsx">
+import React, { ReactNode, useState } from 'react';
+import {
+  Info,
+  AlertTriangle,
+  Lightbulb,
+  ChevronDown,
+} from 'lucide-react';
+
+interface Props {
+  title?: string;
+  children: ReactNode;
+  collapsible?: boolean;
+  defaultOpen?: boolean;
+  type: 'info' | 'warn' | 'tip';
+}
+
+const BaseCallout = ({
+  type,
+  title,
+  children,
+  collapsible = false,
+  defaultOpen = true,
+}: Props) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  const typeStyles = {
+    info: {
+      icon: <Info size={20} style={{ color: '#2563eb', marginRight: 6 }} />,
+      label: 'INFO',
+      borderColor: '#2563eb',
+    },
+    warn: {
+      icon: <AlertTriangle size={20} style={{ color: '#b45309', marginRight: 6 }} />,
+      label: 'WARNING',
+      borderColor: '#f59e0b',
+    },
+    tip: {
+      icon: <Lightbulb size={20} style={{ color: '#059669', marginRight: 6 }} />,
+      label: 'TIP',
+      borderColor: '#34d399',
+    },
+  };
+
+  const { icon, label, borderColor } = typeStyles[type];
+
+  const toggle = () => setIsOpen(prev => !prev);
+
+  return (
+    <div
+      className={`final-callout callout-${type}`}
+      style={{ borderLeft: `6px solid ${borderColor}` }}
+    >
+      <div
+        className={`callout-header${collapsible ? ' callout-clickable' : ''}`}
+        onClick={collapsible ? toggle : undefined}
+      >
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {icon}
+          <span
+            style={{
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              marginRight: 4,
+            }}
+          >
+            {title || label}
+          </span>
+        </div>
+
+        {collapsible && (
+          <ChevronDown
+            size={18}
+            style={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.2s ease-in-out',
+              marginTop: 1,
+              opacity: 0.75,
+            }}
+          />
+        )}
+      </div>
+
+      {collapsible && !isOpen && <div style={{ height: '10px' }} />}
+
+      <div
+        className="callout-body-wrapper"
+        style={{
+          maxHeight: !collapsible || isOpen ? 1000 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.3s ease-in-out',
+        }}
+      >
+        <div className="callout-body">{children}</div>
+      </div>
+
+      <style>
+        {`
+          .final-callout {
+            border-radius: 8px;
+            margin: 24px 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+          }
+
+          .callout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px 0 20px;
+            transition: background-color 0.2s ease-in-out;
+          }
+
+          .callout-clickable {
+            cursor: pointer;
+          }
+
+          .callout-clickable:hover {
+            background-color: rgba(0, 0, 0, 0.025);
+          }
+
+          :root[data-theme='dark'] .callout-clickable:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+          }
+
+          .callout-body-wrapper {
+            transition: max-height 0.3s ease-in-out;
+          }
+
+          .callout-body {
+            padding: 12px 20px 16px 20px;
+            font-size: 1.075rem;
+            line-height: 1.6;
+          }
+
+          .callout-body code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: #b45309;
+            font-family: SFMono-Regular, Menlo, Consolas, monospace;
+          }
+
+          :root[data-theme='light'] .callout-info {
+            background-color: #e0f2fe;
+            color: #0c0c0c;
+          }
+
+          :root[data-theme='dark'] .callout-info {
+            background-color: #1e3a8a22;
+            color: #dbeafe;
+          }
+
+          :root[data-theme='light'] .callout-warn {
+            background-color: #fef3c7;
+            color: #78350f;
+          }
+
+          :root[data-theme='dark'] .callout-warn {
+            background-color: #78350f22;
+            color: #fde68a;
+          }
+
+          :root[data-theme='light'] .callout-tip {
+            background-color: #d1fae5;
+            color: #065f46;
+          }
+
+          :root[data-theme='dark'] .callout-tip {
+            background-color: #065f4622;
+            color: #bbf7d0;
+          }
+
+          :root[data-theme='dark'] .callout-body code {
+            background-color: #334155;
+            color: #fbbf24;
+          }
+        `}
+      </style>
+    </div>
+  );
+};
+
+export default BaseCallout;
+</file>
+
+<file path="Button.tsx">
+import React from 'react';
+
+const Button = ({ href, title, description, marginTop = 0 }) => {
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop,
+  };
+
+  const buttonStyle = {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    padding: 20,
+    textDecoration: 'none',
+    color: 'rgb(69, 201, 169)',
+    backgroundColor: 'white',
+    border: '2px solid rgb(69, 201, 169)',
+    borderRadius: 10,
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  };
+
+  return (
+    <div style={containerStyle}>
+      <a
+        href={href}
+        style={buttonStyle}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgb(69, 201, 169)';
+          e.currentTarget.style.color = 'white';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = 'white';
+          e.currentTarget.style.color = 'rgb(69, 201, 169)';
+        }}
+      >
+        <div>
+          <span style={{ fontWeight: 'bold', fontSize: 22, display: 'block' }}>{title}</span>
+          <span style={{ fontWeight: 300, fontSize: 14, display: 'block' }}>{description}</span>
+        </div>
+      </a>
+    </div>
+  );
+};
+
+export default Button;
+</file>
+
+<file path="Card.module.css">
+:root {
+  --smy-card-bg: var(--ifm-card-background-color, #fff);
+  --smy-card-border: var(--ifm-color-emphasis-200);
+  --smy-card-border-hover: #08B68F;
+  --smy-card-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme='dark'] {
+  --smy-card-bg: var(--ifm-background-surface-color, #1c1e21);
+  --smy-card-border: var(--ifm-color-emphasis-300);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+}
+
+.card {
+  display: block;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--smy-card-border);
+  background-color: var(--smy-card-bg);
+  box-shadow: var(--smy-card-shadow);
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transform: scale(1);
+  width: 100%;
+}
+
+.card:hover {
+  transform: scale(1.07);
+  border-color: var(--smy-card-border-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+.card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ifm-color-content-secondary);
+}
+</file>
+
+<file path="Card.tsx">
+import React, { PropsWithChildren } from "react";
+import Link from "@docusaurus/Link";
+import clsx from "clsx";
+import styles from "./Card.module.css";
+
+export interface CardProps {
+  title: string;
+  description: string;
+  to: string;
+}
+
+export function CardGrid({ children }: PropsWithChildren<{}>) {
+  return <div className={styles.cardGrid}>{children}</div>;
+}
+
+export function Card({ title, description, to }: CardProps) {
+  return (
+    <Link
+      className={clsx("no-underline", styles.card)}
+      to={to}
+      aria-label={`Navigate to ${title}`}
+    >
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </Link>
+  );
+}
+</file>
+
+<file path="CardGrid.tsx">
+import React from 'react';
+import styles from './Card.module.css';
+
+type Props = {
+  children: React.ReactNode;
+};
+
+export default function CardGrid({ children }: Props) {
+  return <div className={styles.cardGrid}>{children}</div>;
+}
+</file>
+
+<file path="ComponentCard.tsx">
+interface Props {
+  name: string;
+  description: string;
+}
+export default function ComponentCard({ name, description }: Props) {
+  return (
+    <div className="my-2 rounded-xl border bg-white p-4 shadow-sm dark:bg-slate-800">
+      <h4 className="font-semibold text-gray-900 dark:text-gray-100">{name}</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    </div>
+  );
+}
+</file>
+
+<file path="Divider.tsx">
+type DividerProps = {
+  variant?: 'subtle' | 'solid' | 'inset' | 'dashed' | 'labeled';
+  label?: string;
+};
+
+export default function Divider({ variant = 'subtle', label }: DividerProps) {
+  const base = 'w-full border-t';
+
+  const variantStyles: Record<string, string> = {
+    solid: 'my-6 border-slate-300 dark:border-slate-600',
+    inset: 'my-6 ml-6 w-[calc(100%-1.5rem)] border-slate-300 dark:border-slate-600',
+    dashed: 'my-6 border-slate-300 border-dashed border-opacity-60 dark:border-slate-600 dark:border-opacity-50',
+    labeled: 'my-10',
+  };
+
+  if (variant === 'labeled' && label) {
+    return (
+      <div className="relative my-10 flex items-center justify-center text-center">
+        <hr className="flex-grow border-t border-slate-200 dark:border-slate-700 opacity-50" />
+        <span
+          className="
+            mx-3
+            shrink-0
+            rounded
+            bg-white
+            px-3
+            text-xs
+            font-medium
+            text-slate-500
+            dark:bg-slate-900
+            dark:text-slate-400
+          "
+        >
+          {label}
+        </span>
+        <hr className="flex-grow border-t border-slate-200 dark:border-slate-700 opacity-50" />
+      </div>
+    );
+  }
+  if (variant === 'subtle') {
+    return <div className="my-6" />;
+  }
+
+  return <hr className={`${base} ${variantStyles[variant]}`} />;
+}
+
+
+/* example usage -> <Divider />
+<Divider variant="dashed" />
+<Divider variant="inset" />
+<Divider variant="labeled" label="Advanced Settings" /> */
+</file>
+
+<file path="DocLink.tsx">
+import React from 'react';
+import Link from '@docusaurus/Link';
+
+interface Props {
+  to: string;                 
+  children: React.ReactNode;  
+}
+
+export default function DocLink({ to, children }: Props) {
+  const external = /^https?:\/\//.test(to);
+  return (
+    <Link
+      to={to}
+      {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
+      className="text-emerald-600 underline-offset-2 hover:underline"
+    >
+      {children}
+    </Link>
+  );
+}
+</file>
+
+<file path="FeatureGrid.tsx">
+import { ReactNode } from 'react';
+export default function FeatureGrid({ children }: { children: ReactNode }) {
+  return <div className="my-4 grid gap-4 sm:grid-cols-2">{children}</div>;
+}
+</file>
+
+<file path="FlowBar.tsx">
+import React from 'react';
+
+type Props = { items: string[] };
+
+export default function FlowBar({ items }: Props) {
+  return (
+    <div className="flex flex-wrap items-center">
+      {items.map((label, i) => (
+        <React.Fragment key={label}>
+          {i > 0 && (
+            <span
+              aria-hidden
+              className="mx-[0.35em] inline-block translate-y-[.10em] text-[0.9em] font-semibold text-gray-800 dark:text-gray-200"
+            >
+              →
+            </span>
+          )}
+          <span className="whitespace-nowrap">{label}</span>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+</file>
+
+<file path="HeaderSubmenu.tsx">
+import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import "../css/headerSubmenu.css";
+
+interface MenuItem {
+  label: string;
+  href: string;
+  Svg: React.FC<React.SVGProps<SVGSVGElement>>;
+}
+
+const MENU_ITEMS: MenuItem[] = [
+  {
+    label: "Studio",
+    href: "/docs/agent-studio/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Studio icon paths */}
+        <g
+          clipPath="url(#studioClip)"
+          transform="translate(.5 -.33)"
+          stroke="currentColor"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1 8c0-2.625.028-3.5 3.5-3.5s3.5.875 3.5 3.5.011 3.5-3.5 3.5-3.5-.875-3.5-3.5Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path d="m7.224 11.05 2 1M7.776 6.05l2-1" />
+          <path
+            d="M3 8.498c.865.806 2.152.686 2.823 0"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="studioClip">
+            <path fill="currentColor" transform="translate(0 .5)" d="M0 0h16v16H0z" />
+          </clipPath>
+        </defs>
+      </svg>
+    ),
+  },
+  {
+    label: "Weaver",
+    href: "/docs/agent-weaver/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Weaver icon paths */}
+        <path
+          d="M14 4.209c0-1.1046-.895-2-2-2H4c-1.1046 0-2 .8954-2 2v5.8555c0 1.1046.8954 2 2 2h1.4413a1 1 0 0 1 .707.293l1.145 1.145a1 1 0 0 0 1.414 0l1.145-1.145a1 1 0 0 1 .707-.293H12c1.1046 0 2-.8954 2-2z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="m10.5 7.471-1 2.5-1.5-3.034-1.5 3.535-1.5-4"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.177 6.328A1.769 1.769 0 0 0 10 5.1496a1.769 1.769 0 0 0 1.177-1.1785A1.769 1.769 0 0 0 12.354 5.15 1.769 1.769 0 0 0 11.177 6.328z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: "Runtime",
+    href: "/docs/agent-runtime/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Runtime icon paths */}
+        <path
+          d="M5.661 3.025h4.682c1.6287 0 2.6374.884 2.6328 2.5083v4.93c0 1.6242-1.0093 2.5128-2.638 2.5128H5.661c-1.6236 0-2.6374-.9042-2.6374-2.5544V5.533c0-1.6242 1.0138-2.5083 2.6374-2.5083z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.6986 3.0248V2M7.999 3.025v-1.025M5.299 3.025v-1.025M5.299 12.9752V14m2.7-1.025v1.025m2.7-1.025v1.025M3.025 5.2994H2m1.025 2.7h-1.025m1.025 2.7h-1.025M12.975 10.6989h1.025m-1.025-2.7h1.025m-1.025-2.7h1.025"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          clipRule="evenodd"
+          d="M9.1163 5.6302h-2.23c-.7739 0-1.2572.421-1.2572 1.1948v2.33c0 .786.4833 1.2169 1.2571 1.2169h2.2275c.7765 0 1.257-.424 1.257-1.1975V6.825c0-.7738-.4785-1.1948-1.2544-1.1948z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: "Deployments",
+    href: "/docs/agent-deployments/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Deployments icon paths */}
+        <path
+          d="M8.9572 5.385c.42-.42 1.1017-.4194 1.5218.0007.42.42.4207 1.1017.0007 1.5218-.42.42-1.1018.4193-1.5219-.0007-.42-.42-.4207-1.1018-.0006-1.5218z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.2474 2.3463c-3.6388-.2471-8.129 3.1116-8.612 6.8915-.0112.3302.1093.6424.3349.868l.9115.9115c.2256.2256.5378.346.868.3349 3.7798-.4833 7.1385-4.9733 6.8914-8.6121-.0146-.215-.1788-.3792-.3938-.3938z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="m10.9474 9.2185-.21 2.9536a.677.677 0 0 1-.3742.6056l-1.6356.8178a.677.677 0 0 1-.945-.3915l-.7651-1.8692M6.8113 5.0857l-2.955.1895a.677.677 0 0 0-.608.37l-.8291 1.63a.677.677 0 0 0 .385.9477l1.8638.778M4.9084 12.3398c-.1802 1.1997-1.5846.9759-2.5003 1.1135.1376-.9157-.0785-2.3124 1.1212-2.4926"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: "Collaboration",
+    href: "/docs/agent-collaboration/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Collaboration icon paths */}
+        <path
+          d="M8.0527 4.797c-.4017.061-.8102-.0006-1.2158.0093-.9404.0235-1.6773.8516-2.3928 1.4127-.3662.2875-.8778.2494-1.2012-.0892-.3589-.375-.3589-.9837 0-1.3593.773-.8081 1.4558-1.5587 2.5038-1.983 1.4542-.5893 2.803-.3029 4.2757 0M8.054 4.8156H7.26M2.9737 13.6672h.5955c.4547 0 .7375-.334.7375-.807v-2.7695c0-.473-.2828-.8075-.7375-.8075h-.5955"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8.9888 9.1661c-.6536-.1708-1.306-.3052-1.9883-.2876-1.0817.027-1.8378.655-2.6948 1.253M7.9473 11.2025c.4017-.061.8102.0006 1.2159-.0094.9403-.0234 1.6772-.8515 2.3927-1.4126.3663-.2875.8778-.2494 1.2012.0892.359.375.359.9836 0 1.3592-.773.8082-1.4558 1.5588-2.5038 1.9832-1.4541.5892-2.803.3028-4.2757 0m1.9686-2.0282H8.74M7.0108 6.832c.6535.1708 1.306.3052 1.9883.2876 1.0817-.027 1.8378-.655 2.6948-1.253"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.0255 2.3328H12.43c-.4546 0-.7374.334-.7374.807v2.7694c0 .473.2828.8076.7374.8076h.5956"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    label: "Templates",
+    href: "/docs/agent-templates/overview/",
+    Svg: () => (
+      <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Templates icon paths */}
+        <path
+          clipRule="evenodd"
+          d="M2 4.333C2 2.583 2.018 2 4.333 2S6.667 2.583 6.667 4.333c0 1.75.007 2.333-2.333 2.333S2 6.083 2 4.333zM9.334 4.333C9.334 2.583 9.352 2 11.667 2S14 2.583 14 4.333c0 1.75.007 2.333-2.333 2.333S9.334 6.083 9.334 4.333zM2 11.667c0-1.75.019-2.333 2.333-2.333S6.667 9.917 6.667 11.667C6.667 13.417 6.674 14 4.333 14S2 13.417 2 11.667zM9.334 11.667c0-1.75.019-2.333 2.333-2.333S14 9.917 14 11.667c0 1.75.007 2.333-2.333 2.333S9.334 13.417 9.334 11.667z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+];
+
+const HeaderSubmenu: React.FC = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const handleClick = (href: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    history.push(href);
+  };
+
+  return (
+    <>
+      {/* Dummy .navbar element so any code querying document.querySelector('.navbar') never sees null */}
+      <div className="navbar" style={{ height: 0, visibility: "hidden" }} />
+
+      <div className="header-submenu">
+        <div className="header-submenu-container">
+          <nav role="navigation" aria-label="Sub Navigation">
+            <ul>
+              {MENU_ITEMS.map((item) => {
+                const isActive = currentPath.startsWith(item.href);
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={handleClick(item.href)}
+                      className={isActive ? "active" : ""}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <item.Svg />
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default HeaderSubmenu;
+</file>
+
+<file path="Image.tsx">
+import React from "react";
+
+interface ImageProps {
+  /** Image source (URL or local path under /static). 
+   *  e.g. "/img/my-picture.jpg" or "https://example.com/foo.png" */
+  src: string;
+
+  /** Alt text for accessibility (defaults to empty string) */
+  alt?: string;
+
+  /** Optional caption text shown below the image */
+  caption?: string;
+
+  /** Whether to draw a subtle border + drop shadow (default: true) */
+  bordered?: boolean;
+
+  /** Max width of the container (in px or any CSS unit, e.g. "700px" or 700) */
+  maxWidth?: number | string;
+
+  /** Extra styles for the outer wrapper (overrides defaults) */
+  wrapperStyle?: React.CSSProperties;
+
+  /** Extra styles for the inner container (overrides defaults) */
+  containerStyle?: React.CSSProperties;
+
+  /** Extra styles for the `<img>` element (overrides defaults) */
+  imgStyle?: React.CSSProperties;
+
+  /**
+   * Optional aspect ratio in "W:H" form (e.g. "16:9" or "4:3").
+   * If provided, the image is placed in a position-relative box
+   * with `padding-top` equal to (H/W * 100)% to preserve ratio.
+   */
+  aspectRatio?: string;
+
+  /** Optional additional CSS classes for the outer wrapper */
+  className?: string;
+}
+
+export default function Image({
+  src,
+  alt = "",
+  caption,
+  bordered = true,
+  maxWidth = 700,
+  wrapperStyle = {},
+  containerStyle = {},
+  imgStyle = {},
+  aspectRatio,
+  className = "",
+}: ImageProps): React.ReactElement {
+  // Outer wrapper: centers content, vertical margins
+  const outer: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 20,
+    ...wrapperStyle,
+  };
+
+  // Compute aspect ratio padding if needed
+  let aspectPadding: string | null = null;
+  if (aspectRatio && aspectRatio.includes(":")) {
+    const [w, h] = aspectRatio.split(":").map(Number);
+    if (!isNaN(w) && !isNaN(h) && w > 0 && h > 0) {
+      aspectPadding = `${(h / w) * 100}%`;
+    }
+  }
+
+  // Inner container: constrains width, handles aspect ratio box
+  const inner: React.CSSProperties = {
+    maxWidth,
+    width: "100%",
+    position: aspectPadding ? "relative" : "static",
+    ...(aspectPadding ? { paddingTop: aspectPadding } : {}),
+    ...containerStyle,
+  };
+
+  // Image styling: subtler border and soft shadow
+  const imgStyles: React.CSSProperties = {
+    display: "block",
+    margin: "auto",
+    maxWidth: "100%",
+    width: aspectPadding ? "100%" : "auto",
+    height: aspectPadding ? "100%" : "auto",
+    objectFit: aspectPadding ? "cover" : "initial",
+    position: aspectPadding ? "absolute" : "static",
+    top: 0,
+    left: 0,
+    border: bordered ? "1px solid #ccc" : "none",
+    borderRadius: bordered ? 8 : 0,
+    boxShadow: bordered
+      ? "0 2px 8px rgba(0, 0, 0, 0.1)"
+      : "none",
+    ...imgStyle,
+  };
+
+  return (
+    <div className={className} style={outer}>
+      <div style={inner}>
+        <img
+          src={src}
+          alt={alt}
+          style={imgStyles}
+          loading="lazy"
+        />
+        {caption && (
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: 14,
+              marginTop: 10,
+              width: "100%",
+            }}
+          >
+            {caption}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Image component – centers an image, constrains it to a max width,
+ * and (optionally) adds a green border + rounded corners. Supports optional aspect ratio.
+ *
+ * Props
+ * ─────
+ * src            – required, image URL
+ * alt            – optional, alt text (default '')
+ * caption        – optional string shown under the image
+ * bordered       – boolean, show green border (default true)
+ * maxWidth       – number | string, inner container max width (default 700)
+ * wrapperStyle   – object, extra styles for the outer wrapper
+ * containerStyle – object, extra styles for the inner container
+ * imgStyle       – object, extra styles for <img>
+ * aspectRatio    – optional string like "4:3" or "16:9"
+ */
+</file>
+
+<file path="InfoCallout.tsx">
+import BaseCallout from "./BaseCallout";
+export const InfoCallout = (p: any) => <BaseCallout type="info" {...p} />;
+</file>
+
+<file path="PageFeedback.tsx">
+import React, { useEffect, useRef, useState } from "react";
+import { ThumbsUp, ThumbsDown, Send } from "lucide-react";
+
+type Vote = "up" | "down" | null;
+interface Props {
+  pageId?: string;
+}
+
+/* SmythOS palette */
+const C = {
+  mint:       "#3EFCC2",  // main accent
+  mintDark:   "#08B68F",  // 4.7 : 1 contrast on white
+  border:     "#d0d7de",
+  text:       "#4b5563",
+  bg:         "#f9fafb",
+};
+
+export default function PageFeedback({ pageId }: Props) {
+  const id  = pageId ?? (typeof window !== "undefined" ? window.location.pathname : "unknown");
+  const KEY = `smythos-feedback-${id}`;
+
+  const [vote,    setVote]    = useState<Vote>(null);     // up / down / null
+  const [comment, setComment] = useState("");
+  const textareaRef           = useRef<HTMLTextAreaElement>(null);
+
+  /* restore vote from localStorage */
+  useEffect(() => { setVote(localStorage.getItem(KEY) as Vote); }, [KEY]);
+
+  const toggleVote = (v: Vote) => {
+    const newVote = vote === v ? null : v; 
+    setVote(newVote);
+    newVote ? localStorage.setItem(KEY, newVote) : localStorage.removeItem(KEY);
+    if (newVote === "down") setTimeout(() => textareaRef.current?.focus(), 30);
+  };
+
+  const submitComment = () => {
+    if (!comment.trim()) return;
+    // analytics here //
+    setComment("");
+    alert("Thanks for the detailed feedback!");
+  };
+
+  const Btn = ({ dir }: { dir: "up" | "down" }) => {
+    const Icon   = dir === "up" ? ThumbsUp : ThumbsDown;
+    const active = vote === dir;
+    return (
+      <button
+        onClick={() => toggleVote(dir)}
+        aria-label={dir === "up" ? "Helpful" : "Not helpful"}
+        aria-pressed={active}
+        style={{
+          background: "#fff",
+          border: `2px solid ${active ? C.mintDark : C.border}`,
+          color: active ? C.mintDark : C.text,
+          borderRadius: 6,
+          padding: "0.35rem 0.65rem",
+          marginInlineEnd: 6,
+          cursor: "pointer",
+        }}
+      >
+        <Icon size={18} strokeWidth={2} />
+      </button>
+    );
+  };
+
+  return (
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
+      <section
+        style={{
+          display: "inline-block",
+          padding: "0.8rem 1rem",
+          background: C.bg,
+          border: `1px solid ${C.border}`,
+          borderRadius: 10,
+          fontSize: "0.85rem",
+          color: C.text,
+        }}
+      >
+        <span style={{ marginRight: 10 }}>Was this page helpful?</span>
+        <Btn dir="up" />
+        <Btn dir="down" />
+
+        {/* thank-you banner on any vote */}
+        {vote && (
+          <span style={{ marginLeft: 10, color: C.mintDark }}>
+            Thanks for the feedback!
+          </span>
+        )}
+
+        {/* follow-up textarea only for 👎 */}
+        {vote === "down" && (
+          <div style={{ marginTop: 10 }}>
+            <textarea
+              ref={textareaRef}
+              rows={3}
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="What could be better? (optional)"
+              style={{
+                width: 260,
+                maxWidth: "100%",
+                border: `1px solid ${C.border}`,
+                borderRadius: 6,
+                padding: "0.5rem",
+                fontSize: "0.8rem",
+              }}
+            />
+            <button
+              onClick={submitComment}
+              style={{
+                marginTop: 6,
+                background: C.mintDark,
+                color: "#fff",
+                border: "none",
+                padding: "0.35rem 0.8rem",
+                borderRadius: 6,
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                cursor: "pointer",
+              }}
+            >
+              <Send size={14} /> Send
+            </button>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+</file>
+
+<file path="PromptCard.tsx">
+import React, { useState } from 'react';
+import { Copy, Check } from 'lucide-react';
+
+interface PromptCardProps {
+  children: React.ReactNode;
+  prompt: string;
+  title?: string;
+  tags?: string[];
+  collapsible?: boolean;
+  maxChars?: number;
+
+}
+
+const PromptCard = ({
+  prompt,
+  title,
+  tags = [],
+  collapsible = false,
+  maxChars = 220,
+}: PromptCardProps) => {
+  const [copied, setCopied] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const isLong = prompt.length > maxChars && collapsible;
+  const displayText = !isLong || expanded ? prompt : `${prompt.slice(0, maxChars)}...`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Copy failed', err);
+    }
+  };
+
+  return (
+    <div className="prompt-card-container">
+      <div className="prompt-card-header">
+        {title && <div className="prompt-card-title">{title}</div>}
+        <button className="copy-btn" onClick={handleCopy} aria-label="Copy">
+          {copied ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
+        </button>
+      </div>
+
+      {tags.length > 0 && (
+        <div className="prompt-card-tags">
+          {tags.map((tag, index) => (
+            <span key={index} className="prompt-tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <div className="prompt-card-content">
+        {displayText}
+        </div>
+
+      {isLong && (
+        <div className="toggle-expand" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show less' : 'Show more'}
+        </div>
+      )}
+
+      <style>
+  {`
+    .prompt-card-container {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: system-ui, sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      position: relative;
+      transition: all 0.3s ease;
+      color: #1f2937;
+    }
+
+    .prompt-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .prompt-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .prompt-card-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .prompt-tag {
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .prompt-card-content {
+      font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+      background: #f3f4f6;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #1f2937;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .toggle-expand {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #2563eb;
+      cursor: pointer;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #6b7280;
+    }
+
+    .copy-btn:hover {
+      color: #374151;
+    }
+
+    :root[data-theme='dark'] .prompt-card-container {
+      background-color: #1e293b;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+
+    :root[data-theme='dark'] .prompt-card-title,
+    :root[data-theme='dark'] .toggle-expand {
+      color: #e2e8f0;
+    }
+
+    :root[data-theme='dark'] .prompt-card-content {
+      background: #111827;
+      color: #f3f4f6;
+    }
+
+    :root[data-theme='dark'] .prompt-tag {
+      background: #312e81;
+      color: #c7d2fe;
+    }
+
+    :root[data-theme='dark'] .copy-btn {
+      color: #cbd5e1;
+    }
+
+    :root[data-theme='dark'] .copy-btn:hover {
+      color: #f1f5f9;
+    }
+  `}
+</style>
+  </div>
+  );
+};
+
+export default PromptCard;
+</file>
+
+<file path="SectionHeading.tsx">
+export default function SectionHeading({ children }) {
+  return <h2 className="text-xl font-semibold mt-6 mb-2">{children}</h2>;
+}
+</file>
+
+<file path="Spacer.tsx">
+export default function Spacer({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+  const sizes = {
+    sm: 'my-6',
+    md: 'my-12',
+    lg: 'my-20',
+  };
+  return <div className={sizes[size]} />;
+}
+</file>
+
+<file path="Steps.tsx">
+import React, { ReactNode } from 'react';
+
+export default function Steps({ children }: { children: ReactNode }) {
+  return (
+    <ol className="ml-6 list-decimal space-y-3 text-base text-gray-800 dark:text-gray-200">
+      {React.Children.map(children, (child) => (
+        <li className="[&>*]:pl-1">{child}</li>
+      ))}
+    </ol>
+  );
+}
+</file>
+
+<file path="Tabs.tsx">
+import React, { useState, type ReactElement } from 'react';
+
+type Tab = {
+  label: string;
+  content: ReactElement;
+  id?: string;
+};
+
+interface Props {
+  tabs: Tab[];
+  defaultIndex?: number;
+  className?: string;
+}
+
+export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
+  const [index, setIndex] = useState(defaultIndex);
+
+  return (
+    <div className={`tabs-container ${className ?? ''}`}>
+      <div className="tab-header">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.id ?? tab.label}
+            className={`tab-button ${i === index ? 'active' : ''}`}
+            onClick={() => setIndex(i)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div key={tabs[index].label} className="tab-content">
+      {tabs[index].content}
+      </div>
+
+
+      <style>{`
+        .tabs-container {
+          border-radius: 12px;
+          border: 1px solid #e5e7eb;
+          overflow: hidden;
+          background: #ffffff;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+          margin: 1rem 0;
+          font-family: system-ui, sans-serif;
+        }
+
+        .tab-header {
+          display: flex;
+          background: #f9fafb;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tab-button {
+          padding: 10px 16px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          background: none;
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s;
+          color: #4b5563;
+        }
+
+        .tab-button:hover {
+          background: #f3f4f6;
+        }
+
+        .tab-button.active {
+          background: #e0e7ff;
+          color: #1e40af;
+        }
+
+        .tab-content {
+          padding: 20px 24px;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          color: #111827;
+          background-color: #ffffff;
+        }
+
+        .tab-content h3 {
+          font-size: 1.25rem;
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        .tab-content p {
+          margin: 0.5em 0;
+        }
+
+        .tab-content ul {
+          padding-left: 1.2em;
+          margin-top: 0.5rem;
+        }
+
+        .tab-content strong {
+          font-weight: 600;
+          color: #1f2937;
+        }
+
+        .tab-content code {
+          font-family: SFMono-Regular, Consolas, Menlo, monospace;
+          background-color: #f3f4f6;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.85em;
+          color: #b45309;
+        }
+
+        :root[data-theme='dark'] .tabs-container {
+          background: #1e293b;
+          border-color: #334155;
+          color: #e2e8f0;
+        }
+
+        :root[data-theme='dark'] .tab-header {
+          background: #0f172a;
+          border-bottom-color: #334155;
+        }
+
+        :root[data-theme='dark'] .tab-button {
+          color: #cbd5e1;
+        }
+
+        :root[data-theme='dark'] .tab-button:hover {
+          background: #1e293b;
+        }
+
+        :root[data-theme='dark'] .tab-button.active {
+          background: #334155;
+          color: #ffffff;
+        }
+
+        :root[data-theme='dark'] .tab-content {
+          background-color: #1e293b;
+          color: #e2e8f0;
+        }
+
+        :root[data-theme='dark'] .tab-content strong {
+          color: #f8fafc;
+        }
+
+        :root[data-theme='dark'] .tab-content code {
+          background-color: #334155;
+          color: #fbbf24;
+        }
+      `}</style>
+    </div>
+  );
+}
+</file>
+
+<file path="TermTable.tsx">
+import { ReactNode } from 'react';
+
+export default function TermTable({ children }: { children: ReactNode }) {
+  return (
+    <table className="my-6 w-full border dark:border-slate-700">
+      <tbody className="divide-y divide-gray-200 dark:divide-slate-700">{children}</tbody>
+    </table>
+  );
+}
+</file>
+
+<file path="TipCallout.tsx">
+import BaseCallout from './BaseCallout';
+export const TipCallout = (p: any) => <BaseCallout type="tip" {...p} />;
+</file>
+
+<file path="ValueCard.tsx">
+import React from 'react';
+
+export interface ValueCardProps {
+  title: string;
+  description: string;
+  highlightColor?: string; 
+}
+
+const ValueCard: React.FC<ValueCardProps> = ({
+  title,
+  description,
+  highlightColor = '#3efcc2', // YHellow -> #ffff00
+}) => {
+  return (
+    <div
+      style={{
+        padding: '1rem',
+        margin: '0.5rem 0',
+        fontFamily: 'sans-serif',
+      }}
+    >
+      <h3
+        style={{
+          fontWeight: 'bold',
+          display: 'inline',
+          backgroundColor: highlightColor,
+          padding: '0 0.25rem',
+          borderRadius: '4px',
+        }}
+      >
+        {title}
+      </h3>
+      <p style={{ marginTop: '0.75rem', fontSize: '0.95rem', lineHeight: 1.6 }}>
+        {description}
+      </p>
+    </div>
+  );
+};
+
+export default ValueCard;
+</file>
+
+<file path="ValueGrid.tsx">
+import React from 'react';
+
+interface ValueGridProps {
+  children: React.ReactNode;
+  textAlign?: 'left' | 'center' | 'right';
+}
+
+const ValueGrid: React.FC<ValueGridProps> = ({ children, textAlign = 'left' }) => {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '2rem',
+        margin: '2rem 0',
+        textAlign, // apply alignment
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default ValueGrid;
+</file>
+
+<file path="WarningCallout.tsx">
+import BaseCallout from './BaseCallout';
+export const WarningCallout = (p: any) => <BaseCallout type="warn" {...p} />;
+</file>
+
+<file path="Youtube.tsx">
+import React from 'react';
+
+interface Props {
+  videoId: string;
+  title?: string;
+}
+
+const YouTube = ({ videoId, title = 'YouTube Video' }: Props) => {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        paddingBottom: '56.25%', // 16:9 ratio
+        height: 0,
+        overflow: 'hidden',
+        margin: '1rem 0',
+        borderRadius: '8px',
+        backgroundColor: '#000',
+      }}
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?rel=0`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        loading="lazy"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          border: 0,
+        }}
+      ></iframe>
+    </div>
+  );
+};
+
+export default YouTube;
+</file>
+
+</files>

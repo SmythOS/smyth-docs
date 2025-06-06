@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 interface PromptCardProps {
+  children: React.ReactNode;
   prompt: string;
   title?: string;
   tags?: string[];
   collapsible?: boolean;
   maxChars?: number;
+
 }
 
 const PromptCard = ({
@@ -49,9 +51,9 @@ const PromptCard = ({
         </div>
       )}
 
-      <pre className="prompt-card-content">
-        <code>{displayText}</code>
-      </pre>
+      <div className="prompt-card-content">
+        {displayText}
+        </div>
 
       {isLong && (
         <div className="toggle-expand" onClick={() => setExpanded(!expanded)}>

@@ -16,7 +16,7 @@ Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetc
 - [Set the Core Request](#step-1-set-the-core-request)
 - [Add Inputs](#step-2-add-inputs)
 - [Add Authentication](#step-3-add-authentication)
-- [Handle Pagination and Rate Limits](#step-4-handle-pagination-and-rate-limits)
+- [Handle Pagination and Rate Limits](#step-4-handle-pagination-or-rate-limits)
 - [Enable Mock Mode](#step-5-enable-mock-mode)
 - [Capture Outputs](#step-6-capture-outputs)
 - [Common API Examples](#common-api-examples)
@@ -270,7 +270,7 @@ You can extract just the part you need:
 - Combine **[API Call](../advanced/api-call)** with **[Code Component](../advanced/code)** to clean or validate responses  
 - Link with **[Agent Skill](../base/agent-skill)** to allow natural inputs (text, voice) to trigger your call  
 - Use **Condition blocks** to handle branches like `status === 404`  
-- Store secrets in **[Vault](../../docs/agent-collaboration/working-with-agents/vault-sharing)** securely  
+- Store secrets in **[Vault](../../agent-collaboration/working-with-agents/vault-sharing)** securely
 - Chain multiple API calls for multi-step workflows  
 - Adapt examples from the [Common Examples](#common-api-examples) above to your use case
 

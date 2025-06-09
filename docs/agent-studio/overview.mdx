@@ -2,74 +2,19 @@
 sidebar_position: 1
 ---
 
-# Introduction to Studio
+# Introduction
 
-Studio is the cloud-based interface for building and managing agents in SmythOS. You define workflows using modular components that control how an agent behaves.
+Welcome to Agent Studio — your home base for building, running, and scaling AI agents with SmythOS—the horizontal orchestration layer that fuses LLMs, reasoners, and enterprise-grade guardrails into one secure, human-supervised workflow engine.
 
-## SmythOS Ecosystem
+These docs walk you through everything from a five-minute Quickstart to deep dives on advanced topics like Retrieval-Augmented Generation, multi-LLM routing, observability, and self-hosted runtime deployment.
 
-<Image src="/img/ecosystem/smythos-eco-1.png" alt="smythos ecosystem diagram" />
+> Our documentation is a work in progress. We ship fast and document just as quickly—pull requests, issues, and typo fixes are always welcome. Let’s make agent development easier for everyone.
 
-## What is an Agent?
+[insert 1-min intro arcade/video]
 
-An agent includes:
+[Quickstart Card]
+[Getting Started with Weaver Card]
+[Explore Integrations Card]
 
--  Language models for reasoning  
--  APIs and tools for actions  
--  Workflows to structure logic  
--  Memory to keep context
-
-## Key Capabilities
-
-- **Cloud-Based:** Build directly in the browser  
-- **API Ready:** Turn workflows into endpoints  
-- **Integrations:** Connect to services, tools, and databases  
-- **Multi-Data Support:** Work with text, images, files, and more  
-- **Templates:** Use ready-made setups if needed (see [Templates](#))  
-
-## Building Workflows
-
-Workflows define how the agent operates. They're built from components connected in a sequence.
-
-### Components
-
--  Perform specific tasks  
--  Have inputs, outputs, and settings  
--  Can handle data, logic, or external calls
-
-### Component States
-
--  **Success** (🟢): All required inputs available  
--  **Missing Input** (🟠): One or more required inputs missing  
--  **Optional** (🔵): Executes if input is present  
--  **Default** (⚙️): Uses fallback value if input is missing  
-
-<Arcade src="https://demo.arcade.software/I7zvsF8kvMTOtfvP9AqI?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Input & Outputs | SmythOS" />
-
-## SmythOS Templates To Use
-
-If you want a ready-made agent or workflow, you can browse [our available templates](../agent-templates/overview). A few examples:
-
-- [Lead Enrichment Agent](../agent-templates/lead-enrichment-agent/guide)  
-- [LinkedIn Leads Builder](../agent-templates/linkedin-leads-builder-agent/guide)  
-- [News Researcher](../agent-templates/news-research-agent/guide)  
-- [SEO Content Writer](../agent-templates/seo-content-writer-agent/guide)  
-
-## Best Practices
-
-**Design**
--  Keep it simple early on  
--  Name components clearly  
--  Test as you go  
-
-**Build**
--  Use version history  
--  Monitor logs  
--  Validate logic and outputs  
-
-**Deploy**
--  Test before going live  
--  Watch usage  
--  Handle errors in workflows
 
 ---

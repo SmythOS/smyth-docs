@@ -1,46 +1,64 @@
 import React from 'react';
+interface ButtonProps {
+  href: string;
+  title: string;
+  description?: string;
+  marginTop?: number;
+}
 
-const Button = ({ href, title, description, marginTop = 0 }) => {
-  const containerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop,
-  };
-
-  const buttonStyle = {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    padding: 20,
-    textDecoration: 'none',
-    color: 'rgb(69, 201, 169)',
-    backgroundColor: 'white',
-    border: '2px solid rgb(69, 201, 169)',
-    borderRadius: 10,
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-  };
-
+const Button = ({ href, title, description, marginTop = 0 }: ButtonProps) => {
   return (
-    <div style={containerStyle}>
-      <a
-        href={href}
-        style={buttonStyle}
-        onMouseOver={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgb(69, 201, 169)';
-          e.currentTarget.style.color = 'white';
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.backgroundColor = 'white';
-          e.currentTarget.style.color = 'rgb(69, 201, 169)';
-        }}
-      >
-        <div>
-          <span style={{ fontWeight: 'bold', fontSize: 22, display: 'block' }}>{title}</span>
-          <span style={{ fontWeight: 300, fontSize: 14, display: 'block' }}>{description}</span>
+    <div className="smy-button-wrapper" style={{ marginTop }}>
+    <a className="smy-button" href={href}>
+      <div> <span className="smy-button-title">{title}</span>
+          {description && <span className="smy-button-desc">{description}</span>}
         </div>
       </a>
+
+      <style>{`
+        .smy-button-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .smy-button {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          padding: 20px;
+          text-decoration: none;
+          color: #08B68F;
+          background-color: #ffffff;
+          border: 2px solid #08B68F;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-family: system-ui, sans-serif;
+        }
+        .smy-button:hover {
+          background-color: #08B68F;
+          color: #ffffff;
+        }
+        .smy-button-title {
+          font-weight: bold;
+          font-size: 1.25rem;
+          display: block;
+        }
+        .smy-button-desc {
+          font-weight: 300;
+          font-size: 0.875rem;
+          display: block;
+        }
+        :root[data-theme='dark'] .smy-button {
+          background-color: #1e293b;
+          border-color: #3efcc2;
+          color: #3efcc2;
+        }
+        :root[data-theme='dark'] .smy-button:hover {
+          background-color: #3efcc2;
+          color: #1e293b;
+        }
+      `}</style>
     </div>
   );
 };

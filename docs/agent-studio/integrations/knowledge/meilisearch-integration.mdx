@@ -1,306 +1,413 @@
-
+---
+title: Meilisearch Integration
+description: Connect SmythOS to Meilisearch. Automate indexing, searching, and document management to build powerful, fast search experiences with your agents.
+og:title: SmythOS & Meilisearch - Unleash Blazing-Fast Search!
+og:description: Learn to integrate Meilisearch with SmythOS. Empower your agents to add, update, and search documents, turning your applications into dynamic, searchable platforms.
+og:image: /img/integrations/smythos_meilisearch.png
+keywords: [Meilisearch SmythOS Integration, Connect Meilisearch to SmythOS, SmythOS Meilisearch Components, Automate Meilisearch, SmythOS Search Automation, No-Code Meilisearch, Search as a Service]
+---
 # Meilisearch Integration
 
-`Meilisearch` is a company that develops an open-source search engine that is fast, relevant, and easy to set up. `Meilisearch` provides developers with the tools to integrate powerful search capabilities into their applications quickly.
+> **Want to build powerful search into your workflows?** Connect Meilisearch to SmythOS and let your agents manage indexes, add documents, and run complex search queries automatically.
 
-At `SmythOS`, we've seamlessly integrated with `Meilisearch` to bring you custom components that make incorporating their advanced services into your projects a breeze.
+<InfoCallout title="TL;DR"> Link your Meilisearch instance to SmythOS using your Host URL and a Master Key. Then, use our Meilisearch components to enable your agents to automate indexing, document management, and full-text search operations. </InfoCallout>
 
-## Full Text Search
+## List of Meilisearch Components
+Quickly compare Meilisearch components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-The `Full Text Search` component empowers users to search for documents matching a specific query in the given index.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Full Text Search**](#full-text-search) | Search | Searches for documents within a specified index. | <Badge type="required" /> `url`, `index_uid`, `query` | `results` | Power a search bar in your application. |
+| [**Create an Index**](#create-an-index) | Setup | Creates a new, empty index with a primary key. | <Badge type="required" /> `url`, `uid`, `primaryKey` | `taskUid` | Set up a new data collection for searching. |
+| [**Add a Single Document**](#add-a-single-document) | Write | Adds or updates one document in an index. | <Badge type="required" /> `url`, `index_uid`<br /><Badge type="optional" /> `body` | `taskUid` | Index a new user profile as it's created. |
+| [**Add Documents**](#add-documents) | Write | Adds or updates a batch of documents in an index. | <Badge type="required" /> `url`, `uid`<br /><Badge type="optional" /> `body` | `taskUid` | Perform a bulk import of product data. |
+| [**Update a Document**](#update-a-document) | Write | Adds or updates documents in an index. (Similar to Add Documents). | <Badge type="required" /> `url`, `index_uid`<br /><Badge type="optional" /> `body` | `taskUid` | Update product inventory levels in bulk. |
+| [**Delete a Document**](#delete-a-document) | Write | Deletes a single document from an index. | <Badge type="required" /> `url`, `index_uid`, `document_id` | `taskUid` | Remove a user's data upon account deletion. |
+| [**Update Synonyms**](#update-synonyms) | Setup | Updates the list of synonyms for an index to improve search relevance. | <Badge type="required" /> `url`, `index_uid`<br /><Badge type="optional" /> `body` | `taskUid` | Make "t-shirt" and "tee" return the same results. |
 
-### Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate Meilisearch with Your Agent?</summary>
 
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
+Meilisearch provides an incredibly fast and relevant search experience. By integrating it with SmythOS, you can automate the entire lifecycle of your search data.
 
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
+- **Automated Indexing:** As new data is created in your applications (e.g., new products, users, or posts), agents can automatically add it to your Meilisearch indexes, ensuring your search results are always fresh.
+- **Dynamic Content Management:** Agents can update or delete documents from your indexes based on events from other systems, keeping your search data perfectly in sync with your source of truth.
+- **Intelligent Search Workflows:** Use the `Full Text Search` component to find information and use it in downstream steps. For example, find a user's profile ID to then fetch their full details from a database.
+- **Streamline Maintenance:** Automate tasks like updating synonyms to continuously improve the relevance and quality of your search results without manual intervention.
 
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+</details>
+</InfoCallout>
+<Divider />
 
-<Image src="/img/meilisearch/screenshot1.png" alt="alt text" />
+## Prerequisites
 
-### Inputs
+Before you begin, please ensure you have the following:
 
-To effectively utilize this component, you need to provide the following inputs:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A running **Meilisearch instance**, either self-hosted or on Meilisearch Cloud.
+- The **Host URL** of your Meilisearch instance (e.g., `https://my-instance.meilisearch.com`).
+- Your Meilisearch **Master Key**.
 
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **index_uid `required<string>`:** The unique identifier of the index you want to search in.
-3. **query `required<integer>`:** The search query.
+<Divider />
 
-<Image src="/img/meilisearch/screenshot2.png" alt="alt text" />
+## Getting Started With Meilisearch
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+The connection between SmythOS and Meilisearch is configured using your instance's URL and a secure Master Key.
 
-### Outputs
+### Step 1: Locate Your Meilisearch Credentials
+1.  **Host URL:** This is the main URL you use to access your Meilisearch instance.
+2.  **Master Key:** In your Meilisearch instance, navigate to **Settings** -> **API Keys**. Your **Master Key** is displayed there. It has full permissions to perform any action.
+
+### Step 2: Store Your Master Key in SmythOS Vault
+Your Master Key is highly sensitive. Use the SmythOS `Vault` to store it securely.
+
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Meilisearch **Master Key** as the value. Give it a memorable name, like `meilisearch_master_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+
+### Step 3: Configure a Meilisearch Component
+1.  In your SmythOS agent graph, drag and drop any Meilisearch component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `Master Key` field, select the secret you saved in the Vault (e.g., `meilisearch_master_key`).
+4.  In the component's **Inputs**, provide the `url` of your Meilisearch instance.
+5.  Your connection is now configured for that component.
 
-After running this component, the following default outputs are generated:
+<InfoCallout title="Heads-up">You must add the `url` and `Master Key` to **each** Meilisearch component you use. This provides the flexibility to connect to different Meilisearch instances within the same agent.</InfoCallout>
+<Divider />
 
-1. **Response:** This output is an object that provides detailed information, which includes the search results. It serves as a comprehensive overview of the generated output post-execution.
-2. **Headers:** The HTTP Headers within the response from the `Meilisearch` server are included here. These headers convey additional data such as status codes and metadata related to the response.
-3. **results:** This part of the output is dedicated to presenting the results derived from the search query. It typically consists of an array or a list of items that match the search criteria.
-
-<Image src="/img/meilisearch/screenshot3.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update a Document
-
-The `Update a Document` component allows you to add a list of documents or update them if they already exist in a specified index. If the provided index does not exist, it will be created automatically.
-
-### Settings
-
-#### Master Key
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-Provided within this field is a sample body payload designed for updating a document. You have the freedom to modify this template to suit the specific requirements of the document you intend to update.
-
-<Image src="/img/meilisearch/screenshot4.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
-
-<Image src="/img/meilisearch/screenshot5.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Execution of this component yields two primary outputs:
-
-1. **Response:** The response is a JSON object that details the operation's outcome. It presents comprehensive information on whether the execution was successful or if it encountered any failures.
-2. **Headers:** Embedded within the `Meilisearch` server's response, these HTTP Headers offer additional context such as status codes and metadata pertinent to the operation's response.
-3. **taskUid:** This identifier, known as the Task Unique Identifier (TaskUid), is provided as an output and is essential for tracking the status of the asynchronous task initiated by the operation.
-
-<Image src="/img/meilisearch/screenshot6.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete a Document
-
-The `Delete a Document` component allows you to delete a document.
-
-### Settings
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/meilisearch/screenshot7.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
-3. **document_id `required<string>`:** It is the unique identifier of the document you want to delete.
-
-<Image src="/img/meilisearch/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Once this component has been executed, the system will deliver two standard outputs:
-
-1. **Response:** This output is a JSON object that serves up granular details regarding the execution's result. It clearly indicates the success or failure of the operation.
-2. **Headers:** The HTTP Headers from the response of the `Meilisearch` server are included in this output. These headers provide meta-information such as response status codes and other pertinent details.
-3. **taskUid:** The unique identifier for the task, or TaskUid, is also returned in the outputs. It is crucial for subsequent tracking and reference to the task that was initiated by the component.
-
-<Image src="/img/meilisearch/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add a Single Document
-
-The `Add a Single Document` component allows you to add a single document to an index in Meilisearch.
-
-### Settings
-
-#### Master Key
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-In this section, you should provide the body payload required for adding a single document. An example schema is included to serve as a template and can be adjusted accordingly to meet the specific needs of the document being added.
-
-<Image src="/img/meilisearch/screenshot10.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **index_uid `required<string>`:** The unique identifier of the index you want to use.
-
-<Image src="/img/meilisearch/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After the execution of this component, the following default outputs will be generated:
-
-1. **Response:** A JSON object containing detailed information regarding the outcome of the operation, detailing whether the operation was successful or if it failed.
-2. **Headers:** These are the HTTP Headers included in the server response from `Meilisearch`. The headers provide additional information, such as response status codes, related to the operation's outcome.
-3. **taskUid:** The `taskUid` is a specific output that represents the Task Unique Identifier. It is crucial for tracking the operation's progress and referencing the task initiated by the operation.
-
-<Image src="/img/meilisearch/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create an Index
-
-The `Create an Index` component allows you to create an index in Meilisearch.
-
-### Settings
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/meilisearch/screenshot13.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **uid `required<string>`:** The unique identifier for the index.
-3. **primaryKey `required<string>`:** It specifies the primary key for the documents in the index.
-
-<Image src="/img/meilisearch/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-The following default outputs are provided upon the successful execution of this component:
-
-1. **Response:** This is a JSON object that offers a detailed breakdown of information regarding the index that has been created. It serves to inform you of the characteristics and status of the new index.
-2. **Headers:** Included in this output are the HTTP Headers from the `Meilisearch` server response. They contain supplementary data such as status codes that pertain to the execution of the operation.
-3. **taskUid:** As part of the outputs, you will also receive a `taskUid`, which stands for Task Unique Identifier. This identifier is critical for tracking the progress of the operation and referencing the specific task that has been initiated.
-
-<Image src="/img/meilisearch/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Documents
-
-The `Add Documents` component allows you to add documents.
-
-### Settings
-
-#### Master Key
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-This field is designated for the body payload required to add documents. It comes with a schema example as a baseline, which you can modify to suit the specific parameters and content of the documents you wish to add.
-
-<Image src="/img/meilisearch/screenshot16.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **uid `required<string>`:** The unique identifier of the index.
-
-<Image src="/img/meilisearch/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Execution of this component results in two principal outputs:
-
-1. **Response:** This output is a JSON object that encapsulates detailed information regarding the operation. It outlines the essential data, reflecting the operation's execution and its outcome.
-2. **Headers:** The response from the `Meilisearch` server includes HTTP Headers, which form part of the outputs. These headers yield additional details like response status codes and other relevant metadata.
-3. **taskUid:** The Task Unique Identifier `taskUid` is also returned as an output. This identifier is vital for tracking the progress and status of the initiated operation.
-
-<Image src="/img/meilisearch/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update Synonyms
-
-The `Update Synonyms` component allows you to update the list of synonyms of an index. Synonyms are normalized.
-
-### Settings
-
-#### Master Key
-
-To kickstart this component, follow these initial steps to obtain your `Master Key`:
-
-1. Create a `Meilisearch` account if you don't already have one.
-2. Navigate to your `Settings` and acquire your `Master Key`.
-3. Input this `Master Key` into the specified section in the component's settings.
-
-> **Note:** Treat the `Master Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Body
-
-Here you will input the body payload which contains the list of associated words that should be treated in a similar fashion. An example schema is provided within the field to guide you, and you may adjust it as necessary to fit your specific use case.
-
-<Image src="/img/meilisearch/screenshot19.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **url `required<string>`:** The base URL of your `Meilisearch` instance. Replace this with the actual URL where your `Meilisearch` instance is hosted.
-2. **index_uid `required<string>`:** The unique identifier of the index.
-
-<Image src="/img/meilisearch/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-When you execute this component, it generates the following standard outputs:
-
-1. **Response:** This is a JSON object that conveys detailed information regarding the operation, including any relevant data or statuses related to the process.
-2. **Headers:** These are the HTTP Headers that come with the `Meilisearch` server's response. They include supplementary metadata, such as response status codes, which provide insight into the operation's result.
-3. **taskUid:** The output also includes the `taskUid`, or Task Unique Identifier, which is essential for tracking the progress and identifying the specific operation that has been triggered.
-
-<Image src="/img/meilisearch/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+## Which Meilisearch Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Implement search functionality** | An index `uid` and a query | [Full Text Search](#full-text-search) | The core component for all search operations. |
+| **Index a large dataset** | An array of documents | [Add Documents](#add-documents) | Optimized for adding or updating items in bulk. |
+| **Index a single new item** | A single document object | [Add a Single Document](#add-a-single-document) | Perfect for real-time indexing as items are created. |
+| **Delete an item** | A `document_id` | [Delete a Document](#delete-a-document) | Removes a specific document from your search index. |
+| **Set up a new search space** | A `uid` and `primaryKey` | [Create an Index](#create-an-index) | The first step for any new dataset you want to make searchable. |
+| **Improve search relevance** | A list of synonym pairs | [Update Synonyms](#update-synonyms) | Helps Meilisearch understand related terms. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each Meilisearch component.
+
+### <a name="full-text-search"></a>Full Text Search
+Searches for documents matching a query within a given index.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `index_uid` | <Badge type="required" /> | The unique identifier of the index to search in. |
+| `query` | <Badge type="required" /> | The search term or phrase. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `results` | An array of document objects that match the search query. |
+| `response`| The raw JSON response from the Meilisearch API, including metadata like `hits`, `limit`, etc. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Power a user-facing search bar. The user's input is passed to the `query` field, and the `results` are displayed back to the user.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.fullTextSearch",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "index_uid": "products",
+  "query": "retro t-shirt"
+}
+```
+
+<WarningCallout title="Troubleshooting">
+If you get a `404 Not Found` error, ensure the `index_uid` is correct. If `results` is empty, check if your documents are indexed and searchable.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="create-an-index"></a>Create an Index
+Creates a new search index. An index is a collection of documents that you can search through.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `uid` | <Badge type="required" /> | The unique identifier for the new index (e.g., "movies", "products"). |
+| `primaryKey` | <Badge type="required" /> | The attribute in your documents that serves as a unique identifier (e.g., "id", "sku"). |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous task. Use this to track the status of the index creation. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+When starting a new project, an agent can automatically create the necessary indexes (`users`, `posts`, `products`) in Meilisearch.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.createIndex",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "uid": "users",
+  "primaryKey": "user_id"
+}
+```
+
+<WarningCallout title="Troubleshooting">
+If you get an `index_already_exists` error, it means an index with that `uid` is already present. Index `uid`s are unique.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="add-a-single-document"></a>Add a Single Document
+Adds or updates a single document in a specified index. If the index doesn't exist, it will be created.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `index_uid`| <Badge type="required" /> | The index where the document will be added. |
+| `body` | <Badge type="optional" /> | A JSON object representing the document to be added. This is configured in the component settings. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous task for this indexing operation. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+When a new user signs up on your platform, an agent can immediately index their profile information to make it searchable.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.addSingleDocument",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "index_uid": "users",
+  "body": {
+    "user_id": 123,
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }
+}
+```
+
+<WarningCallout title="Troubleshooting">
+Ensure the document in the `body` contains the `primaryKey` field that was defined when the index was created.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="add-documents"></a>Add Documents
+Adds or updates a batch of documents in an index. This is more efficient than adding documents one by one.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `uid` | <Badge type="required" /> | The index where the documents will be added. |
+| `body` | <Badge type="optional" /> | An array of JSON objects representing the documents. This is configured in the component settings. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous task for this bulk indexing operation. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Run a nightly agent that fetches all new products from a database and adds them to your "products" index in a single batch operation.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.addDocuments",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "uid": "products",
+  "body": [
+    { "id": 1, "name": "Laptop" },
+    { "id": 2, "name": "Mouse" }
+  ]
+}
+```
+
+<WarningCallout title="Troubleshooting">
+If the operation fails, check that every document in the array has the required `primaryKey`.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="update-a-document"></a>Update a Document
+Adds a list of documents or updates them if they already exist in a specified index. If the provided index does not exist, it will be created automatically.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `index_uid`| <Badge type="required" /> | The unique identifier of the index you want to use. |
+| `body` | <Badge type="optional" /> | An array of JSON objects representing the documents to add or update. This is configured in the component settings. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous task for this indexing operation. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent syncs inventory data from an e-commerce platform to Meilisearch every hour, updating prices and stock levels.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.updateDocument",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "index_uid": "inventory",
+  "body": [
+    { "sku": "t-shirt-red", "stock": 50, "price": 19.99 },
+    { "sku": "t-shirt-blue", "stock": 35, "price": 21.99 }
+  ]
+}
+```
+
+<WarningCallout title="Troubleshooting">
+This functions similarly to "Add Documents". Ensure each document in the `body` contains the `primaryKey` for the index.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="delete-a-document"></a>Delete a Document
+Deletes a single document from a specified index using its unique document ID.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `index_uid`| <Badge type="required" /> | The index from which to delete the document. |
+| `document_id`| <Badge type="required" /> | The unique ID of the document to delete. This is the value of the `primaryKey`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous deletion task. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+When a user deletes their account, an agent triggers this component to remove their corresponding document from the "users" index.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.deleteDocument",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "index_uid": "users",
+  "document_id": "123"
+}
+```
+
+<WarningCallout title="Troubleshooting">
+A `document_not_found` error will occur if a document with the given `document_id` does not exist in the index.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="update-synonyms"></a>Update Synonyms
+Updates the list of synonyms for an index to improve search relevance. Synonyms are normalized.
+
+<InfoCallout>This component requires your Meilisearch instance `url` and a `Master Key` for authentication, as detailed in the [Getting Started](#getting-started-with-meilisearch) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `url` | <Badge type="required" /> | The base URL of your Meilisearch instance. |
+| `index_uid`| <Badge type="required" /> | The index whose synonyms you want to update. |
+| `body` | <Badge type="optional" /> | A JSON object where keys are words and values are arrays of their synonyms. Configured in settings. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `taskUid` | The UID of the asynchronous task for this settings update. |
+| `response`| The raw JSON response from the Meilisearch API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+To make searching for "pants" also return results for "trousers" and "slacks", update the synonyms for your clothing index.
+</TipCallout>
+
+```json
+{
+  "component": "meilisearch.updateSynonyms",
+  "url": "[https://my-instance.meilisearch.com](https://my-instance.meilisearch.com)",
+  "index_uid": "clothes",
+  "body": {
+    "pants": ["trousers", "slacks"],
+    "tshirt": ["tee", "t-shirt"]
+  }
+}
+```
+
+<WarningCallout title="Troubleshooting">
+This operation overwrites existing synonyms. To add to the list, you must first fetch the current synonyms, append your new ones, and then send the complete list back.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Use the SmythOS Vault:** Your Meilisearch Master Key provides full administrative access. Always store it in the SmythOS `Vault` and never expose it directly in your components.
+* **Track Asynchronous Tasks:** Most write operations in Meilisearch (add, update, delete) are asynchronous and return a `taskUid`. You can build logic in your agent to poll the Meilisearch Tasks API with this UID to confirm when an operation has been successfully processed.
+* **Batch Operations:** For indexing large amounts of data, always use the `Add Documents` component instead of `Add a Single Document` in a loop. Batching is significantly more performant.
+* **Schema Design:** Before indexing, carefully design the schema for your documents. Deciding on a consistent `primaryKey` and which fields should be searchable or filterable is crucial for a good search experience.
+* **Understand Filterable Attributes:** To filter search results (e.g., by price, category), you must first configure those attributes as "filterable" in your Meilisearch index settings. This is another task that can be automated with an agent.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `403 Forbidden`**
+  * **Cause:** The API key used is incorrect or does not have sufficient permissions.
+  * **Solution:** Verify that you are using the **Master Key** (not a search-only key) and that it is correctly stored and referenced from the SmythOS Vault.
+
+* **Error: `404 Not Found` for an index**
+  * **Cause:** The `index_uid` you provided does not exist.
+  * **Solution:** Double-check the spelling and case of your `index_uid`. You can use the Meilisearch Indexes API to list all existing indexes to confirm the name.
+
+* **Error: `missing_document_id`**
+  * **Cause:** You are trying to add a document that does not contain the field designated as the `primaryKey` for that index.
+  * **Solution:** Ensure every document you send to Meilisearch includes the unique `primaryKey` field (e.g., `id`, `sku`, `objectID`).
+
+* **Search results are not updating after adding documents**
+  * **Cause:** Indexing is an asynchronous process. It might take a moment for new documents to become searchable.
+  * **Solution:** Use the `taskUid` returned by write operations to check the status of the task. Only expect to find the document in search results after the task status is `succeeded`.
+
+<Divider />
+
+## What's Next?
+
+You're now equipped to integrate lightning-fast search into your automated workflows with the **SmythOS Meilisearch Integration**!
+
+Consider these next steps:
+* **Build an Agent That...**
+    * Syncs your entire user database from PostgreSQL into a "users" index every night.
+    * Listens for new blog posts on a WordPress site and automatically adds them to a "posts" index for your website's search bar.
+    * Connects to a product information system, updates the "products" index in real-time as inventory changes, and uses `Update Synonyms` to improve product discovery.

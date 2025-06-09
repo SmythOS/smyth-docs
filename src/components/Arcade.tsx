@@ -7,33 +7,38 @@ interface ArcadeEmbedProps {
 
 export default function Arcade({ src, title }: ArcadeEmbedProps) {
   return (
-    <div
-      style={{
-        position: 'relative',
-        paddingBottom: '56.25%',
-        height: 0,
-        overflow: 'hidden',
-        borderRadius: '8px',
-        marginBottom: '1rem',
-      }}
-    >
-      <iframe
-        src={src}
-        title={title}
-        frameBorder="0"
-        loading="lazy"
-        allow="clipboard-write"
-        allowFullScreen
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          colorScheme: 'light',
-          border: 'none',
-        }}
+    <div className="arcade-wrap">
+    <iframe
+      className="arcade-frame"
+      src={src}
+      title={title}
+      frameBorder="0"
+      loading="lazy"
+      allow="clipboard-write"
+      allowFullScreen
       />
+       <style>{`
+        .arcade-wrap {
+          position: relative;
+          padding-bottom: 56.25%;
+          height: 0;
+          overflow: hidden;
+          border-radius: 8px;
+          margin-bottom: 1rem;
+        }
+        .arcade-frame {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          color-scheme: light;
+          border: none;
+        }
+        :root[data-theme='dark'] .arcade-frame {
+          color-scheme: dark;
+        }
+      `}</style>
     </div>
   );
 }

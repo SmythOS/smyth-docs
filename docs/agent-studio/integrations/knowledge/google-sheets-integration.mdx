@@ -403,7 +403,7 @@ Switch between **Inputs** and **Outputs** below to see detailed explanations, ex
 
 This section provides detailed information for each Google Sheets component.
 
-### <a name="get-values"></a>Get Values — Read a Range
+### Get Values — Read a Range {#get-values}
 
 Retrieves data from a defined range. Ideal for reading lists, logs, or configuration tables so your agent can act on live spreadsheet data.
 
@@ -446,7 +446,7 @@ Empty array returned? Verify the range points to non‑blank cells and the tab n
 
 <Divider/>
 
-### <a name="update-values"></a>Update Values — Modify a Range
+### Update Values — Modify a Range {#update-values}
 
 Overwrites existing data in a specified range. Use this to modify individual cells or update entire rows/columns with new values reflecting the latest status or calculations.
 
@@ -495,7 +495,7 @@ Data not updating? Ensure values array structure matches range and majorDimensio
 PERMISSION_DENIED? Check sheet sharing settings for edit access for the authenticated Google account.
 </WarningCallout>
 
-### <a name="append-values"></a>Append Values — Add Rows to Sheet
+### Append Values — Add Rows to Sheet {#append-values}
 
 Adds new data as additional rows to an existing sheet. It automatically finds the last filled row in the specified range (or entire sheet) and inserts content after it.
 
@@ -542,7 +542,7 @@ Data overwriting? Ensure <code>insertDataOption</code> is <code>INSERT_ROWS</cod
 </WarningCallout>
 
 <Divider/>
-### <a name="batch-update-values"></a>Batch Update Values — Multiple Updates at Once
+### Batch Update Values — Multiple Updates at Once {#batch-update-values}
 
 Performs multiple updates across different ranges within a single sheet in one API call. Ideal for efficiency when several areas need modification.
 
@@ -597,7 +597,7 @@ One update fails, others succeed? Check the <code>responses</code> array for ind
 Complex data structure issues? Validate your JSON carefully, ensuring each object in the <code>data</code> array has the required <code>range</code> and <code>values</code>.
 </WarningCallout>
 <Divider/>
-### <a name="create-spreadsheet"></a>Create Spreadsheet — New Blank Sheet
+### Create Spreadsheet — New Blank Sheet {#create-spreadsheet}
 
 Instructs your agent to generate a brand new Google Sheet document.
 
@@ -637,7 +637,7 @@ PERMISSION_DENIED? Ensure the authenticated Google account has permission to cre
 Title conflicts? While Google Sheets allows duplicate titles, it's best practice to ensure your agent generates unique titles if needed for your workflow.
 </WarningCallout>
 
-### <a name="get-spreadsheet"></a>Get Spreadsheet — Retrieve Sheet Details
+### Get Spreadsheet — Retrieve Sheet Details {#get-spreadsheet}
 
 Retrieves structural information and metadata about an existing Google Sheet, such as its properties, all its sheets (tabs), and named ranges.
 
@@ -676,7 +676,7 @@ Before writing to a sheet named "Q3-Data," use this component to ensure it exist
 Missing sheet details? Ensure the <code>sheets</code> array in the output is iterated correctly to find specific tab information.
 </WarningCallout>
 
-### <a name="add-sheet"></a>Add Sheet — New Tab in Existing Spreadsheet
+### Add Sheet — New Tab in Existing Spreadsheet {#add-sheet}
 
 Inserts a new sheet (tab) into an existing Google Spreadsheet document.
 
@@ -716,7 +716,7 @@ New sheet not appearing where expected? The <code>index</code> property in the o
 
 <Divider/>
 
-### <a name="auto-resize-columns"></a>Auto Resize Column(s) — Fit Content Width
+### Auto Resize Column(s) — Fit Content Width {#auto-resize-columns}
 
 Automatically resizes one or more columns in a specified sheet to match the width of their contents, improving readability.
 
@@ -759,7 +759,7 @@ No visible change? Ensure there's content in the columns that would necessitate 
 
 <Divider/>
 
-### <a name="auto-resize-rows"></a>Auto Resize Row(s) — Fit Content Height
+### Auto Resize Row(s) — Fit Content Height {#auto-resize-rows}
 
 Automatically adjusts the height of one or more rows in a specified sheet to fit their content. Ideal for multi-line text entries.
 
@@ -802,7 +802,7 @@ Content still cut off? This adjusts to content; if content is truly larger than 
 
 <Divider/>
 
-### <a name="format-header-row"></a>Format Header Row — Style a Row
+### Format Header Row — Style a Row {#format-header-row}
 
 Applies consistent styling (e.g., bold text, center alignment, background color) to a specified header row, making tables easier to read.
 

@@ -34,7 +34,7 @@ Instead of writing complex if-else logic, you can use this component to classify
 
 <Spacer size="md" />
 
-## Step 1 – Choose a Model
+## Step 1 - Choose a Model
 
 | Field            | Required? | Description                                     | Tips |
 |------------------|-----------|-------------------------------------------------|------|
@@ -47,7 +47,7 @@ Default models have token windows from 128K to 1M tokens (shown next to each mod
 
 <Spacer size="md" />
 
-## Step 2 – Write or Update the Prompt
+## Step 2 - Write or Update the Prompt
 
 <PromptCard
   title="Default Classification Prompt"
@@ -67,7 +67,7 @@ You can add context such as examples of each category or definitions of what qua
 
 <Spacer size="md" />
 
-## Step 3 – Add Inputs
+## Step 3 - Add Inputs
 
 | Field        | Required? | Description                                                   | Notes |
 |--------------|-----------|---------------------------------------------------------------|-------|
@@ -103,7 +103,7 @@ You must have at least one primary input that the model will classify. You can o
 <Spacer size="md" />
 
 
-## Step 4 – Create Outputs
+## Step 4 - Create Outputs
 
 Each **Output** corresponds to one classification bucket. The model will assign exactly one bucket (set to `true`) and leave all others blank. By default, when you first open the Classifier node, no categories are defined... you must click **+ Outputs** to begin defining them.
 
@@ -156,7 +156,7 @@ Each **Output** corresponds to one classification bucket. The model will assign 
 ```
 <Spacer size="md" />
 
-## Step 5 – Advanced Routing (Optional)
+## Step 5 - Advanced Routing (Optional)
 
 You can configure each category’s Format or attach downstream logic by using custom expressions, Webhook calls or conditional fields. For example, you might want the “sales” bucket to forward message content to a CRM, while “engineering” sends technical logs to a different queue.
 
@@ -184,7 +184,7 @@ You can configure each category’s Format or attach downstream logic by using c
 
 <TipCallout> You can reference parts of the input or return fixed values by writing Liquid or JSONPath expressions under **Expression** for that output. This is useful if you need to extract a substring, call an API or reshape the response. </TipCallout>
  <Spacer size="md" />
-## Step 6 – Debug and Preview
+## Step 6 - Debug and Preview
 
 <InfoCallout title="Live testing"> 
 1. Click **Debug** on the Classifier node. <br/> 2. Paste or type a sample message to see how the model routes your input.

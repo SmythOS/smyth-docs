@@ -192,12 +192,12 @@ You are now ready to build powerful financial and e-commerce automations with th
 
 Consider these ideas:
 * **Build an Agent That...**
-    * Manages the full new user lifecycle. When a user signs up in [Firebase Auth](/docs/integrations/firebase), the agent creates a corresponding customer in Stripe and a user profile in your [Firestore](/docs/integrations/firestore) database.
-    * Automates invoicing. The agent retrieves a list of monthly active users, generates an invoice for each one using the Stripe API (via a custom API component), and then sends them an email notification using [Resend](/docs/integrations/resend).
-    * Handles failed payments. When a subscription payment fails (triggered by a Stripe webhook), an agent sends a notification to the customer via SMS using [Twilio](/docs/integrations/twilio) and creates a follow-up task in [Asana](/docs/integrations/asana) for the customer success team.
+    * Manages the full new user lifecycle. When a user signs up in [Firebase Auth](/docs/agent-studio/integrations/firebase-integration), the agent creates a corresponding customer in Stripe and a user profile in your [Firestore](/docs/agent-studio/integrations/firestore-integration) database.
+    * Automates invoicing. The agent retrieves a list of monthly active users, generates an invoice for each one using the Stripe API (via a custom API component), and then sends them an email notification using [Resend](/docs/agent-studio/integrations/resend-integration).
+    * Handles failed payments. When a subscription payment fails (triggered by a Stripe webhook), an agent sends a notification to the customer via SMS using [Twilio](/docs/integrations/twilio) and creates a follow-up task in [Asana](/docs/agent-studio/integrations/asana-integration) for the customer success team.
 
 * **Explore Other Integrations:**
     * Use Stripe as a trigger. A Stripe webhook can notify your agent of a new purchase, which then grants the user access to a specific course or product.
-    * Log every new Stripe customer or transaction to a [Google Sheet](/docs/integrations/google-sheets) for custom, real-time financial reporting.
+    * Log every new Stripe customer or transaction to a [Google Sheet](/docs/agent-studio/integrations/google-sheets-integration) for custom, real-time financial reporting.
 
 > **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.

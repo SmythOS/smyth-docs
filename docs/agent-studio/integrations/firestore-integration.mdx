@@ -313,10 +313,10 @@ You are now ready to build powerful, data-driven applications with the **SmythOS
 
 Consider these ideas:
 * **Build an Agent That...**
-    * Acts as a full backend for a user registration system. It uses the [Firebase Integration](/docs/integrations/firebase) to create a user, then uses the Firestore `Create Document` component to save their profile information, using their new Firebase UID as the document ID.
+    * Acts as a full backend for a user registration system. It uses the [Firebase Integration](/docs/agent-studio/integrations/firebase-integration) to create a user, then uses the Firestore `Create Document` component to save their profile information, using their new Firebase UID as the document ID.
     * Powers a configuration panel. An agent fetches settings from a "config" collection in Firestore using `Get Document` to dynamically change its own behavior without needing to be redeployed.
     * Creates a logging system. After performing any critical action (like sending an important email), an agent uses `Create Document` to write a log entry with a timestamp and details to a "logs" collection in Firestore.
 
 * **Explore Other Integrations:**
-    * Connect a [web scraper](/docs/integrations/scrapingbee) to your agent. Scrape data from websites and use `Create Document` to save the structured data directly into Firestore.
+    * Connect a [web scraper](/docs/agent-studio/integrations/scrapingbee-integration) to your agent. Scrape data from websites and use `Create Document` to save the structured data directly into Firestore.
     * Use Firestore as a state machine. An agent can read the status of a long-running job from a document, perform the next step, and then use `Update Document` to update the status.

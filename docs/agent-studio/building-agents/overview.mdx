@@ -13,6 +13,19 @@ Agent orchestration is the practice of **designing, running, and governing** the
 
 ---
 
+## 🔑 Core Concepts
+
+| Term | What it means in SmythOS |
+|------|--------------------------|
+| **Component** | The smallest building block—one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
+| **Skill** | A reusable **bundle of components** wired together to solve a sub-task (e.g., “Enrich a company record” or “Summarize a PDF”). Import a skill once; drop it into many agents. |
+| **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
+| **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
+
+> **TL;DR** – *Components* ⟶ bundled into *Skills* ⟶ orchestrated by an *Agent* you can ship to users.
+
+---
+
 ## What an agent gives you
 
 | Capability | Why it matters |
@@ -21,13 +34,11 @@ Agent orchestration is the practice of **designing, running, and governing** the
 | **Hosted Web UI** | SmythOS auto-generates a polished chat or form UI you can embed or white-label. |
 | **Visual Builder & Prompt Ops** | Tune prompts, swap LLMs, inspect token logs—no redeploy needed. |
 | **Observability & Annotation** | Real-time run logs, cost tracing, and human-in-the-loop evaluation. |
-| **Deployment controls** | Versioning, staged roll-outs, RBAC, audit trails. |
-
-Use any—or all—of these features depending on your delivery model.
+| **Deployment controls** | Versioning, staged roll-outs, RBAC.|
 
 ---
 
-## Agent flavors
+/*## Agent flavors
 
 | Type | Best for | Interaction mode | Default UI | Example Endpoint |
 |------|----------|------------------|------------|------------------|
@@ -45,7 +56,7 @@ Use any—or all—of these features depending on your delivery model.
 | **Streaming output** | ✅ | ✅ |
 | **Example use-case** | Customer-support bot | Lead-enrichment pipeline |
 
----
+---*/
 
 ## Common use-cases
 

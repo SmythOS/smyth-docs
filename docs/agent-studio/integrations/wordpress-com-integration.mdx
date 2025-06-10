@@ -1,0 +1,257 @@
+---
+title: WordPress.com Integration
+description: Connect SmythOS to WordPress.com to automate content management, publishing, and site updates directly from your agent workflows.
+og:title: SmythOS & WordPress.com - Automate Your Content Empire
+og:description: Learn to integrate WordPress.com with SmythOS. Empower your agents to create, update, and retrieve posts, streamlining your entire content publishing pipeline.
+og:image: /img/integrations/smythos_wordpress.png
+keywords: [WordPress.com SmythOS Integration, Connect WordPress.com to SmythOS, SmythOS WordPress, Automate Blogging, Content Publishing API, No-Code WordPress]
+---
+# WordPress.com Integration with SmythOS
+
+> **Want to put your website's content on autopilot?** Connect your WordPress.com site to SmythOS and empower your agents to create, edit, and manage your posts programmatically.
+
+<InfoCallout title="TL;DR">
+Securely link your WordPress.com account to SmythOS by creating an application in the WordPress.com Developer portal to get a Client ID and Secret. Then, use our components to automate your entire content lifecycle.
+</InfoCallout>
+
+## List of WordPress.com Components
+Quickly compare WordPress.com components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
+
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create Post**](#create-post) | Write | Creates a new post on your site (can be a draft or published). | <Badge type="required" /> `site`, `title`, `content` | `id` | Automatically creating a draft from an external document. |
+| [**Update Post**](#update-post) | Write | Edits the content or status of an existing post. | <Badge type="required" /> `site`, `post_id`, `Body` | `id`, `url` | Correcting a typo or updating an article with new info. |
+| [**Get Post by ID**](#get-post-by-id) | Read | Retrieves a single post using its unique Post ID. | <Badge type="required" /> `site`, `post_id` | `id`, `title`, `url` | Fetching a specific article's content for analysis. |
+| [**Get Post by Slug**](#get-post-by-slug) | Read | Retrieves a single post using its URL slug. | <Badge type="required" /> `site`, `post_slug`| `id`, `title`, `url` | Finding a post when you only know its web address. |
+| [**List Posts**](#list-posts) | Read | Retrieves a list of posts from your site. | <Badge type="required" /> `site`<br/><Badge type="optional" /> `number` | `posts` | Getting your 10 most recent articles for a dashboard. |
+| [**Delete Post**](#delete-post) | Write | Permanently deletes a post from your site. | <Badge type="required" /> `site`, `post_id` | `Response` | Removing outdated or incorrect content. |
+
+
+<InfoCallout>
+<details>
+  <summary>Why Integrate WordPress.com with Your Agent?</summary>
+
+WordPress.com is a powerful platform for publishing. Integrating it with SmythOS allows you to build sophisticated, automated content pipelines.
+
+- **Automated Content Creation & Syndication:** Create agents that take content from a Notion page, a Google Doc, or even an AI model's output and automatically create drafts or publish new posts on your WordPress.com site.
+- **Content Synchronization:** Keep your content consistent across platforms. An agent can monitor an external source of truth (like a product database) and use the `Update Post` component to ensure your WordPress.com pages are always up-to-date.
+- **Streamlined Editorial Workflows:** Build an agent that takes a newly created draft, sends a notification to an editor for approval, and once approved (based on a signal from another tool), automatically publishes the post.
+- **Content Backup and Archiving:** Schedule agents to periodically fetch your posts using `List Posts` and save the content to a separate storage system as a backup.
+
+</details>
+</InfoCallout>
+<Divider />
+
+## Prerequisites
+
+Before you begin, please ensure you have the following:
+
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **WordPress.com account** and site.
+- **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the WordPress.com Developer portal.
+
+<Divider />
+
+## Getting Started With WordPress.com
+
+The connection is handled via OAuth 2.0, which requires you to register an application in the WordPress.com Developer portal.
+
+### Step 1: Get Your OAuth 2.0 Credentials
+1.  **Go to the Developer Portal:** Log in to your WordPress.com account and navigate to the [Developer Apps page](https://developer.wordpress.com/apps/).
+2.  **Create a New Application:** Click the **Create New Application** button.
+3.  **Fill in Application Details:**
+    * Give your application a **Name** (e.g., "SmythOS Content Agent").
+    * Provide a **Description** and your **Website URL**.
+    * **Redirect URL:** Enter the SmythOS callback URL: `https://app.smythos.com/oauth/oauth2/callback`.
+4.  **Copy Your Credentials:** Once created, your application's **Client ID** and **Client Secret** will be displayed. Copy both values immediately.
+
+### Step 2: Store Your Credentials in SmythOS Vault
+Your Client ID and Secret are sensitive credentials. Use the SmythOS `Vault` to store them securely.
+
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create new secrets for your `Client ID` and `Client Secret`, giving them memorable names like `wordpress_client_id` and `wordpress_client_secret`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+
+### Step 3: Configure a WordPress.com Component
+1.  In your SmythOS agent graph, drag and drop any WordPress.com component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `Client ID` and `Client Secret` fields, select the secrets you saved in the Vault.
+4.  Click **Authenticate**. You will be redirected to WordPress.com to authorize the connection.
+5.  Your connection is now ready to use across all WordPress.com components.
+
+<InfoCallout title="Heads-up">The OAuth authentication flow connects your WordPress.com account to SmythOS. You only need to complete this process once.</InfoCallout>
+<Divider />
+
+## Which WordPress.com Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Create a new blog post** as a draft | `site`, `title`, `content` | [Create Post](#create-post) | This is the standard method for adding new content. The `status` can be set to `draft`. |
+| **Update the title** of an existing article | `site`, `post_id` | [Update Post](#update-post) | Modifies the fields of an existing post without creating a new one. |
+| **Get the content** of a specific post you know the ID for | `site`, `post_id` | [Get Post by ID](#get-post-by-id) | The most direct way to retrieve a single post's data. |
+| **Get a list of your most recent articles** | `site` | [List Posts](#list-posts) | Retrieves multiple posts at once, perfect for populating dashboards or feeds. |
+| **Permanently remove** an old post | `site`, `post_id` | [Delete Post](#delete-post) | The standard way to delete content from your site. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each WordPress.com component.
+
+### <a name="create-post"></a>Create Post
+Creates a new post on your WordPress.com site. You can control its initial status (e.g., `draft`, `publish`). Formerly "Create Draft Post".
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-wordpresscom) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** For advanced usage, you can construct a full JSON payload here to include `status`, `tags`, `categories`, and other fields.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site` | string | Yes | The domain of your WordPress.com site (e.g., `your-site.wordpress.com`). |
+| `title` | string | Yes | The title of the new post. |
+| `content` | string | Yes | The body content of the post, which can be plain text or HTML. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | integer| The unique ID of the newly created post. |
+| `Response`| object | The full, raw JSON response from the WordPress.com API. |
+
+<TipCallout title="Use Case">
+An agent takes the content of a completed Google Doc, formats it as HTML, and uses this component to create a new `draft` on WordPress.com, ready for final review.
+</TipCallout>
+
+```json
+{
+  "component": "wordpress.createDraftPost",
+  "site": "myawesomesite.wordpress.com",
+  "title": "My First Automated Post",
+  "content": "<h1>Hello World</h1><p>This post was created by a SmythOS agent.</p>"
+}
+```
+
+<WarningCallout title="Draft vs. Publish">
+By default, this component may create a published post. To create a draft, you must add a `status` field with the value `draft` to the component's request body.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="update-post"></a>Update Post
+Edits an existing post on your WordPress.com site.
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-wordpresscom) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you provide the fields to update (e.g., `title`, `content`, `status`).
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site` | string | Yes | The domain of your WordPress.com site. |
+| `post_id` | string | Yes | The unique ID of the post you want to edit. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | integer| The ID of the updated post. |
+| `url` | string | The URL of the updated post. |
+| `Response`| object | The raw JSON response, containing the full updated post object. |
+
+<TipCallout title="Use Case">
+An agent detects a typo in a published article, corrects it, and uses this component to update the live post with the corrected content.
+</TipCallout>
+
+<Divider/>
+
+### <a name="list-and-get-posts"></a>List & Get Posts
+Includes **List Posts**, **Get Post by Post ID**, and **Get Post by Slug**. These components retrieve post data from your site.
+
+<InfoCallout>These components use the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-wordpresscom) section.</InfoCallout>
+
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site` | string | Yes | The domain of your WordPress.com site. |
+| `post_id` | string | (For Get by ID) Yes | The unique ID of the post to retrieve. |
+| `post_slug`| string | (For Get by Slug) Yes| The URL-friendly slug of the post. |
+| `number` | integer| (For List) Optional | The number of posts to retrieve. Default: `20`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `posts` | array | (List Posts) An array of post objects. |
+| `id`, `title`, `url` | any | (Get Post) Specific details of the retrieved post. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+A "content audit" agent uses `List Posts` to get all articles, then loops through them, using `Get Post by ID` to fetch full content for analysis.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-post"></a>Delete Post
+Permanently deletes a post from your site.
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-wordpresscom) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site` | string | Yes | The domain of your WordPress.com site. |
+| `post_id` | string | Yes | The unique ID of the post to delete. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The raw JSON response from the API, which may contain the details of the deleted post. |
+| `Headers` | object | HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+An agent identifies promotional posts for events that have already passed and automatically deletes them to keep the blog content current.
+</TipCallout>
+
+<WarningCallout title="Irreversible Action">
+This action is permanent and cannot be undone. Use with caution.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Credentials:** Always store your `Client ID` and `Client Secret` in the SmythOS `Vault`.
+* **Use the `Body` for Advanced Operations:** The `Create Post` and `Update Post` components are much more powerful when you use the `Body` setting. You can specify tags, categories, status (`draft`, `pending`, `publish`), and more by constructing the appropriate JSON object according to the [WordPress.com REST API documentation](https://developer.wordpress.com/docs/api/1.1/post/sites/$site/posts/new/).
+* **Manage Site and Post IDs:** Your agent workflows will often require a `site` identifier and a `post_id`. The `site` is your site's domain. You can get `post_id`s from the `Create Post` or `List Posts` components.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized` / Authentication Errors**
+  * **Cause:** Your `Client ID` or `Client Secret` are incorrect, or the user did not properly grant consent during the OAuth flow.
+  * **Solution:** Verify your credentials in the SmythOS Vault. Try re-authenticating the integration in the component settings.
+
+* **Error: `403 Forbidden`**
+  * **Cause:** The authenticated user does not have the necessary permissions (e.g., Editor or Administrator role) on the target WordPress.com site to perform the action.
+  * **Solution:** Check the user's role on the WordPress.com site. Ensure they have the authority to publish or edit posts.
+
+* **Error: `404 Not Found`**
+  * **Cause:** The `site` identifier or `post_id` is incorrect.
+  * **Solution:** Double-check your site domain and the ID of the post you are trying to interact with.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful content publishing workflows with the **SmythOS WordPress.com Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Acts as a content syndication engine, monitoring an RSS feed and automatically creating draft posts on your WordPress.com site whenever a new item appears.
+    * Connects to your social media. When you post a long-form update on another platform, an agent takes that content and creates a more detailed blog post on WordPress.com.
+    * Generates articles with an [LLM component](/docs/integrations/openrouter), then uses `Create Post` to save them as drafts for human review and publication.
+
+* **Explore Other Integrations:**
+    * After an agent publishes a new post, it can take the post URL from the output and share it across your social channels using the [Ayrshare Integration](/docs/integrations/ayrshare).
+    * Keep a content inventory by having your agent log the ID and URL of every new post to a [Google Sheet](/docs/integrations/google-sheets) or [Notion](/docs/integrations/notion) database.

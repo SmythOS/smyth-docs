@@ -1,0 +1,272 @@
+---
+title: Squarespace Integration
+description: Connect SmythOS to Squarespace to automate e-commerce operations like managing products, variants, inventory, and orders directly from your agents.
+og:title: SmythOS & Squarespace - Automate Your E-Commerce Store
+og:description: Learn to integrate Squarespace with SmythOS. Empower your agents to create and update products, sync inventory, and retrieve order data to streamline your online store operations.
+og:image: /img/integrations/smythos_squarespace.png
+keywords: [Squarespace SmythOS Integration, Connect Squarespace to SmythOS, SmythOS E-commerce Automation, Automate Squarespace, Squarespace API, No-Code E-commerce]
+---
+# Squarespace Integration with SmythOS
+
+> **Want to automate your e-commerce operations?** Connect your Squarespace store to SmythOS and empower your agents to manage products, sync inventory, and process orders automatically.
+
+<InfoCallout title="TL;DR">
+Securely link your Squarespace store to SmythOS using an API key generated from your Developer Tools. Then, use our suite of components to automate a wide range of e-commerce tasks, from creating new products to updating stock quantities.
+</InfoCallout>
+
+## List of Squarespace Components
+Quickly compare Squarespace components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
+
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create Product**](#create-product) | Write | Creates a new physical product in your store. | <Badge type="required" /> `storePageId`, `name`, `sku`, `basePrice` | `product_id`, `url` | Adding a new item to your catalog from an external system. |
+| [**Update Product**](#update-product) | Write | Updates the information for an existing product. | <Badge type="required" /> `productId`, `Body` | `product_id` | Changing a product's name or description. |
+| [**Update Product Variant**](#update-product-variant) | Write | Updates a specific variant of a product (e.g., size or color). | <Badge type="required" /> `productId`, `variantId`, `Body` | `productVariantId` | Updating the price or SKU of a specific product size. |
+| [**Increase/Decrease Stock**](#increase--decrease-stock-quantity) | Write | Adjusts the stock quantity for product variants. | <Badge type="required" /> `variantId`, `quantity` | `Response` | Syncing inventory with a warehouse management system. |
+| [**Get All Orders**](#get-all-orders)| Read | Retrieves all order information from your store. | <Badge type="required" /> `trigger` | `orderResults` | Exporting order data for custom reporting. |
+| [**Get Specific Order**](#get-specific-order)| Read | Retrieves information for a single, specific order. | <Badge type="required" /> `orderId` | `orderId` | Fetching details to process a customer support query. |
+| [**Get Products**](#get-products) | Read | Retrieves a list of all products in your store. | <Badge type="required" /> `trigger` | `products` | Getting a full catalog export for analysis. |
+| [**Get All Inventory**](#get-all-inventory) | Read | Retrieves stock information for all product variants. | <Badge type="required" /> `trigger` | `inventory` | Performing a full inventory audit. |
+| [**Upload Product Image**](#upload-product-image) | Write | Uploads a new image to a product's gallery. | <Badge type="required" /> `productId`, `image` | `imageId` | Automating the addition of new product photos. |
+| [**Delete Product**](#delete-product) | Write | Permanently deletes a product and all its variants. | <Badge type="required" /> `product_id` | `Response` | Removing discontinued items from your store. |
+
+
+<InfoCallout>
+<details>
+  <summary>Why Integrate Squarespace with Your Agent?</summary>
+
+Your Squarespace store is the heart of your e-commerce business. Integrating it with SmythOS allows you to build powerful agents that automate your operations, saving you time and reducing manual errors.
+
+- **Automated Inventory Management:** Create agents that sync your Squarespace inventory with an external supplier's stock levels, preventing overselling and ensuring your product availability is always accurate.
+- **Streamlined Order Fulfillment:** When a new order is placed, an agent can automatically retrieve the order details and send them to your shipping provider or fulfillment center's API.
+- **Dynamic Product Catalogs:** Build agents that can create or update products in your Squarespace store based on data from a spreadsheet, a PIM (Product Information Management) system, or another database.
+- **Custom Reporting:** Schedule agents to fetch all order or transaction data daily and format it into a custom report, giving you insights that go beyond the standard Squarespace analytics.
+
+</details>
+</InfoCallout>
+<Divider />
+
+## Prerequisites
+
+Before you begin, please ensure you have the following:
+
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Squarespace account** on a Business plan or higher.
+- A Squarespace **API Key** with the necessary permissions.
+
+<Divider />
+
+## Getting Started With Squarespace
+
+The connection between SmythOS and Squarespace is configured using a secure API Key.
+
+### Step 1: Get Your Squarespace API Key
+1.  Log in to your [Squarespace Dashboard](https://account.squarespace.com/) and select the site you want to connect.
+2.  In the main menu, go to **Settings** > **Developer Tools**.
+3.  Click on **Developer API Keys**.
+4.  Click **Generate Key**.
+5.  Give your key a descriptive name (e.g., "SmythOS Agent").
+6.  Under **Permissions**, check the scopes your agent will need (e.g., `Products: Read and Write`, `Orders: Read and Write`).
+7.  Click **Generate Key**.
+8.  **Copy the generated API Key immediately.** It will not be shown again.
+
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
+
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Squarespace API Key as the value. Give it a memorable name, like `squarespace_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+
+### Step 3: Configure a Squarespace Component
+1.  In your SmythOS agent graph, drag and drop any Squarespace component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `squarespace_api_key`).
+4.  Your connection is now configured for that component.
+
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Squarespace component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
+
+## Which Squarespace Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Add a new t-shirt** to your store | A store page | [Create Product](#create-product) | The primary method for adding a new product to your catalog. |
+| **Change a product's description** | A `productId` | [Update Product](#update-product) | Modifies the top-level details of an existing product. |
+| **Update the price of the 'Large' size** | A `variantId` | [Update Product Variant](#update-product-variant) | Offers granular control to edit a specific product variant. |
+| **Sync inventory** from a supplier | A `variantId` and `quantity`| [Increase / Decrease Stock Quantity](#increase--decrease-stock-quantity) | The correct way to adjust stock levels without overwriting other data. |
+| **Get a list of all unshipped orders** | All orders | [Get All Orders](#get-all-orders) | Retrieves all orders, which you can then filter in your agent. |
+| **Add a new photo** to a product page | A `productId` and image file| [Upload Product Image](#upload-product-image) | The standard way to add new images to a product's gallery. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each Squarespace component.
+
+### <a name="create-product"></a>Create Product
+Creates a new physical product with at least one variant on a specified store page.
+
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `storePageId` | string | Yes | The unique identifier of the store page where the product will be created. |
+| `name` | string | Yes | The name of the new product. |
+| `sku` | string | Yes | The Stock Keeping Unit for the product's primary variant. |
+| `basePrice` | string | Yes | The price of the product's primary variant. |
+| `description` | string | Optional | The product's description. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `product_id`| string | The unique ID of the newly created product. |
+| `url` | string | The URL slug of the new product's detail page. |
+| `variants`| array | An array containing the details of the product's variants. |
+| `Response`| object | The full, raw JSON response from the Squarespace API. |
+
+<TipCallout title="Use Case">
+An agent reads new product data from a Google Sheet, then calls this component for each row to automatically populate a new collection in the Squarespace store.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-product-and-variants"></a>Update Product and Variants
+Includes **Update Product** and **Update Product Variant**. These components allow you to modify existing products or their specific variants.
+
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the fields to be updated. Refer to the Squarespace API documentation for the correct schema.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The ID of the product to update. |
+| `variantId` | string | (For Variants Only) Yes | The ID of the specific variant to update. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `product_id` / `productVariantId` | string | The ID of the updated product or variant. |
+| `Response`| object | The raw JSON response from the Squarespace API. |
+
+<TipCallout title="Use Case">
+A merchandising agent runs daily, finds all products in the "Summer Sale" category, and uses `Update Product Variant` to apply a 20% discount to the `salePrice` of each variant.
+</TipCallout>
+
+<WarningCallout title="Body Schema is Key">
+The `Body` payload must be a valid JSON object matching the schema defined in the Squarespace Developer Documentation for updating products or variants.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="inventory-management"></a>Inventory Management
+Includes components like **Increase/Decrease Stock Quantity**, **Set Unlimited Stock**, **Get All Inventory**, and **Get Specific Inventory**.
+
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantId` / `variantIds`| string | Varies | The unique ID(s) of the product variant(s) to adjust. |
+| `quantity` | integer| Varies | The amount to increase or decrease the stock by. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `inventory` | array | (Get Inventory) An array containing inventory details for each variant. |
+| `Response`| object | The raw JSON response from the Squarespace API. |
+
+<TipCallout title="Use Case">
+When an order is returned to the warehouse, a logistics agent calls the `Increase Stock Quantity` component to add the returned items back into the Squarespace inventory.
+</TipCallout>
+
+<Divider/>
+
+### <a name="order-management"></a>Order Management
+Includes **Get All Orders** and **Get Specific Order**. These components allow you to retrieve order data from your store.
+
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `orderId` | string | (For Specific Order) Yes| The ID of the order to retrieve. |
+| `trigger` | string | (For All Orders) Yes | Any value to trigger the component. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `orderResults`/`orderId` | any | The list of all orders, or the ID of the specific order. |
+| `Response`| object | The raw JSON response from the API, containing detailed order information. |
+
+<TipCallout title="Use Case">
+A reporting agent runs `Get All Orders` every morning, filters for orders placed in the last 24 hours, and sends a summary of daily sales to a Teams channel.
+</TipCallout>
+
+<Divider/>
+
+### <a name="image-management"></a>Image Management
+Includes **Upload Product Image**, **Update Product Image**, **Delete Product Image**, **Reorder Product Image**, and **Assign Product Image to Variant**.
+
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The ID of the product to which the image belongs. |
+| `imageId` | string | Varies | The ID of the image to modify or assign. |
+| `image`| binary | (For Upload) Yes | The image file to upload. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `imageId` | string | (Upload/Update) The ID of the image. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent takes new photos from a cloud folder, runs `Upload Product Image` to add them to the correct product, and then uses `Assign Product Image to Variant` to link the new red t-shirt photo to the "Red" color variant.
+</TipCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your API Key:** Always store your Squarespace API key in the SmythOS `Vault`. If a key is compromised, generate a new one in Squarespace and update your Vault secret.
+* **Grant Specific Permissions:** When generating your API key in Squarespace, grant only the permissions your agent needs. If an agent only reads orders, don't give it write access to products.
+* **Understand the Data Hierarchy:** Remember the structure: a `Product` contains one or more `Variants`, and `Inventory` is tracked at the `Variant` level. You often need to get a product's variants first to find the correct `variantId` to update.
+* **Use the `Body` for Updates:** For the `Update Product` and `Update Product Variant` components, you must construct the JSON payload in the `Body` setting. Refer to the Squarespace Developer documentation for the correct schema for each object.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Key is incorrect, has been revoked, or lacks the necessary permissions for the requested action.
+  * **Solution:** Verify your API Key is correct in the SmythOS Vault. In your Squarespace settings, check that the key is active and has the required scopes (e.g., `Products: Read and Write`).
+
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect `productId`, `variantId`, or `orderId` was provided.
+  * **Solution:** Double-check all IDs for typos. Ensure the item you are trying to access exists in your store.
+
+* **Error: `400 Bad Request`**
+  * **Cause:** The JSON `Body` payload for an update or create operation is malformed or missing required fields.
+  * **Solution:** Carefully check your JSON structure against the official Squarespace API documentation. Ensure all required fields are present and data types are correct.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful e-commerce automations with the **SmythOS Squarespace Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Acts as an inventory sync engine. It checks stock levels from a supplier's API and uses the `Increase/Decrease Stock Quantity` components to keep your Squarespace store perfectly in sync.
+    * Automates order fulfillment. When a new order is retrieved with `Get All Orders`, the agent sends the customer and shipping details to your shipping provider's API.
+    * Creates products from a spreadsheet. The agent reads product data from a [Google Sheet](/docs/integrations/google-sheets), then uses `Create Product` and `Upload Product Image` to populate your store.
+
+* **Explore Other Integrations:**
+    * When a new order is placed, send a confirmation to the customer using [Resend](/docs/integrations/resend) and post a "New Sale!" notification in a [Discord](/docs/integrations/discord) channel.
+    * Use an [LLM component](/docs/integrations/openrouter) to write a product description, then use the `Update Product` component to add it to your store.
+    * Log all new orders to a [Firestore](/docs/integrations/firestore) database for long-term analysis and custom reporting.

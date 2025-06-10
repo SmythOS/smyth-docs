@@ -11,14 +11,12 @@ Agent orchestration is the practice of **designing, running, and governing** the
 
 > Put another way: **Workflows** describe _how_ logic flows, while **agents** wrap that logic with memory, auth, and deployment metadata so you can ship it to users.
 
----
-
 ## Core Concepts
 
 | Term | What it means in SmythOS |
 |------|--------------------------|
 | **Component** | The smallest building block—one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
-| **Skill** | A reusable **bundle of components** wired together to solve a sub-task (e.g., “Enrich a company record” or “Summarize a PDF”). Import a skill once; drop it into many agents. |
+| **Skill** | A reusable **bundle of components** wired together to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). Import a skill once; drop it into many agents. |
 | **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
 | **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
 
@@ -36,9 +34,8 @@ Agent orchestration is the practice of **designing, running, and governing** the
 | **Observability & Annotation** | Real-time run logs, cost tracing, and human-in-the-loop evaluation. |
 | **Deployment controls** | Versioning, staged roll-outs, RBAC.|
 
----
-
-/*## Agent flavors
+{/* 
+## Agent flavors
 
 | Type | Best for | Interaction mode | Default UI | Example Endpoint |
 |------|----------|------------------|------------|------------------|
@@ -55,9 +52,9 @@ Agent orchestration is the practice of **designing, running, and governing** the
 | **Tool invocation** | Limited (FAQ, RAG) | Full autonomy, external APIs |
 | **Streaming output** | ✅ | ✅ |
 | **Example use-case** | Customer-support bot | Lead-enrichment pipeline |
+*/}
 
----*/
-
+---
 ## Common use-cases
 
 - **Customer Service** – Classify intent ➜ retrieve KB docs ➜ draft, stream, and log replies.  

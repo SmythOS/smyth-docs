@@ -1,157 +1,274 @@
-# Jobber
+---
+title: Jobber Integration
+description: Connect SmythOS to Jobber to automate client management, scheduling, and operational workflows for your field service business directly from your agents.
+og:title: SmythOS & Jobber - Automate Your Field Service Operations
+og:description: Learn to integrate Jobber with SmythOS. Empower your agents to create and manage clients, add notes, and streamline your entire service business workflow.
+og:image: /img/integrations/smythos_jobber.png
+keywords: [Jobber SmythOS Integration, Connect Jobber to SmythOS, SmythOS Jobber, Automate Field Service, Service Business API, No-Code Jobber, Client Management]
+---
+# Jobber Integration with SmythOS
 
-`Jobber` is a comprehensive business management software designed for service-based businesses. It helps companies manage their operations, scheduling, client management, invoicing, and team coordination all in one place. Jobber streamlines day-to-day operations for field service businesses, enabling them to deliver exceptional service to their clients.
+> **Want to automate your service business operations?** Connect Jobber to SmythOS and empower your agents to automatically manage clients, add notes, and streamline your day-to-day workflows.
 
-At `SmythOS`, we have fully integrated `Jobber` capabilities within our platform, providing custom components that facilitate seamless client management and business operations. This integration allows businesses to efficiently manage their client relationships, handle client communications, and maintain detailed client records directly through the SmythOS platform.
+<InfoCallout title="TL;DR">
+Securely link your Jobber account to SmythOS by creating an app in the Jobber Developer Center to get a Client ID and Secret. Then, use our suite of components to automate client management from end to end.
+</InfoCallout>
 
-## Integration Settings
+## List of Jobber Components
+Quickly compare Jobber components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-#### Jobber Client ID and Client Secret
-For seamless integration of `Jobber` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
-1. **Visit the Jobber Developer Center**:
-   - Navigate to the [Jobber Developer Center](https://developer.getjobber.com).
-   - Signup for a new account or signin to an existing account.
-2. **Create Your First App**:
-   - Navigate to the apps page and click on the 'NEW' button to create your first app.
-3. **Configure the App Details**:
-   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application.
-   - Remember to specify the callback URL as `https://app.smythos.com/oauth/oauth2/callback` to ensure proper redirection after authentication.
-4. **Retrieve Client ID and Client Secret**:
-   - Once the app is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Add Client**](#add-client) | Write | Creates a new client record in your Jobber account. | <Badge type="required" /> `email`<br/><Badge type="optional" /> `firstName`, `lastName` | `clientId` | Automatically creating a Jobber client from a new website lead. |
+| [**List Clients**](#list-clients) | Read | Retrieves a comprehensive list of all clients in your account. | <Badge type="required" /> `trigger` | `clients`, `totalCount` | Syncing your client list to an external marketing tool. |
+| [**Search Clients**](#search-clients)| Search | Searches for clients based on a query string. | <Badge type="required" /> `query` | `clients` | Finding a specific client's ID to add a note to their record. |
+| [**Add Note To Client**](#add-note-to-client)| Write | Adds a note to a specific client's record. | <Badge type="required" /> `clientId`, `note`| `noteId` | Automatically logging a summary of a customer phone call. |
+| [**Archive Client**](#archive-client)| Write | Archives a specific client in your Jobber account. | <Badge type="required" /> `clientId` | `isArchived` | Cleaning up records for clients who are no longer active. |
+| [**Remove Note From Client**](#remove-note-from-client)| Write | Removes a specific note from a client's record. | <Badge type="required" /> `noteId` | `noteId` | Deleting temporary or incorrect notes. |
 
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
 
-## List Clients
-Retrieves a comprehensive list of all clients in your Jobber account, including both active and archived clients.
+<InfoCallout>
+<details>
+  <summary>Why Integrate Jobber with Your Agent?</summary>
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+Jobber is a powerful tool for managing your service business. Integrating it with SmythOS allows you to connect your field operations to your other systems, creating powerful, time-saving automations.
 
-### Inputs
-- **trigger (`required<any>`)**: Initiates the client list retrieval.
+- **Automate Client Onboarding:** Create an agent that takes new lead information from a web form or your CRM and automatically creates a new client record in Jobber using the `Add Client` component.
+- **Streamline Communication:** Build workflows that automatically log important communications. For example, an agent can take a summary of a customer email and use `Add Note To Client` to attach it to their Jobber profile for future reference.
+- **Data Synchronization:** Keep your client list in sync across multiple platforms. An agent can use `List Clients` to get all your Jobber clients and update records in your accounting software or email marketing platform.
+- **Automated Record Management:** Create cleanup agents that can `Archive Client` records for customers who haven't had a job scheduled in over a year, keeping your active client list tidy.
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **clients**: Array of client objects containing detailed client information.
-- **totalCount**: Total number of clients in the account.
+</details>
+</InfoCallout>
+<Divider />
 
-> **Note:** Results may be paginated for large client lists.
+## Prerequisites
 
-<Arcade src="https://demo.arcade.software/mzuaSl0jXm1HXGB8qOn6?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber List Clients" />
+Before you begin, please ensure you have the following:
 
-## Add Client
-Creates a new client record in your Jobber account with specified details.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Jobber account**.
+- **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Jobber Developer Center.
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+<Divider />
 
-### Inputs
-- **email (`required<string>`)**: Client's email address.
-- **firstName (`optional<string>`)**: Client's first name.
-- **lastName (`optional<string>`)**: Client's last name.
-- **companyName (`optional<string>`)**: Client's company name.
-- **phone (`optional<string>`)**: Client's phone number.
-- **address (`optional<string>`)**: Client's street address.
-- **city (`optional<string>`)**: Client's city.
-- **country (`optional<string>`)**: Client's country.
+## Getting Started With Jobber
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **clientId**: Unique identifier for the newly created client.
+The connection is handled via OAuth 2.0, which requires you to register an application in the Jobber Developer Center.
 
-<Arcade src="https://demo.arcade.software/5HC4gHcjDbxPRoWi1T8P?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Add Client" />
+### Step 1: Get Your OAuth 2.0 Credentials
+1.  **Go to the Developer Center:** Log in to your Jobber account and navigate to the [Jobber Developer Center](https://developer.getjobber.com).
+2.  **Create a New App:** Navigate to the "Apps" page and click the **NEW** button.
+3.  **Fill in Application Details:**
+    * Give your application a **Name** (e.g., "SmythOS Workflow Automation").
+    * **Redirect URI:** Enter the SmythOS callback URL: `https://app.smythos.com/oauth/oauth2/callback`.
+4.  **Copy Your Credentials:** Once created, your application's **Client ID** and **Client Secret** will be displayed. Copy both values.
 
-## Search Clients
-Searches for clients in your Jobber account based on a query string.
+### Step 2: Store Your Credentials in SmythOS Vault
+Your Client ID and Secret are sensitive credentials. Use the SmythOS `Vault` to store them securely.
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create new secrets for your `Client ID` and `Client Secret`, giving them memorable names like `jobber_client_id` and `jobber_client_secret`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-### Inputs
-- **query (`required<string>`)**: Search term to find matching clients.
+### Step 3: Configure a Jobber Component
+1.  In your SmythOS agent graph, drag and drop any Jobber component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `Client ID` and `Client Secret` fields, select the secrets you saved in the Vault.
+4.  Click **Authenticate**. You will be redirected to Jobber to authorize the connection.
+5.  Your connection is now ready to use across all Jobber components.
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **clients**: Array of client objects matching the search criteria.
+<InfoCallout title="Heads-up">The OAuth authentication flow connects your Jobber account to SmythOS. You only need to complete this process once.</InfoCallout>
+<Divider />
 
-<Arcade src="https://demo.arcade.software/Fnd1vSY4ku1c0wmoXKC1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Search Clients" />
+## Which Jobber Component Should I Use?
 
-## Archive Client
-Archives a specified client in your Jobber account.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Create a new customer** in your system | An email address and name | [Add Client](#add-client) | The standard method for creating a new client record. |
+| **Find a client** when you know their name or email | A search term | [Search Clients](#search-clients) | The best way to find a client's unique ID for other operations. |
+| **Get a full list of all your customers** | Your entire account | [List Clients](#list-clients) | Retrieves all clients, perfect for syncing data or bulk operations. |
+| **Add a comment** or log an interaction with a customer | A `clientId` and a note | [Add Note To Client](#add-note-to-client) | The correct way to add historical notes to a client's record. |
+| **Mark a client as inactive** | A `clientId` | [Archive Client](#archive-client) | Hides a client from your active list without permanently deleting them. |
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+<Divider/>
 
-### Inputs
-- **clientId (`required<string>`)**: Unique identifier of the client to archive.
+## Component Details
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **isArchived**: Boolean indicating successful archival.
+This section provides detailed information for each Jobber component.
 
-<Arcade src="https://demo.arcade.software/vDKvSEDHzq0x5X88YGPy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Archive Client" />
+### <a name="add-client"></a>Add Client
+Creates a new client record in your Jobber account.
 
-## Add Note To Client
-Adds a note to a specific client's record in Jobber.
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-jobber) section.</InfoCallout>
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `email` | string | Yes | The primary email address for the new client. |
+| `firstName` | string | Optional| The client's first name. |
+| `lastName` | string | Optional| The client's last name. |
+| `companyName`| string | Optional| The client's company name. |
+| `phone` | string | Optional| The client's phone number. |
+| `address` | string | Optional| The client's street address. |
+| `city` | string | Optional| The client's city. |
+| `country` | string | Optional| The client's country. |
 
-### Inputs
-- **clientId (`required<string>`)**: Unique identifier of the client.
-- **note (`required<string>`)**: Content of the note to be added.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `clientId` | string | The unique identifier for the newly created client. |
+| `Response`| object | The full, raw JSON response from the Jobber API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **noteId**: Unique identifier for the created note.
-- **note**: Content of the created note.
-- **createdAt**: Timestamp of note creation.
+<TipCallout title="Use Case">
+An agent is connected to a "Request a Quote" form on your website. When a new form is submitted, the agent uses this component to automatically create a new client record in Jobber.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/fPho3ISzTzf8gTNJQnkX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Add Note To Client" />
+```json
+{
+  "component": "jobber.addClient",
+  "email": "new.lead@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "555-123-4567"
+}
+```
 
-## Remove Note From Client
-Removes a specific note from a client's record in Jobber.
+<Divider/>
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Jobber Client ID and Client Secret` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-- Click on the blue "Authenticate" button to authenticate the component.
+### <a name="list-clients"></a>List Clients
+Retrieves a list of all active and archived clients in your account.
 
-### Inputs
-- **noteId (`required<string>`)**: Unique identifier of the note to remove.
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-jobber) section.</InfoCallout>
 
-### Outputs
-- **Response**: Complete API response object.
-- **Headers**: Response headers from the API.
-- **noteId**: Identifier of the removed note.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | any | Yes | Any input value can be used to trigger the component's execution. |
 
-> **Note:** Deleted notes cannot be recovered after removal
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `clients` | array | An array of client objects, each containing detailed client information. |
+| `totalCount`| integer| The total number of clients in your account. |
+| `Response`| object | The raw JSON response from the Jobber API. |
 
-<Arcade src="https://demo.arcade.software/lq1npAfACdc2TfUb3EBE?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Jobber Remove Note From Client" />
+<TipCallout title="Use Case">
+A marketing agent runs monthly, retrieves all clients using this component, and syncs the list with an email marketing platform like Mailchimp to update the subscriber list.
+</TipCallout>
+
+<WarningCallout title="Pagination">
+The Jobber API may paginate results for large client lists. You may need to handle this by inspecting the `Response` for pagination information if you have many clients.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="search-clients"></a>Search Clients
+Searches for clients matching a query string. The search looks at names, email addresses, phone numbers, and addresses.
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-jobber) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `query` | string | Yes | The search term to find clients (e.g., a name, email, or phone number). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `clients` | array | An array of client objects that match the search query. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+A support agent receives an email from a customer. It uses the customer's email as the `query` for this component to find their `clientId` before adding a new note to their record.
+</TipCallout>
+
+<Divider/>
+
+### <a name="add-note-to-client"></a>Add Note To Client
+Adds a new note to a specific client's record.
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-jobber) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `clientId` | string | Yes | The unique identifier of the client to add the note to. |
+| `note` | string | Yes | The text content of the note. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `noteId` | string | The unique identifier for the newly created note. |
+| `note` | string | The content of the created note. |
+| `createdAt`| string | The timestamp of when the note was created. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+After a phone call with a client, an agent uses a speech-to-text service to transcribe the call, an LLM to summarize it, and this component to add the summary as a note to the client's Jobber record.
+</TipCallout>
+
+<Divider/>
+
+### <a name="archive-client"></a>Archive Client
+Archives a client, hiding them from the default client list without permanently deleting them.
+
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-jobber) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `clientId` | string | Yes | The unique identifier of the client to archive. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `isArchived` | boolean | A boolean indicating if the client was successfully archived. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An automated cleanup agent runs quarterly, finds clients with no activity in the last two years, and uses this component to archive their records.
+</TipCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Credentials:** Always store your Jobber `Client ID` and `Client Secret` in the SmythOS `Vault`.
+* **Understand the Workflow:** A common workflow is to first use `Search Clients` or `List Clients` to find the `clientId` you need, and then use that ID in other components like `Add Note To Client` or `Archive Client`.
+* **Use for Data Syncing:** This integration is excellent for keeping your client list in Jobber synchronized with other systems like your CRM, accounting software, or email marketing platform.
+* **Error Handling:** When creating a client, check if the request fails due to a duplicate email. Your agent's logic should be able to handle this gracefully, perhaps by fetching the existing client instead of trying to create a new one.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized` / Authentication Errors**
+  * **Cause:** Your `Client ID` or `Client Secret` are incorrect, or the user did not grant consent during the OAuth flow.
+  * **Solution:** Verify that your credentials in the SmythOS Vault are correct. Try re-authenticating the integration in the component settings to refresh the connection.
+
+* **Error: `403 Forbidden`**
+  * **Cause:** The authenticated user does not have the necessary permissions in Jobber to perform the requested action.
+  * **Solution:** Log in to Jobber and check the permissions of the user account that was used to authenticate the integration.
+
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect `clientId` or other identifier was provided.
+  * **Solution:** Double-check all IDs for typos. Use the `Search Clients` or `List Clients` component to verify that the resource you are trying to access exists.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful service business automations with the **SmythOS Jobber Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Connects to your booking or contact form. When a new lead comes in, the agent checks if they exist with `Search Clients`. If not, it creates them with `Add Client` and then creates a new "Follow Up" task in a project management tool like [Asana](/docs/integrations/asana).
+    * Manages client communications. After a job is completed, an agent could send a follow-up survey via email using [Resend](/docs/integrations/resend), and then log the customer's feedback as a note on their Jobber profile using `Add Note To Client`.
+    * Creates a client portal. A user can interact with a chatbot, and the agent can use their email to search for their Jobber profile and provide them with information about their past or upcoming jobs.
+
+* **Explore Other Integrations:**
+    * When a new client is added in Jobber, trigger an agent to also add them to an email marketing list in [Mailchimp](/docs/integrations/mailchimp) or [Klaviyo](/docs/integrations/klaviyo).
+    * Connect Jobber to your accounting software. When a new client is created, create a corresponding customer record in your accounting platform.
+    * Use an [LLM component](/docs/integrations/openrouter) to summarize a long customer email, then add the concise summary as a note to their Jobber profile.

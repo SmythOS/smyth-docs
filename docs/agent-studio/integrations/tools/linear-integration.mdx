@@ -1,87 +1,201 @@
+---
+title: Linear Integration
+description: Connect SmythOS to Linear to automate issue tracking, project management, and development workflows directly from your agents.
+og:title: SmythOS & Linear - Automate Your Product Development
+og:description: Learn to integrate Linear with SmythOS. Empower your agents to create issues and retrieve team information, streamlining your entire development lifecycle.
+og:image: /img/integrations/smythos_linear.png
+keywords: [Linear SmythOS Integration, Connect Linear to SmythOS, SmythOS Linear, Automate Project Management, Issue Tracking API, No-Code Linear, Developer Tools]
+---
+# Linear Integration with SmythOS
 
-# Linear Integration
+> **Want to build automations for modern software teams?** Connect Linear to SmythOS and empower your agents to create issues and manage your product development lifecycle programmatically.
 
-`Linear` is a pioneering company dedicated to crafting cutting-edge project management tools tailored specifically for software development teams. At the heart of their offerings is a robust issue tracker and project management software renowned for its elegance and user-centric design.
+<InfoCallout title="TL;DR">
+Securely link your Linear account to SmythOS using a personal API key. Then, use our components to automate the creation of issues and the retrieval of team information, connecting your project management directly to your other tools.
+</InfoCallout>
 
-Here at SmythOS, we pride ourselves on seamlessly integrating with `Linear`, augmenting its capabilities with custom components that streamline the integration of its powerful services into your agents' workflow.
+## List of Linear Components
+Quickly compare Linear components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-## Create Linear Issue
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create Issue**](#create-issue) | Write | Creates a new issue in a specified team's backlog. | <Badge type="required" /> `title`, `description`, `teamId` | `issueId` | Automatically creating a bug report from a customer ticket. |
+| [**List Teams**](#list-teams) | Read | Retrieves a list of all teams in your Linear workspace. | <Badge type="required" /> `trigger` | `teamId`, `teamName`| Finding the correct team ID to create an issue in. |
 
-Introducing the `Create Linear Issue` component, a seamless addition to our integration suite that simplifies and accelerates the process of generating new issues within the `Linear` platform. This component not only enhances efficiency but also ensures a seamless transition between your existing workflow and `Linear's` feature-rich environment.
 
-### Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate Linear with Your Agent?</summary>
 
-To initialize and configure the `Create Linear Issue` component, follow these straightforward steps:
+Linear is a powerful issue tracker designed for high-performance software teams. Integrating it with SmythOS allows you to bridge the gap between your development process and your other business operations.
 
-1. If you haven't already done so, create an account on the `Linear` platform.
-2. Navigate to the `Account Settings` section within your `Linear` account interface.
-3. Within the `Account Settings`, locate the `API` section. Here, generate your unique `API Key` by following the provided instructions.
-4. Once you have obtained your `API Key`, return to the settings of the `Create Linear Issue` component. Locate the specified section designated for API integration and input your generated `API Key`.
+- **Automated Issue Creation:** Create agents that listen for triggers from other systems—a new bug report in a helpdesk, a feature request from a user feedback tool, or a critical alert from a monitoring service—and automatically create a corresponding issue in the correct Linear team's backlog.
+- **Streamlined Bug Reporting:** Build an internal tool where QA testers can fill out a simple form, and an agent takes that information and creates a well-structured bug report in Linear, complete with logs and screenshots.
+- **Connect Product and Engineering:** When a product manager finalizes a feature spec in Notion or a Google Doc, an agent can automatically create the parent "Epic" or "Project" issue in Linear for the engineering team.
+- **Data-Driven Project Management:** Use agents to fetch data about your teams and issues to create custom reports or dashboards, giving you insights into your development velocity and workflow bottlenecks.
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+</details>
+</InfoCallout>
+<Divider />
 
-<Image src="/img/linear/screenshot1.png" alt="alt text" />
+## Prerequisites
 
-### Inputs
+Before you begin, please ensure you have the following:
 
-To effectively leverage the capabilities of the `Create Linear Issue` component, ensure to provide the following input parameters:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Linear account**.
+- Your Linear personal **API Key**.
 
-1. **title `required<string>`:** Specify the title of the issue you intend to create. This serves as a concise identifier for the task at hand.
-2. **description `required<array string>`:** Provide a detailed description outlining the specifics of the issue. Utilize this space to articulate the problem, requirements, and any relevant information crucial for its resolution.
-3. **teamId `required<string>`:** Indicate the unique team ID where you intend to create the issue. This ensures proper allocation within the designated team's workflow.
+<Divider />
 
-<Image src="/img/linear/screenshot2.png" alt="alt text" />
+## Getting Started With Linear
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+The connection between SmythOS and Linear is configured using a secure, personal API Key.
 
-### Outputs
+### Step 1: Get Your Linear API Key
+1.  Log in to your [Linear account](https://linear.app/).
+2.  Navigate to **Settings** > **API**.
+3.  Under **Personal API Keys**, give your new key a descriptive label (e.g., "SmythOS Agent") and click **Create key**.
+4.  **Copy the API Key immediately.** It will not be shown again for security reasons.
 
-The `Create Linear Issue` component, upon being executed, produces the following outputs:
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-1. **Response**: This output is an object that contains detailed information about the result of the issue creation operation. It encapsulates vital information about the new issue, thus enabling effective tracking and management within the `Linear` platform.
-2. **Headers**: These are HTTP headers that originate from the `Linear` server response. They provide additional metadata including response status codes and the content type, which are useful for understanding the server’s reply.
-3. **issueId**: Denotes the unique identifier assigned to the issue that has been created.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Linear API Key as the value. Give it a memorable name, like `linear_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-<Image src="/img/linear/screenshot3.png" alt="alt text" />
+### Step 3: Configure a Linear Component
+1.  In your SmythOS agent graph, drag and drop any Linear component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `linear_api_key`).
+4.  Your connection is now configured for that component.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Linear component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-## Get Team Information
+## Which Linear Component Should I Use?
 
-Welcome to the introduction of our latest addition, the `Get Team Information` component. This seamless integration offers you effortless access to crucial details about your team, enhancing your project management capabilities.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Create a new bug report or feature request** | A `teamId` and a `title` | [Create Issue](#create-issue) | The primary method for programmatically adding new items to your Linear boards. |
+| **Find the ID for your "Engineering" or "Design" team** | Your workspace | [List Teams](#list-teams) | This is an essential first step to get the `teamId` required to create issues. |
 
-### Settings
+<Divider/>
 
-To initialize and configure the `Get Team Information` component, follow these straightforward steps:
+## Component Details
 
-1. If you haven't already done so, create an account on the `Linear` platform.
-2. Navigate to the `Account Settings` section within your `Linear` account interface.
-3. Within the `Account Settings`, locate the `API` section. Here, generate your unique `API Key` by following the provided instructions.
-4. Once you have obtained your `API Key`, return to the settings of the `Get Team Information` component. Locate the specified section designated for API integration and input your generated `API Key`.
+This section provides detailed information for each Linear component.
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+### <a name="create-issue"></a>Create Issue
+Creates a new issue within a specified team in your Linear workspace.
 
-<Image src="/img/linear/screenshot4.png" alt="alt text" />
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-linear) section.</InfoCallout>
 
-### Inputs
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `title` | string | Yes | The title of the issue you want to create. |
+| `description` | string | Yes | The main body content of the issue. Supports Markdown for formatting. |
+| `teamId`| string | Yes | The unique ID of the team where the issue will be created. |
 
-To effectively utilize the functionalities of the `Get Team Information` component, ensure the provision of the following input parameter:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `issueId` | string | The unique identifier of the newly created issue. |
+| `Response`| object | The full, raw JSON response from the Linear API, containing the complete issue object. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-1. **trigger `required<any value>`:** While not directly utilized by the `Linear` integration, this input serves as a trigger mechanism necessary for executing the component. You can assign any value to this parameter to initiate the component execution successfully.
+<TipCallout title="Use Case">
+An agent monitors a customer support channel. When a message contains the keyword "bug," the agent takes the message content and uses this component to create a new issue in the "Engineering" team's backlog for investigation.
+</TipCallout>
 
-<Image src="/img/linear/screenshot5.png" alt="alt text" />
+```json
+{
+  "component": "linear.createLinearIssue",
+  "title": "User cannot log in with SSO",
+  "description": "A user reported the following error: 'Authentication failed. Please try again.'\\n\\n**User Email:** user@example.com\\n**Timestamp:** 2025-06-12T10:00:00Z",
+  "teamId": "a1b2c3d4-e5f6-7890-a1b2-c3d4e5f6g7h8"
+}
+```
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<WarningCallout title="Markdown Support">
+The `description` field fully supports Markdown. Use `\n` for new lines and other Markdown syntax to create well-formatted issue descriptions.
+</WarningCallout>
 
-### Outputs
+<Divider/>
 
-The `Get Team Information` component delivers the subsequent outputs upon execution:
+### <a name="list-teams"></a>List Teams
+Retrieves a list of all teams within your Linear workspace. (Formerly "Get Team Information").
 
-1. **Response**: An object that encompasses detailed information about your team, offering extensive insights into the team's organization, dynamics, and other critical attributes. This data aids in making informed choices and streamlining team coordination and management.
-2. **Headers**: Includes HTTP headers from the server response provided by `Linear`. These headers contribute additional metadata, like response status codes and content types, which are valuable in decoding and managing the communication from the server.
-3. **teamId**: Identifies the unique ID of the team whose information has been obtained.
-4. **teamName**: Represents the name of the team that has been detailed in the response.
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-linear) section.</InfoCallout>
 
-<Image src="/img/linear/screenshot6.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | any | Yes | Any input value can be used to trigger the component's execution. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `teamId` | string | The unique ID of the first team found. For a full list, parse the `Response`. |
+| `teamName` | string | The name of the first team found. |
+| `Response`| object | The raw JSON response, containing a list of all team objects with their IDs and names. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+This is often the first step in a workflow. An agent calls this component to get a list of all teams, finds the `teamId` for the "Marketing" team, and then uses that ID to create a new issue in their backlog.
+</TipCallout>
+
+```json
+{
+  "component": "linear.getTeamInformation",
+  "trigger": "start"
+}
+```
+
+<WarningCallout title="Parsing the Response">
+The default `teamId` and `teamName` outputs only show the first team in the list. To find a specific team, you will need to loop through the `data.teams.nodes` array inside the `Response` object.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your API Key:** Your Linear API Key grants access to your workspace. Always store it in the SmythOS `Vault` and never expose it.
+* **Use the GraphQL API for Advanced Queries:** While these components cover common actions, Linear's power lies in its GraphQL API. For complex queries (e.g., getting all issues with a specific label assigned to a specific user), you may need to use a generic GraphQL component in SmythOS.
+* **Find Your Team ID:** The most common prerequisite for creating issues is the `teamId`. Use the `List Teams` component first to programmatically find the correct ID rather than hardcoding it.
+* **Automate Your Triage:** Combine the `Create Issue` component with other tools to build a powerful triage system. An agent can receive an alert, use an LLM to determine its priority and relevant team, find the `teamId`, and then create a well-formatted issue.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Key is incorrect, has been revoked, or is missing.
+  * **Solution:** Verify that the API Key in your SmythOS Vault is correct and active. Generate a new key in your Linear settings if necessary and update your Vault secret.
+
+* **Error: `404 Not Found`**
+  * **Cause:** The `teamId` provided is incorrect or does not exist.
+  * **Solution:** Use the `List Teams` component to get a valid list of team IDs and ensure you are using the correct one.
+
+* **Error: `400 Bad Request` / Validation Error**
+  * **Cause:** A required field like `title` or `teamId` is missing from the request.
+  * **Solution:** Check that all required inputs are provided and are not empty strings.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful development workflows with the **SmythOS Linear Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Connects to your customer support software (like Zendesk or Intercom). When a user reports a bug, the agent automatically creates a new, detailed issue in your engineering team's Linear backlog.
+    * Monitors a [GitHub repository](/docs/integrations/github). When a new pull request is opened that mentions a specific issue ID in its title (e.g., `[LIN-123]`), the agent finds that issue in Linear and posts a comment with a link to the PR.
+    * Acts as a "bug reporter" in Slack. A team member can use a slash command to trigger an agent, which asks them for a title and description, and then creates the issue in Linear for them.
+
+* **Explore Other Integrations:**
+    * When a new issue is created in Linear, trigger an agent to create a corresponding channel in [Microsoft Teams](/docs/integrations/microsoft-teams) or [Slack](/docs/integrations/slack) for discussion.
+    * Connect Linear to your CI/CD pipeline. When an issue is moved to "Done," an agent could trigger a deployment process.
+    * Log the time spent on issues by syncing data between Linear and a time-tracking application.

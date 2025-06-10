@@ -1,161 +1,185 @@
+---
+title: Google Docs Integration
+description: Connect Google Docs to your agents to create, append, and retrieve live documents directly in your workflows.
+og:title: SmythOS + Google Docs
+og:description: Automate document generation and updates with live Google Docs actions inside SmythOS.
+og:image: /img/integrations/smythos_googledocs.png
+keywords: [Google Docs Integration, Google Docs API, Google Docs Automation, SmythOS Google Docs, Append Text Google Docs, Create Document Agents]
+---
 
 # Google Docs Integration
 
-`Google Docs` is a versatile web-based application from Google that provides robust capabilities for creating, editing, and collaborating on documents directly within a browser, without needing traditional desktop software. It forms part of the broader Google Workspace suite, enabling users to efficiently format text, insert imagery, and manage complex tables, among other features. The platform facilitates real-time collaboration, with features like automatic saving and comprehensive revision histories that enhance productivity and facilitate version control.
+> Want to automate document workflows inside agents? Use this integration to create, read, or edit Google Docs programmatically in SmythOS.
 
-Integrating `Google Docs` into `SmythOS` significantly enhances user efficiency by melding document management with automated operational workflows. This integration supports real-time document access and editing within `SmythOS`, allowing users to seamlessly bridge their informational and operational environments without the need to switch platforms. It not only streamlines communication and project tracking but also leverages Google's robust security protocols to ensure that all data handled is secure. For businesses, this means optimized productivity, improved collaborative capabilities, and enhanced data security, all within a single, unified system.
+<InfoCallout title="TL;DR">
+Use your Google OAuth credentials to connect Docs to SmythOS, then use components to create, append, or read documents inside agents.
+</InfoCallout>
 
-## Google OAuth Setup
+## List of Google Docs Components
 
-For a visual step-by-step guide, watch the video below:
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|--------------|
+| [**Get Document**](#get-document) | Retrieve | Pulls full document structure + metadata | <code>documentId</code> | <code>title</code>, <code>content</code> | Ingest content into an agent |
+| [**Append Text**](#append-text) | Write | Adds text to a document | <code>documentId</code>, <code>text</code> | <code>documentId</code> | Auto-log output into a running doc |
+| [**Create Document**](#create-document) | Create | Starts a new blank document | <code>title</code> | <code>documentId</code> | Generate a report or note in real-time |
 
-  <Image src="/img/google_docs/screenshot1.png" alt="alt text" /> 
+<Divider />
 
-### Inputs
+## OAuth Setup for Google Docs
 
-Properly configure the inputs to specify which document to retrieve:
+You’ll need to create a Google Cloud OAuth App:
 
-- **documentId (`required<string>`)**: The unique identifier for the Google Doc you wish to access. This ID can typically be found in the URL of the `Google Docs` document.
+### 1. Go to Google Developer Console
+Visit [console.developers.google.com](https://console.developers.google.com/) and create or select a project.
 
-<Image src="/img/google_docs/screenshot2.png" alt="alt text" />
+### 2. Enable Google Docs API
+Go to **Library**, search for "Google Docs API", and enable it.
 
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+### 3. Configure Consent Screen
+Fill out the app name, user support email, and scope (Docs API scope).
 
-### Outputs
+### 4. Create OAuth Credentials
+Go to **Credentials → Create Credentials → OAuth client ID**, and:
+- Choose “Web application”
+- Set redirect URI to:  
+  <code>https://app.smythos.com/oauth/google/callback</code>
 
-Upon successful execution, the component delivers detailed outputs that help in further processing:
+### 5. Save Credentials in SmythOS
+Copy the <code>Client ID</code> and <code>Client Secret</code> and store in Vault or paste into the integration settings.
 
-1. **Response**: Contains the full JSON response from the `Google Docs` API, providing the latest document data.
-2. **Headers**: HTTP headers returned by the API call that can offer additional information about the request and response.
-3. **title**: Extracts the title of the document from the response data.
-4. **content**: Retrieves the full content of the document in a structured format.
+<TipCallout title="Use Vault">
+Always store your Client ID and Secret in <strong>Vault</strong> for secure reuse across components.
+</TipCallout>
 
-<Image src="/img/google_docs/screenshot3.png" alt="alt text" />
+<Arcade url="https://app.smythos.com/demo/google-auth" />
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Divider />
 
-## Append Text
+## <a name="get-document"></a>Get Document
 
-Adds text to the body of a Google Document.
+Fetch a Google Doc’s full JSON representation, including title and structured body content.
 
-### Settings
+#### Inputs
 
-#### Client ID & Client Secret
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>documentId</code> | <Badge type="required" /> | Unique ID from the Google Docs URL |
 
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+<Image src="/img/google_docs/screenshot2.png" alt="Get Document Input" />
 
-For seamless integration of `Google Docs` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+#### Outputs
 
-1. **Visit the Google Developers Console**:
-   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
-   - Create a new project or select an existing project that is appropriate for your needs.
+| Field | Description |
+|-------|-------------|
+| <code>title</code> | The document’s current title |
+| <code>content</code> | The full document structure (paragraphs, elements) |
+| <code>response</code> | Full JSON body |
+| <code>headers</code> | HTTP metadata from the API |
 
-2. **Enable the Google Docs API**:
-   - Proceed to the `Library` section within the Developers Console.
-   - Search for the `Google Docs API` and enable it for your selected project.
+<Image src="/img/google_docs/screenshot3.png" alt="Get Document Output" />
 
-3. **Configure the OAuth Consent Screen**:
-   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+<PromptCard prompt={`{
+  "component": "docs.getDocument",
+  "documentId": "1Z3Xy_a2Nd0fTqx..."
+}`} />
 
-4. **Create Credentials**:
-   - Go to the `Credentials` tab in the console.
-   - Click `Create credentials`, then select `OAuth client ID`.
-   - Choose the application type that matches your usage scenario.
-   - Remember to specify the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection after authentication.
+<Divider />
 
-5. **Retrieve Client ID and Client Secret**:
-   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+## <a name="append-text"></a>Append Text
 
-6. **Enter and Authenticate**:
-   - Enter these credentials into the relevant fields in the SmythOS settings for the Google Docs component.
-   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Docs within SmythOS efficiently.
+Add raw text content to the end of an existing Google Document.
 
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+#### Inputs
 
-<Image src="/img/google_docs/screenshot4.png" alt="alt text" /> 
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>documentId</code> | <Badge type="required" /> | The target document’s ID |
+| <code>text</code> | <Badge type="required" /> | The string to append to the doc |
 
-### 📝 Inputs
+<Image src="/img/google_docs/screenshot5.png" alt="Append Text Inputs" />
 
-Configure the following inputs to specify the document details and updates:
+#### Outputs
 
-- **documentId (`required<string>`)**: The unique ID of the document where text will be appended.
-- **text (`required<string>`)**: The text to be appended. Default value: `Test text`.
+| Field | Description |
+|-------|-------------|
+| <code>documentId</code> | Echoes the document ID |
+| <code>requiredRevisionId</code> | Tracks the revision before the edit |
+| <code>response</code> | Full Google Docs API response |
+| <code>headers</code> | HTTP metadata for diagnostics |
 
-<Image src="/img/google_docs/screenshot5.png" alt="alt text" />
+<Image src="/img/google_docs/screenshot6.png" alt="Append Output" />
 
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+<PromptCard prompt={`{
+  "component": "docs.appendText",
+  "documentId": "1ABCDeFg1234",
+  "text": "Generated summary here."
+}`} />
 
-### 📤 Outputs
+<TipCallout title="Use Case" collapsible>
+Append meeting notes, user summaries, or GPT responses directly to a shared doc during a session.
+</TipCallout>
 
-After executing the command, the system provides several outputs to confirm and detail the changes made:
+<Divider />
 
-- **Response**: Returns a detailed JSON response from the `Google Docs` API.
-- **Headers**: Displays the HTTP headers associated with the API response, providing insights into the specifics of the API call.
-- **documentId**: Unique identifier for the newly updated document.
-- **requiredRevisionId**: The revision ID required if the request should apply to the specific revision.
+## <a name="create-document"></a>Create Document
 
-<Image src="/img/google_docs/screenshot6.png" alt="alt text" />
+Creates a new blank Google Doc with a given title.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Inputs
 
-## Create Document
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>title</code> | <Badge type="required" /> | The new document’s display title |
 
-This feature allows the creation of a blank document using the title provided in the request. It integrates seamlessly with `Google Docs` via Google's API to ensure a smooth experience within `SmythOS`.
+<Image src="/img/google_docs/screenshot8.png" alt="Create Doc Input" />
 
-### Settings
+#### Outputs
 
-#### Client ID & Client Secret
+| Field | Description |
+|-------|-------------|
+| <code>documentId</code> | ID of the new Google Doc |
+| <code>response</code> | JSON body of doc metadata |
+| <code>headers</code> | API response headers |
 
-For a visual step-by-step guide, watch this [video](#google-oauth-setup).
+<Image src="/img/google_docs/screenshot9.png" alt="Create Output" />
 
-For seamless integration of `Google Docs` with `SmythOS`, obtaining secure credentials such as a `Client ID` and a `Client Secret` is essential. Below is a step-by-step guide to help you acquire these credentials:
+<PromptCard prompt={`{
+  "component": "docs.createDocument",
+  "title": "Meeting Notes – June 2025"
+}`} />
 
-1. **Visit the Google Developers Console**:
-   - Navigate to the [Google Developers Console](https://console.developers.google.com/).
-   - Create a new project or select an existing project that is appropriate for your needs.
+<Divider />
 
-2. **Enable the Google Docs API**:
-   - Proceed to the `Library` section within the Developers Console.
-   - Search for the `Google Docs API` and enable it for your selected project.
+## Best Practices
 
-3. **Configure the OAuth Consent Screen**:
-   - Fill in the required details such as your application's name, email address, and the scopes necessary for your application on the consent screen settings.
+- 🔐 Always use <strong>Vault</strong> to store sensitive client credentials.
+- 🧠 Use <code>Get Document</code> before <code>Append Text</code> to avoid content duplication.
+- ✍🏼 Style and format using Docs batch update methods (upcoming support).
+- 📄 Treat the document structure as an editable tree—parse with care.
 
-4. **Create Credentials**:
-   - Go to the `Credentials` tab in the console.
-   - Click `Create credentials`, then select `OAuth client ID`.
-   - Choose the application type that matches your usage scenario.
-   - Remember to specify the callback URL as `https://app.smythos.com/oauth/google/callback` to ensure proper redirection after authentication.
+<Divider />
 
-5. **Retrieve Client ID and Client Secret**:
-   - Once the OAuth client ID is configured, the system will provide you with a `Client ID` and a `Client Secret`.
+## Troubleshooting
 
-6. **Enter and Authenticate**:
-   - Enter these credentials into the relevant fields in the SmythOS settings for the Google Docs component.
-   - Click on the `Authenticate` button to establish a secure connection, allowing you to utilize Google Docs within SmythOS efficiently.
+| Error | Cause | Resolution |
+|-------|-------|------------|
+| <code>PERMISSION_DENIED</code> | Not authorized or no access | Confirm OAuth scopes and document sharing |
+| <code>INVALID_ARGUMENT</code> | Malformed input | Ensure IDs and payloads are correctly formatted |
+| <code>NOT_FOUND</code> | Document doesn’t exist | Double-check <code>documentId</code> value |
+| <code>QUOTA_EXCEEDED</code> | Daily limit hit | Upgrade project quota or retry next day |
 
-> **Note:** Treat the `Client ID` and `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<InfoCallout>
+You can inspect <code>response.error</code> in outputs to capture error messages directly inside flows.
+</InfoCallout>
 
-<Image src="/img/google_docs/screenshot7.png" alt="alt text" /> 
+<Divider />
 
-### Inputs
+## Example Flows
 
-You can configure the following inputs to specify the document details and updates:
+Try these agent use cases:
 
-- **title (`required<string>`)**: Specifies the title of the document being created.
+- Auto-generate call summaries into a doc after each customer session
+- Team updates bot that logs check-ins to a shared Google Doc
+- Invoice generation that writes line items into templated Docs
 
-<Image src="/img/google_docs/screenshot8.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-After executing the command, the system provides several outputs to confirm and detail the changes made:
-
-1. **Response**: Returns a detailed JSON response from the `Google Docs` API.
-2. **Headers**: Displays the HTTP headers associated with the API response, providing insights into the API call specifics.
-3. **documentId**: Unique identifier for the newly created document. 
-
-<Image src="/img/google_docs/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Image src="/img/integrations/smythos_googledocs.png" alt="Google Docs agent demo" />

@@ -1,246 +1,324 @@
+---
+title: DataForSEO Integration
+description: Connect SmythOS to DataForSEO. Automate live SERP data collection for Google, YouTube, and more, directly from your agents.
+og:title: SmythOS & DataForSEO - Power Your SEO with Live SERP Data
+og:description: Learn to integrate DataForSEO with SmythOS. Empower your agents to fetch real-time search engine results for web, news, images, and video to automate competitive analysis and SEO tracking.
+og:image: /img/integrations/smythos_dataforseo.png
+keywords: [DataForSEO SmythOS Integration, Connect DataForSEO to SmythOS, SmythOS SERP API, Automate SEO Data, Live SERP Scraping, No-Code SEO, Google SERP API]
+---
+# DataForSEO Integration with SmythOS
 
-# DataForSEO Integration
+> **Need enterprise-grade, real-time search data?** Connect DataForSEO to SmythOS and empower your agents to fetch live SERP data from Google, YouTube, and more, without managing proxies.
 
-The `DataForSEO` API offers a robust foundation for creating sophisticated SEO software. It provides comprehensive data that helps in constructing efficient applications, optimizing your time and budget management significantly.
+<InfoCallout title="TL;DR">
+Securely link your DataForSEO account to SmythOS using Base64-encoded API credentials. Then, use our suite of "Live SERP" components to retrieve real-time search results for any keyword, location, and language.
+</InfoCallout>
 
-The integration with `SmythOS` was implemented to enhance its SEO capabilities and tools, allowing users to access precise and up-to-date SEO data quickly. This integration aids in automating and refining SEO strategies within `SmythOS`, making it a more powerful tool for digital marketing professionals.
+## List of DataForSEO Components
+Quickly compare DataForSEO components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-## Live Google SERP Regular
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Live Google SERP Regular**](#live-google-serp-regular) | Read | Fetches standard live Google web search results. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `location_name` | `result`, `items_count` | Basic keyword rank tracking. |
+| [**Live Google SERP Advanced**](#live-google-serp-advanced) | Read | Fetches detailed live Google web search results, including rich SERP features. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `location_name` | `result`, `items_count` | In-depth competitor SERP analysis. |
+| [**Live Google News Advanced**](#live-google-news-advanced) | Read | Fetches live search results from Google News. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `location_name` | `result`, `items_count` | Monitor brand mentions and news trends. |
+| [**Live Google Images**](#live-google-images) | Read | Fetches live search results from Google Images. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `location_name` | `result`, `items_count` | Track visual brand assets or product images. |
+| [**Live YouTube SERP Advanced**](#live-youtube-serp-advanced) | Read | Fetches live search results from YouTube. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `location_name` | `result`, `items_count` | Analyze video rankings and competitor strategies. |
+
+<InfoCallout>
+<details>
+  <summary>Why Integrate DataForSEO with Your Agent?</summary>
+
+DataForSEO provides a robust and reliable way to access search engine data at scale. By integrating it with SmythOS, you can build sophisticated, automated SEO and marketing intelligence systems.
+
+- **Real-Time Rank Tracking:** Create agents that run on a schedule to check your website's live rankings for crucial keywords across different locations and languages.
+- **Deep Competitor Analysis:** Automatically pull SERP data for your competitors' target keywords to analyze the SERP features they own, the content they rank with, and the questions they answer.
+- **Content and Market Research:** Gather live data from Google, News, and YouTube to understand user intent, identify content gaps, and monitor industry trends as they happen.
+- **Automated Data Pipelines:** Feed real-time SERP data directly into other systems. Populate Google Sheets with ranking data, send newsworthy mentions to Slack, or use search results to fuel AI content generation workflows.
+
+</details>
+</InfoCallout>
+<Divider />
 
-This component allows for live querying of Google's Search Engine Results Pages (SERP), using the `DataForSEO` API to provide real-time search result data. It is perfect for applications requiring up-to-the-minute data for SEO analysis and competitive insight.
+## Prerequisites
 
-### Settings
-
-#### Base64 Encoded Login and Password
-
-For activation, encode your login and password in Base64 in the format `login:password`. Use the encoded API credentials instead of plain text.
-
-For example, a Base64-encoded `login:password` appears as: `bG9naW46cGFzc3dvcmQ=`.
-
-To encode your credentials:
-
-1. Log into your `DataForSEO` account and access your [API Dashboard](https://app.dataforseo.com/api-dashboard).
-2. Encode your login and password in Base64.
-3. Input the encoded values into the designated settings section of the component.
-
-> **Note:** Treat the `login` and `password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/dataforseo/screenshot1.png" alt="alt text" /> 
-
-### Inputs
-
-Customize your search with the following configurable inputs:
-
-1. **language_name `optional<string>`** (default: `english`): Specifies the language for the search.
-2. **location_name `optional<string>`** (default: `united states`): Sets the geographic location for the search.
-3. **keyword `required<string>`**: Indicates the search keyword or phrase.
-
-<Image src="/img/dataforseo/screenshot2.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-The component produces the following outputs for detailed data analysis:
-
-1. **Response**: The primary JSON response containing all search data.
-2. **Headers**: Captures HTTP headers from the response, useful for debugging and compliance checks.
-3. **id**: A unique identifier for the search.
-4. **result**: The search results derived from the query.
-5. **items_count**: The number of items returned in the search results.
-
-<Image src="/img/dataforseo/screenshot3.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Live Google SERP Advanced
-
-The `Live Google SERP Advanced` component enables advanced querying capabilities for Google's Search Engine Results Pages (SERP) using the `DataForSEO` API. This integration allows for deeper insights and more precise search data retrieval in real-time for advanced SEO analysis and strategic planning.
-
-### Settings
-
-#### Base64 Encoded Login and Password
-
-For activation, encode your login and password in Base64 in the format `login:password`. Use the encoded API credentials instead of plain text.
-
-For example, a Base64-encoded `login:password` appears as: `bG9naW46cGFzc3dvcmQ=`.
-
-To encode your credentials:
-
-1. Log into your `DataForSEO` account and access your [API Dashboard](https://app.dataforseo.com/api-dashboard).
-2. Encode your login and password in Base64.
-3. Input the encoded values into the designated settings section of the component.
-
-> **Note:** Treat the `login` and `password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/dataforseo/screenshot4.png" alt="alt text" /> 
-
-### Inputs
-
-Configure your search using the customizable inputs provided:
-
-1. **language_name `optional<string>`** (default: `english`): Defines the language of the search results.
-2. **location_name `optional<string>`** (default: `united states`): Specifies the geographical focus of the search.
-3. **keyword `required<string>`**: Sets the specific keyword or phrase for the search.
-
-<Image src="/img/dataforseo/screenshot5.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-The component delivers the following detailed outputs for comprehensive analysis:
-
-1. **Response**: Delivers the full JSON structure of the search data.
-2. **Headers**: Contains the HTTP headers from the response, useful for technical oversight and troubleshooting.
-3. **id**: Provides a unique identifier associated with the particular search.
-4. **result**: Displays the precise search results retrieved.
-5. **items_count**: Indicates the total number of results obtained.
-
-<Image src="/img/dataforseo/screenshot6.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Live Google News Advanced
-
-The `Live Google News Advanced` component leverages the `DataForSEO` API to enable real-time searching of Google News. This powerful tool facilitates streamlined access to global news articles, tailored to specific keywords, locations, and languages, ideal for comprehensive media monitoring and analysis.
-
-### Settings
-
-#### Base64 Encoded Login and Password
-
-For activation, encode your login and password in Base64 in the format `login:password`. Use the encoded API credentials instead of plain text.
-
-For example, a Base64-encoded `login:password` appears as: `bG9naW46cGFzc3dvcmQ=`.
-
-To encode your credentials:
-
-1. Log into your `DataForSEO` account and access your [API Dashboard](https://app.dataforseo.com/api-dashboard).
-2. Encode your login and password in Base64.
-3. Input the encoded values into the designated settings section of the component.
-
-> **Note:** Treat the `login` and `password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/dataforseo/screenshot7.png" alt="alt text" /> 
-
-### Inputs
-
-Tailor your news search with the following configurable inputs:
-
-1. **language_name `optional<string>`** (default: `english`): Specifies the language of the news articles.
-2. **location_name `optional<string>`** (default: `united states`): Determines the geographical targeting of the news search.
-3. **keyword `required<string>`**: The search term used to filter news articles.
-
-<Image src="/img/dataforseo/screenshot8.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-This component generates detailed outputs for in-depth analysis:
-
-1. **Response**: The complete JSON response containing all relevant news data.
-2. **Headers**: Includes HTTP headers from the response, essential for debugging and ensuring compliance.
-3. **id**: A unique identifier for the search session.
-4. **result**: The specific search results returned.
-5. **items_count**: The total count of news articles returned in the search.
-
-<Image src="/img/dataforseo/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Live Google Images
-
-The Live Google Images component utilizes the `DataForSEO` API to fetch real-time Google image search results. It is ideal for applications needing instant image data based on specific search queries, tailored to particular languages and geographic locations.
-
-### Settings
-
-#### Base64 Encoded Login and Password
-
-For activation, encode your login and password in Base64 in the format `login:password`. Use the encoded API credentials instead of plain text.
-
-For example, a Base64-encoded `login:password` appears as: `bG9naW46cGFzc3dvcmQ=`.
-
-To encode your credentials:
-
-1. Log into your `DataForSEO` account and access your [API Dashboard](https://app.dataforseo.com/api-dashboard).
-2. Encode your login and password in Base64.
-3. Input the encoded values into the designated settings section of the component.
-
-> **Note:** Treat the `login` and `password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/dataforseo/screenshot10.png" alt="alt text" /> 
-
-### Inputs
-
-Configure your image search with these customizable inputs:
-
-1. **language_name `optional<string>`** (default: `english`): Defines the language of the image search results.
-2. **location_name `optional<string>`** (default: `united states`): Sets the geographic target for the image search.
-3. **keyword `required<string>`**: The essential search term used to find relevant images.
-
-<Image src="/img/dataforseo/screenshot11.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-This component provides the following detailed outputs for thorough data analysis:
-
-1. **Response**: The complete JSON data containing all relevant image search results.
-2. **Headers**: Includes HTTP headers from the API response, crucial for technical assessments and compliance checks.
-3. **id**: A unique identifier for the search query.
-4. **result**: The specific image results derived from the search.
-5. **items_count**: The count of images returned by the search.
-
-<Image src="/img/dataforseo/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Live YouTube SERP Advanced
-
-The `Live YouTube SERP Advanced` component, powered by the `DataForSEO` API, delivers real-time search results from YouTube. This tool is designed to fetch organic SERP data for video content based on specific keywords, languages, and geographic settings, making it essential for advanced video marketing analytics.
-
-### Settings
-
-#### Base64 Encoded Login and Password
-
-For activation, encode your login and password in Base64 in the format `login:password`. Use the encoded API credentials instead of plain text.
-
-For example, a Base64-encoded `login:password` appears as: `bG9naW46cGFzc3dvcmQ=`.
-
-To encode your credentials:
-
-1. Log into your `DataForSEO` account and access your [API Dashboard](https://app.dataforseo.com/api-dashboard).
-2. Encode your login and password in Base64.
-3. Input the encoded values into the designated settings section of the component.
-
-> **Note:** Treat the `login` and `password` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/dataforseo/screenshot13.png" alt="alt text" /> 
-
-### Inputs
-
-Customize your YouTube search with the following configurable inputs:
-
-1. **language_name `optional<string>`** (default: `english`): Specifies the language for the video search results.
-2. **location_name `optional<string>`** (default: `united states`): Determines the geographic focus of the search.
-3. **keyword `required<string>`**: The crucial search term used to retrieve relevant videos.
-
-<Image src="/img/dataforseo/screenshot14.png" alt="alt text" />
-
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
-
-### Outputs
-
-This component yields the following detailed outputs to facilitate in-depth analysis:
-
-1. **Response**: Provides the complete JSON data containing all pertinent search results.
-2. **Headers**: Includes HTTP headers from the API response, essential for debugging and verifying data accuracy.
-3. **id**: A unique identifier assigned to the search operation.
-4. **result**: The specific video search results obtained.
-5. **items_count**: The total number of videos returned by the search.
-
-<Image src="/img/dataforseo/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+Before you begin, please ensure you have the following:
+
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **DataForSEO account**.
+- Your DataForSEO API `login` and `password` (API key).
+
+<Divider />
+
+## Getting Started With DataForSEO
+
+Authentication for DataForSEO uses your API login and password, combined and encoded in Base64 format.
+
+### Step 1: Get Your DataForSEO API Credentials
+1.  Log in to your [DataForSEO Dashboard](https://app.dataforseo.com/api-dashboard).
+2.  Your API credentials (`login` and `password`) are displayed on this page. Copy both of them.
+
+### Step 2: Encode Your Credentials in Base64
+The API requires your credentials to be in the format `login:password` and then Base64 encoded.
+1.  Combine your credentials into a single string with a colon in between. For example: `my_email@example.com:your_password`.
+2.  Use an online tool or a local script to Base64 encode this string. The example `my_email@example.com:your_password` would become something like `bXlfZW1haWxAZXhhbXBsZS5jb206eW91cl9wYXNzd29yZA==`.
+3.  Copy the resulting Base64 encoded string.
+
+### Step 3: Store Your Encoded Key in SmythOS Vault
+Your encoded key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
+
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your **Base64 encoded string** as the value. Give it a memorable name, like `dataforseo_base64_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+
+### Step 4: Configure a DataForSEO Component
+1.  In your SmythOS agent graph, drag and drop any DataForSEO component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `Base64 Encoded Login and Password` field, select the secret you saved in the Vault (e.g., `dataforseo_base64_key`).
+4.  Your connection is now configured for that component.
+
+<InfoCallout title="Heads-up">You must add the Base64 encoded key from the Vault to **each** DataForSEO component you use. This ensures all connections are secure.</InfoCallout>
+<Divider />
+
+## Which DataForSEO Component Should I Use?
+
+| If you need to… | Target Platform | Use this Component | Why this one? |
+|-----------------|-----------------|--------------------|---------------|
+| **Check standard web rankings** | Google Search | [Live Google SERP Regular](#live-google-serp-regular) | Fast and efficient for basic organic position tracking. |
+| **Analyze all SERP features** (e.g., Knowledge Panel) | Google Search | [Live Google SERP Advanced](#live-google-serp-advanced) | Provides a richer, more detailed snapshot of the entire SERP. |
+| **Monitor brand mentions in the news** | Google News | [Live Google News Advanced](#live-google-news-advanced) | Specifically targets news articles for PR and brand tracking. |
+| **See what images rank** for a query | Google Images | [Live Google Images](#live-google-images) | Essential for visual branding and e-commerce product analysis. |
+| **Research video competitor strategy** | YouTube | [Live YouTube SERP Advanced](#live-youtube-serp-advanced) | Fetches video results to analyze titles, thumbnails, and rankings. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each DataForSEO component.
+
+### <a name="live-google-serp-regular"></a>Live Google SERP Regular
+Fetches live, standard organic search results from Google for a given keyword.
+
+<InfoCallout>This component requires Base64 encoded credentials, as detailed in the [Getting Started](#getting-started-with-dataforseo) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `keyword` | <Badge type="required" /> | The keyword or phrase to search for. |
+| `location_name` | <Badge type="optional" /> | Geographic location for the search (e.g., `United Kingdom`). Default: `United States`. |
+| `language_name` | <Badge type="optional" /> | Language for the search results (e.g., `German`). Default: `English`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `result` | An array of objects containing the SERP items, primarily organic results. |
+| `items_count` | The total number of items returned in the `result` array. |
+| `response`| The full raw JSON response from the DataForSEO API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Build a simple, automated rank tracker that checks your top 10 keywords every week and logs the positions to a Google Sheet.
+</TipCallout>
+
+```json
+{
+  "component": "dataforseo.liveGoogleSerpRegular",
+  "keyword": "no-code automation platform",
+  "location_name": "Canada"
+}
+```
+
+<WarningCallout title="API Costs">
+Every API call consumes credits from your DataForSEO account. Use precise keywords and locations to manage costs effectively.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="live-google-serp-advanced"></a>Live Google SERP Advanced
+Fetches a detailed snapshot of the live Google SERP, including rich features like knowledge panels, "people also ask", and more.
+
+<InfoCallout>This component requires Base64 encoded credentials, as detailed in the [Getting Started](#getting-started-with-dataforseo) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `keyword` | <Badge type="required" /> | The keyword or phrase to search for. |
+| `location_name` | <Badge type="optional" /> | Geographic location for the search. Default: `United States`. |
+| `language_name` | <Badge type="optional" /> | Language for the search results. Default: `English`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `result` | An array of objects containing all SERP items, including organic, paid, and rich features. |
+| `items_count` | The total number of items returned in the `result` array. |
+| `response`| The full raw JSON response from the DataForSEO API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Perform in-depth competitive analysis by checking not just who ranks, but also which rich SERP features they have captured for a high-value keyword.
+</TipCallout>
+
+```json
+{
+  "component": "dataforseo.liveGoogleSerpAdvanced",
+  "keyword": "what is an llm agent",
+  "location_name": "United Kingdom"
+}
+```
+
+<WarningCallout title="Data Complexity">
+The `result` from the advanced endpoint is more complex. You will need to parse the array and check the `type` of each item (e.g., `organic`, `knowledge_graph`) to extract the data you need.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="live-google-news-advanced"></a>Live Google News Advanced
+Fetches live search results specifically from the Google News tab.
+
+<InfoCallout>This component requires Base64 encoded credentials, as detailed in the [Getting Started](#getting-started-with-dataforseo) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `keyword` | <Badge type="required" /> | The topic or brand name to search for in Google News. |
+| `location_name` | <Badge type="optional" /> | Geographic location to target news sources. Default: `United States`. |
+| `language_name` | <Badge type="optional" /> | Language of the news articles. Default: `English`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `result` | An array of objects, each representing a news article found in the search results. |
+| `items_count` | The total number of news articles returned. |
+| `response`| The full raw JSON response from the DataForSEO API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Set up a media monitoring agent that searches for your brand name daily and sends an alert to Slack if new articles are found.
+</TipCallout>
+
+```json
+{
+  "component": "dataforseo.liveGoogleNewsAdvanced",
+  "keyword": "SmythOS funding",
+  "location_name": "United States"
+}
+```
+
+<WarningCallout title="Source Diversity">
+The results will include a wide range of news sources. You may want to filter the `result` array by `source` to focus on top-tier publications.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="live-google-images"></a>Live Google Images
+Fetches live image search results from the Google Images tab.
+
+<InfoCallout>This component requires Base64 encoded credentials, as detailed in the [Getting Started](#getting-started-with-dataforseo) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `keyword` | <Badge type="required" /> | The search term for the images. |
+| `location_name` | <Badge type="optional" /> | Geographic location for the search. Default: `United States`. |
+| `language_name` | <Badge type="optional" /> | Language for the search results. Default: `English`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `result` | An array of objects, each representing an image result with its URL, source, and title. |
+| `items_count` | The total number of images returned. |
+| `response`| The full raw JSON response from the DataForSEO API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Monitor for unauthorized use of your brand's logo or product images, or analyze what kind of images rank for your target keywords.
+</TipCallout>
+
+```json
+{
+  "component": "dataforseo.liveGoogleImages",
+  "keyword": "SmythOS logo",
+  "location_name": "United States"
+}
+```
+
+<WarningCallout title="Content Warning">
+Image search results can be unpredictable. Be aware that queries may return irrelevant or unexpected visual content.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="live-youtube-serp-advanced"></a>Live YouTube SERP Advanced
+Fetches live search results from YouTube for a given keyword.
+
+<InfoCallout>This component requires Base64 encoded credentials, as detailed in the [Getting Started](#getting-started-with-dataforseo) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `keyword` | <Badge type="required" /> | The keyword or phrase to search for on YouTube. |
+| `location_name` | <Badge type="optional" /> | Geographic location for tailoring search results. Default: `United States`. |
+| `language_name` | <Badge type="optional" /> | Language for the search results. Default: `English`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `result` | An array of objects, each representing a video result with its title, channel, and description. |
+| `items_count` | The total number of videos returned. |
+| `response`| The full raw JSON response from the DataForSEO API. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Analyze your competitors' video SEO strategy by tracking their rankings for key terms on YouTube.
+</TipCallout>
+
+```json
+{
+  "component": "dataforseo.liveYouTubeSerpAdvanced",
+  "keyword": "how to build an agent",
+  "location_name": "United States"
+}
+```
+
+<WarningCallout title="Data Richness">
+The `result` object for YouTube SERP is very detailed, containing information on video duration, timestamps, channel details, and more. Be sure to explore the full response.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Credentials:** Your DataForSEO login and password are the keys to your account. Always Base64 encode them and store the result securely in the SmythOS `Vault`.
+* **Manage API Costs:** DataForSEO operates on a pay-per-use model. Be mindful of how frequently your agents run and how many results they request to manage your budget.
+* **Use Location and Language:** For accurate, targeted results, always specify the `location_name` and `language_name`. The defaults may not be suitable for your audience.
+* **Parse the `result` Array:** The data you need is inside the `result` array in the output. You will need to loop through this array and check the `type` of each item (e.g., `organic`, `video`, `news_result`) to process the data correctly.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The Base64 encoded credential string is incorrect, or your DataForSEO account has an issue.
+  * **Solution:** Carefully re-encode your `login:password` string, ensuring there are no extra spaces. Verify your credentials are correct and your account is active in the DataForSEO dashboard.
+
+* **Error: `402 Payment Required` / Insufficient funds**
+  * **Cause:** Your DataForSEO account balance is too low to cover the cost of the API call.
+  * **Solution:** Log in to your DataForSEO account and add funds to your balance.
+
+* **Empty `result` Array**
+  * **Cause:** The query genuinely returned no results for the specified parameters.
+  * **Solution:** Test the keyword, location, and language combination in your browser to confirm. Try a broader keyword or location to ensure the API connection is working.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to harness real-time search data with the **SmythOS DataForSEO Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Tracks a list of 20 keywords daily across 3 different countries, and logs the top-ranking URL for each into a centralized Google Sheet.
+    * Monitors Google News for your company's name. If a new article appears, use an AI component to summarize it and post the summary and link to a dedicated Slack channel.
+    * Analyzes the YouTube SERP for a "how-to" keyword, identifies the top 5 ranking videos, and extracts their titles and channels for competitive research.
+
+* **Explore Other Integrations:** Combine DataForSEO with other SmythOS connectors. Send SERP data to [Google Sheets](/docs/integrations/google-sheets) for analysis, use it to trigger [Email](/docs/integrations/email) alerts, or pass URLs you find to the [Ahrefs Integration](/docs/integrations/ahrefs) to check their backlink profiles.

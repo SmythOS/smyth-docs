@@ -1,45 +1,178 @@
+---
+title: Discord Integration
+description: Connect SmythOS to Discord to send messages, embeds, and notifications automatically to your community channels from your agents.
+og:title: SmythOS & Discord - Automate Your Community Engagement
+og:description: Learn to integrate a Discord Bot with SmythOS. Empower your agents to send automated messages and rich embeds to any text channel, streamlining notifications and workflows.
+og:image: /img/integrations/smythos_discord.png
+keywords: [Discord SmythOS Integration, Connect Discord to SmythOS, SmythOS Discord Bot, Automate Discord Messages, Discord Webhook Automation, No-Code Discord Bot]
+---
+# Discord Integration with SmythOS
 
-# Discord Integration
+> **Want to connect your automations directly to your community?** Connect Discord to SmythOS and empower your agents to send messages, notifications, and rich embeds to any server channel.
 
-`Discord` is a widely-used communication platform known for its versatility, catering not only to gamers but also to diverse communities and interest groups.
+<InfoCallout title="TL;DR">
+Create a Discord Application and a Bot user to get a secure Bot Token. Invite the bot to your server, then add the token to SmythOS to enable your agents to send messages and embeds.
+</InfoCallout>
 
-At `SmythOS`, we've seamlessly integrated with `Discord`, providing custom components that make incorporating its powerful services into your agents effortless.
+## List of Discord Components
+Quickly compare Discord components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-## Send Message
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Send Message**](#send-message) | Write | Sends a standard text message to a specified channel. | <Badge type="required" /> `channel_id`, `content` | `messageId` | Sending simple notifications or alerts. |
+| **Send Message with Embed** | Write | Sends a message with a rich, formatted embed. | <Badge type="required" /> `channel_id`<br /><Badge type="optional" /> `content`, `Body` | `messageId` | Posting detailed reports or announcements. |
 
-The `Send Message` component simplifies the process of sending messages to channels within Discord servers. With this component, you can efficiently engage with your community, share updates, or automate communication tasks.
 
-### Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate Discord with Your Agent?</summary>
 
-To initialize this component, follow these steps to obtain your `Bot Token`:
+Discord is a central hub for communities and teams. Integrating it with SmythOS allows you to build powerful notification and interaction systems that live where your users are.
 
-1. Create an `Application` if you don't already have one.
-2. Navigate to your `Application Dashboard` and add a new Bot to obtain the `Bot Token`.
-3. Input this `Bot Token` into the specified section in the component's settings.
+- **Automated Notifications:** Create agents that monitor other systems (like GitHub, a database, or an RSS feed) and post real-time updates to a Discord channel, keeping everyone informed without manual intervention.
+- **Streamlined Workflows:** Use Discord as the output for your agent's work. An agent can generate a report, summarize an article, or fetch data, and then present the final result as a clean message or embed in Discord.
+- **Enhanced Community Engagement:** Build agents that welcome new members, post daily announcements, or share interesting content, helping to keep your community active and engaged.
+- **Centralized Alerting:** Pipe alerts from your entire infrastructure into a dedicated Discord channel. An agent can receive alerts from various sources, format them consistently, and post them for your on-call team to see.
 
-> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+</details>
+</InfoCallout>
+<Divider />
 
-<Image src="/img/discord/screenshot1.png" alt="alt text" />
+## Prerequisites
 
-### Inputs
+Before you begin, please ensure you have the following:
 
-To effectively utilize this component, provide the following inputs:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Discord account**.
+- A **Discord Server** where you have Administrator permissions to invite bots.
+- Your Discord Bot's **Bot Token**.
 
-1. **channel_id `required<string>`:** The unique identifier of the channel where the message will be sent. You can find the channel ID by right-clicking on the channel name in Discord and selecting "Copy ID."
-2. **content `required<string>`:** The content of the message to be sent. This can include text, emojis, and Discord markdown syntax. The maximum length of the message is 2000 characters.
+<Divider />
 
-<Image src="/img/discord/screenshot2.png" alt="alt text" />
+## Getting Started With Discord
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+The connection between SmythOS and Discord is configured using a secure Bot Token, which you get by creating a Discord Application.
 
-### Outputs
+### Step 1: Create a Discord Application
+1.  Navigate to the [Discord Developer Portal](https://discord.com/developers/applications) and log in.
+2.  Click the **New Application** button in the top-right corner.
+3.  Give your application a name (e.g., "SmythOS Notifier") and agree to the terms. Click **Create**.
 
-When this component is executed, it yields the subsequent outputs:
+### Step 2: Create a Bot User
+1.  Inside your new application, click on the **Bot** tab in the left-hand menu.
+2.  Click the **Add Bot** button, and confirm by clicking **Yes, do it!**.
+3.  You can customize your bot's username and icon here.
+4.  **Crucially, under the "Privileged Gateway Intents" section, enable the `MESSAGE CONTENT INTENT` toggle.** This is often required for bots to read message content, though for sending messages it might not be strictly necessary, it's good practice for future-proofing.
 
-1. **Response**: This output is an object that conveys comprehensive details about the outcome of the operation to send a message. It includes information such as the message ID, timestamp, and other pertinent details.
-2. **Headers**: It comes with the HTTP headers that were part of the `Discord` server's response, adding extra metadata including response status codes and content type.
-3. **messageId**: This straightforwardly indicates the ID of the message that was sent.
+### Step 3: Get Your Bot Token
+1.  On the same **Bot** page, find the "Token" section.
+2.  Click the **Reset Token** button (or "View Token" if visible). You will be shown your bot's token.
+3.  **Copy this token immediately.** It is a secret credential and will not be shown again.
 
-<Image src="/img/discord/screenshot3.png" alt="alt text" />
+    <WarningCallout title="Secure Your Bot Token!">
+    Your Bot Token is like a password for your bot. Anyone with this token can control your bot. Treat it with extreme care. Store it securely in the SmythOS `Vault`.
+    </WarningCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+### Step 4: Invite Your Bot to a Server
+1.  Navigate to the **OAuth2 > URL Generator** tab in the Developer Portal.
+2.  In the "Scopes" section, check the box for **`bot`**.
+3.  A "Bot Permissions" section will appear below. Check the permissions your bot will need. For sending messages, you'll need at least **`Send Messages`** and **`Embed Links`**.
+4.  Copy the **Generated URL** at the bottom of the page.
+5.  Paste this URL into your browser, select the server you want to add the bot to, and click **Authorize**.
+
+### Step 5: Configure the Discord Integration in SmythOS
+1.  In your SmythOS dashboard, navigate to the **Vault** and create a new secret (e.g., `discord_bot_token`) with the Bot Token you copied.
+2.  In your agent graph, drag and drop any Discord component.
+3.  Click the component to open its **Settings** panel.
+4.  In the `Bot Token` field, select the secret you just saved.
+5.  Your connection is now ready.
+
+<Divider />
+
+## Which Discord Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Send a quick, simple text notification** | A channel ID and a line of text | [Send Message](#send-message) | The most straightforward way to send plain text. |
+| **Post a structured, visually appealing announcement** | A channel ID and a formatted body | **Send Message with Embed** | Embeds allow for titles, colors, fields, and images, making your message stand out. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each Discord component.
+
+### <a name="send-message"></a>Send Message
+Sends a standard text message to a specified Discord channel.
+
+<InfoCallout>This component requires a `Bot Token` for authentication, as detailed in the [Getting Started](#getting-started-with-discord) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `channel_id` | string | Yes | The ID of the Discord channel where the message will be sent. |
+| `content` | string | Yes | The text content of the message. Supports Discord's Markdown. Max 2000 characters. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `messageId` | string | The unique ID of the message that was sent. |
+| `Response`| object | The full, raw JSON response from the Discord API, containing the complete message object. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent monitors a system's health. If CPU usage goes above 90%, it triggers this component to send a simple alert: `CRITICAL: CPU usage has exceeded 90% on server-db-01.` to the `#alerts` channel.
+</TipCallout>
+
+```json
+{
+  "component": "discord.sendMessage",
+  "channel_id": "123456789012345678",
+  "content": "A new pull request has been opened and is ready for review."
+}
+```
+
+<WarningCallout title="Channel Permissions">
+Your bot must have the `Send Messages` permission in the target channel to successfully send a message. If you get a 403 Forbidden error, check the bot's roles and channel-specific permissions.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Bot Token:** Your Bot Token is a highly sensitive credential. Always store it in the SmythOS `Vault`. If a token is ever exposed, reset it immediately in the Discord Developer Portal.
+* **Manage Permissions:** When inviting your bot, grant it only the permissions it needs. If it only sends messages, it doesn't need administrator privileges. This is a crucial security practice.
+* **Use Embeds for Clarity:** For any data-rich notification, use the `Send Message with Embed` component (not detailed here, but available). Embeds are much easier to read than long strings of plain text.
+* **Get Channel IDs:** To send a message, you need the ID of the channel. In Discord, enable Developer Mode (User Settings > Advanced > Developer Mode), then right-click on any channel and select "Copy Channel ID".
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The Bot Token is incorrect or invalid.
+  * **Solution:** Verify that the token in your SmythOS Vault is correct. If you suspect it has been compromised, reset it in the Discord Developer Portal and update the Vault secret.
+
+* **Error: `403 Forbidden` / Missing Access**
+  * **Cause:** The bot does not have the required permissions in the target channel.
+  * **Solution:** Check the bot's roles in your Discord server settings. Ensure it has the `Send Messages` permission (and `Embed Links` if using embeds) in the channel you're trying to post to.
+
+* **Error: `404 Not Found`**
+  * **Cause:** The `channel_id` provided is incorrect or does not exist.
+  * **Solution:** Right-click the channel in Discord (with Developer Mode enabled) and copy the ID again to ensure it's correct.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful notification and community automation workflows with the **SmythOS Discord Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Monitors an RSS feed for a specific blog and posts a summary and link for each new article into a `#reading-list` channel.
+    * Fetches the latest release from a [GitHub repository](/docs/integrations/github) and posts a detailed changelog announcement using a rich embed.
+    * Connects to a payment gateway. When a new premium subscription is purchased, the agent posts a "Thank You" message that mentions the new subscriber in a special `#supporters` channel.
+
+* **Explore Other Integrations:**
+    * Use the results from any search or data API (like [Tavily](/docs/integrations/tavily) or [Ahrefs](/docs/integrations/ahrefs)) to generate reports that are delivered directly to a Discord channel.
+    * Create a simple "status page" bot. An agent pings your web services, and if one is down, it posts an alert to Discord. When the service comes back online, it edits the original message to show it has been resolved.

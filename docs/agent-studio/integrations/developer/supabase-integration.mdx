@@ -1,437 +1,232 @@
-# Supabase Integration
+---
+title: Discord Integration
+description: Connect SmythOS to Discord to send messages, embeds, and notifications automatically to your community channels from your agents.
+og:title: SmythOS & Discord - Automate Your Community Engagement
+og:description: Learn to integrate a Discord Bot with SmythOS. Empower your agents to send automated messages and rich embeds to any text channel, streamlining notifications and workflows.
+og:image: /img/integrations/smythos_discord.png
+keywords: [Discord SmythOS Integration, Connect Discord to SmythOS, SmythOS Discord Bot, Automate Discord Messages, Discord Webhook Automation, No-Code Discord Bot]
+---
+# Discord Integration with SmythOS
 
-`Supabase` is a company that provides an open-source alternative to Firebase, focusing on providing developers with a suite of tools and services to build scalable applications. It offers a range of features, including real-time databases, authentication, file storage, and more, all while leveraging the power of PostgreSQL.
+> **Want to connect your automations directly to your community?** Connect Discord to SmythOS and empower your agents to send messages, notifications, and rich embeds to any server channel.
 
-At `SmythOS`, we prioritize seamless integration with `Supabase`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+<InfoCallout title="TL;DR">
+Create a Discord Application and a Bot user to get a secure Bot Token. Invite the bot to your server, then add the token to SmythOS to enable your agents to send messages and embeds.
+</InfoCallout>
 
-## List Projects
+## List of Discord Components
+Quickly compare Discord components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-Retrieve a list of `Supabase` projects using the `List Projects` component.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Send Message**](#send-message) | Write | Sends a standard text message to a specified channel. | <Badge type="required" /> `channel_id`, `content` | `id`, `timestamp` | Sending simple notifications or alerts. |
+| [**Send Message with Embed**](#send-message-with-embed) | Write | Sends a message with a rich, formatted embed. | <Badge type="required" /> `channel_id`<br /><Badge type="optional" /> `content`, `Body` | `id`, `timestamp` | Posting detailed reports or announcements. |
 
-### Settings
 
-To initialize and configure the `List Projects` component, follow these simple guidelines:
+<InfoCallout>
+<details>
+  <summary>Why Integrate Discord with Your Agent?</summary>
 
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
+Discord is a central hub for communities and teams. Integrating it with SmythOS allows you to build powerful notification and interaction systems that live where your users are.
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+- **Automated Notifications:** Create agents that monitor other systems (like GitHub, a database, or an RSS feed) and post real-time updates to a Discord channel, keeping everyone informed without manual intervention.
+- **Streamlined Workflows:** Use Discord as the output for your agent's work. An agent can generate a report, summarize an article, or fetch data, and then present the final result as a clean message or embed in Discord.
+- **Enhanced Community Engagement:** Build agents that welcome new members, post daily announcements, or share interesting content, helping to keep your community active and engaged.
+- **Centralized Alerting:** Pipe alerts from your entire infrastructure into a dedicated Discord channel. An agent can receive alerts from various sources, format them consistently, and post them for your on-call team to see.
 
-<Image src="/img/supabase/screenshot13.png" alt="alt text" />
+</details>
+</InfoCallout>
+<Divider />
 
-### Inputs
+## Prerequisites
 
-To effectively utilize the capabilities of the `List Projects` component, ensure the provision of the following input parameter:
+Before you begin, please ensure you have the following:
 
-1. **trigger `required<any value>`:** This input is used solely to trigger the execution of the component. It can be any value, as it serves as a placeholder to initiate the component's operation.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Discord account**.
+- A **Discord Server** where you have Administrator permissions to invite bots.
+- Your Discord Bot's **Bot Token**.
 
-<Image src="/img/supabase/screenshot14.png" alt="alt text" />
+<Divider />
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+## Getting Started With Discord
 
-### Outputs
+The connection between SmythOS and Discord is configured using a secure Bot Token, which you get by creating a Discord Application.
 
-Upon successful execution of the `List Projects` component, expect to receive the following outputs:
+### Step 1: Create a Discord Application
+1.  Navigate to the [Discord Developer Portal](https://discord.com/developers/applications) and log in.
+2.  Click the **New Application** button in the top-right corner.
+3.  Give your application a name (e.g., "SmythOS Notifier") and agree to the terms. Click **Create**.
 
-1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the list of `Supabase` projects, such as their names, IDs, and any other relevant metadata.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **projects**: This is an array that enumerates the projects available, providing a structured collection of each project's attributes.
-
-<Image src="/img/supabase/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Insert a Row 
-
-Create a row using the Service key.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Insert a Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-This parameter can take one of two options:
-
-- `return=minimal`: When utilized, this option prompts the server to return only the necessary details in response to a request that successfully creates or modifies a resource. It's aimed at minimizing the size of the response payload.
-- `return=representation`: Opting for this tells the server to include a full representation of the modified or newly created resource as part of the response, allowing for immediate verification of the changes.
-
-#### Table Row
-
-This configuration includes a default body payload provided as an example. It guides the user on how to properly set up the payload to add a new row within the system.
-
-<Image src="/img/supabase/screenshot19.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Insert a Row` component, ensure the provision of the following input parameters:
-
-1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
-2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
-
-<Image src="/img/supabase/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the `Insert a Row` component, expect to receive the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the created row, such as its ID and any other relevant data.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **id:** The ID of the created row.
-
-<Image src="/img/supabase/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete Row
-
-Delete a row using the service key.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Delete Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-<Image src="/img/supabase/screenshot22.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Delete Row` component, ensure the provision of the following input parameters:
-
-1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
-2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
-3. **id `required<string>`:** Specify the ID of the specific record you want to delete. 
-
-<Image src="/img/supabase/screenshot23.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the `Delete Row` component, expect to receive the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the operation. This output confirms the successful deletion of the specified row and may include additional information such as the number of affected rows or any other relevant data.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **id:** The unique identifier of the deleted row.
-
-<Image src="/img/supabase/screenshot24.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Columns
-
-Retrieve columns from `Supabase` using the service key.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Get Columns` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-<Image src="/img/supabase/screenshot25.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Get Columns` component, ensure the provision of the following input parameters:
-
-1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account.
-2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
-
-<Image src="/img/supabase/screenshot26.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the `Get Columns` component, expect to receive the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the columns retrieved from the specified table, such as their names, data types, constraints, and any other relevant metadata.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **columns**: This object houses the collection of columns that have been retrieved, effectively displaying the schema of the specified table.
-
-<Image src="/img/supabase/screenshot27.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Row
-
-Retrieve a row from `Supabase` using the service key.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Get Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-<Image src="/img/supabase/screenshot28.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Get Row` component, ensure the provision of the following input parameters:
-
-1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account. 
-2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
-2. **id `required<string>`:** Specify the ID of the row that you want to retrieve.
-
-<Image src="/img/supabase/screenshot29.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the `Get Row` component, expect to receive the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the retrieved row from the specified table, such as its data fields, values, and any other relevant metadata.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **id**: This refers to the distinct identifier that is assigned to the row. It is vital for unique identification and future reference within the table.
-
-<Image src="/img/supabase/screenshot30.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update Row
-
-Update a row in `Supabase` using the service key.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Update Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-#### Body
-
-The `Body` field holds the content of the request. It is editable, allowing for customization as necessary to meet the specific requirements of the request.
-
-<Image src="/img/supabase/screenshot31.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Update Row` component, ensure the provision of the following input parameters:
-
-1. **project_id `required<string>`:** Specify the Supabase project ID associated with your Supabase account. 
-2. **table `required<string>`:** Provide the name of the table within your Supabase project that you want to interact with.
-3. **id `required<string>`:** Specify the ID of the row that you want to update.
-
-<Image src="/img/supabase/screenshot32.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the `Update Row` component, expect to receive the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the operation. This output includes information about the update operation, such as the updated row data and any other relevant metadata.
-2. **Headers:** HTTP headers extracted from the server response provided by `Supabase`.
-3. **id:** This represents the unique identifier for the row that has undergone the update process.
-
-<Image src="/img/supabase/screenshot33.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Read Rows
-
-This component retrieves rows from a specific table in your `Supabase` project, providing efficient access to your database data directly through `SmythOS`.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Update Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-<Image src="/img/supabase/screenshot34.png" alt="alt text" />
-
-### Inputs
-
-Provide these inputs to configure the retrieval of rows from your `Supabase` table:
-
-- **project_id (`required<string>`)**: Your specific `Supabase` project identifier.
-- **table (`required<string>`)**: The name of the `Supabase` table from which to retrieve rows.
-
-<Image src="/img/supabase/screenshot35.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After executing the `Read Rows` component, it generates detailed outputs, including:
-
-1. **Response**: This provides the complete API response from `Supabase`, containing the data of the retrieved rows.
-2. **Headers**: Displays the HTTP headers that came with the server's response, offering meta-information.
-3. **id**: The id of the actual data retrieved from the `Supabase` table, structured as an array of row objects.
-
-<Image src="/img/supabase/screenshot36.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Insert Rows
-
-This component enables the insertion of multiple rows at once into a specified table in a Supabase project using `SmythOS`.
-
-### Settings
-
-#### API Key
-
-To initialize and configure the `Update Row` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Supabase` platform to access its database services.
-2. Navigate to the [Access Tokens](https://supabase.com/dashboard/account/tokens) section in your `Supabase` dashboard.
-3. Generate your `API Key` by following the provided instructions.
-4. Return to the settings of the component and input your generated `API Key` into the specified section designated for API integration.
-
-#### Role Secret
-
-1. Once you have your account and project created, you can find the `Role Secret` key in the `API Settings` section.
-2. Ensure to input your `Role Secret` in the component settings section. This key has the ability to bypass Row Level Security. Never share it publicly.
-
-> **Note:** Treat the `API Key` and `Role Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Prefer
-
-It has the following options:
-
-- `return=minimal`: Requests that the server provides a minimal response, containing only essential information, to a successful request for resource creation or modification.
-- `return=representation`: Requests that the server includes the updated resource representation in the response to a successful request for resource creation or modification.
-
-#### Body
-
-To insert rows, structure your payload carefully according to your table schema. This area allows for the specification of the data to be inserted.
-
-<Image src="/img/supabase/screenshot37.png" alt="alt text" />
-
-### Inputs
-
-Specify these inputs for effective operation:
-
-- **project_id (`required<string>`)**: The identifier of your `Supabase` project.
-- **table (`required<string>`)**: The name of the table into which the rows will be inserted.
-
-<Image src="/img/supabase/screenshot38.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-On successful execution, the component provides comprehensive outputs:
-
-1. **Response**: The full response from Supabase detailing the insertion results.
-2. **Headers**: HTTP headers indicating the status and particulars of your request.
-3. **rows**: Detailed information on the rows that were successfully inserted including their data and unique IDs.
-
-<Image src="/img/supabase/screenshot39.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+### Step 2: Create a Bot User
+1.  Inside your new application, click on the **Bot** tab in the left-hand menu.
+2.  Click the **Add Bot** button, and confirm by clicking **Yes, do it!**.
+3.  You can customize your bot's username and icon here.
+4.  **Crucially, under the "Privileged Gateway Intents" section, enable the `MESSAGE CONTENT INTENT` toggle.** This is often required for bots to read message content, though for sending messages it might not be strictly necessary, it's good practice for future-proofing.
+
+### Step 3: Get Your Bot Token
+1.  On the same **Bot** page, find the "Token" section.
+2.  Click the **Reset Token** button (or "View Token" if visible). You will be shown your bot's token.
+3.  **Copy this token immediately.** It is a secret credential and will not be shown again.
+
+    <WarningCallout title="Secure Your Bot Token!">
+    Your Bot Token is like a password for your bot. Anyone with this token can control your bot. Treat it with extreme care. Store it securely in the SmythOS `Vault`.
+    </WarningCallout>
+
+### Step 4: Invite Your Bot to a Server
+1.  Navigate to the **OAuth2 > URL Generator** tab in the Developer Portal.
+2.  In the "Scopes" section, check the box for **`bot`**.
+3.  A "Bot Permissions" section will appear below. Check the permissions your bot will need. For sending messages, you'll need at least **`Send Messages`** and **`Embed Links`**.
+4.  Copy the **Generated URL** at the bottom of the page.
+5.  Paste this URL into your browser, select the server you want to add the bot to, and click **Authorize**.
+
+### Step 5: Configure the Discord Integration in SmythOS
+1.  In your SmythOS dashboard, navigate to the **Vault** and create a new secret (e.g., `discord_bot_token`) with the Bot Token you copied.
+2.  In your agent graph, drag and drop any Discord component.
+3.  Click the component to open its **Settings** panel.
+4.  In the `Bot Token` field, select the secret you just saved.
+5.  Your connection is now ready.
+
+<Divider />
+
+## Which Discord Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Send a quick, simple text notification** | A channel ID and a line of text | [Send Message](#send-message) | The most straightforward way to send plain text. |
+| **Post a structured, visually appealing announcement** | A channel ID and a formatted body | [Send Message with Embed](#send-message-with-embed) | Embeds allow for titles, colors, fields, and images, making your message stand out. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each Discord component.
+
+### <a name="send-message"></a>Send Message
+Sends a standard text message to a specified Discord channel.
+
+<InfoCallout>This component requires a `Bot Token` for authentication, as detailed in the [Getting Started](#getting-started-with-discord) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `channel_id` | string | Yes | The ID of the Discord channel where the message will be sent. |
+| `content` | string | Yes | The text content of the message. Supports Discord's Markdown. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the message that was sent. |
+| `timestamp` | string | The ISO 8601 timestamp of when the message was sent. |
+| `Response`| object | The full, raw JSON response from the Discord API, containing the complete message object. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent monitors a system's health. If CPU usage goes above 90%, it triggers this component to send a simple alert: `CRITICAL: CPU usage has exceeded 90% on server-db-01.` to the `#alerts` channel.
+</TipCallout>
+
+```json
+{
+  "component": "discord.sendMessage",
+  "channel_id": "123456789012345678",
+  "content": "A new pull request has been opened and is ready for review."
+}
+```
+
+<WarningCallout title="Channel Permissions">
+Your bot must have the `Send Messages` permission in the target channel to successfully send a message. If you get a 403 Forbidden error, check the bot's roles and channel-specific permissions.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="send-message-with-embed"></a>Send Message with Embed
+Sends a message that includes a rich, formatted embed object.
+
+<InfoCallout>This component requires a `Bot Token` for authentication, as detailed in the [Getting Started](#getting-started-with-discord) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the structure of the embed object(s). This includes fields like `title`, `description`, `color`, `fields`, `footer`, `thumbnail`, etc.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `channel_id` | string | Yes | The ID of the Discord channel where the message will be sent. |
+| `content` | string | Optional | Standard text content that can appear above the embed. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the message that was sent. |
+| `timestamp` | string | The ISO 8601 timestamp of when the message was sent. |
+| `Response`| object | The full, raw JSON response from the Discord API, containing the complete message object with the embed. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent fetches the latest release notes from GitHub. It then uses this component to post a beautifully formatted announcement in the `#updates` channel, with the release version as the title, the notes as the description, and a custom color.
+</TipCallout>
+
+```json
+{
+  "component": "discord.sendMessageWithEmbed",
+  "channel_id": "123456789012345678",
+  "content": "New Release Alert!",
+  "Body": {
+    "embeds": [
+      {
+        "title": "Version 2.5.0 Deployed!",
+        "description": "- New Feature A\n- Bug Fix for B\n- Performance Improvements",
+        "color": 5814783
+      }
+    ]
+  }
+}
+```
+
+<WarningCallout title="Embed Structure">
+The `Body` must be a valid JSON object containing an `embeds` key, which is an array of embed objects. Refer to the official [Discord Embed Object documentation](https://discord.com/developers/docs/resources/channel#embed-object) for all available fields.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Bot Token:** Your Bot Token is a highly sensitive credential. Always store it in the SmythOS `Vault`. If a token is ever exposed, reset it immediately in the Discord Developer Portal.
+* **Manage Permissions:** When inviting your bot, grant it only the permissions it needs. If it only sends messages, it doesn't need administrator privileges. This is a crucial security practice.
+* **Use Embeds for Clarity:** For any data-rich notification, use the `Send Message with Embed` component. Embeds are much easier to read than long strings of plain text and allow for better visual organization of information.
+* **Get Channel IDs:** To send a message, you need the ID of the channel. In Discord, enable Developer Mode (User Settings > Advanced > Developer Mode), then right-click on any channel and select "Copy Channel ID".
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The Bot Token is incorrect or invalid.
+  * **Solution:** Verify that the token in your SmythOS Vault is correct. If you suspect it has been compromised, reset it in the Discord Developer Portal and update the Vault secret.
+
+* **Error: `403 Forbidden` / Missing Access**
+  * **Cause:** The bot does not have the required permissions in the target channel.
+  * **Solution:** Check the bot's roles in your Discord server settings. Ensure it has the `Send Messages` permission (and `Embed Links` if using embeds) in the channel you're trying to post to.
+
+* **Error: `404 Not Found`**
+  * **Cause:** The `channel_id` provided is incorrect or does not exist.
+  * **Solution:** Right-click the channel in Discord (with Developer Mode enabled) and copy the ID again to ensure it's correct.
+
+* **Embed Does Not Appear Correctly**
+  * **Cause:** The JSON structure in the `Body` of the "Send Message with Embed" component is invalid.
+  * **Solution:** Carefully check your JSON syntax. Ensure it starts with `{"embeds": [...]}`. Use a JSON validator to check your structure against the official Discord documentation.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful notification and community automation workflows with the **SmythOS Discord Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Monitors an RSS feed for a specific blog and posts a summary and link for each new article into a `#reading-list` channel.
+    * Fetches the latest release from a [GitHub repository](/docs/integrations/github) and posts a detailed changelog announcement using a rich embed.
+    * Connects to a payment gateway. When a new premium subscription is purchased, the agent posts a "Thank You" message that mentions the new subscriber in a special `#supporters` channel.
+
+* **Explore Other Integrations:**
+    * Use the results from any search or data API (like [Tavily](/docs/integrations/tavily) or [Ahrefs](/docs/integrations/ahrefs)) to generate reports that are delivered directly to a Discord channel.
+    * Create a simple "status page" bot. An agent pings your web services, and if one is down, it posts an alert to Discord. When the service comes back online, it edits the original message to show it has been resolved.

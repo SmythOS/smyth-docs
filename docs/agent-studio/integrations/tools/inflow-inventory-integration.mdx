@@ -1,354 +1,235 @@
+---
+title: InFlow Inventory Integration
+description: Connect SmythOS to InFlow Inventory to automate inventory management, track products, manage customers, and streamline your sales and purchasing workflows.
+og:title: SmythOS & InFlow - Automate Your Inventory Management
+og:description: Learn to integrate InFlow Inventory with SmythOS. Empower your agents to get product lists, manage customers, and add new products to your inventory system automatically.
+og:image: /img/integrations/smythos_inflow.png
+keywords: [InFlow Inventory SmythOS Integration, Connect InFlow to SmythOS, SmythOS Inventory Management, Automate Inventory, Inventory API, No-Code Inventory]
+---
+# InFlow Inventory Integration with SmythOS
 
-# InFlow Inventory Integration
+> **Want to automate your inventory and order management?** Connect InFlow Inventory to SmythOS and empower your agents to manage products, track stock, and sync customer data automatically.
 
-`InFlow Inventory` is a robust inventory management software designed to streamline the processes of tracking and managing inventory, sales, and purchase orders for businesses of all sizes. With features like real-time inventory tracking, barcode scanning, sales and invoicing, and detailed reporting, `InFlow Inventory` helps businesses improve efficiency, accuracy, and decision-making capabilities.
+<InfoCallout title="TL;DR">
+Securely link your InFlow Inventory account to SmythOS using an API key. Then, use our components to automate a wide range of operational tasks, from adding new products to your inventory to retrieving customer lists.
+</InfoCallout>
 
-Integrating the `InFlow Inventory` API into `SmythOS` offers several significant benefits:
+## List of InFlow Inventory Components
+Quickly compare InFlow Inventory components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
+
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Add Product to Inventory**](#add-product-to-inventory) | Write | Creates a new product record in your inventory. | <Badge type="required" /> `companyId`, `productID`, `product_name`, `sku` | `productId` | Automatically adding a new item from a supplier's catalog. |
+| [**Get Product List**](#get-product-list)| Read | Retrieves a list of all products from your inventory. | <Badge type="required" /> `companyId` | `products` | Performing a full catalog audit or syncing with a website. |
+| [**Get Product Details**](#get-product-details)| Search | Searches for products using a query against various fields. | <Badge type="required" /> `companyId`, `search_details` | `productId`, `name` | Finding a specific product's ID by its SKU or name. |
+| [**Get Customer List**](#get-customer-list)| Read | Retrieves a list of all customers. | <Badge type="required" /> `companyId` | `customers` | Syncing your customer list to a separate CRM or marketing tool. |
+| [**Get Customer Detail**](#get-customer-detail) | Search | Searches for a specific customer by name. | <Badge type="required" /> `companyId`, `name` | `customerId`, `email`| Finding a customer's ID to associate with a sales order. |
+| [**Get Category List**](#get-category-list)| Read | Retrieves the list of all product categories. | <Badge type="required" /> `companyId` | `categories` | Getting the correct category ID before creating a new product. |
 
-1. **Real-Time Inventory Management**:
-    - Seamlessly track and update inventory levels across multiple locations directly within `SmythOS`.
-    - Ensure that inventory data is always up-to-date, reducing the risk of stockouts or overstock situations.
 
-2. **Streamlined Sales and Order Management**:
-    - Automate the creation and management of sales orders, invoices, and purchase orders.
-    - Improve order accuracy and speed up the order fulfillment process, enhancing customer satisfaction.
+<InfoCallout>
+<details>
+  <summary>Why Integrate InFlow Inventory with Your Agent?</summary>
 
-3. **Enhanced Reporting and Analytics**:
-    - Access detailed reports about inventory levels, sales trends, and purchase history.
-    - Make data-driven decisions to optimize stock levels, improve turnover rates, and increase profitability.
+InFlow Inventory is a powerful system for managing the core of your physical business. Integrating it with SmythOS allows you to connect your inventory operations to every other part of your business.
 
-4. **Improved Efficiency with Barcode Scanning**:
-    - Utilize barcode scanners for quick and precise inventory updates.
-    - Reduce manual data entry errors and save time during stocktaking processes.
+- **Automate Product Management:** Create agents that can automatically add new products to your InFlow inventory from a supplier's data feed, a spreadsheet, or your e-commerce platform.
+- **Synchronize Customer Data:** Keep your customer records consistent. When a new client is created in your CRM or e-commerce store, an agent can automatically create a corresponding customer profile in InFlow.
+- **Streamline Order-to-Cash:** Build a workflow where a new sales order in another system triggers an agent to check stock levels in InFlow, and if the stock is available, proceed with creating an invoice.
+- **Data-Driven Reporting:** Schedule agents to periodically fetch product, customer, or category lists to create custom reports, analyze trends, or feed data into a business intelligence tool.
 
-5. **Multiple User Access**:
-    - Enable different team members to access the system with personalized permission levels.
-    - Track user activities to maintain security and operational control.
+</details>
+</InfoCallout>
+<Divider />
 
-6. **Seamless Integrations**:
-    - Connect `SmythOS` with other essential business tools and eCommerce platforms.
-    - Ensure smooth data flow between systems, eliminating the need for manual data transfers.
+## Prerequisites
+
+Before you begin, please ensure you have the following:
 
-By integrating the `InFlow Inventory` API into `SmythOS`, businesses can centralize their inventory management processes, improving overall operational efficiency and accuracy. This integration is particularly beneficial for retail, wholesale, manufacturing, and eCommerce businesses aiming to optimize their inventory workflows and enhance their business performance.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- An **InFlow Inventory account**.
+- Your InFlow Inventory **API Key**.
+- Your InFlow **Company ID**.
 
-## Get Product List
+<Divider />
 
-Retrieve the product list from `InFlow Inventory`.
+## Getting Started With InFlow Inventory
 
-### Settings
+The connection between SmythOS and InFlow Inventory is configured using a secure API Key.
 
-#### API Key
+### Step 1: Get Your InFlow Inventory API Key
+1.  Log in to your InFlow Inventory account.
+2.  Navigate to the **Settings** or **API** section within your account dashboard to find or generate your API key. This process may vary depending on your InFlow version (Cloud or On-premise).
+3.  You will also need your **Company ID**, which is often found in your account or company profile settings.
+4.  Copy the API Key to your clipboard.
 
-The first step is to acquire your `API Key`:
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your InFlow Inventory API Key as the value. Give it a memorable name, like `inflow_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
+### Step 3: Configure an InFlow Inventory Component
+1.  In your SmythOS agent graph, drag and drop any InFlow Inventory component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `inflow_api_key`).
+4.  Your connection is now configured for that component. You will provide the `companyId` as a standard input.
 
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** InFlow component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
+## Which InFlow Inventory Component Should I Use?
 
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Add a new item** to your inventory system | Product data | [Add Product to Inventory](#add-product-to-inventory) | The standard method for creating a new product record from scratch. |
+| **Get a list of all your products** | Your entire catalog | [Get Product List](#get-product-list) | Retrieves your full product list, ideal for audits or syncing data. |
+| **Find a product** when you know its name or SKU | A search term | [Get Product Details](#get-product-details) | The best way to find a specific product's ID and other information. |
+| **Get a list of all your customers** | Your customer database | [Get Customer List](#get-customer-list) | Retrieves all customer records. |
+| **Find the ID** for a specific customer | A customer name | [Get Customer Detail](#get-customer-detail) | Searches for a specific customer to get their unique ID for other operations. |
+| **Find the correct category ID** for a new product | Your category structure | [Get Category List](#get-category-list) | A necessary first step to ensure products are categorized correctly upon creation. |
 
+<Divider/>
+
+## Component Details
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+This section provides detailed information for each InFlow Inventory component.
 
-<Image src="/img/inflow_inventory/screenshot1.png" alt="alt text" /> 
+### <a name="add-product-to-inventory"></a>Add Product to Inventory
+Creates a new product record in your InFlow Inventory.
 
-### Inputs
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-inflow-inventory) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `companyId` | string | Yes | The unique identifier of your company. |
+| `productID` | string | Yes | Your internal unique identifier for the new product. |
+| `product_name`| string | Yes | The name of the new product. |
+| `sku` | string | Yes | The Stock Keeping Unit for the new product. |
+| `itemType` | string | Yes | The type of item (e.g., 'Inventory', 'Service'). |
+| `originCountry`| string | Optional| The product's country of origin. |
 
-To effectively utilize this component, provide the following input:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `productId` | string | The unique identifier assigned by InFlow to the newly added product. |
+| `Response`| object | The full, raw JSON response from the InFlow Inventory API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
+<TipCallout title="Use Case">
+An agent monitors a supplier's FTP server. When a new product data file is uploaded, the agent parses it and calls this component to add the new items to your InFlow inventory.
+</TipCallout>
 
-<Image src="/img/inflow_inventory/screenshot2.png" alt="alt text" />
+<Divider/>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### <a name="get-product-list"></a>Get Product List
+Retrieves a list of all products from your inventory.
 
-### Outputs
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-inflow-inventory) section.</InfoCallout>
 
-After running this component, the following default outputs are generated:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `companyId` | string | Yes | The unique identifier of your company. |
 
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **products**: Parsed data specific to the list of products retrieved.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `products` | array | An array of product objects retrieved from your inventory. |
+| `Response`| object | The raw JSON response from the API. |
 
-<Image src="/img/inflow_inventory/screenshot3.png" alt="alt text" />
+<TipCallout title="Use Case">
+A "sync" agent runs nightly, fetches all products using this component, and updates the product catalog on a connected e-commerce website like Shopify or Squarespace.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Divider/>
 
-## Get Product Details
+### <a name="get-product-details"></a>Get Product Details
+Searches for specific products using a full-text search query.
 
-Retrieve product details via full-text search on name, description, category, barcode, and SKU.
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-inflow-inventory) section.</InfoCallout>
 
-### Settings
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `companyId` | string | Yes | The unique identifier of your company. |
+| `search_details` | string | Yes | The search term (e.g., a product name, SKU, or description). |
 
-#### API Key
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `productId`| string | The ID of the first matching product found. |
+| `name` | string | The name of the first matching product. |
+| `categoryId`| string | The category ID of the first matching product. |
+| `Response`| object | The raw JSON response, which may contain multiple matching products. |
 
-The first step is to acquire your `API Key`:
+<TipCallout title="Use Case">
+Before updating inventory, an agent needs the InFlow `productId`. It uses the product's SKU as the `search_details` to find the correct record and retrieve its ID.
+</TipCallout>
 
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
+<Divider/>
 
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
+### <a name="customer-management"></a>Customer Management
+Includes **Get Customer List** and **Get Customer Detail**. These components allow you to retrieve and search for customer records.
 
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-inflow-inventory) section.</InfoCallout>
 
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `companyId` | string | Yes | The unique identifier of your company. |
+| `name` | string | (For Get Detail) Yes | The name of the customer to search for. |
 
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `customers` | array | (List) An array of customer objects. |
+| `customerId`| string | (Get Detail) The unique ID of the matching customer. |
+| `email` | string | (Get Detail) The email of the matching customer. |
 
+<TipCallout title="Use Case">
+When a new order comes in, an agent uses `Get Customer Detail` with the customer's name to see if they already exist in InFlow. If not, the agent could then proceed to create a new customer record.
+</TipCallout>
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<Divider />
 
-<Image src="/img/inflow_inventory/screenshot4.png" alt="alt text" /> 
+## Best Practices & Advanced Tips
 
-### Inputs
+* **Secure Your API Key:** Always store your InFlow Inventory API key in the SmythOS `Vault`.
+* **Understand the Data Hierarchy:** To manage inventory effectively, you need the correct IDs. A common workflow is to first use a `Get` or `List` component to find the `productId` or `customerId` before attempting to update a record.
+* **Use for Synchronization:** This integration is ideal for creating a single source of truth for your inventory. Build agents that sync data between InFlow and your other platforms (e-commerce, accounting, CRM) to ensure consistency.
+* **Error Handling:** When adding a product, check for errors related to duplicate SKUs. Your agent should be able to handle these cases gracefully, perhaps by switching to an "update" logic instead of "create".
 
-To effectively utilize this component, provide the following input:
+<Divider />
 
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
-2. **search_details (`required<string>`):** The search term used to find specific product details (e.g., name, description, category, barcode, SKU).
+## Troubleshooting Common Issues
 
-<Image src="/img/inflow_inventory/screenshot5.png" alt="alt text" />
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Key is incorrect, has been disabled, or is missing.
+  * **Solution:** Verify that the API Key in your SmythOS Vault is correct and matches the one in your InFlow Inventory account settings.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect `companyId`, `productId`, or other identifier was provided.
+  * **Solution:** Double-check all IDs for typos. Ensure the resource you are trying to access exists within your InFlow account.
 
-### Outputs
+* **No Results Found in Search**
+  * **Cause:** The `search_details` query may not have any matches, or the term might be too specific.
+  * **Solution:** Try a broader search term to confirm the connection is working. Check for typos in your query.
 
-After running this component, the following default outputs are generated:
+<Divider />
 
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **categoryId**: The unique identifier for the product category.
-4. **name**: The name of the product.
-5. **productId**: The unique identifier for the product.
+## What's Next?
 
-<Image src="/img/inflow_inventory/screenshot6.png" alt="alt text" />
+You are now ready to build powerful inventory management automations with the **SmythOS InFlow Inventory Integration**!
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+Consider these ideas:
+* **Build an Agent That...**
+    * Acts as a full product lifecycle manager. When a new product is added to a [Google Sheet](/docs/integrations/google-sheets), the agent creates it in InFlow, then creates a corresponding product page on a [Shopify](/docs/integrations/shopify) or [Squarespace](/docs/integrations/squarespace) store.
+    * Manages stock levels. It connects to your e-commerce store's API. When a sale is made, it automatically decreases the stock quantity in InFlow. When new stock arrives, it increases the quantity.
+    * Syncs customer data. When a new client is added in [Jobber](/docs/integrations/jobber), an agent creates a corresponding customer record in InFlow Inventory.
 
-## Get Customer List
-
-Retrieve the customer list from `InFlow Inventory`.
-
-### Settings
-
-#### API Key
-
-The first step is to acquire your `API Key`:
-
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
-
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
-
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
-
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
-
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
-
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/inflow_inventory/screenshot7.png" alt="alt text" /> 
-
-### Inputs
-
-To effectively utilize this component, provide the following input:
-
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
-
-<Image src="/img/inflow_inventory/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **customers**: A list of customers retrieved from `InFlow Inventory`.
-
-<Image src="/img/inflow_inventory/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Product to Inventory
-
-Insert a new product into your InFlow Inventory.
-
-### Settings
-
-#### API Key
-
-The first step is to acquire your `API Key`:
-
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
-
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
-
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
-
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
-
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
-
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/inflow_inventory/screenshot10.png" alt="alt text" /> 
-
-### Inputs
-
-To effectively utilize this component, provide the following input:
-
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
-2. **productID (`required<string>`):** The unique identifier for the new product.
-3. **product_name (`required<string>`):** The name of the new product.
-4. **sku (`required<string>`):** The stock-keeping unit identifier for the new product.
-5. **itemType (`required<string>`):** The type of item (e.g., 'Inventory', 'Service').
-6. **originCountry (`optional<string>`):** The country of origin for the new product.
-
-<Image src="/img/inflow_inventory/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **productId**: The unique identifier for the newly added product.
-
-<Image src="/img/inflow_inventory/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Customer Detail
-
-Retrieve detailed information about a specific customer in `InFlow Inventory`.
-
-### Settings
-
-#### API Key
-
-The first step is to acquire your `API Key`:
-
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
-
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
-
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
-
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
-
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
-
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/inflow_inventory/screenshot13.png" alt="alt text" /> 
-
-### Inputs
-
-To effectively utilize this component, provide the following inputs:
-
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
-2. **name (`required<string>`):** The name of the customer whose details you want to retrieve.
-
-<Image src="/img/inflow_inventory/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **email**: The email address of the customer.
-4. **customerId**: The unique identifier of the customer.
-
-<Image src="/img/inflow_inventory/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Category List
-
-Retrieve the list of product categories from `InFlow Inventory`.
-
-### Settings
-
-#### API Key
-
-The first step is to acquire your `API Key`:
-
-1. **Sign Up / Log In**:
-   - Visit the InFlow Inventory website and create an account or log in if you already have one.
-
-2. **Access API Settings**:
-   - Navigate to the `Settings` or `API` section in your account dashboard.
-
-3. **Generate API Key**:
-   - Click on the option to generate a new `API key`. This key will be used to authenticate your requests.
-
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
-
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
-
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/inflow_inventory/screenshot16.png" alt="alt text" /> 
-
-### Inputs
-
-To effectively utilize this component, provide the following inputs:
-
-1. **companyId (`required<string>`):** The unique identifier of your company in the `InFlow Inventory` system.
-
-<Image src="/img/inflow_inventory/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response**: Contains the full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **categories**: The list of categories retrieved from `InFlow Inventory`.
-
-<Image src="/img/inflow_inventory/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * Connect InFlow to your accounting software. When a new sales order is fulfilled in InFlow, trigger an agent to create an invoice in your accounting platform.
+    * Use an [LLM component](/docs/integrations/openrouter) to generate a rich product description, then use the InFlow API to update the product record.

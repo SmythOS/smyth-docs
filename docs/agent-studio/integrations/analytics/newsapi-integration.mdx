@@ -1,96 +1,175 @@
+---
+title: NewsAPI Integration
+description: Connect SmythOS to NewsAPI to search and retrieve real-time news articles from sources worldwide, directly within your agent workflows.
+og:title: SmythOS & NewsAPI - Automate Global News Monitoring
+og:description: Learn to integrate NewsAPI with SmythOS. Empower your agents to fetch headlines, search for specific topics, and monitor brand mentions to fuel your market research and content strategies.
+og:image: /img/integrations/smythos_newsapi.png
+keywords: [NewsAPI SmythOS Integration, Connect NewsAPI to SmythOS, SmythOS News API, Automate News Monitoring, SmythOS Media Monitoring, No-Code News, Real-time News API]
+---
+# NewsAPI Integration with SmythOS
 
-# NewsAPI Integration
+> **Want to stay ahead of the news cycle?** Connect NewsAPI to SmythOS and let your agents fetch the latest articles, monitor keywords, and track global trends automatically.
 
-`NewsAPI` is a service that provides easy access to a vast array of news articles from various sources and blogs worldwide. With endpoints that allow you to fetch the latest headlines, search for specific articles, and retrieve lists of news sources, `NewsAPI` serves as an invaluable tool for applications needing real-time news updates.
+<InfoCallout title="TL;DR">
+Securely link your NewsAPI account to SmythOS using an API key. Then, use the "Search Everything" component to empower your agents to retrieve news articles from tens of thousands of sources worldwide.
+</InfoCallout>
 
-## Importance of Integrating `NewsAPI` into `SmythOS`
+## List of NewsAPI Components
+Quickly compare NewsAPI components by what they do and their key I/O.
 
-Integrating the `NewsAPI` service into `SmythOS` brings several significant benefits:
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Search Everything**](#search-everything) | Read | Searches through millions of news articles from various sources. | <Badge type="required" /> `keyword`<br /><Badge type="optional" /> `from`, `to`, `language`, `domains` | `articles`, `totalResults` | Brand monitoring, market research. |
 
-1. **Real-Time News Updates**:
-   - Access the latest news articles and headlines as they are published, ensuring you stay updated with current events.
-   - Easily fetch top headlines from various sources globally or within specific countries, enriching your data feed.
+<InfoCallout>
+<details>
+  <summary>Why Integrate NewsAPI with Your Agent?</summary>
 
-2. **Enhanced Content Creation**:
-   - Source the most recent and relevant news articles to complement your content creation process.
-   - Improve the quality and diversity of content available within `SmythOS`, making it a more valuable tool for users.
+NewsAPI provides direct access to a massive, real-time firehose of global news. Integrating it with SmythOS allows you to build powerful, information-aware agents that can:
 
-3. **Market and Trend Analysis**:
-   - Utilize the `NewsAPI` to gather insights into market trends, financial news, and global events that can impact business decisions.
-   - Provide users with the ability to track news related to specific industries, companies, or topics of interest.
+- **Automate Media Monitoring:** Create agents that constantly scan for mentions of your brand, products, or executives and send alerts to Slack or email.
+- **Enhance Market Research:** Programmatically gather news about competitors, industry trends, or new technologies to inform your business strategy.
+- **Fuel Content Creation:** Automatically find recent, relevant articles to use as sources or inspiration for your own blog posts, social media updates, and reports.
+- **Power AI Workflows:** Fetch a set of articles on a topic and feed them directly into an AI component for summarization, sentiment analysis, or trend extraction.
 
-4. **Customizable News Feeds**:
-   - Allow users to customize their news feeds based on keywords, categories, languages, and sources.
-   - Offer tailored news content, helping users focus on the information most relevant to them.
+</details>
+</InfoCallout>
+<Divider />
 
-5. **Improved Research Capabilities**:
-   - Enhance research tools within `SmythOS` by integrating a wealth of news articles and sources.
-   - Enable users to perform comprehensive searches through millions of articles for specific information.
+## Prerequisites
 
-6. **Sentiment and Public Opinion Analysis**:
-   - Integrate `NewsAPI` data to perform sentiment analysis on news articles, understanding public opinion on various topics.
-   - Provide users with insights into general sentiment trends and how they may affect markets or public perception.
+Before you begin, please ensure you have the following:
 
-By integrating `NewsAPI` into `SmythOS`, users gain access to a powerful resource for staying informed, creating high-quality content, conducting in-depth research, and analyzing market trends. This integration significantly enhances the capabilities and value of `SmythOS` as a comprehensive platform for managing and utilizing news data.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **NewsAPI account**.
+- Your NewsAPI **API Key**.
 
-## Everything
+<Divider />
 
-Search through millions of news articles.
+## Getting Started With NewsAPI
 
-### Settings
+The connection between SmythOS and NewsAPI is configured using a secure API key.
 
-#### API Key
+### Step 1: Get Your NewsAPI API Key
+1.  Log in to your [NewsAPI account](https://newsapi.org/login).
+2.  Once logged in, your API key will be displayed on your dashboard.
+3.  Copy the API key to your clipboard.
 
-To use the NewsAPI service, you need to acquire your `API Key` by following these steps:
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-1. **Sign Up / Log In**:
-   - Visit the [NewsAPI website](https://newsapi.org/) and create an account or log in if you already have one.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your NewsAPI API Key as the value. Give it a memorable name, like `newsapi_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-2. **Access API Key Section**:
-   - Once logged in, navigate to the 'API' or 'API Key' section in your account dashboard.
+### Step 3: Configure the NewsAPI Component
+1.  In your SmythOS agent graph, drag and drop the **Search Everything** component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `newsapi_api_key`).
+4.  Your connection is now configured for that component.
 
-3. **Generate API Key**:
-   - Click on the button to generate a new `API key`. This key will be used to authenticate your requests.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to each NewsAPI component you use. This ensures all connections are secure and properly authenticated.</InfoCallout>
+<Divider />
 
-4. **Copy the API Key**:
-   - Ensure that you copy the generated `API key`. Treat this as sensitive information.
+## Which NewsAPI Component Should I Use?
 
-5. **Set API Key in SmythOS**:
-   - Go to the `SmythOS` component settings and input the copied `API key` into the designated field.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Find news articles** about a specific topic or brand | A search `keyword` | [Search Everything](#search-everything) | This is the core component for searching all indexed news articles. |
 
+<Divider/>
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+## Component Details
 
-<Image src="/img/newsapi/screenshot1.png" alt="alt text" /> 
+This section provides detailed information for the NewsAPI component.
 
-### Inputs
+### <a name="search-everything"></a>Search Everything
+Searches through millions of news articles from a wide range of sources and blogs.
 
-To effectively utilize this component, provide the following inputs:
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-newsapi) section.</InfoCallout>
 
-1. **keyword (`required<string>`):** The keyword or phrase to search for in the news articles.
-2. **from (`optional<string>`):** The start date for the articles to be retrieved (e.g., "2023-01-01").
-3. **to (`optional<string>`):** The end date for the articles to be retrieved (e.g., "2023-12-31").
-4. **sortBy (`optional<string>`):** The order to sort the articles by. Default value is `publishedAt`.
-5. **searchIn (`optional<string>`):** Fields to search in; options are `title`, `description`, and `content`. Default value is `title,description,content`.
-6. **language (`optional<string>`):** The language of the articles. Default value is `en`.
-7. **page (`optional<integer>`):** The page number for pagination. Default value is `1`.
-8. **pageSize (`optional<integer>`):** The number of articles per page. Default value is `100`.
-9. **domains (`optional<string>`):** A comma-separated string of domains to include in the search.
-10. **excludeDomains (`optional<string>`):** A comma-separated string of domains to exclude from the search.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `keyword` | string | Yes | The keyword or phrase to search for. |
+| `from` | string | Optional | The earliest article date (format: `YYYY-MM-DD`). |
+| `to` | string | Optional | The latest article date (format: `YYYY-MM-DD`). |
+| `sortBy` | string | Optional | Order to sort articles by. Options: `relevancy`, `popularity`, `publishedAt`. Default: `publishedAt`. |
+| `searchIn` | string | Optional | Comma-separated fields to search in. Options: `title`, `description`, `content`. Default: `title,description,content`. |
+| `language` | string | Optional | Two-letter language code (e.g., `es`, `fr`). Default: `en`. |
+| `page` | integer| Optional | Page number for pagination. Default: `1`. |
+| `pageSize` | integer| Optional | Number of results per page (max 100). Default: `100`. |
+| `domains` | string | Optional | Comma-separated string of domains to restrict the search to (e.g., `wsj.com,nytimes.com`). |
+| `excludeDomains`| string | Optional | Comma-separated string of domains to exclude from the search. |
 
-<Image src="/img/newsapi/screenshot2.png" alt="alt text" />
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `articles`| array | An array of objects, where each object represents a news article with its title, source, URL, etc. |
+| `totalResults` | integer | The total number of articles found that match the query. |
+| `Response`| object | The full, raw JSON response from the NewsAPI. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<TipCallout title="Use Case" collapsible>
+Create a brand monitoring agent. Every morning, it searches for your company's name, loops through the `articles` array, and sends the title and URL of each new mention to a dedicated Slack channel.
+</TipCallout>
 
-### Outputs
+```json
+{
+  "component": "newsapi.everything",
+  "keyword": "\"SmythOS\" AND \"automation\"",
+  "language": "en",
+  "sortBy": "publishedAt",
+  "pageSize": 20
+}
+```
 
-After running this component, the following default outputs are generated:
+<WarningCallout title="Developer Plan Limitation">
+On the free Developer plan, the API can only fetch articles up to one month old. You also cannot sort by `popularity`.
+</WarningCallout>
 
-1. **Response**: The full API response.
-2. **Headers**: Metadata and headers from the API call.
-3. **totalResults**: The total number of results matching the query.
-4. **articles**: A list of articles retrieved based on the search criteria.
+<Divider />
 
-<Image src="/img/newsapi/screenshot3.png" alt="alt text" />
+## Best Practices & Advanced Tips
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Secure Your API Key:** Always use the SmythOS `Vault` to store your NewsAPI key.
+* **Use Advanced Query Syntax:** The `keyword` input supports advanced search operators like `AND`, `OR`, `NOT`, and `""` for exact phrases. For example, `"SmythOS" AND ("funding" OR "launch")`.
+* **Filter by Domain:** To monitor specific sources, use the `domains` parameter. This is great for tracking news from top-tier publications or industry-specific blogs.
+* **Manage Pagination:** The API returns a maximum of 100 articles per page. If `totalResults` is greater than `pageSize`, you will need to build a loop in your agent that increments the `page` input to fetch all results.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API key is missing, invalid, or disabled.
+  * **Solution:** Verify that the API key in your SmythOS Vault is correct and matches the one in your NewsAPI dashboard. Ensure your account is active.
+
+* **Error: `429 Too Many Requests`**
+  * **Cause:** You have exceeded the number of requests allowed by your plan in a given timeframe.
+  * **Solution:** Check your plan's rate limits. If you are making many requests in a short period, add a delay between component executions in your agent.
+
+* **Error: `426 Upgrade Required`**
+  * **Cause:** You are trying to use a feature that is not available on your current NewsAPI plan (e.g., fetching historical data beyond one month on the Developer plan).
+  * **Solution:** Upgrade your NewsAPI subscription or adjust your query to fit within your plan's limitations.
+
+* **Empty `articles` Array**
+  * **Cause:** The query genuinely returned no results for the specified parameters.
+  * **Solution:** Broaden your `keyword` or date range (`from`/`to`). Remove any restrictive `domains` filters. Test the same query directly in a browser to confirm.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build intelligent, news-aware workflows with the **SmythOS NewsAPI Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Fetches the top 5 articles for a specific topic, feeds their content to an AI component for summarization, and generates a daily news brief.
+    * Monitors news for specific company names and performs sentiment analysis on the article titles and descriptions.
+    * Tracks mentions of a new product and logs the source, title, and URL of each article into a Google Sheet for the PR team.
+
+* **Explore Other Integrations:**
+    * Combine NewsAPI with the [Google Sheets Integration](/docs/integrations/google-sheets) to create a historical log of media mentions.
+    * Use search results to trigger alerts in [Slack](/docs/integrations/slack) or via [Email](/docs/integrations/email).
+    * Feed article URLs found via NewsAPI into a web scraping component to extract the full text for deeper analysis.

@@ -1,71 +1,173 @@
+---
+title: Elevenlabs Integration
+description: Connect SmythOS to Elevenlabs to generate high-quality, natural-sounding speech from text using advanced AI voice synthesis.
+og:title: SmythOS & Elevenlabs - Give Your Agents a Voice
+og:description: Learn to integrate Elevenlabs with SmythOS. Empower your agents to convert text into lifelike audio, automating everything from voiceovers to real-time audio alerts.
+og:image: /img/integrations/smythos_elevenlabs.png
+keywords: [Elevenlabs SmythOS Integration, Connect Elevenlabs to SmythOS, SmythOS Text to Speech, AI Voice Synthesis, Automate Audio Generation, No-Code TTS, Voice API]
+---
+# Elevenlabs Integration with SmythOS
 
-# Elevenlabs Integration
+> **Want to give your applications a voice?** Connect Elevenlabs to SmythOS and empower your agents to convert any text into natural-sounding, high-quality audio in real time.
 
-Unlock the power of natural-sounding speech synthesis and text-to-speech capabilities with `Elevenlabs`, a software company dedicated to leveraging artificial intelligence (AI) and deep learning techniques.
+<InfoCallout title="TL;DR">
+Securely link your Elevenlabs account to SmythOS using an API key. Then, use the "Text to Speech" component to automate the generation of audio from any text input, with fine-grained control over voice, style, and stability.
+</InfoCallout>
 
-At `SmythOS`, we've seamlessly integrated with `Elevenlabs` to bring you custom components that make incorporating their advanced services into your projects a breeze. This guide is your go-to resource for a comprehensive walkthrough, ensuring you harness the full potential of these cutting-edge components.
+## List of Elevenlabs Components
+Quickly compare Elevenlabs components by what they do and their key I/O.
 
-Let's dive into the world of effortless and natural speech synthesis with `Elevenlabs` on SmythOS!
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Text to Speech**](#text-to-speech) | Generate | Converts a string of text into an audio file. | <Badge type="required" /> `text`, `voice_id`<br /><Badge type="optional" /> settings | `url` | Generating voiceovers, accessibility features. |
 
-## Text to Speech
+<InfoCallout>
+<details>
+  <summary>Why Integrate Elevenlabs with Your Agent?</summary>
 
-The `Text to Speech` component empowers users to seamlessly generate audio from input text.
+Elevenlabs provides state-of-the-art AI voice synthesis. By integrating it with SmythOS, you can build agents that communicate not just with text, but with high-quality, natural-sounding speech.
 
-### Settings
+- **Automate Voiceovers:** Create agents that take a script from a document or an AI's output and automatically generate a voiceover for videos, presentations, or podcasts.
+- **Enhance Accessibility:** Build workflows that convert written content, like blog posts or reports, into audio format, making your content accessible to a wider audience.
+- **Create Dynamic Audio Alerts:** Move beyond text-based notifications. Have your agents generate spoken alerts for critical system events, new leads, or important updates.
+- **Personalized Audio Content:** Generate personalized audio messages at scale. An agent could create custom audio greetings, summaries, or reminders for each user in a list.
 
-#### API Key
+</details>
+</InfoCallout>
+<Divider />
 
-To kickstart this component, follow these initial steps to obtain your `API Key`:
+## Prerequisites
 
-1. Create a `Elevenlabs` account if you don't already have one.
-2. Navigate to your `Profile` and acquire your `API Key` by clicking [here](https://elevenlabs.io/).
-3. Input this `API Key` into the specified section in the component's settings.
+Before you begin, please ensure you have the following:
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- An **Elevenlabs account**.
+- Your Elevenlabs **API Key**.
 
-#### Model ID
+<Divider />
 
-The `Model ID` is a select field featuring a list of available model IDs. Select the appropriate model ID from the list to tailor the audio output based on your specific requirements.
+## Getting Started With Elevenlabs
 
-#### Similarity Boost
+The connection between SmythOS and Elevenlabs is configured using a secure API key.
 
-This setting adjusts the level of vocal similarity to the chosen voice model:
+### Step 1: Get Your Elevenlabs API Key
+1.  Log in to your [Elevenlabs account](https://elevenlabs.io/).
+2.  Click on your profile icon in the top-right corner.
+3.  Select **Profile + API Key**.
+4.  Your API Key will be displayed. Copy it to your clipboard.
 
-- Increase the similarity for more closeness to the model's voice.
-- A higher setting results in greater resemblance but may impact the naturalness.
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-#### Stability
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Elevenlabs API Key as the value. Give it a memorable name, like `elevenlabs_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-The Stability setting helps to maintain consistent voice quality and pacing:
+### Step 3: Configure the Elevenlabs Component
+1.  In your SmythOS agent graph, drag and drop the **Text to Speech** component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `elevenlabs_api_key`).
+4.  Configure other settings like `Model ID` as needed.
+5.  Your connection is now configured for that component.
 
-- A higher stability selects for a smoother and more consistent output.
-- Adjust this setting to find the right balance between dynamism and steadiness.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to each Elevenlabs component you use. This ensures all connections are secure and properly authenticated.</InfoCallout>
+<Divider />
 
-#### Style
+## Which Elevenlabs Component Should I Use?
 
-Customize the speaking style of the voice output to suit the context and content.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Convert any text into an audio file** | A string of text | [Text to Speech](#text-to-speech) | This is the core component for all voice synthesis tasks with Elevenlabs. |
 
-<Image src="/img/elevenlabs/screenshot1.png" alt="alt text" /> 
+<Divider/>
 
-### Inputs
+## Component Details
 
-To execute this component, you need to provide the following inputs:
+This section provides detailed information for the Elevenlabs component.
 
-1. **text `required<string>`:** Specify the text to be used for generating the audio.
-2. **voice_id `required<string>`:** Provide the voice ID used for generating the audio. It defaults to a preselected voice ID, but you can use any other voice ID from your account.
+### <a name="text-to-speech"></a>Text to Speech
+Converts a string of text into a high-quality audio file using a selected voice.
 
-<Image src="/img/elevenlabs/screenshot2.png" alt="alt text" />
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-elevenlabs) section.</InfoCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+#### Component-Specific Settings
+In the component's settings panel, you can fine-tune the audio output:
+- **Model ID:** Select the speech synthesis model to use. Different models offer various languages and voice characteristics.
+- **Similarity Boost:** A slider to control how closely the output voice matches the selected voice model. Higher values increase similarity but may affect naturalness.
+- **Stability:** A slider to control the consistency of the voice. Higher values produce a more monotonic, steady voice, while lower values allow for more expression.
+- **Style:** A slider to exaggerate the selected voice's speaking style.
 
-### Outputs
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `text` | string | Yes | The text you want to convert into speech. |
+| `voice_id` | string | Yes | The unique ID of the voice to use for generation. You can find voice IDs in your Elevenlabs VoiceLab. |
 
-Upon executing this component, you will receive the following outputs:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `url` | string | A temporary URL pointing to the generated audio file. |
+| `Response`| binary | The raw binary data of the generated MP3 audio file. |
+| `Headers` | object | The HTTP headers from the API response, containing details like content type and size. |
 
-1. **Response:** Contains the binary data of the generated audio.
-2. **Headers:** Includes the HTTP headers extracted from the `Elevenlabs` server response.
-3. **url:** The URL of the generated audio.
+<TipCallout title="Use Case" collapsible>
+Create a "read it for me" agent. The agent scrapes the text content of a blog post, passes it to the `text` input of this component, and returns the audio `url` so the user can listen to the article.
+</TipCallout>
 
-<Image src="/img/elevenlabs/screenshot3.png" alt="alt text" />
+```json
+{
+  "component": "elevenlabs.textToSpeech",
+  "text": "Hello, world! This is an audio message generated automatically by a SmythOS agent.",
+  "voice_id": "21m00Tcm4TlvDq8ikWAM"
+}
+```
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<WarningCallout title="Character Limits & Costs">
+Your Elevenlabs plan will have a character quota. Long text inputs will consume more of your monthly quota. Be mindful of this when processing large documents.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your API Key:** Always use the SmythOS `Vault` to store your Elevenlabs API key.
+* **Experiment with Voices and Settings:** The best way to get the perfect audio output is to test different `voice_id`s and tweak the `Stability` and `Similarity Boost` settings. What works for a news report might not work for a friendly notification.
+* **Chunk Large Texts:** For very long documents, consider splitting the text into smaller chunks (e.g., paragraphs) and generating audio for each one. This can prevent timeouts and provide more control over the final audio composition.
+* **Manage Your Quota:** Keep an eye on your character usage in your Elevenlabs dashboard, especially if you are running agents that process large volumes of text.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API key is missing, invalid, or disabled.
+  * **Solution:** Verify that the API key in your SmythOS Vault is correct and matches the one in your Elevenlabs profile. Ensure your account is active.
+
+* **Error: `402 Payment Required` / Quota Exceeded**
+  * **Cause:** You have used up your monthly character quota.
+  * **Solution:** Check your usage and quota in your Elevenlabs dashboard. You may need to wait for the next billing cycle or upgrade your plan.
+
+* **Error: `400 Bad Request` (e.g., "Voice not found")**
+  * **Cause:** The `voice_id` provided does not exist or your account does not have access to it.
+  * **Solution:** Double-check the `voice_id` from your Elevenlabs VoiceLab. Ensure there are no typos.
+
+* **Audio Quality Issues**
+  * **Cause:** The `Stability` and `Similarity Boost` settings might not be optimal for the chosen voice and text.
+  * **Solution:** Adjust the sliders in the component settings. Try lowering similarity or increasing stability for a more consistent output, or vice-versa for more expression.
+
+<Divider />
+
+## What's Next?
+
+You're now ready to build engaging, voice-enabled workflows with the **SmythOS Elevenlabs Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Fetches top headlines from the [NewsAPI Integration](/docs/integrations/newsapi), and generates a daily audio news briefing.
+    * Connects to your calendar, checks your schedule for the next day, and generates a personalized "good morning" audio summary of your appointments.
+    * Monitors a customer support inbox, and when an urgent ticket arrives, generates a spoken alert that is played over an office speaker system.
+
+* **Explore Other Integrations:**
+    * Combine Elevenlabs with AI text generation components. Have an AI write a summary of a long report, then have Elevenlabs read that summary aloud.
+    * Use the [ScrapingBee Integration](/docs/integrations/scrapingbee) to extract text from a website and pass it directly to the Text to Speech component.
+    * Store the generated audio files in a cloud service like [OneDrive](/docs/integrations/onedrive) for long-term access.

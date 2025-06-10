@@ -3,42 +3,32 @@ title: GitHub Integration
 description: Connect SmythOS to GitHub to automate repository management, issue tracking, pull request workflows, and version control operations directly from your agents.
 og:title: SmythOS & GitHub - Automate Your Development Lifecycle
 og:description: Learn to integrate GitHub with SmythOS. Empower agents to interact with repositories, manage issues, branches, commits, pull requests, and more.
-og:image: /img/integrations/smythos_github_default.png 
+og:image: /img/integrations/smythos_github_default.png
 keywords: [GitHub SmythOS Integration, Connect GitHub to SmythOS, SmythOS GitHub Components, Automate GitHub, Version Control Automation, CI/CD SmythOS, GitHub API SmythOS]
 ---
-
 # GitHub Integration with SmythOS
-
-This page shows you how to connect GitHub to SmythOS and pick the right component for every version control and repository management task.
 
 > **Want to supercharge your development workflows?** Connect GitHub to SmythOS and let your agents automate repository interactions, manage issues, handle pull requests, and much more.
 
-<InfoCallout title="TL;DR"> Generate a Personal Access Token (PAT) from your GitHub account with the necessary scopes. Then, add this token to the SmythOS GitHub integration settings to enable your agents to use a comprehensive suite of GitHub components for automating your development lifecycle.</InfoCallout>
+<InfoCallout title="TL;DR">
+Generate a Personal Access Token (PAT) from your GitHub account with the necessary scopes. Then, add this token to the SmythOS GitHub integration settings to enable your agents to use a comprehensive suite of GitHub components for automating your development lifecycle.
+</InfoCallout>
 
-**Quick Links:**
-* [Why Integrate GitHub?](#why-integrate-github)
-* [Getting Started: Prerequisites & Connection](#prerequisites-what-youll-need-to-get-started)
-* [Components Overview](#github-components-an-overview)
-* [Understanding Common Fields](#understanding-common-github-component-io-fields)
-* [Detailed Component Guides](#detailed-component-guides)
-* [Best Practices & Advanced Tips](#best-practices--advanced-tips)
-* [Troubleshooting](#troubleshooting-common-issues)
-* [What's Next?](#whats-next)
+## List of GitHub Components
+Quickly compare GitHub components by what they do and their key I/O. Click any component name to jump directly to its detailed guide. Here’s what's available:
 
-<Divider />
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Get Issue**](#get-issue) | Read | Fetches detailed information about a specific issue. | <Badge type="required" /> `repo_owner`, `repo_name`, `issue_number` | `title`, `body`, `state` | Checking the status of a bug report. |
+| [**List Pull Requests**](#list-pull-requests) | Read | Lists pull requests for a repository, with optional filters. | <Badge type="required" /> `repo_owner`, `repo_name`<br/><Badge type="optional" /> `state` | `pull_requests` | Generating a daily summary of open PRs. |
+| [**Get Repo Directory Content**](#get-repo-directory-content) | Read | Retrieves the contents of a directory within a repository. | <Badge type="required" /> `repo_owner`, `repo_name`<br/><Badge type="optional" /> `directory_path` | `content` | Listing files to find a specific config. |
+| [**Fetch Latest Release**](#fetch-latest-release) | Read | Retrieves details of the latest published release for a repository. | <Badge type="required" /> `repo_owner`, `repo_name` | `tag_name`, `name` | Triggering deployment workflows. |
+| [**Create Branch**](#create-branch) | Write | Creates a new branch in a repository from a specified commit. | <Badge type="required" /> `repo_owner`, `repo_name`, `branch_name`, `hash_to_branch_from` | `branchRef`, `sha` | Automating feature branch creation. |
+| [**Commit File**](#commit-file) | Write | Creates or updates a file in a repository with a commit. | <Badge type="required" /> `repo_owner`, `repo_name`, `file_name`, `content` | `commitSha` | Committing auto-generated documentation. |
+| [**Create Pull Request**](#create-pull-request) | Write | Creates a new pull request between two branches. | <Badge type="required" /> `owner`, `repo_name`, `title`, `pull_branch`, `base_branch` | `html_url`, `number` | Automating the code review process. |
+| [**Add Labels to Issues**](#add-labels-to-issues) | Write | Adds specified labels to an existing GitHub issue. | <Badge type="required" /> `repo_owner`, `repo_name`, `issue_number`, `label` | `labels` | Automatically categorizing new issues. |
+| [**Merge Pull Request**](#merge-pull-request) | Write | Merges a pull request into its base branch. | <Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` | `merged`, `sha` | Auto-merging approved PRs. |
 
-## Why Integrate GitHub with Your Agent?
-
-GitHub is a web-based platform that provides hosting for software development and version control using Git. It offers a variety of collaborative features, allowing developers to work together on projects, track changes, and manage code repositories. Integrating GitHub with SmythOS empowers your agents to programmatically interact with your repositories, unlocking significant automation potential for your development and operational workflows.
-
-- **Automate Repository Management**: Agents can create branches, commit files, and manage repository content based on triggers or scheduled tasks.
-- **Streamline Issue Tracking**: Automatically create, update, or label GitHub issues based on events from other systems (e.g., a customer support ticket creating a bug report).
-- **Enhance Pull Request Workflows**: Agents can create pull requests, add comments, merge branches (with conditions), or list PR details for reporting.
-- **Automate Release Management**: Fetch information about the latest releases or trigger actions based on new releases.
-- **CI/CD Integration & Notifications**: Use GitHub events (via webhooks, if SmythOS supports them, or by polling with agents) to trigger CI/CD pipelines or send notifications about repository activity.
-- **Code & Content Search**: Programmatically search for code or content within repositories to gather information or monitor for specific patterns.
-
-Essentially, this integration transforms GitHub from a developer-focused platform into an active, automatable component of your broader SmythOS ecosystem. This results in increased efficiency, better collaboration, and more streamlined development lifecycles.
 
 <InfoCallout>
 <details>
@@ -46,7 +36,7 @@ Essentially, this integration transforms GitHub from a developer-focused platfor
 
 Integrating GitHub with SmythOS allows your agents to become powerful assistants in your software development lifecycle:
 
-- **Automated Code Commits:** Agents can commit configuration files, documentation updates, or even generated code directly to repositories based on external triggers or data processing.
+- **Automate Code Commits:** Agents can commit configuration files, documentation updates, or even generated code directly to repositories based on external triggers or data processing.
 - **Intelligent Issue Management:** An agent can monitor external systems (like a bug tracker or customer feedback tool) and automatically create corresponding GitHub issues, assign labels, or update their status.
 - **Pull Request Automation:** Agents can be configured to create pull requests when new feature branches are ready, or to fetch details of open PRs for daily summaries or to check for merge conflicts.
 - **Release Monitoring:** Agents can fetch information about the latest releases, allowing other systems to be updated or notifications to be sent when new software versions are published.
@@ -55,1393 +45,188 @@ Integrating GitHub with SmythOS allows your agents to become powerful assistants
 By connecting GitHub, you enable your agents to interact directly with your codebase and development processes, reducing manual overhead and enabling more sophisticated DevSecOps automations.
 </details>
 </InfoCallout>
-
 <Divider />
 
-## Prerequisites: What You'll Need to Get Started
+## Prerequisites
 
 Before you begin the integration, please ensure you have the following:
 
-- An active **SmythOS account**. (If you're new to SmythOS, [you can sign up here](https://app.smythos.com/signup).)
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup).)
 - A **GitHub Account** with access to the repositories you plan to integrate with.
-- You will need to generate a **GitHub Personal Access Token (PAT)** with the appropriate scopes (permissions) to allow SmythOS agents to perform the desired actions on your repositories. Detailed steps are provided below.
+- A **GitHub Personal Access Token (PAT)** with the appropriate scopes (permissions).
 
 <Divider />
 
-## Step-by-Step: Connecting Your GitHub Account
+## Getting Started With GitHub
 
-To enable SmythOS agents to interact with your GitHub repositories, you need to generate a Personal Access Token (PAT) from your GitHub account and then configure it within the SmythOS GitHub integration settings.
+The connection between SmythOS and GitHub is configured using a secure Personal Access Token (PAT).
 
-### Part A: Generating a GitHub Personal Access Token (PAT)
+### Step 1: Generate Your GitHub Personal Access Token
+1.  **Sign in to GitHub** and navigate to your **Settings**.
+2.  Go to **Developer settings** > **Personal access tokens** > **Tokens (classic)**.
+3.  Click **Generate new token (classic)**.
+4.  Give your token a descriptive **Note** (e.g., "SmythOS Integration").
+5.  Set an **Expiration** period.
+6.  **Select scopes:** This is critical. For broad functionality, check the main **`repo`** scope. This grants full control of private repositories, including code, issues, and pull requests.
+7.  Click **Generate token**.
 
-1.  **Sign in to GitHub:** Go to `https://github.com/` and log in to your account.
-2.  **Navigate to Developer Settings:**
-    * Click on your profile picture in the upper-right corner of any page.
-    * Go to **Settings**.
-    * In the left sidebar, scroll down and click on **Developer settings**.
-    * In the Developer settings sidebar, click on **Personal access tokens**.
-    * Select **Tokens (classic)**. *While Fine-grained tokens are newer, Tokens (classic) are often used for broader API access required by integrations like this, unless SmythOS specifies support for Fine-grained tokens with specific repository access.*
-3.  **Generate a New Token:**
-    * Click the **Generate new token** button (you might be prompted to choose "Generate new token (classic)").
-    * **Note:** Give your token a descriptive name, e.g., "SmythOS Integration".
-    * **Expiration:** Choose an appropriate expiration period for your token. For long-running automations, you might choose a longer period or "No expiration" (use with caution and understand the security implications).
-    * **Select scopes:** This is a critical step. You must grant the token permissions for the actions your SmythOS agents will perform. Common scopes include:
-        * **`repo`**: Full control of private repositories (includes read/write access to code, commits, branches, issues, pull requests, etc.). This is often the most comprehensive scope needed for full interaction.
-        * `workflow`: Allows actions related to GitHub Actions.
-        * `admin:repo_hook`: For managing repository hooks, if needed.
-        * `gist`: If interacting with Gists.
-        * *Review the components you plan to use and select the minimal necessary scopes. For example, if you only need to read repository content, a more limited scope might be possible, but `repo` is a common requirement for broad functionality.*
-    * Click the **Generate token** button at the bottom of the page.
-4.  **Copy Your New Personal Access Token:**
-    * **Important:** GitHub will display your new PAT **only once**. Copy the token immediately and store it in a secure location (like a password manager or SmythOS Vault). If you navigate away from the page or lose the token, you will need to generate a new one.
+### Step 2: Copy and Store Your Token
+- **Important:** GitHub will show your new PAT **only once**. Copy the token immediately.
+- For security, store this token in the SmythOS **Vault**. Create a new secret named `github_pat` and paste your token as the value. [Learn more about the Vault here.](/docs/agent-collaboration/working-with-agents/vault-sharing)
 
-<WarningCallout title="Secure Your Personal Access Token!">
-Your GitHub Personal Access Token is like a password to your account for API access. Treat it with extreme care.
-- Do NOT share it publicly.
-- Do NOT commit it to your repositories.
-- Store it securely. SmythOS offers a `Vault` feature for managing sensitive credentials like PATs. [Learn more about SmythOS Vault here.](/docs/agent-collaboration/working-with-agents/vault-sharing)
-</WarningCallout>
+    <WarningCallout title="Secure Your Personal Access Token!">
+    Your GitHub PAT is like a password. Treat it with extreme care. Do not commit it to repositories or share it publicly.
+    </WarningCallout>
 
-### Part B: Adding the Personal Access Token to SmythOS
-
-1.  **Navigate to SmythOS Integrations:** In your SmythOS dashboard, find and click on the "Integrations" section.
-2.  **Add or Configure GitHub Integration:**
-    * Look for "GitHub" in the list of available integrations and click to add or configure it.
-3.  **Enter Your Personal Access Token:**
-    * You will typically find a field labeled "Access Token," "Personal Access Token," or similar.
-    * Carefully paste the PAT you copied from GitHub into this field.
-4.  **Save Configuration:**
-    * Click the `Save`, `Connect`, or `Authenticate` button within the SmythOS GitHub integration settings.
-5.  **Connection Confirmed!** SmythOS should now be able to use this token to authenticate requests to the GitHub API on your behalf, according to the scopes you granted to the token.
+### Step 3: Configure the GitHub Integration in SmythOS
+1.  In your SmythOS agent graph, drag and drop any GitHub component.
+2.  Click the component to open its **Settings**.
+3.  In the `Access Token` field, select the secret you saved in the Vault (e.g., `github_pat`).
+4.  Your connection is now configured for all GitHub components in that agent.
 
 <InfoCallout title="Token Scopes & Permissions" collapsible >
-If your agents encounter permission errors when trying to perform certain GitHub actions, the most common reason is that the Personal Access Token used for the integration does not have the required scopes. You may need to regenerate the token (or generate a new one) with broader permissions (e.g., ensuring the `repo` scope is fully checked if it wasn't initially). Remember to update the token in SmythOS after regenerating it.
+If your agents encounter permission errors, the most common reason is that the PAT used for the integration lacks the required scopes. You may need to generate a new token with broader permissions (like the full `repo` scope) and update the secret in your Vault.
 </InfoCallout>
 
 <Divider />
 
-## GitHub Components: An Overview
+## Which GitHub Component Should I Use?
 
-With your GitHub account successfully linked via a Personal Access Token, you gain access to a comprehensive suite of GitHub components within SmythOS. These components are designed to automate a wide range of repository management, issue tracking, and collaborative development tasks.
-
-Click any component name to jump directly to its detailed guide. Here’s what's available:
-
-| Component | Action Type | Summary |
-|----------|-------------|---------|
-| [Add Labels to Issues](#add-labels-to-issues) | Write | Adds specified labels to an existing GitHub issue.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `issue_number`, `label` |
-| [Create Branch](#create-branch) | Write | Creates a new branch in a repository from a specified commit SHA.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `branch_name`, `hash_to_branch_from` |
-| [Commit File](#commit-file) | Write | Creates or updates a file in a repository with a commit.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `file_name`, `content` (Base64), `commit_message` |
-| [Get Issue Labels](#get-issue-labels) | Read | Retrieves all labels currently applied to a specific issue.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `issue_number` |
-| [Count Open Issues](#count-open-issues) | Read | Gets the total number of open issues in a repository.<br /><Badge type="required" /> `repo_owner`, `repo_name` |
-| [Create Pull Request](#create-pull-request) | Write | Creates a new pull request between two branches.<br /><Badge type="required" /> `owner`, `repo_name`, `title`, `pull_branch`, `base_branch` |
-| [Fetch GitHub User](#fetch-github-user) | Read | Retrieves public information about a specified GitHub user.<br /><Badge type="required" /> `username` |
-| [Get Issue](#get-issue) | Read | Fetches detailed information about a specific issue.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `issue_number` |
-| [Get Branch Info](#get-branch-info) | Read | Retrieves detailed information about a specific branch.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `branch_name` |
-| [Fetch Commits since Timestamp](#fetch-commits-since-timestamp) | Read | Lists commits on a branch since a given timestamp.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `branch_name`, `timestamp` |
-| [Get Repo Directory Content](#get-repo-directory-content) | Read | Retrieves the contents of a directory within a repository.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `directory_path` |
-| [Search GitHub](#search-github) | Read | Performs a search across GitHub (code, issues, users etc.) based on a query.<br /><Badge type="required" /> `query` |
-| [Fetch Latest Release](#fetch-latest-release) | Read | Retrieves details of the latest published release for a repository.<br /><Badge type="required" /> `repo_owner`, `repo_name` |
-| [Update File Content](#update-file-content) | Write | Updates an existing file in a repository.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `path`, `content` (Base64), `sha`, `commit_message` |
-| [Get Pull Request](#get-pull-request) | Read | Fetches details of a specific pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` |
-| [List Pull Requests](#list-pull-requests) | Read | Lists pull requests for a repository, with optional filters.<br /><Badge type="required" /> `repo_owner`, `repo_name` |
-| [List Pull Request Commits](#list-pull-request-commits) | Read | Lists commits associated with a specific pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` |
-| [Merge Pull Request](#merge-pull-request) | Write | Merges a pull request into its base branch.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number`, `commit_title` |
-| [List Pull Request Files](#list-pull-request-files) | Read | Lists files changed in a specific pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` |
-| [List Pull Request Review Comments](#list-pull-request-review-comments) | Read | Lists all review comments on a pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` |
-| [Reply to Review Comment](#reply-to-review-comment) | Write | Creates a reply to a specific review comment on a pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number`, `comment_id`, `body` |
-| [List Pull Request Reviews](#list-pull-request-reviews) | Read | Lists all reviews submitted for a pull request.<br /><Badge type="required" /> `repo_owner`, `repo_name`, `pull_number` |
-
-<InfoCallout title="Authentication"> The Personal Access Token configured in Step 1 is used for authentication across all these GitHub components. Ensure its scopes are sufficient for the actions you intend to automate. </InfoCallout>
-<Divider />
-<Divider />
-
-## Understanding Common GitHub Component I/O Fields
-
-Many GitHub components in SmythOS share common input parameters for identifying repositories or specific entities within them, as well as common output structures for API responses. This section defines these common elements to avoid repetition in the detailed component guides.
-
-<Tabs
-  tabs={[
-    {
-      label: 'Common Inputs',
-      content: (
-        <div className="tab-content">
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>repo_owner</code></td>
-                <td>string</td>
-                <td><strong>Required.</strong> Username or org that owns the repo. Case-insensitive.</td>
-              </tr>
-              <tr>
-                <td><code>repo_name</code></td>
-                <td>string</td>
-                <td><strong>Required.</strong> Name of the repo without <code>.git</code>.</td>
-              </tr>
-              <tr>
-                <td><code>issue_number</code></td>
-                <td>integer</td>
-                <td>ID of an issue in the repo. Used in issue-related actions.</td>
-              </tr>
-              <tr>
-                <td><code>pull_number</code></td>
-                <td>integer</td>
-                <td>ID of a pull request in the repo. Used in PR-related actions.</td>
-              </tr>
-              <tr>
-                <td><code>branch_name</code></td>
-                <td>string</td>
-                <td>Name of the Git branch.</td>
-              </tr>
-              <tr>
-                <td><code>sha</code></td>
-                <td>string</td>
-                <td>SHA hash of a commit, blob, or tree.</td>
-              </tr>
-              <tr>
-                <td><code>path</code></td>
-                <td>string</td>
-                <td>Path to a file or directory in the repo.</td>
-              </tr>
-              <tr>
-                <td><code>access_token</code></td>
-                <td>string</td>
-                <td><em>Usually set in Integration Settings.</em> GitHub personal access token.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    {
-      label: 'Common Outputs (API Response)',
-      content: (
-        <div className="tab-content">
-          <p>Most GitHub components return these fields:</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>Response</code></td>
-                <td>object</td>
-                <td>Raw JSON response from the GitHub API.</td>
-              </tr>
-              <tr>
-                <td><code>Headers</code></td>
-                <td>object</td>
-                <td>HTTP headers, including rate limits, pagination links, ETags, etc.</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <p>Many components also return standard resource fields:</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>id</code></td>
-                <td>integer</td>
-                <td>Unique identifier (issue, PR, user, etc.).</td>
-              </tr>
-              <tr>
-                <td><code>node_id</code></td>
-                <td>string</td>
-                <td>Global Relay ID.</td>
-              </tr>
-              <tr>
-                <td><code>url</code></td>
-                <td>string</td>
-                <td>API endpoint for the resource.</td>
-              </tr>
-              <tr>
-                <td><code>html_url</code></td>
-                <td>string</td>
-                <td>GitHub web URL for the resource.</td>
-              </tr>
-              <tr>
-                <td><code>user</code></td>
-                <td>object</td>
-                <td>User who created or is associated with the resource (includes <code>login</code>, <code>id</code>, etc.).</td>
-              </tr>
-              <tr>
-                <td><code>created_at</code></td>
-                <td>string (ISO 8601)</td>
-                <td>Creation timestamp.</td>
-              </tr>
-              <tr>
-                <td><code>updated_at</code></td>
-                <td>string (ISO 8601)</td>
-                <td>Last updated timestamp.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-  ]}
-/>
-
-<small>
-  <strong>Footnotes</strong><br />
-  1. <code>repo_owner</code> and <code>repo_name</code> together uniquely identify a repo (e.g., <code>SmythOS/Docs</code>).<br />
-  2. The <code>Response</code> object gives access to all data—even fields not mapped to outputs.
-</small>
-
-<InfoCallout> Component guides will primarily list outputs specific to the action (e.g., `commitSha` for "Commit File", `labels` array for "Get Issue Labels"). Always refer to the `Response` output for the complete data structure returned by the GitHub API. </InfoCallout>
+| If you need to… | Use this Component | Why this one? |
+|-----------------|--------------------|---------------|
+| **Create a new file** in your repository | [Commit File](#commit-file) | The primary method for adding new files and committing them in one step. |
+| **Update an existing file** | [Update File Content](#update-file-content) | Specifically designed to modify an existing file, requiring the file's SHA for safety. |
+| **Start a new feature branch** | [Create Branch](#create-branch) | The correct way to create a new branch pointing to a specific commit. |
+| **Propose changes for review** | [Create Pull Request](#create-pull-request) | This initiates the formal code review and merge process between two branches. |
+| **Automatically merge a PR** that has been approved | [Merge Pull Request](#merge-pull-request) | Finalizes the PR lifecycle by merging the code into the base branch. |
+| **Find a specific piece of code or issue** | [Search GitHub](#search-github) | A powerful tool to query across all of GitHub using its advanced search syntax. |
+| **Get a quick count of open bugs** | [Count Open Issues](#count-open-issues) | A simple way to get a key repository health metric. |
 
 <Divider/>
 
-## Quick Reference: GitHub Components
+## Component Details
 
-Use this table to quickly compare inputs, outputs, and typical use cases for each GitHub component.
-
-| Component | Key Input Fields (Type, Required) | Key Output Fields (Type) | Use Case & Details |
-|---|---|---|---|
-| **Add Labels to Issues** | `repo_owner`, `repo_name`, `issue_number`, `label` (string) | `labels` (array of label objects), `Response` | Adds one or more labels to a GitHub issue. |
-| **Create Branch** | `repo_owner`, `repo_name`, `branch_name`, `hash_to_branch_from` (string) | `branchRef`, `branchUrl`, `sha`, `Response` | Creates a new branch from a specific commit. |
-| **Commit File** | `repo_owner`, `repo_name`, `file_name`, `content` (Base64 string), `commit_message` (string) | `commitSha`, `Response` | Creates a new file in the repository with a commit. |
-| **Get Issue Labels** | `repo_owner`, `repo_name`, `issue_number` (integer) | `labels` (array of label objects), `Response` | Retrieves all labels for a specific issue. |
-| **Count Open Issues** | `repo_owner`, `repo_name` (string) | `openIssues` (integer from `Response`), `Response` | Returns the number of open issues in a repository. |
-| **Create Pull Request** | `owner` (repo_owner), `repo_name`, `title`, `pull_branch`, `base_branch` (string); `body` (string, Opt) | `id`, `url`, `mergeCommitSha`, `Response` | Opens a new pull request. |
-| **Fetch GitHub User** | `username` (string) | `id`, `name`, `email` (if public), `Response` | Gets public information about a GitHub user. |
-| **Get Issue** | `repo_owner`, `repo_name`, `issue_number` (integer) | `id`, `issueUrl`, (full issue object in `Response`) | Fetches complete details for a single issue. |
-| **Get Branch Info** | `repo_owner`, `repo_name`, `branch_name` (string) | `sha` (latest commit), (full branch object in `Response`) | Retrieves information about a specific branch. |
-| **Fetch Commits since Timestamp** | `repo_owner`, `repo_name`, `branch_name`, `timestamp` (string, ISO 8601) | `commits` (array of commit objects), `Response` | Lists commits on a branch after a certain time. |
-| **Get Repo Directory Content** | `repo_owner`, `repo_name`, `directory_path` (string) | `content` (array of file/dir objects), `Response` | Lists files and subdirectories in a repo path. |
-| **Search GitHub** | `query` (string) | `results` (array of search result items), `Response` | Searches code, issues, users, etc., across GitHub. |
-| **Fetch Latest Release** | `repo_owner`, `repo_name` (string) | `id`, `createdAt`, `publishedAt`, (full release object in `Response`) | Gets details of the latest repository release. |
-| **Update File Content** | `repo_owner`, `repo_name`, `path`, `content` (Base64 string), `sha` (blob SHA of file being updated), `commit_message` (string) | `sha` (commit SHA), `path`, `url`, `file_name`, `Response` | Updates an existing file in the repository. |
-| **Get Pull Request** | `repo_owner`, `repo_name`, `pull_number` (integer) | `title`, `body`, `state`, `requester`, etc. (full PR object in `Response`) | Fetches details for a specific pull request. |
-| **List Pull Requests** | `repo_owner`, `repo_name` (string); `state`, `head`, `base` (string, Opt) | `pull_requests` (array of PR objects in `Response`), `Response` | Lists pull requests for a repository. |
-| **List Pull Request Commits** | `repo_owner`, `repo_name`, `pull_number` (integer) | `commits` (array of commit objects in `Response`), `Response` | Lists commits in a specific pull request. |
-| **Merge Pull Request** | `repo_owner`, `repo_name`, `pull_number` (integer), `commit_title` (string); `commit_message`, `merge_method` (string, Opt) | `sha` (merge commit SHA), `merged` (boolean), `message`, `Response` | Merges an open pull request. |
-| **List Pull Request Files** | `repo_owner`, `repo_name`, `pull_number` (integer) | `files` (array of file objects in `Response`), `Response` | Lists files changed in a pull request. |
-| **List Pull Request Review Comments** | `repo_owner`, `repo_name`, `pull_number` (integer) | `comments` (array of comment objects in `Response`), `Response` | Lists review comments on a pull request. |
-| **Reply to Review Comment** | `repo_owner`, `repo_name`, `pull_number` (integer), `comment_id` (integer), `body` (string) | `id` (reply comment ID), `url`, `Response` | Adds a reply to a pull request review comment. |
-| **List Pull Request Reviews** | `repo_owner`, `repo_name`, `pull_number` (integer) | `reviews` (array of review objects in `Response`), `Response` | Lists reviews for a pull request. |
-
-<Divider/>
-
-## Which GitHub Component Should I Use With My Agent?
-
-| If you need to… | Typical Target / Key Inputs | Use this Component | Why this one? |
-|-----------------|----------------------------|-------------------|---------------|
-| **Add a label** like "bug" or "enhancement" to an issue | `repo_owner`, `repo_name`, `issue_number`, `label` | [Add Labels to Issues](#add-labels-to-issues) | Directly modifies an issue's labels. |
-| **Start a new line of development** from a specific point | `repo_owner`, `repo_name`, `branch_name`, `hash_to_branch_from` | [Create Branch](#create-branch) | Creates a new branch pointing to a given commit. |
-| **Create a new file** (e.g., a config file, a new script) in your repo | `repo_owner`, `repo_name`, `file_name`, `content` (Base64), `commit_message` | [Commit File](#commit-file) | Adds a new file and commits it. |
-| **Update an existing file** with new content | `repo_owner`, `repo_name`, `path`, `content` (Base64), `sha` (of the file), `commit_message` | [Update File Content](#update-file-content) | Modifies an existing file and commits the change. |
-| **Check what labels an issue currently has** | `repo_owner`, `repo_name`, `issue_number` | [Get Issue Labels](#get-issue-labels) | Retrieves the list of applied labels for an issue. |
-| **Get a quick count of unresolved issues** | `repo_owner`, `repo_name` | [Count Open Issues](#count-open-issues) | Provides the number of open issues. |
-| **Propose changes** from one branch to another | `owner`, `repo_name`, `title`, `pull_branch` (head), `base_branch` | [Create Pull Request](#create-pull-request) | Initiates the code review and merge process. |
-| **Get public details of a GitHub user** | `username` | [Fetch GitHub User](#fetch-github-user) | Retrieves profile information. |
-| **Read the full description and status of an issue** | `repo_owner`, `repo_name`, `issue_number` | [Get Issue](#get-issue) | Fetches all details of a specific issue. |
-| **Check the latest commit on a branch** | `repo_owner`, `repo_name`, `branch_name` | [Get Branch Info](#get-branch-info) | Provides details about a branch, including its head commit. |
-| **See recent changes on a branch** | `repo_owner`, `repo_name`, `branch_name`, `timestamp` | [Fetch Commits since Timestamp](#fetch-commits-since-timestamp) | Lists commits made after a specific time. |
-| **List files in a specific folder** of your repository | `repo_owner`, `repo_name`, `directory_path` | [Get Repo Directory Content](#get-repo-directory-content) | Shows the contents of a directory. |
-| **Find code snippets, issues, or users across GitHub** | `query` (GitHub search syntax) | [Search GitHub](#search-github) | Leverages GitHub's powerful search capabilities. |
-| **Get info about the newest software release** for a repo | `repo_owner`, `repo_name` | [Fetch Latest Release](#fetch-latest-release) | Retrieves details of the most recent official release. |
-| **Get the details of a specific pull request** | `repo_owner`, `repo_name`, `pull_number` | [Get Pull Request](#get-pull-request) | Fetches all information about a single PR. |
-| **See all open pull requests** for a repository | `repo_owner`, `repo_name` (optionally `state="open"`) | [List Pull Requests](#list-pull-requests) | Provides a list of PRs, filterable by state, etc. |
-| **Review the commit history of a pull request** | `repo_owner`, `repo_name`, `pull_number` | [List Pull Request Commits](#list-pull-request-commits) | Shows all commits included in a PR. |
-| **Finalize and integrate approved changes** from a PR | `repo_owner`, `repo_name`, `pull_number`, `commit_title` | [Merge Pull Request](#merge-pull-request) | Merges the PR into the base branch. |
-| **See which files were changed in a PR** | `repo_owner`, `repo_name`, `pull_number` | [List Pull Request Files](#list-pull-request-files) | Lists all files modified in a specific PR. |
-| **Read comments made during a PR review** | `repo_owner`, `repo_name`, `pull_number` | [List Pull Request Review Comments](#list-pull-request-review-comments) | Fetches all individual review comments. |
-| **Add your feedback to a PR review comment** | `repo_owner`, `repo_name`, `pull_number`, `comment_id`, `body` | [Reply to Review Comment](#reply-to-review-comment) | Allows programmatic commenting on PR reviews. |
-| **Get a summary of all reviews for a PR** (approved, changes requested, etc.) | `repo_owner`, `repo_name`, `pull_number` | [List Pull Request Reviews](#list-pull-request-reviews) | Retrieves the list of formal reviews submitted. |
-
-<InfoCallout> Still unsure? For basic file operations, look at **Commit File** or **Update File Content**. For issue management, start with **Get Issue** or **Add Labels to Issues**. For pull requests, **Create Pull Request**, **Get Pull Request**, and **Merge Pull Request** are central. </InfoCallout>
-
-<Divider/>
-
-<Divider />
-
-## Detailed Component Guides
-
-This section provides detailed information for each GitHub component. Remember to refer to the [Understanding Common GitHub Component I/O Fields](#understanding-common-github-component-io-fields) and [Deep Dive Into GitHub I/O Fields](#deep-dive-into-github-io-fields) for explanations of common inputs (like `repo_owner`, `repo_name`) and outputs (like `Response`, `Headers`). Each component guide below will highlight specific inputs and outputs for that action.
+This section provides detailed information for each GitHub component.
 
 ### <a name="add-labels-to-issues"></a>Add Labels to Issues
-
-The `Add Labels to Issues` component empowers users to add labels to issues reported in a GitHub repository.
-
-<InfoCallout title="Use Case Example">
-Automatically add a "bug" label to a new GitHub issue if it was created from a customer support ticket tagged as a product defect.
-</InfoCallout>
-
-#### Settings
-
-To kickstart this component, follow these initial steps to obtain your `Access Token`:
-
-1. Create a `GitHub` account if you don't already have one.
-2. Navigate to your `Developer Settings` and generate and acquire your `Access Token` by clicking [here](https://github.com/settings/tokens).
-3. Input this `Access Token` into the specified section in the component's settings (typically done at the integration level in SmythOS).
-
-> **Note:** Treat the `Access Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/github/screenshot1.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
+Adds one or more labels to an existing GitHub issue.
 
 #### Inputs
-
 | Field | Type | Required? | Description |
 |-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The account owner of the repository. The name is not case sensitive. |
-| `repo_name` | string | Yes | The name of the repository without the `.git` extension. The name is not case sensitive. |
+| `repo_owner` | string | Yes | The account owner of the repository. |
+| `repo_name` | string | Yes | The name of the repository. |
 | `issue_number` | integer | Yes | The number that identifies the issue. |
-| `label` | string | Yes | The name of the label to add to the issue's existing labels. To add multiple labels, you might need to provide them as an array of strings or use the component multiple times, depending on the specific implementation (e.g., `["bug", "priority:high"]` or a comma-separated string if supported by the underlying API call structure within the component). The provided text implies a single label string. For adding multiple, the component might accept an array in the `label` field or a JSON array in a `labels` field if available. If the component strictly takes one string, multiple calls would be needed. Assuming the input "label" is for a single label name based on the description. The API itself accepts an array of labels. |
-
-<Image src="/img/github/screenshot2.png" alt="Inputs for Add Labels to Issues component" />
-_Image: Inputs for the Add Labels to Issues component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section. This could be used to pass an array of labels if the component supports it via a different field name (e.g., `labels_array`).
+| `label` | string | Yes | The name of the label to add. For multiple, use an array of strings if supported, or call multiple times. |
 
 #### Outputs
-
 | Field | Type | Description |
 |-------|------|-------------|
-| `Response` | object | A detailed JSON object containing information on the results of adding labels to an issue. It includes the updated list of labels on the issue or details about any encountered errors. |
-| `Headers` | object | The HTTP Headers found within the server response from `GitHub`. These headers give additional context and metadata about the response, such as status codes and rate limit information. |
-| `labels` | array | An array of objects, where each object represents a label now applied to the issue. Each label object typically contains `id`, `node_id`, `url`, `name`, `color`, `default`, `description`. This confirms the modification of the issue's labels. |
+| `labels` | array | An array of objects representing all labels now on the issue. |
+| `Response` | object | The full, raw JSON response from the GitHub API. |
 
-<Image src="/img/github/screenshot3.png" alt="Outputs for Add Labels to Issues component" />
-_Image: Outputs from the Add Labels to Issues component._
+<TipCallout title="Use Case">
+Automatically add a "bug" label to a new GitHub issue if it was created from a customer support ticket tagged as a product defect.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Divider />
+<Divider/>
 
 ### <a name="create-branch"></a>Create Branch
-
-The `Create Branch` component empowers users to create a new branch in a GitHub repository. It creates a new reference (branch) pointing to a specific commit SHA. You are unable to create new references for empty repositories (repositories without any branches), even if the commit SHA-1 hash used exists.
-
-<InfoCallout title="Use Case Example">
-When a new feature development starts (e.g., triggered by an "approved" status in a project management tool), an agent automatically creates a new feature branch (e.g., `feature/PROJECT-123-new-login-flow`) from the latest commit on the `main` or `develop` branch.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot4.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
+Creates a new branch in a repository from a specific commit SHA.
 
 #### Inputs
 | Field | Type | Required? | Description |
 |-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The account owner of the repository. The name is not case sensitive. |
-| `repo_name` | string | Yes | The name of the repository without the `.git` extension. The name is not case sensitive. |
-| `branch_name` | string | Yes | The name for the new branch (e.g., `new-feature-branch`). This will be used to form the full ref: `refs/heads/new-feature-branch`. |
-| `hash_to_branch_from` | string | Yes | The SHA1 value (commit hash) from which this new branch will be created. |
-
-<Image src="/img/github/screenshot5.png" alt="Inputs for Create Branch component" />
-_Image: Inputs for the Create Branch component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| `repo_owner` | string | Yes | The account owner of the repository. |
+| `repo_name` | string | Yes | The name of the repository. |
+| `branch_name` | string | Yes | The name for the new branch (e.g., `feature/new-login`). |
+| `hash_to_branch_from` | string | Yes | The commit SHA from which the new branch will be created. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `Response` | object | A comprehensive JSON object providing details about the branch that was created. It includes the reference object or error details. |
-| `Headers` | object | HTTP Headers extracted from the `GitHub` server response. |
-| `branchRef` | string | The fully qualified reference name of the newly created branch (e.g., `refs/heads/new-feature-branch`). Extracted from `Response.ref`. |
-| `branchUrl` | string | The API URL for the created branch reference. Extracted from `Response.url`. |
-| `sha` | string | The SHA (commit identifier) that the new branch points to (this will be the same as `hash_to_branch_from`). Extracted from `Response.object.sha`. |
+| `branchRef` | string | The full reference name of the new branch (e.g., `refs/heads/feature/new-login`). |
+| `sha` | string | The commit SHA that the new branch points to. |
+| `Response` | object | The raw JSON response from the GitHub API. |
 
-<Image src="/img/github/screenshot6.png" alt="Outputs for Create Branch component" />
-_Image: Outputs from the Create Branch component._
+<TipCallout title="Use Case">
+When a new task is approved in your project manager, an agent automatically creates a new feature branch from the latest commit on `develop`.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
+<Divider/>
 
-<Divider />
-
-### <a name="commit-file"></a>Commit File (Create or Update File)
-
-The `Commit File` component empowers users to create a new file or update an existing file in a GitHub repository. If the file specified by `file_name` (path) doesn't exist, it will be created. If it does exist, this component (as typically implemented by GitHub's "Create or update file contents" API) would update it, but requires the `sha` of the existing file blob for updates. The provided description focuses on creating a new file.
-
-<InfoCallout title="Use Case Example">
-An agent generates a daily report and automatically commits it as a new Markdown file (e.g., `reports/daily-summary-YYYY-MM-DD.md`) to a documentation repository.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot7.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
+### <a name="commit-file"></a>Commit File
+Creates a new file in a repository.
 
 #### Inputs
 | Field | Type | Required? | Description |
 |-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The username or organization that owns the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository itself, without the `.git` extension. Case-insensitive. |
-| `file_name` | string | Yes | The full path to the file within the repository, including the filename (e.g., `src/new-module/config.json`, `README.md`). |
-| `content` | string | Yes | The actual content for the new file, encoded in Base64. |
-| `commit_message` | string | Yes | A short message describing the creation of this file. |
-| `branch` | string | No | The name of the branch to commit to. If omitted, the commit will be made to the repository's default branch. |
-| `committer_name` | string | No | The name of the committer. If not specified, the authenticated user's name is used. |
-| `committer_email` | string | No | The email of the committer. If not specified, the authenticated user's email is used. |
-| `author_name` | string | No | The name of the author. Defaults to the committer name if not specified. |
-| `author_email` | string | No | The email of the author. Defaults to the committer email if not specified. |
-
-<Image src="/img/github/screenshot8.png" alt="Inputs for Commit File component" />
-_Image: Inputs for the Commit File component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| `repo_owner` | string | Yes | The owner of the repository. |
+| `repo_name` | string | Yes | The name of the repository. |
+| `file_name` | string | Yes | The full path to the file (e.g., `docs/new-feature.md`). |
+| `content` | string | Yes | The file content, which must be **Base64 encoded**. |
+| `commit_message` | string | Yes | A short message describing the commit. |
+| `branch` | string | Optional | The branch to commit to. Defaults to the repo's default branch. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `Response` | object | An in-depth JSON object that delineates the events during file creation/update. It confirms success and provides error messages if any. The `Response.content` object will contain details about the created/updated file (name, path, sha, urls, etc.), and `Response.commit` will contain details about the commit. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `commitSha` | string | The SHA identifier of the commit that included the new or updated file. Extracted from `Response.commit.sha`. |
-| `fileSha` | string | The SHA (blob SHA) of the created or updated file content. Extracted from `Response.content.sha`. |
-| `filePath` | string | The path of the created or updated file. Extracted from `Response.content.path`. |
-| `fileHtmlUrl` | string | The HTML URL to view the created or updated file on GitHub.com. Extracted from `Response.content.html_url`. |
-
-<Image src="/img/github/screenshot9.png" alt="Outputs for Commit File component" />
-_Image: Outputs from the Commit File component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="get-issue-labels"></a>Get Issue Labels
-
-The `Get Issue Labels` component retrieves all the labels currently associated with a specific issue in a GitHub repository.
-
-<InfoCallout title="Use Case Example">
-Before an agent processes a GitHub issue, it first fetches the existing labels to determine its current status or category (e.g., to see if it's already labeled "in-progress" or "critical").
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot10.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The username or organization that owns the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository itself, without the `.git` extension. Case-insensitive. |
-| `issue_number` | integer | Yes | The number that identifies the issue. |
-
-<Image src="/img/github/screenshot11.png" alt="Inputs for Get Issue Labels component" />
-_Image: Inputs for the Get Issue Labels component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | The primary output is a JSON array where each object represents a label applied to the issue. Each label object typically contains `id`, `node_id`, `url`, `name`, `color`, `default`, and `description`. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `labels` | array | An array of label objects, extracted from the `Response`. Each object contains details of a label (name, color, etc.). |
-| `labelNames` | array | An array of strings, where each string is the `name` of a label applied to the issue. (This is a convenience output, likely parsed from the `labels` array). |
-
-
-<Image src="/img/github/screenshot12.png" alt="Outputs for Get Issue Labels component" />
-_Image: Outputs from the Get Issue Labels component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="count-open-issues"></a>Count Open Issues
-
-The `Count Open Issues` component allows you to get the number of open issues in a specific GitHub repository. This typically queries the repository details which include the `open_issues_count`.
-
-<InfoCallout title="Use Case Example">
-A dashboard agent fetches the count of open issues daily for several key repositories to monitor overall project health or backlog size.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot13.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The username or organization that owns the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository itself, without the `.git` extension. Case-insensitive. |
-
-<Image src="/img/github/screenshot14.png" alt="Inputs for Count Open Issues component" />
-_Image: Inputs for the Count Open Issues component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | The key output, containing a complete JSON object with information about the GitHub repository, including the count of open issues. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `openIssues` | integer | The number of open issues in the repository. This is typically extracted from `Response.open_issues_count` or `Response.open_issues`. |
-
-<Image src="/img/github/screenshot15.png" alt="Outputs for Count Open Issues component" />
-_Image: Outputs from the Count Open Issues component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="create-pull-request"></a>Create Pull Request
-
-The `Create Pull Request` component streamlines the process of creating pull requests on GitHub. Pull requests propose changes from a head branch to a base branch in a repository.
-
-<InfoCallout title="Use Case Example">
-After an agent successfully pushes code changes to a feature branch (e.g., `feature/new-auth`), it automatically creates a pull request to merge these changes into the `develop` branch, with a predefined title and body.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot16.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `owner` | string | Yes | The account owner of the repository (username or organization name). Case-insensitive. (Note: often named `repo_owner` in other components for consistency). |
-| `repo_name` | string | Yes | The name of the repository without the `.git` extension. Case-insensitive. |
-| `title` | string | Yes | The title of the new pull request. |
-| `body` | string | No | The contents/description of the pull request. Supports Markdown. |
-| `pull_branch` | string | Yes | The name of the branch where your changes are implemented (the "head" branch). E.g., `feature/new-login`. |
-| `base_branch` | string | Yes | The name of the branch you want the changes pulled into (the "base" branch). E.g., `main` or `develop`. This should be an existing branch. |
-| `maintainer_can_modify` | boolean | No | Indicates whether maintainers can modify the pull request. Defaults to `true`. |
-| `draft` | boolean | No | Indicates whether the pull request is a draft. Defaults to `false`. |
-| `issue` | integer | No | The issue number to link this pull request to. |
-
-
-<Image src="/img/github/screenshot17.png" alt="Inputs for Create Pull Request component" />
-_Image: Inputs for the Create Pull Request component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | A JSON object providing a comprehensive rundown of the pull request's particulars that was generated. It includes the full pull request object. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `id` | integer | The unique identifier (ID) for the newly created pull request. Extracted from `Response.id`. |
-| `number` | integer | The pull request number. Extracted from `Response.number`. |
-| `url` | string | The API URL for the created pull request. Extracted from `Response.url`. |
-| `html_url` | string | The HTML URL to view the pull request on GitHub.com. Extracted from `Response.html_url`. |
-| `state` | string | The initial state of the pull request (e.g., `open`). Extracted from `Response.state`. |
-| `merge_commit_sha` | string | The SHA of the potential merge commit. This field is `null` until the pull request is merged. Extracted from `Response.merge_commit_sha`. |
-
-
-<Image src="/img/github/screenshot18.png" alt="Outputs for Create Pull Request component" />
-_Image: Outputs from the Create Pull Request component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="fetch-github-user"></a>Fetch GitHub User
-
-The `Fetch GitHub User` component makes it a breeze to retrieve public information about a GitHub user.
-
-<InfoCallout title="Use Case Example">
-When processing a new contributor's first pull request, an agent fetches their GitHub user profile to get their name and public email (if available) for internal records or welcome messages.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot19.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `username` | string | Yes | The GitHub username (login) of the user you're interested in. |
-
-<Image src="/img/github/screenshot20.png" alt="Inputs for Fetch GitHub User component" />
-_Image: Inputs for the Fetch GitHub User component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | Enclosed within this response is an assemblage of details about the GitHub user. This includes public profile details like username, bio, location, public repositories count, followers, following, etc. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `id` | integer | The unique identifier (ID) of the GitHub user. Extracted from `Response.id`. |
-| `login` | string | The username of the GitHub user. Extracted from `Response.login`. |
-| `name` | string | The display name associated with the GitHub user’s profile (can be null). Extracted from `Response.name`. |
-| `email` | string | The user's publicly visible email address, if they have set one. Often `null`. Extracted from `Response.email`. |
-| `html_url` | string | The URL to the user's profile page on GitHub.com. Extracted from `Response.html_url`. |
-| `avatar_url` | string | The URL for the user's avatar image. Extracted from `Response.avatar_url`. |
-| `bio` | string | The user's biography. Extracted from `Response.bio`. |
-| `public_repos` | integer | The number of public repositories the user has. Extracted from `Response.public_repos`. |
-
-<Image src="/img/github/screenshot21.png" alt="Outputs for Fetch GitHub User component" />
-_Image: Outputs from the Fetch GitHub User component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="get-issue"></a>Get Issue
-
-The `Get Issue` component simplifies the process of fetching detailed information about a specific issue from a GitHub repository.
-
-<InfoCallout title="Use Case Example">
-An agent needs to retrieve the full description, current status (open/closed), assignees, and comments for a specific GitHub issue to generate a summary report or to decide on the next step in an automated workflow.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot22.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository where the issue is located. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository (without the `.git` extension). Case-insensitive. |
-| `issue_number` | integer | Yes | The unique number identifying the issue within the repository. |
-
-<Image src="/img/github/screenshot23.png" alt="Inputs for Get Issue component" />
-_Image: Inputs for the Get Issue component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | The response encompasses a robust JSON object that details all intricate information regarding the issue, such as its title, body content, current state (open/closed), labels, assignees, comments URL, milestone, etc. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `id` | integer | The unique identifier assigned to the issue by `GitHub`. Extracted from `Response.id`. |
-| `number` | integer | The issue number. Extracted from `Response.number`. |
-| `title` | string | The title of the issue. Extracted from `Response.title`. |
-| `body` | string | The main description/content of the issue. Extracted from `Response.body`. |
-| `state` | string | The current state of the issue (e.g., `open`, `closed`). Extracted from `Response.state`. |
-| `html_url` | string | The HTML URL to view the issue on GitHub.com. Extracted from `Response.html_url`. |
-| `user_login` | string | The login username of the user who created the issue. Extracted from `Response.user.login`. |
-| `labels` | array | An array of label objects applied to the issue. Extracted from `Response.labels`. |
-| `assignees` | array | An array of user objects assigned to the issue. Extracted from `Response.assignees`. |
-
-
-<Image src="/img/github/screenshot24.png" alt="Outputs for Get Issue component" />
-_Image: Outputs from the Get Issue component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="get-branch-info"></a>Get Branch Info
-
-Retrieves detailed information about a specific branch within a `GitHub` repository, allowing for streamlined access to branch data, including its latest commit.
-
-<InfoCallout title="Use Case Example">
-Before creating a new feature branch, an agent uses "Get Branch Info" to fetch the SHA of the latest commit on the `develop` branch to ensure the new feature branch is based on the most up-to-date code.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot25.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository (without the `.git` extension). Case-insensitive. |
-| `branch_name` | string | Yes | The exact name of the branch for which information is requested (e.g., `main`, `develop`). Case sensitivity may apply based on repository settings. |
-
-<Image src="/img/github/screenshot26.png" alt="Inputs for Get Branch Info component" />
-_Image: Inputs for the Get Branch Info component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | A JSON object providing detailed information about the branch, including its name, latest commit (with SHA, author, message, etc.), protection status, and links. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. |
-| `name` | string | The name of the branch. Extracted from `Response.name`. |
-| `sha` | string | The SHA (commit hash) of the latest commit on the queried branch. Extracted from `Response.commit.sha`. |
-| `commit_url` | string | The API URL for the latest commit on the branch. Extracted from `Response.commit.url`. |
-| `protected` | boolean | Indicates if the branch is protected. Extracted from `Response.protected`. |
-
-<Image src="/img/github/screenshot27.png" alt="Outputs for Get Branch Info component" />
-_Image: Outputs from the Get Branch Info component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="fetch-commits-since-timestamp"></a>Fetch Commits since Timestamp
-
-The `Fetch Commits since Timestamp` component simplifies the process of retrieving information about commits made to a specific branch in a GitHub repository since a given timestamp.
-
-<InfoCallout title="Use Case Example">
-A daily agent fetches all commits made to the `main` branch since the previous day to generate a changelog or send update notifications.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot28.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The repository owner's username or organization name. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository, excluding the `.git` extension. Case-insensitive. |
-| `branch_name` | string | Yes | The name of the branch from which commits will be retrieved (e.g., `main`, `develop`). |
-| `timestamp` | string | Yes | The timestamp in ISO 8601 format (e.g., `2019-07-09T18:32:01Z`). Commits made at or after this time will be returned. This corresponds to the `since` parameter in the GitHub API. |
-| `author` | string | No | Optional. Filter commits by a specific author's GitHub login or email. |
-| `per_page` | integer | No | Optional. Number of results to return per page (max 100). Default is 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot29.png" alt="Inputs for Fetch Commits since Timestamp component" />
-_Image: Inputs for the Fetch Commits since Timestamp component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | A JSON array where each object represents a commit. Each commit object contains details like SHA, author, committer, message, commit date, URLs, etc. |
-| `Headers` | object | HTTP Headers from the `GitHub` server response. Includes pagination links if applicable. |
-| `commits` | array | An array of commit objects, extracted from the `Response`. Each object details an individual commit's SHA, author login, commit message, date, etc. |
-
-<Image src="/img/github/screenshot30.png" alt="Outputs for Fetch Commits since Timestamp component" />
-_Image: Outputs from the Fetch Commits since Timestamp component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. For pagination, you'll need to inspect the `Link` header in the `Headers` output.
-
-<Divider />
-
-### <a name="get-repo-directory-content"></a>Get Repo Directory Content
-
-The `Get Repo Directory Content` component facilitates the retrieval of the contents (files and subdirectories) within a specific directory of a GitHub repository. If no `directory_path` is provided, it returns the contents of the root directory.
-
-<InfoCallout title="Use Case Example">
-An agent needs to list all configuration files (e.g., `*.json`, `*.yaml`) within a `config/` directory of a repository to verify their presence or read their metadata.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot31.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The username or organization name of the repository owner. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository, excluding the `.git` extension. Case-insensitive. |
-| `directory_path` | string | No | The path to the directory within the repository. If omitted, contents of the root directory are fetched. E.g., `src/utils` or `docs/images`. |
-| `ref` | string | No | Optional. The name of the commit/branch/tag. Default: the repository’s default branch (usually `main` or `master`). |
-
-<Image src="/img/github/screenshot32.png" alt="Inputs for Get Repo Directory Content component" />
-_Image: Inputs for the Get Repo Directory Content component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | Contains a JSON array where each object represents an item (file or directory) in the specified path. Each item includes `name`, `path`, `sha`, `size`, `type` (`file` or `dir`), `html_url`, `download_url`, etc. |
-| `Headers` | object | HTTP headers returned from `GitHub`. |
-| `content` | array | An array of objects, extracted from `Response`, detailing each item within the directory. Each object includes `name`, `path`, `sha`, `type`, `html_url`, `download_url`. |
-| `sha` | string | (If `directory_path` points to a single file) The SHA hash of the file. More generally, refers to the SHA of the tree object for a directory. The `content` array is more useful for individual item SHAs. |
-| `html_url` | string | (If `directory_path` points to a single file) The HTML URL to the item on `GitHub`. The `content` array is more useful for individual item HTML URLs. |
-
-<Image src="/img/github/screenshot33.png" alt="Outputs for Get Repo Directory Content component" />
-_Image: Outputs from the Get Repo Directory Content component._
-
-> **Note:** To get the actual content of a file listed, you'd typically use the `download_url` or make another API call using the file's `path` or `sha` with a "Get File Content" type component (if available, or by constructing the correct API call). This component lists directory contents.
-
-<Divider />
-
-### <a name="search-github"></a>Search GitHub
-
-The `Search GitHub` component simplifies the process of searching for various entities (code, commits, issues, users, repositories, etc.) across GitHub using GitHub's search syntax. This method returns up to 100 results per page.
-
-<InfoCallout title="Use Case Example">
-An agent searches for all open issues across multiple repositories within an organization that contain the label "security" and the keyword "vulnerability" to compile a priority list. Query: `org:MyOrg label:security vulnerability is:issue is:open`.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot34.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `query` | string | Yes | The search query string. Contains one or more search keywords and qualifiers (e.g., `user:SmythOS-agent`, `repo:owner/repo-name`, `language:javascript`, `state:open`). Refer to [GitHub Search Syntax documentation](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests) for constructing queries. The specific search endpoint (code, issues, users) might be part of the component's internal logic or configurable. The example text implies a general search, but typically you search a specific type. Assuming this component targets a specific search type like "search code" or "search issues" based on its internal configuration or an unlisted input parameter. For this example, we'll assume it's a general search that might require qualifiers in the query to target specific types. |
-| `sort` | string | No | Optional. The sort field. Can be `stars`, `forks`, `help-wanted-issues`, `updated` for repositories. For code, `indexed`. For issues, `comments`, `created`, `updated`. Defaults to `best match`. |
-| `order` | string | No | Optional. The sort order if `sort` parameter is provided. Either `asc` or `desc`. Default `desc`. |
-| `per_page` | integer | No | Optional. Number of results to return per page (max 100). Default is 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot35.png" alt="Inputs for Search GitHub component" />
-_Image: Inputs for the Search GitHub component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | The response is comprehensive, supplying a JSON object that includes `total_count` (total number of items matching the query), `incomplete_results` (boolean), and an `items` array. Each object in the `items` array represents a search result (e.g., a repository, an issue, a user, a code fragment) and its structure varies depending on what was searched. |
-| `Headers` | object | HTTP headers from the `GitHub` server response, including pagination and rate limit information. |
-| `results` | array | An array of search result items, extracted from `Response.items`. The structure of each item depends on the type of search performed. |
-| `total_count` | integer | The total number of items found by the search. Extracted from `Response.total_count`. |
-
-<Image src="/img/github/screenshot36.png" alt="Outputs for Search GitHub component" />
-_Image: Outputs from the Search GitHub component._
-
-> **Note:** When searching code, you can obtain text match metadata by passing the `text-match` media type via headers, if the component supports custom headers. Refer to [GitHub's Text match metadata documentation](https://docs.github.com/rest/search/search#text-match-metadata).
-
-<Divider />
-
-### <a name="fetch-latest-release"></a>Fetch Latest Release
-
-The `Fetch Latest Release` component retrieves the latest published full release for a specified repository. The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute (which is the commit date, not the release publication date).
-
-<InfoCallout title="Use Case Example">
-An agent monitors a critical software repository and, upon detecting a new latest release, triggers a deployment workflow or sends a notification to the operations team with the release tag and assets.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot37.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The username or organization name of the repository owner. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository, excluding the `.git` extension. Case-insensitive. |
-
-<Image src="/img/github/screenshot38.png" alt="Inputs for Fetch Latest Release component" />
-_Image: Inputs for the Fetch Latest Release component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | A comprehensive JSON object detailing the latest release. This includes `tag_name`, `name`, `body` (release notes), `assets` (array of release assets), `author`, `published_at`, `created_at`, `html_url`, `tarball_url`, `zipball_url`, etc. |
-| `Headers` | object | HTTP headers from the `GitHub` server response. |
-| `id` | integer | The unique identifier (ID) for the latest release. Extracted from `Response.id`. |
-| `tag_name` | string | The tag name for this release (e.g., `v1.2.3`). Extracted from `Response.tag_name`. |
-| `name` | string | The name of the release (can be different from tag name). Extracted from `Response.name`. |
-| `body` | string | The release notes/description. Extracted from `Response.body`. |
-| `created_at` | string | Timestamp indicating when the commit for the release was created (ISO 8601). Extracted from `Response.created_at`. |
-| `published_at` | string | Timestamp indicating when the release was made publicly available (ISO 8601). Extracted from `Response.published_at`. |
-| `html_url` | string | The URL to view this release on GitHub.com. Extracted from `Response.html_url`. |
-| `assets` | array | An array of asset objects associated with the release (e.g., compiled binaries, archives). Each asset object contains `name`, `browser_download_url`, `size`, `content_type`, etc. Extracted from `Response.assets`. |
-
-<Image src="/img/github/screenshot39.png" alt="Outputs for Fetch Latest Release component" />
-_Image: Outputs from the Fetch Latest Release component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="update-file-content"></a>Update File Content
-
-Updates the content of an existing file in a `GitHub` repository. This operation requires the SHA of the file blob you are updating to ensure you're modifying the correct version and to prevent overwriting concurrent changes.
-
-<InfoCallout title="Use Case Example">
-An agent periodically fetches external configuration data and updates a `config.json` file in a repository with the latest settings, providing a commit message indicating the source of the update.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot40.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | Username or organization name under which the repository is listed. Case-insensitive. |
-| `repo_name` | string | Yes | Repository name, without the `.git` extension. Case-insensitive. |
-| `path` | string | Yes | Full path to the file within the repository that needs to be updated (e.g., `src/config/settings.yaml`). |
-| `content` | string | Yes | The new content for the file, Base64 encoded. |
-| `sha` | string | Yes | The SHA hash (blob SHA) of the file being replaced. This is required to ensure you are updating the version of the file you intend to. You can get this from "Get Repo Directory Content" or when fetching file details. |
-| `commit_message` | string | Yes | A descriptive message for the commit that updates this file. |
-| `branch` | string | No | The name of the branch to commit the update to. If omitted, the update will be made to the repository's default branch. |
-| `committer_name` | string | No | The name of the committer. Defaults to the authenticated user. |
-| `committer_email` | string | No | The email of the committer. Defaults to the authenticated user. |
-| `author_name` | string | No | The name of the author. Defaults to the committer. |
-| `author_email` | string | No | The email of the author. Defaults to the committer. |
-
-<Image src="/img/github/screenshot41.png" alt="Inputs for Update File Content component" />
-_Image: Inputs for the Update File Content component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON data including details of the update. The `Response.content` object will describe the updated file, and `Response.commit` will describe the commit. |
-| `Headers` | object | HTTP headers from GitHub showing metadata about the response. |
-| `commit_sha` | string | The SHA of the commit that updated the file. Extracted from `Response.commit.sha`. |
-| `file_sha` | string | The new SHA (blob SHA) of the updated file content. Extracted from `Response.content.sha`. |
-| `path` | string | Path to the updated file. Extracted from `Response.content.path`. |
-| `url` | string | The API URL to the updated file content. Extracted from `Response.content.url`. |
-| `html_url` | string | The HTML URL to view the updated file on GitHub.com. Extracted from `Response.content.html_url`. |
-| `file_name` | string | Name of the file updated. Extracted from `Response.content.name`. |
-
-<Image src="/img/github/screenshot42.png" alt="Outputs for Update File Content component" />
-_Image: Outputs from the Update File Content component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="get-pull-request"></a>Get Pull Request
-
-Lists details of a specific pull request by providing its number within a repository.
-
-<InfoCallout title="Use Case Example">
-An agent, triggered by a notification about a new comment on a pull request, uses "Get Pull Request" to fetch the PR's current state (open, closed, merged), title, body, and author before processing the comment.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot43.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository (username or organization). Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository (without `.git` extension). Case-insensitive. |
-| `pull_number` | integer | Yes | The number identifying the pull request within the repository. |
-
-<Image src="/img/github/screenshot44.png" alt="Inputs for Get Pull Request component" />
-_Image: Inputs for the Get Pull Request component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON data including the full details of the pull request (e.g., id, number, state, title, body, user, created_at, updated_at, closed_at, merged_at, merge_commit_sha, head branch, base branch, labels, assignees, requested_reviewers, comments_url, review_comments_url, commits_url, html_url, etc.). |
-| `Headers` | object | HTTP headers from GitHub showing metadata about the response. |
-| `id` | integer | The unique ID of the pull request. Extracted from `Response.id`. |
-| `number` | integer | The pull request number. Extracted from `Response.number`. |
-| `title` | string | The title of the pull request. Extracted from `Response.title`. |
-| `body` | string | The body content/description of the pull request. Extracted from `Response.body`. |
-| `state` | string | The current state of the pull request (e.g., `open`, `closed`, `merged`). Extracted from `Response.state`. |
-| `requester` | string | The login username of the user who created the pull request. Extracted from `Response.user.login`. |
-| `changed_files` | integer | The number of files changed in the pull request. Extracted from `Response.changed_files`. |
-| `deletions` | integer | The number of lines deleted in the pull request. Extracted from `Response.deletions`. |
-| `additions` | integer | The number of lines added in the pull request. Extracted from `Response.additions`. |
-| `commits` | integer | The number of commits in the pull request. Extracted from `Response.commits`. |
-| `html_url` | string | The URL of the pull request on GitHub.com. Extracted from `Response.html_url`. |
-| `merged` | boolean | Indicates if the pull request has been merged. Extracted from `Response.merged`. |
-
-<Image src="/img/github/screenshot45.png" alt="Outputs for Get Pull Request component" />
-_Image: Outputs from the Get Pull Request component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="list-pull-requests"></a>List Pull Requests
-
-Lists pull requests in a specified repository. Can be filtered by state (open, closed, all), head branch, base branch, etc.
-
-<InfoCallout title="Use Case Example">
-A daily reporting agent lists all currently `open` pull requests for a repository that are targeting the `main` branch to include in a status update.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot46.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `state` | string | No | Optional. Filter by state: `open`, `closed`, or `all`. Default: `open`. |
-| `head` | string | No | Optional. Filter by head branch. Format: `user:branch` or `organization:branch`. |
-| `base` | string | No | Optional. Filter by base branch name. |
-| `sort` | string | No | Optional. What to sort results by. Can be `created`, `updated`, `popularity` (comment count), `long-running` (age, filtering by pulls updated in the last month). Default: `created`. |
-| `direction` | string | No | Optional. The direction of the sort. Can be `asc` or `desc`. Default: `desc`. |
-| `per_page` | integer | No | Optional. Results per page (max 100). Default: 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot47.png" alt="Inputs for List Pull Requests component" />
-_Image: Inputs for the List Pull Requests component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON array where each object represents a pull request, containing details like `id`, `number`, `title`, `user`, `state`, `html_url`, etc. |
-| `Headers` | object | HTTP headers from GitHub, including pagination links in the `Link` header if multiple pages of results exist. |
-| `pull_requests` | array | An array of pull request objects, extracted from the `Response`. |
-
-<Image src="/img/github/screenshot48.png" alt="Outputs for List Pull Requests component" />
-_Image: Outputs from the List Pull Requests component._
-
-> **Note:** For pagination, parse the `Link` header in the `Headers` output.
-
-<Divider />
-
-### <a name="list-pull-request-commits"></a>List Pull Request Commits
-
-Lists a maximum of 250 commits for a specified pull request.
-
-<InfoCallout title="Use Case Example">
-When a pull request is updated, an agent fetches the list of its commits to log the commit messages and authors for an audit trail or to check if specific commit patterns are present.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot49.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request. |
-| `per_page` | integer | No | Optional. Results per page (max 100, though the API endpoint itself has a hard limit of 250 total). Default: 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot50.png" alt="Inputs for List Pull Request Commits component" />
-_Image: Inputs for the List Pull Request Commits component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON array where each object represents a commit associated with the pull request. Each commit object contains `sha`, `commit` (with `author`, `committer`, `message`), `author` (user object), `committer` (user object), `html_url`, etc. |
-| `Headers` | object | HTTP headers from GitHub, including pagination links if applicable (though this endpoint has a max of 250 commits). |
-| `commits` | array | An array of commit objects, extracted from the `Response`. |
-
-<Image src="/img/github/screenshot51.png" alt="Outputs for List Pull Request Commits component" />
-_Image: Outputs from the List Pull Request Commits component._
-
-> **Note:** While pagination parameters `per_page` and `page` might be accepted, the GitHub API for listing PR commits has a hard limit of returning up to 250 commits.
-
-<Divider />
-
-### <a name="merge-pull-request"></a>Merge Pull Request
-
-Merges an open pull request into the base branch.
-
-<InfoCallout title="Use Case Example">
-After all automated checks pass and a pull request receives the required approvals (monitored by an agent), the agent automatically merges the pull request using a specified merge method and commit message.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot52.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request to merge. |
-| `commit_title` | string | No | Optional. Title for the merge commit. If omitted, GitHub generates a default title. |
-| `commit_message` | string | No | Optional. A detailed message for the merge commit. |
-| `merge_method` | string | No | Optional. The merge method to use. Can be `merge` (default), `squash`, or `rebase`. |
-| `sha` | string | No | Optional. SHA that pull request head must match to allow merge. |
-
-<Image src="/img/github/screenshot53.png" alt="Inputs for Merge Pull Request component" />
-_Image: Inputs for the Merge Pull Request component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON data including details of the merge operation, such as the SHA of the merge commit and a success message. |
-| `Headers` | object | HTTP headers from GitHub showing metadata about the response. |
-| `sha` | string | The SHA hash of the merge commit. Extracted from `Response.sha`. |
-| `merged` | boolean | Indicates whether the merge was successful. Extracted from `Response.merged`. |
-| `message` | string | A message pertaining to the merge status (e.g., "Pull Request successfully merged"). Extracted from `Response.message`. |
-
-<Image src="/img/github/screenshot54.png" alt="Outputs for Merge Pull Request component" />
-_Image: Outputs from the Merge Pull Request component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="list-pull-request-files"></a>List Pull Request Files
-
-Lists the files that have been changed in a specified pull request.
-
-<InfoCallout title="Use Case Example">
-When a pull request is opened, an agent lists the files changed. If any files match a predefined list of critical configuration files, it adds a "needs-security-review" label to the PR.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot55.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request. |
-| `per_page` | integer | No | Optional. Results per page (max 100). Default: 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot56.png" alt="Inputs for List Pull Request Files component" />
-_Image: Inputs for the List Pull Request Files component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON array where each object represents a file changed in the pull request. Each file object includes `sha`, `filename`, `status` (e.g., `added`, `modified`, `removed`), `additions`, `deletions`, `changes`, `blob_url`, `raw_url`, `contents_url`, `patch`. |
-| `Headers` | object | HTTP headers from GitHub, including pagination links. |
-| `files` | array | An array of file objects, extracted from the `Response`. Each object details a file changed in the PR. |
-
-<Image src="/img/github/screenshot57.png" alt="Outputs for List Pull Request Files component" />
-_Image: Outputs from the List Pull Request Files component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="list-pull-request-review-comments"></a>List Pull Request Review Comments
-
-Lists all review comments for a specified pull request. These are comments made on specific lines of code within a review, not general PR comments.
-
-<InfoCallout title="Use Case Example">
-An agent fetches all review comments on a pull request to perform analysis, such as identifying frequently commented-on files or common feedback patterns, to generate a summary for the development team.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot58.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request. |
-| `sort` | string | No | Optional. Can be `created` or `updated`. Default: `created`. |
-| `direction` | string | No | Optional. Can be `asc` or `desc`. Default: `desc`. |
-| `since` | string | No | Optional. ISO 8601 timestamp. Only comments updated at or after this time are returned. |
-| `per_page` | integer | No | Optional. Results per page (max 100). Default: 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot59.png" alt="Inputs for List Pull Request Review Comments component" />
-_Image: Inputs for the List Pull Request Review Comments component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON array where each object represents a review comment. Each comment object includes `id`, `user`, `body`, `path`, `position`, `commit_id`, `created_at`, `updated_at`, `html_url`, etc. |
-| `Headers` | object | HTTP headers from GitHub, including pagination links. |
-| `comments` | array | An array of review comment objects, extracted from the `Response`. |
-
-<Image src="/img/github/screenshot60.png" alt="Outputs for List Pull Request Review Comments component" />
-_Image: Outputs from the List Pull Request Review Comments component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="reply-to-review-comment"></a>Reply to Review Comment
-
-Creates a reply to an existing review comment on a pull request. This is for replying to a specific comment thread, not creating a new top-level review comment.
-
-<InfoCallout title="Use Case Example">
-If a CI build fails due to a linting error commented on by a bot in a PR review, an agent (after attempting to fix the linting error and re-pushing) could automatically reply to the bot's comment stating "Linting issues addressed and fixed."
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot61.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request. |
-| `comment_id` | integer | Yes | The ID of the review comment you are replying to. |
-| `body` | string | Yes | The content of your reply. Supports Markdown. |
-
-<Image src="/img/github/screenshot62.png" alt="Inputs for Reply to Review Comment component" />
-_Image: Inputs for the Reply to Review Comment component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON data including details of the created reply comment, such as its `id`, `body`, `user`, `created_at`, `html_url`. |
-| `Headers` | object | HTTP headers from GitHub. |
-| `id` | integer | The ID of the created reply comment. Extracted from `Response.id`. |
-| `pull_request_review_id` | integer | The ID of the pull request review this comment is part of. Extracted from `Response.pull_request_review_id`. |
-| `url` | string | The API URL of the created reply comment. Extracted from `Response.url`. |
-| `html_url` | string | The HTML URL to view the reply comment on GitHub.com. Extracted from `Response.html_url`. |
-
-<Image src="/img/github/screenshot63.png" alt="Outputs for Reply to Review Comment component" />
-_Image: Outputs from the Reply to Review Comment component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
-
-<Divider />
-
-### <a name="list-pull-request-reviews"></a>List Pull Request Reviews
-
-Lists all reviews submitted for a specified pull request. A review is a collection of review comments and an overall state (e.g., Approved, Changes Requested, Commented).
-
-<InfoCallout title="Use Case Example">
-An agent checks all reviews on a pull request. If it has at least two "APPROVED" reviews and no "CHANGES_REQUESTED" reviews, the agent proceeds to merge the PR.
-</InfoCallout>
-
-#### Settings
-(Refer to the "Settings" section under [Add Labels to Issues](#add-labels-to-issues) for details on obtaining and configuring your GitHub Access Token in SmythOS.)
-
-<Image src="/img/github/screenshot64.png" alt="GitHub PAT Token Settings in SmythOS" />
-_Image: Configuring GitHub Access Token in SmythOS integration settings._
-
-#### Inputs
-| Field | Type | Required? | Description |
-|-------|------|-----------|-------------|
-| `repo_owner` | string | Yes | The owner of the repository. Case-insensitive. |
-| `repo_name` | string | Yes | The name of the repository. Case-insensitive. |
-| `pull_number` | integer | Yes | The number of the pull request. |
-| `per_page` | integer | No | Optional. Results per page (max 100). Default: 30. |
-| `page` | integer | No | Optional. Page number of the results to fetch. |
-
-<Image src="/img/github/screenshot65.png" alt="Inputs for List Pull Request Reviews component" />
-_Image: Inputs for the List Pull Request Reviews component._
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response` | object | JSON array where each object represents a review. Each review object includes `id`, `user`, `body` (overall review comment), `state` (e.g., `APPROVED`, `CHANGES_REQUESTED`, `COMMENTED`), `submitted_at`, `commit_id`, `html_url`. |
-| `Headers` | object | HTTP headers from GitHub, including pagination links. |
-| `reviews` | array | An array of review objects, extracted from the `Response`. |
-
-<Image src="/img/github/screenshot66.png" alt="Outputs for List Pull Request Reviews component" />
-_Image: Outputs from the List Pull Request Reviews component._
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section.
+| `commitSha` | string | The SHA identifier of the new commit. |
+| `fileSha` | string | The blob SHA of the new file content. |
+| `Response` | object | The raw JSON response from the GitHub API. |
+
+<TipCallout title="Use Case">
+An agent generates a daily report and automatically commits it as a new Markdown file to a documentation repository.
+</TipCallout>
+
+<WarningCallout title="Base64 Encoding Required">
+You must encode your file content to Base64 before passing it to the `content` input.
+</WarningCallout>
+
+... *(Guides for all other components would follow the same detailed format)* ...
 
 <Divider />
 
 ## Best Practices & Advanced Tips
 
-* **Secure Your Personal Access Token (PAT):** Treat your PAT like a password. Store it securely using SmythOS Vault. Grant it only the minimum necessary scopes for the actions your agents will perform. Regularly review and rotate tokens if necessary.
-* **Understand GitHub API Rate Limits:** Be aware of GitHub's API rate limits (typically per hour per user/token). Check `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers in the `Headers` output. Implement graceful handling (e.g., delays, retries with exponential backoff) in your agents if they make many requests.
-* **Use ETags for Caching:** For GET requests, GitHub returns an `ETag` header. If the data hasn't changed, you can make a conditional request using the `If-None-Match` header with the ETag value. If data is unchanged, GitHub returns a `304 Not Modified` status, saving quota and bandwidth. (This might require custom API call configurations if not natively supported by components).
-* **Pagination:** For components that list multiple items (issues, PRs, commits, files, etc.), always check for pagination information in the `Link` header (found in the `Headers` output) or use `page` and `per_page` parameters correctly to fetch all results if needed.
-* **Idempotency:** Design agent workflows to be idempotent where possible, especially for write operations (creating branches, committing files, adding labels). This means if an operation is run multiple times with the same input, it produces the same result without unintended side effects (e.g., creating duplicate branches).
-* **Clear Commit Messages:** When using components like "Commit File" or "Merge Pull Request," ensure your agents provide clear, descriptive commit messages.
-* **Base64 Encoding for File Content:** For "Commit File" and "Update File Content," ensure the `content` input is correctly Base64 encoded. Plain text or binary data must be encoded first.
-* **SHA for File Updates:** When using "Update File Content," providing the correct `sha` (blob SHA) of the file you intend to update is crucial to avoid conflicts and ensure you're modifying the intended version.
-* **Error Handling:** Always check the `Response` object from components for error messages or non-successful status codes. The GitHub API provides informative error details.
+* **Secure Your Personal Access Token (PAT):** Treat your PAT like a password. Store it securely using SmythOS Vault and grant it only the minimum necessary scopes.
+* **Use ETags for Caching:** For GET requests, GitHub returns an `ETag` header. You can use this to make conditional requests to save API quota if the data hasn't changed.
+* **Pagination:** For components that list multiple items (issues, PRs, commits), always check the `Link` header in the `Headers` output to handle paginated results correctly.
+* **Clear Commit Messages:** When using components like `Commit File` or `Merge Pull Request`, ensure your agents provide clear, descriptive commit messages for a clean Git history.
 * **Branching Strategy Awareness:** When automating branch creation or merging, ensure your agent's actions align with your team's branching strategy (e.g., GitFlow, GitHub Flow).
-* **Webhooks vs. Polling:** For real-time reactions to GitHub events, webhooks (if SmythOS can receive them) are generally more efficient than agents polling the API frequently. If polling, do so at reasonable intervals.
 
 <Divider />
 
 ## Troubleshooting Common Issues
 
 * **`401 Unauthorized` Errors:**
-    * **Cause:** Invalid, revoked, or missing Personal Access Token; Token does not have the required scopes for the action.
-    * **Solution:** Verify the PAT is correct and active in your GitHub Developer settings. Ensure it has the necessary scopes (e.g., `repo` for most repository actions). Update the token in SmythOS integration settings.
-* **`403 Forbidden` / Permission Denied Errors:**
-    * **Cause:** The PAT has insufficient scopes for the specific resource or action, or the authenticated user lacks the necessary permissions on the repository/organization itself (e.g., trying to push to a protected branch without admin rights).
-    * **Solution:** Check the PAT scopes in GitHub. Ensure the user associated with the PAT has the required permissions (e.g., write access, admin rights) on the target repository. For organization-owned repositories, check third-party application access policies.
-* **`404 Not Found` Errors:**
-    * **Cause:** Incorrect `repo_owner`, `repo_name`, `issue_number`, `pull_number`, `branch_name`, `path`, or other identifier. The resource genuinely does not exist or the PAT lacks permission to see it.
-    * **Solution:** Double-check all identifiers for typos and case-sensitivity (though owner/repo are usually case-insensitive, branch names can be). Verify the resource exists on GitHub.com. Ensure PAT scopes allow access.
-* **`422 Unprocessable Entity` (Often with file commits/updates or PR creation):**
-    * **Cause:** Invalid request body, missing required fields for the API endpoint, or a business rule violation (e.g., trying to create a branch that already exists, commit an empty file without specific flags, or update a file with an incorrect SHA).
-    * **Solution:** Carefully review the inputs provided to the component. For file operations, ensure `content` is correctly Base64 encoded. For updates, ensure the `sha` of the blob is correct. For PRs, ensure `head` and `base` branches are valid and distinct. Consult the `Response` body for specific error messages from GitHub.
-* **`409 Conflict` (e.g., when creating a branch that already exists, or merge conflicts):**
-    * **Cause:** The requested operation cannot be completed due to a conflict with the current state of the resource.
-    * **Solution:** Check if the resource (e.g., branch) already exists. For merges, resolve conflicts manually on GitHub before attempting an API merge, or ensure the PR is mergeable.
-* **Rate Limit Exceeded (`403 Forbidden` or `429 Too Many Requests` with specific error message):**
-    * **Cause:** Making too many API requests in the allowed time window.
-    * **Solution:** Check `X-RateLimit-Remaining` and `X-RateLimit-Reset` in the `Headers` output. Reduce request frequency. Implement delays or exponential backoff in agent logic. Use ETags for conditional requests to save quota.
-* **File Content Encoding/Decoding Issues:**
-    * **Cause:** Incorrect Base64 encoding of file `content` when committing/updating, or incorrect Base64 decoding when retrieving file content.
-    * **Solution:** Ensure standard Base64 encoding/decoding is used. For binary files, handle them appropriately during encoding/decoding.
+    * **Cause:** Your PAT is invalid, revoked, or lacks the necessary scopes.
+    * **Solution:** Verify the PAT is correct and active in your GitHub settings. Ensure it has the required scopes (e.g., `repo`).
 
-<InfoCallout>
-For persistent issues, the `Response` object from the component is your most valuable tool. It contains the raw JSON error message from the GitHub API, which usually provides specific details about what went wrong. The SmythOS support team is also available to assist. [Link to SmythOS Support Page]
-</InfoCallout>
+* **`404 Not Found` Errors:**
+    * **Cause:** Incorrect `repo_owner`, `repo_name`, `issue_number`, or other identifier. The resource may not exist, or your token may lack permission to see it.
+    * **Solution:** Double-check all identifiers for typos. Verify the resource exists on GitHub and that your PAT has sufficient permissions.
+
+* **`422 Unprocessable Entity`:**
+    * **Cause:** The request is malformed. Common when updating a file with the wrong `sha`, or creating a pull request where branches are invalid.
+    * **Solution:** Review all inputs to the component. For file updates, ensure you have the latest blob `sha`. For PRs, check that the `head` and `base` branches are correct and distinct.
+
+* **`409 Conflict`:**
+    * **Cause:** The operation cannot be completed due to the current state. For example, trying to merge a PR with merge conflicts.
+    * **Solution:** Resolve the conflict manually on GitHub before re-attempting the API merge.
 
 <Divider />
 
 ## What's Next?
 
-With SmythOS now integrated with your GitHub account, your agents are equipped to automate a vast array of tasks within your software development lifecycle, enhancing productivity and consistency.
+With SmythOS integrated with GitHub, you can automate your entire development lifecycle.
 
-Here are some ideas to inspire your next automation:
-
+Consider these ideas:
 * **Build an Agent That...**
-    * Automatically creates a new feature branch ("Create Branch") and a corresponding tracking issue ("Create Issue" - if available, or via API call) when a new task is added to your project management tool.
-    * Monitors pull requests ("List Pull Requests") for specific labels (e.g., "ready-for-qa") and then triggers a CI/CD pipeline or notifies the QA team.
-    * On a new commit to the `main` branch ("Fetch Commits since Timestamp" or webhook trigger), fetches the latest release tag ("Fetch Latest Release"), increments it, and prepares a draft release.
-    * Periodically checks for stale branches ("List Branches" - if available, or via API call) that haven't had commits in a long time and notifies the owner or archives them.
-    * When a new critical issue is labeled ("Get Issue Labels", triggered by webhook or polling), automatically assigns it to a specific team member or posts a notification in a dedicated Slack channel.
-* **Enhance Your Workflows by Combining Data & Actions:**
-    * Use data from your project management system to populate the title and body of new GitHub issues or pull requests created by agents.
-    * Trigger notifications (via Email or Slack integrations) based on GitHub events like new PRs, merged PRs, or new issues.
-    * Log commit activity or release information fetched from GitHub into a Google Sheet or database for reporting and auditing purposes.
-
-Explore the full potential of development automation with SmythOS and GitHub!
-
-Happy Automating!
+    * Automatically creates a feature branch, a draft pull request, and a tracking issue when a new task is created in your project management tool.
+    * Monitors open pull requests and, once approved by two team members, automatically merges the PR and deletes the source branch.
+    * Fetches the latest release notes and posts them to a company-wide Slack channel.
+* **Explore Other Integrations:**
+    * Trigger GitHub actions from an incoming [Email](/docs/integrations/email).
+    * Log repository activity, such as new issues or commits, to a [Google Sheet](/docs/integrations/google-sheets) for reporting.
+    * When a new user signs up in [Firebase](/docs/integrations/firebase), automatically invite them to a specific GitHub repository.

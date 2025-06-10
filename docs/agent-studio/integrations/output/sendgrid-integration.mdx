@@ -1,107 +1,215 @@
+---
+title: SendGrid Integration
+description: Connect SmythOS to SendGrid to automate sending transactional and marketing emails using dynamic templates or static content, directly from your agents.
+og:title: SmythOS & SendGrid - Automate Your Email Communication
+og:description: Learn to integrate SendGrid with SmythOS. Empower your agents to send personalized, dynamic emails with Handlebars templates or simple static emails for notifications and alerts.
+og:image: /img/integrations/smythos_sendgrid.png
+keywords: [SendGrid SmythOS Integration, Connect SendGrid to SmythOS, SmythOS Email API, Automate Transactional Email, Email Marketing Automation, No-Code Email]
+---
+# SendGrid Integration with SmythOS
 
-# Sendgrid Integration
+> **Need to send reliable, scalable email from your agents?** Connect SendGrid to SmythOS and empower your agents to send transactional and marketing emails programmatically.
 
-`SendGrid` stands out as a renowned cloud-based email delivery platform, renowned for facilitating the reliable transmission of both transactional and marketing emails for businesses. With features encompassing email marketing tools, transactional email services, and advanced analytics, `SendGrid` empowers businesses with enhanced email delivery optimization and campaign management capabilities.
+<InfoCallout title="TL;DR">
+Securely link your SendGrid account to SmythOS using an API key. Then, use our components to send beautiful, dynamic emails using templates and Handlebars data, or send simple, static emails for quick notifications.
+</InfoCallout>
 
-At SmythOS, we take pride in our seamless integration with `SendGrid`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+## List of SendGrid Components
+Quickly compare SendGrid components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-## Send Dynamic Email
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Send Dynamic Email**](#send-dynamic-email)| Write | Sends an email using a pre-built SendGrid Dynamic Transactional Template. | <Badge type="required" /> `from`, `to`, `template_id`, `JSON_template_handlebars` | `Response` | Sending personalized welcome emails or order confirmations. |
+| [**Send Static Email**](#send-static-email) | Write | Sends a simple email with a subject and content defined directly in the agent. | <Badge type="required" /> `from`, `to`, `subject`, `content` | `Response` | Sending quick system alerts or basic notifications. |
 
-Enter the `Send Dynamic Email` component, an effortless addition designed to simplify the email sending process. This component seamlessly integrates with `SendGrid`, empowering you to effortlessly send dynamic emails tailored to your specific requirements.
 
-### Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate SendGrid with Your Agent?</summary>
 
-To initialize and configure the `Send Dynamic Email` component, adhere to these straightforward guidelines:
+SendGrid is a best-in-class email delivery platform. Integrating it with SmythOS allows you to build robust communication workflows and reliably deliver emails at scale.
 
-1. If you haven't already, register for an account on the `SendGrid` platform to access its robust email delivery services.
-2. Navigate to the `Account Settings` section within your `SendGrid` account interface.
-3. Within the `Account Settings`, locate the [API Keys](https://app.sendgrid.com/settings/api_keys) section. Follow the provided instructions to generate your unique `API Key`, granting access to `SendGrid`'s API functionalities.
-4. After obtaining your `API Key`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key`.
+- **Automate Transactional Emails:** Create agents that automatically send password resets, account verifications, order confirmations, and shipping notifications.
+- **Personalized Marketing Campaigns:** Use agents to pull customer data from a CRM or database, and then send each customer a personalized promotional email using a dynamic SendGrid template.
+- **Reliable Alerting System:** When an agent detects a critical system error or an important business event, it can use SendGrid to send a reliable email alert to the on-call team, ensuring deliverability.
+- **Streamline Communication:** Centralize all your application's email-sending logic within SmythOS agents, making it easy to manage, update, and monitor your transactional email flows.
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+</details>
+</InfoCallout>
+<Divider />
 
-<Image src="/img/sendgrid/screenshot1.png" alt="alt text" />
+## Prerequisites
 
-### Inputs
+Before you begin, please ensure you have the following:
 
-To effectively leverage the capabilities of the component, ensure to provide the following input parameters:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **SendGrid account**.
+- A SendGrid **API Key**.
+- A **verified sender identity** (domain or email address) in your SendGrid account.
 
-1. **from `required<string>`:** Specify the `From` email address utilized for delivering the message. 
-2. **to `required<string>`:** Indicate the recipient's email address to which any replies will be directed. 
-3. **template_id `required<string>`:** Provide the unique identifier of the email template to be utilized for message composition.
-4. **JSON_template_handlebars `required<JSON object>`:** Supply dynamic template data leveraging Handlebars syntax in Dynamic Transactional Templates. This JSON object facilitates the customization of email content, enabling personalized and contextually relevant communication.
-   1. **Example:**
+<Divider />
+
+## Getting Started With SendGrid
+
+The connection between SmythOS and SendGrid is configured using a secure API Key.
+
+### Step 1: Get Your SendGrid API Key
+1.  Log in to your [SendGrid account](https://app.sendgrid.com/).
+2.  Navigate to **Settings** > **API Keys** in the left-hand menu.
+3.  Click **Create API Key**.
+4.  Give your key a name (e.g., "SmythOS Agent Key") and select **Full Access** or restricted permissions as needed. For sending email, `Mail Send` permissions are required.
+5.  Click **Create & View**.
+6.  **Copy the API key immediately.** It will not be shown again for security reasons.
+
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
+
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your SendGrid API Key as the value. Give it a memorable name, like `sendgrid_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+
+### Step 3: Configure a SendGrid Component
+1.  In your SmythOS agent graph, drag and drop any SendGrid component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `sendgrid_api_key`).
+4.  Your connection is now configured for that component.
+
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** SendGrid component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
+
+## Which SendGrid Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Send a beautifully designed, personalized email** (e.g., a receipt) | A `template_id` and dynamic data | [Send Dynamic Email](#send-dynamic-email) | Leverages powerful Handlebars templates for personalization and consistent branding. |
+| **Send a quick, simple text notification** (e.g., a system alert) | `subject` and `content` text | [Send Static Email](#send-static-email) | The fastest way to send a basic email without needing to pre-configure a template. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each SendGrid component.
+
+### <a name="send-dynamic-email"></a>Send Dynamic Email
+Sends an email using a Dynamic Transactional Template from your SendGrid account, populated with data you provide.
+
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-sendgrid) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `from` | string | Yes | The sender's email address. Must be a verified sender in SendGrid. |
+| `to` | string | Yes | The recipient's email address. |
+| `template_id`| string | Yes | The ID of the Dynamic Transactional Template from your SendGrid account. |
+| `JSON_template_handlebars`| JSON | Yes | A JSON object containing the dynamic data to populate your Handlebars template. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | A successful send returns an empty body with a `202 Accepted` status code. The response object will be empty on success. |
+| `Headers` | object | The HTTP headers from the API response, useful for getting the `x-message-id`. |
+
+<TipCallout title="Use Case">
+An agent handles new user sign-ups. It calls this component with the user's name and a welcome `template_id` to send a personalized onboarding email.
+</TipCallout>
 
 ```json
 {
-  "guest": "Jane Doe",
-  "partysize": "4",
-  "english": true,
-  "date": "April 1st, 2021"
+  "component": "sendgrid.sendDynamicEmail",
+  "from": "welcome@example.com",
+  "to": "new.user@example.com",
+  "template_id": "d-1234567890abcdef1234567890abcdef",
+  "JSON_template_handlebars": {
+    "name": "Jane Doe",
+    "account_level": "Premium"
+  }
 }
 ```
 
-<Image src="/img/sendgrid/screenshot2.png" alt="alt text" />
+<WarningCallout title="Template Data">
+The keys in your `JSON_template_handlebars` object must match the Handlebars variables (e.g., `{{name}}`) in your SendGrid template exactly.
+</WarningCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<Divider/>
 
-### Outputs
+### <a name="send-static-email"></a>Send Static Email
+Sends a basic email with the content and subject defined directly in the inputs.
 
-Upon successful execution of the `Send Dynamic Email` component, anticipate receiving the following outputs:
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-sendgrid) section.</InfoCallout>
 
-1. **Response:** An object containing comprehensive details regarding the status of the email delivery. This output encapsulates crucial information such as delivery status, recipient details, and any relevant error messages, facilitating effective monitoring and management of email transmission.
-2. **Headers:** HTTP headers extracted from the server response provided by `SendGrid`. 
+#### Component-Specific Settings
+- **Content Type:** Select `text/plain` for a plain text email or `text/html` to send HTML content.
 
-<Image src="/img/sendgrid/screenshot3.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `from` | string | Yes | The sender's email address (must be a verified sender). |
+| `to` | string | Yes | The recipient's email address. |
+| `subject` | string | Yes | The subject line of the email. |
+| `content` | string | Yes | The body of the email (either plain text or HTML, based on the Content Type setting). |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | A successful send returns an empty body with a `202 Accepted` status code. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-## Send Static Email
+<TipCallout title="Use Case">
+A monitoring agent detects that a server's disk space is low and uses this component to send a simple, plain text alert email to the IT administrators.
+</TipCallout>
 
-Introducing the `Send Static Email` component, an effortless addition crafted to streamline the static email sending process. Seamlessly integrated with SendGrid, this component empowers you to effortlessly dispatch static emails tailored to your specific requirements.
+```json
+{
+  "component": "sendgrid.sendStaticEmail",
+  "from": "alerts@example.com",
+  "to": "it-team@example.com",
+  "subject": "CRITICAL: Server Disk Space Low",
+  "content": "Server 'db-prod-01' has disk space below 10%. Please investigate immediately."
+}
+```
 
-### Settings
+<Divider />
 
-#### API Key
+## Best Practices & Advanced Tips
 
-To initialize and configure the `Send Static Email` component, adhere to these straightforward guidelines:
+* **Secure Your API Key:** Always store your SendGrid API key in the SmythOS `Vault`. If a key is ever compromised, be sure to revoke it in your SendGrid account immediately.
+* **Use Dynamic Templates for Branding:** For any user-facing email, it's best practice to use the `Send Dynamic Email` component. This allows you to maintain consistent branding and easily update email designs in SendGrid without changing your agent's logic.
+* **Verify Senders:** Before you can send an email from an address (or domain), you must prove you own it by completing the Sender Authentication process in your SendGrid account.
+* **Monitor Your Email Activity:** Use the SendGrid dashboard to monitor your email deliverability, open rates, and click rates to ensure your emails are reaching the inbox and engaging users.
 
-1. If you haven't already, register for an account on the `SendGrid` platform to access its robust email delivery services.
-2. Navigate to the `Account Settings` section within your `SendGrid` account interface.
-3. Within the `Account Settings`, locate the [API Keys](https://app.sendgrid.com/settings/api_keys) section. Follow the provided instructions to generate your unique `API Key`, granting access to `SendGrid`'s API functionalities.
-4. After obtaining your `API Key`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key`.
+<Divider />
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+## Troubleshooting Common Issues
 
-#### Content Type
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Key is incorrect, has been revoked, or does not have the required `Mail Send` permissions.
+  * **Solution:** Verify that the API Key in your SmythOS Vault is correct and active. Check its permissions in your SendGrid account settings.
 
-When configuring the `Send Static Email` component, you have the flexibility to choose from the following content types for your email content:
+* **Error: `403 Forbidden`**
+  * **Cause:** A common cause is trying to send an email from an address that has not been verified as a Single Sender or part of an authenticated domain in your SendGrid account.
+  * **Solution:** Go to your SendGrid settings and complete the Sender Authentication process for the `from` address.
 
-- **text/plain**
-- **text/html**
+* **Emails Go to Spam**
+  * **Cause:** This is a complex deliverability issue often related to domain reputation, lack of proper authentication (like DKIM and SPF, which are part of Sender Authentication), or email content.
+  * **Solution:** Ensure you have completed Sender Authentication in SendGrid. Avoid spammy-sounding subject lines and content.
 
-<Image src="/img/sendgrid/screenshot4.png" alt="alt text" />
+* **Dynamic Template Data Not Appearing**
+  * **Cause:** The keys in your `JSON_template_handlebars` input do not exactly match the variable names in your SendGrid template (e.g., `{{name}}` in the template vs. `"username"` in the JSON).
+  * **Solution:** Carefully check that every key in your JSON payload matches the corresponding Handlebars variable in the template.
 
-### Inputs
+<Divider />
 
-To effectively leverage the capabilities of the component, ensure to provide the following input parameters:
+## What's Next?
 
-1. **from `required<string>`:** Specify the `From` email address utilized for delivering the message. This address must be a verified sender within your Twilio SendGrid account to ensure successful email transmission.
-2. **to `required<string>`:** Indicate the recipient's email address to which any replies will be directed. 
-3. **subject `required<string>`:** Define the subject line of the email. 
-4. **content `required<string>`:** Provide the main body content of the email.
+You are now ready to build powerful email automation workflows with the **SmythOS SendGrid Integration**!
 
-<Image src="/img/sendgrid/screenshot5.png" alt="alt text" />
+Consider these ideas:
+* **Build an Agent That...**
+    * Manages a newsletter. The agent reads a list of subscribers from a database, fetches the latest blog post content, and sends a personalized weekly newsletter using a dynamic template.
+    * Powers a password reset flow. When a user requests a reset, the agent generates a unique, single-use link and sends it to them using a secure SendGrid template.
+    * Connects to your e-commerce platform. When an order ships, the agent sends a dynamic "Your Order is on its Way!" email, populating the template with the customer's name, order number, and tracking link.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon successful execution of the component, anticipate receiving the following outputs:
-
-1. **Response:** An object containing comprehensive details regarding the status of the email delivery. 
-2. **Headers:** HTTP headers extracted from the server response provided by `SendGrid`. These headers encompass essential metadata, including response status codes and content type, contributing to the effective interpretation and management of server communication within your integrated environment.
-
-<Image src="/img/sendgrid/screenshot6.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * Combine SendGrid with the [Firebase Integration](/docs/integrations/firebase). When a new user is created in Firebase Auth, trigger an agent to send them a welcome email.
+    * Use an [LLM component](/docs/integrations/openrouter) to generate a personalized sales outreach message, then send it via the `Send Static Email` component.
+    * Fetch data from a [Google Sheet](/docs/integrations/google-sheets) to power a mail merge, sending a dynamic email to each person listed in the sheet.

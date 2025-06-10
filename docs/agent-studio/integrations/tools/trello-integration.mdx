@@ -1,664 +1,524 @@
+---
+title: Trello Integration
+description: Connect SmythOS to Trello to automate creating and managing cards, lists, and boards, streamlining your project management workflows from your agents.
+og:title: SmythOS & Trello - Automate Your Project Boards
+og:description: Learn to integrate Trello with SmythOS. Empower your agents to create tasks, update cards, and manage your Trello boards, connecting your project management to any other tool.
+og:image: /img/integrations/smythos_trello.png
+keywords: [Trello SmythOS Integration, Connect Trello to SmythOS, SmythOS Trello, Automate Project Management, Trello API, No-Code Trello, Kanban Automation]
+---
+# Trello Integration with SmythOS
 
-# Trello Integration
+> **Want to automate your project boards?** Connect Trello to SmythOS and empower your agents to create cards, update lists, and manage your entire project workflow automatically.
 
-`Trello` stands out as a popular web-based project management application renowned for its intuitive kanban paradigm. Empowering users to create boards, lists, and cards, `Trello` facilitates efficient task organization and collaboration within teams. With its simplicity and flexibility, `Trello` caters to diverse use cases, including project management, task tracking, and team collaboration.
+<InfoCallout title="TL;DR">
+Securely link your Trello account to SmythOS using an API Key and Access Token generated from a Trello Power-Up. Then, use our suite of components to automate every aspect of your Trello boards.
+</InfoCallout>
 
-At `SmythOS`, we prioritize seamless integration with `Trello`, enriching its robust features with tailor-made components to streamline integration within your agents' workflow.
+## List of Trello Components
+Quickly compare Trello components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-## Get an Action
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create a Board**](#create-a-board) | Write | Creates a new Trello board. | <Badge type="required" /> `name` | `boardId`, `boardUrl`| Starting a new project board automatically. |
+| [**Get a Board**](#get-a-board) | Read | Retrieves detailed information about a single board. | <Badge type="required" /> `board_id` | `boardId`, `boardUrl`| Checking the details of a project board. |
+| [**Update a Board**](#update-a-board) | Write | Updates the properties (e.g., name) of an existing board. | <Badge type="required" /> `board_id`, `name` | `boardId` | Renaming a project board after its scope changes. |
+| [**Create Board List**](#create-board-list) | Write | Creates a new list (column) on a specified board. | <Badge type="required" /> `board_id`, `name` | `listId` | Adding a "QA Review" stage to a project board. |
+| [**Get a List**](#get-a-list) | Read | Retrieves detailed information about a single list. | <Badge type="required" /> `list_id` | `listId`, `boardId`| Verifying a list exists before adding a card. |
+| [**Update a List**](#update-a-list) | Write | Updates the name of an existing list. | <Badge type="required" /> `list_id`, `name` | `listId` | Renaming a workflow stage. |
+| [**Create a Card**](#create-a-card) | Write | Creates a new card in a specified list. | <Badge type="required" /> `list_id`, `name` | `cardId`, `cardUrl`| Creating a new task from a customer email. |
+| [**Get a Card**](#get-a-card) | Read | Retrieves all details for a single card. | <Badge type="required" /> `card_id` | `cardId`, `listId` | Fetching a task's description before processing it. |
+| [**Update a Card**](#update-a-card) | Write | Updates the name or other properties of an existing card. | <Badge type="required" /> `card_id`, `name` | `cardId` | Renaming a task when its scope changes. |
+| [**Add a New Comment to a Card**](#add-a-new-comment-to-a-card)| Write | Posts a new comment to a specific card. | <Badge type="required" /> `card_id`, `text` | `commentId` | Logging automated status updates on a task. |
+| [**Create Board Label**](#create-board-label) | Write | Creates a new colored label on a board. | <Badge type="required" /> `board_id`, `name`, `color` | `labelId` | Setting up standard labels like "Bug" or "Urgent". |
+| [**Get an Action**](#get-an-action) | Read | Retrieves details about a specific action (event) in Trello. | <Badge type="required" /> `action_id` | `actionId`, `actionData` | Auditing a specific change made to a card or board. |
+| [**Update an Action**](#update-an-action) | Write | Updates the text of an action, typically a comment. | <Badge type="required" /> `action_id`, `text` | `actionId` | Correcting a typo in an automated comment. |
+| [**Get the Board for an Action**](#get-the-board-for-an-action)| Read | Finds the board associated with a specific action. | <Badge type="required" /> `action_id` | `boardId` | Determining which board a comment was made on. |
+| [**Get the List for an Action**](#get-the-list-for-an-action)| Read | Finds the list associated with a specific action. | <Badge type="required" /> `action_id` | `listId` | Determining which list a card was moved to. |
 
-Introducing the `Get an Action` component, designed to provide effortless access to action details within `Trello`. Whether tracking project progress, monitoring task updates, or analyzing team activity, this component facilitates seamless retrieval of crucial action data.
 
-### Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate Trello with Your Agent?</summary>
 
-To initialize and configure the `Get an Action` component, follow these simple guidelines:
+Trello is a simple yet powerful tool for visual project management. Integrating it with SmythOS allows you to connect your Kanban boards to your other business processes, creating a central hub for automated task management.
 
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
+- **Automated Task Creation:** Build agents that listen for triggers—a new email, a form submission, a new customer in your CRM—and automatically create a corresponding card in the "To Do" list on your Trello board.
+- **Dynamic Workflow Management:** Create agents that move cards between lists based on external events. When a GitHub pull request is merged, an agent can find the related Trello card and move it from "In Review" to "Done".
+- **Real-Time Status Updates:** Use agents to post comments on Trello cards with updates from other systems. For example, an agent can post a comment with a link to a deployment log when a feature is pushed to production.
+- **Bridge Communication Gaps:** When a new card is created in a "Bugs" list on Trello, an agent can automatically create a corresponding, linked issue in a tool like Jira for the engineering team.
 
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+</details>
+</InfoCallout>
+<Divider />
 
-<Image src="/img/trello/screenshot1.png" alt="alt text" />
+## Prerequisites
 
-### Inputs
+Before you begin, please ensure you have the following:
 
-To effectively leverage the capabilities of the `Get an Action` component, ensure the provision of the following input parameter:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Trello account**.
+- A Trello **API Key** and **Access Token**.
 
-1. **action_id `required<string>`:** Specify the unique identifier (ID) of the action you wish to retrieve details for. This ID facilitates accurate identification and retrieval of the designated action within the `Trello` platform.
+<Divider />
 
-<Image src="/img/trello/screenshot2.png" alt="alt text" />
+## Getting Started With Trello
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+The connection between SmythOS and Trello is configured using an API Key and an Access Token, which you can get by generating a Trello Power-Up.
 
-### Outputs
+### Step 1: Get Your Trello API Key and Token
+1.  **Get API Key:** Log in to your Trello account, then visit `https://trello.com/power-ups/admin`. Create a new Power-Up for your workspace. Give it a name, select your workspace, and an API key will be generated for you.
+2.  **Generate Token:** From the same page, or by visiting `https://trello.com/app-key`, you will find your key. Below your key, there is a link to manually generate a Token. Click it, and on the next page, click "Allow" to authorize the token generation.
+3.  **Copy Both Credentials:** Copy both the **API Key** and the generated **Token**.
 
-Following the successful execution of the `Get an Action` component, you can expect the outputs detailed below:
+### Step 2: Store Your Credentials in SmythOS Vault
+Your API Key and Token are sensitive credentials. Use the SmythOS `Vault` to store them securely.
 
-1. **Response:** An object that includes extensive details about the action requested. It gathers critical information such as the action's type, the exact timestamp when the action was performed, and any associated data that is relevant to the action carried out on the `Trello` platform.
-2. **Headers:** These are the HTTP headers obtained from `Trello`'s server response. They provide further metadata that is instrumental in understanding the context of the response, including response status codes which indicate the success of the operation and the content type that details the format of the data returned.
-3. **actionId:** The unique identifier assigned to the specific action within `Trello`. This ID is vital for referencing the action in future queries or for integration purposes where the action's details might need to be retrieved or examined at a later time.
-4. **actionData:** The actual data associated with the action that was performed. This portion of the response will often contain specifics such as the entities involved in the action (like cards, lists, or boards), any changes that were made, and metadata that provides context for the action within the `Trello` ecosystem.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create new secrets for your `API Key` and `Access Token`, giving them memorable names like `trello_api_key` and `trello_access_token`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-<Image src="/img/trello/screenshot3.png" alt="alt text" />
+### Step 3: Configure a Trello Component
+1.  In your SmythOS agent graph, drag and drop any Trello component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` and `Access Token` fields, select the corresponding secrets you saved in the Vault.
+4.  Your connection is now configured for that component.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<InfoCallout title="Heads-up">You must add the API Key and Access Token from the Vault to **each** Trello component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-## Get a Board
+## Which Trello Component Should I Use?
 
-Access comprehensive details of a single board with the `Get a Board` component.
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Create a new task** on a board | A `list_id` and a `name`| [Create a Card](#create-a-card) | This is the standard method for adding a new task to a specific column on your board. |
+| **Start a new project** or workflow | A `name` for the board | [Create a Board](#create-a-board) | The first step for any new, large-scale project. |
+| **Add a new stage** to your workflow (e.g., "QA") | A `board_id` and a `name` | [Create Board List](#create-board-list) | The correct way to add a new column to an existing board. |
+| **Change the name** of an existing card | A `card_id` and a new `name` | [Update a Card](#update-a-card) | Modifies the properties of an existing card. |
+| **Post an update** on a task | A `card_id` and `text` | [Add a New Comment to a Card](#add-a-new-comment-to-a-card)| Adds a comment without changing the card's title or description. |
+| **Get all the details** of a specific task | A `card_id` | [Get a Card](#get-a-card) | The most direct way to retrieve all information about a single card. |
 
-### Settings
+<Divider/>
 
-To initialize and configure the `Get a Board` component, follow these simple guidelines:
+## Component Details
 
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
+This section provides detailed information for each Trello component.
 
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+### <a name="create-a-board"></a>Create a Board
+Creates a new Trello board in your account.
 
-<Image src="/img/trello/screenshot4.png" alt="alt text" />
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-### Inputs
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `name` | string | Yes | The name for the new Trello board. |
 
-To effectively leverage the capabilities of the `Get a Board` component, ensure the provision of the following input parameter:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `boardId` | string | The unique ID of the newly created board. |
+| `boardUrl`| string | The direct URL to the new Trello board. |
+| `organizationId` | string | The ID of the organization/workspace the board was created in. |
+| `Response`| object | The full, raw JSON response from the Trello API. |
 
-1. **board_id `required<string>`:** Specify the unique identifier (ID) of the board you wish to retrieve details for.
+<TipCallout title="Use Case">
+When a new major project is approved, an agent automatically creates a new Trello board named after the project, ready for the team to start adding lists and cards.
+</TipCallout>
 
-<Image src="/img/trello/screenshot5.png" alt="alt text" />
+<Divider/>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### <a name="get-a-board"></a>Get a Board
+Accesses comprehensive details of a single board.
 
-### Outputs
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-Once the `Get a Board` component has been successfully executed, the following outputs will be provided:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `board_id` | string | Yes | The unique ID of the board to retrieve. |
 
-1. **Response:** An object packed with detailed information about the board that was requested. This includes data about the board's configuration, members, associated cards, lists, activity history, and any additional metadata that characterizes the board within the `Trello` environment.
-2. **Headers:** The set of HTTP headers that come with the server response issued by `Trello`. These headers offer important metadata, for instance, response status codes that signify the request's success or failure, and the content type that specifies the data format of the response.
-3. **boardId:** A unique identifier for the `Trello` board that has been retrieved. This ID is crucial for conducting subsequent operations related to the board, such as updating settings, adding members, or retrieving specific items from within the board.
-4. **boardUrl:** The direct URL to the accessed `Trello` board. This allows users to effortlessly navigate to the board via a web browser or through `Trello` integrations for further interactions with the board's content or to share it with other users.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `boardId` | string | The unique identifier for the Trello board that has been retrieved. |
+| `boardUrl` | string | The direct URL to the accessed Trello board. |
+| `Response`| object | The raw JSON response from the API, containing all board details. |
 
-<Image src="/img/trello/screenshot6.png" alt="alt text" />
+<TipCallout title="Use Case">
+Before creating a new list, an agent uses this component to verify the `board_id` is correct and retrieve the board's name for logging purposes.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Divider/>
 
-## Get a Card
+### <a name="update-a-board"></a>Update a Board
+Updates the properties of an existing board, such as its name.
 
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `board_id` | string | Yes | The unique ID of the board to update. |
+| `name` | string | Yes | The new name for the board. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `boardId` | string | The ID of the updated board. |
+| `boardUrl` | string | The direct URL to the updated board. |
+| `Response`| object | The raw JSON response from the API, containing the full updated board object. |
+
+<TipCallout title="Use Case">
+If a project's codename changes, an agent automatically finds the corresponding Trello board and uses this component to update its name to match.
+</TipCallout>
+
+<Divider/>
+
+### <a name="create-board-list"></a>Create Board List
+Creates a new list (column) on a specified board.
+
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `board_id` | string | Yes | The ID of the board where the new list will be created. |
+| `name` | string | Yes | The name for the new list (e.g., "To Do", "In Progress"). Formerly `list_name`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `listId` | string | The unique ID of the newly created list. |
+| `boardId`| string | The ID of the board the list was added to. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+To customize a new project board, an agent first creates the board, then uses this component multiple times to add standard lists like "Backlog," "In Progress," "In Review," and "Done."
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-a-list"></a>Get a List
+Accesses detailed information about a specific list (column).
+
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The unique ID of the list to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `listId` | string | The unique identifier for the retrieved list. |
+| `boardId` | string | The ID of the board that the list belongs to. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+Before creating a new card, an agent gets the details of the target list to confirm its name and board ID.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-a-list"></a>Update a List
+Updates the properties of an existing list, such as its name.
+
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The ID of the list you want to update. |
+| `name` | string | Yes | The new name for the list. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `listId` | string | The ID of the updated list. |
+| `boardId`| string | The ID of the board containing the list. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent renames a workflow stage from "In Review" to "In QA" by updating the corresponding Trello list.
+</TipCallout>
+
+<Divider/>
+
+### <a name="create-a-card"></a>Create a Card
+Creates a new card in a specified list on a Trello board.
+
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The ID of the list where the new card will be created. |
+| `name` | string | Yes | The title of the new card. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `cardId`| string | The unique ID of the newly created card. |
+| `cardUrl`| string | The direct URL to the new card. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent receives an email about a new task. It parses the email subject and uses it as the `name` to create a new card in the "Inbox" list on the team's Trello board.
+</TipCallout>
+### <a name="get-a-card"></a>Get a Card
 Effortlessly obtain detailed information about a specific card using the `Get a Card` component.
 
-### Settings
-
-To initialize and configure the `Get a Card` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot7.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Get a Card` component, ensure the provision of the following input parameter:
-
-1. **card_id `required<string>`:** Specify the unique identifier (ID) of the card you wish to retrieve details for.
-
-<Image src="/img/trello/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After executing the `Get a Card` component successfully, expect to receive the outputs listed below:
-
-1. **Response:** An object rich with detailed information about the card requested. This includes the card's title, description, associated labels, its position in the list, assigned members, due dates, comments, attachments, and any custom field data, which together provide a comprehensive overview of the card within the context of the `Trello` board.
-2. **Headers:** These are the HTTP headers that have been extracted from the server response by `Trello`. They deliver additional metadata, which is essential for assessing the response, including status codes that help in determining the success of the request, and the content type of the data provided.
-3. **cardId:** The unique identifier for the `Trello` card retrieved. The cardId is the key to referencing this particular card in future API calls for updates, deletion, or further queries.
-4. **boardId:** The identifier for the board on which the card resides. This id is valuable for understanding the card's broader context on the `Trello` platform, as well as for accessing the board itself for additional operations or information.
-5. **listId:** The unique identifier of the list that contains the card. This information is instrumental for understanding the card’s organization and positioning within the workflow of the `Trello` board.
-6. **cardUrl:** The direct URL to the card within the `Trello` web interface. The URL provides an immediate link for users to view the card, make edits, or share it with other team members directly through a web browser.
-
-<Image src="/img/trello/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get a List
-
-Access detailed information about a specific list using the `Get a List` component.
-
-### Settings
-
-To initialize and configure the `Get a List` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot10.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Get a List` component, ensure the provision of the following input parameter:
-
-1. **list_id `required<string>`:** Specify the unique identifier (ID) of the list you wish to retrieve details for.
-
-<Image src="/img/trello/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-When the `Get a List` component has been successfully executed, you will receive the following outputs:
-
-1. **Response:** This object is filled with extensive details on the list that was requested. The information provided will cover aspects such as the list's name, its order on the board, the cards that are currently within the list, and other relevant metadata that gives insights into the list's properties and its usage within the `Trello` board.
-2. **Headers:** These are the HTTP headers that come from the server's response, as supplied by `Trello`. They contain valuable metadata including response status codes that inform you of the success or failure of your request, as well as the content type of the returned data, among other things.
-3. **listId:** The unique identifier for the list retrieved from `Trello`. This id is integral for conducting subsequent operations such as adding new cards to the list, moving the list within the board, or accessing detailed information about the list.
-4. **boardId:** The identifier for the `Trello` board that the list is a part of. Knowing the boardId is important for understanding the broader context the list operates in, as well as for managing the board or navigating to it through the `Trello` interface.
-
-<Image src="/img/trello/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create a Board
-
-Effortlessly create a new board using the `Create Board` component.
-
-### Settings
-
-To initialize and configure the `Create a Board` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot13.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Create a Board` component, ensure the provision of the following input parameter:
-
-1. **name `required<string>`:** Specify the name for the new board.
-
-<Image src="/img/trello/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After the successful execution of the `Create a Board` component, the following outputs will be made available:
-
-1. **Response:** An object teeming with extensive information about the board that has been newly created. It contains data on the board's name, its settings, visibility levels, the default lists created with the board (like 'To Do', 'Doing', 'Done'), and any other relevant data that characterizes the new board within the `Trello` platform.
-2. **Headers:** These are the HTTP headers that have been garnered from the server's response by `Trello`. They include important metadata that adds context to the response, such as the response status codes indicating the success of the board creation, and the content type denoting the format of the data provided.
-3. **boardId:** The unique identifier assigned to the board by `Trello` upon creation. This id is essential for subsequent interactions with the board, such as adding members, creating lists or cards, or modifying board settings.
-4. **boardUrl:** The direct URL to the `Trello` board that was created. This URL can be used to quickly access the board through a web browser or to share it with team members and collaborators for immediate engagement.
-5. **organizationId:** If the board was created within a `Trello` organization (team), this output includes the unique identifier of that organization. This id is helpful for managing board membership within the context of organizational structures and for performing organization-level operations in `Trello`.
-
-<Image src="/img/trello/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create Board List
-
-Effortlessly create a new list on a board using the `Create Board List` component.
-
-### Settings
-
-To initialize and configure the `Create Board List` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot16.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Create Board List` component, ensure the provision of the following input parameters:
-
-1. **name `required<string>`:** Specify the name for the new list.
-2. **board_id `required<string>`:** Specify the unique identifier (ID) of the board where you want to create the new list.
-
-<Image src="/img/trello/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Following the successful execution of the `Create Board List` component, expect to receive the outputs specified below:
-
-1. **Response:** An object replete with in-depth information about the newly created list. It includes details such as the list's name, its position on the board, the board's id to which it belongs, and other pertinent metadata that gives a complete view of the list's attributes and its place within the `Trello` board's ecosystem.
-2. **Headers:** These HTTP headers come from the server's response provided by `Trello`. They comprise additional metadata, such as response status codes that can indicate the request's success or flag any issues that were encountered, along with the content type of the data received.
-3. **listId:** The unique identifier for the list that has been created. This id is vital for future actions concerning the list, such as adding or moving cards, adjusting list properties, or querying for specific list details.
-4. **boardId:** The identifier for the board on which the new list has been placed. This id is crucial for understanding the new list's context within the larger board structure and for managing the overall organization of the board's contents.
-
-<Image src="/img/trello/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create Board Label
-
-Initiate the creation of a new label on a board with the `Create Board Label` component.
-
-### Settings
-
-To initialize and configure the `Create Board Label` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot19.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Create Board Label` component, ensure the provision of the following input parameters:
-
-1. **name `required<string>`:** Specify the name for the new label.
-2. **board_id `required<string>`:** Specify the unique identifier (ID) of the board where you want to create the new label.
-3. **color `required<string>`:** Specify the color for the new label. Valid values include `yellow`, `purple`, `blue`, `red`, `green`, `orange`, `black`, `sky`, `pink`, and `lime`.
-
-<Image src="/img/trello/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After the successful execution of the `Create Board Label` component, you will receive the outputs provided below:
-
-1. **Response:** An object that is laden with extensive details about the label that has just been created. Information such as the label's color, name, and its application within the board context is included, alongside any additional data that defines the label's characteristics and functionality in `Trello`.
-2. **Headers:** The HTTP headers that are derived from the server's response, as furnished by `Trello`. These headers convey supplementary metadata, which includes vital response status codes that illuminate whether the creation was successful, as well as the content type of the data that has been returned.
-3. **labelId:** The unique identifier given to the label by `Trello`. This id is integral for further label-related operations on the board, whether it is for modifying label details, assigning or unassigning it to cards, or performing queries involving the label.
-4. **boardId:** The unique identifier of the board to which the new label has been added. This boardId is necessary for gaining an understanding of the label's relevance and for performing additional manipulations or examinations of the board's structure and content.
-
-<Image src="/img/trello/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update a Card
-
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `card_id` | string | Yes | Specify the unique identifier (ID) of the card you wish to retrieve details for. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `cardId`| string | The unique identifier for the Trello card retrieved. |
+| `boardId`| string | The identifier for the board on which the card resides. |
+| `listId` | string | The unique identifier of the list that contains the card. |
+| `cardUrl`| string | The direct URL to the card within the Trello web interface. |
+| `Response`| object | The raw JSON response from the API, containing all card details. |
+
+<TipCallout title="Use Case">
+To provide more context for an AI agent, it first fetches a card's full description and current attachments before generating a summary or a comment.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-a-card"></a>Update a Card
 Effortlessly update a card using the `Update Card` component.
 
-### Settings
-
-To initialize and configure the `Update a Card` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot22.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Update a Card` component, ensure the provision of the following input parameters:
-
-1. **name `required<string>`:** Specify the new name for the card.
-2. **card_id `required<string>`:** Specify the unique identifier (ID) of the card you want to update. 
-
-<Image src="/img/trello/screenshot23.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Following the successful execution of the `Update a Card` component, the following outputs will be made available:
-
-1. **Response:** This object includes a wealth of detailed information about the card that has been updated. It contains a full rundown of the card's updated elements such as title, description, labels, members, due date, and any other attribute that was modified during the update process within the `Trello` environment.
-2. **Headers:** The set of HTTP headers that have been retrieved from the server's response as delivered by `Trello`. These headers provide ancillary metadata, including response status codes which shed light on the success of the update operation, as well as the content type of the data that has been returned.
-3. **cardId:** The unique identifier pertaining to the `Trello` card that was updated. This ID is critical for future transactions involving the card, such as further updates, deletions, or for referencing in other operations or integrations.
-4. **cardUrl:** The URL that directly links to the updated `Trello` card. This is convenient for users who wish to view the card, continue making additional updates, or share the card's direct link with other team members.
-5. **boardId:** The unique identifier for the board that the card is part of. This ID helps to place the card in the broader context of the board's structure and is essential for navigating to the board or performing other overarching board-related activities.
-6. **list_id:** The unique identifier of the list in which the card resides post-update. This ID is important for managing the card's position among other cards and can be useful when organizing or categorizing cards within lists on the board.
-
-<Image src="/img/trello/screenshot24.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get the Board for an Action
-
-Effortlessly obtain the board associated with a specific action using the `Get Board for an Action` component.
-
-### Settings
-
-To initialize and configure the `Get the Board for an Action` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot25.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Get the Board for an Action` component, ensure the provision of the following input parameter:
-
-1. **action_id `required<string>`:** Specify the unique identifier (ID) of the action for which you want to retrieve the associated board. 
-
-<Image src="/img/trello/screenshot26.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After the `Get the Board for an Action` component has been successfully executed, the following outputs will be presented:
-
-1. **Response:** An object filled with comprehensive information about the board associated with the specified action. It includes data about the board's name, settings, membership, lists, cards, activity, and other relevant metadata that provide a complete picture of the board and its current state on the `Trello` platform.
-2. **Headers:** These are the HTTP headers obtained from the server's response as provided by `Trello`. They include additional metadata, such as response status codes, which can help indicate the success of the request, and the content type of the response.
-3. **boardUrl:** The direct URL to the `Trello` board in question. This URL allows users to quickly access the board via a web browser for viewing, editing, or sharing with others.
-4. **boardId:** The unique identifier of the board that has been retrieved. This boardId is critical for performing various operations on the board, such as adding or managing cards and lists, updating board settings, or integrating with other services.
-5. **organizationId:** If the board is part of a `Trello` organization (or team), this identifier represents the organization to which the board belongs. Having the organizationId is beneficial for tasks that require a broader organizational context, such as managing team boards, setting organization-wide permissions, or analyzing aggregated organizational data.
-
-<Image src="/img/trello/screenshot27.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get the List for an Action
-
-Effortlessly obtain the board associated with a specific action using the `Get the List for an Action` component.
-
-### Settings
-
-To initialize and configure the `Get the List for an Action` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot28.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize the capabilities of the `Get the List for an Action` component, ensure the provision of the following input parameter:
-
-1. **action_id `required<string>`:** Specify the unique identifier (ID) of the action for which you want to retrieve the associated list. 
-
-<Image src="/img/trello/screenshot29.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-With the successful execution of the `Get the List for an Action` component, you can expect to receive the following detailed outputs:
-
-1. **Response:** This object is replete with extensive details concerning the list that is relevant to the action. It encapsulates information such as the list's name, its position on the board, the cards contained within the list, and additional metadata that elucidates the list's properties and its function within the `Trello` board.
-2. **Headers:** These HTTP headers are extracted from the server's response provided by `Trello`. They offer additional context by including metadata such as the response status codes, illustrating whether the operation was successfully carried out, as well as specifying the content type of the returned data.
-3. **listId:** The unique identifier for the list involved in the action. This listId is vital for directing future API calls to this specific list, whether it be for adding cards, moving the list around the board, or fetching detailed list information.
-4. **boardId:** The identifier for the `Trello` board on which the list is located. This boardId is essential for understanding the broader context of the list and for managing or accessing the entire board and its other components.
-
-<Image src="/img/trello/screenshot30.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update a Board
-
-Effortlessly update an existing board using the `Update Board` component.
-
-### Settings
-
-To initialize and configure the `Update a Board` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot31.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Update a Board` component, ensure the provision of the following input parameters:
-
-1. **board_id `required<string>`:** Specify the unique identifier (ID) of the board you want to update. 
-1. **name `required<string>`:** Specify the new name for the board.
-
-<Image src="/img/trello/screenshot32.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Following the successful execution of the `Update a Board` component, you will be provided with these detailed outputs:
-
-1. **Response:** This object is brimming with extensive details about the board that has been updated. It will include updated information on the board's configuration such as the name, description, settings, visibility, membership, and any other pertinent metadata or changes that have occurred as a result of the update on the `Trello` platform.
-2. **Headers:** These HTTP headers have been drawn from the server’s response, as facilitated by `Trello`. They provide supplemental metadata, which includes response status codes to inform you of the success or failure of your operation, and the content type which indicates the data format of the server’s response.
-3. **boardId:** The unique identifier for the board that has received the updates. This boardId is crucial for any further interactions or operations that may be required with the board, such as adding lists, modifying board settings, or accessing board data.
-4. **boardUrl:** The direct URL to the updated board within `Trello`. This link can be used for quick access to the board in a web browser for further editing, viewing, or sharing with other users.
-5. **organizationId:** If the updated board is a part of a `Trello` organization (team), this output includes the unique identifier of that organization. The organizationId is useful for managing the board within the context of its organizational grouping and for carrying out organizational-level activities in `Trello`.
-
-<Image src="/img/trello/screenshot33.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add a New Comment to a Card
-
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `card_id` | string | Yes | Specify the unique identifier (ID) of the card you want to update. |
+| `name` | string | Yes | Specify the new name for the card. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `cardId`| string | The unique identifier pertaining to the Trello card that was updated. |
+| `cardUrl`| string | The URL that directly links to the updated Trello card. |
+| `boardId`| string | The unique identifier for the board that the card is part of. |
+| `list_id` | string | The unique identifier of the list in which the card resides post-update. |
+| `Response`| object | The raw JSON response from the API, containing the full updated card object. |
+
+<TipCallout title="Use Case">
+When a task's priority is escalated in another system, an agent finds the corresponding Trello card and updates its name to include "[URGENT]".
+</TipCallout>
+
+<Divider/>
+
+### <a name="add-a-new-comment-to-a-card"></a>Add a New Comment to a Card
 Effortlessly add a new comment to a card using the `Add New Comment to Card` component.
 
-### Settings
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `card_id` | string | Yes | Specify the unique identifier (ID) of the card where you want to add the new comment. |
+| `text` | string | Yes | Specify the text of the new comment. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `commentId`| string | The unique identifier that Trello assigns to the newly created comment. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+After a CI/CD pipeline successfully deploys a feature, an agent posts a comment on the related Trello card with a link to the production environment.
+</TipCallout>
+
+<Divider/>
 
-To initialize and configure the `Add a New Comment to a Card` component, follow these simple guidelines:
+### <a name="create-board-label"></a>Create Board Label
+Initiate the creation of a new label on a board with the `Create Board Label` component.
 
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `board_id` | string | Yes | Specify the unique identifier (ID) of the board where you want to create the new label. |
+| `name` | string | Yes | Specify the name for the new label. |
+| `color` | string | Yes | Specify the color for the new label. Valid values: `yellow`, `purple`, `blue`, `red`, `green`, `orange`, `black`, `sky`, `pink`, `lime`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `labelId` | string | The unique identifier given to the label by Trello. |
+| `boardId` | string | The unique identifier of the board to which the new label has been added. |
+| `Response`| object | The raw JSON response from the API. |
 
-<Image src="/img/trello/screenshot34.png" alt="alt text" />
+<TipCallout title="Use Case">
+When setting up a new project board, an agent uses this component to pre-populate it with standard labels like "Bug", "Feature Request", and "Infrastructure".
+</TipCallout>
 
-### Inputs
+<Divider/>
 
-To effectively leverage the capabilities of the `Add a New Comment to a Card` component, ensure the provision of the following input parameters:
+### <a name="get-an-action"></a>Get an Action
+Provides effortless access to the details of a specific action (event) within Trello.
 
-1. **card_id `required<string>`:** Specify the unique identifier (ID) of the card where you want to add the new comment.  
-1. **text `required<string>`:** Specify the text of the new comment.
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-<Image src="/img/trello/screenshot35.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `action_id` | string | Yes | Specify the unique identifier (ID) of the action you wish to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `actionId`| string | The unique identifier assigned to the specific action within Trello. |
+| `actionData`| object | The actual data associated with the action, such as the entities involved (cards, lists). |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+For auditing purposes, an agent can be triggered by a webhook that provides an `action_id`. The agent then uses this component to fetch the full details of what change occurred.
+</TipCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<Divider/>
 
-### Outputs
+### <a name="update-an-action"></a>Update an Action
+Updates the text content of an action, which is typically a comment.
 
-Once the `Add a New Comment to a Card` component has been successfully executed, the following outputs will be made available:
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-1. **Response:** This object is filled with detailed information regarding the comment that has been newly added to the card. It will typically include the content of the comment, the timestamp of when the comment was added, and any relevant data about the user who made the comment, thus providing a full understanding of the context and content of the added comment.
-2. **Headers:** These are the HTTP headers that have been captured from the server's response, as provided by `Trello`. Such headers offer valuable metadata about the response, including status codes that indicate the success of the comment addition, and the content type that specifies the format of the response data.
-3. **commentId:** The unique identifier that `Trello` assigns to the newly created comment. This id is vital for referencing the comment in any future operations, such as editing or deleting the comment, or for use in integrations that link actions or conversations to specific comments on a card.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `action_id` | string | Yes | Specify the unique identifier (ID) of the comment action you want to update. |
+| `text` | string | Yes | Specify the new text for the comment. |
 
-<Image src="/img/trello/screenshot36.png" alt="alt text" />
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `actionId`| string | The unique identifier of the modified action. |
+| `actionData`| object | Data associated with the updated action. |
+| `Response`| object | The raw JSON response from the API. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case">
+If an automated comment posted by an agent contains a typo or outdated link, another process can trigger an agent to correct it using this component.
+</TipCallout>
 
-## Update a List
+<Divider/>
 
-Effortlessly update the properties of a list using the `Update List` component.
+### <a name="get-the-board-for-an-action"></a>Get the Board for an Action
+Finds and retrieves the board associated with a specific action ID.
 
-### Settings
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-To initialize and configure the `Update a List` component, follow these simple guidelines:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `action_id` | string | Yes | The ID of the action for which you want to find the board. |
 
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `boardId` | string | The unique identifier of the board where the action occurred. |
+| `boardUrl` | string | The direct URL to the associated Trello board. |
+| `Response`| object | The raw JSON response from the API. |
 
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<TipCallout title="Use Case">
+An agent is triggered by a Trello webhook but only receives an `action_id`. It uses this component to determine which project board the action took place on before proceeding.
+</TipCallout>
 
-<Image src="/img/trello/screenshot37.png" alt="alt text" />
+<Divider/>
 
-### Inputs
+### <a name="get-the-list-for-an-action"></a>Get the List for an Action
+Finds and retrieves the list (column) associated with a specific action ID.
 
-To effectively leverage the capabilities of the `Update a List` component, ensure the provision of the following input parameters:
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-1. **list_id `required<string>`:** Specify the unique identifier (ID) of the list you want to update.  
-1. **board_id `required<string>`:** Specify the unique identifier (ID) of the board to which the list belongs.  
-2. **name `required<string>`:** Specify the new name for the list. 
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `action_id` | string | Yes | The ID of the action for which you want to find the list. |
 
-<Image src="/img/trello/screenshot38.png" alt="alt text" />
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `listId` | string | The unique identifier for the list involved in the action. |
+| `boardId` | string | The ID of the board containing the list. |
+| `Response`| object | The raw JSON response from the API. |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<TipCallout title="Use Case">
+When a webhook fires for a "moveCard" action, an agent uses this component to get the ID of the destination list to determine the card's new status.
+</TipCallout>
 
-### Outputs
+<Divider/>
 
-After the `Update a List` component has been successfully executed, you can expect to receive the following outputs:
+### <a name="get-the-card-for-an-action"></a>Get the Card for an Action
+Finds and retrieves the card associated with a specific action ID.
 
-1. **Response:** This object contains a rich set of details about the list that has been updated. It provides information on the changes made to the list's name, its position on the board, the visibility status of the list, and any other relevant updates that have been applied to the list within the `Trello` board.
-2. **Headers:** These HTTP headers are collected from the server’s response, as issued by `Trello`. They include additional metadata, such as response status codes that are indicative of the success or failure of the update request, and content type, which outlines the format of the returned response data.
-3. **listId:** The unique identifier of the list that has undergone the update process. This listId is crucial for subsequent interactions or operations with the list, such as adding cards, modifying its properties, or pulling detailed list information.
-4. **boardId:** The identifier of the board that houses the updated list. This boardId is essential for contextualizing the list within the larger framework of the board and for managing or examining the board's overall structure and content.
+<InfoCallout>This component requires an `API Key` and `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-trello) section.</InfoCallout>
 
-<Image src="/img/trello/screenshot39.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `action_id` | string | Yes | The ID of the action for which you want to retrieve the associated card. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `card_id` | string | The unique identifier for the Trello card associated with the action. |
+| `cardUrl`| string | The direct URL to the Trello card. |
+| `boardId`| string | The identifier for the board on which the card is located. |
+| `listId` | string | The unique identifier of the list in which the card resides. |
+| `Response`| object | The raw JSON response from the API. |
 
-## Get the Card for an Action
+<TipCallout title="Use Case">
+A monitoring agent receives a webhook notification with an `action_id` for a new comment. It uses this component to get the `card_id` and `cardUrl` to include in a Slack notification.
+</TipCallout>
 
-Effortlessly obtain the card associated with a specific action using the `Get Card for an Action` component.
+<Divider />
 
-### Settings
+## Best Practices & Advanced Tips
 
-To initialize and configure the `Get the Card for an Action` component, follow these simple guidelines:
+* **Secure Your Credentials:** Your Trello API Key and Access Token provide access to your boards. Always store them securely in the SmythOS `Vault`.
+* **Understand the Trello Hierarchy:** The core structure is **Board -> List -> Card**. To create a card, you first need the `list_id`. To create a list, you first need the `board_id`. Use the "Get" components to find these IDs programmatically.
+* **Use Webhooks for Real-Time Actions:** For the most responsive workflows, set up a Trello webhook. You can configure it to trigger your SmythOS agent whenever an action happens (e.g., a card is moved to the "Done" list), allowing your agent to react instantly.
+* **Markdown in Comments and Descriptions:** Remember that Trello card descriptions and comments support Markdown for formatting. Your agent can generate formatted text for clearer communication.
 
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
+<Divider />
 
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+## Troubleshooting Common Issues
 
-<Image src="/img/trello/screenshot40.png" alt="alt text" />
+* **Error: `401 Unauthorized` / "invalid key" or "invalid token"**
+  * **Cause:** Your API Key or Access Token is incorrect or has been revoked.
+  * **Solution:** Verify that the credentials in your SmythOS Vault are correct. Go to `trello.com/app-key` to check your key and re-generate a token if necessary.
 
-### Inputs
+* **Error: `404 Not Found` / "board not found" or "card not found"**
+  * **Cause:** The `board_id`, `list_id`, or `card_id` you provided is incorrect or does not exist.
+  * **Solution:** Double-check all IDs for typos. Ensure the board, list, or card has not been deleted or archived.
 
-To effectively utilize the capabilities of the `Get the Card for an Action` component, ensure the provision of the following input parameter:
+* **Error: `400 Bad Request`**
+  * **Cause:** A required input is missing (e.g., you tried to create a card without a `name`), or a parameter is invalid.
+  * **Solution:** Check that all required inputs for the component are provided and are in the correct format.
 
-1. **action_id `required<string>`:** Specify the unique identifier (ID) of the action for which you want to retrieve the associated card.  
+<Divider />
 
-<Image src="/img/trello/screenshot41.png" alt="alt text" />
+## What's Next?
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+You are now ready to build powerful project management automations with the **SmythOS Trello Integration**!
 
-### Outputs
+Consider these ideas:
+* **Build an Agent That...**
+    * Creates a full project setup. When a new project is initiated, the agent calls `Create a Board`, then calls `Create Board List` multiple times to build the "To Do," "In Progress," and "Done" lists, and finally calls `Create a Card` to add a set of standard starting tasks.
+    * Acts as a GitHub-to-Trello bridge. When a new issue is created in a [GitHub repository](/docs/integrations/github), the agent automatically creates a corresponding card on a "Development" Trello board.
+    * Manages your content calendar. An agent reads a list of blog post ideas from a [Google Sheet](/docs/integrations/google-sheets) and creates a Trello card for each one in an "Ideas" list.
 
-Following the successful execution of the `Get the Card for an Action` component, the following outputs will be made available:
-
-1. **Response:** An object populated with extensive details about the card that is linked to the specific action. This encompasses information outlining the card's title, description, label associations, the list and board it belongs on, activity history such as comments and attachments, and all other pertinent data reflecting the card's current status and history within the `Trello` environment.
-2. **Headers:** The set of HTTP headers derived from the server response provided by `Trello`. They offer supplementary metadata which includes, among other things, the response status codes that indicate the success of the operation, as well as the content type of the server's response.
-3. **card_id:** A unique identifier for the `Trello` card associated with the action. This cardId is essential for any future API actions that need to reference this card, whether for further updates, tracking, or deletion.
-4. **cardUrl:** The direct URL to the `Trello` card in question, which facilitates easy browser access for viewing and editing purposes, as well as provides a simple way to share the card directly with other team members or in communications.
-5. **boardId:** The identifier for the board on which the referenced card is located. This boardId is key to understanding the bigger picture of the card's place in the overall board structure and can be used for wide-ranging board interactions or navigational purposes.
-6. **listId:** The unique identifier of the list in which the card for the action resides. This listId is integral to managing the card's positioning and relation to other cards in the workflow, as well as for performing operations that are list-specific within the `Trello` platform.
-
-<Image src="/img/trello/screenshot42.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update an Action
-
-Effortlessly update a specific action within Trello using the `Update Action` component. This functionality is specifically designed for editing the content of a comment associated with the action.
-
-### Settings
-
-To initialize and configure the `Update an Action` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot43.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Update an Action` component, ensure the provision of the following input parameters:
-
-1. **action_id `required<string>`:** Specify the unique identifier (ID) of the action you want to update. 
-2. **text `required<string>`:** Specify the new text for the action. 
-
-<Image src="/img/trello/screenshot44.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Once the `Update an Action` component has been executed successfully, you can expect to receive the following detailed outputs:
-
-1. **Response:** This is an object that provides thorough details pertaining to the action that has been updated. It includes information about any changes made to the action type, associated entities (like cards, lists, users), timestamps, and additional metadata that outlines the specifics of the updated action on the `Trello` board.
-2. **Headers:** These HTTP headers are retrieved from the server's response as provided by `Trello`. They encompass extra metadata, which is valuable in confirming the successful completion of the update operation, including response status codes and the format of the data contained in the response (content type).
-3. **actionId:** The unique identifier assigned to the action that has been modified. This ID is critical for any future references or follow-up operations related to this particular action, such as querying for further details or reverting changes.
-4. **actionData:** The specific data elements associated with the updated action. This part of the response typically carries detailed attributes and context of the action, like the before-and-after states, user involvement, and the broader impact of the changes within the ongoing activities on the `Trello` platform.
-
-<Image src="/img/trello/screenshot45.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create List
-
-Effortlessly create a new list on a board using the `Create List` component.
-
-### Settings
-
-To initialize and configure the `Create List` component, follow these simple guidelines:
-
-1. If you haven't already, register for an account on the `Trello` platform to access its project management features.
-2. Create a `Power-Up` for your `Trello` account and manage it by navigating to [this link](https://trello.com/power-ups/admin). This step is essential for enabling API access to your `Trello` account.
-3. Within the `Power-Up` management section, you can generate an `API Key` and an `Access Token` for API integration. Follow the provided instructions to obtain these credentials.
-4. Once you have obtained your `API Key` and `Access Token`, return to the settings of the component. Locate the specified section designated for API integration and input your generated `API Key` and `Access Token`.
-
-> **Note:** Treat the `Access Token` and `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/trello/screenshot46.png" alt="alt text" />
-
-### Inputs
-
-To effectively leverage the capabilities of the `Create List` component, ensure the provision of the following input parameters:
-
-1. **board_id `required<string>`:** Specify the unique identifier (ID) of the board where you want to create the new list. 
-2. **list_name `required<string>`:** Specify the name for the new list. 
-
-<Image src="/img/trello/screenshot47.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Following the successful execution of the `Create List` component, you can expect the subsequent outputs:
-
-1. **Response:** An object with detailed and comprehensive information about the list that was just created. This includes aspects such as the list's name, position on the board, and any initial settings or preferences that have been configured for the list within the `Trello` environment.
-2. **Headers:** The set of HTTP headers that are included in the server's response, as provided by `Trello`. These headers contain valuable metadata, like the response status codes that denote the request's outcome, as well as the content type that details the format of the returned information.
-3. **listId:** The unique identifier for the newly created list. This listId is essential for subsequent operations pertaining to the list, such as adding cards to it, moving it within the board, or modifying its properties.
-4. **boardId:** The identifier of the `Trello` board where the new list has been added. This boardId is important for understanding the list's context within the overall board and can be used for managing the board or accessing board-level details and actions.
-
-<Image src="/img/trello/screenshot48.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * When a card is moved to the "Done" list on Trello (detected via webhook), trigger an agent to send a completion notification to a [Slack](/docs/integrations/slack) or [Discord](/docs/integrations/discord) channel.
+    * Use an [LLM component](/docs/integrations/openrouter) to summarize a customer email, then create a Trello card with the summary as the description.
+    * When a new client is added in [HubSpot](/docs/integrations/hubspot), create a new Trello card to track their onboarding process.

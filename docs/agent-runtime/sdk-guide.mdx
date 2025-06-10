@@ -1,0 +1,109 @@
+---
+title: Smyth SDK guide
+description: A complete guide to using the Smyth SDK to create and manage AI agents with type-safe APIs and streamlined workflows.
+keywords: [SmythOS, SRE, SDK, agent creation, AI agents, TypeScript, programming]
+sidebar_position: 6
+---
+
+# Smyth SDK guide
+
+> The Smyth SDK makes building AI agents straightforward, letting you focus on business logic instead of runtime complexity.
+
+<InfoCallout>
+**What you’ll learn:**  
+- How to get started quickly with the SDK  
+- Creating agents and components  
+- Managing conversations  
+- Best practices for configuration and scaling
+</InfoCallout>
+
+<Divider />
+
+## Quick start
+
+Install the SDK package:
+
+<code lang="bash">
+npm install smyth-runtime
+</code>
+
+Initialize SRE and create an LLM instance:
+
+```typescript
+import { SRE, SDK } from 'smyth-runtime';
+
+const sre = SRE.init({
+  Cache: { Connector: 'RAM' },
+  Storage: { Connector: 'Local' },
+  Log: { Connector: 'ConsoleLog' },
+});
+
+await sre.ready();
+
+const llm = new SDK.LLM('OpenAI', { model: 'gpt-4' });
+
+const eventEmitter = await llm.prompt('Hello, world!').stream();
+eventEmitter.on('content', console.log);
+```
+
+## Creating agents and components
+
+Create an agent with a specific behavior:
+
+```typescript
+const agent = new SDK.Agent({
+  name: 'DataAnalyst',
+  model: 'gpt-4',
+  behavior: 'You are an expert data analyst providing insights from data.',
+});
+```
+
+Add custom skills your agent can invoke:
+
+```typescript
+const dataProcessor = agent.addSkill({
+  name: 'processData',
+  description: 'Analyze and process data',
+  process: async (data) => {
+    // Custom logic here
+    return { analysis: 'processed', insights: [] };
+  },
+});
+```
+
+Prompt the agent for a response:
+
+```typescript
+const result = await agent.prompt('Analyze the sales data for trends');
+```
+
+## Conversation management
+
+Create persistent conversations with context:
+
+```typescript
+const chat = agent.chat();
+
+await chat.send('Hello, I need help with data analysis');
+await chat.send('Can you analyze this CSV file?');
+await chat.send('What trends do you see?');
+
+console.log(chat.history);
+```
+
+## Programmatic component composition
+
+Build workflows by connecting components:
+
+```typescript
+const llm = SDK.GenAILLM({ model: 'gpt-4', prompt: 'Analyze this text' }, agent);
+const classifier = SDK.Classifier({ classes: ['positive', 'negative', 'neutral'] }, agent);
+const webSearch = SDK.WebSearch({ query: 'latest AI news', maxResults: 5 }, agent);
+
+classifier.in({ Input: llm.out.Reply });
+webSearch.in({ query: classifier.out.Result });
+```
+
+The SDK lets your agent code evolve seamlessly from prototyping to production without changes.
+
+<Divider />

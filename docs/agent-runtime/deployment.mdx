@@ -1,0 +1,62 @@
+---
+title: Deployment and boot process
+description: Learn how Smyth Runtime Environment starts up, initializes, and scales from development to production.
+keywords: [SmythOS, SRE, deployment, boot, initialization, scaling, production, development]
+sidebar_position: 5
+---
+
+# Deployment and boot process
+
+> Getting your AI agents up and running fast matters. SRE’s boot sequence and configuration options make startup smooth and scalable.
+
+<InfoCallout>
+**What you need to know:**  
+From initializing core services to connecting LLM providers, SRE’s boot process is designed for reliability and flexibility.
+</InfoCallout>
+
+<Divider />
+
+## Boot sequence overview
+
+1. Initialize core runtime services like storage, cache, vault, and accounts  
+2. Setup AI infrastructure including vector databases and model providers  
+3. Register agent management services and components  
+4. Establish API routing and HTTP endpoints  
+5. Connect to LLM providers and authenticate  
+6. Signal readiness and accept agent workloads  
+
+```typescript
+// Example: booting SRE with config
+const sre = SRE.init({
+  Storage: { Connector: 'S3', Settings: { bucket: 'my-bucket' } },
+  Cache: { Connector: 'Redis', Settings: { url: 'redis://localhost' } },
+  LLM: { Connector: 'OpenAI', Settings: { apiKey: 'sk-...' } },
+  Vault: { Connector: 'HashicorpVault', Settings: { url: 'https://vault.company.com' } },
+});
+
+await sre.ready();
+```
+
+## Development vs production configuration
+
+| Aspect           | Development default        | Production upgrade               | Impact on your code           |
+|------------------|----------------------------|--------------------------------|------------------------------|
+| Caching          | RAM (in-memory)            | Redis cluster                  | ✅ No code changes required   |
+| Storage          | Local filesystem           | S3 or enterprise storage       | ✅ No code changes required   |
+| Authentication   | Dummy (no auth)            | Enterprise SSO/LDAP            | ✅ No code changes required   |
+| Monitoring       | Console logs               | Structured logging and APM    | ✅ No code changes required   |
+| Secrets          | Environment variables      | HashiCorp Vault               | ✅ No code changes required   |
+| Access control   | Open access                | Role-based permissions        | ✅ No code changes required   |
+
+SRE lets your agents run unchanged while the underlying infrastructure evolves.
+
+## Scalability and enterprise readiness
+
+- OS-level resource monitoring and load balancing  
+- Child agent process spawning for distributed workloads  
+- Multi-tier caching for high performance  
+- Enterprise security and compliance features  
+- Container-ready with Docker support  
+- Full TypeScript support and comprehensive test suite  
+
+<Divider />

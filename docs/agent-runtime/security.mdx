@@ -1,0 +1,74 @@
+---
+title: SRE security model
+description: Learn how Smyth Runtime Environment protects your AI agents with enterprise-grade security, access control, and secret management.
+keywords: [SmythOS, SRE, security, access control, vault, authentication, encryption, permissions]
+sidebar_position: 3
+---
+
+# SRE security model
+
+> Security is built into the Smyth Runtime Environment from the ground up. Your agents get enterprise-grade protection without extra setup.
+
+<InfoCallout>
+**What you need to know:**  
+SRE safeguards sensitive data, manages identities, and controls who can do what — so your AI stays secure and compliant.
+</InfoCallout>
+
+<Divider />
+
+## Candidate and ACL system
+
+Every operation in SRE requires explicit permission. The Candidate and ACL system acts as the gatekeeper:
+
+- A **Candidate** represents an identity, such as an agent or user  
+- The **ACL (Access Control List)** defines what actions each candidate can perform  
+- Before accessing resources, SRE checks permissions and denies unauthorized requests  
+
+<code lang="typescript">
+// Example: Agent requesting storage access
+const candidate = AccessCandidate.agent(agentId);
+const storage = ConnectorService.getStorageConnector().user(candidate);
+await storage.write('data.json', content);
+</code>
+
+## Secure credential storage with vaults
+
+Secrets like API keys, passwords, and tokens stay safe in vaults integrated into SRE:
+
+- Supports HashiCorp Vault, AWS Secrets Manager, and JSON file vaults  
+- Encrypts credentials at rest and in transit  
+- Enables token-based, role-restricted access to secrets  
+- Provides audit trails for compliance  
+
+## Account and authentication management
+
+SRE supports flexible authentication methods to verify identities:
+
+- Enterprise Single Sign-On (SSO) and LDAP integration  
+- Custom account connectors for bespoke identity providers  
+- Secure token issuance and refresh flows  
+
+## Role-based access control (RBAC)
+
+Control who can do what with granular permissions:
+
+- Assign roles with specific capabilities to agents and users  
+- Enforce least privilege principles  
+- Integrate with external identity providers for unified access management  
+
+## Enterprise security features
+
+SRE goes beyond basics with features designed for production use:
+
+- TLS/SSL encryption everywhere — no weak links  
+- Comprehensive audit logging for all operations  
+- Managed vaults with automatic rotation and revocation  
+- Secure defaults with configurable security policies  
+
+<WarningCallout>
+Security is a shared responsibility. Always review your access policies and monitor audit logs regularly.
+</WarningCallout>
+
+Keeping your AI agents secure shouldn’t be a runtime gamble. SRE makes sure it isn’t.
+
+<Divider />

@@ -1,11 +1,11 @@
 ---
-title: SRE architecture and subsystems
+title: SRE A
 description: Understand the modular architecture of Smyth Runtime Environment and learn about its key subsystems that power your AI agents.
 keywords: [SmythOS, SRE, architecture, subsystems, modular, AI agents, runtime, storage, LLM, security]
-sidebar_position: 2
+sidebar_position: 5
 ---
 
-# SRE architecture and subsystems
+# SRE Architecture
 
 > When it comes to AI agents, the runtime is where the action happens. SRE’s modular architecture divides responsibilities clearly so you can focus on building, not bottlenecks.
 
@@ -103,52 +103,44 @@ Agents are processes composed of components working together. This subsystem man
 
 ## Component system — the building blocks
 
-SRE includes over 40 production-ready components grouped by function:
+SRE includes over (40 production-ready components)[/docs/agent-runtime/components] grouped by function:
 
 ### AI & LLM components
 
 - `GenAILLM` — multi-provider language model integration  
 - `VisionLLM` — image analysis  
-- `MultimodalLLM` — text, audio, image processing  
-- `LLMAssistant` — conversational AI assistant  
-- `HuggingFace` — Hugging Face model support  
-- `ImageGenerator` — AI image creation  
+and more
 
 ### External integrations
 
 - `APICall` — HTTP API with OAuth  
 - `WebSearch` — online search capability  
-- `WebScrape` — content extraction from websites  
-- `ZapierAction` — automation triggers  
-- `MCPClient` — model context protocol client  
+and more
 
 ### Data processing
 
 - `DataSourceIndexer` — indexing and processing documents  
 - `DataSourceLookup` — data retrieval  
 - `DataSourceCleaner` — cleaning and normalization  
-- `JSONFilter` — JSON data manipulation  
-- `Classifier` — content classification  
+and more
 
 ### Logic & control flow
 
 - `LogicAND`, `LogicOR`, `LogicXOR` — boolean operations  
 - `LogicAtLeast`, `LogicAtMost` — conditional logic  
-- `ForEach` — iteration loops  
-- `Async`, `Await` — async operations  
+and more
 
 ### Storage & files
 
 - `FileStore` — file operations  
 - `Code` — code execution  
-- `ServerlessCode` — serverless function execution  
+and more
 
 ### System integration
 
 - `ComputerUse` — automation  
-- `GPTPlugin` — OpenAI plugin integration  
-- `APIEndpoint` — custom API creation  
+and more
 
-Keeping subsystems clear and components organized lets you scale your agents from prototype to production — without the usual runtime headaches.
+Keeping subsystems clear and components organized lets you scale your agents from prototype to production without the usual headaches.
 
 <Divider />

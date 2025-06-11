@@ -45,9 +45,9 @@ Set up the details for connecting and interacting with the external MCP server.
 | Setting          | Required?                   | Description                                                                                                                                                                                             |
 |------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **MCP URL** | <Badge type="required">Yes</Badge> | The Server-Sent Events (SSE) URL of the MCP server you want to integrate with.                                                                                                                          |
-| **Model** | <Badge type="required">Yes</Badge> | Select the LLM that will be used to process requests and interact with the MCP server.                                                                                                                   |
 | **Prompt** | <Badge type="required">Yes</Badge> | The natural language instruction that tells the MCP server what task to perform. You can use variables like `{{prompt}}` to inject dynamic content from other inputs.                                  |
-| **System Prompt** | <Badge type="optional">No</Badge>  | An advanced setting that defines overarching behavior instructions for the client, similar to a system prompt in an LLM, providing context for how all requests should be handled. |
+| **Model** | <Badge type="required">Yes</Badge> | Select the LLM that will be used to process requests and interact with the MCP server.                                                                                                                   |
+| **System Prompt** (Advanced) | <Badge type="optional">No</Badge>  | An advanced setting that defines overarching behavior instructions for the client, similar to a system prompt in an LLM, providing context for how all requests should be handled. |
 
 <Arcade src="https://demo.arcade.software/mFxqwnIRy91PWDmGwFcv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="MCP Client | SmythOS"/>
 

@@ -6,16 +6,13 @@ sidebar_position: 1
 ---
 # Introduction
 
-Welcome to Agent Studio — your home base for building, running, and scaling AI agents with SmythOS—the horizontal orchestration layer that fuses LLMs, reasoners, and enterprise-grade guardrails into one secure, human-supervised workflow engine.
-
-These docs walk you through everything from a 2-minute Quickstart to deep dives on advanced topics like RAG (Retrieval-Augmented Generation), multi-LLM routing, observability, and self-hosted runtime deployment.
-
-> Our documentation is a work in progress. We ship fast and document just as quickly—pull requests, issues, and typo fixes are always welcome. Let’s make agent development easier for everyone.
-
-[insert 1-min intro arcade/video]
+<InfoCallout title="What is Agent Studio?">
+**Agent Studio** is a cloud-based visual builder for creating and managing agents in SmythOS. Use modular [components](/docs/agent-runtime/components) to define workflows that control how agents reason and act. Connect LLMs, enterprise data, and third-party tools into secure, human-guided automations.
+This guide covers everything from a 2-minute quickstart to advanced topics like [RAG](/docs/agent-studio/components/rag-data/rag-search), multi-LLM routing, and [production deployment](/docs/agent-deployments/overview).
+</InfoCallout>
 
 ## Quick Links
-
+Get started with these essential guides:
 <CardGrid>
   <Card
     title="Quickstart"
@@ -34,35 +31,46 @@ These docs walk you through everything from a 2-minute Quickstart to deep dives 
   />
 </CardGrid>
 
-SmythOS provides the following essential agent creation tools:
+# Features of Studio
 
-* Real-time Workflow Visualization: Instantly test, inspect, and refine your agent's workflows as you build them.
-* Seamless Integration: Connect with various any process on the internet from MCPs to 3P APIs.
-* Multi-Input Handling: Define your own inputs/outputs to process text, images, and data comprehensively.
-* AI-Powered Decision-Making: Leverage advanced algorithms for classification, reasoning, and autonomous decision-making anywhere in your workflow [link].
-* Fine-Grained Customization: Modify every aspect of your agent, from decision-making logic to API integrations, with unparalleled control [link].
-* Scalable Deployment: Deploy agents in minutes and scale them with our large selection of deployment options ranging from cloud to local [link].
+Agent Studio is a visual canvas designed to simplify the creation of complex AI agents. It provides a suite of tools that let you:
 
-## Platform Concepts [fix UI]
-* builder canvas- where you make your agents
-* agents page- where you can orchestrate your agents, also where you can manage your agent settings, it's like a homepage for using your agents. organize agents into spaces dedicated to different projects/teams/clients etc.
-* agent settings- control how your agent is used, security
-* vault- manage and secure your api keys
-* analytics- check your usage, control and limit your costs
-* data pool-data store, central RAG management
+* **Visualize Workflows:** Instantly test, inspect, and refine your agent's logic as you build.
+* **Integrate Seamlessly:** Connect your agent to any process on the internet, from internal tools using [webhooks](/docs/agent-deployments/deployments/deploy-as-webhook) to thousands of third-party APIs.
+* **Handle Multiple Inputs:** Define custom inputs and outputs to process text, images, files, and structured data.
+* **Build with AI:** Leverage advanced components for classification, reasoning, and autonomous decision-making.
+* **Customize Everything:** Modify every aspect of your agent, from its core logic to its final [deployment](/docs/agent-deployments/overview), with unparalleled control.
 
-## 🎯 Use Cases
+## Key Platform Concepts
 
-SmythOS excels in various scenarios such as:
+Understanding these core concepts will help you get the most out of SmythOS.
 
-1. News Aggregation and Summarization: Automatically curate and summarize news from multiple sources.
-2. Customer Support Automation: Build agents to handle customer queries and provide instant responses.
-3. Data Analysis: Develop workflows to process and analyze large datasets, extracting valuable insights.
-4. Content Moderation: Create agents to review and filter content based on set criteria.
-Utilize the full potential of AI with SmythOS, your go-to platform for intelligent agents that automate and enhance your workflows.
+| Concept             | Description                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Builder Canvas** | The visual drag-and-drop environment where you design and connect the components of your agent's workflow. |
+| **Agents Page** | The central hub where you can manage, deploy, and organize all your agents into different [Project Spaces](/docs/account-management/spaces-management). |
+| **[Agent Settings](/docs/agent-studio/agent-settings/overview)** | A dedicated area to control an agent's behavior, security, and deployment configurations.      |
+| **[The Vault](/docs/agent-collaboration/working-with-agents/vault)** | A secure, centralized location to manage and use your API keys and other secrets across all your agents. |
+| **[Analytics](/docs/agent-collaboration/working-with-agents/analytics)** | A dashboard to monitor your token usage and control your costs.                                 |
+| **[Data Pool](/docs/agent-collaboration/working-with-agents/data-spaces)** | A centralized RAG management system for your agent's knowledge base. |
 
+<Divider />
 
+## Common Use Cases
 
-> Need more help? For any queries or further clarification on SmythOS, please reach out. Our team is here to help.
-> Join the SmythOS Community for real-time support, feedback, and connections with fellow builders.
-> Send a Support Request if you’re running into any issues or just have a general inquiry.
+SmythOS agents excel in a wide range of scenarios, including:
+
+* **News Aggregation:** Automatically curate and summarize news from multiple sources.
+* **Customer Support Automation:** Build agents to handle customer queries, answer FAQs, and provide instant responses.
+* **Data Analysis:** Develop workflows to process large datasets, extract valuable insights, and generate reports.
+* **Content Moderation:** Create agents to review and filter user-generated content based on predefined criteria.
+
+<InfoCallout title="Need More Help?">
+  For any queries or further clarification, please reach out to our team. Join the **SmythOS Community** for real-time support and connect with fellow builders, or **send a Support Request** if you run into any issues.
+</InfoCallout>
+
+<Spacer size="md" />
+
+<small>
+*Our documentation is a work in progress. We ship fast and document just as quickly—pull requests, issues, and typo fixes are always welcome. Let’s make agent development easier for everyone.*
+</small>

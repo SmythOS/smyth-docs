@@ -1,11 +1,11 @@
 ---
-title: Deployment and boot process
+title: SRE Deployment
 description: Learn how Smyth Runtime Environment starts up, initializes, and scales from development to production.
 keywords: [SmythOS, SRE, deployment, boot, initialization, scaling, production, development]
 sidebar_position: 5
 ---
 
-# Deployment and boot process
+# SRE Deployment
 
 > Getting your AI agents up and running fast matters. SRE’s boot sequence and configuration options make startup smooth and scalable.
 
@@ -16,7 +16,7 @@ From initializing core services to connecting LLM providers, SRE’s boot proces
 
 <Divider />
 
-## Boot sequence overview
+## Steps for Boot Sequence 
 
 1. Initialize core runtime services like storage, cache, vault, and accounts  
 2. Setup AI infrastructure including vector databases and model providers  
@@ -37,7 +37,7 @@ const sre = SRE.init({
 await sre.ready();
 ```
 
-## Development vs production configuration
+## Development vs Production Configuration
 
 | Aspect           | Development default        | Production upgrade               | Impact on your code           |
 |------------------|----------------------------|--------------------------------|------------------------------|
@@ -50,7 +50,7 @@ await sre.ready();
 
 SRE lets your agents run unchanged while the underlying infrastructure evolves.
 
-## Scalability and enterprise readiness
+## Scalability and Enterprise Eeadiness
 
 - OS-level resource monitoring and load balancing  
 - Child agent process spawning for distributed workloads  
@@ -58,5 +58,3 @@ SRE lets your agents run unchanged while the underlying infrastructure evolves.
 - Enterprise security and compliance features  
 - Container-ready with Docker support  
 - Full TypeScript support and comprehensive test suite  
-
-<Divider />

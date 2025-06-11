@@ -1,9 +1,91 @@
 ---
 title: Agent Work Schedules
+description: Automate your agent's tasks with time-based schedules that run specific endpoints at defined intervals.
+keywords: [agent schedules, routines, automation, task timing, repeat triggers]
+toc_max_heading_level: 2
 ---
 
 # Agent Work Schedules
 
-This is the **Agent Work Schedules** page for Agent Collaboration.
+Use **Work Schedules** to automate when your agent runs a specific task. You define the endpoint, provide inputs, and choose when (and how often) it should run. SmythOS takes care of the rest.
 
-_TODO: Add detailed content for agent work schedules._
+<InfoCallout>
+Work Schedules make your agent self-operating. Ideal for time-based operations like daily updates, weekly reports, or periodic syncs.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Where to Configure Work Schedules
+
+1. Go to the **Agents** page
+2. Click into your deployed agent
+3. Navigate to the **Settings** tab
+4. Scroll down to the **Tasks** section
+5. Click `Add New` under the **Schedule** area
+
+<Spacer size="md" />
+
+## One-Time Task
+
+For tasks that should run **only once** at a future time:
+
+1. Choose the endpoint you want to run
+2. Fill in the required input parameters
+3. Under **Repeat**, select `No Repeat`
+4. Set the **execution time**
+5. (Optional) Name the routine
+6. Click `Done`
+
+The routine will run once at the scheduled time, then disappear.
+
+<Spacer size="md" />
+
+## Recurring Task
+
+For tasks that should run **repeatedly** on a schedule:
+
+1. Choose the endpoint
+2. Enter input parameters
+3. Under **Repeat**, choose `Repeat`
+4. Configure repetition:
+   - **Repeat Every** (e.g. day, week)
+   - **Repeat On** (e.g. Monday, Friday)
+   - **End Condition**: never, after X times, or on a date
+5. (Optional) Add a name
+6. Click `Done`
+
+The routine will now execute at the defined intervals.
+
+<Spacer size="md" />
+
+## View and Track Scheduled Tasks
+
+Each schedule you create appears in the **Schedule** list.
+
+Click any routine to open its details:
+
+- **Info Tab**: Name, endpoint, inputs, next run
+- **Triggers Tab**: Run history
+- **Logs Tab**: Link to Logs Explorer for full debug output
+
+You can use these views to monitor performance or make edits if needed.
+
+<Arcade src="https://demo.arcade.software/5NPb5R6hXdIqrB6Pozxc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Scheduler | SmythOS" />
+
+<Spacer size="md" />
+
+## Example Scenarios
+
+| Routine               | Trigger Time     | Use Case                         |
+|-----------------------|------------------|----------------------------------|
+| `daily_news_digest`   | Every day at 8am | Pull top headlines               |
+| `weekly_client_report`| Fridays at 3pm   | Email summaries per client       |
+| `check_feeds`         | Hourly           | Monitor for price changes        |
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- [Bulk Work Tasks](/docs/agent-collaboration/agent-bulk-work)
+- [Chat with Agents](/docs/agent-collaboration/chat-with-agent)
+- [Deploy an Agent](/docs/agent-deployments/overview)

@@ -1,5 +1,80 @@
 ---
-title: Roles and Persmissions
+title: Roles and Permissions
+description: Understand how roles control access across SmythOS, from full organization ownership to agent-level collaboration.
+keywords: [roles, permissions, access control, organization management, RBAC, teams]
+toc_max_heading_level: 2
 ---
 
-> _Placeholder_: replace **Collaboration – Overview** with real documentation.
+# Roles and Permissions
+
+SmythOS uses **role-based access control (RBAC)** to manage what users can view or change. Each user is assigned a role that defines their level of control across the workspace, agents, and organization settings.
+
+<InfoCallout>
+Roles ensure secure, scalable collaboration—whether you're building with teammates or sharing with stakeholders.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Role Types
+
+### Super Admin
+
+- Full access to all SmythOS features and settings
+- Can manage **billing**, **organization settings**, and **all spaces**
+- Typically assigned to organization owners or senior leadership
+
+### Admin
+
+- Full control within a specific **space**
+- Can manage team members, settings, and agent-level assets
+- Cannot access or edit billing and org-level settings
+
+### Editor
+
+- Can create, modify, and run agents, templates, and resources
+- No access to member management or space configuration
+- Best for builders, project leads, or analysts
+
+### Viewer
+
+- Read-only access to most features
+- Can view and use **deployed agents**, but cannot edit or configure anything
+- Ideal for reviewers, clients, or stakeholders
+
+<Spacer size="md" />
+
+## Access by Page
+
+This matrix shows exactly what each role can do across major parts of the platform:
+
+| Page               | Super Admin   | Admin         | Editor        | Viewer        |
+|--------------------|----------------|----------------|----------------|----------------|
+| **Dashboard**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Agent Settings** | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Agent Builder**  | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Templates**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Domains**        | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Data Pool**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Vault**          | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **Analytics**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
+| **My Plan**        | View + Edit    | View Only      | View Only      | View Only      |
+| **Team Roles**     | View + Edit    | View + Edit    | View Only      | View Only      |
+| **Team Members**   | View + Edit    | View + Edit    | View Only      | View Only      |
+
+<Spacer size="md" />
+
+## Choosing the Right Role
+
+| Scenario                              | Recommended Role |
+|---------------------------------------|------------------|
+| Managing billing and org-wide settings| Super Admin      |
+| Setting up projects and managing users| Admin            |
+| Building agents and editing workflows | Editor           |
+| Reviewing outputs or using agents     | Viewer           |
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- [Organization Members Overview](/docs/account-management/prganization-management)
+- [Deploy and Share Agents](/docs/agent-deployments/overview)

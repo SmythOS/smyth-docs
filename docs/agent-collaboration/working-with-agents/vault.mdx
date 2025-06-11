@@ -1,0 +1,152 @@
+---
+title: Vault
+description: Securely manage API keys and AI provider credentials to power your agents in SmythOS.
+keywords: [vault, api keys, credentials, AI integrations, enterprise models, secure access]
+toc_max_heading_level: 2
+---
+
+# Vault
+
+The **Vault** in SmythOS is your secure hub for storing and managing sensitive credentials—like API keys, access tokens, and enterprise model configurations. All integrations across your agents pull from here, so nothing sensitive is hardcoded.
+
+<InfoCallout>
+Use the Vault to centralize authentication across all agents and integrations, including API requests, LLMs, webhooks, and automation tools.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Built-In AI Providers
+
+SmythOS supports direct access to leading AI models with no extra setup.
+
+| Provider     | Availability        | Reference Link                                 |
+|--------------|---------------------|-------------------------------------------------|
+| OpenAI       | Built-in            | [OpenAI API](https://platform.openai.com/)      |
+| Anthropic    | Built-in            | [Anthropic API](https://docs.anthropic.com/)    |
+| Google AI    | Built-in            | [Google AI Console](https://console.developers.google.com) |
+| Perplexity   | Built-in            | [Perplexity API](https://docs.perplexity.ai/)   |
+
+<WarningCallout>
+Using built-in providers will consume credits from your [SmythOS plan](/docs/account-management/subscription-management).
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Custom AI Model Configuration
+
+You can bring your own credentials for third-party or enterprise providers.
+
+### Supported Providers
+
+#### Language Models
+
+| Provider     | Setup Type          | Description                |
+|--------------|---------------------|----------------------------|
+| OpenAI       | Manual Setup        | GPT models via your key    |
+| Anthropic    | Manual Setup        | Claude models              |
+| Google AI    | Manual Setup        | Gemini models              |
+| Together AI  | Manual Setup        | Open-source models         |
+| xAI          | Manual Setup        | Grok models                |
+
+#### Enterprise Platforms
+
+| Provider         | Use Case         | API Reference                              |
+|------------------|------------------|---------------------------------------------|
+| Amazon Bedrock   | Secure LLM access| [Bedrock Docs](https://aws.amazon.com/bedrock/) |
+| Google Vertex AI | Managed ML infra | [Vertex AI](https://cloud.google.com/vertex-ai/docs) |
+
+<Spacer size="md" />
+
+## Set Up an Enterprise Model
+
+To integrate your own enterprise-grade AI model:
+
+1. **Go to Vault** → Click `Add Enterprise Model`
+2. Choose a provider: **Bedrock** or **Vertex AI**
+3. Name your model and enable desired features (e.g., Text Completion)
+4. Provide provider-specific credentials:
+
+<Spacer size="md" />
+
+### Google Vertex AI
+
+- Google Service Account Key  
+- Project ID  
+- Region  
+
+### Amazon Bedrock
+
+- AWS Access Key ID  
+- AWS Secret Access Key  
+- Region  
+
+<Spacer size="md" />
+
+### Advanced Settings
+
+After credential input, configure:
+
+- Context window size  
+- Max output tokens  
+- Temperature  
+- Top-p sampling  
+- Custom response formatting  
+
+<Arcade src="https://demo.arcade.software/IW2DEAFY3PcEM8w2IYpF?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Global Keys | SmythOS" />
+
+<Spacer size="md" />
+
+## Manage API Keys
+
+In the **API Keys** section, you can add and manage reusable tokens.
+
+### Adding a Key
+
+Each key requires:
+
+| Field     | Description                             |
+|-----------|-----------------------------------------|
+| Key       | The API token (max 10,000 characters)   |
+| Name      | A unique, recognizable label            |
+| Scope     | Defines where the key can be used       |
+
+### Scope Options
+
+- `All` – No restriction  
+- `API Call` – For [API Output](/docs/agent-studio/components/base/api-output)  
+- `Hugging Face` – For [Hugging Face Integrations](/docs/agent-studio/integrations/hugging-face-integration)  
+- `Zapier Action` – For [Zapier Workflows](/docs/agent-studio/integrations/zapier-integration)
+
+<Arcade src="https://demo.arcade.software/EZp8e9I4OdnZST40yW38?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Keys | SmythOS" />
+
+<Spacer size="md" />
+
+## Use Vault Keys in Agents
+
+SmythOS automatically injects keys from the Vault into agent components when scoped correctly.
+
+### In [API Output Component](/docs/agent-studio/components/base/api-output)
+
+- **Headers:** Add as `Authorization` or custom header  
+- **URL Params / Body:** Inject directly or through mappings  
+- **OAuth Credentials:** Use stored keys for client credentials  
+
+<Arcade src="https://demo.arcade.software/vAVBpnUpVv07JQHtEOiy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Vault - API Call | SmythOS" />
+
+<Spacer size="md" />
+
+### In [Hugging Face Integrations](/docs/agent-studio/integrations/hugging-face-integration)
+
+- Paste or reference the Hugging Face token in the `Access Token` field.
+
+### In [Zapier Actions](/docs/agent-studio/integrations/zapier-integration)
+
+- Keys with `Zapier` scope will be auto-used by Zapier-triggered components.
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- [Agent API Output Component](/docs/agent-studio/components/base/api-output)  
+- [Authenticated Workflows](/docs/agent-studio/agent-settings/authentication)  
+- [Deploy Agents with Vault Access](/docs/agent-deployments/overview)

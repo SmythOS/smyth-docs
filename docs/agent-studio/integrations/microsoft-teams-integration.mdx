@@ -1,883 +1,317 @@
 ---
-tags: [input, communication, collaboration]
+title: Microsoft Teams Integration
+description: Connect SmythOS to Microsoft Teams to automate sending messages, managing chats, and integrating your team communication directly into your agent workflows.
+og:title: SmythOS & Microsoft Teams - Automate Your Team Collaboration
+og:description: Learn to integrate Microsoft Teams with SmythOS. Empower your agents to send messages to channels and chats, create new conversations, and retrieve message history.
+og:image: /img/integrations/smythos_msteams.png
+keywords: [Microsoft Teams SmythOS Integration, Connect Teams to SmythOS, SmythOS Teams Bot, Automate Teams Messages, Microsoft Graph API, No-Code Teams Bot]
 ---
+# Microsoft Teams Integration with SmythOS
+
+> **Want to embed your business processes directly into your team's collaboration hub?** Connect Microsoft Teams to SmythOS and empower your agents to send messages, create chats, and automate communication workflows.
+
+<InfoCallout title="TL;DR">
+Securely link your Microsoft 365 account to SmythOS by registering an application in Microsoft Entra to get a Client ID and Secret. Then, use our suite of components to automate interactions with your Teams channels and chats.
+</InfoCallout>
+
+## List of Microsoft Teams Components
+Quickly compare Teams components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
+
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Send Message in Channel**](#send-message-in-channel) | Write | Posts a message to a specific channel within a Team. | <Badge type="required" /> `team_id`, `channel_id`, `content` | `id`, `etag` | Posting automated deployment status updates. |
+| [**Send Message in Chat**](#send-message-in-chat) | Write | Sends a message to a one-on-one or group chat. | <Badge type="required" /> `chat_id`, `content` | `id`, `chatId` | Sending a direct notification to a user. |
+| [**Send Reply in Channel**](#send-reply-in-channel) | Write | Replies to a specific message thread in a channel. | <Badge type="required" /> `team_id`, `channel_id`, `message_id`, `content` | `id`, `replyToId` | Continuing a conversation started by an alert. |
+| [**Create Chat**](#create-chat) | Write | Creates a new one-on-one or group chat with specified members. | <Badge type="required" /> `userId`, `Body` | `id`, `webUrl` | Starting a new conversation for a project team. |
+| [**List Messages in Chat**](#list-messages-in-chat) | Read | Retrieves the message history from a specific chat. | <Badge type="required" /> `chat_id` | `values`, `count` | Auditing a conversation or providing context to an LLM. |
+| [**List Chats**](#list-chats) | Read | Retrieves a list of all chats a user is a member of. | <Badge type="required" /> `userId` | `values`, `data_count` | Finding a specific chat ID to send a message to. |
+| [**Get Chat**](#get-chat) | Read | Retrieves metadata and properties for a specific chat. | <Badge type="required" /> `chat_id` | `id`, `chatType` | Checking if a chat is a group or one-on-one. |
+| [**Get Message in Chat**](#get-message-in-chat) | Read | Retrieves a single, specific message from a chat. | <Badge type="required" /> `chat_id`, `message_id` | `content` | Getting the text of a message that triggered a workflow. |
+| [**Add Chat Member**](#add-chat-member) | Write | Adds a new user to an existing group chat. | <Badge type="required" /> `chat_id`, `Body` | `location` | Adding a new team member to a project chat. |
+
+<InfoCallout>
+<details>
+  <summary>Why Integrate Microsoft Teams with Your Agent?</summary>
+
+Microsoft Teams is the central nervous system for many organizations. Integrating it with SmythOS allows you to build powerful automations that live where your team works.
+
+- **Automated Alerts & Notifications:** Create agents that monitor your infrastructure, applications, or other services and post real-time alerts to a specific Teams channel, ensuring rapid response.
+- **Streamline Business Processes:** Use agents to bridge the gap between systems. For example, when a new high-priority ticket is created in your support system, an agent can automatically create a new chat with the on-call engineers.
+- **Interactive Agents:** Build agents that can receive commands or data from Teams messages (requires a webhook setup), process the information, and post a result back into the chat.
+- **Centralized Reporting:** Schedule agents to gather data from various sources (e.g., Google Analytics, GitHub, databases) and post a daily or weekly summary report directly into a team's channel.
+
+</details>
+</InfoCallout>
+<Divider />
+
+## Prerequisites
+
+Before you begin, please ensure you have the following:
+
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Microsoft 365 Account** with administrative permissions to register applications in Microsoft Entra.
+- Your application's **Client ID** and **Client Secret** from the Microsoft Entra portal.
+
+<Divider />
+
+## Getting Started With Microsoft Teams
+
+The connection is handled via OAuth 2.0, which requires you to register an application in Microsoft Entra to get your credentials. This is a one-time setup.
+
+### Step 1: Register an Application in Microsoft Entra
+1.  Navigate to the [Microsoft Entra Portal](https://entra.microsoft.com/).
+2.  Go to **Azure Active Directory** > **App registrations** and click **+ New registration**.
+3.  **Configure your application:**
+    * **Name:** Give it a descriptive name (e.g., "SmythOS Teams Integration").
+    * **Supported account types:** Choose the option that best fits your organization's needs.
+    * **Redirect URI:** Select **Web** and enter `https://app.smythos.com/oauth/oauth2/callback`.
+4.  Click **Register**.
+
+### Step 2: Get Client ID and Client Secret
+1.  **Client ID:** From your app's **Overview** page, copy the **Application (client) ID**.
+2.  **Client Secret:**
+    * Navigate to **Certificates & secrets** > **Client secrets**.
+    * Click **+ New client secret**, add a description, and choose an expiration period.
+    * Click **Add**. **Immediately copy the `Value` of the secret.** It will not be shown again.
+
+### Step 3: Configure API Permissions
+1.  In your app registration, go to the **API permissions** page.
+2.  Click **+ Add a permission**, select **Microsoft Graph**, and choose **Delegated permissions**.
+3.  Add the necessary permissions. Common permissions for these components include:
+    * `Chat.Read`, `Chat.ReadWrite`
+    * `ChannelMessage.Send`
+    * `Team.ReadBasic.All`
+    * `offline_access` (essential for long-running automations)
+4.  After adding permissions, click the **Grant admin consent for [Your Organization]** button.
+
+### Step 4: Configure and Authenticate in SmythOS
+1.  **Store Credentials:** Add your `Client ID` and `Client Secret` to the SmythOS **Vault** for security.
+2.  **Add a Component:** Drag any Microsoft Teams component onto your agent graph.
+3.  **Authenticate:** Open the component's **Settings**, select your credentials from the Vault, and click the **Authenticate** button. You will be redirected to Microsoft to sign in and grant consent.
+
+<InfoCallout title="OAuth and Permissions">
+This OAuth 2.0 flow securely connects your Microsoft account. If you encounter permission errors later, ensure you have granted the correct API permissions in Microsoft Entra and provided admin consent.
+</InfoCallout>
+<Divider />
+
+## Which Microsoft Teams Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Send a public alert** to a project team | A team channel | [Send Message in Channel](#send-message-in-channel) | The standard way to post in a channel where all team members can see. |
+| **Notify a specific user** or small group | A one-on-one or group chat | [Send Message in Chat](#send-message-in-chat) | Use this for direct, private communication instead of a public channel. |
+| **Start a new conversation** about a specific issue | A list of user IDs | [Create Chat](#create-chat) | Perfect for dynamically creating group chats for incident response or new projects. |
+| **Get the history of a conversation** | A `chat_id` | [List Messages in Chat](#list-messages-in-chat) | Retrieves the messages in a chat, useful for providing context to an AI. |
+| **Add a new person** to an ongoing discussion | A `chat_id` and a user's ID | [Add Chat Member](#add-chat-member) | The correct way to invite someone into an existing group chat. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for each Microsoft Teams component.
+
+### <a name="send-message-in-channel"></a>Send Message in Channel
+Posts a message to a specific channel within a Team.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `team_id` | string | Yes | The unique ID of the Team. |
+| `channel_id` | string | Yes | The unique ID of the channel within the team. |
+| `content` | string | Yes | The message content. Supports HTML. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the message that was sent. |
+| `etag`| string | The ETag of the message. |
+| `channelIdentity`| object | Contains the `teamId` and `channelId`. |
+
+<TipCallout title="Use Case">
+A CI/CD pipeline agent posts a message to the `#deployments` channel: `Build 1.2.3 successfully deployed to production.`
+</TipCallout>
 
-# Microsoft Teams Integration
+<Divider/>
+
+### <a name="send-message-in-chat"></a>Send Message in Chat
+Sends a message to an existing one-on-one or group chat.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The unique ID of the chat. |
+| `content` | string | Yes | The message content. Supports HTML. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the message that was sent. |
+| `chatId` | string | The ID of the chat the message was sent to. |
+
+<TipCallout title="Use Case">
+An agent detects a critical error and sends a direct message to the on-call engineer's chat: `URGENT: Database server is unresponsive.`
+</TipCallout>
+
+<Divider/>
+
+### <a name="create-chat"></a>Create Chat
+Creates a new chat conversation.
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the chat type and members. For a group chat, it would look like: `{"chatType": "group", "members": [{"@odata.type": "#microsoft.graph.aadUserConversationMember", "roles": ["owner"], "user@odata.bind": "https://graph.microsoft.com/v1.0/users('USER_ID_1')"}, ...]}`
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `userId` | string | Yes | The ID of the user creating the chat (typically the authenticated user). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the newly created chat. |
+| `webUrl`| string | The URL to open the chat in the Teams client. |
+
+<TipCallout title="Use Case">
+When a new high-priority sales lead comes in, an agent creates a new group chat with the assigned sales representative and their manager to coordinate a strategy.
+</TipCallout>
 
-`Microsoft Teams` is a comprehensive collaboration platform within the Microsoft 365 suite, designed for enhancing team communication and productivity. It integrates a wide range of functionalities including chat, video meetings, file sharing, and application integration, making it an essential tool for modern workplaces. By consolidating various communication channels into a single platform, `Microsoft Teams` helps organizations streamline their workflows and enhance collaboration, regardless of physical location.
+### <a name="list-messages-in-chat"></a>List Messages in Chat
+Retrieves the message history from a specific one-on-one or group chat.
 
-Integrating `Microsoft Teams` into `SmythOS` offers significant advantages:
-- **Unified Communication:** Centralize team communications, within the `SmythOS` environment.
-- **Collaboration Efficiency:** Facilitate more efficient collaboration by enabling file sharing and co-editing within Teams, directly from `SmythOS`.
-- **Productivity Boost:** Streamline workflows and increase productivity by accessing Teams features without switching between different applications.
-- **Seamless Integration:** Improve user experience with seamless integration between `SmythOS` and `Microsoft Teams`, allowing for immediate collaboration without technical hurdles.
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-microsoft-teams) section.</InfoCallout>
 
-With `Microsoft Teams` integration, `SmythOS` users can leverage the power of Teams to enhance their communication, collaboration, and overall productivity.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The unique ID of the chat from which to retrieve messages. |
 
-## List Chats
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `values` | array | An array of message objects from the chat. |
+| `count` | integer | The number of messages retrieved in the current request. |
+| `nextLink`| string | A URL to retrieve the next page of messages, if available. |
+| `Response`| object | The full, raw JSON response from the Microsoft Graph API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-Retrieve the list of chats a user is part of in `Microsoft Teams`.
+<TipCallout title="Use Case">
+An agent retrieves the last 10 messages from a support chat to provide context to an LLM for generating a summary or a suggested reply.
+</TipCallout>
 
-### Settings
+<Divider/>
 
-#### Client ID & Client Secret
+### <a name="get-chat"></a>Get Chat
+Retrieves the properties and relationships of a specific chat, such as its type and web URL.
 
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-microsoft-teams) section.</InfoCallout>
 
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The unique ID of the chat you wish to retrieve. |
 
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the chat. |
+| `chatType`| string | The type of chat (e.g., `group`, `oneOnOne`). |
+| `webUrl` | string | The URL to view the chat in a web browser. |
+| `tenantId`| string | The ID of the tenant the chat belongs to. |
+| `Response`| object | The raw JSON response from the Microsoft Graph API. |
 
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
+<TipCallout title="Use Case">
+Before adding a member, an agent uses this component to check the `chatType` to ensure it's a 'group' chat.
+</TipCallout>
 
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
+<Divider/>
 
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
+### <a name="get-message-in-chat"></a>Get Message in Chat
+Retrieves a single, specific message from a chat using the chat ID and message ID.
 
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-microsoft-teams) section.</InfoCallout>
 
-#### 🔑 Authenticate/Sign Out Button
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The ID of the chat containing the message. |
+| `message_id` | string | Yes | The ID of the specific message to retrieve. |
 
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `content` | string | The content of the retrieved message (can be HTML). |
+| `Response`| object | The full, raw JSON response from the API, containing the complete message object. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
+<TipCallout title="Use Case">
+When an agent is triggered by a specific message reply, it uses this component to fetch the full content of the original message that was replied to.
+</TipCallout>
 
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
+<Divider/>
 
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
+### <a name="add-chat-member"></a>Add Chat Member
+Adds a new user to an existing group chat.
 
-<Image src="/img/microsoft_teams/screenshot1.png" alt="alt text" />
+<InfoCallout>This component uses the OAuth 2.0 flow detailed in the [Getting Started](#getting-started-with-microsoft-teams) section.</InfoCallout>
 
-### Inputs
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the user to be added. The structure should be: `{"user@odata.bind": "https://graph.microsoft.com/v1.0/users('USER_ID_TO_ADD')"}`.
 
-To effectively utilize this component, you need to provide the following input:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The ID of the group chat to which the member will be added. |
 
-1. **userId (`required<string>`):** The ID of the user whose chats are being listed.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `location` | string | The location header indicating the URL of the newly added member resource. |
+| `Response`| object | The raw JSON response from the Microsoft Graph API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-<Image src="/img/microsoft_teams/screenshot2.png" alt="alt text" />
+<TipCallout title="Use Case">
+When a new developer joins a project team, an onboarding agent automatically adds them to the project's group chat in Teams.
+</TipCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
 
-### Outputs
+<Divider />
 
-After running this component, the following default outputs are generated:
+## Best Practices & Advanced Tips
 
-1. **Response:** The raw response received from the `Microsoft Teams` API, detailing the list of chats.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **data_count:** The count of chat data received.
-4. **values:** A list of chat objects.
+* **Secure Your Credentials:** Always store your `Client ID` and `Client Secret` in the SmythOS `Vault`.
+* **Understand Permissions:** The Microsoft Graph API has a granular permission model. Ensure your Entra App Registration has been granted the correct delegated scopes (e.g., `Chat.ReadWrite`, `ChannelMessage.Send`) for the actions you want to perform.
+* **Get User, Team, and Channel IDs:** You'll need the unique IDs for users, teams, and channels to use these components. These can be found in the Teams client (by creating links) or retrieved programmatically with other Graph API calls.
+* **Use HTML for Rich Content:** The `content` field for sending messages supports HTML. Use this to format your messages with bold text, lists, and links for better readability.
 
-<Image src="/img/microsoft_teams/screenshot3.png" alt="alt text" />
+<Divider />
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+## Troubleshooting Common Issues
 
-## List Messages in Chat
+* **Error: `401 Unauthorized`**
+  * **Cause:** The `Client ID` or `Client Secret` is incorrect, or the user's access token is invalid or expired.
+  * **Solution:** Verify the credentials in your Vault. You may need to use the `Sign Out` and `Authenticate` buttons on the component settings to refresh your token.
 
-Retrieve messages in a Microsoft Teams chat.
+* **Error: `403 Forbidden`**
+  * **Cause:** The application does not have the required API permissions (scopes) granted in Microsoft Entra for the action you are trying to perform.
+  * **Solution:** Go to your App Registration in the Entra portal, navigate to **API permissions**, and ensure the necessary permissions (e.g., `ChannelMessage.Send`, `Chat.Create`) are added and have been granted admin consent.
 
-### Settings
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect ID (`team_id`, `channel_id`, `chat_id`, `message_id`) was provided.
+  * **Solution:** Double-check that the ID is correct and that the authenticated user has access to that resource.
 
-#### Client ID & Client Secret
+<Divider />
 
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
+## What's Next?
 
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
+You are now ready to build powerful communication and collaboration workflows with the **SmythOS Microsoft Teams Integration**!
 
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
+Consider these ideas:
+* **Build an Agent That...**
+    * Monitors your GitHub repository. When a new pull request is opened, it posts a notification with a link to the PR in the relevant engineering channel.
+    * Connects to your calendar. 10 minutes before a meeting, it sends a message to a group chat with all attendees, reminding them of the meeting and providing the agenda.
+    * Gathers daily sales data from your CRM and posts a morning summary report to the `#sales-team` channel.
 
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot4.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **chat_id (`required<string>`):** The ID of the chat from which you want to retrieve messages.
-
-<Image src="/img/microsoft_teams/screenshot5.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the `Microsoft Teams` API, containing the details of the messages.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **values:** A list of message objects.
-4. **count:** The number of messages retrieved.
-5. **nextLink:** A link to the next page of results, if available.
-
-<Image src="/img/microsoft_teams/screenshot6.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Chat
-
-Retrieve properties and relationships of a chat in `Microsoft Teams`.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot7.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **chat_id (`required<string>`):** The ID of the chat you wish to retrieve properties and relationships for.
-
-<Image src="/img/microsoft_teams/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the `Microsoft Teams` API, detailing the chat's properties and relationships.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **id:** The ID of the chat.
-4. **chatType:** The type of the chat (e.g., group, one-on-one).
-5. **webUrl:** The URL to view the chat in a web browser.
-6. **tenantId:** The ID of the tenant.
-
-<Image src="/img/microsoft_teams/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Message in Chat
-
-Retrieve a single message in a `Microsoft Teams` chat.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot10.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following inputs:
-
-1. **chat_id (`required<string>`):** The ID of the chat from which you want to retrieve the message.
-2. **message_id (`required<string>`):** The ID of the message you want to retrieve.
-
-<Image src="/img/microsoft_teams/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the `Microsoft Teams` API, containing the details of the single message.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **content:** The content of the retrieved message.
-
-<Image src="/img/microsoft_teams/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create Chat
-
-Create a new chat in `Microsoft Teams`.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-#### Body
-
-This is the field where you enter the JSON payload to create a new chat. By default, a sample schema is provided, which can be edited as needed.
-
-<Image src="/img/microsoft_teams/screenshot13.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **userId (`required<string>`):** The ID of the user for whom the chat is being created.
-
-<Image src="/img/microsoft_teams/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the `Microsoft Teams` API, containing details of the new chat.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **id:** The ID of the newly created chat.
-4. **chatType:** The type of the chat (e.g., group, one-on-one).
-5. **webUrl:** The URL to view the chat in a web browser.
-6. **tenantId:** The ID of the tenant.
-
-<Image src="/img/microsoft_teams/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Chat Member
-
-Add a user to a chat in `Microsoft Teams`.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-#### Body
-
-This is the field where you enter the JSON payload to add a chat member. By default, a sample schema is provided, which can be edited as needed.
-
-<Image src="/img/microsoft_teams/screenshot16.png" alt="alt text" />
-
-### Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **chat_id (`required<string>`):** The ID of the chat to which the user will be added.
-
-<Image src="/img/microsoft_teams/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the `Microsoft Teams` API, containing details of the new chat member.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **location:** The location of the newly added chat member.
-
-<Image src="/img/microsoft_teams/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Send Message in Chat
-
-Send a new chat message in the specified chat.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot19.png" alt="alt text" />
-
-### ✍️ Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **chat_id (`required<string>`):** The ID of the chat to which the user will be added.
-2. **content (`required<string>`):** The content of the message to be sent.
-
-<Image src="/img/microsoft_teams/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the Microsoft Teams API, containing details of the new chat message.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **id:** The ID of the sent message.
-4. **etag:** The etag of the sent message.
-5. **chatId:** The ID of the chat where the message was sent.
-
-<Image src="/img/microsoft_teams/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Send Message in Channel
-
-Easily send a message in a specified Microsoft Teams channel.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot22.png" alt="alt text" />
-
-### ✍️ Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **team_id (`required<string>`):** The ID of the team in which the channel exists.
-2. **channel_id (`required<string>`):** The ID of the channel where the message will be sent.
-3. **content (`required<string>`):** The content of the message to be sent.
-
-<Image src="/img/microsoft_teams/screenshot23.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the Microsoft Teams API, containing details of the new chat message.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **id:** The ID of the sent message.
-4. **etag:** The etag of the sent message.
-5. **channelIdentity:** The unique identifier of the channel where the message was sent.
-
-<Image src="/img/microsoft_teams/screenshot24.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Send Reply in Channel
-
-Easily send replies in a specified Microsoft Teams channel.
-
-### Settings
-
-#### Client ID & Client Secret
-
-To kickstart this component, follow these initial steps to obtain your `Client ID` and `Client Secret` using Microsoft Entra:
-
-1. **Register Your Application:**
-   - Go to the [Microsoft Entra Portal](https://entra.microsoft.com/).
-   - Navigate to **Azure Active Directory** and select **App registrations**.
-   - Click on **New registration** to create a new application.
-
-2. **Provide Application Details:**
-   - **Name**: Enter a name for your application.
-   - **Supported account types**: Choose the account types that you want to support. This can be:
-     - Accounts in this organizational directory only
-     - Accounts in any organizational directory
-     - Accounts in any organizational directory and personal Microsoft accounts
-   - **Redirect URI**: Select `Web` and enter `https://app.smythos.com/oauth/oauth2/callback` as the URI.
-   - Click on **Register**.
-
-3. **Obtain Client ID & Client Secret:**
-   - **Client ID**: Once registered, go to the **Overview** section of your new application to find your `Client ID` (also known as the Application ID). Copy this value.
-   - **Client Secret**:
-     - Navigate to **Certificates & secrets**.
-     - In the **Client secrets** section, click on **New client secret**.
-     - Provide a description and choose an expiration period.
-     - Click on **Add**.
-     - Copy the client secret value displayed. This is your `Client Secret`. Ensure you copy it now because it will be hidden once you leave the page.
-
-4. **Configure API Permissions:**
-   - Go to the **API permissions** section.
-   - Click on **Add a permission** and select **Microsoft Graph**.
-   - Choose **Delegated permissions** if your app needs to authenticate as a signed-in user, or **Application permissions** if your app runs as a background service or daemon without user interaction.
-   - Grant the following permissions as needed:
-     - `Chat.Read`
-     - `Chat.ReadWrite`
-     - `Team.ReadBasic.All`
-     - `TeamSettings.ReadWrite.All`
-     - `Channel.ReadBasic.All`
-     - `ChannelSettings.ReadWrite.All`
-     - `offline_access`
-   - Click on **Add permissions**.
-   - Click on **Grant admin consent for [your organization]** to grant the permissions.
-
-5. **Enter Credentials in SmythOS:**
-   - Navigate to the settings section of the component in SmythOS.
-   - Enter the `Client ID` and `Client Secret` that you obtained from the Microsoft Entra portal.
-   - Click on the **Authenticate** button to connect the component to Microsoft Teams.
-
-> **Note:** Treat the `Client ID` & `Client Secret` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### 🔑 Authenticate/Sign Out Button
-
-The component provides a versatile button designed to toggle between **Authenticate** and **Sign Out** based on the current authentication state within the OAuth setup.
-
-- **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
-- **Sign Out Button**: Allows users to sign out when they are currently authenticated.
-
-This button serves a critical role in scenarios where the component cannot retrieve a valid token due to reasons such as:
-- The token is invalid.
-- The token has expired.
-- Other token-related issues.
-
-In such cases, you can use the combo action of signing out and authenticating again to resolve these token-related problems, ensuring seamless authentication management within your application.
-
-<Image src="/img/microsoft_teams/screenshot25.png" alt="alt text" />
-
-### ✍️ Inputs
-
-To effectively utilize this component, you need to provide the following input:
-
-1. **team_id (`required<string>`):** The ID of the team in which the channel exists.
-2. **channel_id (`required<string>`):** The ID of the channel where the message will be sent.
-3. **message_id (`required<string>`):** The ID of the message to which the reply will be sent.
-4. **content (`required<string>`):** The content of the message to be sent.
-
-<Image src="/img/microsoft_teams/screenshot26.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After running this component, the following default outputs are generated:
-
-1. **Response:** The raw response received from the Microsoft Teams API, containing details of the new chat message.
-2. **Headers:** HTTP headers that provide insights into the API request-response process, essential for managing connectivity and troubleshooting potential issues.
-3. **id:** The ID of the sent message.
-4. **replyToId:** The ID of the message to which the reply was sent.
-5. **etag:** The etag of the sent message.
-6. **channelIdentity:** The unique identifier of the channel where the message was sent.
-
-<Image src="/img/microsoft_teams/screenshot27.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * Combine Teams with the [tl;dv Integration](/docs/integrations/tldv). After a meeting, an agent can fetch the summary and post it as a reply in the original meeting's chat thread.
+    * Use an [LLM component](/docs/integrations/openrouter) to summarize a long email, then post the summary to a Teams channel for quick review.
+    * When a new file is uploaded to [OneDrive](/docs/integrations/onedrive), post a notification message with a link to the file in the appropriate team channel.

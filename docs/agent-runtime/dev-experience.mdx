@@ -1,0 +1,93 @@
+---
+title: Developer experience with SRE
+description: Discover how Smyth Runtime Environment makes building AI agents easy with visual tools, SDKs, real-time monitoring, and extensibility.
+keywords: [SmythOS, SRE, developer experience, SDK, visual design, debugging, monitoring, extensibility]
+sidebar_position: 4
+---
+
+# Developer experience with SRE
+
+> Building AI agents should be smooth and productive. SRE offers you flexible options that fit your workflow and skillset.
+
+<InfoCallout>
+**What to expect:**  
+You can design agents visually, code them programmatically, monitor execution in real time, and extend capabilities with custom components.
+</InfoCallout>
+
+<Divider />
+
+## Dual creation modes
+
+SRE supports two complementary ways to build agents:
+
+1. **Visual designer**  
+   - Drag and drop components  
+   - Connect inputs and outputs visually  
+   - Ideal for rapid prototyping and collaboration with non-technical stakeholders  
+
+2. **SDK programming**  
+   - Use a type-safe SDK with full IntelliSense  
+   - Write custom logic and workflows in code  
+   - Integrate with CI/CD and version control  
+
+```json
+{
+  "connections": [
+    {
+      "sourceId": "llm_1",
+      "targetId": "classifier_1",
+      "sourceIndex": 0,
+      "targetIndex": 0
+    }
+  ]
+}
+```
+
+```JavaScript
+// Example: SDK creating and connecting components programmatically
+const llm = SDK.GenAILLM({ model: 'gpt-4' }, agent);
+const classifier = SDK.Classifier({ classes: ['positive', 'negative'] }, agent);
+
+classifier.in({ Input: llm.out.Reply });
+```
+
+## Real-time monitoring and debugging
+
+Stay in control with:
+
+- Live Server-Sent Events (SSE) streaming for execution updates  
+- Detailed logs and execution traces per component  
+- Performance and resource usage dashboards  
+- Debug mode for stepwise execution analysis  
+
+## Custom components and skills
+
+Extend SRE beyond defaults by:
+
+- Writing your own components inheriting the base class  
+- Adding custom skills your agents can call as tools  
+
+```typescript
+// Example: custom component class
+export class MyCustomComponent extends Component {
+  async process(input, config, agent) {
+    // Your logic here
+    return { result: processedData };
+  }
+}
+```
+
+```typescript
+// Example: adding a custom skill to an agent
+const weatherSkill = agent.addSkill({
+  name: 'getWeather',
+  description: 'Get current weather for a location',
+  ai_exposed: true,
+  process: async (location) => {
+    // Fetch weather info from API
+    return { temperature: 72, condition: 'sunny' };
+  },
+});
+```
+
+<Divider />

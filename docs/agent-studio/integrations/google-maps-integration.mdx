@@ -1,88 +1,168 @@
 ---
-tags: [knowledge, database, collaboration]
+title: Google Maps Integration
+description: Integrate Google Maps with SmythOS to geocode addresses and discover nearby places directly from your agent workflows.
+og:title: SmythOS & Google Maps - Location Intelligence for Your Agents
+og:description: Learn to connect Google Maps to SmythOS and add location search, geocoding, and point-of-interest discovery to your automated agents.
+og:image: /img/integrations/smythos_googlemaps.png
+keywords: [Google Maps SmythOS Integration, Geocoding API Automation, Nearby Places API, Google Maps Agents, Location Automation, Google Maps API No-Code]
 ---
-
 
 # Google Maps Integration
 
-`Google Maps` is a widely-used mapping service developed by Google. It provides detailed maps, satellite imagery, street views, and route planning functionality for users worldwide.
+> **Need to add location intelligence to your agents?** Connect Google Maps to your workflows and let agents geocode addresses or search for nearby locations—instantly.
 
-At `SmythOS`, we've seamlessly integrated with `Google Maps`, offering custom components that simplify the incorporation of its powerful services into your agents.
+<InfoCallout title="TL;DR">
+Generate a Google Maps API Key, store it in the Vault, and use Drive components like <code>Geocode Address</code> or <code>Get Nearby Places</code> to power geospatial agents.
+</InfoCallout>
 
-## Geocode Address
+## List of Google Maps Components
 
-The `Geocode Address` component simplifies the retrieval of geographical coordinates for a specified address, enabling precise location identification.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|--------------|------------|------------------|------------|------------------|---------------|
+| [**Geocode Address**](#geocode-address) | Convert | Turns an address into coordinates. | <code>urlEncodedAddress</code> | <code>location</code>, <code>response</code> | Enrich a user form with lat/lng. |
+| [**Get Nearby Places**](#get-nearby-places) | Search | Finds POIs within a given radius. | <code>location</code>, <code>radius</code>, <code>keyword</code> | <code>results</code> | Suggest coffee spots or ATMs nearby. |
 
-### Settings
+<Divider />
 
-To initialize this component, execute the following steps:
+## Prerequisites
 
-1. Set up a new project in your `Google Cloud Platform` if you haven't one already.
-2. Enable the **Maps JavaScript API** within your project's settings.
-3. Generate an `API Key` that will be utilized by this component. Ensure to input this `API Key` into the designated section in the component's settings.
+To use Google Maps with SmythOS, you need:
+- A **Google Cloud Project**
+- Enabled APIs: <code>Maps JavaScript API</code>, <code>Places API</code>
+- A **Maps API Key**
+- A **SmythOS account** ([sign up](https://app.smythos.com/signup)) and access to the **Vault**
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<Divider />
 
-<Image src="/img/googlemaps/screenshot1.png" alt="alt text" />
+## API Key Setup
 
-### Inputs
+### Step 1: Create a Google Cloud Project
+Open [Google Cloud Console](https://console.cloud.google.com/) and create or select a project.
 
-Provide the following input to make effective use of this component:
+### Step 2: Enable Required APIs
+Navigate to <strong>APIs & Services > Library</strong> and enable:
+- <code>Maps JavaScript API</code>
+- <code>Places API</code>
 
-1. **urlEncodedAddress `required<string>`:** The address you wish to geocode, URL-encoded to accommodate special characters and spaces.
+### Step 3: Generate an API Key
+1. Go to <strong>Credentials</strong>
+2. Click <strong>Create Credentials > API Key</strong>
+3. Restrict the key to specific APIs (recommended)
 
-<Image src="/img/googlemaps/screenshot2.png" alt="alt text" />
+<TipCallout title="Secure Your Key">
+Restrict by IP, referrer, and limit to Maps APIs only. Store securely in the Vault.
+</TipCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### Step 4: Store Key in Vault
+1. Go to <strong>Vault > New Secret</strong> in SmythOS  
+2. Name it something like <code>google_maps_api_key</code>  
+3. Paste the API Key you copied from Google
 
-### Outputs
+<Divider />
 
-Executing this component will yield the following outputs:
+## Component Reference
 
-1. **Response:** An object containing the geocoding results, detailed with latitude and longitude coordinates.
-2. **Headers:** HTTP headers from the `Google Maps` server response, which include metadata such as response status codes and content type.
-3. **location:** The detailed location information format you specified.
+### <a name="geocode-address"></a>Geocode Address
 
-<Image src="/img/googlemaps/screenshot3.png" alt="alt text" />
+This component converts a human-readable address into GPS coordinates (latitude, longitude).
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Inputs
 
-## Get Nearby Places
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>urlEncodedAddress</code> | <Badge type="required" /> | Address string formatted for URL (e.g., <code>1600+Amphitheatre+Parkway,+Mountain+View,+CA</code>). |
 
-The `Get Nearby Places` component is designed to streamline the discovery of nearby locations such as restaurants, coffee shops, or any other points of interest, within a specified radius from a designated location. This component offers a robust solution for local exploration and data gathering.
+<Image src="/img/googlemaps/screenshot2.png" alt="Geocode Address Input" />
 
-### Settings
+#### Outputs
 
-To set up this component, follow these steps:
+| Field | Description |
+|-------|-------------|
+| <code>location</code> | Object with <code>lat</code> and <code>lng</code>. |
+| <code>response</code> | Raw JSON from Google Geocoding API. |
+| <code>headers</code> | HTTP headers from the API call. |
 
-1. If not already created, start a new project in your `Google Cloud Platform`.
-2. Enable the Maps JavaScript API for your project.
-3. Generate an `API Key` and input this key into the designated field in the component's settings.
+<Image src="/img/googlemaps/screenshot3.png" alt="Geocode Output Example" />
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<TipCallout title="Use Case" collapsible>
+Convert shipping or address input into coordinates and pass to logistics API or distance calculator.
+</TipCallout>
 
-<Image src="/img/googlemaps/screenshot4.png" alt="alt text" />
+<PromptCard prompt={`{
+  "component": "maps.geocodeAddress",
+  "urlEncodedAddress": "1600+Amphitheatre+Parkway,+Mountain+View,+CA"
+}`} />
 
-### Inputs
+<Divider />
 
-Provide the following inputs to make use of this component effectively:
+### <a name="get-nearby-places"></a>Get Nearby Places
 
-1. **location `required<string>`:** The latitude and longitude coordinates (e.g., `34.0522,-118.2437`) of the location from which you wish to start your search.
-2. **radius `required<string>`:** The search radius in meters around the specified location.
-3. **keyword `required<string>`:** A keyword to match against places (e.g., `coffee`, `bookstore`), optimizing the relevance of search results.
+Returns nearby points of interest (POIs) based on location, radius, and keyword.
 
-<Image src="/img/googlemaps/screenshot5.png" alt="alt text" />
+#### Inputs
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>location</code> | <Badge type="required" /> | Lat/lng string (e.g., <code>37.4220,-122.0841</code>). |
+| <code>radius</code> | <Badge type="required" /> | Search radius in meters. |
+| <code>keyword</code> | <Badge type="required" /> | Place type or keyword (e.g., <code>bookstore</code>, <code>atm</code>). |
 
-### Outputs
+<Image src="/img/googlemaps/screenshot5.png" alt="Nearby Search Input" />
 
-The following outputs will be returned after executing this component:
+#### Outputs
 
-1. **Response:** Contains an array of nearby places, detailing each location’s name, address, coordinates, and other pertinent information, structured for easy usability.
-2. **Headers:** HTTP headers from the server response, offering metadata like response status codes and content types.
-3. **results:** Detailed breakdown of results including place identities and descriptions.
+| Field | Description |
+|-------|-------------|
+| <code>results</code> | Array of places with name, address, and geometry. |
+| <code>response</code> | Full response from the Places API. |
+| <code>headers</code> | Metadata headers returned from the call. |
 
-<Image src="/img/googlemaps/screenshot6.png" alt="alt text" />
+<Image src="/img/googlemaps/screenshot6.png" alt="Nearby Places Output" />
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case" collapsible>
+Pair this with a user’s geocoded address to find relevant venues nearby: coffee, pharmacies, or retail.
+</TipCallout>
+
+<PromptCard prompt={`{
+  "component": "maps.getNearbyPlaces",
+  "location": "37.4220,-122.0841",
+  "radius": 1500,
+  "keyword": "restaurant"
+}`} />
+
+<Divider />
+
+## Best Practices
+
+- 🔐 Always store your API key in the Vault, never in plain text.
+- 📍 Chain <code>Geocode Address</code> → <code>Get Nearby Places</code> to power geospatial logic.
+- ✅ Validate API results by checking <code>status</code> and <code>ZERO_RESULTS</code>.
+- ⚠️ Use clear <code>keyword</code> values to improve relevance (e.g., use "pharmacy", not "meds").
+
+<Divider />
+
+## Troubleshooting
+
+| Error | Cause | Resolution |
+|-------|-------|------------|
+| <code>REQUEST_DENIED</code> | Invalid or missing key | Check Vault and restrictions. |
+| <code>ZERO_RESULTS</code> | No matches found | Try broader keywords or adjust radius. |
+| <code>OVER_QUERY_LIMIT</code> | Daily quota exceeded | Upgrade your plan or reduce frequency. |
+| <code>INVALID_REQUEST</code> | Missing fields | Check inputs for required values. |
+
+<InfoCallout>
+Check <code>response.status</code> and <code>error_message</code> in the output for deeper context.
+</InfoCallout>
+
+<Divider />
+
+## What’s Next?
+
+Example workflows to try:
+- **Local Finder Agent:** Geocode a form address → Find nearby resources
+- **Routing Helper:** Convert multiple addresses to coordinates → Optimize with Maps Distance Matrix
+- **Venue Recommender:** Detect location from IP → Recommend restaurants or hotels nearby
+
+<Image src="/img/integrations/smythos_googlemaps.png" alt="Google Maps integration overview" />
+
+<Divider />

@@ -1,9 +1,154 @@
 ---
-title: Runtime Architecture
+title: SRE architecture and subsystems
+description: Understand the modular architecture of Smyth Runtime Environment and learn about its key subsystems that power your AI agents.
+keywords: [SmythOS, SRE, architecture, subsystems, modular, AI agents, runtime, storage, LLM, security]
+sidebar_position: 2
 ---
 
-# Runtime Architecture
+# SRE architecture and subsystems
 
-Here you’ll find the architectural breakdown of the Runtime, including diagrams, flowcharts, and component interactions.
+> When it comes to AI agents, the runtime is where the action happens. SRE’s modular architecture divides responsibilities clearly so you can focus on building, not bottlenecks.
 
-_TODO: Include diagrams and technical breakdown._
+<InfoCallout>
+**Why it matters:**  
+Clear separation of concerns means better scalability, easier customization, and smoother upgrades — all without runtime headaches.
+</InfoCallout>
+
+<Divider />
+
+## The big picture
+
+SRE takes inspiration from operating systems to create a runtime platform that runs your AI agents reliably and securely. The architecture splits into multiple subsystems, each with a distinct role.
+
+Here’s how the runtime keeps things running smoothly:
+
+- **IO subsystem:** Connects your agents to the outside world — files, databases, APIs.  
+- **LLM manager subsystem:** Handles AI model calls, caching, and usage tracking.  
+- **Security subsystem:** Manages credentials, access control, and identity.  
+- **Memory manager subsystem:** Maintains agent state and runtime context efficiently.  
+- **Agent manager subsystem:** Controls agent lifecycle and execution workflows.  
+- **Component system:** Houses all the building blocks your agents use.
+
+## IO subsystem — your gateway to external data
+
+This subsystem deals with persistent storage, logging, API routing, and command line access. It supports multiple connectors, giving you flexibility:
+
+| Service      | What it does             | Connectors available          |
+| ------------ | ----------------------- | ----------------------------- |
+| **Storage**  | Saves files and data     | Local filesystem, S3, Smyth   |
+| **VectorDB** | Stores and searches vectors | Pinecone, Smyth-managed      |
+| **Log**      | Tracks activity and errors | Console output, Smyth logging |
+| **Router**   | Handles HTTP endpoints  | Express.js                    |
+| **NKV**      | Key-value storage       | Redis                        |
+| **CLI**      | Command line interface  | CLI                         |
+
+<code lang="typescript">
+// Example: using local and cloud storage connectors
+const localStorage = ConnectorService.getConnector('Storage', 'Local');
+const s3Storage = ConnectorService.getConnector('Storage', 'S3');
+</code>
+
+## LLM manager subsystem — the AI model handler
+
+This subsystem abstracts away differences between LLM providers so you get a consistent interface no matter what model you use. Features include:
+
+- Unified access to 8+ providers like OpenAI, Anthropic, Google AI, AWS Bedrock  
+- Smart inference routing and caching for speed  
+- Token usage tracking and analytics  
+- Support for custom model configurations  
+
+<code lang="typescript">
+// Example: get connectors for OpenAI and Anthropic models
+const openai = ConnectorService.getLLMConnector('OpenAI');
+const claude = ConnectorService.getLLMConnector('Anthropic');
+</code>
+
+## Security subsystem — trust but verify
+
+Security isn’t an afterthought. This subsystem manages:
+
+- Secure credential storage using vaults like HashiCorp Vault or AWS Secrets Manager  
+- Account identity and authentication management  
+- Granular access control with role-based permissions  
+- Enterprise-grade secret management  
+
+## Memory manager subsystem — keeping state on the move
+
+Agents rely on remembering what happened. This subsystem manages:
+
+- Multi-tier caching (RAM, Redis, S3)  
+- Agent runtime context and conversation history  
+- Real-time resource monitoring to optimize performance  
+
+## Agent manager subsystem — the conductor of the runtime orchestra
+
+Agents are processes composed of components working together. This subsystem manages:
+
+- Agent lifecycle (start, pause, resume, stop)  
+- Real-time monitoring and logging  
+- Asynchronous execution for smooth multitasking  
+- Streaming updates via Server-Sent Events (SSE)  
+
+<code>
+┌─────────────────┐
+│  Agent Process  │ ← Your AI agent running here
+├─────────────────┤
+│  Component A    │ ← Calls LLM models
+├─────────────────┤
+│  Component B    │ ← Processes data
+├─────────────────┤
+│  Component C    │ ← Calls external APIs
+└─────────────────┘
+</code>
+
+## Component system — the building blocks
+
+SRE includes over 40 production-ready components grouped by function:
+
+### AI & LLM components
+
+- `GenAILLM` — multi-provider language model integration  
+- `VisionLLM` — image analysis  
+- `MultimodalLLM` — text, audio, image processing  
+- `LLMAssistant` — conversational AI assistant  
+- `HuggingFace` — Hugging Face model support  
+- `ImageGenerator` — AI image creation  
+
+### External integrations
+
+- `APICall` — HTTP API with OAuth  
+- `WebSearch` — online search capability  
+- `WebScrape` — content extraction from websites  
+- `ZapierAction` — automation triggers  
+- `MCPClient` — model context protocol client  
+
+### Data processing
+
+- `DataSourceIndexer` — indexing and processing documents  
+- `DataSourceLookup` — data retrieval  
+- `DataSourceCleaner` — cleaning and normalization  
+- `JSONFilter` — JSON data manipulation  
+- `Classifier` — content classification  
+
+### Logic & control flow
+
+- `LogicAND`, `LogicOR`, `LogicXOR` — boolean operations  
+- `LogicAtLeast`, `LogicAtMost` — conditional logic  
+- `ForEach` — iteration loops  
+- `Async`, `Await` — async operations  
+
+### Storage & files
+
+- `FileStore` — file operations  
+- `Code` — code execution  
+- `ServerlessCode` — serverless function execution  
+
+### System integration
+
+- `ComputerUse` — automation  
+- `GPTPlugin` — OpenAI plugin integration  
+- `APIEndpoint` — custom API creation  
+
+Keeping subsystems clear and components organized lets you scale your agents from prototype to production — without the usual runtime headaches.
+
+<Divider />

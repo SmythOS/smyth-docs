@@ -1,91 +1,205 @@
 ---
-tags: [input, communication, collaboration]
+title: Telegram Integration
+description: Connect SmythOS to Telegram to send messages, audio, and notifications to chats and channels directly from your agent workflows.
+og:title: SmythOS & Telegram - Automate Your Instant Messaging
+og:description: Learn to integrate Telegram with SmythOS. Empower your agents to send automated messages and audio files to any chat or channel, streamlining notifications and communication.
+og:image: /img/integrations/smythos_telegram.png
+keywords: [Telegram SmythOS Integration, Connect Telegram to SmythOS, SmythOS Telegram Bot, Automate Telegram, Telegram API, No-Code Telegram Bot, Messaging Automation]
 ---
+# Telegram Integration with SmythOS
 
-# Telegram Integration
+> **Want to send notifications and messages via a secure, fast messaging app?** Connect a Telegram Bot to SmythOS and empower your agents to send real-time text and audio messages directly to your chats and channels.
 
-`Telegram` is a versatile, cloud-based instant messaging application that allows its users to exchange a range of multimedia content, encompassing messages, photos, videos, stickers, audio, and files of diverse types. Its architectural design is built around ensuring easy and quick communication among individuals and groups.
+<InfoCallout title="TL;DR">
+Securely link your Telegram Bot to SmythOS by getting a Bot Token from the BotFather. Then, use our components to automate sending messages and audio files to any chat ID.
+</InfoCallout>
 
-Here at `SmythOS`, we champion a significant focus on seamless amalgamation with such platforms. Therefore, we have specifically designed components to expediently integrate `Telegram` into your agents' workflow. This integration is engineered with the main aim of amplifying the bountiful features that `Telegram` intrinsically hosts.
+## List of Telegram Components
+Quickly compare Telegram components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-This synergy enhances the communication experience, transcending the standard text messages to an interactive exchange involving visuals, audios, files, and personalized stickers. Moreover, considering `Telegram`'s extensive reach and popularity, its integration in `SmythOS` enhances user engagement extensively, providing an easy, familiar, and satisfying user interface.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Send Message**](#send-message) | Write | Sends a text message to a specified chat or channel. | <Badge type="required" /> `chat_id`, `text` | `messageId` | Sending system alerts or daily status updates. |
+| [**Send Audio**](#send-audio) | Write | Sends an audio file to a specified chat or channel from a URL. | <Badge type="required" /> `chat_id`, `audio_url` | `messageId` | Sharing audio notes or podcast clips. |
 
-We understand that each agent's workflow is unique; ergo, our tailor-made components in `SmythOS` for `Telegram` integration come prepared to support customizations. This means you can pick and choose or modify features as per your agent's needs and demands. Our flexible yet robust infrastructure is designed to handle, support, and complement `Telegram's` powerful features, making it a win-win for your operations' effectiveness and efficiency.
 
-## Send Audio With Telegram
+<InfoCallout>
+<details>
+  <summary>Why Integrate Telegram with Your Agent?</summary>
 
-The `Send Audio With Telegram` function facilitates the transmission of audio files via the Telegram platform.
+Telegram is a popular and secure messaging platform. Integrating it with SmythOS allows you to build powerful agents that communicate effectively and deliver information instantly.
 
-### Settings
+- **Automated Alerting:** Create agents that monitor your systems, applications, or websites. When a critical event occurs (like a server going down), the agent can instantly send an alert to a dedicated Telegram channel for your on-call team.
+- **Centralized Notifications:** Consolidate notifications from various tools. Instead of checking multiple dashboards, have your agents send updates from your CRM, project management tool, and CI/CD pipeline into a single, organized Telegram chat.
+- **Content Distribution:** Build an agent that monitors your blog's RSS feed. When a new article is published, it can automatically send a message with the title and link to your public Telegram channel.
+- **Interactive Workflows:** While these components focus on sending, you can build agents that are triggered by incoming messages via a webhook, allowing you to create interactive bots for support, Q&A, or internal tools.
 
-For the successful initialization and configuration of the `Send Audio With Telegram` component, follow these simple steps:
+</details>
+</InfoCallout>
+<Divider />
 
-1. Begin by creating a new bot or opt to use an existing one.
-2. During the bot creation, the BotFather will furnish a token. This token functions as your bot's API token, enabling access to the HTTP API.
-3. Take this token and input it into the component settings section. This step is vital in linking your bot to the `Send Audio With Telegram` component.
+## Prerequisites
 
-> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+Before you begin, please ensure you have the following:
 
-<Image src="/img/telegram/screenshot1.png" alt="alt text" />
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Telegram account**.
+- A Telegram **Bot Token**.
 
-### Inputs
+<Divider />
 
-For the effective operation of the `Send Audio With Telegram` component, it is essential to provide the following input parameters:
+## Getting Started With Telegram
 
-1. **chat_id `required<string>`:** This is a unique identifier intended for the target chat or the username of the desirable channel (presented in the format @channelusername).
-2. **audio_url `required<string>`:** Insert an HTTP URL in String format. This URL directs Telegram to fetch an audio file from the Internet.
+The connection between SmythOS and Telegram is configured using a secure Bot Token, which you get from a special bot called the BotFather.
 
-<Image src="/img/telegram/screenshot2.png" alt="alt text" />
+### Step 1: Create a Telegram Bot and Get Your Token
+1.  **Start a chat with BotFather:** Open your Telegram app and search for the user `@BotFather` (it will have a blue checkmark). Start a chat with it.
+2.  **Create a new bot:** Type the command `/newbot` and send it.
+3.  **Name your bot:** BotFather will ask for a name for your bot (e.g., "SmythOS Notifier").
+4.  **Choose a username:** Next, choose a username for your bot. It must be unique and end in "bot" (e.g., `SmythOSNotifierBot`).
+5.  **Copy your Bot Token:** BotFather will congratulate you and provide you with a token. It will look something like `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`. **Copy this token immediately.**
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### Step 2: Store Your Bot Token in SmythOS Vault
+Your Bot Token is a highly sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-### Outputs
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Telegram Bot Token as the value. Give it a memorable name, like `telegram_bot_token`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-When the `Send Audio With Telegram` component is effectively executed, the following outputs will be delivered:
+### Step 3: Configure a Telegram Component
+1.  In your SmythOS agent graph, drag and drop any Telegram component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `Bot Token` field, select the secret you saved in the Vault (e.g., `telegram_bot_token`).
+4.  Your connection is now configured.
 
-1. **Response:** An object that encapsulates the complete details regarding the results of the operation. It includes the specifics about the audio file that was sent, confirmation of the successful dispatch, and if applicable, any error messages that occurred during the process.
-2. **Headers:** The set of HTTP headers extracted from the server's response as provided by `Telegram`. This collection of headers includes useful metadata, such as the response status codes which indicate the success or failure of the audio message send request, and the content type of the response data.
-3. **messageId:** A unique identifier assigned by `Telegram` to the sent audio message. This `messageId` can be used to reference, track, or manage the audio message within the chat.
+### Step 4: Get Your Chat ID
+To send a message, you need the ID of the chat, group, or channel you want to send it to.
+- **For a person or group:** Add your bot to the group or start a chat with it. You can then use a tool or another bot like `@userinfobot` to find the chat ID.
+- **For a channel:** Add your bot as an administrator to the channel. The chat ID will be the channel's username, prefixed with `@` (e.g., `@mychannel`).
 
-<Image src="/img/telegram/screenshot3.png" alt="alt text" />
+<InfoCallout title="Heads-up">You must add the Bot Token from the Vault to **each** Telegram component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+## Which Telegram Component Should I Use?
 
-## Send Message
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Send a text-based notification** or alert | A `chat_id` and text | [Send Message](#send-message) | The standard component for all text communication. |
+| **Share a voice note** or audio clip | A `chat_id` and audio URL | [Send Audio](#send-audio) | Specifically designed to send audio files. |
 
-The `Send Message` function facilitates the transmission of text-based messages..
+<Divider/>
 
-### Settings
+## Component Details
 
-For the successful initialization and configuration of the `Send Message` component, follow these simple steps:
+This section provides detailed information for each Telegram component.
 
-1. Begin by creating a new bot or opt to use an existing one.
-2. During the bot creation, the BotFather will furnish a token. This token functions as your bot's API token, enabling access to the HTTP API.
-3. Take this token and input it into the component settings section. This step is vital in linking your bot to the `Send Message` component.
+### <a name="send-message"></a>Send Message
+Sends a text message to a specified chat, group, or channel.
 
-> **Note:** Treat the `Bot Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<InfoCallout>This component requires a `Bot Token` for authentication, as detailed in the [Getting Started](#getting-started-with-telegram) section.</InfoCallout>
 
-<Image src="/img/telegram/screenshot4.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The unique identifier for the target chat or the username of a channel (e.g., `@channelname`). |
+| `text` | string | Yes | The text content of the message. Supports Markdown and HTML formatting. |
 
-### Inputs
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `messageId`| integer| The unique identifier for the sent message. |
+| `Response`| object | The full, raw JSON response from the Telegram API, containing the complete message object. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-To ensure the `Send Message` component functions correctly, the following vital parameters should be provided:
+<TipCallout title="Use Case">
+A monitoring agent detects a server is down. It uses this component to send an urgent message to the `#devops-alerts` group: `🚨 **CRITICAL ALERT:** Server db-prod-01 is unresponsive!`
+</TipCallout>
 
-1. **chat_id `required<string>`:** This denotes a unique identifier for the target chat or the username of the intended channel (formatted as @channelusername).
-2. **text `required<string>`:** This encompasses the content of the message.
+```json
+{
+  "component": "telegram.sendMessage",
+  "chat_id": "-100123456789",
+  "text": "A new lead has been assigned to you. Please check the CRM."
+}
+```
 
-<Image src="/img/telegram/screenshot5.png" alt="alt text" />
+<WarningCallout title="Formatting">
+You can use either Markdown or HTML for formatting by adding a `parse_mode` input to the component (`MarkdownV2` or `HTML`).
+</WarningCallout>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<Divider/>
 
-### Outputs
+### <a name="send-audio"></a>Send Audio
+Sends an audio file to a specified chat, group, or channel from a public URL.
 
-With the successful operation of the `Send Message` function, the following outcomes will be provided:
+<InfoCallout>This component requires a `Bot Token` for authentication, as detailed in the [Getting Started](#getting-started-with-telegram) section.</InfoCallout>
 
-1. **Response:** An object brimming with in-depth details regarding the results of the send message operation. This will include specifics such as the properties of the message that was sent, whether it was delivered successfully, and details of any issues if the message failed to send.
-2. **Headers:** The HTTP headers that are part of the server's response from `Telegram`. These headers contain additional metadata, including response status codes that denote whether the operation succeeded or failed, and the content type indicating the data format of the server's response.
-3. **messageId:** The unique identifier associated with the sent message, as generated by `Telegram`. This messageId is crucial for future reference to the message, allowing for actions such as updates, deletions, or tracking the message's delivery status and interactions.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `chat_id` | string | Yes | The unique identifier for the target chat or channel username. |
+| `audio_url`| string | Yes | A public HTTP URL to an audio file. Telegram will download and send this file. |
 
-<Image src="/img/telegram/screenshot6.png" alt="alt text" />
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `messageId`| integer| The unique identifier for the sent audio message. |
+| `Response`| object | The full, raw JSON response from the Telegram API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<TipCallout title="Use Case">
+An agent generates a personalized audio summary of a user's day. It hosts the MP3 file at a temporary URL and uses this component to send it directly to the user in a private chat.
+</TipCallout>
+
+```json
+{
+  "component": "telegram.sendAudioWithTelegram",
+  "chat_id": "987654321",
+  "audio_url": "[https://example.com/audio/daily_briefing.mp3](https://example.com/audio/daily_briefing.mp3)"
+}
+```
+<WarningCallout title="Public URL Required">
+The `audio_url` must be publicly accessible for Telegram's servers to be able to download and send the file.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Bot Token:** Your Bot Token grants full control over your bot. Always store it in the SmythOS `Vault`. If it's ever exposed, revoke it immediately via BotFather.
+* **Understand Chat IDs:** A positive `chat_id` is for a private chat with a user. A negative `chat_id` is for a group or supergroup. For public channels, you can use the `@channelusername` format.
+* **Use Formatting for Readability:** Leverage Markdown or HTML in your messages to make them clearer and more engaging. Use bold text for alerts, create lists for summaries, and embed links for more context.
+* **Bot Permissions:** If sending to a group or channel, ensure your bot has been added as a member (and as an admin if necessary) and has permission to send messages.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The Bot Token is incorrect, invalid, or has been revoked.
+  * **Solution:** Verify that the token in your SmythOS Vault is correct. If needed, use the `/revoke` command in BotFather to invalidate the old token and generate a new one.
+
+* **Error: `400 Bad Request` / "chat not found"**
+  * **Cause:** The `chat_id` is incorrect, or the bot is not a member of the target chat/channel.
+  * **Solution:** Verify the `chat_id` is correct. For groups, ensure you have invited the bot to the group. For private chats, the user must have initiated a conversation with the bot first.
+
+* **Error: `403 Forbidden` / "bot was kicked from the group chat"**
+  * **Cause:** The bot was removed from the group or channel it's trying to post to.
+  * **Solution:** Re-invite the bot to the target group or channel.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful notification and communication workflows with the **SmythOS Telegram Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Creates a daily weather report. It fetches data from a weather API and sends a formatted summary to a family group chat on Telegram.
+    * Monitors a stock price. If the price drops below a certain threshold, the agent sends an urgent alert to a private channel for traders.
+    * Generates a weekly podcast summary. The agent transcribes a podcast using a speech-to-text service, uses an LLM to summarize it, and sends the summary along with a link to the audio file to a subscriber channel.
+
+* **Explore Other Integrations:**
+    * Combine Telegram with a database integration like [Firestore](/docs/agent-studio/integrations/firestore-integration). When a new high-priority item is added to the database, trigger an agent to send a notification to the relevant team on Telegram.
+    * Use an [LLM component](/docs/agent-studio/integrations/openrouter-integration) to draft a social media post, then send it to a private Telegram channel for approval before it's published with [Ayrshare](/docs/agent-studio/integrations/ayrshare-integration).
+    * Connect your e-commerce store. When a new order ships, send the customer a shipping confirmation and tracking number via a Telegram message.

@@ -1,216 +1,250 @@
 ---
-tags: [build, ai, automation]
+title: PlayHT Integration
+description: Connect SmythOS to PlayHT to generate high-quality, AI-powered text-to-speech (TTS) audio and voice clones directly within your agent workflows.
+og:title: SmythOS & PlayHT - Automate AI Voice Generation
+og:description: Learn to integrate PlayHT with SmythOS. Empower your agents to convert text into natural-sounding speech with various emotions, voices, and output formats.
+og:image: /img/integrations/smythos_playht.png
+keywords: [PlayHT SmythOS Integration, Connect PlayHT to SmythOS, SmythOS Text to Speech, AI Voice Generation, Automate Audio, No-Code TTS, Voice Cloning API]
 ---
+# PlayHT Integration with SmythOS
 
+> **Want to add a voice to your automated workflows?** Connect PlayHT to SmythOS and empower your agents to generate high-quality, AI-powered speech from any text input.
 
-# PlayHT Integration
+<InfoCallout title="TL;DR">
+Securely link your PlayHT account to SmythOS using your User ID and Secret Key. Then, use the Text-to-Speech (TTS) components to automate the creation of audio files with fine-grained control over voice, emotion, quality, and more.
+</InfoCallout>
 
-`PlayHT` is a key player in artificial intelligence (AI) voice generation technology. They're a renowned producer of quality text-to-speech (TTS) and voice cloning services.
+## List of PlayHT Components
+Quickly compare PlayHT components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-Understanding the great potential of `PlayHT`, we at `SmythOS` have developed bespoke components to streamline your integration journey with `PlayHT`. This guide offers a comprehensive walk-through on leveraging these components effectively.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**PlayHT 2.0 - TTS**](#playht-20---tts) | Generate | Initiates a high-quality, emotional text-to-speech conversion job. | <Badge type="required" /> `text`, `voice_id` | `id` | Creating expressive voiceovers for videos. |
+| [**PlayHT 1.0 - TTS**](#playht-10---tts) | Generate | Initiates a standard text-to-speech conversion job. | <Badge type="required" /> `text`, `voice_id` | `id` | Generating simple audio notifications or alerts. |
+| [**Get Output**](#get-output) | Fetch | Retrieves the result (audio URL) of a completed TTS job. | <Badge type="required" /> `id` | `URL` | The second step to get the final audio file. |
 
-## PlayHT 2.0 - TTS
 
-Shining a spotlight on a pivotal feature within `SmythOS`, let's delve into the prowess of the `PlayHT 2.0 - TTS` component. Crafted with innovation in mind, this component stands as a streamlined solution for effortlessly transforming text into speech.
+<InfoCallout>
+<details>
+  <summary>Why Integrate PlayHT with Your Agent?</summary>
 
-### Settings
+PlayHT is a leader in AI voice generation, offering a wide range of realistic voices and emotional tones. Integrating it with SmythOS allows you to build sophisticated, multi-sensory automations.
 
-#### `Secret Key` and `User ID`
+- **Automate Audio Content:** Create agents that automatically convert blog posts, news articles, or reports into audio podcasts, enhancing content accessibility.
+- **Personalized Audio Messages:** Generate dynamic, personalized audio alerts or messages at scale. Imagine an agent that greets users by name in a welcome message.
+- **Create Voiceovers on the Fly:** Build a media pipeline where an agent writes a script with an LLM, then immediately generates a voiceover for a video or presentation using PlayHT.
+- **Enhance Notifications:** Move beyond simple text alerts. Configure your agents to generate spoken notifications for critical system events, providing a more immediate and attention-grabbing alert.
 
-To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
+</details>
+</InfoCallout>
+<Divider />
 
-1. Create a `PlayHT` account if you don't already have one.
-2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](https://play.ht/studio/api-access).
-3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
+## Prerequisites
 
-> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+Before you begin, please ensure you have the following:
 
-#### Output Format
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **PlayHT account**.
+- Your PlayHT **User ID** and **Secret Key**.
 
-The service supports a variety of output formats for the speech file:
+<Divider />
 
-- `mp3`: A commonly used format for consumer audio streaming or storage.
-- `wav`: An audio file format that retains the full quality of the original recording.
-- `ogg`: A free, open container format providing efficient streaming and manipulation of high-quality digital multimedia.
-- `flac`: An audio format similar to MP3, but lossless, meaning that audio is compressed without any loss in quality.
-- `mulaw`: An audio encoding format used in telephony systems and commonly used for voice encoding.
+## Getting Started With PlayHT
 
-#### Quality 
+The connection between SmythOS and PlayHT is configured using your User ID and a secure Secret Key.
 
-The quality of the generated speech can be specified by choosing from the following options:
+### Step 1: Get Your PlayHT Credentials
+1.  Log in to your [PlayHT Studio](https://play.ht/studio/api-access).
+2.  On the API Access page, you will find your **User ID** and **Secret Key**.
+3.  Copy both of these values.
 
-- `draft`: Suitable for initial drafts or non-critical applications.
-- `low`: Basic audio quality for non-demanding applications.
-- `medium`: Standard audio quality that balances file size and fidelity.
-- `high`: Enhanced audio quality for clearer and more professional results.
-- `premium`: Highest audio quality with the most natural and life-like sound.
+### Step 2: Store Your Credentials in SmythOS Vault
+Your User ID and Secret Key are sensitive credentials. Use the SmythOS `Vault` to store them securely.
 
-#### Emotion 
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret for your `User ID` and another for your `Secret Key`. Give them memorable names, like `playht_user_id` and `playht_secret_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-Personalize the speech by selecting an emotion tone:
+### Step 3: Configure a PlayHT Component
+1.  In your SmythOS agent graph, drag and drop any PlayHT component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `User ID` and `Secret Key` fields, select the corresponding secrets you saved in the Vault.
+4.  Your connection is now configured for that component.
 
-- **Female Voices:**
-  - `female_happy`: A cheerful and jubilant tone.
-  - `female_sad`: A sorrowful and dismal tone.
-  - `female_angry`: A heated and exasperated tone.
-  - `female_fearful`: A scared and apprehensive tone.
-  - `female_disgust`: A repulsed and disdainful tone.
-  - `female_surprised`: An astonished and amazed tone.
+<InfoCallout title="Heads-up">You must add the User ID and Secret Key from the Vault to **each** PlayHT component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-- **Male Voices:**
-  - `male_happy`: A joyful and elated tone.
-  - `male_sad`: A downcast and melancholic tone.
-  - `male_angry`: A fierce and fervent tone.
-  - `male_fearful`: A panic-struck and fearful tone.
-  - `male_disgust`: A scornful and aversive tone.
-  - `male_surprised`: A shocked and astounded tone.
+## Which PlayHT Component Should I Use?
 
-#### Speed
+| If you need to… | Workflow Steps | Use these Components | Why these? |
+|-----------------|----------------|----------------------|------------|
+| **Generate high-quality, emotional speech** | 1. Start Job <br/> 2. Fetch Result | [PlayHT 2.0 - TTS](#playht-20---tts) → [Get Output](#get-output) | The 2.0 TTS engine offers superior quality and emotional control, but requires a two-step, asynchronous process. |
+| **Generate standard speech quickly** | 1. Start Job <br/> 2. Fetch Result | [PlayHT 1.0 - TTS](#playht-10---tts) → [Get Output](#get-output) | The 1.0 TTS engine is suitable for basic voice generation without the need for advanced emotional tones. |
+| **Retrieve a previously generated audio file** | Fetch Result | [Get Output](#get-output) | This is the essential second step to get the audio URL from any TTS job you've started. |
 
-Control how fast the generated audio should be. A number greater than 0 and less than or equal to 5.0
+<Divider/>
 
-#### Sample Rate
+## Component Details
 
-A number greater than or equal to 8000, and must be less than or equal to 48000
+This section provides detailed information for each PlayHT component.
 
-#### Voice Guidance
+### <a name="playht-20---tts"></a>PlayHT 2.0 - TTS
+Initiates a text-to-speech conversion job using PlayHT's advanced v2.0 engine, which supports emotional tones. This is an asynchronous operation.
 
-A number between 1 and 6. Use lower numbers to reduce how unique your chosen voice will be compared to other voices. 
+<InfoCallout>This component requires a `User ID` and `Secret Key` for authentication, as detailed in the [Getting Started](#getting-started-with-playht) section.</InfoCallout>
 
-#### Style Guidance
+#### Component-Specific Settings
+- **Output Format:** Choose the audio format (`mp3`, `wav`, `ogg`, etc.).
+- **Quality:** Select the output quality, from `draft` to `premium`.
+- **Emotion:** Select a specific emotional tone for the voice (e.g., `female_happy`, `male_angry`).
+- **Speed, Sample Rate, Voice Guidance, Style Guidance:** Fine-tune the voice performance with these sliders.
 
-A number between 1 and 30. Use lower numbers to to reduce how strong your chosen emotion will be. Higher numbers will create a very emotional performance. 
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `text` | string | Yes | The text content to convert into speech. |
+| `voice_id` | string | Yes | The ID of the voice to use. You can find voice IDs in your PlayHT Studio. |
 
-<Image src="/img/playht/screenshot1.png" alt="alt text" /> 
-
-### Inputs
-
-This feature requires two default inputs:
-
-1. **text `required<string>`:** This is the textual data to be converted into speech.
-2. **voice_id `required<string>`:** The identifier for the desired voice to be used in the audio generation. This parameter comes with a predefined default value.
-
-<Image src="/img/playht/screenshot2.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon using this component, you'll receive two default outputs:
-
-1. **Response:** This is the received data, in this case, a speech representation of the input text. 
-2. **Headers:** These are the HTTP Headers included in the `PlayHT` server's response.
-3. **id:** The unique identifier assigned to the process that was executed.
-
-<Image src="/img/playht/screenshot3.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## PlayHT - Get Output
-
-This component allows you to obtain the results from a specific action.
-
-### Settings
-
-#### `Secret Key` and `User ID`
-
-To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
-
-1. Create a `PlayHT` account if you don't already have one.
-2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](https://play.ht/studio/api-access).
-3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
-
-> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/playht/screenshot4.png" alt="alt text" /> 
-
-### Inputs
-
-This component requires the following input to function:
-
-- **id `required<string>`**: The identifier of the executed process.
-
-<Image src="/img/playht/screenshot5.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-The component will provide the following outputs upon execution:
-
-1. **Response:** The direct response generated based on the provided `id`.
-2. **Headers:** The HTTP Headers returned from the `PlayHT` server.
-3. **URL:** The URL where the generated content is located.
-
-<Image src="/img/playht/screenshot6.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## PlayHT 1.0 - TTS
-
-This documentation covers the PlayHT 1.0 Text to Speech (TTS) component, which converts text into speech.
-
-### Settings
-
-#### `Secret Key` and `User ID`
-
-To initiate the use of this feature, you'll first need to configure your `Secret Key` and `User ID`. Here's a step-by-step guide:
-
-1. Create a `PlayHT` account if you don't already have one.
-2. Navigate to your account control panel and generate your `Secret Key` and `User ID`. You can do this by clicking [here](https://play.ht/studio/api-access).
-3. Input this `Secret Key` and `User ID` in the specified section in the feature's settings.
-
-> **Note:** Treat the `Secret Key` and `User ID` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-#### Output Format
-
-The service supports a variety of output formats for the speech file:
-
-- `mp3`: A commonly used format for consumer audio streaming or storage.
-- `wav`: An audio file format that retains the full quality of the original recording.
-- `ogg`: A free, open container format providing efficient streaming and manipulation of high-quality digital multimedia.
-- `flac`: An audio format similar to MP3, but lossless, meaning that audio is compressed without any loss in quality.
-- `mulaw`: An audio encoding format used in telephony systems and commonly used for voice encoding.
-
-#### Quality 
-
-The quality of the generated speech can be specified by choosing from the following options:
-
-- `draft`: Suitable for initial drafts or non-critical applications.
-- `low`: Basic audio quality for non-demanding applications.
-- `medium`: Standard audio quality that balances file size and fidelity.
-- `high`: Enhanced audio quality for clearer and more professional results.
-- `premium`: Highest audio quality with the most natural and life-like sound.
-
-#### Speed
-
-Set the playback speed of the audio, where values can range from greater than 1 to 5.
-
-#### Sample Rate
-
-Specify the sample rate for the audio file, which must be between 8000 and 48000 Hz.
-
-<Image src="/img/playht/screenshot7.png" alt="alt text" /> 
-
-### Inputs
-
-This feature requires two default inputs:
-
-1. **text `required<string>`:** This is the textual data to be converted into speech.
-2. **voice_id `required<string>`:** The identifier for the desired voice to be used in the audio generation. This parameter comes with a predefined default value.
-
-<Image src="/img/playht/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-The component will provide the following outputs upon execution:
-
-1. **Response:** The immediate response containing details about the process.
-2. **Headers:** The HTTP headers received from the `PlayHT` server.
-3. **id:** The unique identifier for the executed process.
-
-<Image src="/img/playht/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the conversion job. This is crucial for the next step. |
+| `Response`| object | The raw JSON response from the PlayHT API confirming the job was started. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent generates a voiceover for an animated character. It passes the character's line of dialogue to this component and selects the `female_surprised` emotion. The agent then saves the output `id`.
+</TipCallout>
+
+```json
+{
+  "component": "playht.playht20Tts",
+  "text": "Wow, I can't believe SmythOS can automate this!",
+  "voice_id": "s3_voice_id_example"
+}
+```
+
+<WarningCallout title="Asynchronous Job">
+This component only **starts** the audio generation job. It does **not** return the final audio file. You must use the output `id` with the "Get Output" component to retrieve the result.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="get-output"></a>Get Output
+Retrieves the result of a TTS conversion job that has been initiated by either the v1.0 or v2.0 TTS component.
+
+<InfoCallout>This component requires a `User ID` and `Secret Key` for authentication, as detailed in the [Getting Started](#getting-started-with-playht) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | The unique ID of the conversion job, obtained from the output of a TTS component. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `URL` | string | The direct URL to the generated audio file once processing is complete. |
+| `Response`| object | The raw JSON response from the API, which includes the status of the job and the URL. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+After starting a TTS job and getting an `id`, an agent uses this component in a loop with a short delay, checking the status in the `Response` until the `URL` is available, then downloads the file.
+</TipCallout>
+
+```json
+{
+  "component": "playht.getOutput",
+  "id": "tts-job-id-from-previous-step"
+}
+```
+
+<WarningCallout title="Processing Time">
+Audio generation is not instantaneous. You may need to call this component a few seconds after the TTS job is started. Check the `Response` for the job status (`"transcoded": true`) before using the `URL`.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="playht-10---tts"></a>PlayHT 1.0 - TTS
+Initiates a text-to-speech conversion job using PlayHT's standard v1.0 engine.
+
+<InfoCallout>This component requires a `User ID` and `Secret Key` for authentication, as detailed in the [Getting Started](#getting-started-with-playht) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Output Format:** Choose the audio format (`mp3`, `wav`, etc.).
+- **Quality:** Select the output quality, from `draft` to `premium`.
+- **Speed:** Control the playback speed of the audio.
+- **Sample Rate:** Specify the sample rate for the audio file.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `text` | string | Yes | The text content to convert into speech. |
+| `voice_id` | string | Yes | The ID of the voice to use. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the conversion job, to be used with the "Get Output" component. |
+| `Response`| object | The raw JSON response from the PlayHT API. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+An agent generates a simple, neutral-tone audio notification, like "Your report has finished generating."
+</TipCallout>
+
+```json
+{
+  "component": "playht.playht10Tts",
+  "text": "System alert. Server utilization has reached 90 percent.",
+  "voice_id": "s3_voice_id_example"
+}
+```
+
+<WarningCallout title="Legacy Option">
+This component uses the older v1.0 engine and does not support the advanced emotional controls of the v2.0 component.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your Credentials:** Always store your `User ID` and `Secret Key` in the SmythOS `Vault`.
+* **Master the Asynchronous Flow:** The key to using this integration effectively is the two-step process. First, call a TTS component to get a job `id`. Second, use the `Get Output` component (potentially in a loop with a delay) to fetch the final audio `URL`.
+* **Experiment with Voices and Settings:** PlayHT offers a huge variety of voices. Spend time in the PlayHT Studio to find the ones that best fit your brand. Tweak the speed, quality, and emotion settings to get the perfect performance.
+* **Manage Your Quota:** Text-to-speech conversion consumes characters from your PlayHT plan. Be mindful of the length of the text you are converting, especially in high-volume automated workflows.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The `User ID` or `Secret Key` is incorrect or missing.
+  * **Solution:** Verify that your credentials in the SmythOS Vault are correct and match those on your PlayHT API Access page.
+
+* **"Get Output" returns a "Pending" status**
+  * **Cause:** The audio generation job is not yet complete.
+  * **Solution:** This is normal. Add a delay (e.g., 5-10 seconds) in your agent between the TTS component and the `Get Output` component. For long texts, you may need a longer delay or a looping mechanism.
+
+* **Error: `402 Payment Required`**
+  * **Cause:** You have exceeded your character quota for the month or have an issue with your PlayHT subscription.
+  * **Solution:** Check your account status and usage in your PlayHT dashboard.
+
+* **Poor Audio Quality or Incorrect Emotion**
+  * **Cause:** The selected settings may not be optimal for the voice or text.
+  * **Solution:** Try a different `Quality` setting in the component. Adjust the `Style Guidance` and `Voice Guidance` sliders in the v2.0 component to fine-tune the performance.
+
+<Divider />
+
+## What's Next?
+
+You are now ready to build powerful voice-enabled applications with the **SmythOS PlayHT Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Takes the text from a scraped web article ([ScrapingBee](/docs/agent-studio/integrations/scrapingbee-integration)), converts it to audio with PlayHT, and saves the MP3 file to [OneDrive](/docs/integrations/onedrive).
+    * Generates a personalized daily news briefing by getting headlines from [NewsAPI](/docs/integrations/newsapi) and reading them aloud.
+    * Creates dynamic voice responses for a chatbot, using an LLM like [OpenRouter](/docs/integrations/openrouter) to generate the text and PlayHT to generate the audio.
+
+* **Explore Other Integrations:**
+    * Connect your agent to a telephony service to make automated calls using the generated speech.
+    * Use PlayHT to create audio versions of your marketing emails, and send them out as part of a campaign.

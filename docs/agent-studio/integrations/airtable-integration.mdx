@@ -1,250 +1,267 @@
 ---
-tags: [knowledge, database, collaboration]
+title: Airtable Integration
+description: Connect SmythOS to Airtable and automate record creation, updates, and queries from your bases and tables.
+og:title: SmythOS + Airtable
+og:description: Integrate Airtable with SmythOS to power no-code database automation for your agents.
+og:image: /img/integrations/smythos_airtable.png
+keywords: [Airtable Integration, Airtable API, Airtable Automation, SmythOS Airtable Components, Airtable Record Update, No-Code Database]
 ---
-
 
 # Airtable Integration
 
-`Airtable` is a comprehensive tool designed for cloud-based collaboration. It facilitates the creation and management of databases by marrying the features of a robust relational database with the convenience of a flexible spreadsheet. Apt for real-time collaboration, Airtable's intuitive interface, customizable templates, and seamless integration with various applications have earned it a prominent position in the business world.
+> Build fast, flexible database agents by connecting Airtable to SmythOS.
 
-Recognizing this potential, we, at `SmythOS`, offer dedicated modules designed to streamline the integration with `Airtable`. In this guide, we aim to provide you with detailed instructions on how to make the best use of these modules.
+<InfoCallout title="TL;DR">
+Grab your Airtable <code>Personal Access Token</code> and <code>Base ID</code>, store them securely in <strong>Vault</strong>, and then use SmythOS’s Airtable components to fetch, list, update, or create records in your bases.
+</InfoCallout>
 
-## Integration Settings
+## List of Airtable Components
 
-#### Personal Access Token
-To use Airtable integration in `SmythOs`, you must authenticate each integration component with a Personal Access Token. Follow these steps to prepare your credentials: 
-1. If you don't have an `Airtable` account yet, create one.
-2. Next, get the `Personal Access Token` from your account control panel. You can easily find it [here](https://airtable.com/create/tokens).
-  - Click the “Create new token” button to create a new personal access token.
-  - Give your token a unique name.
-  - Choose the scopes to grant to your token. This controls what components the token will be able to use.
-  - Click ‘add a base’ to grant the token access to a base or workspace.
-  - Copy the created token as it will only be shown to you once.
+| **Component** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------------|------------|------------------|--------------|
+| [Get Record](#get-record) | Fetches a single record by ID | <code>baseID</code>, <code>tableIdOrName</code>, <code>recordID</code> | <code>recFields</code>, <code>recordId</code> | View a customer’s profile from ID |
+| [List Records](#list-records) | Lists multiple records from a table | <code>baseID</code>, <code>tableIdOrName</code> | <code>records</code> | Display rows from a dataset |
+| [List Records (Next Page)](#list-records-next-page) | Paginates through additional records | <code>baseID</code>, <code>tableIdOrName</code>, <code>offset</code> | <code>records</code>, <code>offset</code> | Retrieve records beyond first page |
+| [Create a Record](#create-a-record) | Creates a single new record | <code>baseID</code>, <code>tableIdOrName</code>, <code>fields</code> | <code>recordID</code> | Add a support ticket or form submission |
+| [Create Records](#create-records) | Creates multiple new records | <code>baseID</code>, <code>tableIdOrName</code>, <code>body</code> | <code>records</code> | Bulk-import contacts |
+| [Update Record](#update-record) | Updates a single record | <code>baseID</code>, <code>tableIdOrName</code>, <code>recordID</code>, <code>body</code> | <code>recFields</code>, <code>recordId</code> | Edit a user's status or info |
+| [List Tables](#list-tables) | Returns all tables in a base | <code>baseID</code>, <code>trigger</code> | <code>tables</code> | Dynamically discover table names |
+| [Get Row Data](#get-row-data) | Retrieve rows by field-based query | <code>baseID</code>, <code>tableId</code>, <code>field_name</code>, <code>query</code> | <code>fields</code>, <code>id</code> | Search for a user by email |
 
-> **Note:** Treat the `Authentication Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<Divider />
 
-## Update Record
-A standout feature of our `SmythOS` platform is the `Update Record` component, specifically designed to facilitate the easy modification of single records in `Airtable`.
+## Prerequisites
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+Before using any Airtable component in SmythOS, make sure to:
 
-#### Body
+1. [Create an Airtable account](https://airtable.com/).
+2. Visit [Create Personal Access Token](https://airtable.com/create/tokens).
+3. Select necessary scopes and access to your desired base.
+4. Copy and store your token in SmythOS Vault.
 
-The `Body` field is designed to hold the necessary body payload, which describes the specific updates that are intended to be applied to the corresponding record. This field is crucial for accurately conveying the modifications to be made during the update process. 
+<TipCallout title="Use Vault">
+Never expose tokens directly in components. Always store secrets in <strong>Vault</strong> and reference them by name.
+</TipCallout>
 
-### Inputs
-This feature requires 5 default inputs:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
-3. **recordID `required<string>`:** The unique ID of the record you want to update.
+<Divider />
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+## Component Details
 
-### Outputs
-When you use this component for updating records, it provides the following default outputs to confirm and detail the changes that were made:
-1. **Response**: This output presents the complete response from the `Airtable` server, containing the updated record's information including any modifications that took place.
-2. **Headers**: The HTTP Headers included with the server's response will be displayed here, illustrating the supplemental data that accompanied the update confirmation.
-3. **recFields**: This output showcases the fields of the updated records, enabling you to verify the specific data that has been altered.
-4. **recordId**: This output displays the unique ID of the record that has been updated, allowing for easy reference and tracking of the changes applied.
+### <a name="get-record"></a>Get Record
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+Fetches a specific record from a table using its ID.
 
-<Arcade src="https://demo.arcade.software/B5OWBuPDNrjLTCiXFdVl?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable Update Record" />
+#### Inputs
 
-## Get Record
-`SmythOS` comes with a powerful feature known as `Get Record`. This functionality is purposely built to conveniently retrieve a specific record from the `Airtable` database. 
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name or ID |
+| `recordID` | <Badge type="required" /> | ID of the record to fetch |
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+#### Outputs
 
-### Inputs
-The `Get Record` component mandates the input of three default values:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
-3. **recordID `required<string>`:** The unique ID of the record you want to get.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-With the successful use of the `Get Record` functionality, users can expect two default outputs:
-1. **Response:** This is the feedback gotten from the retrieval request filed. It is filled with the details of the requested record. 
-2. **Headers:** Headers refer to the HTTP Headers incorporated in the feedback response from the `Airtable` server.
-3. **recFields**: This output showcases the fields of the retrieved records.
-4. **recordId**: This output displays the unique ID of the record that has been retrieved.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| `recFields` | Fields of the record |
+| `recordId` | The record ID |
+| `response` | Full response object |
+| `headers` | HTTP headers from Airtable |
 
 <Arcade src="https://demo.arcade.software/Qo0syvxwkcFlQfsQsS57?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable Get Record" />
 
-## List Records
-`SmythOS` is equipped with a powerful feature, `List Records`, developed specifically for effortless retrieval of records from an `Airtable` database. This prominent feature is a testament to SmythOS's pursuit of integration efficiency and seamless user experience.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+### <a name="list-records"></a>List Records
 
-### Inputs
-The `List Records` component requires you to input two default values:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
+Lists records from a table.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+#### Inputs
 
-### Outputs
-Upon utilizing the `List Records` feature effectively, users can expect to receive the following outputs:
-1. **Response**: Offers complete access to the entire response provided by `Airtable`, containing all the details related to the records retrieved.
-2. **Headers**: Shows the HTTP Headers that are a part of the server's response from `Airtable`, providing context-related metadata.
-3. **records**: Contains the comprehensive list of records that have been fetched as per the user's request, allowing for review and further processing.
-4. **offset**: Specifies the offset marker for the next page of records.
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name or ID |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
+
+| Field | Description |
+|-------|-------------|
+| `records` | Array of retrieved records |
+| `offset` | Offset for pagination |
+| `response` | Raw Airtable response |
+| `headers` | HTTP headers |
 
 <Arcade src="https://demo.arcade.software/q5PRuLK1UNzdFXuKctUZ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable List Records" />
 
-## Create Records
-At `SmythOS`, we recognize the transformative power that integration with `Airtable`, a cloud-based collaboration and database tool, can offer to our users. That's why we've developed the `Create Records` feature, enabling effortless creation of a record in an `Airtable` database right from your `SmythOS` environment.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+### <a name="list-records-next-page"></a>List Records (Next Page)
 
-#### Body
-The `Body` attribute specifies the structure and content of the data payload for the records that will be generated. It is essential for defining the relevant information that should be contained within each record created by the feature.
+Use this to paginate through a large dataset.
 
-### Inputs
-The `Create Records` component requires you to input 2 values:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
+#### Inputs
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name or ID |
+| `offset` | <Badge type="required" /> | Offset token from previous response |
 
-### Outputs
-Upon successful creation of a record database in Airtable with the `Create Records` feature, the system provides the following default outputs to the user:
-1. **Response**: Delivers the full response from the Airtable API, including all the data relevant to the record creation process.
-2. **Headers**: Reveals the HTTP Headers that were included by the server within the response, offering insight into the server's contextual metadata.
-3. **records**: Shows the newly created records, allowing users to review the data entries that have been added to the database.
+#### Outputs
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| `records` | Paginated records |
+| `offset` | Next offset token |
+| `response` | Airtable raw response |
+| `headers` | HTTP headers |
 
-<Arcade src="https://demo.arcade.software/Uzdb0vAfrpzJJwkjuy9Z?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable Create Records" />
+<Arcade src="https://demo.arcade.software/ifGa3upx1hbovESLKg2s?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="List Records (Next Page)" />
 
-## List Tables
-Retrieve tables from an `Airtable` base efficiently.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+### <a name="create-a-record"></a>Create a Record
 
-### Inputs
-The `List Tables` component requires the following inputs:
-1. **baseID `required<string>`:** The unique identifier for your specific `Airtable` base.
-2. **trigger `required<string>`:** This is a placeholder input used solely to initiate the component execution; it can be set to any value.
+Creates a single record in a given table.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+#### Inputs
 
-### Outputs
-The following outputs are generated upon successfully executing the component:
-1. **Response:** Provides the complete response from the Airtable API, including detailed data on the retrieved tables.
-2. **Headers:** Displays the HTTP headers sent by the server, which include essential server metadata.
-3. **tables:** Contains detailed information on each of the retrieved tables.
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name |
+| `fields` | <Badge type="required" /> | Field data as JSON object |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Outputs
 
-<Arcade src="https://demo.arcade.software/m0WQ5uzKw4XL7WpghNAN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable List Tables" />
+| Field | Description |
+|-------|-------------|
+| `recordID` | New record ID |
+| `response` | Full response from Airtable |
+| `headers` | HTTP headers |
 
-## Get Row Data
-This component allows for retrieving specific rows from a table in `Airtable` based on a field search query.
+<Arcade src="https://demo.arcade.software/D34paVicB2m8BkVJhy21?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Create a Record" />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+<Divider />
 
-### Inputs
-The effectiveness of this component depends on accurately provided inputs. Ensure to furnish the following:
-- **baseID (`required<string>`):** The unique identifier of your `Airtable` base. This is essential for connecting to the correct data source.
-- **tableId (`required<string>`):** The ID or name of the table from which you wish to retrieve records.
-- **field_name (`required<string>`):** Specify the field you want to search within; the component will filter records where this field matches the given query.
-- **query (`required<string>`):** The exact text or value to seek within the specified field. For guidance on constructing effective queries, please refer to [`Airtable`'s formula field reference](https://support.airtable.com/docs/formula-field-reference).
+### <a name="create-records"></a>Create Records
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+Creates multiple records in batch.
 
-### Outputs
-This component provides comprehensive outputs that detail the execution results:
-- **Response:** The full server response, showcasing all related data fetched based on the specified query.
-- **Headers:** HTTP headers returned by the server, which offer additional metadata regarding the response.
-- **fields:** Detailed information about the fields of the fetched rows, encapsulating data types and values.
-- **id:** The unique identifiers for the fetched rows, which can be utilized for future reference or operations.
+#### Inputs
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name |
+| `body` | <Badge type="optional" /> | Array of JSON record objects |
 
-<Arcade src="https://demo.arcade.software/KhxRAayWiwR6FC6AN06Z?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable Get Row Data" />
+#### Outputs
 
-## Create A Record
-At `SmythOS`, we recognize the transformative power that integration with `Airtable`, a cloud-based collaboration and database tool, can offer to our users. That's why we've developed the `Create a Record` feature, enabling effortless creation of a record in an `Airtable` database right from your `SmythOS` environment.
+| Field | Description |
+|-------|-------------|
+| `records` | Created records |
+| `response` | API response |
+| `headers` | HTTP metadata |
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+<Arcade src="https://demo.arcade.software/Uzdb0vAfrpzJJwkjuy9Z?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Create Records" />
 
-### Inputs
-The `Create a Record` component requires you to input 2 values:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
-3. **fields `required<object>`:** This is the record entry specified as an object of field keys and values. For example, `{ "field_name": "field_value"}`.
+<Divider />
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### <a name="update-record"></a>Update Record
 
-### Outputs
-Upon successful creation of a record database in Airtable with the `Create a Record` feature, the system provides the following default outputs to the user:
-1. **Response**: Delivers the full response from the Airtable API, including all the data relevant to the record creation process.
-2. **Headers**: Reveals the HTTP Headers that were included by the server within the response, offering insight into the server's contextual metadata.
-3. **recordID**: This output displays the unique ID of the record that has been created.
+Updates fields for a given record.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+#### Inputs
 
-<Arcade src="https://demo.arcade.software/D34paVicB2m8BkVJhy21?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable Create Record" />
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableIdOrName` | <Badge type="required" /> | Table name |
+| `recordID` | <Badge type="required" /> | Record ID to update |
+| `body` | <Badge type="optional" /> | Fields to update in JSON format |
 
-## List Records (Next Page)
-`SmythOS` is equipped with a powerful feature, `List Records (Next Page)`, developed specifically for effortless retrieval of records from an `Airtable` database. This prominent feature is a testament to SmythOS's pursuit of integration efficiency and seamless user experience.
+#### Outputs
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `Personal Access Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+| Field | Description |
+|-------|-------------|
+| `recFields` | Updated record fields |
+| `recordId` | Updated record ID |
+| `response` | Full API response |
+| `headers` | HTTP metadata |
 
-### Inputs
-The `List Records (Next Page)` component requires you to input 3 default values:
-1. **baseID `required<string>`:** This is a unique ID specifically for your Airtable base.
-2. **tableIdOrName `required<string>`:** Specify the name of the table (or grid) housing your record. Remember, it is case-sensitive.
-3. **offset `required<string>`:** This unique token indicates the offset marker to retrieve records.
+<Arcade src="https://demo.arcade.software/B5OWBuPDNrjLTCiXFdVl?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Update Record" />
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<Divider />
 
-### Outputs
-Upon utilizing the `List Records (Next Page)` feature effectively, users can expect to receive the following outputs:
-1. **Response**: Offers complete access to the entire response provided by `Airtable`, containing all the details related to the records retrieved.
-2. **Headers**: Shows the HTTP Headers that are a part of the server's response from `Airtable`, providing context-related metadata.
-3. **records**: Contains the comprehensive list of records that have been fetched as per the user's request, allowing for review and further processing.
-4. **offset**: Specifies the offset marker for the next page of records.
+### <a name="list-tables"></a>List Tables
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+Lists all tables from a base.
 
-<Arcade src="https://demo.arcade.software/ifGa3upx1hbovESLKg2s?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airtable List Records Next Page" />
+#### Inputs
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `trigger` | <Badge type="required" /> | Value used to trigger this component |
+
+#### Outputs
+
+| Field | Description |
+|-------|-------------|
+| `tables` | Table metadata |
+| `response` | Airtable response |
+| `headers` | HTTP headers |
+
+<Arcade src="https://demo.arcade.software/m0WQ5uzKw4XL7WpghNAN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="List Tables" />
+
+<Divider />
+
+### <a name="get-row-data"></a>Get Row Data
+
+Finds rows based on a field-value match.
+
+#### Inputs
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `baseID` | <Badge type="required" /> | Airtable Base ID |
+| `tableId` | <Badge type="required" /> | Table name or ID |
+| `field_name` | <Badge type="required" /> | Field to search |
+| `query` | <Badge type="required" /> | Value to search for |
+
+#### Outputs
+
+| Field | Description |
+|-------|-------------|
+| `fields` | Matched field data |
+| `id` | Matching record IDs |
+| `response` | Full API response |
+| `headers` | HTTP headers |
+
+<Arcade src="https://demo.arcade.software/KhxRAayWiwR6FC6AN06Z?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Get Row Data" />
+
+<Divider />
+
+## Best Practices
+
+<TipCallout>
+Use consistent field naming across Airtable and your other systems to simplify mapping between components.
+</TipCallout>
+
+- Always use `Vault` for secure key storage.
+- Use pagination components (`List Records Next Page`) for large datasets.
+- Validate case-sensitive table names and record IDs carefully.
+
+<Divider />
+
+## What's Next?
+
+Build powerful agents that automate your Airtable workflows:
+
+- Sync data from [Google Sheets](/docs/agent-studio/integrations/output/google-sheets-integration) or [PDF Generator](/docs/agent-studio/components/convert/pdf-generator).
+- Parse and log records via [Email Parser](/docs/agent-studio/components/utility/email-parser).
+- Use `Get Record` to fetch CRM data before replying to a user via OpenAI.
+
+<Image src="/img/integrations/smythos_airtable.png" alt="SmythOS Airtable Integration Visual" />

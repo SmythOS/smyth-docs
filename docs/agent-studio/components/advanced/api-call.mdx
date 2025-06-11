@@ -9,7 +9,7 @@ toc_max_heading_level: 2
 
 Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetch data, trigger an action, or update a system.
 
-<InfoCallout title="Why this matters">You can reach nearly any REST-style service without custom code. <br/>Define your call once, pass dynamic inputs at runtime, and inject secrets via [Vault](/docs/agent-collaboration/working-with-agents/vault-sharing).</InfoCallout>
+<InfoCallout title="Why this matters">You can reach nearly any REST-style service without custom code. <br/>Define your call once, pass dynamic inputs at runtime, and inject secrets via [Vault](/docs/agent-collaboration/working-with-agents/vault).</InfoCallout>
 
 ## What You’ll Configure
 
@@ -72,7 +72,7 @@ Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetc
 ### Use the Vault
 
 <InfoCallout>
-Store API keys in [Vault](/docs/agent-collaboration/working-with-agents/vault-sharing) and inject them like `{{vault.api_key}}` inside headers or body.
+Store API keys in [Vault](/docs/agent-collaboration/working-with-agents/vault) and inject them like `{{vault.api_key}}` inside headers or body.
 </InfoCallout>
 
 ### Built-in OAuth 2.0
@@ -240,7 +240,7 @@ You can extract just the part you need:
 
 - Test with **Debug Mode** before going live  
 - Use **Retry** and **Condition** blocks for error handling  
-- Never hardcode credentials — use [Vault](/docs/agent-collaboration/working-with-agents/vault-sharing)  
+- Never hardcode credentials — use [Vault](/docs/agent-collaboration/working-with-agents/vault)  
 - Validate API URLs and tokens in Postman or curl  
 - Keep inputs and outputs named clearly  
 - Use Mock Mode during dev or rate-limited testing

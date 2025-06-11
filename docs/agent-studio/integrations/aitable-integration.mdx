@@ -1,371 +1,203 @@
 ---
-tags: [knowledge, database, collaboration]
+title: AITable Integration
+description: Connect to AITable to manage datasheets, fields, and records via components. Automate your no-code database flows in SmythOS.
+og:title: SmythOS + AITable
+og:description: Create, update, and query datasheets using AITable inside SmythOS agents.
+og:image: /img/integrations/smythos_aitable.png
+keywords: [AITable, No-Code Database, Datasheet Automation, AITable API, AITable Integration, SmythOS Flows]
 ---
-
 
 # AITable Integration
 
-`AITable`'s mission is to empower a billion humans with AI capabilities by providing a powerful but easy-to-use tool that is open source for everyone.
+> Need to power your agents with spreadsheet-style automation? AITable provides an open-source, AI-ready database platform to create and manipulate records via API.
 
-By using `AITable`, every individual, team, and company should be able to access and manipulate databases and data in ways never possible before, helping people save countless hours every day.
+<InfoCallout title="TL;DR">
+Get your <code>AITable API Token</code> from your profile, store it in Vault, and use <strong>AITable components</strong> to create datasheets, add records, and manage fields programmatically.
+</InfoCallout>
 
-At `SmythOS`, we've seamlessly integrated with `AITable`, providing custom components that simplify the incorporation of its powerful services into your applications.
+## List of AITable Components
 
-## Integration Settings
+| **Component** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|--------------|------------------|------------|------------------|--------------|
+| [**Get Records**](#get-records) | Retrieves rows from a datasheet | <code>datasheetId</code> | <code>records</code> | Display or use table content in flows |
+| [**Create Datasheet**](#create-datasheet) | Creates a new datasheet | <code>spaceId</code>, <code>name</code> | <code>datasheetId</code> | Add new storage dynamically |
+| [**Create Record**](#create-record) | Adds a record to a datasheet | <code>datasheetId</code> | <code>recordId</code> | Insert rows from user input or upstream data |
+| [**Update Multiple Records**](#update-multiple-records) | Batch update up to 10 rows | <code>datasheetId</code> | <code>records</code> | Modify rows in bulk |
+| [**Delete Field**](#delete-field) | Removes a field from a datasheet | <code>spaceId</code>, <code>datasheetId</code>, <code>fieldId</code> | <code>message</code> | Clean up unneeded columns |
 
-#### AITable API Token
-To use AITable integration in `SmythOs`, you must authenticate each integration component with a AITable API token. Follow these steps to prepare your credentials:
+<Divider />
 
-1. Log in to `AITable` and click on your profile at the lower left corner. Navigate to the `My Settings` and proceed to `Developer Configuration`.
-2. Select `+` to generate a new `API Token`.
-3. Copy the `API Token`.
+## Required Setup
 
-> **Note:** Treat the `API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+### AITable API Token
 
-## Get Records
-Retrieves all datasheet records from `AITable`.
+To access any AITable component, you’ll need to create an API token:
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+1. Go to your profile → **My Settings** → **Developer Configuration**
+2. Click `+` to generate a new API token
+3. Copy it and store it in Vault
+
+<TipCallout title="Use Vault">
+Store your API token in <strong>Vault</strong> so it’s reusable across flows and components.
+</TipCallout>
+
+<Image src="/img/integrations/aitable_token.png" alt="AITable Token Configuration" />
+
+<Divider />
+
+## <a name="get-records"></a>Get Records
+
+Fetches all rows from a specified datasheet.
 
 ### Inputs
-Provide the following information to utilize this component effectively:
 
-- **datasheetId (`required<string>`):** Identifier of the datasheet from which records are to be retrieved.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>datasheetId</code> | <Badge type="required" /> | The ID of the datasheet you want to read |
 
 ### Outputs
-This component generates the following outputs upon execution:
 
-- **Response:** The complete server response containing the records data.
-- **Headers:** HTTP headers returned from the server that include additional metadata.
-- **records:** Detailed list of records retrieved.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| <code>records</code> | Array of row data |
+| <code>response</code> | Full API JSON response |
+| <code>headers</code> | Response metadata |
 
 <Arcade src="https://demo.arcade.software/w5v49RTlZuD51AoglFW8?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Get Records" />
 
-## Create Datasheet
-This document outlines the process of creating a new datasheet with a single field in `AITable`.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+## <a name="create-datasheet"></a>Create Datasheet
+
+Creates a new datasheet (optionally with a first field).
 
 ### Inputs
-To effectively utilize this component, provide the following required and optional inputs:
 
-- **spaceId (`required<string>`):** Identifier for the space where the datasheet will be created.
-- **name (`required<string>, max 100 characters`):** Name of the datasheet.
-- **description (`optional<string>, max 500 characters`):** (Defaults to an empty string) Description of the datasheet.
-- **field_type (`optional<string>`):** Type of the first field (Defaults to `Text`).
-- **field_name (`optional<string>, max 100 characters`):** Name of the first field (Defaults to `Title`).
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>spaceId</code> | <Badge type="required" /> | Workspace where the datasheet will reside |
+| <code>name</code> | <Badge type="required" /> | Name of the datasheet |
+| <code>description</code> | Optional | Description text |
+| <code>field_type</code> | Optional | Type of initial field (`Text`, `Number`, etc) |
+| <code>field_name</code> | Optional | Name of the first field (`Title`, etc) |
 
 ### Outputs
-Upon the successful creation of a datasheet, the component provides the following outputs:
 
-- **Response:** Full server response including details of the created datasheet.
-- **Headers:** HTTP headers from the response that provide additional metadata.
-- **datasheetId:** Unique ID of the newly created datasheet.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| <code>datasheetId</code> | ID of the created datasheet |
+| <code>response</code> | Full JSON response |
+| <code>headers</code> | Response headers |
 
 <Arcade src="https://demo.arcade.software/2XNmm3eArAaCUQDbYGM0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Datasheet" />
 
-## Create Field
-This documentation outlines the process of creating a new field within an existing datasheet in `AITable`.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
+## <a name="create-record"></a>Create Record
 
-#### Body
-This section outlines the structure of the payload needed to create a field. Customize this schema as needed based on specific requirements. Please refer [here](https://developers.aitable.ai/api/reference#tag/Field/operation/create-fields) for the possible body schema.
+Add a new row (record) to a datasheet.
 
 ### Inputs
-Specify the following input parameters to properly configure the creation of a new field:
 
-- **spaceId (`required<string>`):** The identifier for the space where the datasheet is located.
-- **datasheetId (`required<string>`):** The identifier for the datasheet where the field will be added.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>datasheetId</code> | <Badge type="required" /> | The datasheet to insert into |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-After successfully adding a field, the component generates the following outputs:
-
-- **Response:** Provides the complete server response, including the details of the newly created field.
-- **Headers:** Displays the HTTP headers received in the response, containing metadata.
-- **fieldId:** The unique identifier for the newly created field.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/UZSJUogl3G6xkCI1oork?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Field" />
-
-## Get Fields
-This section provides instructions on retrieving details about all fields within a specific datasheet in `AITable`.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-### Inputs
-Required input for retrieving field information from a datasheet:
-
-- **datasheetId (`required<string>`)**: The unique identifier for the datasheet from which fields will be retrieved.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+Additional fields go in the component’s **Body** section, using the field keys as JSON.
 
 ### Outputs
-Upon successfully querying fields, the component provides the following outputs:
 
-- **Response:** Complete server response containing details of all fields.
-- **Headers:** HTTP headers from the response that include additional metadata.
-- **fields:** Detailed list of all fields retrieved from the datasheet.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/G0bU27IgQYaSufNCfKbe?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Get Fields" />
-
-## Get Views
-This section of the documentation details how to fetch all views of a specified datasheet using the `AITable` integration.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-### Inputs
-To retrieve field information from a datasheet, the following input is required:
-
-- **datasheetId (`required<string>`)**: Specify the ID of the datasheet you wish to access.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-After successfully querying the datasheet, the component provides these outputs:
-
-- **Response:** The complete server response including the data requested.
-- **Headers:** HTTP headers from the response, offering additional metadata.
-- **views:** List of views generated from the datasheet query.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/s09i0SljHs7hj55TwIY9?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Get Views" />
-
-## Delete Field
-This section explains how to delete a field from a datasheet using the `AITable` integration.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-### Inputs
-To execute the deletion of a field from a datasheet, provide the following inputs:
-
-- **datasheetId (`required<string>`)**: The ID of the datasheet containing the field.
-- **spaceId (`required<string>`)**: The space ID where the datasheet is located.
-- **fieldId (`required<string>`)**: The specific field ID you wish to delete.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-Upon successful execution, the component returns the following outputs:
-
-- **Response:** Complete server response, including the execution status.
-- **Headers:** HTTP headers that provide added metadata related to the request.
-- **message:** A confirmation message regarding the deletion status.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/GUl6Dg2jQNbT13pe7z3U?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Delete Field" />
-
-## Create Record
-This section describes how to create a new record in a specified datasheet using `AITable`.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-#### Body
-This field hosts the payload required to create a record. It includes a sample schema which can be adapted according to your needs.
-
-### Inputs
-To create a record, input the following required details:
-
-- **datasheetId (`required<string>`)**: The ID of the datasheet where the new record will be added.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-After successfully creating the record, expect the following outputs:
-
-- **Response:** The detailed server response encapsulating the creation success.
-- **Headers:** Relevant HTTP headers that provide additional metadata.
-- **recordId:** The unique identifier of the newly created record.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| <code>recordId</code> | ID of the new record |
+| <code>response</code> | API response with record details |
+| <code>headers</code> | Response headers |
 
 <Arcade src="https://demo.arcade.software/YGylrA9hpNMqeKXlGrGb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Record" />
 
-## Update Record
-This documentation outlines the process to update an existing record in a specified datasheet using `AITable`.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+## <a name="update-multiple-records"></a>Update Multiple Records
 
-#### Body
-The body field is where you provide the payload necessary to update the record. It contains a sample schema that can be modified to suit your specific requirements.
+Updates up to 10 records in a single API call.
 
 ### Inputs
-To update a record, provide the following mandatory details:
 
-- **datasheetId (`required<string>`)**: The ID of the datasheet containing the record.
-- **recordId (`required<string>`)**: The unique identifier of the record you wish to update.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>datasheetId</code> | <Badge type="required" /> | Datasheet to update |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-Upon successfully updating the record, the component yields the following outputs:
-
-- **Response:** Detailed server response showing the outcome of the update operation.
-- **Headers:** HTTP headers that offer additional metadata related to the response.
-- **record:** Detailed information of the updated record.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/tMU0HWJXALObNdCVROqS?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Update Record" />
-
-## Delete Record
-This documentation outlines how to delete a record from a specified datasheet using the `AITable` platform.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-### Inputs
-To delete a record, provide the necessary details below:
-
-- **datasheetId (`required<string>`)**: The ID of the datasheet from which the record will be deleted.
-- **recordId (`required<string>`)**: The unique identifier of the record to be deleted.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+Update data is included in the **Body** tab in JSON format.
 
 ### Outputs
-The successful deletion of a record provides the following outputs:
 
-- **Response:** A detailed server response indicating the deletion status.
-- **Headers:** HTTP headers that provide additional metadata about the process.
-- **message:** A confirmation message detailing the outcome of the deletion.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/eAowbrU2aJWwsNAzCDcJ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Delete Record" />
-
-## Create Multiple Records
-This documentation explains how to create up to 10 records simultaneously in a specified datasheet using `AITable`.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-#### Body
-The body field contains the payload for creating multiple records. It is equipped with a sample schema, which you can edit to fit your needs.
-
-### Inputs
-To create multiple records, specify the following input:
-
-- **datasheetId (`required<string>`)**: The ID of the datasheet in which the records will be created.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-Upon successful record creation, the component provides the following outputs:
-
-- **Response:** A detailed server response indicating the creation status.
-- **Headers:** HTTP headers giving additional process insights.
-- **records:** Metadata and IDs for the newly created records.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-<Arcade src="https://demo.arcade.software/JwS4lKwYX11AhaRYPgVR?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Multiple Records" />
-
-## Update Multiple Records
-This documentation outlines how to update up to 10 records simultaneously in a specified datasheet using `AITable`.
-
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
-
-#### Body
-This field requires the payload necessary for updating multiple records. It comes with a sample schema that can be customized based on your requirements.
-
-### Inputs
-Provide the following input to update records:
-
-- **datasheetId (`required<string>`)**: The ID of the datasheet where the records are located.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-When records are successfully updated, the component will generate the following outputs:
-
-- **Response:** A comprehensive server response detailing the update results.
-- **Headers:** HTTP headers that provide additional metadata about the process.
-- **records:** An array containing detailed information about each updated record.
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+| Field | Description |
+|-------|-------------|
+| <code>records</code> | Array of updated record summaries |
+| <code>response</code> | JSON API response |
+| <code>headers</code> | HTTP headers from the call |
 
 <Arcade src="https://demo.arcade.software/9TLRNKnR1LKShUMpEA6J?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Update Multiple Records" />
 
-## Delete Multiple Records
-This document describes the procedure for deleting up to 10 records concurrently from a specified datasheet within `AITable`.
+<Divider />
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `AITable API Token` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+## <a name="delete-field"></a>Delete Field
+
+Remove a field (column) from a datasheet.
 
 ### Inputs
-For deleting multiple records, provide the following inputs:
 
-- **datasheetId (`required<string>`)**: The ID of the datasheet from which records are to be deleted.
-- **recordIds (`required<array>`)**: An array of record IDs that you intend to remove.
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+| Field | Required | Description |
+|-------|----------|-------------|
+| <code>spaceId</code> | <Badge type="required" /> | Space ID the datasheet belongs to |
+| <code>datasheetId</code> | <Badge type="required" /> | Target datasheet |
+| <code>fieldId</code> | <Badge type="required" /> | ID of the field to remove |
 
 ### Outputs
-The successful deletion of records yields the following outputs:
 
-- **Response:** A detailed server response indicating the deletion status.
-- **Headers:** HTTP headers that offer further metadata related to the deletion process.
-- **message:** A confirmation message detailing the outcome of the deletions.
+| Field | Description |
+|-------|-------------|
+| <code>message</code> | Status message from the API |
+| <code>response</code> | JSON response object |
+| <code>headers</code> | Metadata headers |
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Arcade src="https://demo.arcade.software/GUl6Dg2jQNbT13pe7z3U?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Delete Field" />
 
-<Arcade src="https://demo.arcade.software/O1BS1FD4yAsRNOp2eRxN?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Delete Multiple Records" />
+<Divider />
+
+## Best Practices
+
+- Store your API token in Vault once—reuse across components
+- Use field names that match your datasheet schema exactly
+- Test requests using the AITable developer playground before building in SmythOS
+- Use "Create Datasheet" + "Create Field" to build custom table structures dynamically
+- Batch-create or update records where possible to reduce API calls
+
+<Divider />
+
+## Troubleshooting
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| <code>401 Unauthorized</code> | API token missing or invalid | Recheck token in Vault |
+| <code>404 Not Found</code> | Datasheet or field ID typo | Double-check IDs from dashboard |
+| <code>400 Bad Request</code> | Malformed payload | Review body structure and required fields |
+
+<Divider />
+
+## What's Next?
+
+You’ve successfully connected AITable to SmythOS!
+
+Now try building an agent that:
+- Collects form input and logs each submission as a new AITable record
+- Generates a custom datasheet for every new client or project
+- Uses **batch updates** to enrich multiple rows from an external API
+
+**Want even more automation?** Combine this with:
+- [PDF Generator](/docs/agent-studio/components/convert/pdf-generator) to save tabular data as branded reports  
+- [Google Sheets Integration](/docs/agent-studio/integrations/output/google-sheets-integration) for spreadsheet-to-datasheet syncing  
+- [Email Attachment Parser](/docs/agent-studio/components/utility/email-parser) to extract table content from incoming files  
+- [Google Drive Integration](/docs/agent-studio/integrations/input/google-drive-integration) for working with uploaded sheets or templates
+
+<Image src="/img/integrations/smythos_aitable.png" alt="AITable Integration Overview" />

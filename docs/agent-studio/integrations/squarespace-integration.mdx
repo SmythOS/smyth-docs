@@ -1,1127 +1,272 @@
 ---
-tags: [publish, content, automation]
+title: Squarespace Integration
+description: Connect SmythOS to Squarespace to automate e-commerce operations like managing products, variants, inventory, and orders directly from your agents.
+og:title: SmythOS & Squarespace - Automate Your E-Commerce Store
+og:description: Learn to integrate Squarespace with SmythOS. Empower your agents to create and update products, sync inventory, and retrieve order data to streamline your online store operations.
+og:image: /img/integrations/smythos_squarespace.png
+keywords: [Squarespace SmythOS Integration, Connect Squarespace to SmythOS, SmythOS E-commerce Automation, Automate Squarespace, Squarespace API, No-Code E-commerce]
 ---
+# Squarespace Integration with SmythOS
 
+> **Want to automate your e-commerce operations?** Connect your Squarespace store to SmythOS and empower your agents to manage products, sync inventory, and process orders automatically.
 
-# Squarespace Integration
+<InfoCallout title="TL;DR">
+Securely link your Squarespace store to SmythOS using an API key generated from your Developer Tools. Then, use our suite of components to automate a wide range of e-commerce tasks, from creating new products to updating stock quantities.
+</InfoCallout>
 
-`Squarespace` provides a suite of APIs that enable developers to create applications and integrations for `Squarespace` websites. These APIs allow for enhanced functionality and automation by integrating external services and platforms.
+## List of Squarespace Components
+Quickly compare Squarespace components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-Integrating Squarespace with `SmythOS` can significantly enhance the functionality and automation of your operations. Here's why this integration is valuable:
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create Product**](#create-product) | Write | Creates a new physical product in your store. | <Badge type="required" /> `storePageId`, `name`, `sku`, `basePrice` | `product_id`, `url` | Adding a new item to your catalog from an external system. |
+| [**Update Product**](#update-product) | Write | Updates the information for an existing product. | <Badge type="required" /> `productId`, `Body` | `product_id` | Changing a product's name or description. |
+| [**Update Product Variant**](#update-product-variant) | Write | Updates a specific variant of a product (e.g., size or color). | <Badge type="required" /> `productId`, `variantId`, `Body` | `productVariantId` | Updating the price or SKU of a specific product size. |
+| [**Increase/Decrease Stock**](#increase--decrease-stock-quantity) | Write | Adjusts the stock quantity for product variants. | <Badge type="required" /> `variantId`, `quantity` | `Response` | Syncing inventory with a warehouse management system. |
+| [**Get All Orders**](#get-all-orders)| Read | Retrieves all order information from your store. | <Badge type="required" /> `trigger` | `orderResults` | Exporting order data for custom reporting. |
+| [**Get Specific Order**](#get-specific-order)| Read | Retrieves information for a single, specific order. | <Badge type="required" /> `orderId` | `orderId` | Fetching details to process a customer support query. |
+| [**Get Products**](#get-products) | Read | Retrieves a list of all products in your store. | <Badge type="required" /> `trigger` | `products` | Getting a full catalog export for analysis. |
+| [**Get All Inventory**](#get-all-inventory) | Read | Retrieves stock information for all product variants. | <Badge type="required" /> `trigger` | `inventory` | Performing a full inventory audit. |
+| [**Upload Product Image**](#upload-product-image) | Write | Uploads a new image to a product's gallery. | <Badge type="required" /> `productId`, `image` | `imageId` | Automating the addition of new product photos. |
+| [**Delete Product**](#delete-product) | Write | Permanently deletes a product and all its variants. | <Badge type="required" /> `product_id` | `Response` | Removing discontinued items from your store. |
 
-1. **Automated Workflows**: With the Forms API, connect Squarespace form submissions to various services and automate workflows, such as adding newsletter signups to a CRM.
-2. **Order Management**: Use the Orders API to sync order data with external shipping and fulfillment services, ensuring efficient and accurate order processing.
-3. **Inventory Synchronization**: The Inventory API allows you to keep your product inventory in sync with external inventory management systems, reducing the risk of overselling.
 
-## Update Product Variant
+<InfoCallout>
+<details>
+  <summary>Why Integrate Squarespace with Your Agent?</summary>
 
-Update a variant of a physical product in `Squarespace`.
+Your Squarespace store is the heart of your e-commerce business. Integrating it with SmythOS allows you to build powerful agents that automate your operations, saving you time and reducing manual errors.
 
-### Settings
+- **Automated Inventory Management:** Create agents that sync your Squarespace inventory with an external supplier's stock levels, preventing overselling and ensuring your product availability is always accurate.
+- **Streamlined Order Fulfillment:** When a new order is placed, an agent can automatically retrieve the order details and send them to your shipping provider or fulfillment center's API.
+- **Dynamic Product Catalogs:** Build agents that can create or update products in your Squarespace store based on data from a spreadsheet, a PIM (Product Information Management) system, or another database.
+- **Custom Reporting:** Schedule agents to fetch all order or transaction data daily and format it into a custom report, giving you insights that go beyond the standard Squarespace analytics.
 
-#### API Key
+</details>
+</InfoCallout>
+<Divider />
 
-To utilize this component, follow these authentication steps to acquire an `API Key`:
+## Prerequisites
 
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
+Before you begin, please ensure you have the following:
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Squarespace account** on a Business plan or higher.
+- A Squarespace **API Key** with the necessary permissions.
 
-#### Body
+<Divider />
 
-This field contains the schema of the payload to update a product variant. It can be edited as needed.
+## Getting Started With Squarespace
 
-<Image src="/img/squarespace/screenshot1.png" alt="alt text" />
+The connection between SmythOS and Squarespace is configured using a secure API Key.
 
-### Inputs
+### Step 1: Get Your Squarespace API Key
+1.  Log in to your [Squarespace Dashboard](https://account.squarespace.com/) and select the site you want to connect.
+2.  In the main menu, go to **Settings** > **Developer Tools**.
+3.  Click on **Developer API Keys**.
+4.  Click **Generate Key**.
+5.  Give your key a descriptive name (e.g., "SmythOS Agent").
+6.  Under **Permissions**, check the scopes your agent will need (e.g., `Products: Read and Write`, `Orders: Read and Write`).
+7.  Click **Generate Key**.
+8.  **Copy the generated API Key immediately.** It will not be shown again.
 
-To effectively use this component, supply the following information:
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **variantId (`required<string>`):** The unique identifier of the product variant.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Squarespace API Key as the value. Give it a memorable name, like `squarespace_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-<Image src="/img/squarespace/screenshot2.png" alt="alt text" />
+### Step 3: Configure a Squarespace Component
+1.  In your SmythOS agent graph, drag and drop any Squarespace component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `squarespace_api_key`).
+4.  Your connection is now configured for that component.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Squarespace component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
 
-### Outputs
+## Which Squarespace Component Should I Use?
 
-Upon execution, this component produces the following outputs:
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Add a new t-shirt** to your store | A store page | [Create Product](#create-product) | The primary method for adding a new product to your catalog. |
+| **Change a product's description** | A `productId` | [Update Product](#update-product) | Modifies the top-level details of an existing product. |
+| **Update the price of the 'Large' size** | A `variantId` | [Update Product Variant](#update-product-variant) | Offers granular control to edit a specific product variant. |
+| **Sync inventory** from a supplier | A `variantId` and `quantity`| [Increase / Decrease Stock Quantity](#increase--decrease-stock-quantity) | The correct way to adjust stock levels without overwriting other data. |
+| **Get a list of all unshipped orders** | All orders | [Get All Orders](#get-all-orders) | Retrieves all orders, which you can then filter in your agent. |
+| **Add a new photo** to a product page | A `productId` and image file| [Upload Product Image](#upload-product-image) | The standard way to add new images to a product's gallery. |
 
-1. **Response:** The full API response from `Squarespace`.
-2. **Headers:** HTTP headers providing additional data details.
-3. **productVariantId:** The unique identifier of the updated product variant.
+<Divider/>
 
-<Image src="/img/squarespace/screenshot3.png" alt="alt text" />
+## Component Details
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+This section provides detailed information for each Squarespace component.
 
-## Update Product
+### <a name="create-product"></a>Create Product
+Creates a new physical product with at least one variant on a specified store page.
 
-Update the information for a physical product in `Squarespace`.
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `storePageId` | string | Yes | The unique identifier of the store page where the product will be created. |
+| `name` | string | Yes | The name of the new product. |
+| `sku` | string | Yes | The Stock Keeping Unit for the product's primary variant. |
+| `basePrice` | string | Yes | The price of the product's primary variant. |
+| `description` | string | Optional | The product's description. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `product_id`| string | The unique ID of the newly created product. |
+| `url` | string | The URL slug of the new product's detail page. |
+| `variants`| array | An array containing the details of the product's variants. |
+| `Response`| object | The full, raw JSON response from the Squarespace API. |
+
+<TipCallout title="Use Case">
+An agent reads new product data from a Google Sheet, then calls this component for each row to automatically populate a new collection in the Squarespace store.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-product-and-variants"></a>Update Product and Variants
+Includes **Update Product** and **Update Product Variant**. These components allow you to modify existing products or their specific variants.
 
-### Settings
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the fields to be updated. Refer to the Squarespace API documentation for the correct schema.
 
-#### API Key
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The ID of the product to update. |
+| `variantId` | string | (For Variants Only) Yes | The ID of the specific variant to update. |
 
-To utilize this component, follow these authentication steps to acquire an `API Key`:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `product_id` / `productVariantId` | string | The ID of the updated product or variant. |
+| `Response`| object | The raw JSON response from the Squarespace API. |
 
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
+<TipCallout title="Use Case">
+A merchandising agent runs daily, finds all products in the "Summer Sale" category, and uses `Update Product Variant` to apply a 20% discount to the `salePrice` of each variant.
+</TipCallout>
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<WarningCallout title="Body Schema is Key">
+The `Body` payload must be a valid JSON object matching the schema defined in the Squarespace Developer Documentation for updating products or variants.
+</WarningCallout>
 
-#### Body
+<Divider/>
 
-This field contains the schema of the payload to update a product. Edit this schema as needed to fit your requirements.
+### <a name="inventory-management"></a>Inventory Management
+Includes components like **Increase/Decrease Stock Quantity**, **Set Unlimited Stock**, **Get All Inventory**, and **Get Specific Inventory**.
 
-<Image src="/img/squarespace/screenshot4.png" alt="alt text" />
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
 
-### Inputs
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantId` / `variantIds`| string | Varies | The unique ID(s) of the product variant(s) to adjust. |
+| `quantity` | integer| Varies | The amount to increase or decrease the stock by. |
 
-To effectively use this component, supply the following information:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `inventory` | array | (Get Inventory) An array containing inventory details for each variant. |
+| `Response`| object | The raw JSON response from the Squarespace API. |
 
-1. **productId (`required<string>`):** The unique identifier of the product you wish to update.
+<TipCallout title="Use Case">
+When an order is returned to the warehouse, a logistics agent calls the `Increase Stock Quantity` component to add the returned items back into the Squarespace inventory.
+</TipCallout>
 
-<Image src="/img/squarespace/screenshot5.png" alt="alt text" />
+<Divider/>
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### <a name="order-management"></a>Order Management
+Includes **Get All Orders** and **Get Specific Order**. These components allow you to retrieve order data from your store.
 
-### Outputs
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
 
-Upon execution, this component produces the following outputs:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `orderId` | string | (For Specific Order) Yes| The ID of the order to retrieve. |
+| `trigger` | string | (For All Orders) Yes | Any value to trigger the component. |
 
-1. **Response:** The full API response from `Squarespace`, detailing the update process and results.
-2. **Headers:** HTTP headers providing additional data details.
-3. **product_id:** The unique identifier of the updated product.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `orderResults`/`orderId` | any | The list of all orders, or the ID of the specific order. |
+| `Response`| object | The raw JSON response from the API, containing detailed order information. |
 
-<Image src="/img/squarespace/screenshot6.png" alt="alt text" />
+<TipCallout title="Use Case">
+A reporting agent runs `Get All Orders` every morning, filters for orders placed in the last 24 hours, and sends a summary of daily sales to a Teams channel.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Divider/>
 
-## Create Product
+### <a name="image-management"></a>Image Management
+Includes **Upload Product Image**, **Update Product Image**, **Delete Product Image**, **Reorder Product Image**, and **Assign Product Image to Variant**.
 
-Create a physical product with at least one variant in `Squarespace`.
+<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
 
-### Settings
+#### Common Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The ID of the product to which the image belongs. |
+| `imageId` | string | Varies | The ID of the image to modify or assign. |
+| `image`| binary | (For Upload) Yes | The image file to upload. |
 
-#### API Key
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `imageId` | string | (Upload/Update) The ID of the image. |
+| `Response`| object | The raw JSON response from the API. |
 
-To utilize this component, follow these authentication steps to acquire an `API Key`:
+<TipCallout title="Use Case">
+An agent takes new photos from a cloud folder, runs `Upload Product Image` to add them to the correct product, and then uses `Assign Product Image to Variant` to link the new red t-shirt photo to the "Red" color variant.
+</TipCallout>
 
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
+<Divider />
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+## Best Practices & Advanced Tips
 
-<Image src="/img/squarespace/screenshot7.png" alt="alt text" />
+* **Secure Your API Key:** Always store your Squarespace API key in the SmythOS `Vault`. If a key is compromised, generate a new one in Squarespace and update your Vault secret.
+* **Grant Specific Permissions:** When generating your API key in Squarespace, grant only the permissions your agent needs. If an agent only reads orders, don't give it write access to products.
+* **Understand the Data Hierarchy:** Remember the structure: a `Product` contains one or more `Variants`, and `Inventory` is tracked at the `Variant` level. You often need to get a product's variants first to find the correct `variantId` to update.
+* **Use the `Body` for Updates:** For the `Update Product` and `Update Product Variant` components, you must construct the JSON payload in the `Body` setting. Refer to the Squarespace Developer documentation for the correct schema for each object.
 
-### Inputs
+<Divider />
 
-To effectively use this component, supply the following information:
+## Troubleshooting Common Issues
 
-1. **storePageId (`required<string>`):** The unique identifier of the store page.
-2. **name (`required<string>`):** The name of the product.
-3. **sku (`required<string>`):** The SKU of the product.
-4. **basePrice (`required<string>`):** The base price of the product.
-5. **description (`optional<string>`):** The product's description. Default value is an empty string.
-6. **variantAttributes (`optional<array>`):** Attributes of the product variants. Default value is an empty array.
-7. **attributes (`optional<object>`):** Additional attributes for the product. Default value is an empty object.
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Key is incorrect, has been revoked, or lacks the necessary permissions for the requested action.
+  * **Solution:** Verify your API Key is correct in the SmythOS Vault. In your Squarespace settings, check that the key is active and has the required scopes (e.g., `Products: Read and Write`).
 
-<Image src="/img/squarespace/screenshot8.png" alt="alt text" />
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect `productId`, `variantId`, or `orderId` was provided.
+  * **Solution:** Double-check all IDs for typos. Ensure the item you are trying to access exists in your store.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+* **Error: `400 Bad Request`**
+  * **Cause:** The JSON `Body` payload for an update or create operation is malformed or missing required fields.
+  * **Solution:** Carefully check your JSON structure against the official Squarespace API documentation. Ensure all required fields are present and data types are correct.
 
-### Outputs
+<Divider />
 
-Upon execution, this component produces the following outputs:
+## What's Next?
 
-1. **Response:** The full API response from `Squarespace`, detailing the creation process and results.
-2. **Headers:** HTTP headers providing additional data details.
-3. **product_id:** The unique identifier of the newly created product.
-4. **url:** The URL to the product.
-5. **variants:** The details of the product variants.
+You are now ready to build powerful e-commerce automations with the **SmythOS Squarespace Integration**!
 
-<Image src="/img/squarespace/screenshot9.png" alt="alt text" />
+Consider these ideas:
+* **Build an Agent That...**
+    * Acts as an inventory sync engine. It checks stock levels from a supplier's API and uses the `Increase/Decrease Stock Quantity` components to keep your Squarespace store perfectly in sync.
+    * Automates order fulfillment. When a new order is retrieved with `Get All Orders`, the agent sends the customer and shipping details to your shipping provider's API.
+    * Creates products from a spreadsheet. The agent reads product data from a [Google Sheet](/docs/agent-studio/integrations/google-sheets-integration), then uses `Create Product` and `Upload Product Image` to populate your store.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Store Pages
-
-Retrieve all store page information from a `Squarespace` store.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot10.png" alt="alt text" />
-
-### Inputs
-
-To effectively use this component, supply the following information:
-
-1. **trigger (`required<string>`):** An input to trigger the execution of the component. It can hold any value.
-
-<Image src="/img/squarespace/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the store pages retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **storePages:** An array containing the details of each store page.
-
-<Image src="/img/squarespace/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Products
-
-Retrieve information for all physical and/or download products listed in your `Squarespace` store.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot13.png" alt="alt text" />
-
-### Inputs
-
-To effectively use this component, supply the following information:
-
-1. **trigger (`required<string>`):** An input to trigger the execution of the component. It can hold any value.
-2. **type (`optional<string>`):** The type of products to retrieve. Default value is `PHYSICAL`.
-
-<Image src="/img/squarespace/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the product retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **products:** An array containing the details of each product.
-
-<Image src="/img/squarespace/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Specific Products
-
-Retrieve information for specific physical and/or download products listed in your `Squarespace` store.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot16.png" alt="alt text" />
-
-### Inputs
-
-To effectively use this component, supply the following information:
-
-1. **product_ids (`required<string>`):** A comma-separated list of product IDs to retrieve information for.
-
-<Image src="/img/squarespace/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the product retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **products:** An array containing the details of each specified product.
-
-<Image src="/img/squarespace/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get All Inventory
-
-Retrieve real-time stock information for all product variants in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot19.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **trigger (`required<string>`):** An input to trigger the execution of the component. It can hold any value.
-
-<Image src="/img/squarespace/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the inventory retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **inventory:** An array containing the inventory details for each product variant.
-
-<Image src="/img/squarespace/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Specific Inventory
-
-Retrieve real-time stock information for specific `Squarespace` product variants.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot22.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **variantIds (`required<string>`):** A comma-separated list of variant IDs to retrieve inventory information for.
-
-<Image src="/img/squarespace/screenshot23.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the inventory retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **inventory:** An array containing the inventory details for each specified product variant.
-
-<Image src="/img/squarespace/screenshot24.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get All Orders
-
-Retrieve all order information in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot25.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **trigger (`required<string>`):** An input to trigger the component execution. It can hold any value.
-
-<Image src="/img/squarespace/screenshot26.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the order retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **orderResults:** An array containing the details of each order.
-
-<Image src="/img/squarespace/screenshot27.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Assign Product Image to Variant
-
-Assign an image from a product's collection of images to a variant of the physical product in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot28.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **variantId (`required<string>`):** The unique identifier of the variant.
-3. **imageId (`required<string>`):** The unique identifier of the image to be assigned.
-
-<Image src="/img/squarespace/screenshot29.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the image assignment process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot30.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Specific Order
-
-Retrieve information for a specific order in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot31.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **orderId (`required<string>`):** The unique identifier of the order to retrieve.
-
-<Image src="/img/squarespace/screenshot32.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the order retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **orderId:** The unique identifier of the retrieved order.
-
-<Image src="/img/squarespace/screenshot33.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Create Product Variant
-
-Create a variant of a physical product in `Squarespace` if the product has at least one attribute.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot34.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **product_id (`required<string>`):** The unique identifier of the product.
-2. **sku (`required<string>`):** Stock keeping unit for the variant.
-3. **basePrice (`required<string>`):** The base price of the variant. Default value is `0`.
-4. **onSale (`optional<boolean>`):** Indicates if the variant is on sale. Default value is `true`.
-5. **salePrice (`optional<string>`):** The sale price of the variant. Default value is `0`.
-6. **stockQuantity (`optional<number>`):** The stock quantity of the variant. Default value is `10`.
-7. **attributes (`optional<object>`):** Attributes of the variant. Default value is an empty object.
-
-<Image src="/img/squarespace/screenshot35.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the product variant creation process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **productVariantId:** The unique identifier of the newly created product variant.
-
-<Image src="/img/squarespace/screenshot36.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete Product
-
-Delete a physical product, including any variants and images, in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot37.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **product_id (`required<string>`):** The unique identifier of the product.
-
-<Image src="/img/squarespace/screenshot38.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the product deletion process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot39.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Increase Stock Quantity
-
-Increase stock quantities for product variants in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot40.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **uuid (`required<string>`):** The unique identifier of your store.
-2. **variantId (`required<string>`):** The unique identifier of the product variant.
-3. **quantity (`required<integer>`):** The amount by which to increase the stock quantity.
-
-<Image src="/img/squarespace/screenshot41.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the stock quantity update process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot42.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Decrease Stock Quantity
-
-Decrease stock quantities for product variants in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot43.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **uuid (`required<string>`):** The unique identifier of your store.
-2. **variantId (`required<string>`):** The unique identifier of the product variant.
-3. **quantity (`required<integer>`):** The amount by which to decrease the stock quantity.
-
-<Image src="/img/squarespace/screenshot44.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the stock quantity update process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot45.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Set Unlimited Stock Quantity
-
-Set unlimited stock quantities for product variants in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot46.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **uuid (`required<string>`):** The unique identifier of your store.
-2. **variantIds (`required<string>`):** A comma-separated list of variant IDs to set as unlimited stock.
-
-<Image src="/img/squarespace/screenshot47.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the stock quantity update process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot48.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get All Transactions
-
-Retrieve all transaction information in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot49.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **trigger (`required<string>`):** An input to trigger the component execution. It can hold any value.
-
-<Image src="/img/squarespace/screenshot50.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the transactions retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **transactions:** An array containing the details of each transaction.
-
-<Image src="/img/squarespace/screenshot51.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Specific Transactions
-
-Retrieve specific financial transactions for orders and donations in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot52.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **transactionIds (`required<string>`):** A comma-separated list of transaction IDs to retrieve.
-
-<Image src="/img/squarespace/screenshot53.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the transactions retrieval process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **transactions:** An array containing the details of each specified transaction.
-
-<Image src="/img/squarespace/screenshot54.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete Product Image
-
-Delete an image from a product's collection of images in `Squarespace`.
-
-### ⚙️ Settings
-
-#### 🔑 API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot55.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **imageId (`required<string>`):** The unique identifier of the image to be deleted.
-
-<Image src="/img/squarespace/screenshot56.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the image deletion process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot57.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update Product Image
-
-Update the alt text for a product image in `Squarespace`.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot58.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **imageId (`required<string>`):** The unique identifier of the image.
-3. **altText (`required<string>`):** The new alt text for the image.
-
-<Image src="/img/squarespace/screenshot59.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the image update process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **imageId:** The unique identifier of the updated image.
-4. **imageUrl:** The URL of the updated image.
-
-<Image src="/img/squarespace/screenshot60.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Upload Product Image
-
-Uploads an image for a product.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot61.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **image (`required<binary>`):** The image file you wish to upload.
-
-
-<Image src="/img/squarespace/screenshot62.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the image upload process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **imageId:** The unique identifier of the uploaded image.
-
-<Image src="/img/squarespace/screenshot63.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete Product Variant
-
-Deletes a variant of a physical product
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot64.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **variantId (`required<string>`):** The unique identifier of the variant.
-
-<Image src="/img/squarespace/screenshot65.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the deletion process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot66.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Reorder Product Image
-
-Updates the ordering of a product image on the product details page.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot67.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **imageId (`required<string>`):** The unique identifier of the image.
-3. **afterImageId (`required<string>`):** The unique identifier of the image that the reordered image should follow.
-
-<Image src="/img/squarespace/screenshot68.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the reordering process.
-2. **Headers:** HTTP headers providing additional data details.
-
-<Image src="/img/squarespace/screenshot69.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Image Upload Status
-
-Retrieves the processing status for an uploaded product image.
-
-### Settings
-
-#### API Key
-
-To utilize this component, follow these authentication steps to acquire an `API Key`:
-
-1. Navigate to the [Squarespace Dashboard](https://account.squarespace.com/).
-2. Sign in or create a new account if you don't have one.
-3. Go to your site's Settings, then navigate to the **Developer Tools** tab.
-4. Click on **Developer API Keys**.
-5. Click on **Generate Key** to create a new API key.
-6. Assign a name to your API key and configure the required permissions, then click **Generate**.
-7. Copy the generated API key.
-8. Enter the `API Key` into the settings section of this component.
-
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to the [Vault Key Management](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/squarespace/screenshot70.png" alt="alt text" />
-
-### 📥 Inputs
-
-To effectively use this component, supply the following information:
-
-1. **productId (`required<string>`):** The unique identifier of the product.
-2. **imageId (`required<string>`):** The unique identifier of the image.
-
-<Image src="/img/squarespace/screenshot71.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-Upon execution, this component produces the following outputs:
-
-1. **Response:** The full API response from `Squarespace`, detailing the reordering process.
-2. **Headers:** HTTP headers providing additional data details.
-3. **status:** The current processing status of the image upload.
-
-<Image src="/img/squarespace/screenshot72.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * When a new order is placed, send a confirmation to the customer using [Resend](/docs/agent-studio/integrations/resend-integration) and post a "New Sale!" notification in a [Discord](/docs/integrations/discord) channel.
+    * Use an [LLM component](/docs/agent-studio/integrations/openrouter-integration) to write a product description, then use the `Update Product` component to add it to your store.
+    * Log all new orders to a [Firestore](/docs/agent-studio/integrations/firestore-integration) database for long-term analysis and custom reporting.

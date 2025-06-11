@@ -1,123 +1,243 @@
 ---
-tags: [developer, database, api]
+title: Firebase Integration
+description: Connect SmythOS to Firebase Authentication to create, sign in, and manage users for your applications directly within your agent workflows.
+og:title: SmythOS & Firebase - Automate User Authentication
+og:description: Learn to integrate Firebase Authentication with SmythOS. Empower your agents to handle user sign-up, sign-in, and data retrieval for your web and mobile apps.
+og:image: /img/integrations/smythos_firebase.png
+keywords: [Firebase SmythOS Integration, Connect Firebase to SmythOS, SmythOS Firebase Auth, Automate User Management, No-Code Authentication, Firebase REST API]
 ---
+# Firebase Integration with SmythOS
+
+> **Need to manage users for your application?** Connect Firebase Authentication to SmythOS and empower your agents to handle user creation, sign-in, and data retrieval programmatically.
+
+<InfoCallout title="TL;DR">
+Securely link your Firebase project to SmythOS using your Web API Key. Then, use our suite of Firebase components to automate the entire user authentication lifecycle, from creating new users to fetching their data.
+</InfoCallout>
+
+## List of Firebase Components
+Quickly compare Firebase Authentication components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
+
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Create User**](#create-user) | Write | Creates a new user with an email and password. | <Badge type="required" /> `email`, `password` | `idToken`, `localId` | Handling new user sign-ups. |
+| [**Sign In With Email & Password**](#sign-in-with-email--password) | Auth | Authenticates a user and returns an ID token. | <Badge type="required" /> `email`, `password` | `idToken`, `localId` | Logging users into your application. |
+| [**Get User Data**](#get-user-data) | Read | Retrieves the profile information of an authenticated user. | <Badge type="required" /> `idToken` | `users` | Fetching user details after they sign in. |
 
 
-# Firebase Integration
+<InfoCallout>
+<details>
+  <summary>Why Integrate Firebase with Your Agent?</summary>
 
-`Firebase` is a comprehensive mobile and web application development platform developed by Google. It provides a wide array of tools and services that empower developers to create, deploy, and manage high-quality apps with ease.
+Firebase provides a complete suite of tools for building applications, with Firebase Authentication being a cornerstone service. Integrating it with SmythOS allows you to build agents that can manage your app's user base.
 
-At `SmythOS`, we've forged a seamless integration with `Firebase`, offering custom components that simplify the integration of its powerful services into your projects.
+- **Automate User Onboarding:** Create agents that handle the entire sign-up process. When a new user fills out a form, an agent can automatically create their account in Firebase.
+- **Backend for Frontend Operations:** Build agents that act as a secure backend for your frontend application. An agent can take user credentials, sign them in using Firebase, and then perform actions on their behalf.
+- **Personalized Experiences:** Use agents to fetch data for a logged-in user to provide a personalized experience. For example, an agent could retrieve a user's name and past orders to customize a conversation.
+- **Streamline User Management:** Automate administrative tasks like updating user passwords or emails (by combining these components with other Firebase REST API calls in a generic API component).
 
-## Create User
+</details>
+</InfoCallout>
+<Divider />
 
-The `Create User` component streamlines the process of creating a user within your Firebase application. This functionality is essential for building robust user authentication systems and enabling personalized experiences for your users.
+## Prerequisites
 
-### Settings
+Before you begin, please ensure you have the following:
 
-To initialize this component, follow these steps to obtain your `API Key`:
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **Google Firebase Project**.
+- **Email/Password Sign-In** enabled in your Firebase Authentication settings.
+- Your Firebase project's **Web API Key**.
 
-1. Create a `Firebase` project if you don't already have one.
-2. Navigate to your `Project Settings` in the `Firebase Console` and obtain your `API Key`.
-3. Input this `API Key` into the specified section in the component's settings.
+<Divider />
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+## Getting Started With Firebase
 
-<Image src="/img/firebase/screenshot1.png" alt="alt text" />
+The connection between SmythOS and Firebase Authentication is configured using your project's Web API Key.
 
-### Inputs
+### Step 1: Get Your Firebase Web API Key
+1.  Navigate to the [Firebase Console](https://console.firebase.google.com/) and select your project.
+2.  In the project sidebar, click the **Settings gear** and select **Project settings**.
+3.  Under the **General** tab, scroll down to the "Your apps" card.
+4.  If you don't have a web app, create one by clicking the `</>` icon.
+5.  In your web app's configuration details, you will find the `apiKey`. Copy this value.
 
-To effectively utilize this component, you need to provide the following input:
+### Step 2: Store Your API Key in SmythOS Vault
+Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-1. **email `required<string>`:** The user's primary email. Must be a valid email address.
-2. **password `required<string>`:** The user's raw, unhashed password. Must be at least six characters long.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your Firebase Web API Key as the value. Give it a memorable name, like `firebase_web_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-<Image src="/img/firebase/screenshot2.png" alt="alt text" />
+### Step 3: Configure a Firebase Component
+1.  In your SmythOS agent graph, drag and drop any Firebase component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `firebase_web_api_key`).
+4.  Your connection is now configured for that component.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Firebase component you use. This key identifies your Firebase project for each request.</InfoCallout>
+<Divider />
 
-### Outputs
+## Which Firebase Component Should I Use?
 
-Upon executing this component, you will receive the following outputs:
+| If you need to… | Workflow | Use this Component | Why this one? |
+|-----------------|----------|--------------------|---------------|
+| **Register a new user** for your app | User Sign-up | [Create User](#create-user) | This is the dedicated endpoint for creating a new account with email and password. |
+| **Log an existing user in** | User Sign-in | [Sign In With Email & Password](#sign-in-with-email--password) | This component authenticates a user's credentials and returns a session `idToken`. |
+| **Get details for the current user** (e.g., after they log in) | Fetching Profile | [Get User Data](#get-user-data) | This takes the `idToken` from a sign-in event to securely retrieve that user's information. |
 
-1. **Response:** An object containing detailed information about the result of the operation. This may include the newly created user's ID, status, or any relevant data related to the user creation process.
-2. **Headers:** HTTP headers embedded within the server response from `Firebase`, providing additional metadata such as response status codes, content type, and more.
+<Divider/>
 
-<Image src="/img/firebase/screenshot3.png" alt="alt text" />
+## Component Details
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+This section provides detailed information for each Firebase component.
 
-## Get User Data
+### <a name="create-user"></a>Create User
+Creates a new user account in your Firebase project using an email and password.
 
-The `Get User Data` component simplifies the retrieval of user data from Firebase.
+<InfoCallout>This component requires a `Web API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-firebase) section.</InfoCallout>
 
-### Settings
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `email` | string | Yes | The user's email address. Must be a valid email format. |
+| `password` | string | Yes | The user's password. Must be at least six characters long. |
 
-To initialize this component, follow these steps to obtain your `API Key`:
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `idToken` | string | A Firebase ID token for the newly created user's session. |
+| `localId` | string | The unique user ID (UID) assigned to the new user. |
+| `Response`| object | The full, raw JSON response from the Firebase Auth API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-1. Create a `Firebase` project if you don't already have one.
-2. Navigate to your `Project Settings` in the `Firebase Console` and obtain your `API Key`.
-3. Input this `API Key` into the specified section in the component's settings.
+<TipCallout title="Use Case" collapsible>
+An agent powers a "Sign Up" form. It takes the submitted email and password, passes them to this component, and upon success, uses the `localId` to create a corresponding user profile in a separate database.
+</TipCallout>
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+```json
+{
+  "component": "firebase.createUser",
+  "email": "new.user@example.com",
+  "password": "strongPassword123"
+}
+```
 
-<Image src="/img/firebase/screenshot4.png" alt="alt text" />
+<WarningCallout title="Security">
+Always handle passwords securely. This component should be called from a trusted server-side environment like a SmythOS agent, not directly from a client-side browser where the password could be intercepted.
+</WarningCallout>
 
-### Inputs
+<Divider/>
 
-To effectively utilize this component, you need to provide the following input:
+### <a name="sign-in-with-email--password"></a>Sign In With Email & Password
+Signs in an existing user with their email and password and returns an ID token for their session. (Formerly "ID Token").
 
-1. **idToken `required<string>`:** The Firebase ID token of the account.
+<InfoCallout>This component requires a `Web API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-firebase) section.</InfoCallout>
 
-<Image src="/img/firebase/screenshot5.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `email` | string | Yes | The email address of the existing user. |
+| `password` | string | Yes | The password for the user's account. |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `idToken` | string | A Firebase ID token for the authenticated user's session. This is required for other authenticated requests. |
+| `localId` | string | The unique user ID (UID) of the signed-in user. |
+| `Response`| object | The full, raw JSON response from the Firebase Auth API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-### Outputs
+<TipCallout title="Use Case" collapsible>
+This component is the core of a login workflow. After a user signs in, the agent receives the `idToken` and passes it to the "Get User Data" component to fetch their profile and personalize the app experience.
+</TipCallout>
 
-Upon executing this component, you will receive the following outputs:
+```json
+{
+  "component": "firebase.idToken",
+  "email": "existing.user@example.com",
+  "password": "userPassword123"
+}
+```
 
-1. **Response:** An object containing detailed information about the result of the operation, including the user's data retrieved from `Firebase`.
-2. **Headers:** HTTP headers embedded within the server response from `Firebase`, providing additional metadata such as response status codes, content type, and more.
+<WarningCallout title="Token Expiration">
+The `idToken` returned by this component is short-lived (typically one hour). For long sessions, you will need to use the `refreshToken` (found in the raw `Response`) to get a new ID token.
+</WarningCallout>
 
-<Image src="/img/firebase/screenshot6.png" alt="alt text" />
+<Divider/>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+### <a name="get-user-data"></a>Get User Data
+Retrieves the profile information for an authenticated user, using their session ID token.
 
-## ID Token
+<InfoCallout>This component requires a `Web API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-firebase) section.</InfoCallout>
 
-The `ID Token` component simplifies the process of retrieving the ID token of a user from Firebase.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `idToken` | string | Yes | The Firebase ID token obtained from a successful sign-in. |
 
-### Settings
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `users` | array | An array containing a single user object with their profile information (UID, email, creation date, etc.). |
+| `Response`| object | The full, raw JSON response from the Firebase Auth API. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-To initialize this component, follow these steps to obtain your `API Key`:
+<TipCallout title="Use Case" collapsible>
+After a user logs in successfully using the "Sign In" component, the agent immediately calls this component with the resulting `idToken` to retrieve the user's display name and greet them personally.
+</TipCallout>
 
-1. Create a `Firebase` project if you don't already have one.
-2. Navigate to your `Project Settings` in the `Firebase Console` and obtain your `API Key`.
-3. Input this `API Key` into the specified section in the component's settings.
+```json
+{
+  "component": "firebase.getUserData",
+  "idToken": "id-token-from-previous-step"
+}
+```
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+<WarningCallout title="Authentication Required">
+This component will fail if the `idToken` is missing, invalid, or expired. It is a secure way to fetch data only for the currently authenticated user.
+</WarningCallout>
 
-<Image src="/img/firebase/screenshot7.png" alt="alt text" />
+<Divider />
 
-### Inputs
+## Best Practices & Advanced Tips
 
-To effectively utilize this component, provide the following inputs:
+* **Secure Your API Key:** Always store your Firebase Web API key in the SmythOS `Vault`. While it is a public key, keeping it in the Vault makes management easier.
+* **Understand the Auth Flow:** The typical flow is `Create User` for new users, followed by `Sign In` to get an `idToken`, and then `Get User Data` using that token. For returning users, the flow starts with `Sign In`.
+* **Handle Tokens Securely:** The `idToken` proves a user is signed in. Never expose it to untrusted environments. It should be managed within your agent's workflow to make secure requests.
+* **Use Firebase Security Rules:** While this integration manages users, remember to configure Firebase Security Rules for services like Firestore and Cloud Storage to control what data each authenticated user can access.
 
-1. **email `required<string>`:** The email address associated with the user account.
-2. **password `required<string>`:** The password used for authentication.
+<Divider />
 
-<Image src="/img/firebase/screenshot8.png" alt="alt text" />
+## Troubleshooting Common Issues
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+* **Error: `EMAIL_EXISTS`**
+  * **Cause:** Attempting to create a user with an email address that is already registered in your Firebase project.
+  * **Solution:** This is expected behavior. Your agent's logic should handle this by informing the user that the email is already in use, perhaps suggesting they sign in instead.
 
-### Outputs
+* **Error: `INVALID_PASSWORD` or `EMAIL_NOT_FOUND`**
+  * **Cause:** The email/password combination provided to the "Sign In" component is incorrect.
+  * **Solution:** This is a standard failed login attempt. Your agent should return a generic "Invalid credentials" message to the user.
 
-Upon executing this component, you will receive the following outputs:
+* **Error: `TOKEN_EXPIRED`**
+  * **Cause:** The `idToken` used in the "Get User Data" component has expired (they typically last for one hour).
+  * **Solution:** Your application needs a mechanism to refresh the ID token using the refresh token provided upon sign-in. This is a more advanced flow that may require calling the Firebase token refresh endpoint.
 
-1. **Response:** An object containing detailed information about the result of the operation, including the user's data and the ID Token associated with the user.
-2. **Headers:** HTTP headers embedded within the server response from `Firebase`, providing additional metadata such as response status codes, content type, and more.
+* **Error: `API_KEY_NOT_VALID`**
+  * **Cause:** The Web API Key configured in the component's settings is incorrect.
+  * **Solution:** Go to your Firebase Project Settings, copy the correct `apiKey`, and update the secret in your SmythOS Vault.
 
-<Image src="/img/firebase/screenshot9.png" alt="alt text" />
+<Divider />
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+## What's Next?
+
+You are now ready to build applications with secure user management using the **SmythOS Firebase Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Manages a complete user lifecycle. A user signs up via a form, the agent calls `Create User`, then logs the new `localId` into a separate database (like Firestore or a SQL database) to store additional profile information.
+    * Acts as a backend for a simple web app. The frontend collects login details, sends them to the agent, which uses `Sign In` to authenticate, and then uses the `idToken` to securely fetch and return user-specific data.
+    * Connects to other services. After a user signs up with Firebase, the agent could also create a corresponding customer profile in a CRM like HubSpot.
+
+* **Explore Other Integrations:**
+    * Combine Firebase Auth with a database integration like [Firestore (via the OpenAPI component)](/docs/integrations/openapi) or a SQL database to store and retrieve data associated with a user's `localId`.
+    * After a new user is created, trigger a welcome [Email](/docs/integrations/email) to be sent to their registered email address.

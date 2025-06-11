@@ -1,52 +1,161 @@
 ---
-tags: [analytics, data, insights]
+title: AvesAPI Integration
+description: Connect SmythOS to AvesAPI to scrape real-time Google Search Engine Results Page (SERP) data directly from your agents.
+og:title: SmythOS & AvesAPI - Automate Real-Time Google Search Data
+og:description: Learn to integrate AvesAPI with SmythOS. Empower your agents to fetch live Google SERP data for web, images, and news, automating SEO, market research, and data collection workflows.
+og:image: /img/integrations/smythos_avesapi.png
+keywords: [AvesAPI SmythOS Integration, Connect AvesAPI to SmythOS, SmythOS SERP Scraping, Automate Google Search, SmythOS SEO Data, No-Code SERP API, Google Search Automation]
 ---
+# AvesAPI Integration with SmythOS
 
+> **Need real-time search data for your workflows?** Connect AvesAPI to SmythOS and let your agents fetch live Google SERP data, bypassing proxies and CAPTCHAs automatically.
 
-# AvesAPI Integration
+<InfoCallout title="TL;DR">
+Securely link your AvesAPI account to SmythOS using an API key. Then, use the Google Web Search component to empower your agents to retrieve live search results for any query, domain, and location.
+</InfoCallout>
 
-The `AvesAPI` is designed to efficiently scrape Google SERP data in real-time, simplifying the process by managing proxies and solving CAPTCHA challenges automatically. The service allows for quick data retrieval through a straightforward HTTP GET URL structure, providing results in either JSON or HTML format.
+## List of AvesAPI Components
+Quickly compare AvesAPI components by what they do and their key I/O.
 
-The integration with `SmythOS` enhances the system's capability to fetch and process external data without the overhead of handling complex network operations. It supports `SmythOS` in delivering more dynamic and responsive user experiences by leveraging real-time search engine data.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Google Web Search**](#google-web-search) | Read | Fetches real-time Google SERP data for a query. | <Badge type="required" /> `query`<br /><Badge type="optional" /> `google_domain`, `num` | `organic_results` | Track keyword rankings or research topics. |
 
-## Integration Settings
+<InfoCallout>
+<details>
+  <summary>Why Integrate AvesAPI with Your Agent?</summary>
 
-#### API Key
-To use AvesAPI integration in `SmythOs`, you must authenticate each integration component with an API key. Follow these steps to prepare your credentials:
+AvesAPI simplifies the complex process of scraping Google Search results. By integrating it with SmythOS, you can build powerful, data-driven agents that rely on the most current information from the web.
 
-1. Log into your `AvesAPI` account and proceed to your [profile settings](https://app.avesapi.com/profile/).
-2. Find and copy your `API Key`.
+- **Automated SEO Tracking:** Schedule agents to run daily or weekly queries to track your website's ranking for key terms against competitors.
+- **Market Research:** Automatically gather search results for product names, brands, or industry terms to analyze market trends, sentiment, and top players.
+- **Content & AI Workflows:** Use an agent to perform a Google search on a topic, feed the results into an AI model for summarization, and generate a brief—all in one seamless flow.
+- **Data Collection:** Effortlessly collect URLs, snippets, and other data from search results to build datasets for analysis or lead generation without worrying about getting blocked.
 
-> **Note:** Treat the `API Key` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation. 
+</details>
+</InfoCallout>
+<Divider />
 
-## Google Web Search
+## Prerequisites
 
-This integration empowers `SmythOS` users to access and retrieve Google Search Engine Results Page (SERP) data effortlessly in real-time. It automates the complexities associated with managing proxies and CAPTCHAs, enabling seamless queries across various categories such as web pages, images, news articles, and videos.
+Before you begin, please ensure you have the following:
 
-### Component Settings
-To use this component:
-- Click on the component settings.
-- Add your `API key` from the `vault`. Please refer to the [Integration Settings](#integration-settings) to learn how to create it.
-- Confirm and close the settings.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- An **AvesAPI account**.
+- Your AvesAPI **API Key**.
 
-### Inputs
-Adjust these inputs to refine your search requirements:
+<Divider />
 
-1. **query `required<string>`**: The main expression or keywords for which the Google SERP is queried.
-2. **google_country_code `optional<string>`** (default: `us`): Designates the localized Google domain corresponding to a specific country.
-3. **google_ui_language `optional<string>`** (default: `en`): Sets the preferred language for the Google user interface.
-4. **google_domain `optional<string>`** (default: `google.com`): Specifies the Google domain to be queried.
-5. **num `optional<integer>`** (default: `10`): Determines the number of search results to retrieve per query.
+## Getting Started With AvesAPI
 
-> **Note:** Like many components of `SmythOS`, you can extend this list by adding new inputs with the `+` button in the `Inputs` section.
+The connection between SmythOS and AvesAPI is configured using a secure API key.
 
-### Outputs
-Here are the predefined outputs available for detailed analysis and integration in your projects:
+### Step 1: Get Your AvesAPI API Key
+1.  Log in to your [AvesAPI account](https://app.avesapi.com/).
+2.  Navigate to your [profile page](https://app.avesapi.com/profile/).
+3.  Your **API Key** is displayed on this page. Copy it.
 
-1. **Response**: The primary data structure containing all the search results.
-2. **Headers**: Includes HTTP headers from the response, which are essential for debugging, performance analysis, or regulatory compliance.
-3. **organic_results**: Contains the standard non-paid search results.
+### Step 2: Store Your API Key in SmythOS Vault
+Your AvesAPI Key is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your AvesAPI API Key as the value. Give it a memorable name, like `avesapi_api_key`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-<Arcade src="https://demo.arcade.software/jI40g3xMeokhygxKqBmx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AvesAPI Google Web Search" />
+### Step 3: Configure the AvesAPI Component
+1.  In your SmythOS agent graph, drag and drop the **Google Web Search** component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `avesapi_api_key`).
+4.  Your connection is now configured for that component.
+
+<InfoCallout title="Heads-up">You must add the API Key from the Vault to each AvesAPI component you use. This provides granular control and ensures all connections are secure.</InfoCallout>
+<Divider />
+
+## Which AvesAPI Component Should I Use?
+
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Get Google search results** for a keyword | A search `query` | [Google Web Search](#google-web-search) | The core component for all real-time SERP data retrieval. |
+
+<Divider/>
+
+## Component Details
+
+This section provides detailed information for the AvesAPI component.
+
+### <a name="google-web-search"></a>Google Web Search
+Retrieves real-time Google Search Engine Results Page (SERP) data for a given query, handling all proxies and CAPTCHAs automatically.
+
+<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-avesapi) section.</InfoCallout>
+
+#### Inputs
+| Field | Required | Notes |
+|-------|----------|-------|
+| `query` | <Badge type="required" /> | The keyword or phrase to search for on Google. |
+| `google_country_code` | <Badge type="optional" /> | Two-letter country code for localized results (e.g., `de` for Germany). Default: `us`. |
+| `google_ui_language` | <Badge type="optional" /> | Two-letter language code for the UI (e.g., `es` for Spanish). Default: `en`. |
+| `google_domain` | <Badge type="optional" /> | The Google domain to use (e.g., `google.co.uk`). Default: `google.com`. |
+| `num` | <Badge type="optional" /> | The number of search results to return (e.g., `100`). Default: `10`. |
+
+#### Outputs
+| Field | Description |
+|-------|-------------|
+| `organic_results` | An array of objects, each representing a standard, non-paid search result. |
+| `response`| The raw JSON response from the AvesAPI, including all SERP features found. |
+| `headers` | HTTP headers from the API response. |
+
+<TipCallout title="Use Case" collapsible>
+Create a rank-tracking agent. Schedule it to run daily, search for your target keyword, loop through the `organic_results`, and find your website's position. Log the position and date to a Google Sheet to monitor performance over time.
+</TipCallout>
+
+```json
+{
+  "component": "avesapi.googleWebSearch",
+  "query": "SmythOS no-code automation",
+  "google_country_code": "us",
+  "num": 20
+}
+```
+
+<WarningCallout title="API Usage">
+Each query consumes credits from your AvesAPI account. Higher `num` values or more frequent queries will increase consumption.
+</WarningCallout>
+
+<Divider />
+
+## Best Practices & Advanced Tips
+
+* **Secure Your API Key:** Your AvesAPI key is a credential. Always use the SmythOS `Vault` to store it securely.
+* **Refine Your Queries:** Use specific country and language codes to get the most accurate SERP data for your target audience.
+* **Parse the `response` Output:** The `organic_results` output is convenient, but the full `response` object contains a wealth of extra information, such as "People Also Ask," "Related Searches," and "Knowledge Graph" data that can be used for more advanced analysis.
+* **Handle Errors:** While AvesAPI handles common scraping issues, network errors can still occur. Build error-handling logic into your agent to manage failed requests gracefully.
+
+<Divider />
+
+## Troubleshooting Common Issues
+
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API key is invalid, missing, or has been disabled.
+  * **Solution:** Verify that the API key in your SmythOS Vault is correct and matches the one in your AvesAPI profile. Ensure your AvesAPI account is active.
+
+* **Error: `402 Payment Required`**
+  * **Cause:** You have run out of credits in your AvesAPI account.
+  * **Solution:** Log in to your AvesAPI dashboard to check your credit balance and top up if necessary.
+
+* **Empty `organic_results` Array**
+  * **Cause:** The query may have genuinely returned no organic results for the specified parameters, or the query itself was blocked for other reasons.
+  * **Solution:** Test the query in your browser to ensure it's valid. Check the full `response` object for any error messages or details from AvesAPI.
+
+<Divider />
+
+## What's Next?
+
+You're now ready to build powerful, data-driven workflows with the **SmythOS AvesAPI Integration**!
+
+Consider these ideas:
+* **Build an Agent That...**
+    * Monitors Google Search for mentions of your brand, extracts the URL and snippet, and sends a daily summary to a Slack channel.
+    * Performs a search for a list of competitor domains and analyzes their top-ranking pages to identify content gaps.
+    * Gathers the top 10 results for a "how-to" query and feeds them to an AI component to generate a comprehensive, summarized answer.
+
+* **Explore Other Integrations:** Combine AvesAPI with other SmythOS tools. Use the [Google Sheets Integration](/docs/agent-studio/integrations/google-sheets-integration) to log ranking data, or connect to the [Ahrefs Integration](/docs/agent-studio/integrations/ahrefs-integration) to further analyze the SEO metrics of the URLs you discover.

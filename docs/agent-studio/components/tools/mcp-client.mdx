@@ -1,97 +1,101 @@
-# 🌟 MCP Client
+---
+title: MCP Client
+description: Integrate with external Model Context Protocol (MCP) servers to extend your agent's capabilities with third-party tools and data sources.
+keywords: [MCP, Model Context Protocol, client, integration, server, tool, external system]
+toc_max_heading_level: 2
+---
 
-The **MCP Client** component enables integration with external Model Context Protocol (MCP) servers in your SmythOS agents, allowing seamless communication with tools, systems, and data sources that support the MCP standard.
+# MCP Client Component
+
+Use the **MCP Client** component to enable your agent to communicate with external tools, systems, and data sources that support the Model Context Protocol (MCP). This component acts as a universal adapter, allowing your agent to interact with a growing ecosystem of MCP-enabled services.
+
+<InfoCallout title="Why this matters">
+The Model Context Protocol standardizes how AI applications exchange information with external systems. By using the `MCP Client`, you can connect your agent to specialized third-party tools for data analysis, function execution, or document access through a single, unified interface, dramatically expanding its capabilities without needing custom integrations.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What You’ll Configure
+
+- [Important Limitations](#step-1-important-limitations)
+- [Configure the Connection](#step-2-configure-the-connection)
+- [Provide Inputs](#step-3-provide-inputs)
+- [Handle the Output](#step-4-handle-the-output)
+- [Best Practices](#step-5-best-practices)
+- [Troubleshooting Tips](#step-6-troubleshooting-tips)
+- [What to Try Next](#step-7-what-to-try-next)
+
+<Spacer size="md" />
+
+## Step 1: Important Limitations
+
+Please be aware of the current limitations of this component.
+
+<WarningCallout title="Current Limitations">
+- The `MCP Client` component currently only supports connecting to MCP servers that are publicly exposed on the web via an SSE (Server-Sent Events) URL.
+- It **does not** support connecting to MCP servers running locally on your computer. Support for local servers is planned for a future release of the SRE Local CLI.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Step 2: Configure the Connection
+
+Set up the details for connecting and interacting with the external MCP server.
+
+| Setting          | Required?                   | Description                                                                                                                                                                                             |
+|------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **MCP URL** | <Badge type="required">Yes</Badge> | The Server-Sent Events (SSE) URL of the MCP server you want to integrate with.                                                                                                                          |
+| **Model** | <Badge type="required">Yes</Badge> | Select the LLM that will be used to process requests and interact with the MCP server.                                                                                                                   |
+| **Prompt** | <Badge type="required">Yes</Badge> | The natural language instruction that tells the MCP server what task to perform. You can use variables like `{{prompt}}` to inject dynamic content from other inputs.                                  |
+| **System Prompt** | <Badge type="optional">No</Badge>  | An advanced setting that defines overarching behavior instructions for the client, similar to a system prompt in an LLM, providing context for how all requests should be handled. |
 
 <Arcade src="https://demo.arcade.software/mFxqwnIRy91PWDmGwFcv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="MCP Client | SmythOS"/>
 
----
+<Spacer size="md" />
 
-## Overview
+## Step 3: Provide Inputs
 
-The Model Context Protocol (MCP) is an open standard designed to standardize how AI assistants exchange context with external tools and systems. MCP allows AI applications to:
+The component has a default `Prompt` input and allows for custom inputs to make your requests dynamic.
 
-- Access files and documents
-- Execute functions in external systems
-- Maintain context across different environments
-- Exchange information with databases and APIs through a unified interface
+| Input   | Description                                                                                                                          |
+|---------|--------------------------------------------------------------------------------------------------------------------------------------|
+| **Prompt**| The default input that is automatically injected into the **Prompt** setting using the `{{prompt}}` variable. Connect another component's output here to pass dynamic instructions. |
+| **Custom Inputs** | Click the **+** icon to add new inputs (e.g., `query`, `file_id`). You can reference these in your **Prompt** or **System Prompt** settings. |
 
-The MCP Client component serves as a bridge between your SmythOS agent and external MCP-compatible services.
+<Spacer size="md" />
 
----
+## Step 4: Handle the Output
 
-## Important Limitations
+The component provides a single `Output` containing the full response from the MCP server and allows you to define custom outputs to easily parse this response.
 
->**Current Limitations:**
->- The MCP Client component in SmythOS currently only supports MCP servers that are exposed through the web
->- It does not support connecting to local MCP servers running on your computer
->- Local MCP server connections require a desktop application, which is not part of the current MCP Client component
->
->**Upcoming Features:**
->- Local MCP servers will be supported in the upcoming SRE Local CLI
->- This feature is currently under development
+| Output   | Description                                                                                                                                                              |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Output** | The default output containing the complete, structured response from the MCP server.                                                                                   |
+| **Custom Outputs**| Click the **+** icon to add new outputs that extract specific data from the main `Output` (e.g., `summary`, `status`). SmythOS automatically handles the parsing, so you only need to provide a name. |
 
----
+<Spacer size="md" />
 
-## Settings
+## Step 5: Best Practices
 
-### 🔗 MCP URL
-Enter the Server-Sent Events (SSE) URL of the MCP server you want to integrate with. This URL is mandatory and must point to a valid MCP server endpoint.
+- **Verify Your MCP Server:** Before integrating, ensure the external MCP server is running and its SSE URL is correct and publicly accessible.
+- **Use a System Prompt for Context:** If you need the MCP server to behave in a specific way across all requests (e.g., "always respond in JSON"), use the `System Prompt` field.
+- **Structure Your Prompts:** Write clear and direct prompts. If the MCP server supports multiple tools, specify which one you intend to use.
+- **Use Custom Outputs:** For MCP servers that return structured data (like JSON), use custom outputs to neatly extract the specific fields you need for downstream components. This is much cleaner than parsing the raw `Output` with a Code component.
 
-### 🧠 Model
-Select the model to use for processing requests. The component supports various models including:
-- OpenAI models (GPT-4o, GPT-4.1, etc.)
-- Claude models
-- Other compatible LLMs
+<Spacer size="md" />
 
-### ✍️ Prompt
-Enter the prompt to be used during component execution. You can utilize template variables (e.g., `{{prompt}}`) to incorporate dynamic content from agent inputs.
+## Step 6: Troubleshooting Tips
 
-### ⚙️ Advanced Settings
-- **System Prompt**: Define behavior instructions for the MCP client. This works like a behavior prompt, providing context and guidance for how the MCP server should process requests.
+<InfoCallout title="If your MCP Client is not responding correctly...">
+- **Connection Fails:** Double-check the `MCP URL`. Ensure it is a valid, publicly accessible SSE endpoint. The component cannot connect to local or private URLs.
+- **Incorrect Response:** The MCP server's response depends heavily on your prompt. If the response is not what you expect, refine your prompt to be more specific. Test in **Debug Mode** to inspect the raw `Output` from the server.
+- **Authentication Issues:** If the MCP server requires authentication, you may need to pass an API key or token as part of your prompt or within a custom input, depending on the server's specific implementation.
+</InfoCallout>
 
----
+<Spacer size="md" />
 
-## Inputs
+## Step 7: What to Try Next
 
-The MCP Client component comes with a default input:
-
-- **Prompt**: This input is automatically injected into the prompt field using the `{{prompt}}` variable. When you connect another component's output to this input, its value will be used in the prompt template.
-
-To add additional inputs, click the "+" icon next to the **Inputs** label and enter required details:
-
-- **Name:** Unique, short, self-explanatory (e.g., `query`)
-- **Type:** Supports `Any`, `String`, `Number`, `Integer`, `Boolean`, `Array`, `Object`, `Binary`, `Date`
-- **Color (optional):** Enhances visual clarity
-- **Optional (optional):** Non-mandatory inputs can be marked as optional
-- **Default Value (optional):** Predefined value used if no explicit value is supplied
-
----
-
-## Outputs
-
-The MCP Client component has a single built-in output named **`Output`**, containing the response from the MCP server.
-
-To add additional custom outputs:
-- Click the "+" icon next to the **Outputs** label
-- Simply name your new output (e.g., `summary`, `metadata`, `status`)
-- SmythOS automatically recognizes that the source data comes from the default Output
-- No need to use prefixes like "Output.label" as SmythOS handles this internally
-
-This simplifies creating multiple outputs from a single response, allowing you to route different parts of the MCP response to various components in your workflow.
-
----
-
-## Use Cases
-
-- Connect your SmythOS agent to external MCP-enabled AI systems
-- Integrate with specialized tools and databases via MCP
-- Extend your agent's capabilities with third-party functions and data sources
-- Create multi-model workflows involving different AI providers
-
-> **⚠️ Troubleshooting**
->
-> If your MCP Client component isn't responding as expected:
->
-> 1. 🔍 **Verify the MCP URL**: Ensure the URL points to a valid MCP server endpoint
-> 2. 🔄 **Check Prompt Format**: Make sure your prompt properly instructs the MCP server
-> 3. 🛠️ **Test in Debug Mode**: Enable debugging to view detailed execution logs
+- Connect this component to a third-party MCP-enabled tool to extend your agent's capabilities with specialized functions.
+- Use a **[GenAI LLM Component](../base/gen-ai-llm)** to generate a complex prompt, and then feed that prompt into the `MCP Client`.
+- Parse the `Output` from the MCP server using a **[JSON Filter Component](../advanced/json-filter)** to clean the data before storing it or using it in another step.

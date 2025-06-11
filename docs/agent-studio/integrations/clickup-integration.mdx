@@ -1,1383 +1,413 @@
 ---
-tags: [tools, automation, productivity]
+title: ClickUp Integration
+description: Connect SmythOS to ClickUp to automate task and project management, track goals, and streamline your team's workflows directly from your agents.
+og:title: SmythOS & ClickUp - Automate Your Productivity
+og:description: Learn to integrate ClickUp with SmythOS. Empower your agents to create, update, and retrieve tasks and projects, turning ClickUp into an active component of your automated systems.
+og:image: /img/integrations/smythos_clickup.png
+keywords: [ClickUp SmythOS Integration, Connect ClickUp to SmythOS, SmythOS ClickUp, Automate Project Management, Task Management API, No-Code ClickUp]
 ---
+# ClickUp Integration with SmythOS
 
-# ClickUp Integration
+> **Want to put your project management on autopilot?** Connect ClickUp to SmythOS and empower your agents to create, update, and manage tasks and projects automatically.
 
-## Introduction
+<InfoCallout title="TL;DR">
+Securely link your ClickUp account to SmythOS using a personal API Token. Then, use our suite of components to automate your entire project lifecycle, from creating new tasks from external triggers to updating their status.
+</InfoCallout>
 
-The ClickUp Integration for SmythOS brings the power and flexibility of ClickUp's task management and productivity tools directly into the SmythOS environment. By integrating ClickUp into SmythOS, users can streamline their workflows, manage tasks effectively, and enhance productivity without switching between platforms.
+## List of ClickUp Components
+Quickly compare ClickUp components by what they do and their key I/O. Click any component name to jump directly to its detailed guide.
 
-ClickUp is a versatile project management and productivity platform widely used for its robust features, including task management, goal tracking, time management, and collaboration tools. The ClickUp API enables developers to build custom integrations and applications that interact with the ClickUp platform, providing extensive functionalities that can be tailored to specific needs.
+| **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
+|---------------|------------|------------------|------------|------------------|---------------|
+| [**Add Task**](#add-task) | Write | Creates a new task in a specified list. | <Badge type="required" /> `list_id`, `name`<br/><Badge type="optional" /> `description` | `id`, `url` | Automatically creating a task from a new email. |
+| [**Update Task**](#update-task) | Write | Updates the properties of an existing task. | <Badge type="required" /> `task_id`<br/><Badge type="optional" /> `status`, dates | `id`, `url` | Marking a task as "Complete" from another system. |
+| [**Get Task**](#get-a-task) | Read | Retrieves the full details of a single task. | <Badge type="required" /> `task_id` | `id`, `name`, `status` | Checking the status of a task before taking action. |
+| [**Get Tasks**](#get-tasks) | Read | Retrieves a list of tasks from a specified list. | <Badge type="required" /> `list_id`<br/><Badge type="optional" /> `page` | `tasks` | Generating a daily summary of all tasks in a list. |
+| [**Add Task To List**](#add-task-to-list) | Write | Adds an existing task to an additional list. | <Badge type="required" /> `list_id`, `task_id` | `Response` | Cross-listing a task in both a team and a personal list. |
+| [**Add Assignee To Task**](#add-assignee-to-task) | Write | Assigns a user to a specific task. | <Badge type="required" /> `task_id`, `assignee_id` | `assignees` | Auto-assigning tasks based on a round-robin system. |
+| [**Delete Task**](#delete-clickup-task) | Write | Permanently deletes a task. | <Badge type="required" /> `task_id` | `Response` | Cleaning up automatically created tasks. |
+| [**Get Lists**](#get-clickup-lists) | Read | Retrieves all Lists within a specific Folder. | <Badge type="required" /> `folder_id` | `lists` | Finding the correct List ID to create a task in. |
 
-The ClickUp Integration is a valuable addition to SmythOS, offering powerful task management and productivity features from ClickUp directly within the platform. By leveraging the capabilities of the ClickUp API, users can enhance their workflow, stay organized, and boost productivity seamlessly.
 
-For more detailed information, please visit the [ClickUp API documentation page](https://clickup.com/api).
+<InfoCallout>
+<details>
+  <summary>Why Integrate ClickUp with Your Agent?</summary>
 
-## Add Task
+ClickUp is a powerful "do-it-all" productivity platform. Integrating it with SmythOS allows you to connect your project management hub to any other tool or workflow.
 
-### ⚙️ Settings
+- **Automated Task Creation:** Build agents that listen for triggers—a new customer in your CRM, a new bug report in your helpdesk, a new form submission—and automatically create corresponding tasks in the right ClickUp list, assigned to the right person.
+- **Dynamic Project Management:** Keep ClickUp in sync with the real world. An agent can monitor a GitHub repository and, when an issue is closed, find and update the corresponding task's status in ClickUp.
+- **Streamlined Workflows:** Use ClickUp as the source of truth for your agents. An agent can fetch its to-do list for the day from a specific ClickUp list, perform each task, and then update the task status as it completes its work.
+- **Automated Reporting:** Schedule agents to run daily or weekly, fetch all tasks for a specific project using `Get Tasks`, and generate a custom progress report to be sent to stakeholders via email or Slack.
 
-#### 🔑 ClickUp API Token
+</details>
+</InfoCallout>
+<Divider />
 
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
+## Prerequisites
 
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
+Before you begin, please ensure you have the following:
 
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
+- An active **SmythOS account**. ([Sign up here](https://app.smythos.com/signup)).
+- A **ClickUp account**.
+- Your personal ClickUp **API Token**.
+
+<Divider />
 
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
+## Getting Started With ClickUp
+
+The connection between SmythOS and ClickUp is configured using a secure, personal API Token.
 
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
+### Step 1: Get Your ClickUp API Token
+1.  Log in to your [ClickUp account](https://clickup.com).
+2.  Click on your profile avatar in the bottom-left corner to open the User Menu.
+3.  Select **Apps**.
+4.  Your personal **API Token** is displayed at the top of this page. Click the **Generate** button if one doesn't exist, or click **Copy** to copy your existing token.
 
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
+### Step 2: Store Your API Token in SmythOS Vault
+Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it securely.
 
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
+1.  In your SmythOS dashboard, navigate to the **Vault**.
+2.  Create a new secret and paste your ClickUp API Token as the value. Give it a memorable name, like `clickup_api_token`.
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+### Step 3: Configure a ClickUp Component
+1.  In your SmythOS agent graph, drag and drop any ClickUp component.
+2.  Click the component to open its **Settings** panel.
+3.  In the `ClickUp API Token` field, select the secret you saved in the Vault (e.g., `clickup_api_token`).
+4.  Your connection is now configured for that component.
 
-<Image src="/img/clickup/screenshot1.png" alt="alt text" /> 
+<InfoCallout title="Heads-up">You must add the API Token from the Vault to **each** ClickUp component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
+<Divider />
+
+## Which ClickUp Component Should I Use?
 
-### 📥 Inputs
+| If you need to… | Target | Use this Component | Why this one? |
+|-----------------|--------|--------------------|---------------|
+| **Create a new to-do item** | A `list_id` and task name | [Add Task](#add-task) | The primary method for programmatically creating new tasks. |
+| **Mark a task as "Done"** | A `task_id` | [Update Task Status](#update-task-status) | Specifically designed to change a task's status (e.g., "To Do", "In Progress", "Complete"). |
+| **Get all details for one task** | A `task_id` | [Get A Task](#get-a-task) | Retrieves the full record for a single, known task. |
+| **See all tasks in a project list** | A `list_id` | [Get Tasks](#get-tasks) | Fetches multiple tasks at once, perfect for reporting or processing in a loop. |
+| **Assign a task to someone** | A `task_id` and `assignee_id` | [Add Assignee To Task](#add-assignee-to-task) | The correct way to assign a user to a task. |
+| **Find the ID for a specific List** | A `folder_id` | [Get ClickUp Lists](#get-clickup-lists) | Necessary for finding the `list_id` required by many other components. |
 
-One default input is necessary to execute this component:
+<Divider/>
 
-1. **🔗 `list_id` ``` _required<string>_: ```** The unique identifier of the list where the task will be added.
-2. **📝 `name` ```_required<string>_:```** The name of the task.
-3. **📝 `description` ```_optional<string>_:```** A detailed description of the task.
-4. **📊 `priority` ```_optional<integer>_:```** The priority level of the task, with a default value of `3`.
+## Component Details
 
-<Image src="/img/clickup/screenshot2.png" alt="alt text" />
+This section provides detailed information for each ClickUp component.
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+### <a name="add-task"></a>Add Task
+Creates a new task in a specified List.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The unique ID of the List where the task will be added. |
+| `name` | string | Yes | The name or title of the task. |
+| `description`| string | Optional| A detailed description of the task. |
+| `priority`| integer| Optional| The priority level (1-4, where 1 is Urgent). Default: `3`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique ID of the newly created task. |
+| `url` | string | A direct URL to view the task in the ClickUp app. |
+| `list_id`| string | The ID of the list the task was added to. |
+| `Response`| object | The full, raw JSON response from the ClickUp API. |
+
+<TipCallout title="Use Case">
+An agent processes a new customer support email. It extracts the subject and body and uses this component to create a new task in the "Support Tickets" list in ClickUp.
+</TipCallout>
+
+```json
+{
+  "component": "clickup.addTask",
+  "list_id": "901200_abcde",
+  "name": "Fix login button on homepage",
+  "description": "A user reported that the login button is unresponsive on the Chrome browser.",
+  "priority": 1
+}
+```
+
+<Divider/>
+
+### <a name="update-task-status"></a>Update Task Status
+Updates the status of an existing task (e.g., from "To Do" to "In Progress").
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `task_id` | string | Yes | The unique ID of the task to update. |
+| `status` | string | Yes | The new status for the task. Must match an existing status in the list. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `task_id` | string | The ID of the updated task. |
+| `status`| object | An object containing the new status name and color. |
+| `url` | string | A direct URL to the updated task. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+When a developer merges a pull request in GitHub, an agent finds the linked ClickUp task and uses this component to automatically update its status to "Done".
+</TipCallout>
+
+<WarningCallout title="Case-Sensitive Status">
+The `status` input is case-sensitive and must be an exact match for a status available in the task's List.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="get-tasks"></a>Get Tasks
+Retrieves a list of tasks from a specific List.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The ID of the List from which to retrieve tasks. |
+| `page` | integer | Optional | The page number for paginated results. Default: `0`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `tasks` | array | An array of task objects from the specified list. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+A reporting agent runs every morning, uses this component to fetch all tasks from the "Team To-Dos" list, and sends a summary to a manager.
+</TipCallout>
+
+### <a name="get-a-task"></a>Get A Task
+Retrieves detailed information about a single, specific task by its ID.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `task_id` | string | Yes | The unique identifier of the task to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The ID of the retrieved task. |
+| `name` | string | The name of the task. |
+| `status`| object | An object containing the current status of the task (e.g., name, color). |
+| `due_date`| string | The due date of the task as a Unix timestamp. |
+| `assignees`| array | A list of user objects assigned to the task. |
+| `url` | string | A direct URL to view the task in the ClickUp app. |
+| `Response`| object | The full, raw JSON response from the API, containing all task details. |
+
+<TipCallout title="Use Case">
+Before an agent updates a task, it first uses this component to fetch the task's current description and assignees to provide context for the update.
+</TipCallout>
+
+<Divider/>
+
+### <a name="add-task-to-list"></a>Add Task To List
+Adds an existing task to an additional List. A task can live in multiple Lists in ClickUp.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The ID of the destination List to add the task to. |
+| `task_id` | string | Yes | The ID of the existing task to add. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The raw JSON response from the ClickUp API, confirming the action. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+A task created in a personal "To-Do" list also needs to be visible on the main "Team Project" list. An agent uses this component to cross-list the task.
+</TipCallout>
+
+<Divider/>
+
+### <a name="remove-task-from-list"></a>Remove Task From List
+Removes a task from a List. If the task only exists in one List, this will not delete the task but will move it to an "orphaned" state.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `list_id` | string | Yes | The ID of the List from which the task will be removed. |
+| `task_id` | string | Yes | The ID of the task to remove. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | A successful removal returns an empty JSON response. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+When a task is moved from a team's backlog to a specific sprint list, an agent uses this component to remove it from the general backlog list to avoid clutter.
+</TipCallout>
+
+<Divider/>
+
+### <a name="add-assignee-to-task"></a>Add Assignee To Task
+Assigns a user to a specific task.
+
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `task_id` | string | Yes | The unique ID of the task to update. |
+| `assignee_id`| string | Yes | The numeric ID of the user to assign to the task. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `assignees`| array | The updated list of user objects assigned to the task. |
+| `Response`| object | The full, raw JSON response containing the updated task details. |
+
+<TipCallout title="Use Case">
+An agent implements a round-robin system. When a new unassigned task is created, it finds the next person in the rotation and uses this component to assign them.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-clickup-task"></a>Delete Task
+Permanently deletes a task from ClickUp.
 
-### 📤 Outputs
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
 
-After executing this component, you will receive the following outputs:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `task_id` | string | Yes | The unique identifier of the task to be deleted. |
 
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The ID of the created task.
-4. **🌐 `url`:** The URL of the created task.
-5. **🔗 `list_id`:** The list ID associated with the created task.
-6. **📁 `folder_id`:** The folder ID associated with the created task.
-7. **🏠 `space_id`:** The space ID associated with the created task.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | A successful deletion returns an empty response body. |
+| `Headers` | object | The HTTP headers from the API response. |
 
-<Image src="/img/clickup/screenshot3.png" alt="alt text" />
+<TipCallout title="Use Case">
+A cleanup agent runs weekly and finds any tasks that were created for testing purposes (e.g., with "[TEST]" in the title) and uses this component to delete them.
+</TipCallout>
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<WarningCallout title="Irreversible Action">
+This action is permanent and cannot be undone. Use with caution.
+</WarningCallout>
 
-## Get Tasks
+<Divider/>
 
-### ⚙️ Settings
+### <a name="get-clickup-lists"></a>Get Lists
+Retrieves all the Lists contained within a specific Folder.
 
-#### 🔑 ClickUp API Token
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
 
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `folder_id` | string | Yes | The unique identifier of the Folder to retrieve lists from. |
 
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `lists` | array | An array of list objects found within the folder. |
+| `Response`| object | The raw JSON response from the API. |
 
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
+<TipCallout title="Use Case">
+To create a task in the "Q4 Bugs" list, an agent first needs the list's ID. It uses this component on the "Engineering" folder to find the correct list and get its ID.
+</TipCallout>
 
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
+<Divider/>
 
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
+### <a name="get-folders"></a>Get Folders
+Retrieves all Folders within a specific Space.
 
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
 
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `space_id` | string | Yes | The unique identifier of the Space to retrieve folders from. |
 
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `folders` | array | An array of folder objects found within the space. |
+| `Response`| object | The raw JSON response from the API. |
 
-<Image src="/img/clickup/screenshot4.png" alt="alt text" /> 
+<TipCallout title="Use Case">
+This is often the second step in a workflow. After getting a `space_id`, an agent uses this to find the correct `folder_id` to then get a `list_id`.
+</TipCallout>
 
-### 📥 Inputs
+<Divider/>
 
-One default input is necessary to execute this component:
+### <a name="get-spaces"></a>Get Spaces
+Retrieves all Spaces within a specific Workspace (Team).
 
-1. **🔗 `list_id` ```_required<string>_:```** The unique identifier of the list from which tasks will be retrieved.
-2. **📊 `page` ```_optional<integer>_:```** The page number for paginated results, with a default value of `0`.
+<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-clickup) section.</InfoCallout>
 
-<Image src="/img/clickup/screenshot5.png" alt="alt text" />
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `workspace_id`| string | Yes | The unique identifier of the Workspace (Team) to retrieve spaces from. |
 
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `spaces` | array | An array of space objects found within the workspace. |
+| `Response`| object | The raw JSON response from the API. |
 
-### 📤 Outputs
+<TipCallout title="Use Case">
+This is often the first step in a workflow that needs to navigate the ClickUp hierarchy. An agent gets the list of all spaces to find the `space_id` for the "Engineering" space.
+</TipCallout>
 
-After executing this component, you will receive the following outputs:
+<Divider />
 
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `tasks`:** A list of tasks retrieved from the specified ClickUp list.
+## Best Practices & Advanced Tips
 
-<Image src="/img/clickup/screenshot6.png" alt="alt text" />
+* **Secure Your API Token:** Always store your ClickUp API token in the SmythOS `Vault`.
+* **Understand the Hierarchy:** ClickUp's structure is key: **Workspace > Space > Folder > List > Task**. To create a task in the right place, you often need to find the `list_id` first. Use components like `Get Spaces`, `Get Folders`, and `Get Lists` to navigate the hierarchy programmatically.
+* **Use Custom Fields:** For advanced workflows, you can create Custom Fields in ClickUp (e.g., "Ticket ID," "Customer Email"). While not directly supported by default inputs, you can often update these fields by constructing a custom JSON payload in the `Body` of the `Update Task` component.
+* **Pagination:** When using `Get Tasks` or other list components, remember that the API returns paginated results. You may need to build a loop that increments the `page` input to fetch all tasks if a list contains more than the default limit.
 
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+<Divider />
 
-## Get A Task
+## Troubleshooting Common Issues
 
-Retrieves information about a ClickUp task
+* **Error: `401 Unauthorized`**
+  * **Cause:** The API Token is incorrect, has been revoked, or is missing.
+  * **Solution:** Verify that the API Token in your SmythOS Vault is correct and active. Generate a new token in your ClickUp Apps settings if necessary and update your Vault secret.
 
-### ⚙️ Settings
+* **Error: `404 Not Found`**
+  * **Cause:** An incorrect ID was provided (e.g., `list_id`, `task_id`, `folder_id`).
+  * **Solution:** Double-check all IDs for typos. Use the "Get" components (e.g., `Get Lists`) to verify that the resource you are trying to access exists and you have its correct ID.
 
-#### 🔑 ClickUp API Token
+* **Error: `OAUTH_025` or `OAUTH_046`**
+  * **Cause:** This often relates to permissions. The user whose personal API token is being used may not have access to the specific Space, Folder, or List you are trying to interact with.
+  * **Solution:** Ensure the user associated with the API token has been invited to and has the necessary permissions for the target resources within ClickUp.
 
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
+<Divider />
 
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
+## What's Next?
 
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
+You are now ready to build powerful project management automations with the **SmythOS ClickUp Integration**!
 
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
+Consider these ideas:
+* **Build an Agent That...**
+    * Functions as a helpdesk. It takes incoming support emails, creates a new task in a "Support" list in ClickUp using `Add Task`, and then assigns it to a team member using `Add Assignee To Task`.
+    * Manages client onboarding. When a new client is added to your CRM, an agent creates a new List for them in a "Clients" folder, and populates it with a standard set of onboarding tasks.
+    * Syncs with your calendar. The agent reads your [Microsoft Calendar](/docs/integrations/microsoft-calendar) and creates a ClickUp task for every meeting scheduled for the next day.
 
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot7.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-One default input is necessary to execute this component:
-
-1. **🔗 `task_id` ```_required<string>_:```** The unique identifier of the task you want to retrieve information for.
-
-<Image src="/img/clickup/screenshot8.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The ID of the retrieved task.
-4. **📝 `name`:** The name of the retrieved task.
-5. **📄 `text_content`:** The text content of the task.
-6. **📝 `description`:** The description of the task.
-7. **👤 `assignees`:** The list of assignees for the task.
-8. **📊 `priority`:** The priority level of the task.
-9. **🗓️ `due_date`:** The due date of the task.
-10. **🗓️ `start_date`:** The start date of the task.
-11. **🌐 `url`:** The URL of the task.
-12. **🔖 `status`:** The status of the task.
-
-<Image src="/img/clickup/screenshot9.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Task To List
-
-Add a task to an additional list in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot10.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-One default input is necessary to execute this component:
-
-1. **🔗 `list_id` ```_required<string>_:```** The unique identifier of the list where the task will be added.
-2. **🔗 `task_id` ```_required<string>_:```** The unique identifier of the task you want to add to the list.
-
-<Image src="/img/clickup/screenshot11.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-
-<Image src="/img/clickup/screenshot12.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Remove Task From List
-
-Removes a task from an additional list in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot13.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-One default input is necessary to execute this component:
-
-1. **🔗 `list_id` ```_required<string>_:```** The unique identifier of the list from which the task will be removed.
-2. **🔗 `task_id` ```_required<string>_:```** The unique identifier of the task you want to remove from the list.
-
-<Image src="/img/clickup/screenshot14.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-
-<Image src="/img/clickup/screenshot15.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update Task Date
-
-Updates the start and due dates of a task in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot16.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ```_required<string>_:```** The unique identifier of the task you want to update.
-2. **📅 `due_date_unix` ``` _required<string>_: ``` ** The new due date of the task in Unix timestamp format.
-3. **📅 `start_date_unix` ``` _required<string>_: ``` ** The new start date of the task in Unix timestamp format.
-
-<Image src="/img/clickup/screenshot17.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **📝 `description`:** The description of the updated task.
-6. **🔖 `status`:** The status of the updated task.
-7. **📅 `due_date`:** The new due date of the task.
-8. **📅 `start_date`:** The new start date of the task.
-9. **🌐 `url`:** The URL of the task.
-10. **📂 `folder_id`:** The folder ID associated with the task.
-11. **🏠 `space_id`:** The space ID associated with the task.
-12. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot18.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Update Task Status
-
-Updates the status of a task in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot19.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to update.
-2. **🔄 `status` ``` _required<string>_: ``` ** The new status of the task.
-
-<Image src="/img/clickup/screenshot20.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `task_id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **🔄 `status`:** The new status of the task.
-6. **🌐 `url`:** The URL of the task.
-7. **📂 `folder_id`:** The folder ID associated with the task.
-8. **🏠 `space_id`:** The space ID associated with the task.
-9. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot21.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Assignee To Task
-
-Adds one assignee to a ClickUp task.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot22.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to update.
-2. **👥 `assignee_id` ``` _required<string>_: ``` ** The unique identifier of the assignee you want to add to the task.
-
-<Image src="/img/clickup/screenshot23.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `task_id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **🔄 `status`:** The new status of the task.
-6. **👥 `assignees`:** The list of assignees for the task.
-7. **🌐 `url`:** The URL of the task.
-8. **📂 `folder_id`:** The folder ID associated with the task.
-9. **🏠 `space_id`:** The space ID associated with the task.
-10. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot24.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Group To Task
-
-Adds group assignees to a ClickUp task.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot25.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to update.
-2. **👥 `group_assignee_ids` ``` _required<string>_: ``` ** The unique identifiers of the group assignees to be added.
-
-<Image src="/img/clickup/screenshot26.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `task_id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **🔄 `status`:** The new status of the task.
-6. **👥 `group_assignees`:** The list of group assignees for the task.
-7. **🌐 `url`:** The URL of the task.
-8. **📂 `folder_id`:** The folder ID associated with the task.
-9. **🏠 `space_id`:** The space ID associated with the task.
-10. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot27.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Remove Group From Task
-
-Removes group assignees from a ClickUp task.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot28.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to update.
-2. **👥 `group_assignee_ids` ``` _required<string>_: ``` ** The unique identifiers of the group assignees to be removed.
-
-<Image src="/img/clickup/screenshot29.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `task_id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **🔄 `status`:** The new status of the task.
-6. **👥 `group_assignees`:** The list of group assignees for the task.
-7. **🌐 `url`:** The URL of the task.
-8. **📂 `folder_id`:** The folder ID associated with the task.
-9. **🏠 `space_id`:** The space ID associated with the task.
-10. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot30.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Remove Task Assignee
-
-Removes an assignee from a ClickUp task.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot31.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to update.
-2. **👥 `assignee_id` ``` _required<string>_: ``` ** The unique identifier of the assignee to be removed.
-
-<Image src="/img/clickup/screenshot32.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `task_id`:** The ID of the updated task.
-4. **📝 `name`:** The name of the updated task.
-5. **🔄 `status`:** The new status of the task.
-6. **👥 `assignees`:** The list of assignees for the task.
-7. **🌐 `url`:** The URL of the task.
-8. **📂 `folder_id`:** The folder ID associated with the task.
-9. **🏠 `space_id`:** The space ID associated with the task.
-10. **🔗 `list_id`:** The list ID associated with the task.
-
-<Image src="/img/clickup/screenshot33.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete ClickUp Task
-
-Eliminates a task from your ClickUp workspace.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot34.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `task_id` ``` _required<string>_: ``` ** The unique identifier of the task you want to delete.
-
-<Image src="/img/clickup/screenshot35.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-
-<Image src="/img/clickup/screenshot36.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get ClickUp Lists
-
-Retrieves the Lists within a Folder in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot37.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `folder_id` ``` _required<string>_: ``` ** The unique identifier of the folder you want to retrieve lists from.
-
-<Image src="/img/clickup/screenshot38.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **📄 `lists`:** The lists retrieved from the specified folder.
-
-<Image src="/img/clickup/screenshot39.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get ClickUp List
-
-Retrieves detailed information about a specific ClickUp list.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot40.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `list_id` ``` _required<string>_: ``` ** The unique identifier of the list you want to retrieve information about.
-
-<Image src="/img/clickup/screenshot41.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The unique identifier of the list.
-4. **📝 `name`:** The name of the list.
-5. **📂 `folder_id`:** The unique identifier of the folder containing the list.
-6. **🌌 `space_id`:** The unique identifier of the space containing the folder.
-7. **🌌 `space_name`:** The name of the space containing the folder.
-
-<Image src="/img/clickup/screenshot42.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Folderless Lists
-
-Retrieves the Lists in a Space that aren't located within a Folder in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot43.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `space_id` ``` _required<string>_: ``` ** The unique identifier of the space where you want to retrieve folderless lists.
-
-<Image src="/img/clickup/screenshot44.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `lists`:** The lists retrieved from the specified space without folders.
-
-<Image src="/img/clickup/screenshot45.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add List
-
-Adds a new List to a Folder in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot46.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `folder_id` ``` _required<string>_: ``` ** The unique identifier of the folder where you want to add the new list.
-2. **📛 `name` ``` _required<string>_: ``` ** The name of the new list.
-
-<Image src="/img/clickup/screenshot47.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The unique identifier of the new list.
-
-<Image src="/img/clickup/screenshot48.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete List
-
-Deletes a List from your ClickUp workspace.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot49.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `list_id` ``` _required<string>_: ``` ** The unique identifier of the list you want to delete. 
-
-<Image src="/img/clickup/screenshot50.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-
-<Image src="/img/clickup/screenshot51.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Folderless List
-
-Adds a new List within a Space in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot52.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `space_id` ``` _required<string>_: ``` ** The unique identifier of the space where you want to add the new list.
-2. **📛 `name` ``` _required<string>_: ``` ** The name of the new list.
-
-<Image src="/img/clickup/screenshot53.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The unique identifier of the new list.
-
-<Image src="/img/clickup/screenshot54.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Add Folder
-
-Adds a new Folder to a ClickUp Space.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot55.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following inputs are necessary to execute this component:
-
-1. **🔗 `space_id` ``` _required<string>_: ``` ** The unique identifier of the space where you want to add the new folder.
-2. **📛 `name` ``` _required<string>_: ``` ** The name of the new folder.
-
-<Image src="/img/clickup/screenshot56.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🆔 `id`:** The unique identifier of the new folder.
-
-<Image src="/img/clickup/screenshot57.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Delete Folder
-
-Deletes a Folder from your ClickUp workspace.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot58.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `folder_id` ``` _required<string>_: ``` ** The unique identifier of the folder you want to delete.
-
-<Image src="/img/clickup/screenshot59.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-
-<Image src="/img/clickup/screenshot60.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Folders
-
-Retrieves the Folders in a ClickUp Space.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot61.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `space_id` ``` _required<string>_: ``` ** The unique identifier of the space where you want to retrieve folders.
-
-<Image src="/img/clickup/screenshot62.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🗂️ `folders`:** The folders retrieved from the specified space.
-
-<Image src="/img/clickup/screenshot63.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get A Folder
-
-Retrieves the Lists within a specified Folder in ClickUp.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot64.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `folder_id` ``` _required<string>_: ``` ** The unique identifier of the folder from which you want to retrieve lists.
-
-<Image src="/img/clickup/screenshot65.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🗂️ `id`:** The unique identifier of the folder.
-4. **📝 `name`:** The name of the folder.
-5. **🌌 `space_id`:** The unique identifier of the space containing the folder.
-6. **📋 `lists`:** The lists retrieved from the specified folder.
-
-<Image src="/img/clickup/screenshot66.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Spaces
-
-Retrieves the Spaces available in a ClickUp Workspace.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot67.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `workspace_id` ``` _required<string>_: ``` ** The unique identifier of the workspace from which you want to retrieve spaces.
-
-<Image src="/img/clickup/screenshot68.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🌌 `spaces`:** The spaces retrieved from the specified workspace.
-
-<Image src="/img/clickup/screenshot69.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
-
-## Get Space
-
-Retrieves information about a specific Space in a ClickUp Workspace.
-
-### ⚙️ Settings
-
-#### 🔑 ClickUp API Token
-
-To activate the Add Task component, you need to obtain your `ClickUp API Token` by following these steps:
-
-1. **🔐 Log In to Your ClickUp Account**
-   - Navigate to the [ClickUp website](https://clickup.com) and log in with your credentials.
-
-2. **👤 Access Your Profile**
-   - Click on your avatar or profile picture in the lower-left corner to open the User Menu.
-
-3. **🖥️ Navigate to Apps**
-   - From the User Menu, select **Apps**. This will take you to the API Token management page.
-
-4. **🆕 Generate API Token**
-   - If you haven't already generated a token, click the **Generate** button. If a token already exists, you can copy it from this page.
-
-5. **📋 Copy the API Token**
-   - Copy the `API Token` that you generated. This token uniquely identifies your account and grants access to the ClickUp API.
-
-6. **✍️ Enter the API Token in SmythOS**
-   - Paste this `ClickUp API Token` into the appropriate field in the component's settings within SmythOS.
-
-> **Note:** Treat the `ClickUp API Token` as sensitive data. In `SmythOS`, you can securely manage it using the `Vault` feature. For more details, please refer to [this](https://app.smythos.com/doc/#/vault/keysManagement) section in the documentation.
-
-<Image src="/img/clickup/screenshot70.png" alt="alt text" /> 
-
-### 📥 Inputs
-
-The following input is necessary to execute this component:
-
-1. **🔗 `space_id` ``` _required<string>_: ``` ** The unique identifier of the space you want to retrieve information about.
-
-<Image src="/img/clickup/screenshot71.png" alt="alt text" />
-
-> **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
-
-### 📤 Outputs
-
-After executing this component, you will receive the following outputs:
-
-1. **📜 `Response`:** A detailed description of the response received from the platform.
-2. **📄 `Headers`:** Specific headers returned during the request.
-3. **🌌 `id`:** The unique identifier of the space.
-4. **🌌 `name`:** The name of the space.
-5. **🗂️ `statuses`:** The statuses associated with the space.
-
-<Image src="/img/clickup/screenshot72.png" alt="alt text" />
-
-> **Note:** Similar to inputs, you can add new outputs by clicking on the `+` button in the `Outputs` section. This feature can come in handy when you aim to extract specific values from the `Response`. Please refer [here](https://app.smythos.com/doc/#/components/APICall?id=example-without-authentication) to see a practical example.
+* **Explore Other Integrations:**
+    * When a task is updated to "In Review" in ClickUp, trigger an agent to send a notification to a [Microsoft Teams](/docs/integrations/microsoft-teams) channel.
+    * Use an [LLM component](/docs/agent-studio/integrations/openrouter-integration) to summarize a long project brief, then create a new parent task in ClickUp with the summary as the description.
+    * Connect to a form builder. When a user submits a bug report through a form, create a new, high-priority task in your "Bugs" list.

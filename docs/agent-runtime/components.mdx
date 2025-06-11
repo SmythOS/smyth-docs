@@ -1,0 +1,77 @@
+---
+title: SRE components reference
+description: Explore the full list of Smyth Runtime Environment components available for building AI agents, organized by category.
+keywords: [SmythOS, SRE, components, AI agents, SDK, reference, API, workflow]
+sidebar_position: 7
+---
+
+# SRE components reference
+
+> Smyth Runtime Environment offers a rich set of over 40 production-ready components. These building blocks help you construct powerful and flexible AI agents.
+
+<InfoCallout>
+**At a glance:**  
+Components are organized by their role in your agent workflows, making it easy to find the right tool for the job.
+</InfoCallout>
+
+<Divider />
+
+## AI & LLM components
+
+These components provide direct access to AI models and advanced language processing:
+
+- `GenAILLM` — Integrate with multiple LLM providers through a unified interface  
+- `VisionLLM` — Analyze and interpret images using AI  
+- `MultimodalLLM` — Process text, images, and audio inputs together  
+- `LLMAssistant` — Build conversational AI assistants with context awareness  
+- `HuggingFace` — Access Hugging Face model hubs and APIs  
+- `ImageGenerator` — Generate images based on textual prompts  
+
+## External integrations
+
+Components that connect your agents to external data sources and services:
+
+- `APICall` — Make HTTP API requests, supporting OAuth authentication  
+- `WebSearch` — Perform web searches to retrieve up-to-date information  
+- `WebScrape` — Extract content from websites for analysis  
+- `ZapierAction` — Trigger workflows and automations via Zapier  
+- `MCPClient` — Communicate using the Model Context Protocol  
+
+## Data processing components
+
+Help your agent organize, clean, and interpret data:
+
+- `DataSourceIndexer` — Index large document collections for fast lookup  
+- `DataSourceLookup` — Search and retrieve relevant data from sources  
+- `DataSourceCleaner` — Normalize and clean data inputs  
+- `JSONFilter` — Manipulate JSON-formatted data structures  
+- `Classifier` — Categorize content into defined classes  
+
+## Logic & control flow
+
+Control the decision-making and flow of your agent’s tasks:
+
+- `LogicAND`, `LogicOR`, `LogicXOR` — Perform boolean logic operations  
+- `LogicAtLeast`, `LogicAtMost` — Conditional logic based on thresholds  
+- `ForEach` — Iterate over lists and execute workflows repeatedly  
+- `Async`, `Await` — Manage asynchronous operations within workflows  
+
+## Storage & file operations
+
+Components focused on managing files and code execution:
+
+- `FileStore` — Read, write, and manage files within your agent environment  
+- `Code` — Execute custom code snippets dynamically  
+- `ServerlessCode` — Run serverless functions for scalable logic  
+
+## System integration
+
+Connect your agent to system-level features and plugins:
+
+- `ComputerUse` — Automate system and computer interactions  
+- `GPTPlugin` — Integrate OpenAI plugin capabilities  
+- `APIEndpoint` — Create custom HTTP API endpoints within your agent  
+
+Each component comes with detailed documentation and usage examples to help you leverage its full capabilities.
+
+<Divider />

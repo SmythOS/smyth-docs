@@ -1,5 +1,6 @@
 ---
 title: Getting Started with SRE
+sidebar_label: Getting Started
 description: Step-by-step guide to installing, configuring, and running your first AI agent on Smyth Runtime Environment.
 keywords: [SmythOS, SRE, getting started, installation, configuration, first agent, tutorial]
 sidebar_position: 2
@@ -45,8 +46,11 @@ Use the built-in SDK to test if the LLM is working:
 ```typescript
 import { SDK } from 'smyth-runtime';
 
-const llm = new SDK.LLM('OpenAI', { model: 'gpt-4' });
-const res = await llm.prompt('Hello world');
+const llm = new SDK.LLM('OpenAI', {
+    model: 'gpt-4',
+    temperature: 0.7,
+});
+const res = await llm.prompt('Explain quantum computing to a medical student');
 console.log(res);
 ```
 

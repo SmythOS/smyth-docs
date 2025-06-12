@@ -1,11 +1,11 @@
 ---
-title: SRE security model
+title: Security
 description: Learn how Smyth Runtime Environment protects your AI agents with enterprise-grade security, access control, and secret management.
 keywords: [SmythOS, SRE, security, access control, vault, authentication, encryption, permissions]
 sidebar_position: 8
 ---
 
-# SRE security model
+# SRE Security Model
 
 Security is built into the Smyth Runtime Environment from the ground up. Your agents get enterprise-grade protection without extra setup.
 
@@ -24,12 +24,12 @@ Every operation in SRE requires explicit permission. The Candidate and ACL syste
 - The **ACL (Access Control List)** defines what actions each candidate can perform  
 - Before accessing resources, SRE checks permissions and denies unauthorized requests  
 
-<code lang="typescript">
+```typescript
 // Example: Agent requesting storage access
 const candidate = AccessCandidate.agent(agentId);
 const storage = ConnectorService.getStorageConnector().user(candidate);
 await storage.write('data.json', content);
-</code>
+```
 
 ## Secure credential storage with vaults
 
@@ -60,7 +60,7 @@ Control who can do what with granular permissions:
 
 SRE goes beyond basics with features designed for production use:
 
-- TLS/SSL encryption everywhere — no weak links  
+- TLS/SSL encryption everywhere with no weak links  
 - Comprehensive audit logging for all operations  
 - Managed vaults with automatic rotation and revocation  
 - Secure defaults with configurable security policies  

@@ -1,32 +1,27 @@
 ---
-title: Getting started with SRE
+title: Getting Started with SRE
 description: Step-by-step guide to installing, configuring, and running your first AI agent on Smyth Runtime Environment.
 keywords: [SmythOS, SRE, getting started, installation, configuration, first agent, tutorial]
 sidebar_position: 2
 ---
 
-# Getting started with SRE
+# Getting Started with SRE
 
-> Ready to build your first AI agent? This guide walks you through the essential steps to install, configure, and run an agent with Smyth Runtime Environment.
-
-<InfoCallout>
-**What you’ll accomplish:**  
-- Install Smyth Runtime Environment  
-- Initialize the runtime  
-- Create and run a simple AI agent  
+<InfoCallout title="What you'll learn">
+Install the Smyth Runtime, configure a local dev setup, and run your first test agent using the SDK.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" />
 
-## Installation
+## 1. Install the runtime
 
-Begin by installing the Smyth Runtime package via npm:
+Install the package via npm:
 
 ```bash
-npm install smyth-runtime
+npm install smyth-runtime 
 ```
 
-## Initialize the runtime
+## 2. Initialize the runtime
 
 Import and initialize SRE in your project. Use a simple configuration for local development:
 
@@ -41,42 +36,30 @@ const sre = SRE.init({
 
 await sre.ready();
 ```
-
-This sets up in-memory caching, local file storage, and console logging — a good starting point.
+This sets up in-memory caching, local file storage, and console logging for you, which is a good starting point.
 
 ## Create an LLM instance
 
-Create an instance of a language model to generate AI responses:
+Use the built-in SDK to test if the LLM is working:
 
 ```typescript
+import { SDK } from 'smyth-runtime';
+
 const llm = new SDK.LLM('OpenAI', { model: 'gpt-4' });
+const res = await llm.prompt('Hello world');
+console.log(res);
 ```
 
-## Run a simple prompt
+## Stream results (optional)
 
-Send a prompt to your model and log the response:
-
-```typescript
-const response = await llm.prompt('Hello, world!');
-console.log(response);
-```
-
-## Stream responses
-
-For interactive applications, stream output as it’s generated:
+Useful for chat or interactive apps:
 
 ```typescript
-const eventEmitter = await llm.prompt('Write a short story').stream();
-eventEmitter.on('content', (chunk) => process.stdout.write(chunk));
+const stream = await llm.prompt('Write a short story').stream();
+stream.on('content', (chunk) => process.stdout.write(chunk));
 ```
 
 ## What’s next?
 
-Once comfortable with this setup, explore:
-
-- Creating custom agents with the SDK  
-- Designing visual workflows  
-- Integrating data sources and APIs  
-- Scaling from local development to production  
-
-<Divider />
+- [Create a real agent (Quickstart Guide)](/docs/agent-runtime/quickstart)
+- [Learn how SRE runs agents](/docs/agent-runtime/overview)

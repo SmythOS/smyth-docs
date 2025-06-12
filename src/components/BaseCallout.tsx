@@ -144,6 +144,8 @@ const BaseCallout = ({
             color: #b45309;
             font-family: SFMono-Regular, Menlo, Consolas, monospace;
           }
+          .callout-body > *:first-child { margin-top: 0; }
+          .callout-body > *:last-child  { margin-bottom: 0; }
 
           :root[data-theme='light'] .callout-info {
             background-color: #e0f2fe;

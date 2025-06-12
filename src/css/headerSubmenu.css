@@ -1,38 +1,51 @@
+/* ─────────────────────────  Fixed Header  ───────────────────────── */
+
 .header-submenu {
   position: sticky;
   top: 0;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
   width: 100%;
   box-sizing: border-box;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
   z-index: 10;
 }
 
+/* ─────────────────────  Three-column Grid Wrapper  ───────────────────── */
+
 .header-submenu-container {
-  width: 100%;
-  max-width: 100%;  
+  max-width: var(--ifm-container-width-xl);
   margin: 0 auto;
-  padding: 8px 16px; 
+  padding: 0.5rem 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* ① left spacer | ② centred nav | ③ search */
+  align-items: center;
+  gap: 1.25rem;
   box-sizing: border-box;
 }
 
-.header-submenu nav ul {
+/* ────────────────────────  Centred Icon Menu  ───────────────────────── */
+
+.menu-bar {
+  grid-column: 2;                /* middle column */
+}
+
+.menu-bar ul {
   display: flex;
-  flex-wrap: wrap;           
-  justify-content: center;   
-  align-items: center;
+  justify-content: center;       /* perfectly centred */
+  gap: 16px;                     /* exact 16 px gap between items */
   list-style: none;
   margin: 0;
   padding: 0;
+  white-space: nowrap;           /* prevent wrapping */
 }
 
-.header-submenu nav ul li {
-  margin: 0 16px;        
+.menu-bar li {
   display: flex;
   align-items: center;
 }
 
-.header-submenu nav ul li a {
+.menu-bar a {
   display: inline-flex;
   align-items: center;
   color: #333333;
@@ -40,26 +53,39 @@
   text-decoration: none;
 }
 
-.header-submenu nav ul li a svg {
+.menu-bar a svg {
   margin-right: 6px;
   stroke-width: 1.2;
 }
 
-.header-submenu nav ul li a:hover {
-  color:#007acc;
-   /* 2EC4A5 */
+.menu-bar a:hover {
+  color: #007acc;
 }
 
-.header-submenu nav ul li a.active {
-  border-bottom: 2px solid #3c89f9; /*#2EC4A5; */
-  padding-bottom: 4px; 
+.menu-bar a.active {
+  border-bottom: 2px solid #3c89f9; /* highlight active link */
+  padding-bottom: 4px;
 }
 
-@media screen and (max-width: 600px) {
-  .header-submenu nav ul li {
-    margin: 8px 16px;     
+/* ─────────────────────  Search Bar on Far Right  ───────────────────── */
+
+.header-submenu-search {
+  grid-column: 3;                /* rightmost column */
+  justify-self: end;             /* stick to the edge */
+}
+
+.header-submenu-search .DocSearch-Button {
+  height: 32px;
+  font-size: 0.875rem;
+}
+
+/* ───────────────────────────  Mobile Tweak  ─────────────────────────── */
+
+@media (max-width: 600px) {
+  .menu-bar ul {
+    gap: 12px;                  /* slightly tighter on small screens */
   }
-  .header-submenu nav ul li a {
-    font-size: 0.875rem;   
+  .menu-bar a {
+    font-size: 0.875rem;
   }
 }

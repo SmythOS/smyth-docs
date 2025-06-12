@@ -7,6 +7,7 @@ import SvgDeployments from "./icons/SvgDeployments";
 import SvgCollaboration from "./icons/SvgCollaboration";
 import SvgTemplates from "./icons/SvgTemplates";
 import "../css/headerSubmenu.css";
+import SearchBar from "@theme/SearchBar";
 
 interface MenuItem {
   label: string;
@@ -40,6 +41,8 @@ const HeaderSubmenu: React.FC = () => {
     e.preventDefault();
     history.push(href);
   };
+  
+  
 
   return (
     <>
@@ -48,7 +51,7 @@ const HeaderSubmenu: React.FC = () => {
 
       <div className="header-submenu">
         <div className="header-submenu-container">
-          <nav role="navigation" aria-label="Sub Navigation">
+          <nav className="menu-bar" role="navigation" aria-label="Sub Navigation">
             <ul>
               {MENU_ITEMS.map(({ label, href, Icon }) => {
                 const isActive = currentPath.startsWith(href);
@@ -68,6 +71,10 @@ const HeaderSubmenu: React.FC = () => {
               })}
             </ul>
           </nav>
+          {/* right: local search bar */}
+          <div className="header-submenu-search">
+            <SearchBar />
+            </div>
         </div>
       </div>
     </>

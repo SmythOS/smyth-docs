@@ -48,6 +48,35 @@ display: none !important;
 .theme-doc-sidebar-container {
   border-right: none !important;
 }
+
+
+
+.markdown a {
+  color: #3c89f9;
+  text-decoration: none;
+  font-weight: 500; 
+}
+
+.markdown a:hover {
+  color: #2a6fd0;
+  text-decoration: underline;
+}
+
+
+.markdown .admonition a,
+.markdown table a,
+.markdown ul a,
+.markdown p a {
+  color: #3c89f9;
+}
+
+.markdown .admonition a:hover,
+.markdown table a:hover,
+.markdown ul a:hover,
+.markdown p a:hover {
+  color: #2a6fd0;
+}
+
 /* hides the sidebar links of categroy
 a.menu__link[href="/docs/agent-studio/overview"].menu__link--active,
 a.menu__link[href="/docs/agent-weaver/overview"].menu__link--active,

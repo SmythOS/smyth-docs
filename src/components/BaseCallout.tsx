@@ -19,7 +19,7 @@ const BaseCallout = ({
   title,
   children,
   collapsible = false,
-  defaultOpen = true,
+  defaultOpen = false,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 

@@ -160,14 +160,5 @@ Every skill can emit an `_error` object:
   "raw_response": { "status": 403, "body": "Forbidden" }
 }
 ``` 
-Weaver routes _error to downstream Debug Analyzer blocks so you can auto-remediate.
-
 <PromptCard prompt={"If status === 403 then prompt user to connect WordPress again"} />
-
-<Divider/>
-
-Use the timeline view to spot >1 s lag spikes as they’re your bottlenecks.
-
-<Divider/>
-
 <InfoCallout> **Takeaway:** Debug mode + coloured borders + `_error` outputs = painless troubleshooting. </InfoCallout>

@@ -18,16 +18,18 @@
   padding: 0.5rem 1rem;
 
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* ① left spacer | ② centred nav | ③ search */
+  grid-template-columns: 1fr auto 1fr; /* balance left and right */
   align-items: center;
-  gap: 1.25rem;
   box-sizing: border-box;
 }
 
 /* ────────────────────────  Centred Icon Menu  ───────────────────────── */
 
 .menu-bar {
-  grid-column: 2;                /* middle column */
+  grid-column: 2;  
+  display: flex;
+  align-items: center;
+              /* middle column */
 }
 
 .menu-bar ul {
@@ -70,8 +72,8 @@
 /* ─────────────────────  Search Bar on Far Right  ───────────────────── */
 
 .header-submenu-search {
-  grid-column: 3;                /* rightmost column */
-  justify-self: end;             /* stick to the edge */
+  grid-column: 3;
+  justify-self: end;
 }
 
 .header-submenu-search .DocSearch-Button {
@@ -83,9 +85,14 @@
 
 @media (max-width: 600px) {
   .menu-bar ul {
-    gap: 12px;                  /* slightly tighter on small screens */
+    gap: 12px;       
+    padding: 0 8px;           /* slightly tighter on small screens */
   }
   .menu-bar a {
     font-size: 0.875rem;
+     padding: 4px 6px;  
   }
 }
+  .menu-bar {
+    overflow-x: auto;           /* prevents cramping if too many icons */
+  }

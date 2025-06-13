@@ -1,60 +1,133 @@
 ---
-title: Deployments with SRE
+title: Deployments
 description: Learn how Smyth Runtime Environment starts up, initializes, and scales from development to production.
 keywords: [SmythOS, SRE, deployment, boot, initialization, scaling, production, development]
 sidebar_position: 5
+toc_max_heading_level: 2
 ---
 
-# Deployment with SRE
+# Deployments with SRE
 
-> Getting your AI agents up and running fast matters. SRE’s boot sequence and configuration options make startup smooth and scalable.
+SRE supports a flexible deployment lifecycle ranging from local dev to large-scale production environments.
 
-<InfoCallout>
-**What you need to know:**  
-From initializing core services to connecting LLM providers, SRE’s boot process is designed for reliability and flexibility.
+<InfoCallout title="What this covers">
+How the runtime initializes, what environments you can deploy to, and how each option supports your workflow.
 </InfoCallout>
 
-<Divider />
+## How SRE Starts Up
 
-## Steps for Boot Sequence 
+Each time SRE runs, it follows a consistent boot process. This lets you configure it once and scale confidently from dev to production.
 
-1. Initialize core runtime services like storage, cache, vault, and accounts  
-2. Setup AI infrastructure including vector databases and model providers  
-3. Register agent management services and components  
-4. Establish API routing and HTTP endpoints  
-5. Connect to LLM providers and authenticate  
-6. Signal readiness and accept agent workloads  
+### Boot Sequence Steps
+
+1. Initialize core services: storage, cache, vault, logging  
+2. Register agent manager and load available [components](/docs/agent-runtime/components)  
+3. Set up HTTP endpoints and routing  
+4. Connect to model providers and vector databases  
+5. Load account and access control config  
+6. Signal readiness... your agents can now run  
 
 ```typescript
-// Example: booting SRE with config
+// Example: Initialize SRE
 const sre = SRE.init({
   Storage: { Connector: 'S3', Settings: { bucket: 'my-bucket' } },
   Cache: { Connector: 'Redis', Settings: { url: 'redis://localhost' } },
-  LLM: { Connector: 'OpenAI', Settings: { apiKey: 'sk-...' } },
   Vault: { Connector: 'HashicorpVault', Settings: { url: 'https://vault.company.com' } },
+  LLM: { Connector: 'OpenAI', Settings: { apiKey: 'sk-...' } },
 });
 
 await sre.ready();
 ```
 
-## Development vs Production Configuration
+<Spacer size="md" />
 
-| Aspect           | Development default        | Production upgrade               | Impact on your code           |
-|------------------|----------------------------|--------------------------------|------------------------------|
-| Caching          | RAM (in-memory)            | Redis cluster                  | ✅ No code changes required   |
-| Storage          | Local filesystem           | S3 or enterprise storage       | ✅ No code changes required   |
-| Authentication   | Dummy (no auth)            | Enterprise SSO/LDAP            | ✅ No code changes required   |
-| Monitoring       | Console logs               | Structured logging and APM    | ✅ No code changes required   |
-| Secrets          | Environment variables      | HashiCorp Vault               | ✅ No code changes required   |
-| Access control   | Open access                | Role-based permissions        | ✅ No code changes required   |
+## Configuration: Development vs Production
 
-SRE lets your agents run unchanged while the underlying infrastructure evolves.
+SRE is designed to let you swap environments without rewriting your agent logic.
 
-## Scalability and Enterprise Eeadiness
+| Feature         | Development Default  | Production Alternative     | Code Changes |
+|----------------|----------------------|----------------------------|--------------|
+| Storage        | Local filesystem     | S3, GCS, or enterprise FS  | <Badge type="not required"/>   |
+| Cache          | RAM/in-memory        | Redis cluster              | <Badge type="not required"/>       |
+| Vault          | ENV vars             | HashiCorp Vault            | <Badge type="not required"/>      |
+| Auth           | Open access          | SSO, LDAP                  | <Badge type="not required"/>       |
+| Logs           | Console output       | APM, structured logs       | <Badge type="not required"/>      |
 
-- OS-level resource monitoring and load balancing  
-- Child agent process spawning for distributed workloads  
-- Multi-tier caching for high performance  
-- Enterprise security and compliance features  
-- Container-ready with Docker support  
-- Full TypeScript support and comprehensive test suite  
+<TipCallout title="Separation of config and logic">
+All deployment changes are handled by the runtime config... not your code.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Deployment Environments
+
+For a breakdown of infrastructure choices, see the [Deployment Options](/docs/agent-runtime/deployment-options) page.
+
+<InfoCallout title="Supported environments">
+Run SRE anywhere: your local machine, the cloud, or an enterprise cluster... the agent runs the same in every case.
+</InfoCallout>
+
+| Mode              | Infra Source        | Use Case                        | How to Access         |
+|-------------------|---------------------|----------------------------------|------------------------|
+| [**Agent Cloud**](/docs/agent-deployments/overview) | SmythOS-managed     | Production, staging, MVPs        | Studio UI              |
+| **Local Runtime** | Your device         | Debugging, local dev            | CLI / SDK / Docker     |
+| **Kubernetes**    | Private infra       | Regulated workloads, teams      | Helm / GitOps          |
+
+<Spacer size="md" />
+
+## Agent Cloud Deployment
+
+Smyth-managed hosting via [Agent Cloud](/docs/agent-deployments/overview).
+
+### Benefits
+- Auto-scaling with HTTPS
+- Fully managed infrastructure
+- Centralized logs and traces in [Studio](/docs/agent-studio/overview)
+- No setup needed and it's the default method
+
+### Steps to deploy
+
+1. Open your agent in Studio  
+2. Click **Deploy**  
+3. Select **Agent Cloud**  
+4. Set [version](docs/agent-deployments/versioning), [subdomain](docs/agent-deployments/subdomains), and release notes  
+5. Click **Deploy**  
+
+<InfoCallout title="Use a custom domain">
+You can map your own domain in [Domain Settings](https://app.smythos.com/domains).
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Local Development Setup
+
+You can run SRE fully offline or within a test sandbox.
+
+### Local options
+
+- SDK-based boot from code  
+
+```bash
+npm install smyth-runtime
+```
+
+Good for debugging, testing workflows, or building agents offline.
+
+<Spacer size="md" />
+
+## Enterprise & Kubernetes Deployments
+
+For more control and scale, run SRE inside your infra.
+
+<InfoCallout title="Need help with this setup?">
+Contact [support@smythos.com](mailto:support@smythos.com) for enterprise deployment guidance.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Continue From Here
+
+- [Agent Architecture →](/docs/agent-runtime/architecture)  
+- [Runtime SDK Guide →](/docs/agent-runtime/sdk-guide)  
+- [Studio Agent Builder →](/docs/agent-studio/overview)  
+- [Deployment Options →](/docs/agent-runtime/deployment-options)  

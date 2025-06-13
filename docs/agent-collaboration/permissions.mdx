@@ -1,80 +1,83 @@
 ---
-title: Roles and Permissions
-description: Understand how roles control access across SmythOS, from full organization ownership to agent-level collaboration.
-keywords: [roles, permissions, access control, organization management, RBAC, teams]
-toc_max_heading_level: 2
+title: Export / Import Agents via Postman
+description: Quickly test, validate, and import API calls using Postman in your SmythOS workflow.
+keywords: [postman, export agent, import collection, api testing, smythos postman integration]
+sidebar_position: 8
 ---
 
-# Roles and Permissions
+# Export / Import Agents via Postman
 
-SmythOS uses **role-based access control (RBAC)** to manage what users can view or change. Each user is assigned a role that defines their level of control across the workspace, agents, and organization settings.
+Use Postman to test your agent’s API endpoints or import external APIs into your SmythOS builder.
 
-<InfoCallout>
-Roles ensure secure, scalable collaboration—whether you're building with teammates or sharing with stakeholders.
+<InfoCallout title="Why use Postman with SmythOS?">
+Postman lets you validate, debug, and document your agent’s endpoints using a familiar interface. It also helps streamline external API integration through easy imports.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Role Types
+## Export to Postman
 
-### Super Admin
+You can export your agent’s API collection to Postman for testing, monitoring, or demoing.
 
-- Full access to all SmythOS features and settings
-- Can manage **billing**, **organization settings**, and **all spaces**
-- Typically assigned to organization owners or senior leadership
+### How to export:
 
-### Admin
+1. Open your agent from the **Team Dashboard**
+2. Click the three-dot menu
+3. Select **Export to Postman**
+4. Choose your environment:
 
-- Full control within a specific **space**
-- Can manage team members, settings, and agent-level assets
-- Cannot access or edit billing and org-level settings
+   - **Test Endpoint Collection**  
+     Uses the test subdomain for internal testing or development.
 
-### Editor
+   - **Prod Endpoint Collection**  
+     Available only after deployment. Uses your production subdomain and is recommended for live agents.
 
-- Can create, modify, and run agents, templates, and resources
-- No access to member management or space configuration
-- Best for builders, project leads, or analysts
+<WarningCallout title="Prod export is only available after deployment">
+You must deploy your agent before exporting the production-ready Postman collection.
+</WarningCallout>
 
-### Viewer
+5. Download the `.json` file
+6. Import it into Postman
 
-- Read-only access to most features
-- Can view and use **deployed agents**, but cannot edit or configure anything
-- Ideal for reviewers, clients, or stakeholders
-
-<Spacer size="md" />
-
-## Access by Page
-
-This matrix shows exactly what each role can do across major parts of the platform:
-
-| Page               | Super Admin   | Admin         | Editor        | Viewer        |
-|--------------------|----------------|----------------|----------------|----------------|
-| **Dashboard**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Agent Settings** | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Agent Builder**  | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Templates**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Domains**        | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Data Pool**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Vault**          | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **Analytics**      | View + Edit    | View + Edit    | View + Edit    | View Only      |
-| **My Plan**        | View + Edit    | View Only      | View Only      | View Only      |
-| **Team Roles**     | View + Edit    | View + Edit    | View Only      | View Only      |
-| **Team Members**   | View + Edit    | View + Edit    | View Only      | View Only      |
+<Arcade src="https://demo.arcade.software/CI0fMYdVuulWQlXdLHHo?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Export Agent to Postman | SmythOS" />
 
 <Spacer size="md" />
 
-## Choosing the Right Role
+## Import a Postman Collection
 
-| Scenario                              | Recommended Role |
-|---------------------------------------|------------------|
-| Managing billing and org-wide settings| Super Admin      |
-| Setting up projects and managing users| Admin            |
-| Building agents and editing workflows | Editor           |
-| Reviewing outputs or using agents     | Viewer           |
+You can bring external APIs into SmythOS by importing Postman collections directly into the builder.
+
+### How to import:
+
+1. Open the **Builder**
+2. Drag and drop your Postman `.json` file onto the canvas
+
+<InfoCallout title="What happens next">
+Each request in your Postman collection becomes an API Call component, ready for use in agent workflows.
+</InfoCallout>
+
+3. SmythOS will:
+   - Convert requests into API nodes
+   - Preserve methods, headers, payloads, and authentication configs
+
+<Arcade src="https://demo.arcade.software/GTrFqGZF3az6Z128wTrU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Import Postman Collection | SmythOS" />
+
+<Spacer size="md" />
+
+## Tips and Notes
+
+<TipCallout title="Use descriptive request names">
+Before exporting from Postman, name each request clearly. These names become the labels for API components in your SmythOS canvas.
+</TipCallout>
+
+- Only JSON Postman collections are supported  
+- Version 2.x format is recommended for best results  
+- You can edit URLs, headers, and tokens directly inside each imported component
 
 <Spacer size="md" />
 
 ## What to Try Next
 
-- [Organization Members Overview](/docs/account-management/prganization-management)
-- [Deploy and Share Agents](/docs/agent-deployments/overview)
+- [Deploy your agent and test its endpoints](/docs/agent-deployments/overview)
+- [Use API Call components in your workflow](/docs/agent-studio/building/using-api-call)
+- [Secure credentials with Vault](/docs/data/custom-stroage)

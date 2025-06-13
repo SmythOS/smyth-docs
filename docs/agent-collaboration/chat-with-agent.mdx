@@ -1,70 +1,81 @@
 ---
 title: Chat with Agent
-description: Send direct messages to your agent through an embedded chat interface. Perfect for testing, quick tasks, and collaborative execution.
-keywords: [chat, agent messaging, task assignment, direct input, real-time interaction]
+description: Send messages to your agent through a live chat interface. Perfect for quick tasks, prompt testing, or direct interaction.
+keywords: [chat, live messaging, real-time agent, prompt testing, agent interaction]
 toc_max_heading_level: 2
+sidebar_position: 2
 ---
 
 # Chat with Agent
 
-Use the **Chat with Agent** interface to talk directly to your agent. You can type prompts, run workflows, and test behavior—without setting up triggers or inputs. It's the simplest way to explore what your agent can do.
+Use the **Chat** interface to talk directly to your deployed agent. You can type prompts, run actions, and test how it responds, without configuring endpoints or workflows.
 
-<InfoCallout>
-Chat provides a real-time messaging interface between you and your agent—ideal for trying out capabilities, asking questions, or assigning quick tasks.
+<InfoCallout title="When to use chat">
+Chat is the fastest way to test your agent’s intelligence, explore its skills, or assign quick tasks in real time.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Where to Access Chat
+## How to Open the Chat Panel
 
-1. Go to the **Agents** page  
-2. Click into any deployed agent  
-3. In the **Settings** panel, go to the **Tasks** tab  
-4. Locate the **Chat with Agent** block  
-5. Click the `Chat →` button
+1. Go to your **Dashboard**
+2. Find the agent you want to message
+3. Click the `Chat →` button next to it
 
-This opens the full-screen chat panel for that specific agent.
+This opens a dedicated full-screen chat panel where you can start interacting immediately.
 
 <Spacer size="md" />
 
-## Chat Interface Features
+## What You Can Do in Chat
 
-Once the chat opens, you can:
+Inside the chat panel, you can:
 
-- Type any message or instruction up to **8000 characters**
-- Send text, prompts, or JSON input
-- Use the paperclip icon to attach files (if applicable)
-- View the full response directly in the chat
-- Reopen previous conversations while the panel remains active
-
-<Spacer size="md" />
-
-## Real-Time Interaction
-
-- The agent will respond immediately based on its current configuration
-- You can test how it reacts to different phrasing, inputs, or questions
-- Useful for:
-  - Prompt tuning
-  - Exploratory tasks
-  - Direct execution without setting up endpoints
+- Type instructions or questions (up to 8000 characters)
+- Send prompts, commands, or structured JSON
+- Upload files using the paperclip icon
+- Read responses inline, without switching views
+- Continue the thread as long as the session stays open
+<WarningCallout title="Chat history isn't saved after closing">
+Your session data is temporary. If you need to keep the outputs, copy them out before closing the panel.
+</WarningCallout>
 
 <Spacer size="md" />
 
-## Things to Know
+## Real-Time Execution
 
-| Behavior             | Details                                                                 |
-|----------------------|-------------------------------------------------------------------------|
-| Message Limit        | Max 8000 characters per message                                          |
-| Deployment Required  | The agent must be deployed to receive and respond to chat               |
-| History              | **Not persisted** after the panel is closed—copy important results out  |
-| Triggers             | Messages are evaluated using the agent’s logic stack (skills, actions)  |
+Every message you send is interpreted live using the agent’s current logic stack. This lets you:
+
+- Try out phrasing and see how the agent reacts
+- Refine prompts or input formats
+- Run one-off tasks without building a full flow
+<TipCallout title="Helpful for debugging">
+If an agent isn’t behaving as expected, try breaking down your input in chat first. This often surfaces issues with prompt design or skill setup.
+</TipCallout>
+<Spacer size="md" />
+
+## Behavior and Limitations
+
+| Feature                | Details                                                           |
+|------------------------|-------------------------------------------------------------------|
+| Character Limit        | Maximum of 8000 characters per message                            |
+| Deployment Required    | The agent must be deployed to respond in chat                    |
+| Chat History           | Session history disappears when the panel is closed              |
+| Triggering Logic       | Messages pass through the agent’s full skill and action stack     |
 
 <Spacer size="md" />
 
-## Example Use Cases
+## Common Use Cases
 
-| Prompt Type           | What It Does                                  |
-|------------------------|-----------------------------------------------|
-| “Summarize this article:” + paste text | Runs a skill like `summarize_text` |
-| “What’s the latest from TechCrunch?”  | Triggers a research/search endpoint |
-| “Generate five SEO titles for X”      | Uses a generation skill to create options |
+| Input Example                      | What the Agent Does                               |
+|-----------------------------------|----------------------------------------------------|
+| `Summarize this:` + pasted article | Uses a summarisation skill on your input          |
+| `Give me 5 SEO titles for X`       | Runs a generation skill to output headline ideas  |
+| `What happened in tech today?`     | Activates a research or content scraping skill     |
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- [Test your agent with Bulk Work](/docs/agent-collaboration/agent-bulk-work)
+- [Schedule recurring tasks](/docs/agent-collaboration/agent-work-schedule)
+- [Deploy your agent to other environments](/docs/agent-deployments/overview)

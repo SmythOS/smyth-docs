@@ -3,58 +3,54 @@ title: Agent Bulk Work
 description: Run large sets of tasks through your agent’s endpoint using manual rows or CSV uploads.
 keywords: [bulk, batch tasks, csv upload, agent endpoints, automation]
 toc_max_heading_level: 2
+sidebar_position: 6
 ---
 
 # Agent Bulk Work
 
-Use the **Agent Bulk Work** interface to run an agent’s endpoint on multiple sets of inputs in one go. Whether you're generating summaries, classifying data, or batch-processing tasks—Bulk Work helps you scale it with ease.
+Use **Bulk Work** to run one of your agent’s endpoints across many inputs at once. Whether you're generating summaries, classifying data, or testing prompt variations. This tool lets you scale without writing scripts or calling the API manually.
 
-<InfoCallout>
-Bulk Work is ideal for processing structured inputs—like lead lists, prompt variations, or product records—without writing code or calling APIs.
+<InfoCallout title="Why Bulk Work matters">
+It’s perfect for processing structured inputs like contact lists, user queries, or product data without needing a developer.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Overview
+## Open Bulk Work
 
-Bulk Work allows you to run any deployed agent’s endpoint across many inputs simultaneously. You can either enter rows manually or upload a properly formatted CSV file.
+1. Go to **Agents**
+2. Open the deployed agent you want to use
+3. Find the **Endpoints** section
+4. Click the **Bulk Work** button on your target endpoint
 
-<Arcade src="https://demo.arcade.software/AqIFSwVYbUUxd2ndStlu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Bulk | SmythOS" />
-
-<Spacer size="md" />
-
-## Step 1: Open Bulk Work for an Endpoint
-
-1. Go to the **Agents** page and open your deployed agent.
-2. Under the **Endpoints** section, choose the endpoint you want to run.
-3. Click `Bulk Work`.
-
-You’ll land on a table view where you can input data rows or upload a CSV.
+You’ll land in a table where you can add data manually or upload a CSV.
 
 <Spacer size="md" />
 
-## Step 2: Add Input Data
+## Add Input Data
 
-### Option A: Add Rows Manually
+You have two ways to supply data:
 
-- Click `Add Row`
-- Enter values for the required input fields
-- Add multiple rows as needed
+### Option 1: Enter rows manually
 
-This is useful for quick tests or lightweight runs.
+- Click **Add Row**
+- Fill in values for each required input
+- Add more rows as needed
 
-### Option B: Upload a CSV File
+This is helpful for quick tests or small batches.
 
-- Click `Upload CSV`
-- The file must include exact input names in the header row
+### Option 2: Upload a CSV file
 
-<WarningCallout>
-The **first row** of your CSV must exactly match the names of the endpoint’s input fields. Any mismatch will result in a processing error.
+- Click **Upload CSV**
+- Your header row must exactly match the endpoint input names
+
+<WarningCallout title="Header row must match input fields">
+If the CSV column names don’t match the required inputs exactly, your upload will fail. Double-check spelling and casing.
 </WarningCallout>
 
 <Spacer size="md" />
 
-### Example CSV Format
+### Example Format
 
 | query                          | max_results |
 |-------------------------------|-------------|
@@ -62,42 +58,44 @@ The **first row** of your CSV must exactly match the names of the endpoint’s i
 | AI developments healthcare     | 10          |
 | sustainable energy innovations | 7           |
 
-Rows will automatically populate into the interface upon upload.
+Once uploaded, rows will auto-populate into the interface.
 
 <Spacer size="md" />
 
-## Step 3: Run the Tasks
+## Run the Tasks
 
-- Click `Run` on any row to execute it individually
-- Click `Run in Bulk` to execute all rows at once
+You can choose to:
 
-The agent will process each row through the selected endpoint and return results inline.
+- Click **Run** on a single row
+- Click **Run in Bulk** to execute all rows at once
+
+Your agent will process each row and display results inline.
 
 <Spacer size="md" />
 
-## Step 4: Review the Results
+## Review the Results
 
 Once complete:
 
-- Each row will display output fields filled with the agent’s response
-- You can scroll and scan directly in the table
-- Use **Logs Explorer** for deeper output inspection or system-level review
+- Output fields will show directly in the table
+- You can inspect individual results in place
+- Use the **Logs Explorer** for deeper insight or debugging
 
 <Spacer size="md" />
 
 ## CSV Input Reference
 
-Your CSV inputs must align with your endpoint’s required fields.
+Your inputs must match the fields required by the endpoint.
 
 | Field Name    | Type    | Description                            |
 |---------------|---------|----------------------------------------|
-| `query`       | string  | The task prompt or core instruction    |
-| `max_results` | number  | (Optional) Limit on results returned   |
+| `query`       | string  | The task prompt or instruction         |
+| `max_results` | number  | Optional. Limits how many results to return |
 
 <Spacer size="md" />
 
 ## What to Try Next
 
-- [Work Schedule](/docs/agent-collaboration/agent-work-schedule)
-- [Chat with Agents](/docs/agent-collaboration/chat-with-agent)
+- [Set Work Schedules](/docs/agent-collaboration/agent-work-schedule)
+- [Chat with Your Agent](/docs/agent-collaboration/chat-with-agent)
 - [Deploy an Agent](/docs/agent-deployments/overview)

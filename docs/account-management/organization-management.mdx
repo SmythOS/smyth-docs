@@ -1,89 +1,121 @@
+---
+title: Organization Management
+description: Manage your SmythOS organization including user roles, team permissions, and member access.
+keywords: [organization settings, team roles, user management, SmythOS org, role management, default role]
+sidebar_position: 3
+---
+
 # Organization Management
 
-Every account has a parent space that acts as the central hub within the organization. All team members must belong to this parent space before joining other spaces, ensuring a unified structure.
+Your organization is the parent layer in SmythOS. Every space, user, and permission is scoped under it. All members must first belong to your organization before they can be added to any space.
 
----
+<InfoCallout title="Why this matters">
+Organization-level users control access to all [spaces](/docs/agent-collaboration/spaces/). If someone isn’t in your org, they can’t join any space you manage.
+</InfoCallout>
 
-## Roles Management
+<Spacer size="md" />
 
-Roles management in SmythOS ensures proper access control and permissions for team members.
+## Managing Roles
 
-### Accessing Roles
+Roles define what your team can access and control across SmythOS. You can assign roles when [inviting users](/docs/agent-collaboration/spaces/invite-members), or update them later.
 
-   - 1. Click on the user profile button.
-2. Select `Manage Roles`.
+### How to access roles
 
-> 🌐 **Note:** The team owner has additional permissions, such as changing the Plan.
+1. Click your **user profile**
+2. Select **Manage Roles** from the dropdown
 
-**Super Admin Role**: This role has all permissions across the platform.
+<SuccessCallout title="Default role for new users">
+You can define a default role that gets applied automatically when a user is added. If none is set, Super Admin is used.
+</SuccessCallout>
 
-### 📋 Role Permissions by Page
+<Spacer size="md" />
 
-A list of permissions for the **Super Admin** role serves as a template for creating roles.
+## Role Permissions Overview
 
-| Page               | Super Admin      |      
-|--------------------|------------------|
-| **Dashboard**      | ✔️ View and Edit  |       
-| **Agent Settings** | ✔️ View and Edit  |       
-| **Agent Builder**  | ✔️ View and Edit  |       
-| **Templates**      | ✔️ View and Edit  |       
-| **Domains**        | ✔️ View and Edit  |       
-| **Data Pool**      | ✔️ View and Edit  |       
-| **Vault**          | ✔️ View and Edit  |       
-| **Analytics**      | ✔️ View and Edit  |       
-| **My Plan**        | ✔️ View and Edit  |       
-| **Team Roles**     | ✔️ View and Edit  |      
-| **Team Members**   | ✔️ View and Edit  |           
+These permissions are used when creating custom roles or assigning defaults.
 
-> ⚠️ **Manage Team:** To access Team Roles and Team Members, enable `Manage Team` permission.
+| Page               | Super Admin (Default) |
+|--------------------|------------------------|
+| Dashboard          | View and Edit          |
+| Agent Settings     | View and Edit          |
+| Agent Builder      | View and Edit          |
+| Templates          | View and Edit          |
+| Domains            | View and Edit          |
+| Data Pool          | View and Edit          |
+| Vault              | View and Edit          |
+| Analytics          | View and Edit          |
+| My Plan            | View and Edit          |
+| Team Roles         | View and Edit          |
+| Team Members       | View and Edit          |
 
-### 🛠️ Default Role Feature
+<WarningCallout title="Manage team access">
+To access Team Roles and Team Members, your role must include **Manage Team** permissions.
+</WarningCallout>
 
-Admins can assign a default role, which is automatically granted to new team members.
+<Spacer size="md" />
 
-### ➕ Creating a Role
+## How to create, edit, or delete roles
 
-1. Click `Add Role`.
-2. Provide a name and select permissions.
+### Create a new role
 
-### ✏️ Editing a Role
+1. Go to **Manage Roles**
+2. Click **Add Role**
+3. Name the role and select allowed actions
 
-1. Go to `Manage Roles`.
-2. Select and edit the role.
+### Edit an existing role
 
-### ❌ Deleting a Role
+1. In **Manage Roles**, click the role you want to update
+2. Adjust permissions as needed
 
-1. Ensure the role isn’t assigned to any member.
-2. Go to `Manage Roles`.
-3. Click `Delete Role`.
+### Delete a role
 
-> ⚠️ **Note:** Roles must be unassigned before deletion.
+1. Make sure it’s not assigned to any active user
+2. Click **Delete Role**
 
+<InfoCallout title="Need default roles?">
+Set your org’s default role in the **Roles** section so new users get it automatically. If not configured, Super Admin is assigned.
+</InfoCallout>
 
+<Spacer size="md" />
 
----
+## Managing Users
 
-## User Management
+User management is where you invite, edit, or remove people from your organization.
 
-**Accessing User Management:**
+### Access user management
 
-1. Click on the user profile button.
-2. Select `User Management`.
+1. Click your **user profile**
+2. Select **User Management**
 
-### 👤 Invite Member
+### Invite a new user
 
-1. Click `Invite Member`.
-2. Provide the email and select a role.
+1. Click **Invite Member**
+2. Enter their email and choose a role
+3. Send the invite
 
-> 🌐 **Note:** The invitation expires in 7 days.
+<SuccessCallout title="Invite link expires">
+All invites are valid for 7 days. If not accepted in time, you’ll need to resend it.
+</SuccessCallout>
 
-### ✏️ Edit Member
+### Edit a user’s role
 
-Change the role assigned to a member.
+1. Go to **User Management**
+2. Find the user and select **Edit Role**
 
-### ❌ Remove Member
+### Remove a user
 
-1. Go to `User Management`.
-2. Click `Remove Member`.
+1. Locate the user in **User Management**
+2. Click **Remove**
 
-By keeping this documentation concise, users can easily manage roles, permissions, and members efficiently.
+<WarningCallout title="Users must be removed from spaces too">
+Removing someone from your organization does not automatically remove them from individual spaces. Be sure to [remove them from each space](/docs/agent-collaboration/spaces/invite-members) if needed.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## What’s next?
+
+- [Assign space-level permissions](/docs/agent-collaboration/permissions)
+- [Add or remove users from agents or spaces](/docs/agent-collaboration/adding-users)
+- [Set up white labeling and branding](/docs/agent-collaboration/spaces/white-labeling)
+- [View usage and billing plans](/docs/account-management/model-rates)

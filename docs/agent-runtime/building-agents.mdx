@@ -8,61 +8,49 @@ toc_max_heading_level: 2
 
 # Building Agents with SRE
 
-> Build agents your way—with no-code, code, or both. SRE adapts to your style, not the other way around.
+SRE is a powerful runtime designed to make building  AI agents straightforward and scalable. It provides the core orchestration, security, and infrastructure, which you can use in two flexible ways: visually in **Studio** for rapid, no-code development, or programmatically with the **Smyth SDK** for ultimate control and deep customization.
 
-<InfoCallout title="Why this matters">  
-Whether you prefer visual workflows, programmatic logic, or a mix of both, SRE gives you full control and flexibility to design agents the way you want. Rapid prototyping, deep customization, live debugging; it’s all supported.
+<InfoCallout title="Why this matters">
+SRE gives you full control and flexibility to design agents the way you want. Rapid prototyping, deep customization, and live debugging are all supported.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## Pick Your Workflow
 
-You can build agents using either [Agent Studio](/docs/agent-studio/overview), the [Smyth SDK](/docs/agent-runtime/sdk-guide), or both. Choose what fits your use case—or [combine them](/docs/agent-runtime/hybrid-workflows) for hybrid flexibility.
+You can build agents using either [**Studio**](/docs/agent-studio/overview), the **[Smyth SDK](/docs/agent-runtime/sdk-guide)**, or both. Choose what fits your use case—or [combine them](/docs/agent-runtime/hybrid-workflows) for maximum flexibility.
 
-### [Studio (Visual Builder)](#studio-visual-builder)
+### Studio (Visual Builder)
 
-- Drag and drop components  
-- Visually connect steps in your agent’s flow  
-- Ideal for low-code teams, fast iteration, and cross-functional collaboration  
-- Built-in testing, logging, and monitoring  
+-   Drag and drop [components](/docs/agent-runtime/components)
+-   Visually connect steps in your agent’s flow
+-   Ideal for low-code teams, fast iteration, and cross-functional collaboration
+-   Built-in testing, logging, and monitoring
 
-→ Explore [Agent Studio](/docs/agent-studio/overview)
+→ **Explore [Agent Studio](/docs/agent-studio/overview)**
 
-### [SDK (Code-first)](#sdk-programming)
+### SDK (Code-first)
 
-- Write and connect components using TypeScript  
-- Build advanced workflows with custom logic  
-- Type-safe, version-controlled, and CI/CD friendly  
+-   Write and connect components using TypeScript
+-   Build advanced workflows with custom logic
+-   Type-safe, version-controlled, and CI/CD friendly
 
-→ See [SDK Guide](/docs/agent-runtime/sdk-guide)
-
-## Hybrid Workflows
-
-SRE supports full [hybrid workflows](/docs/agent-runtime/hybrid-workflows), letting you switch between Studio and SDK anytime.
-
-- Start in Studio and export a `.smyth` file to use in SDK
-- Build in SDK and visualize or test in Studio
-- Transfer logic seamlessly without losing metadata
-
-<InfoCallout title="Use Studio + SDK together">
-Design visually for speed, extend in code for power. Hybrid workflows give you the best of both.
-</InfoCallout>
+→ **See the [SDK Guide](/docs/agent-runtime/sdk-guide)**
 
 <Spacer size="md" />
 
 ## Studio (Visual Builder)
 
-Studio is SRE’s no-code visual environment. It’s great for building agents collaboratively, fast.
+Studio is SRE’s no-code visual environment. It’s great for building agents collaboratively and quickly.
 
 ### What you can do
 
-- Design logic with drag-and-drop blocks  
-- Wire inputs and outputs by drawing connections  
-- Add LLMs, APIs, data sources, logic, or tools from the [Component Library](/docs/agent-runtime/components)  
-- Test, debug, and monitor everything right in the canvas
+-   Design logic with drag-and-drop blocks
+-   Wire inputs and outputs by drawing connections
+-   Add LLMs, APIs, data sources, or logic from the [Component Library](/docs/agent-runtime/components)
+-   Test, debug, and monitor everything right in the canvas
 
-→ Try the [Studio Quickstart](/docs/agent-studio/quickstart/quickstart)
+→ **Try the [Studio Quickstart](/docs/agent-studio/quickstart/quickstart)**
 
 <Spacer size="md" />
 
@@ -72,11 +60,13 @@ The SDK is for builders who want full control in code.
 
 ### Key Benefits
 
-- TypeScript-based and fully type-safe  
-- Supports advanced logic, async ops, and custom components  
-- Integrates seamlessly with your dev stack (VS Code, Git, CI, etc.)
+-   TypeScript-based and fully type-safe
+-   Supports advanced logic, async ops, and [custom components](/docs/agent-runtime/components)
+-   Integrates seamlessly with your dev stack (VS Code, Git, CI, etc.)
 
 ### Agent Example (Programmatic Flow)
+
+This JSON structure represents a visual connection where an LLM's output flows into a classifier. Studio generates this behind the scenes, but you can inspect or export it too.
 
 ```json
 {
@@ -91,11 +81,11 @@ The SDK is for builders who want full control in code.
 }
 ```
 
-> This structure defines a visual connection: an LLM's output flows into a classifier. Studio generates this behind the scenes—but you can inspect or export it too.
-
 ### SDK Equivalent
 
-```javascript
+You can create the exact same flow programmatically with the SDK:
+
+```ts
 const llm = SDK.GenAILLM({ model: 'gpt-4' }, agent);
 const classifier = SDK.Classifier({ classes: ['positive', 'negative'] }, agent);
 
@@ -103,19 +93,19 @@ const classifier = SDK.Classifier({ classes: ['positive', 'negative'] }, agent);
 classifier.in({ Input: llm.out.Reply });
 ```
 
-→ Learn more in the [SDK Setup Guide](/docs/agent-runtime/sdk-guide)
+→ **Learn more in the [SDK Guide](/docs/agent-runtime/sdk-guide)**
 
 <Spacer size="md" />
 
 ## Custom Components and Skills
 
-Want to go beyond what’s in the box? You can.
+Want to go beyond what’s in the box? You can extend SRE with your own logic.
 
 ### Custom Components
 
-Create reusable logic blocks by extending the base component class:
+Create reusable logic blocks by extending the base `Component` class:
 
-```typescript
+```ts
 export class MyCustomComponent extends Component {
   async process(input, config, agent) {
     // Your custom logic here
@@ -124,13 +114,13 @@ export class MyCustomComponent extends Component {
 }
 ```
 
-→ See [how components work](/docs/agent-runtime/components)
+→ **See how [Components](/docs/agent-runtime/components) work**
 
-### Agent Skills (aka tools)
+### Agent Skills (aka Tools)
 
-You can expose custom logic as callable skills that agents use at runtime:
+You can expose custom logic as callable skills that agents use at runtime.
 
-```typescript
+```ts
 const weatherSkill = agent.addSkill({
   name: 'getWeather',
   description: 'Get current weather for a location',
@@ -140,21 +130,18 @@ const weatherSkill = agent.addSkill({
   },
 });
 ```
-
-→ Learn about [Skills and Tooling](/docs/agent-runtime/skills)
-
 <Spacer size="md" />
 
 ## Real-time Monitoring & Debugging
 
 No matter how you build, SRE helps you see what’s going on inside your agents:
 
-- Live updates via Server-Sent Events (SSE)  
-- Logs and trace results per component  
-- Step-by-step debug mode  
-- Dashboards for memory, tokens, and performance  
+-   Live updates via Server-Sent Events (SSE)
+-   Logs and trace results per component
+-   Step-by-step debug mode
+-   Dashboards for memory, tokens, and performance
 
-→ Monitor agents via [Studio Debugging Tools](/docs/agent-studio/build-agents/debugging)
+→ **Monitor agents via [Studio's Debugging Tools](/docs/agent-studio/build-agents/debugging)**
 
 <Spacer size="md" />
 
@@ -162,17 +149,17 @@ No matter how you build, SRE helps you see what’s going on inside your agents:
 
 You don’t have to choose between code and canvas. Use both—at the same time.
 
-- Start building in Studio, then extend with SDK  
-- Use Studio for workflows and SDK for custom skills  
-- Export/import component graphs to toggle between modes
+-   Start building in Studio, then export to extend with the SDK
+-   Use Studio for high-level workflows and the SDK for complex custom skills
+-   Export and import component graphs to toggle between modes
 
-→ Learn more in the [Hybrid Workflow Guide](/docs/agent-runtime/sdk-guide#hybrid-flows)
+→ **Learn more in the [Hybrid Workflow Guide](/docs/agent-runtime/hybrid-workflows)**
 
 <Spacer size="md" />
 
 ## What’s Next?
 
-- [Launch your first agent in Studio](/docs/agent-studio/quickstart/quickstart)  
-- [Set up SDK agents from scratch](/docs/agent-runtime/sdk-guide)  
-- [Browse all components](/docs/agent-runtime/components)  
-- [Understand how SRE runs your agents](/docs/agent-runtime/architecture)
+-   [Launch your first agent in Studio](/docs/agent-studio/quickstart/quickstart)
+-   [Set up SDK agents from scratch](/docs/agent-runtime/sdk-guide)
+-   [Browse all components](/docs/agent-runtime/components)
+-   [Understand how SRE runs your agents](/docs/agent-runtime/architecture)

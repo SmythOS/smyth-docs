@@ -5,7 +5,7 @@ interface Props {
   title?: string;
 }
 
-const YouTube = ({ videoId, title = 'YouTube Video' }: Props) => {
+const Youtube = ({ videoId, title = 'YouTube Video' }: Props) => {
   return (
     <div className="youtube-wrap">
     <iframe
@@ -49,4 +49,4 @@ const YouTube = ({ videoId, title = 'YouTube Video' }: Props) => {
   );
 };
 
-export default YouTube;
+export default Youtube;

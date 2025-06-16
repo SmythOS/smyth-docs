@@ -1,32 +1,32 @@
 ---
 title: SRE Architecture
 sidebar_label: Architecture
-description: Learn how Smyth Runtime Environment’s modular architecture works behind the scenes to run your AI agents efficiently and securely.
+description: Learn how SmythOS's Runtime Environment works behind the scenes to run your AI agents efficiently and securely.
 keywords: [SmythOS, SRE, architecture, subsystems, modular, AI agents, runtime, storage, LLM, security]
-sidebar_position: 1
+sidebar_position: 2
 toc_max_heading_level: 2
 ---
 
 # SRE Architecture
 
-[Smyth Runtime Environment (SRE)](https://github.com/SmythOS/smyth-runtime/) is the operating system for AI agents. It gives you a secure, modular runtime that handles infrastructure, security, memory, and orchestration—so you can focus entirely on building.
+The [Smyth Runtime Environment (SRE)](/docs/agent-runtime/overview) is the operating system for AI agents within **SmythOS**. It gives you a secure, modular runtime that handles infrastructure, security, memory, and orchestration—so you can focus entirely on building intelligent agents.
 
 You can build on SRE however you like:
-- Use [**Studio**](/docs/agent-studio/overview) to drag, drop, and connect components and visually build agents  
-- Use the [**Smyth SDK**](/docs/agent-runtime/sdk-guide) for full programmatic control  
-- Combine both in [hybrid workflows](/docs/agent-runtime/hybrid-workflows) that balance no-code and code
+- Use **Studio** to drag, drop, and connect components and visually build agents.
+- Use the **[Smyth SDK](/docs/agent-runtime/sdk-guide)** for full programmatic control.
+- Combine both in [hybrid workflows](/docs/agent-runtime/hybrid-workflows) that balance visual design and code.
 
 <InfoCallout title="Why this architecture matters">
 SRE ensures your agents run reliably and securely. It turns infrastructure concerns into pluggable subsystems that you don’t need to rebuild from scratch.
 </InfoCallout>
 <Image src="/img/sre/sre-diagram.png" alt="Smyth Runtime Architecture Diagram" caption="SRE is composed of modular subsystems that work together to run your agents" />
 
-Each colored section in the diagram above is a subsystem, and each subsystem is responsible for a specific layer of agent execution, from permissions to storage to AI integration.
+Each colored section in the diagram above is a subsystem, and each is responsible for a specific layer of agent execution, from permissions to storage to AI integration.
 
 <Divider />
 
 ## How SRE organizes your AI agent’s runtime
-SRE takes inspiration from operating systems to provide a reliable and secure runtime platformfor AI agents. Instead of managing low-level complexity yourself, SRE abstracts and handles key responsibilities behind the scenes.
+SRE takes inspiration from operating systems to provide a reliable and secure runtime platform for AI agents. Instead of managing low-level complexity yourself, SRE abstracts and handles key responsibilities behind the scenes.
 
 It’s designed for real-world, production-ready agents that integrate deeply into your workflows, APIs, and systems. It breaks these responsibilities into modular **subsystems**, each focused on a specific task. This makes the system easier to reason about, extend, and scale.
 
@@ -41,37 +41,37 @@ Each subsystem handles a specific class of responsibility:
 
 This separation of concerns mirrors OS principles like process isolation, memory management, and inter-process communication, but applied to autonomous AI agents.
 
-## What SRE does for your agents
+## SRE Subsystems Overview
 
 SRE is made up of modular subsystems. Each subsystem focuses on its domain and interacts cleanly with the others. This separation makes your agents more reliable and easier to troubleshoot.
 
-Here’s a quick look at what it handles:
+Here’s a quick look at what each one handles:
 
-| **Subsystem**       | **What it does**                                                                 |
-|---------------------|----------------------------------------------------------------------------------|
-| [**IO**](#handle-data--apis)                | Handles data input/output, storage, API routing, and logging via connectors.         |
-| [**LLM Manager**](#run-ai-calls)            | Interfaces with AI providers like OpenAI or Anthropic; includes caching and usage tracking. |
-| [**Security**](#secure-secrets)             | Manages secrets, authentication, RBAC, and audit logs.                                |
-| [**Memory Manager**](#manage-memory)        | Tracks agent context, conversation state, and multi-layer caching.                   |
-| [**Agent Manager**](#orchestrate-agents)    | Runs and coordinates agent components; manages execution lifecycle and streaming.     |
-| [**Components**](#built-in-components)      | Provides 40+ reusable building blocks for logic, data, APIs, and model interaction.   |
+| **Subsystem** | **What it does** |
+|---|---|
+| [**IO**](#handle-data--apis) | Handles data input/output, storage, API routing, and logging via connectors. |
+| [**LLM Manager**](#run-ai-calls) | Interfaces with AI providers; includes caching and usage tracking. |
+| [**Security**](#secure-your-agents) | Manages secrets, authentication, and access control. |
+| [**Memory Manager**](#manage-agent-memory) | Tracks agent context, conversation state, and multi-layer caching. |
+| [**Agent Manager**](#orchestrate-agent-execution) | Runs and coordinates agent components; manages execution lifecycle and streaming. |
+| [**Components**](#use-built-in-components) | Provides 40+ reusable building blocks for logic, data, APIs, and model interaction. |
 
-## Handle data + APIs
-
+## Handle data & APIs
 Your agent needs to read and write data, log its actions, call APIs, and expose endpoints. The **IO subsystem** handles all this.
 
 It supports multiple connectors so you can choose what fits your use case:
 
-| Service      | What it does               | Connectors available          |
-| ------------ | ------------------------- | ----------------------------- |
-| **Storage**  | Save and retrieve files   | Local filesystem, S3, Smyth   |
-| **VectorDB** | Store and query vectors   | Pinecone, Smyth-managed       |
-| **Log**      | Track activity and errors | Console output, Smyth logging |
-| **Router**   | Serve HTTP APIs           | Express.js                    |
-| **NKV**      | Fast key-value storage    | Redis                        |
-| **CLI**      | Command line interface    | CLI                         |
+| Service | What it does | Connectors available |
+|---|---|---|
+| **Storage** | Save and retrieve files | Local filesystem, S3, Smyth |
+| **VectorDB** | Store and query vectors | Pinecone, SmythManaged |
+| **Log** | Track activity and errors | Console, Smyth |
+| **Router** | Serve HTTP APIs | Express |
+| **NKV** | Fast key-value storage | Redis |
+| **CLI** | Command line interface | CLI |
 
 ```typescript
+// Switch storage providers with only a configuration change
 const localStorage = ConnectorService.getConnector('Storage', 'Local');
 const s3Storage = ConnectorService.getConnector('Storage', 'S3');
 ```
@@ -81,47 +81,42 @@ Switching storage providers requires zero code changes. Your agents stay consist
 </TipCallout>
 
 ## Run AI calls
-
 Your agent’s intelligence depends on AI models. The **LLM Manager subsystem** gives you a unified way to call multiple providers like OpenAI, Anthropic, and Google AI.
 
 It does more than just route requests:
 
-- It caches results to reduce latency and costs  
-- Tracks token usage for monitoring and billing  
-- Lets you configure custom models easily  
+- It caches results to reduce latency and costs.
+- Tracks token usage for monitoring.
+- Lets you configure custom models easily.
 
 ```typescript
+// Use multiple LLM providers in the same agent
 const openai = ConnectorService.getLLMConnector('OpenAI');
 const claude = ConnectorService.getLLMConnector('Anthropic');
 ```
-<WarningCallout title="Important">
-Caching reduces latency and cost but may occasionally serve stale responses. Use cache controls thoughtfully.
-</WarningCallout>
-With this, your agents get the best AI provider for each task without extra complexity.
 
-## Secure secrets
-
-Security is baked into the runtime. The **Security subsystem** manages sensitive credentials and permissions.
+## Secure your agents
+Security is baked into the runtime. The **[Security subsystem](/docs/agent-runtime/security)** manages sensitive credentials and permissions.
 
 You get:
 
-- Encrypted vault storage for API keys and tokens  
-- Flexible authentication with support for enterprise SSO and LDAP  
-- Role-based access control so you decide who can do what  
-- Detailed audit logs to track all operations  
+- Encrypted vault storage for API keys and tokens via connectors like HashiCorp Vault.
+- Pluggable account management for enterprise-grade authentication.
+- Role-based access control so you decide who can do what.
+- Detailed audit logs to track all operations.
 
 <WarningCallout title="Security reminder">
 Never store production secrets in local files. Use cloud vault connectors for safety.
 </WarningCallout>
 This subsystem makes sure your secrets never leak and your agents run with least privilege.
 
-## Manage memory
-
+## Manage agent memory
 Agents aren’t stateless. They need memory. The **Memory Manager subsystem** handles:
 
-- Multi-layer caching (RAM, Redis, S3) for speed and durability  
-- Runtime context that tracks agent state and conversation history  
-- Performance metrics to optimize memory use  
+- Multi-layer caching (RAM, Redis, S3) for speed and durability.
+- Runtime context that tracks agent state and conversation history.
+- Performance metrics to optimize memory use.
+- Resource monitoring
 
 <InfoCallout title="Did you know?">
 Efficient memory management helps your agents respond faster and reduces costly repeated API calls.
@@ -129,18 +124,17 @@ Efficient memory management helps your agents respond faster and reduces costly 
 
 By managing state efficiently, your agents respond consistently and fast.
 
-## Orchestrate agents
-
+## Orchestrate agent execution
 Your agent runs as a collection of components working together. The **Agent Manager subsystem** coordinates them all.
 
 It handles:
 
-- Agent lifecycle events: starting, pausing, resuming, and stopping  
-- Real-time monitoring of performance and logs  
-- Asynchronous, non-blocking execution for smooth multitasking  
-- Streaming live updates to connected clients via Server-Sent Events  
+- Agent lifecycle events: starting, pausing, resuming, and stopping.
+- Real-time monitoring of performance and logs.
+- Asynchronous, non-blocking execution for smooth multitasking.
+- Streaming live updates to connected clients via Server-Sent Events.
 
-<pre>
+```typescript
 ┌─────────────────┐
 │  Agent Process  │ ← Your AI agent runs here
 ├─────────────────┤
@@ -150,29 +144,27 @@ It handles:
 ├─────────────────┤
 │  Component C    │ ← Calls external APIs
 └─────────────────┘
-</pre>
+```
 
-## Built-in Components
-
-SRE includes 40+ production-ready Components that speed your development.
+## Use Built-in Components
+SRE includes 40+ production-ready [Components](/docs/agent-runtime/components) that accelerate your development.
 
 Some key examples:
 
-- `GenAILLM` — Language model integration  
-- `VisionLLM` — Image understanding  
-- `APICall` — HTTP requests with OAuth  
-- `DataSourceIndexer` — Document indexing  
-- `LogicAND` — Boolean logic  
-- `FileStore` — File operations  
+- `GenAILLM` — Language model integration
+- `VisionLLM` — Image understanding
+- `APICall` — HTTP requests with OAuth
+- `DataSourceIndexer` — Document indexing
+- `LogicAND` — Boolean logic
+- `FileStore` — File operations
 
 <InfoCallout title="Explore more">
 For the full list, see the [Components Reference](/docs/agent-runtime/components) page.
 </InfoCallout>
 
 ## What’s Next?
-
 Explore more to master your AI agent’s runtime:
 
-- [Getting started](/docs/agent-runtime/quickstart) — Quickstart to running your first agent  
-- [SRE security model](/docs/agent-runtime/security) — Keep your agents and secrets safe  
-- [Smyth SDK guide](/docs/agent-runtime/sdk-guide) — Program your agents with the SDK  
+- **[Getting Started](/docs/agent-runtime/quickstart)**: Run your first agent.
+- **[Building Agents](/docs/agent-runtime/building-agents)**: Create an agent from scratch.
+- **[Smyth SDK Guide](/docs/agent-runtime/sdk-guide)**: Program your agents with the SDK.

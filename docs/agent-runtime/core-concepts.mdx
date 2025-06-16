@@ -8,7 +8,18 @@ toc_max_heading_level: 2
 
 # Core Concepts of SRE
 
-To build and operate reliable agents in production, you need a runtime that can manage execution, isolation, security, and scale. The Smyth Runtime Environment (SRE) provides this foundation. This page explains the fundamental ideas behind how it works.
+Smyth Runtime Environment (SRE) is the **operating system for AI agents** in SmythOS.  
+Like any good OS, it hides infrastructure complexity behind clear abstractions so you can focus on intelligence, not plumbing.  
+To make that possible, SRE splits runtime responsibilities into modular subsystems, enforces zero-trust execution with the Candidate / ACL model, and exposes pluggable connectors for any data store, LLM, or API.
+
+<InfoCallout title="Why these concepts matter">
+Mastering SRE’s core building blocks—subsystems, connectors, and the Candidate / ACL security layer—lets you:
+
+- **Ship faster** – mix-and-match components without rewriting business logic.  
+- **Stay secure** – every run inherits least-privilege permissions by design.  
+- **Scale up** – swap local services for cloud equivalents with a config change.  
+- **Debug confidently** – per-component logs and traces surface every step of execution.
+</InfoCallout>
 
 <Spacer size="md" />
 
@@ -27,28 +38,26 @@ Unlike typical serverless or container runtimes, SRE is designed for **AI agent 
 
 ## Modular by design
 
-SRE is built as a modular runtime kernel. All services—like storage, caching, or logging—are accessed through **connectors**. This gives you full control over how data flows through your system.
+SRE is built as a modular runtime kernel, as detailed in the [Architecture overview](/docs/agent-runtime/architecture). The runtime is divided into primary **subsystems**, and services within them—like storage, caching, or logging—are accessed through `connectors`. This gives you full control over how data and logic flow through your system.
 
-You can swap implementations without changing your business logic.
+You can swap underlying implementations (e.g., from local storage to S3) without changing your agent's business logic.
 
-| Subsystem       | Purpose                          | Examples of Connectors           |
-|-----------------|----------------------------------|----------------------------------|
-| Storage         | Persistent files and blobs       | Local, S3, SmythManaged          |
-| Cache           | In-memory or distributed cache   | RAM, Redis, S3                   |
-| Log             | Observability and trace logs     | ConsoleLog, SmythLog             |
-| Vault           | Secrets and credentials          | HashiCorpVault, JSONFile         |
-| Account/Auth    | Identity and access management   | JSONFileAccount, DummyAccount    |
-| LLM             | Model APIs and inference control | OpenAI, Anthropic, Vertex AI     |
+| Core Subsystem | Purpose | Examples of Services & Connectors |
+| :--- | :--- | :--- |
+| **IO Subsystem** | Handles all input and output operations. | `Storage`, `VectorDB`, `Log`, `Router`, `NKV`, `CLI` |
+| **LLM Manager** | Manages all interactions with AI models. | `OpenAI`, `Anthropic`, Caching, Token Tracking|
+| **Security** | Manages secrets, identity, and access control. | `Vault`, `Account Management`, ACLs |
+| **Memory Manager** | Manages agent state, context, and cache. | `Cache Service` (RAM, Redis), LLM Context History|
+| **Agent Manager** | Orchestrates agent execution and lifecycle. | Component Workflows, SSE Streaming |
 
 <TipCallout title="Unified service layer">
-All services are accessed the same way, using config and connectors. No hardcoded dependencies in your logic.
+This architecture ensures a clean separation of concerns. You can configure infrastructure through connectors without touching your agent's core logic.
 </TipCallout>
-
 <Spacer size="md" />
 
 ## The Candidate system
 
-Every time an agent runs, it does so as a **Candidate**—a lightweight, isolated compute context. Each Candidate has its own permissions, memory, and logging space.
+Every time an agent runs, it does so as a `Candidate`—a lightweight, isolated compute context. Each `Candidate` has its own permissions, memory, and logging space, governed by the [Security Model](/docs/agent-runtime/security).
 
 This isolation ensures:
 
@@ -56,21 +65,19 @@ This isolation ensures:
 - Resource usage is scoped to a single run
 - Agents cannot interfere with each other
 
-```ts
-
+```typescript
 const candidate = AccessCandidate.agent(agentId);
 const storage = ConnectorService.getStorageConnector().user(candidate);
 await storage.write('results.json', output);
-
 ```
 
 <Spacer size="md" />
 
 ## Agents and components
 
-Agents in SRE are made of connected **components**. Each component performs a specific operation—like calling an LLM, fetching data, or executing logic.
+Agents in SRE are made of connected `components`. Each component performs a specific operation—like calling an LLM, fetching data, or executing logic.
 
-You can build agent workflows visually in [Smyth Studio](/docs/agent-studio/overview) or programmatically using the [SDK](/docs/agent-runtime/sdk-guide).
+You can build agent workflows visually in **[Smyth Studio](/docs/agent-studio/overview)** or programmatically using the **[SDK](/docs/agent-runtime/sdk-guide)**.
 
 Agent structure:
 
@@ -94,44 +101,42 @@ Each component has defined inputs, outputs, and runtime settings. They stream da
 
 SRE manages the full lifecycle of agent execution:
 
-1. Boot: Loads config and connectors  
-2. Authenticate: Validates user or system identity  
-3. Schedule: Allocates compute resources  
-4. Execute: Runs the agent logic with access control  
-5. Stream: Emits logs, outputs, and events in real time  
-6. Tear down: Frees memory and logs trace info  
+1.  **Boot:** Loads config and connectors
+2.  **Authenticate:** Validates user or system identity
+3.  **Schedule:** Allocates compute resources
+4.  **Execute:** Runs the agent logic with access control
+5.  **Stream:** Emits logs, outputs, and events in real time
+6.  **Tear down:** Frees memory and logs trace info
 
 This model supports both **single-shot prompts** and **long-lived agent sessions** with chat history.
 
 <Spacer size="md" />
 
-## Observability and logs
+## Logging
 
 Every action in SRE can be logged and traced, with support for:
 
 - Component-level execution traces
 - SSE (server-sent events) streaming
 - External observability tools
-- Replay of agent runs in Studio
+- Replay of agent runs in **Studio**
 
-```ts
-
+```typescript
 const logs = await connector.getLogStream({ candidate });
 logs.on('entry', (line) => {
   console.log('[trace]', line);
 });
-
 ```
 
 <WarningCallout title="Trace visibility depends on connector">
-Some log features—like structure or streaming—depend on your `Log` connector (e.g. SmythLog vs ConsoleLog).
+Some log features—like structure or streaming—depend on your `Log` connector (e.g. `Smyth` vs `Console`).
 </WarningCallout>
 
 <Spacer size="md" />
 
 ## Security model
 
-SRE follows a strict **access-controlled runtime model**:
+SRE follows a strict **[access-controlled runtime model](/docs/agent-runtime/security)**:
 
 - Every resource access is gated by ACLs
 - Secrets are managed via Vault connectors
@@ -146,25 +151,24 @@ Always grant only the minimum permissions an agent needs. This improves safety a
 
 <Spacer size="md" />
 
-## When to use core runtime vs SDK
+## When to use API vs SDK
 
-The runtime APIs give you fine-grained control. The SDK provides a higher-level abstraction for building and wiring agents. You can choose based on your needs.
+The runtime APIs give you fine-grained control. The **[SDK](/docs/agent-runtime/sdk-guide)** provides a higher-level abstraction for building and wiring agents. You can choose based on your needs.
 
-| Use case                            | Use the SDK | Use Runtime API |
-|-------------------------------------|-------------|-----------------|
-| Fast prototyping                    | <Badge type="required" /> Yes          |                 |
-| Controlled infrastructure setup     |             | <Badge type="required" /> Yes               |
-| Type-safe component wiring          | <Badge type="required" /> Yes           |                 |
-| System-level debugging and tracing  |             | <Badge type="required" /> Yes               |
-| Custom connector configuration      |             | <Badge type="required" /> Yes               |
-| Business logic only                 | <Badge type="required" /> Yes           |                 |
+| Use case | Use the SDK | Use Runtime API |
+|---|---|---|
+| Fast prototyping | <Badge type="required" /> Yes | |
+| Controlled infrastructure setup | | <Badge type="required" /> Yes |
+| Type-safe component wiring | <Badge type="required" /> Yes | |
+| System-level debugging and tracing | | <Badge type="required" /> Yes |
+| Custom connector configuration | | <Badge type="required" /> Yes |
+| Business logic only | <Badge type="required" /> Yes | |
 
 <Spacer size="md" />
 
 ## What's Next?
 
-- [Quickstart](/docs/agent-runtime/quickstart) – Try building your first agent
-- [Deployment options](/docs/agent-runtime/deployment) – How to run agents locally or in production
-- [SDK Guide](/docs/agent-runtime/sdk-guide) – Programmatically define agent logic
-- [Component reference](/docs/agent-runtime/components) – Use and connect runtime modules
-
+- **[Quickstart](/docs/agent-runtime/quickstart)** – Try building your first agent
+- **[Deployment options](/docs/agent-runtime/deployment)** – How to run agents locally or in production
+- **[SDK Guide](/docs/agent-runtime/sdk-guide)** – Programmatically define agent logic
+- **[Component Reference](/docs/agent-runtime/components)** – Use and connect runtime modules

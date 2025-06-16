@@ -16,7 +16,7 @@ Install the Smyth Runtime, configure a local dev setup, and run your first test 
 
 ## 1. Install the runtime
 
-Install the package via npm or clone the [GitHub repo](https://github.com/SmythOS/smyth-runtime/tree/os-code-restructure) ):
+Install the package via npm or clone the [GitHub repo](https://github.com/SmythOS/smyth-runtime/tree/os-code-restructure):
 
 ```bash
 npm install smyth-runtime 
@@ -24,7 +24,7 @@ npm install smyth-runtime
 
 ## 2. Initialize the runtime
 
-Import and initialize SRE in your project. Use a simple configuration for local development:
+Import and initialize SRE in your project with `SRE.init`. Use a simple configuration for local development:
 
 ```typescript
 import { SRE, SDK } from 'smyth-runtime';
@@ -39,9 +39,9 @@ await sre.ready();
 ```
 This sets up in-memory caching, local file storage, and console logging for you, which is a good starting point.
 
-## Create an LLM instance
+## 3. Create an LLM instance
 
-Use the built-in SDK to test if the LLM is working:
+Use the built-in `SDK.LLM` to test if an LLM is working. This does not create a full agent but is useful for a quick test.
 
 ```typescript
 import { SDK } from 'smyth-runtime';
@@ -54,9 +54,9 @@ const res = await llm.prompt('Explain quantum computing to a medical student');
 console.log(res);
 ```
 
-## Stream results (optional)
+## 4. Stream results (optional)
 
-Useful for chat or interactive apps:
+The `.stream()` method is useful for chat or other interactive applications:
 
 ```typescript
 const stream = await llm.prompt('Write a short story').stream();
@@ -65,5 +65,6 @@ stream.on('content', (chunk) => process.stdout.write(chunk));
 
 ## What’s next?
 
-- [Create a real agent (Quickstart Guide)](/docs/agent-runtime/quickstart)
-- [Learn how SRE runs agents](/docs/agent-runtime/overview)
+- [**Create a real agent (Quickstart Guide)**](/docs/agent-runtime/quickstart)
+- [Learn about SRE's architecture](/docs/agent-runtime/architecture)
+- [Explore the SDK in depth](/docs/agent-runtime/sdk-guide)

@@ -1,31 +1,32 @@
 ---
 title: Smyth Runtime Environment (SRE)
 description: Run AI agents reliably, securely, and flexibly with SmythOS’s purpose-built execution layer.
-keywords: [SmythOS, SRE, AI runtime, agent orchestration, zero-trust security, LLM infrastructure, ACL, observability, agent platform]
+keywords: [SmythOS, SRE, AI runtime, agent orchestration, zero-trust security, LLM infrastructure, ACL, observability, agent platform, Studio]
 sidebar_position: 1
 ---
 
 # Smyth Runtime Environment (SRE)
 
-<InfoCallout title="Purpose-built runtime for AI agents">
-SRE runs your agents in isolated, observable, zero-trust environments with plug-in connectors for any LLM, datastore, or API.
+<InfoCallout title="The Purpose-Built Runtime for AI Agents in SmythOS">
+SRE runs your agents in isolated, observable, zero-trust environments with plug-in connectors for any supported LLM, datastore, or API.
 </InfoCallout>
 
 ## What is SRE and why does it exist?
 
-The [**Smyth Runtime Environment (SRE)**](https://github.com/SmythOS/smyth-runtime/) is the native agent execution engine in SmythOS. It provides:
+The [**Smyth Runtime Environment (SRE)**](https://github.com/SmythOS/smyth-runtime/) is the native agent execution engine in **SmythOS**. It provides:
 
-- Sandboxed agent instances, called **Candidates**, with per-task resource limits
-- Signed **ACLs** to enforce zero-trust access at runtime
-- Real-time logging and trace replay for every execution
-- Plug-and-play **Connectors** for LLMs, vector DBs, APIs, and more
-- Multi-environment consistency for deployment across cloud, on-prem, and local dev
+-   Isolated agent runs through a [security model](/docs/agent-runtime/security) using `Candidates`
+-   A [`Candidate/ACL` system](/docs/agent-runtime/security) to enforce zero-trust access at runtime
+-   Real-time logging and detailed execution traces visible in **Studio**
+-   Pluggable [Connectors](/docs/agent-runtime/components) for LLMs, vector DBs, APIs, and more
+-   Multi-environment consistency for deployment across cloud, on-prem, and local development
 
 <Arcade
-  src="https://demo.arcade.software/YourSreDiagramLink?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  src="https://demo.arcade.software/?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
   title="SRE architecture overview"
 />
-<TipCallout title="SRE simplifies infrastructure">
+
+<TipCallout title="SRE Simplifies Infrastructure">
 Skip boilerplate and focus on building intelligent agents. SRE handles execution, access, and visibility.
 </TipCallout>
 <Spacer size="md" />
@@ -40,63 +41,63 @@ Skip boilerplate and focus on building intelligent agents. SRE handles execution
     Understand how SRE is structured behind the scenes.
   </Card>
   <Card title="Security Model" href="/docs/agent-runtime/security">
-    Discover how ACLs and Vaults protect agent execution.
+    Discover how the Candidate/ACL system and Vaults protect agent execution.
   </Card>
   <Card title="Building Agents" href="/docs/agent-runtime/building-agents">
-    Use the visual builder or SDK to create agents from scratch.
+    Use the visual builder in **Studio** or the SDK to create agents.
   </Card>
   <Card title="Components" href="/docs/agent-runtime/components">
-    Extend SRE with logic blocks, skills, and APIs.
+    Extend SRE with 40+ production-ready components.
   </Card>
-  <Card title="Enterprise Deployment" href="/docs/agent-runtime/enterprise-deployment">
-    Deploy SRE in regulated or production cloud environments.
+  <Card title="Enterprise Deployment" href="/docs/agent-runtime/enterprise-deploy">
+    Deploy SRE in production cloud environments.
   </Card>
 </CardGrid>
 
-## Why use SRE over containers or serverless?
+## Why use SRE over generic infrastructure?
 
 Running agents on generic infrastructure (like containers or serverless platforms) means managing:
 
-- API tokens, auth, and retries manually  
-- Logging and tracing from scratch  
-- Custom integrations for every service  
-- No clear isolation or resource limits per task
+-   API tokens, auth, and retries manually
+-   Logging and tracing from scratch
+-   Custom integrations for every service
+-   No clear isolation or resource limits per task
 
-SRE handles all of that, by design. You define config; SRE runs, secures, and monitors the execution with features like:
-<TipCallout title="Built for AI agents">
+SRE handles all of that by design. You define your configuration programmatically or visually in **Studio**; SRE runs, secures, and monitors the execution with features like:
+
+<TipCallout title="Built for AI Agents">
 Use SRE to eliminate boilerplate infrastructure code and focus on agent logic.
 </TipCallout>
 
-- Environment consistency across cloud, local, and enterprise
-- Zero-trust runtime enforcement
-- Modular and configurable execution without boilerplate
+-   Environment consistency across cloud, local, and enterprise
+-   Zero-trust runtime enforcement
+-   Modular and configurable execution without boilerplate
 
-## What do you get with SRE? 
+## What do you get with SRE?
 
-| Area                  | Containers / Serverless                | Smyth Runtime Environment (SRE)         |
-|------------------------|----------------------------------------|------------------------------------------|
-| **Access control**      | Manually coded per app                 | Enforced per-run via signed ACLs          |
-| **LLM/API integration** | Custom logic, per model/service        | Plug-and-play via YAML connectors         |
-| **Observability**       | Needs manual setup                     | Built-in logs, traces, and replay         |
-| **Runtime isolation**   | Per pod or function                    | Per agent run (Candidate)                 |
-| **Environment parity**  | Code changes across dev/prod           | Same config works everywhere              |
-| **Execution scaling**   | Needs autoscaling config               | Automatic scheduling across runs          |
+| Area | Containers / Serverless | Smyth Runtime Environment (SRE) |
+| :--- | :--- | :--- |
+| **Access control** | Manually coded per app | Enforced per-run via the `Candidate/ACL` system |
+| **LLM/API integration** | Custom logic, per model/service | Plug-and-play via programmatic Connectors |
+| **Observability** | Needs manual setup | Built-in logs and traces, viewable in **Studio** |
+| **Runtime isolation** | Per pod or function | Per agent run (via Candidate security) |
+| **Environment parity** | Code changes across dev/prod | Same configuration works everywhere |
+| **Execution scaling** | Needs autoscaling config | Managed via **Load Balancing** and **Forked Agents** |
 
-<InfoCallout title="Consistent across every environment">
-You can run the same agent run with the same logic, config, and security across dev, staging, and prod.
+<InfoCallout title="Consistent Across Every Environment">
+You can run the same agent with the same logic, config, and security across development, staging, and production.
 </InfoCallout>
 
 ## How SRE works
 
-Every time your agent runs, SRE creates a **Candidate**, a sandboxed runtime session for that specific execution with zero trust by default. 
+Every time your agent runs, SRE uses its [`Candidate/ACL` system](/docs/agent-runtime/security) to create a secure, sandboxed runtime session for that specific execution, operating with zero trust by default.
 
-Each Candidate:
-
-- Scopes to a single agent and task
-- Enforces its own CPU/GPU/memory limits  
-- Uses a **signed ACL** to determine what it can access  
-- Streams prompt + response logs to Studio or your observability platform  
-- Can run identically in dev, staging, or production
+Each session:
+-   Scopes to a single agent and task
+-   Enforces its own **memory limits**
+-   Uses the `Candidate/ACL` system to determine what it can access
+-   Streams prompt and response logs to **Studio** or your observability platform
+-   Can run identically in development, staging, or production
 
 <Arcade
   src="https://demo.arcade.software/YourSreDiagramLink?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
@@ -106,101 +107,95 @@ Each Candidate:
 
 ## What’s optimized for LLM workflows?
 
-<InfoCallout title="Use it like an LLM router">
-Route tasks between models (e.g., Claude vs GPT-4) based on price, latency, or task type — all in YAML.
+<InfoCallout title="Effortless Model Switching">
+Easily switch between models like Claude and GPT-4 with a simple configuration update. SRE handles the model-specific requirements, saving you from rewriting your agent's code and API logic.
 </InfoCallout>
 
-SRE is LLM-native... meaning it’s designed to handle AI-specific execution patterns:
+SRE is LLM-native, meaning it’s designed to handle AI-specific execution patterns:
 
-- Token- and latency-aware scheduling
-- Multi-model routing and failover
-- Prompt + response streaming
-- Cost-based fallback logic
-- Config-driven switching between LLMs or providers
+-   Optimized request routing and caching
+-   Multi-model routing and failover
+-   Prompt and response streaming
+-   Config-driven switching between LLMs or providers
 <Spacer size="md" />
 
 ## How do you connect to LLMs, APIs, and databases?
 
-With **Connectors**, YAML-defined modules that plug in external services.  
-No SDKs or manual configs needed.
+With **[Connectors](/docs/agent-runtime/components)**, which are programmatically configured modules that plug in external services using the **[Smyth SDK](/docs/agent-runtime/sdk-guide)**.
 
 ### Supported connector types with SRE:
-
-| Type            | Examples                         | Controlled In Config |
-|-----------------|----------------------------------|-----------------------|
-| **LLMs**        | OpenAI, Anthropic, Ollama        | `llm:` block          |
-| **Vector Stores**| Pinecone, Weaviate, Qdrant      | `storage:` block      |
-| **Observability**| Studio, Datadog, LogSinks       | `logs:` + `traces:`   |
-| **Auth Providers**| Auth0, Cognito, JWT            | `auth:` block         |
+| Type | Examples |
+| :--- | :--- |
+| **LLMs** | `OpenAI`, `Anthropic`, `Google AI`, `AWS Bedrock`, `Groq` |
+| **VectorDB**| `Pinecone`, `SmythManaged` |
+| **Storage** | `Local`, `S3`, `Smyth` |
+| **Observability**| `Console`, `Smyth`, **Studio** |
+| **Auth** | `Vault Services` (HashiCorp, AWS) |
 
 <TipCallout title="Swap services with a config change">
-You can replace OpenAI with Claude or a local LLM by updating a single line in your connector config.
+You can replace an OpenAI model with an Anthropic model by updating a single line in your SDK configuration.
 </TipCallout>
-
 <Spacer size="md" />
 
 ## How is the runtime structured?
 
-SRE splits the runtime into two layers:
+SRE splits the runtime into two layers, as detailed in the [Architecture](/docs/agent-runtime/architecture) documentation:
 
-| Layer            | What It Does                                | Can You Customize? |
-|------------------|----------------------------------------------|---------------------|
+| Layer | What It Does | Can You Customize? |
+| :--- | :--- | :--- |
 | **Core Runtime** | Task scheduler, message bus, metrics, quotas | No (versioned core) |
-| **Connectors**   | LLMs, vector DBs, APIs, auth providers       | Yes, YAML-configurable |
+| **Connectors** | LLMs, vector DBs, APIs, auth providers | Yes, programmatically configurable via the SDK |
 
-<WarningCallout title="ACLs required for execution">
-An agent cannot run unless it includes a valid, signed Access Control List.  
-Define ACLs in YAML or generate them in [Studio](/docs/agent-studio/overview).
+<WarningCallout title="ACLs Required for Execution">
+An agent cannot run unless it has a valid Access Candidate. Access can be managed [programmatically](/docs/agent-runtime/sdk-guide) or generated in **Studio**.
 </WarningCallout>
-
 <Spacer size="md" />
 
 ## Where can you run SRE?
-Anywhere you need... SRE supports multiple environments out of the box:
+Anywhere you need... SRE supports multiple environments out of the box. See our [Deployment Guide](/docs/agent-runtime/deployment) for more details.
 
 <Tabs
   tabs={[
     { label: 'Cloud', content: (
         <>
-          <p>Push your YAML config to Smyth Cloud and start agents with Studio tracing enabled.</p>
-        </>
-      )
-    },
-    { label: 'Kubernetes', content: (
-        <>
-          <p>Deploy the SRE Helm chart and manage via GitOps or Studio in your cluster.</p>
+          <p>Deploy SRE to any cloud environment and connect it to **Studio** for tracing and management. See our guide to <a href="/docs/agent-runtime/enterprise-deploy">enterprise deployment</a> for more.</p>
         </>
       )
     },
     { label: 'Local Dev', content: (
         <>
-          <p>Run <code>sre dev</code> or Docker Compose for local iteration with full logs and trace.</p>
+          <p>Run SRE locally using Node.js. The SDK defaults to simple, in-memory connectors for rapid iteration with full logs and traces available in the console or **Studio**.</p>
+        </>
+      )
+    },
+    { label: 'Docker', content: (
+        <>
+          <p>SRE is container-ready, allowing you to build and deploy your agent runtime using Docker for consistent, isolated environments.</p>
         </>
       )
     }
   ]}
 />
-
 <Spacer size="md" />
 
-## Is SRE the right runtime for your agents?
+## Is SRE the right choice for you?
 
 ### Use SRE if you:
 
-- Work with LLMs, APIs, or vector stores
-- Need consistent behavior across dev and prod
-- Want built-in observability and ACL enforcement
-- Care about versioned, auditable agent runs
+-   Work with LLMs, APIs, or vector stores
+-   Need consistent behavior across development and production
+-   Want built-in observability and ACL enforcement
+-   Care about versioned, auditable agent runs
 
 ### SRE might not be for you if:
 
-- You’re running a traditional backend or monolithic web app
-- You don’t need dynamic or agent-based execution logic
+-   You’re running a traditional backend or monolithic web app
+-   You don’t need dynamic or [agent-based execution logic](/docs/agent-runtime/building-agents)
 <Spacer size="md" />
 
 ## How to Get Started with SRE?
 
-1. [Install Smyth CLI & Runtime](/docs/agent-runtime/getting-started)  
-2. [Run your first agent (Quickstart)](/docs/agent-runtime/quickstart) 
-3. [Create Agents](/docs/agent-runtime/building-agents)  
-4. [Explore the SDK](/docs/agent-runtime/sdk-guide)  
+1.  [Install the Runtime](/docs/agent-runtime/getting-started)
+2.  [Run your first agent (Quickstart)](/docs/agent-runtime/quickstart)
+3.  [Create Agents in Studio or with the SDK](/docs/agent-runtime/hybrid-workflows)
+4.  [Explore the SDK Guide](/docs/agent-runtime/sdk-guide)

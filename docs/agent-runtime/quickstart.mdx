@@ -9,7 +9,7 @@ sidebar_position: 3
 # Quickstart with SRE
 
 <InfoCallout title="What you'll learn">
-Build your first real AI agent with behavior, skills, and prompt flow using the Smyth SDK.
+Build your first real AI agent with behavior, skills, and prompt flow using the [Smyth SDK](/docs/agent-runtime/sdk-guide).
 </InfoCallout>
 
 <Spacer size="md" />
@@ -24,7 +24,7 @@ If you haven’t done that yet, head to [Getting Started with SRE](/docs/agent-r
 
 ## Step 1: Create your first agent
 
-Start by defining your agent’s name, model, and role in the conversation.
+Start by defining your agent’s name, model, and role in the conversation using `SDK.Agent`.
 
 ```typescript
 const agent = new SDK.Agent({
@@ -36,7 +36,7 @@ const agent = new SDK.Agent({
 
 ## Step 2: Add a custom skill
 
-Skills are reusable functions your agent can call. Here’s one to summarize user issues:
+Skills are reusable functions your agent can call. Here’s one to summarize user issues using `agent.addSkill`:
 
 ```typescript
 agent.addSkill({
@@ -50,7 +50,7 @@ agent.addSkill({
 
 ## Step 3: Prompt the agent
 
-Now try prompting the agent directly and print the result. This is a simple one-shot interaction.
+Now try prompting the agent directly with `agent.prompt` and print the result. This is a simple one-shot interaction.
 
 ```typescript
 const response = await agent.prompt('My screen flickers when I open the app.');
@@ -58,7 +58,7 @@ console.log(response);
 ```
 
 ## Step 4: Use chat mode (optional)
-You can use a persistent chat to maintain conversational context across turns.
+You can use a persistent `agent.chat()` to maintain conversational context across turns.
 
 ```typescript
 const chat = agent.chat();
@@ -70,7 +70,8 @@ console.log(chat.history);
 
 ## Step 5: Linking components to build workflows
 
-You can build simple workflows by connecting modular components.
+You can build simple workflows by connecting modular [Components](/docs/agent-runtime/components). This example uses `SDK.GenAILLM` and `SDK.Classifier`.
+
 ```typescript
 const llm = SDK.GenAILLM({ model: 'gpt-4' }, agent);
 const classifier = SDK.Classifier({ classes: ['bug', 'feature request', 'other'] }, agent);
@@ -95,6 +96,6 @@ That's it! You’ve just built an actual agent that:
 
 ## What’s next?
 
-- [Learn how SRE works under the hood](/docs/agent-runtime/overview)
-- [Export your agent and share it](/docs/agent-collaboration/overview)
+- [Learn how SRE's architecture works](/docs/agent-runtime/architecture)
+- [Explore the SDK in depth](/docs/agent-runtime/sdk-guide)
 - [Build visual workflows in Studio](/docs/agent-studio/overview)

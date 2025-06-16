@@ -1,88 +1,86 @@
 ---
 title: Enterprise Deployment
-description: Learn how to configure and deploy Smyth Runtime Environment in production environments using custom connectors and secure infrastructure.
-keywords: [enterprise deployment, SRE, production, smythos, vault, storage, sdk, kubernetes, helm, docker]
+description: Learn how to configure and deploy the Smyth Runtime Environment in production environments using custom connectors and secure infrastructure.
+keywords: [SRE, deployment, production, self-hosted, vault, storage, sdk, docker, cloud]
 sidebar_position: 12
 ---
 
-# Enterprise Deployment Options
+# Enterprise & Self-Hosted Deployment
 
-The **Smyth Runtime Environment (SRE)** is designed for production-grade flexibility. Whether you're running agents in a regulated cloud, on private infrastructure, or across container clusters, SRE adapts to your stack using modular connectors for caching, storage, secrets, and logging.
+The **Smyth Runtime Environment (SRE)** is designed for production-grade flexibility. You can run SRE on your own private infrastructure by using its modular connectors for caching, storage, secrets, and logging.
 
-<InfoCallout title="Need custom infrastructure support?">
-For private deployments, regulated environments, or orchestrated setups, [contact our team](https://smythos.com/contact-us) to discuss tailored configuration options.
+<InfoCallout title="When to Self-Host">
+Self-hosting is ideal when you need maximum control over your data, security, and infrastructure, or to integrate SRE directly into your existing cloud environment.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Deploy Anywhere with Custom Connectors
+## Deploying with Custom Connectors
 
-You can deploy SRE using your preferred infrastructure tools by initializing the runtime with your own services. The [Smyth SDK](/docs/agent-runtime/sdk-guide) lets you specify production-ready connectors for storage, cache, vaults, and more without changing your agent logic.
+You can deploy SRE to your preferred infrastructure by initializing the runtime with your own services. The [Smyth SDK](/docs/agent-runtime/sdk-guide) lets you specify production-ready connectors for storage, cache, and vaults without changing your agent's core logic.
 
-```ts
-// Example: Production configuration using Redis, S3, and Vault
+This example shows a production configuration using Redis for caching, AWS S3 for storage, and HashiCorp Vault for secrets.
+
+```typescript
+// Example: Production configuration for a self-hosted environment
+import { SRE } from 'smyth-runtime';
+
 const sre = SRE.init({
   Cache: {
     Connector: 'Redis',
     Settings: {
-      url: 'redis://your-cluster',
+      url: 'redis://your-cluster-endpoint',
       maxMemory: '10gb',
     },
   },
   Storage: {
     Connector: 'S3',
     Settings: {
-      bucket: 'your-bucket',
+      bucket: 'your-production-bucket',
       region: 'us-east-1',
     },
   },
   Vault: {
     Connector: 'HashicorpVault',
     Settings: {
-      url: 'https://vault.company.com',
+      url: 'https://vault.your-company.com',
       token: process.env.VAULT_TOKEN,
     },
   },
 });
 ```
 
-<InfoCallout title="Connector logic is environment-specific">
-You can switch between local, cloud, and container environments by swapping connectors while your agent’s business logic stays the same.
+<InfoCallout title="Configuration is separate from logic">
+You can switch between local development and a self-hosted production environment just by changing the configuration, while your agent’s business logic stays the same.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Supported Infrastructure Types
+## Supported Infrastructure
 
-SRE supports flexible deployments, including:
+SRE's flexible architecture supports various self-hosted environments:
 
-- Self-hosted environments
-- AWS, Azure, GCP, or hybrid cloud
-- Kubernetes clusters and Docker containers
-- Regulated or air-gapped networks
-- Multi-tenant enterprise teams
+- **Private Servers**
+- **Cloud Providers** (e.g., using AWS S3 and AWS Secrets Manager connectors)
+- **Docker Containers**, as SRE is designed to be container-ready
 
-If you have special requirements for security, data residency, or runtime behavior, we’ll help configure a setup that works for you.
-
-<WarningCallout title="Need Helm charts, Dockerfiles, or Terraform support?">
-Reach out to [SmythOS support](https://smythos.com/contact-us) for early access to orchestration templates and infrastructure guides.
+<WarningCallout title="Looking for deployment examples?">
+Reach out to [SmythOS support](https://smythos.com/contact-us) for examples of `Dockerfiles` or guidance on specific cloud configurations.
 </WarningCallout>
 
 <Spacer size="md" />
 
-## Connect It All Together
+## Connecting to Platform Features
 
-SRE deployments integrate seamlessly with:
+Self-hosted SRE deployments still integrate with core platform features for security and organization:
 
-- [Vaults for secure secret management](/docs/agent-studio/key-concepts/vault)
-- [Spaces for scoped agent environments](/docs/agent-collaboration/spaces)
-- [Roles and Permissions](/docs/agent-collaboration/permissions) for secure runtime control
-- [Model Rates](/docs/account-management/model-rates) to plan usage across your stack
+- **[Vaults](/docs/agent-runtime/security)** for secure secret management
+- **[Roles and Permissions](/docs/agent-runtime/security)** for secure runtime control
 
 <Spacer size="md" />
 
 ## Next Steps
 
-- [SDK Guide](/docs/agent-runtime/sdk-guide)
-- [SRE Security Model](/docs/agent-runtime/security)
-- [Subscription Management](/docs/account-management/subscription-management)
+- **[SDK Guide](/docs/agent-runtime/sdk-guide)**
+- **[SRE Security Model](/docs/agent-runtime/security)**
+- **[Building Agents](/docs/agent-runtime/building-agents)**

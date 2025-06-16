@@ -18,7 +18,7 @@ interface MenuItem {
 const MENU_ITEMS: MenuItem[] = [
   { label: "Studio", href: "/docs/agent-studio/overview/", Icon: SvgStudio },
   { label: "Weaver", href: "/docs/agent-weaver/overview/", Icon: SvgWeaver },
-  { label: "Runtime", href: "/docs/agent-runtime/overview/", Icon: SvgRuntime },
+  { label: "SRE", href: "/docs/agent-runtime/overview/", Icon: SvgRuntime },
   {
     label: "Deployments",
     href: "/docs/agent-deployments/overview/",

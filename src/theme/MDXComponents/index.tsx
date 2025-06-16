@@ -17,6 +17,7 @@ import BaseCallout from '@site/src/components/BaseCallout';
 import { InfoCallout } from '@site/src/components/InfoCallout';
 import { WarningCallout } from '@site/src/components/WarningCallout';
 import { TipCallout } from '@site/src/components/TipCallout';
+import { SuccessCallout } from '@site/src/components/SuccessCallout';
 import Steps from '@site/src/components/Steps';
 import TermTable from '@site/src/components/TermTable';
 import ComponentCard from '@site/src/components/ComponentCard';
@@ -26,6 +27,8 @@ import DocLink from '@site/src/components/DocLink';
 import Tabs from '@site/src/components/Tabs';
 import SectionHeading from '@site/src/components/SectionHeading';
 import Badge from '@site/src/components/Badge';
+import Tick from '@site/src/components/Tick';
+import Cross from '@site/src/components/Cross';
 
 export default {
   // keep defaults
@@ -46,6 +49,7 @@ export default {
   BaseCallout,
   InfoCallout,
   WarningCallout, 
+  SuccessCallout,
   TipCallout,
   FeatureGrid,
   ComponentCard,
@@ -56,4 +60,6 @@ export default {
   Tabs,
   SectionHeading,
   Badge,
+  Tick,
+  Cross,
 };

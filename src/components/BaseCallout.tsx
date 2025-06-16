@@ -3,6 +3,7 @@ import {
   Info,
   AlertTriangle,
   Lightbulb,
+  CheckCircle,
   ChevronDown,
 } from 'lucide-react';
 
@@ -11,7 +12,7 @@ interface Props {
   children: ReactNode;
   collapsible?: boolean;
   defaultOpen?: boolean;
-  type: 'info' | 'warn' | 'tip';
+  type: 'info' | 'warn' | 'tip' | 'success';
 }
 
 const BaseCallout = ({
@@ -39,7 +40,12 @@ const BaseCallout = ({
       label: 'TIP',
       borderColor: '#34d399',
     },
-  };
+   success: {
+    icon: <CheckCircle size={20} style={{ color: '#0d9488', marginRight: 6 }} />,
+    label: 'SUCCESS',
+    borderColor: '#14b8a6',
+},
+  } as const;
 
   const { icon, label, borderColor } = typeStyles[type];
 
@@ -114,22 +120,11 @@ const BaseCallout = ({
             transition: background-color 0.2s ease-in-out;
           }
 
-          .callout-clickable {
-            cursor: pointer;
-          }
+          .callout-clickable { cursor: pointer; }
+          .callout-clickable:hover { background-color: rgba(0, 0, 0, 0.025); }
+          :root[data-theme='dark'] .callout-clickable:hover { background-color: rgba(255, 255, 255, 0.05); }
 
-          .callout-clickable:hover {
-            background-color: rgba(0, 0, 0, 0.025);
-          }
-
-          :root[data-theme='dark'] .callout-clickable:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-          }
-
-          .callout-body-wrapper {
-            transition: max-height 0.3s ease-in-out;
-          }
-
+          .callout-body-wrapper { transition: max-height 0.3s ease-in-out; }
           .callout-body {
             padding: 12px 20px 16px 20px;
             font-size: 1.075rem;
@@ -147,40 +142,18 @@ const BaseCallout = ({
           .callout-body > *:first-child { margin-top: 0; }
           .callout-body > *:last-child  { margin-bottom: 0; }
 
-          :root[data-theme='light'] .callout-info {
-            background-color: #e0f2fe;
-            color: #0c0c0c;
-          }
+          :root[data-theme='light'] .callout-info    { background-color: #e0f2fe;  color: #0c0c0c; }
+          :root[data-theme='dark']  .callout-info    { background-color: #1e3a8a22; color: #dbeafe; }
 
-          :root[data-theme='dark'] .callout-info {
-            background-color: #1e3a8a22;
-            color: #dbeafe;
-          }
+          :root[data-theme='light'] .callout-warn    { background-color: #fef3c7;  color: #78350f; }
+          :root[data-theme='dark']  .callout-warn    { background-color: #78350f22; color: #fde68a; }
 
-          :root[data-theme='light'] .callout-warn {
-            background-color: #fef3c7;
-            color: #78350f;
-          }
+          :root[data-theme='light'] .callout-tip     { background-color: #d1fae5;  color: #065f46; }
+          :root[data-theme='dark']  .callout-tip     { background-color: #065f4622; color: #bbf7d0; }
 
-          :root[data-theme='dark'] .callout-warn {
-            background-color: #78350f22;
-            color: #fde68a;
-          }
-
-          :root[data-theme='light'] .callout-tip {
-            background-color: #d1fae5;
-            color: #065f46;
-          }
-
-          :root[data-theme='dark'] .callout-tip {
-            background-color: #065f4622;
-            color: #bbf7d0;
-          }
-
-          :root[data-theme='dark'] .callout-body code {
-            background-color: #334155;
-            color: #fbbf24;
-          }
+          :root[data-theme='light'] .callout-success { background-color: #ccfbf1; */ color: #065f46; }
+          :root[data-theme='dark'] .callout-success { background-color: #0d948822; color: #99f6e4;  }
+          :root[data-theme='dark']  .callout-body code { background-color: #334155; color: #fbbf24; }
         `}
       </style>
     </div>

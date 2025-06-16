@@ -3,23 +3,26 @@ title: SRE Architecture
 sidebar_label: Architecture
 description: Learn how Smyth Runtime Environment’s modular architecture works behind the scenes to run your AI agents efficiently and securely.
 keywords: [SmythOS, SRE, architecture, subsystems, modular, AI agents, runtime, storage, LLM, security]
-sidebar_position: 5
+sidebar_position: 1
+toc_max_heading_level: 2
 ---
 
 # SRE Architecture
 
-SRE (Smyth Runtime Environment) is the operating system for AI agents: a modular, production-grade runtime that handles infrastructure, security, and orchestration so you can focus entirely on building agents.
-
-Your AI agent’s performance, security, and reliability depend on how well its runtime handles key tasks like data access, AI model calls, and process management. SRE breaks these down into clear, manageable parts so your agents run smoothly at any scale.
+[Smyth Runtime Environment (SRE)](https://github.com/SmythOS/smyth-runtime/) is the operating system for AI agents. It gives you a secure, modular runtime that handles infrastructure, security, memory, and orchestration—so you can focus entirely on building.
 
 You can build on SRE however you like:
-- Use the [**Studio visual builder**](/docs/agent-studio/overview) to drag, drop, and connect components  
-- Use the [**Smyth SDK**](/docs/agent-runtime/sdk-guide) for full programmatic control in TypeScript  
-- Or combine both for hybrid workflows that balance no-code and code
+- Use [**Studio**](/docs/agent-studio/overview) to drag, drop, and connect components and visually build agents  
+- Use the [**Smyth SDK**](/docs/agent-runtime/sdk-guide) for full programmatic control  
+- Combine both in [hybrid workflows](/docs/agent-runtime/hybrid-workflows) that balance no-code and code
 
 <InfoCallout title="Why this architecture matters">
-Your AI agents deserve more than a wrapper around an LLM API. SRE is built to make them secure, scalable, and deeply integrated with real-world data, workflows, and infrastructure.
+SRE ensures your agents run reliably and securely. It turns infrastructure concerns into pluggable subsystems that you don’t need to rebuild from scratch.
 </InfoCallout>
+<Image src="/img/sre/sre-diagram.png" alt="Smyth Runtime Architecture Diagram" caption="SRE is composed of modular subsystems that work together to run your agents" />
+
+Each colored section in the diagram above is a subsystem, and each subsystem is responsible for a specific layer of agent execution, from permissions to storage to AI integration.
+
 <Divider />
 
 ## How SRE organizes your AI agent’s runtime
@@ -166,7 +169,7 @@ Some key examples:
 For the full list, see the [Components Reference](/docs/agent-runtime/components) page.
 </InfoCallout>
 
-## What’s next?
+## What’s Next?
 
 Explore more to master your AI agent’s runtime:
 

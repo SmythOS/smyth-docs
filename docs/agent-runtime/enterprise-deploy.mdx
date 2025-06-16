@@ -1,21 +1,26 @@
 ---
 title: Enterprise Deployment
-sidebar_position: 5
+description: Learn how to configure and deploy Smyth Runtime Environment in production environments using custom connectors and secure infrastructure.
+keywords: [enterprise deployment, SRE, production, smythos, vault, storage, sdk, kubernetes, helm, docker]
+sidebar_position: 12
 ---
 
 # Enterprise Deployment Options
 
-Smyth Runtime Environment (SRE) supports configurable, production-ready deployments using a connector-based system. This lets you swap services like storage, cache, logging, and secrets without changing your agent logic.
+The **Smyth Runtime Environment (SRE)** is designed for production-grade flexibility. Whether you're running agents in a regulated cloud, on private infrastructure, or across container clusters, SRE adapts to your stack using modular connectors for caching, storage, secrets, and logging.
 
-<InfoCallout title="SRE adapts to your needs">
-SRE is designed to adapt to your environment whether you're running locally, in the cloud, or across teams.
+<InfoCallout title="Need custom infrastructure support?">
+For private deployments, regulated environments, or orchestrated setups, [contact our team](https://smythos.com/contact-us) to discuss tailored configuration options.
 </InfoCallout>
 
-## Production-Ready Configuration
+<Spacer size="md" />
 
-Use the [Smyth SDK](/docs/agent-runtime/sdk-guide) to initialize SRE with production services:
+## Deploy Anywhere with Custom Connectors
+
+You can deploy SRE using your preferred infrastructure tools by initializing the runtime with your own services. The [Smyth SDK](/docs/agent-runtime/sdk-guide) lets you specify production-ready connectors for storage, cache, vaults, and more without changing your agent logic.
 
 ```ts
+// Example: Production configuration using Redis, S3, and Vault
 const sre = SRE.init({
   Cache: {
     Connector: 'Redis',
@@ -40,12 +45,44 @@ const sre = SRE.init({
   },
 });
 ```
-<InfoCallout title="Environment-aware design"> Business logic stays the same between local development and production. Only the connectors change. </InfoCallout>
 
-## Need a Custom Deployment?
+<InfoCallout title="Connector logic is environment-specific">
+You can switch between local, cloud, and container environments by swapping connectors while your agent’s business logic stays the same.
+</InfoCallout>
 
-If you're running in a specialized infrastructure (private cloud, containerized setup, or regulated environment), we can help configure SRE to match your requirements.
+<Spacer size="md" />
 
-[**Contact our team**](mailto:support@smythos.com) to discuss your infrastructure, security r
+## Supported Infrastructure Types
 
-<WarningCallout title="Kubernetes, Docker, or Helm?"> If you're looking for orchestrated deployment options, reach out for early access or to request documentation. </WarningCallout> 
+SRE supports flexible deployments, including:
+
+- Self-hosted environments
+- AWS, Azure, GCP, or hybrid cloud
+- Kubernetes clusters and Docker containers
+- Regulated or air-gapped networks
+- Multi-tenant enterprise teams
+
+If you have special requirements for security, data residency, or runtime behavior, we’ll help configure a setup that works for you.
+
+<WarningCallout title="Need Helm charts, Dockerfiles, or Terraform support?">
+Reach out to [SmythOS support](https://smythos.com/contact-us) for early access to orchestration templates and infrastructure guides.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Connect It All Together
+
+SRE deployments integrate seamlessly with:
+
+- [Vaults for secure secret management](/docs/agent-studio/key-concepts/vault)
+- [Spaces for scoped agent environments](/docs/agent-collaboration/spaces)
+- [Roles and Permissions](/docs/agent-collaboration/permissions) for secure runtime control
+- [Model Rates](/docs/account-management/model-rates) to plan usage across your stack
+
+<Spacer size="md" />
+
+## Next Steps
+
+- [SDK Guide](/docs/agent-runtime/sdk-guide)
+- [SRE Security Model](/docs/agent-runtime/security)
+- [Subscription Management](/docs/account-management/subscription-management)

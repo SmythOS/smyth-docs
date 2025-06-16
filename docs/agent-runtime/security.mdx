@@ -2,73 +2,115 @@
 title: Security
 description: Learn how Smyth Runtime Environment protects your AI agents with enterprise-grade security, access control, and secret management.
 keywords: [SmythOS, SRE, security, access control, vault, authentication, encryption, permissions]
-sidebar_position: 8
+sidebar_position: 10
+toc_max_heading_level: 2
 ---
 
-# SRE Security Model
+# Security in SRE
 
-Security is built into the Smyth Runtime Environment from the ground up. Your agents get enterprise-grade protection without extra setup.
+The **Smyth Runtime Environment (SRE)** is built with zero-trust security at its core. Every action is evaluated against role-based permissions, access control lists, and identity-aware rules. You don’t need to bolt on external layers. SRE provides enterprise-grade security by default.
 
-<InfoCallout>
-**What you need to know:**  
-SRE safeguards sensitive data, manages identities, and controls who can do what, so your AI stays secure and compliant.
+<InfoCallout title="Security is built-in">
+Every request in SRE passes through a permission check. Only verified identities with the right role and access policy can read, write, or execute.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" />
 
-## Candidate and ACL system
+## Identity Enforcement with Candidates and ACLs
 
-Every operation in SRE requires explicit permission. The Candidate and ACL system acts as the gatekeeper:
+At the heart of SRE’s access system is the **Candidate and ACL model**:
 
-- A **Candidate** represents an identity, such as an agent or user  
-- The **ACL (Access Control List)** defines what actions each candidate can perform  
-- Before accessing resources, SRE checks permissions and denies unauthorized requests  
+- A **Candidate** is an identity. This could be an agent, a user, or even a specific tool or task.
+- An **Access Control List (ACL)** maps each candidate to what actions they are allowed to perform.
 
-```typescript
-// Example: Agent requesting storage access
+Every time a candidate tries to access a resource, like storage, a model, or an API... SRE checks the ACL first.
+
+```ts
+// Example: Agent writing to storage with ACL enforcement
 const candidate = AccessCandidate.agent(agentId);
 const storage = ConnectorService.getStorageConnector().user(candidate);
-await storage.write('data.json', content);
+await storage.write('results.json', data);
 ```
 
-## Secure credential storage with vaults
+You can assign these permissions through [Roles and Permissions](/docs/agent-collaboration/permissions), and they apply across [Spaces](/docs/agent-collaboration/spaces) and your [Organization](/docs/account-management/organization-management).
 
-Secrets like API keys, passwords, and tokens stay safe in vaults integrated into SRE:
+<Spacer size="md" />
 
-- Supports HashiCorp Vault, AWS Secrets Manager, and JSON file vaults  
-- Encrypts credentials at rest and in transit  
-- Enables token-based, role-restricted access to secrets  
-- Provides audit trails for compliance  
+## Vault-Based Secret Management
 
-## Account and authentication management
+Sensitive values like API keys, passwords, and tokens are never hardcoded in SRE. Instead, they are stored in [Vaults](/docs/agent-studio/key-concepts/vault):
 
-SRE supports flexible authentication methods to verify identities:
+- Vaults encrypt data at rest and in transit
+- You can use built-in or external vault providers such as AWS Secrets Manager or HashiCorp Vault
+- Role-scoped access ensures only approved agents or users can fetch secrets
+- Every access is logged for compliance and debugging
 
-- Enterprise Single Sign-On (SSO) and LDAP integration  
-- Custom account connectors for bespoke identity providers  
-- Secure token issuance and refresh flows  
+To manage secrets directly, go to your [Vault dashboard](/docs/agent-studio/key-concepts/vault).
 
-## Role-based access control (RBAC)
+<Spacer size="md" />
 
-Control who can do what with granular permissions:
+## Authentication and Identity Providers
 
-- Assign roles with specific capabilities to agents and users  
-- Enforce least privilege principles  
-- Integrate with external identity providers for unified access management  
+SRE supports secure login using both built-in accounts and external providers:
 
-## Enterprise security features
+- Integrate enterprise systems with SSO or LDAP
+- Add [custom account connectors](/docs/agent-runtime/sdk-guide) to fit into your existing authentication flow
+- Use token-based login with secure expiration and refresh logic
 
-SRE goes beyond basics with features designed for production use:
+You can manage users and their authentication status from the [Organization Management panel](/docs/account-management/organization-management).
 
-- TLS/SSL encryption everywhere with no weak links  
-- Comprehensive audit logging for all operations  
-- Managed vaults with automatic rotation and revocation  
-- Secure defaults with configurable security policies  
+<Spacer size="md" />
 
-<WarningCallout>
-Security is a shared responsibility. Always review your access policies and monitor audit logs regularly.
+## Role-Based Access Control (RBAC)
+
+RBAC is used throughout SmythOS; from the agent runtime to your admin dashboard. It defines **who can do what**, across both [Spaces](/docs/agent-collaboration/spaces) and your broader organization.
+
+In SRE, roles are enforced in real time. If a candidate does not have the correct permissions, the action is denied before it begins.
+
+Roles are scoped to:
+
+- **Organization-wide roles** like Super Admin
+- **Space-specific roles** like Admin, Editor, and Viewer
+
+To adjust or assign roles, go to the [Roles and Permissions guide](/docs/agent-collaboration/permissions).
+
+<Spacer size="md" />
+
+## Enterprise Security Features
+
+SRE supports production-grade environments with hardened defaults:
+
+- TLS/SSL encryption is applied across all internal and external communication
+- Audit logs capture every critical operation including agent runs, data access, and vault usage
+- Vault secrets can be automatically rotated and revoked
+- Default policies enforce least privilege and deny unknown actions
+
+To deploy in regulated environments, see [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy).
+
+<WarningCallout title="Review policies regularly">
+Security is shared between platform and user. Review your [ACL rules](/docs/agent-collaboration/permissions), vault usage, and [analytics logs](/docs/agent-collaboration/analytics) periodically to catch misconfigurations or leaks.
 </WarningCallout>
 
-Keeping your AI agents secure shouldn’t be a runtime gamble. SRE makes sure it isn’t.
+<Spacer size="md" />
 
-<Divider />
+## How This All Connects
+
+Here’s how different areas of SRE work together to create a secure runtime:
+
+| Security Area         | Where It’s Managed                             |
+|-----------------------|-------------------------------------------------|
+| Identity and ACLs     | [Roles and Permissions](/docs/agent-collaboration/permissions) |
+| Credential Storage    | [Vaults](/docs/agent-studio/key-concepts/vault)                      |
+| User Roles and Login  | [Organization Management](/docs/account-management/organization-management) |
+| Agent and Space Setup | [Spaces](/docs/agent-collaboration/spaces)     |
+| Advanced Deployment   | [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy) |
+
+<Spacer size="md" />
+
+## What’s Next?
+
+- [Roles and Permissions](/docs/agent-collaboration/permissions)
+- [Organization Management](/docs/account-management/organization-management)
+- [Spaces Overview](/docs/agent-collaboration/spaces)
+- [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy)
+- [Architecture Overview](/docs/agent-runtime/architecture/architecture)

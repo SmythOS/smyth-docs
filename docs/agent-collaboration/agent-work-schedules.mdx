@@ -1,91 +1,90 @@
 ---
 title: Agent Work Schedules
-description: Automate your agent's tasks with time-based schedules that run specific endpoints at defined intervals.
-keywords: [agent schedules, routines, automation, task timing, repeat triggers]
+description: Automate your agent's behavior by running endpoints on a time-based schedule,either once or repeatedly.
+keywords: [agent schedules, recurring tasks, automation, timed workflows, triggers, endpoint automation]
 toc_max_heading_level: 2
+sidebar_position: 7
 ---
 
 # Agent Work Schedules
 
-Use **Work Schedules** to automate when your agent runs a specific task. You define the endpoint, provide inputs, and choose when (and how often) it should run. SmythOS takes care of the rest.
+Use **Work Schedules** to tell your agent when to run a task. You choose the endpoint, set the input, and define when it should execute. Once it’s set up, SmythOS handles the rest with no manual triggering needed.
 
-<InfoCallout>
-Work Schedules make your agent self-operating. Ideal for time-based operations like daily updates, weekly reports, or periodic syncs.
+<InfoCallout title="Hands-off agent routines">
+Great for sending daily updates, generating weekly reports, or syncing systems at regular intervals.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Where to Configure Work Schedules
+## How to Set Up a Work Schedule
 
-1. Go to the **Agents** page
-2. Click into your deployed agent
-3. Navigate to the **Settings** tab
+1. Go to the **Agents** tab
+2. Click on your deployed agent
+3. Open the **Settings** tab
 4. Scroll down to the **Tasks** section
-5. Click `Add New` under the **Schedule** area
+5. Click **Add New** under **Schedule**
 
 <Spacer size="md" />
 
-## One-Time Task
+## Run a Task Once
 
-For tasks that should run **only once** at a future time:
-
-1. Choose the endpoint you want to run
-2. Fill in the required input parameters
-3. Under **Repeat**, select `No Repeat`
-4. Set the **execution time**
-5. (Optional) Name the routine
-6. Click `Done`
-
-The routine will run once at the scheduled time, then disappear.
-
-<Spacer size="md" />
-
-## Recurring Task
-
-For tasks that should run **repeatedly** on a schedule:
+If you want the agent to perform something just once at a later time:
 
 1. Choose the endpoint
-2. Enter input parameters
-3. Under **Repeat**, choose `Repeat`
-4. Configure repetition:
-   - **Repeat Every** (e.g. day, week)
-   - **Repeat On** (e.g. Monday, Friday)
-   - **End Condition**: never, after X times, or on a date
-5. (Optional) Add a name
-6. Click `Done`
+2. Add the required input values
+3. Set **Repeat** to `No Repeat`
+4. Pick the exact time it should run
+5. (Optional) Name the task
+6. Click **Done**
 
-The routine will now execute at the defined intervals.
+That’s it. It will execute once and won’t repeat.
 
 <Spacer size="md" />
 
-## View and Track Scheduled Tasks
+## Set Up a Recurring Task
 
-Each schedule you create appears in the **Schedule** list.
+To make your agent run on a repeating schedule:
 
-Click any routine to open its details:
+1. Choose the endpoint
+2. Add the input values
+3. Set **Repeat** to `Repeat`
+4. Choose:
+   - **How often** (daily, weekly, etc.)
+   - **When** (specific day/time)
+   - **End condition** (never, after X runs, or on a date)
+5. (Optional) Add a name
+6. Click **Done**
 
-- **Info Tab**: Name, endpoint, inputs, next run
-- **Triggers Tab**: Run history
-- **Logs Tab**: Link to Logs Explorer for full debug output
+The agent will follow this schedule until you change or remove it.
 
-You can use these views to monitor performance or make edits if needed.
+<Spacer size="md" />
+
+## View and Manage Your Schedules
+
+Once a schedule is saved, it appears in the **Schedule** list for that agent.
+
+Click any item to view:
+
+- **Info tab**: inputs, endpoint, and next run
+- **Triggers tab**: full run history
+- **Logs tab**: links to output and system logs
 
 <Arcade src="https://demo.arcade.software/5NPb5R6hXdIqrB6Pozxc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Scheduler | SmythOS" />
 
 <Spacer size="md" />
 
-## Example Scenarios
+## Common Use Cases
 
-| Routine               | Trigger Time     | Use Case                         |
-|-----------------------|------------------|----------------------------------|
-| `daily_news_digest`   | Every day at 8am | Pull top headlines               |
-| `weekly_client_report`| Fridays at 3pm   | Email summaries per client       |
-| `check_feeds`         | Hourly           | Monitor for price changes        |
+| Task Name               | When It Runs        | What It Does                         |
+|-------------------------|---------------------|--------------------------------------|
+| `daily_digest`          | Every day at 08:00  | Gathers top news headlines           |
+| `weekly_summary_report` | Fridays at 15:00    | Sends updates to clients             |
+| `price_feed_checker`    | Every hour          | Scans product feeds for price drops  |
 
 <Spacer size="md" />
 
-## What to Try Next
+## What to Do Next
 
-- [Bulk Work Tasks](/docs/agent-collaboration/agent-bulk-work)
+- [Run Bulk Tasks](/docs/agent-collaboration/agent-bulk-work)
 - [Chat with Agents](/docs/agent-collaboration/chat-with-agent)
-- [Deploy an Agent](/docs/agent-deployments/overview)
+- [Deploy Your Agent](/docs/agent-deployments/overview)

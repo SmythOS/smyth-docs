@@ -32,7 +32,7 @@ Before integrating Discord:
 - Create a [Discord Application](https://discord.com/developers/applications)
 - Add a bot to the application to generate a **Bot Token**
 - [Invite the bot to your server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links) with `Send Messages` permission
-- Optionally configure [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault) for securely managing your Bot Token
+- Optionally configure [Vault → API Keys](/docs/agent-studio/key-concepts/vault) for securely managing your Bot Token
 
 <Divider />
 
@@ -46,7 +46,7 @@ Before integrating Discord:
 4. In SmythOS, paste the token into the component’s settings under **Bot Token**
 
 <InfoCallout>
-Keep your Bot Token secure in [Vault → API Keys](/docs/agent-collaboration/working-with-agents/vault).
+Keep your Bot Token secure in [Vault → API Keys](/docs/agent-studio/key-concepts/vault).
 </InfoCallout>
 
 <Divider />
@@ -117,6 +117,6 @@ This method allows external systems to trigger Discord messages without embeddin
 - Combine this with [Deploy as API](/docs/agent-deployments/deployments/deploy-as-api) to expose Discord actions externally
 - Create workflows that send alerts when conditions are met
 - Chain Discord outputs into custom dashboards or external tools
-- Log activity with [Agent Logs](/docs/agent-studio/agent-settings/logs)
+- Log activity with [Agent Logs](/docs/agent-studio/manage-agents/logs)
 
 <PromptCard prompt="Connect Discord to SmythOS using Bot Token and channel_id for automated messaging. Deploy using MCP or API." />

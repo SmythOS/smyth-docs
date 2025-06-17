@@ -1,35 +1,33 @@
 ---
 title: Workflows
 description: Automate any process by chaining pre-built components that interact with resources, transform data, and run logic—triggered by schedules, chat, API calls, or voice and other embodiments.
-keywords: [SmythOS, workflows, automation, components, no-code, orchestration]
+keywords: [SmythOS, workflows, automation, skills, skills, components, no-code, orchestration]
 sidebar_position: 4
 ---
 
 # Workflows
 
-A **workflow** in SmythOS is a self-contained sequence of **components**—modular blocks that query data, perform actions, transform inputs, and run logic. Workflows can execute on a schedule, in response to webhooks, via API calls, through chat interactions, or on any other supported embodiment (voice, batch, UI button).
+A **workflow** in SmythOS is a self-contained sequence of **components**—modular blocks that query data, perform actions, transform inputs, and run logic. Workflows can execute on a schedule, in response to webhooks, via API calls, through chat interactions, or on any other supported embodiment (voice, batch, UI button). Enable your agent to use workflows by linking them via an [Agent Skill](/docs/agent-studio/components/base/agent-skill).
 
 ---
 
-## Assemble components that interact with data
+## Assemble components 
 
-Workflows consist of **components**. Each component can:
+Drag and drop components in the Workflow IDE, configure inputs, settings, and error paths, then connect them to define control flow. Each component can:
 
 - **Query** a data source (e.g., database, spreadsheet, RAG search)  
 - **Act** on external services (e.g., HTTP API, SaaS integration)  
 - **Process** data (e.g., JavaScript code, math operations)  
 - and much more. For more detailed list, refer to [components]
 
-Drag and drop components in the Workflow IDE, configure inputs, settings, and error paths, then connect them to define control flow.
-
 ---
 
 ## Define control flow
 
-Connections between components determine execution order and data passing:
+Connections between components determine execution order and data passing. Components can either be:
 
-- **Sequential path**: one component after another.  
-- **Branching**: parallel or conditional paths using the Branch component.  
+- **Sequential**: one component after another.  
+- **Branching**: parallel or conditional paths.
 
 ## Invoke via Agent or API
 
@@ -44,7 +42,7 @@ curl -X POST \
   -d '{"orderId":1234,"amount":49.99}'
 
 - **Agent Invocation**  
-  An agent orchestrates one or more workflows in response to chat, voice, or other embodiments. Within the agent’s workflow canvas, connect the Agent Skill to the start of a workflow.
+  Connect the workflow to an Agent via the [Agent Skill Component](/docs/agent-studio/components/base/agent-skill) to enable agent orchestration. An agent can use one or more workflows in response to chat, voice, or other embodiments.
 
 - **Task Invocation**
   Tasks can be triggered through scheduled runs or batch processing, allowing for automated execution of workflows at specified intervals or in bulk operations. 

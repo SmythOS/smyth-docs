@@ -6,17 +6,14 @@ sidebar_position: 3
 
 # Agent Overview
 
-In **SmythOS**, an **agent** is comprised of one or more skills and can **reason**, **act**, and **respond** across multiple channels (API, chat, voice, batch).  
-Agent orchestration is the practice of **designing, running, and governing** these agents so they meet your product and operational needs. In SmythOS, we provide not just the tools to create but also powerful orchestration features. 
+In **SmythOS**, an **agent** is comprised of one or more skills and can **reason**, **act**, and **respond** across multiple channels (API, chat, voice, batch). Unlike traditional workflows that follow predetermined sequences, agents use language models to intelligently determine which actions to take based on your specific queries and context. Agent orchestration is the practice of **designing, running, and governing** these agents so they meet your product and operational needs. In SmythOS, we provide not just the tools to create but also powerful orchestration features. 
 
 ## Core Concepts
-
 | Term | What it means |
 |------|--------------------------|
 | **Component** | The smallest building block—one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
 | **Skill** | A workflow connected to the Agent to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). |
 | **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
-| **Agent Settings** | Configure the agent's behavior, default LLM, manage embodiments, and customize its personality and capabilities. |
 | **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
 
 > **TL;DR** – *Components* ⟶ bundled into *Skills* ⟶ orchestrated by an *Agent* you can ship to users.
@@ -24,6 +21,15 @@ Agent orchestration is the practice of **designing, running, and governing** the
 ---
 
 ## What an agent gives you
+
+Agents act as **decision-makers** that can interact with other agents and tools. When you send a query to an agent, it analyzes the request and chooses the most appropriate tools and skills to provide the best response. This adaptive behavior, combined with configurable prompts, allows agents to handle a wide range of scenarios dynamically.
+
+To build an effective agent, you'll:
+
+1. **Configure basic settings** - Set up the agent's behavior, personality, and decision-making capabilities. [Learn more →](/docs/agent-studio/manage-agents/overview)
+2. **Add skills** - Define the specific capabilities your agent can use to accomplish tasks
+
+Here's what your agent can do once configured:
 
 | Capability | Why it matters |
 |------------|----------------|

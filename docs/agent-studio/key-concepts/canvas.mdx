@@ -1,84 +1,110 @@
 ---
-title: SmythOS Canvas
-description: Learn about the SmythOS Agent Studio Canvas - a visual interface for building, deploying, and monitoring AI agents.
+title: Agent Studio Canvas
+description: Learn how to use the visual canvas in Studio to build, connect, and debug AI workflows.
+keywords: [canvas, visual builder, agent workflow, component, SmythOS]
+sidebar_position: 2
 ---
 
 # Agent Studio Canvas
 
-The SmythOS Agent Studio Canvas is a powerful visual interface that enables you to build, deploy, and monitor AI agents through an intuitive drag-and-drop interface. This guide will help you understand the key features and capabilities of the Canvas.
-## Interface Overview
+The Studio Canvas is your main workspace for building, connecting, and testing AI agent workflows. You can drag components, wire them together, configure logic, and inspect behavior—all from one interface.
 
-The Canvas interface has three main areas:
+<Spacer size="md" />
 
-- **Left sidebar**: Access Weaver, Components, Integrations, Deployment History, and Agent Settings for managing authentication, LLM configuration, and more
-- **Central canvas**: Visual workspace where you build your agent workflow
-- **Right sidebar**: Component configuration and testing panels for detailed setup and validation
+## Core Features
 
-The central canvas serves as your primary workspace for connecting components into complex AI agent behaviors. While you're building, the canvas automatically saves your work as drafts. When you're ready to test your logic, use the inspect button to access real-time monitoring and debugging tools. Once you're satisfied with your agent's performance, manage deployment versions through the deployments tab in the left sidebar to push your work to production.
+| Feature | Purpose |
+|--------|---------|
+| [Canvas Layout](#canvas-layout) | Overview of interface zones and navigation |
+| [Building Workflows](#building-workflows) | Step-by-step guide to adding and connecting components |
+| [Deploying Agents](#deploying-agents) | Move from draft to production safely |
+| [Monitoring and Debugging](#monitoring-and-debugging) | Review execution, logs, and performance |
+| [Error Handling](#error-handling) | Catch, alert, or recover from failures |
+
+<Spacer size="md" />
+
+## Canvas Layout
+
+When you open an agent in Studio, the screen is divided into three key areas:
+
+- **Left sidebar**: Navigate tabs like Components, Agent Settings, Deployment History, and Logs.
+- **Canvas workspace**: The visual editor where you arrange and connect components.
+- **Right sidebar**: Configure individual components, test input/output, and inspect settings.
+
+<InfoCallout title="Auto-Save Enabled">
+Your work is saved automatically as a draft. Drafts don’t affect production agents until deployed.
+</InfoCallout>
+
+<Spacer size="md" />
 
 ## Building Workflows
 
-Building an agent workflow follows a straightforward process:
+You build workflows by visually connecting components. Here’s how:
 
-1. **Drag & Drop**: Select components from the library and place them on the canvas
-2. **Connect Components**: Create logical flows by connecting component inputs and outputs
-3. **Configure Settings**: Customize component behavior using the right sidebar properties panel
-4. **Validate Connections**: The Canvas automatically validates component compatibility
-5. **Test Components**: Use the built-in testing tools to verify component behavior before deployment
+1. **Drag components** from the library on the left onto the canvas.
+2. **Connect outputs to inputs** to pass data between components.
+3. **Configure settings** using the panel on the right.
+4. **Test as you build** using the built-in preview and inspect tools.
+5. **Adjust the flow** as needed—components can reference earlier results in the chain.
 
-As you build, components can reference data from previous components that have already executed. This creates dynamic workflows where results flow seamlessly from one step to the next, enabling sophisticated AI agent behaviors.
-> The Canvas includes a comprehensive library of pre-built components including latest LLM models, RAG, Processing tools, and integrations. Learn more about components [components page].
+<InfoCallout title="Component Library">
+You have access to 40+ production-ready components including LLMs, APIs, RAG tools, and logic handlers. Learn more in the [Components Overview](/docs/sre/components-overview).
+</InfoCallout>
 
-## Deployment & Versioning
+<Spacer size="md" />
 
-The Canvas follows a draft-to-production workflow to ensure stability. While the canvas auto-saves your work as drafts, only **deployed versions** actually run in production environments.
+## Deploying Agents
 
-To deploy an agent:
+Once you’re satisfied with your workflow:
 
-1. Click **Deploy** when you're ready to go live
-2. Add release notes to document your changes
-3. Confirm to create a versioned release
-4. Roll back to any previous version if issues arise
+1. Click [**Deploy**](/docs/agent-deployment/overview) in the top-right.
+2. Add release notes to describe the version.
+3. Confirm to push your agent to production.
+4. Use **version history** to roll back if needed.
 
-This approach lets you experiment and iterate safely without disrupting live agents.
+This lets you develop freely without affecting live agents.
 
 ### Version Control Features
 
-- **Draft Management**: Work on multiple drafts simultaneously without affecting production
-- **Version History**: Track all changes and deployments over time
-- **Release Notes**: Document what changed in each deployment
-- **Rollback**: Easily revert to previous stable versions
-- **Environment Management**: Deploy to different environments (development, staging, production)
+- Track deployments and notes in **Deployment History**
+- Roll back to any stable version with one click
+- Keep multiple drafts in progress at once
 
-## Monitor & Debug
+<Spacer size="md" />
 
-Debugging capabilities are incredibly advanced—you can step through and test your workflow with extreme granularity, similar to IDE debugging. The inspect section at the bottom lets you preview individual run logs and monitor costs and latency in real-time.
+## Monitoring and Debugging
 
-- **Logs**: View detailed component-level inputs, outputs, statuses, and errors
-- **Run History**: Filter runs by success, failures, or duration to identify patterns
-- **Run Preview**: Step through each component before deploying to catch issues early
-- **Alerts**: Send failure or performance alerts to Slack, email, or other channels
+Inspect lets you preview and debug workflows without deploying.
 
-### Advanced Monitoring
+- **Component preview**: Click any component to see inputs and outputs
+- **Run history**: Review previous executions and filter by success/failure
+- **Logs view**: Jump directly to detailed logs for each run
 
-- **Real-time Metrics**: Track performance, latency, and resource usage as workflows execute
-- **Component Analytics**: Analyze individual component performance to identify bottlenecks
-- **Usage Statistics**: Monitor API calls, resource consumption, and costs
-- **Custom Dashboards**: Create personalized monitoring views for your specific needs
+<InfoCallout title="Need Logs?">
+Visit [Agent Logs](/docs/agent-studio/manage-agents/logs) for deeper visibility into executions.
+</InfoCallout>
+
+<Spacer size="md" />
 
 ## Error Handling
 
-Configure **error handler** components that run automatically on any failure—regardless of control flow. This ensures your agents can gracefully handle unexpected situations.
+You can define error handling for any step in your workflow—or globally.
 
-Common error handling patterns include:
+### Options include:
 
-- **Retry policies**: Automatically retry failed operations up to N attempts
-- **Notifications**: Send alerts via Slack, email, or other channels when errors occur
-- **Fallback logic**: Use cached data or default values when primary operations fail
+- **Retry policies**: Retry a component N times on failure
+- **Fallback paths**: Provide defaults or cached data
+- **Notifications**: Alert users via email or Slack
+- **Global error handler**: Catch all uncaught errors at the workflow level
 
-### Error Management Features
+<TipCallout title="Best Practice">
+Add fallback logic and alerts to reduce downtime and improve agent resilience.
+</TipCallout>
 
-- **Global Error Handlers**: Set up system-wide error handling that applies to all components
-- **Component-specific Handlers**: Configure targeted error handling for specific components
-- **Error Recovery**: Define automatic recovery procedures to minimize downtime
-- **Error Logging**: Detailed error tracking and analysis to improve your workflows over time
+<Spacer size="md" />
+
+## What to Try Next
+
+- [How to Deploy Agents](/docs/agent-deployments/overview)
+- [Agent Tasks: Chat, Bulk, Scheduled](/docs/agent-studio/manage-agents/tasks)
+- [Debugging Agents in Studio](/docs/agent-studio/build-agents/debugging)

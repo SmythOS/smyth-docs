@@ -3,6 +3,7 @@ title: Enterprise Deployment
 description: Learn how to configure and deploy the Smyth Runtime Environment in production environments using custom connectors and secure infrastructure.
 keywords: [SRE, deployment, production, self-hosted, vault, storage, sdk, docker, cloud]
 sidebar_position: 12
+slug: /sre/enterprise-deploy
 ---
 
 # Enterprise & Self-Hosted Deployment
@@ -17,7 +18,7 @@ Self-hosting is ideal when you need maximum control over your data, security, an
 
 ## Deploying with Custom Connectors
 
-You can deploy SRE to your preferred infrastructure by initializing the runtime with your own services. The [Smyth SDK](/docs/agent-runtime/sdk-guide) lets you specify production-ready connectors for storage, cache, and vaults without changing your agent's core logic.
+You can deploy SRE to your preferred infrastructure by initializing the runtime with your own services. The [Smyth SDK](/docs/sre/sdk-guide) lets you specify production-ready connectors for storage, cache, and vaults without changing your agent's core logic.
 
 This example shows a production configuration using Redis for caching, AWS S3 for storage, and HashiCorp Vault for secrets.
 
@@ -74,13 +75,13 @@ Reach out to [SmythOS support](https://smythos.com/contact-us) for examples of `
 
 Self-hosted SRE deployments still integrate with core platform features for security and organization:
 
-- **[Vaults](/docs/agent-runtime/security)** for secure secret management
-- **[Roles and Permissions](/docs/agent-runtime/security)** for secure runtime control
+- **[Vaults](/docs/sre/security)** for secure secret management
+- **[Roles and Permissions](/docs/sre/security)** for secure runtime control
 
 <Spacer size="md" />
 
 ## Next Steps
 
-- **[SDK Guide](/docs/agent-runtime/sdk-guide)**
-- **[SRE Security Model](/docs/agent-runtime/security)**
-- **[Building Agents](/docs/agent-runtime/building-agents)**
+- **[SDK Guide](/docs/sre/sdk-guide)**
+- **[SRE Security Model](/docs/sre/security)**
+- **[Building Agents](/docs/sre/building-agents)**

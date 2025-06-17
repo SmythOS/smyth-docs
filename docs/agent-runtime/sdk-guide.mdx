@@ -3,6 +3,7 @@ title: SDK
 description: Learn how to use the Smyth SDK to define, configure, and extend AI agents in code using components, skills, and workflows.
 keywords: [SmythOS, SRE, SDK, agents, TypeScript, components, skills]
 sidebar_position: 9
+slug: /sre/sdk
 ---
 
 # Using the Smyth Runtime SDK
@@ -19,7 +20,7 @@ The SDK is a developer layer built on top of the [Smyth Runtime Environment](/do
 
 -   Create and configure AI agents
 -   Add custom skills and tools
--   Build workflows using modular [components](/docs/agent-runtime/components)
+-   Build workflows using modular [components](/docs/sre/components)
 -   Manage conversations with context
 -   Scale from local development to production environments
 
@@ -96,7 +97,7 @@ Use chat when building assistants that need context, such as support agents or t
 
 ## Building workflows with components
 
-The SDK gives you access to all [SRE components](/docs/agent-runtime/components), like LLMs, classifiers, and API calls. These can be connected programmatically.
+The SDK gives you access to all [SRE components](/docs/sre/components), like LLMs, classifiers, and API calls. These can be connected programmatically.
 
 ```typescript
 const llm = SDK.GenAILLM({ model: 'gpt-4', prompt: 'Explain entropy' }, agent);
@@ -147,7 +148,7 @@ Always wrap external API calls with proper error handling. The SDK does not retr
 
 ## Configuring the runtime
 
-Your agent code can run against any [runtime configuration](/docs/agent-runtime/deployment), from local dev to production setups.
+Your agent code can run against any [runtime configuration](/docs/sre/deployment), from local dev to production setups.
 
 ```typescript
 // Local config (development)
@@ -178,7 +179,7 @@ Your agent and skill logic stays the same across environments. Only your infrast
 
 ## SDK component coverage
 
-The SDK gives you access to every official [SRE component](/docs/agent-runtime/components), with type-safe wrappers.
+The SDK gives you access to every official [SRE component](/docs/sre/components), with type-safe wrappers.
 
 | Category | Examples |
 | :--- | :--- |
@@ -194,10 +195,10 @@ The SDK gives you access to every official [SRE component](/docs/agent-runtime/c
 
 Now that you understand the SDK, here’s what to explore next:
 
--   [**Quickstart**](/docs/agent-runtime/quickstart) – Build a real agent in five steps
--   [**Component Reference**](/docs/agent-runtime/components) – Full catalog with examples
--   [**Deployment Options**](/docs/agent-runtime/deployment) – Run agents locally or in production
--   [**Core Concepts**](/docs/agent-runtime/core-concepts) – Learn how the runtime operates
+-   [**Quickstart**](/docs/sre/quickstart) – Build a real agent in five steps
+-   [**Component Reference**](/docs/sre/components) – Full catalog with examples
+-   [**Deployment Options**](/docs/sre/deployment) – Run agents locally or in production
+-   [**Core Concepts**](/docs/sre/core-concepts) – Learn how the runtime operates
 
 <Spacer size="md" />
 

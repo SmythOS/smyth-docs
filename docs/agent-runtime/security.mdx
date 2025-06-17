@@ -38,14 +38,14 @@ You can assign these permissions through [Roles and Permissions](/docs/agent-col
 
 ## Vault-Based Secret Management
 
-Sensitive values like API keys, passwords, and tokens are never hardcoded in SRE. Instead, they are stored in the **[SmythOS Vault](/docs/agent-runtime/vault)**:
+Sensitive values like API keys, passwords, and tokens are never hardcoded in SRE. Instead, they are stored in the **[SmythOS Vault](/docs/sre/vault)**:
 
 -   Vaults encrypt data at rest and in transit.
 -   You can use built-in or external vault providers such as `AWS Secrets Manager` or `HashiCorp Vault`.
 -   Role-scoped access ensures only approved agents or users can fetch secrets.
 -   Every access is logged for compliance and debugging.
 
-→ To manage secrets directly, go to your **[Vault dashboard](/docs/agent-runtime/vault)**.
+→ To manage secrets directly, go to your **[Vault dashboard](/docs/sre/vault)**.
 
 <Spacer size="md" />
 
@@ -54,7 +54,7 @@ Sensitive values like API keys, passwords, and tokens are never hardcoded in SRE
 SRE supports secure login using both built-in accounts and external providers:
 
 -   Integrate enterprise systems with **SSO** or **LDAP**.
--   Add [custom account connectors](/docs/agent-runtime/sdk-guide) to fit into your existing authentication flow.
+-   Add [custom account connectors](/docs/sre/sdk-guide) to fit into your existing authentication flow.
 -   Use token-based login with secure expiration and refresh logic.
 
 You can manage users and their authentication status from the **[Organization Management panel](/docs/account-management/organization-management)**.
@@ -85,7 +85,7 @@ SRE supports production-grade environments with hardened defaults:
 -   **Vault secrets** can be automatically rotated and revoked.
 -   **Default policies** enforce least privilege and deny unknown actions.
 
-→ To deploy in regulated environments, see **[Enterprise Deployment](/docs/agent-runtime/enterprise-deploy)**.
+→ To deploy in regulated environments, see **[Enterprise Deployment](/docs/sre/enterprise-deploy)**.
 
 <WarningCallout title="Review policies regularly">
 Security is shared between the platform and the user. Review your ACL rules, vault usage, and analytics logs periodically to catch misconfigurations or leaks.
@@ -100,10 +100,10 @@ Here’s how different areas of SmythOS work together to create a secure runtime
 | Security Area | Where It’s Managed |
 | :--- | :--- |
 | **Identity and ACLs** | [Roles and Permissions](/docs/agent-collaboration/permissions) |
-| **Credential Storage** | [Vault](/docs/agent-runtime/vault) |
+| **Credential Storage** | [Vault](/docs/sre/vault) |
 | **User Roles and Login**| [Organization Management](/docs/account-management/organization-management) |
 | **Agent Environments** | [Spaces](/docs/agent-collaboration/spaces) |
-| **Advanced Deployment**| [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy) |
+| **Advanced Deployment**| [Enterprise Deployment](/docs/sre/enterprise-deploy) |
 
 <Spacer size="md" />
 
@@ -112,5 +112,5 @@ Here’s how different areas of SmythOS work together to create a secure runtime
 -   [Roles and Permissions](/docs/agent-collaboration/permissions)
 -   [Organization Management](/docs/account-management/organization-management)
 -   [Spaces Overview](/docs/agent-collaboration/spaces)
--   [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy)
--   [Architecture Overview](/docs/agent-runtime/architecture)
+-   [Enterprise Deployment](/docs/sre/enterprise-deploy)
+-   [Architecture Overview](/docs/sre/architecture)

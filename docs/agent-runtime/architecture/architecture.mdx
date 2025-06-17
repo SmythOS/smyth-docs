@@ -5,16 +5,17 @@ description: Learn how SmythOS's Runtime Environment works behind the scenes to 
 keywords: [SmythOS, SRE, architecture, subsystems, modular, AI agents, runtime, storage, LLM, security]
 sidebar_position: 2
 toc_max_heading_level: 2
+slug: /sre/architecture/
 ---
 
 # SRE Architecture
 
-The [Smyth Runtime Environment (SRE)](/docs/agent-runtime/overview) is the operating system for AI agents within **SmythOS**. It gives you a secure, modular runtime that handles infrastructure, security, memory, and orchestration—so you can focus entirely on building intelligent agents.
+The [Smyth Runtime Environment (SRE)](/docs/agent-runtime/overview) is the operating system for AI agents within **SmythOS**. It gives you a secure, modular runtime that handles infrastructure, security, memory, and orchestration so you can focus entirely on building intelligent agents.
 
 You can build on SRE however you like:
 - Use **Studio** to drag, drop, and connect components and visually build agents.
-- Use the **[Smyth SDK](/docs/agent-runtime/sdk-guide)** for full programmatic control.
-- Combine both in [hybrid workflows](/docs/agent-runtime/hybrid-workflows) that balance visual design and code.
+- Use the **[Smyth SDK](/docs/sre/sdk-guide)** for full programmatic control.
+- Combine both in [hybrid workflows](/docs/sre/hybrid-workflows) that balance visual design and code.
 
 <InfoCallout title="Why this architecture matters">
 SRE ensures your agents run reliably and securely. It turns infrastructure concerns into pluggable subsystems that you don’t need to rebuild from scratch.
@@ -96,7 +97,7 @@ const claude = ConnectorService.getLLMConnector('Anthropic');
 ```
 
 ## Secure your agents
-Security is baked into the runtime. The **[Security subsystem](/docs/agent-runtime/security)** manages sensitive credentials and permissions.
+Security is baked into the runtime. The **[Security subsystem](/docs/sre/security)** manages sensitive credentials and permissions.
 
 You get:
 
@@ -147,7 +148,7 @@ It handles:
 ```
 
 ## Use Built-in Components
-SRE includes 40+ production-ready [Components](/docs/agent-runtime/components) that accelerate your development.
+SRE includes 40+ production-ready [Components](/docs/sre/components) that accelerate your development.
 
 Some key examples:
 
@@ -159,12 +160,12 @@ Some key examples:
 - `FileStore` — File operations
 
 <InfoCallout title="Explore more">
-For the full list, see the [Components Reference](/docs/agent-runtime/components) page.
+For the full list, see the [Components Reference](/docs/sre/components) page.
 </InfoCallout>
 
 ## What’s Next?
 Explore more to master your AI agent’s runtime:
 
-- **[Getting Started](/docs/agent-runtime/quickstart)**: Run your first agent.
-- **[Building Agents](/docs/agent-runtime/building-agents)**: Create an agent from scratch.
-- **[Smyth SDK Guide](/docs/agent-runtime/sdk-guide)**: Program your agents with the SDK.
+- **[Getting Started](/docs/sre/quickstart)**: Run your first agent.
+- **[Building Agents](/docs/sre/building-agents)**: Create an agent from scratch.
+- **[Smyth SDK Guide](/docs/sre/sdk-guide)**: Program your agents with the SDK.

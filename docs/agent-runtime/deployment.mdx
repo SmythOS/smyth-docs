@@ -4,6 +4,7 @@ description: Learn how the Smyth Runtime Environment starts up, initializes, and
 keywords: [SmythOS, SRE, deployment, Agent Cloud, boot, initialization, scaling, production, development]
 sidebar_position: 8
 toc_max_heading_level: 2
+slug: /sre/deployment
 ---
 
 # Deployment with SRE
@@ -20,9 +21,9 @@ Each time SRE runs, it follows a consistent boot process. This lets you configur
 
 ### Boot Sequence Steps
 
-The reference [architecture](/docs/agent-runtime/architecture) follows this general sequence:
+The reference [architecture](/docs/sre/architecture) follows this general sequence:
 1.  Initialize core services: storage, cache, vault, logging
-2.  Register the agent manager and load available [components](/docs/agent-runtime/components)
+2.  Register the agent manager and load available [components](/docs/sre/components)
 3.  Set up HTTP endpoints and routing, if applicable
 4.  Connect to configured LLM providers and vector databases
 5.  Load account and access control configuration
@@ -80,9 +81,9 @@ You can map your own subdomain to your Agent Cloud deployment in your account se
 
 ## Local Development Setup
 
-Running SRE on your own machine is ideal for debugging, testing complex workflows, or building agents offline. The standard [Getting Started](/docs/agent-runtime/getting-started) guide uses a local setup by default.
+Running SRE on your own machine is ideal for debugging, testing complex workflows, or building agents offline. The standard [Getting Started](/docs/sre/getting-started) guide uses a local setup by default.
 
-- Run directly from code using the **[SDK](/docs/agent-runtime/sdk-guide)**
+- Run directly from code using the **[SDK](/docs/sre/sdk-guide)**
 - Use simple connectors like `RAM` for cache and `Local` for storage
 - Get immediate feedback with logs streamed to your console
 
@@ -100,7 +101,7 @@ Contact [support@smythos.com](mailto:support@smythos.com) for enterprise deploym
 
 ## Continue From Here
 
-- **[Agent Architecture →](/docs/agent-runtime/architecture)**
-- **[Runtime SDK Guide →](/docs/agent-runtime/sdk-guide)**
+- **[Agent Architecture →](/docs/sre/architecture)**
+- **[Runtime SDK Guide →](/docs/sre/sdk-guide)**
 - **[Studio Agent Builder →](/docs/agent-studio/overview)**
-- **[Building Agents →](/docs/agent-runtime/building-agents)**
+- **[Building Agents →](/docs/sre/building-agents)**

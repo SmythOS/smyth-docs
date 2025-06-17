@@ -1,129 +1,150 @@
-# Agent Tasks [need update]
-
-SmythOS provides three ways to interact with your agents:
-- • Chat - Direct conversations and queries
-- • Bulk Operations - Process multiple tasks at once
-- • Scheduled Tasks - Automate recurring operations
-
 ---
+title: Tasks
+description: Learn how to interact with your agents through chat, bulk operations, and scheduled tasks.
+keywords: [agents, chat, bulk, schedule, tasks, SmythOS]
+sidebar_position: 3
+---
+
+# Agent Tasks
+
+You can interact with your agents in three main ways: chat in real time, run bulk jobs, or schedule tasks for later. This page walks you through each option and when to use it.
+
+<Spacer size="md" />
+
+## Task Interaction Methods
+
+| Method | Description |
+|--------|-------------|
+| [**Chat Interface**](#chat-interface) | Talk to your agent in real time. Test prompts, debug logic, and review outputs directly. |
+| [**Bulk Operations**](#bulk-operations) | Run multiple tasks with one configuration using CSV upload or manual input. |
+| [**Scheduled Tasks**](#scheduled-tasks) | Set your agent to run at specific intervals or times automatically. |
+
+<Spacer size="md" />
 
 ## Chat Interface
 
-Interact directly with your agent through a conversational interface.
+Use the built-in chat to talk to your deployed agent.
+
+<InfoCallout title="Heads-up">
+Chat history is not saved. Copy anything important before ending the session.
+</InfoCallout>
 
 ### Requirements
-- • Agent must be deployed
-- • Chat button enabled on agent card
-- • Character limit: 8000 per message
 
-### Features
-- • Code block support with syntax highlighting
-- • Copy code or response to clipboard
-- • Real-time interaction
+- Agent must be deployed
+- Chat button must be enabled
+- Max 8000 characters per message
 
-> **Note:** Chat history is not stored. Save important information manually.
+<TipCallout title="Tip">
+You can send long prompts, test different inputs, and get syntax-highlighted responses. Copy results using the built-in clipboard icon.
+</TipCallout>
 
-<Arcade src="https://demo.arcade.software/6WzsfgFB0IBL2m7V6o3f?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Chat with Agent | SmythOS"/>
+<Arcade
+  src="https://demo.arcade.software/6WzsfgFB0IBL2m7V6o3f?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="Chat with Agent | SmythOS"
+/>
 
----
+<Spacer size="lg" />
 
-## Bulk Runs
+## Bulk Operations
 
-Execute multiple tasks simultaneously using your agent's endpoints.
+Use this when you want to send multiple items to the same endpoint for processing.
 
-### Single Task Execution
-1. Click on the agent card to access the Agent Settings page.
-2. Select endpoint and click `Call`
-3. Enter input data
-4. Click `Call Endpoint`
-5. View results
+### Single Task
 
-### Bulk Processing
-1. Navigate to Agent Settings
-2. Click `Bulk Work` on desired endpoint
-3. Add data either:
-   - • Manually via `Add Row`
-   - • Upload CSV file for multiple entries
-4. Execute:
-   - • Individual rows using `Run`
-   - • All rows using `Run in Bulk`
+1. Open Agent Settings  
+2. Select an endpoint  
+3. Click `Call`  
+4. Enter your input  
+5. Click `Call Endpoint`
 
-> 📋 **CSV File Format Requirements**
->
-> When uploading a CSV file for bulk operations, you must follow this specific format:
->
-> 🔤 **First row**: Must contain the names of the inputs that match your endpoint's input parameters
-> 
-> 📊 **Second row onwards**: Contains the actual data to be processed by the endpoint
->
-> For example, if your endpoint requires inputs named "query" and "max_results", your CSV should look like:
->
-> | query | max_results |
-> |-------|-------------|
-> | digital marketing trends 2023 | 5 |
-> | AI developments healthcare | 10 |
-> | sustainable energy innovations | 7 |
-> | remote work best practices | 8 |
->
-> ⚠️ **Important**: Failing to include the proper input names in the first row will result in processing errors, as the system won't be able to match your data with the endpoint's required inputs.
+### Run in Bulk
 
-<Arcade src="https://demo.arcade.software/AqIFSwVYbUUxd2ndStlu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Bulk | SmythOS" />
+1. Open the same endpoint in Agent Settings  
+2. Click `Bulk Work`  
+3. Choose data input method:
+   - `Add Row` for manual entry
+   - Upload `.csv` file for batch processing  
+4. Run operations:
+   - Use `Run` for one row
+   - Use `Run in Bulk` for all
 
----
+<InfoCallout title="CSV Format">
+Column headers must match your endpoint input names exactly.
+
+| query                     | max_results |
+|--------------------------|-------------|
+| digital marketing trends | 5           |
+| AI in healthcare         | 10          |
+</InfoCallout>
+
+<Arcade
+  src="https://demo.arcade.software/AqIFSwVYbUUxd2ndStlu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="Bulk Processing | SmythOS"
+/>
+
+<Spacer size="lg" />
 
 ## Scheduled Tasks
 
-Automate recurring operations with the Scheduler.
+Automate task execution using the built-in scheduler.
+
+<InfoCallout>
+See the [Deployment Guide](/docs/agent-deployments/overview) if your agent hasn’t been deployed yet.
+</InfoCallout>
 
 ### Requirements
-- • Agent must be deployed. See [How to Deploy Your Agent](/docs/agent-deployments/overview)
-- • Valid endpoint configuration
-- • Appropriate permissions
 
----
+- Agent must be deployed  
+- Endpoint must be correctly configured  
+- Permissions must be in place
 
-### Creating a Routine
+### Create a Routine
 
-#### Non-Repeating Routine
+#### One-Time
 
-1. **Go to Agent Settings**: Open Agent Settings from the Agents page.
-2. **Schedule Section**: Click `Add New` in the Schedule section.
-3. **Select Endpoint**: Choose the endpoint to execute.
-4. **Provide Inputs**: Enter required inputs for the endpoint.
-5. **Set Schedule**: Define the execution time.
-6. **No Repeats**: Ensure the routine is set to `No Repeat`.
-7. **Name Routine**: Optionally name the routine or let SmythOS assign one.
-8. **Finalize**: Click `Done` to create the routine.
+1. Go to Agent Settings  
+2. Click `Add New` under the Schedule section  
+3. Choose an endpoint and set inputs  
+4. Choose `No Repeat`  
+5. Click `Done`
 
-#### Repeating Routine
+#### Repeating
 
-1. **Go to Agent Settings**: Open Agent Settings from the Agents page.
-2. **Schedule Section**: Click `Add New` in the Schedule section.
-3. **Select Endpoint**: Choose the endpoint to execute.
-4. **Provide Inputs**: Enter required inputs for the endpoint.
-5. **Set Schedule**: Define the execution time.
-6. **Set Repetitions**: Choose `Repeat`.
-7. **Configure Repetitions**:
-    - **Repeat Every**: Interval of repetitions.
-    - **Repeat On**: Days of the week.
-    - **End Condition**: Set conditions (Never, On a date, After occurrences).
-8. **Name Routine**: Optionally name the routine or let SmythOS assign one.
-9. **Finalize**: Click `Done` to create the routine.
+1. Follow the same steps  
+2. Select `Repeat`  
+3. Define schedule:
+   - Repeat Every
+   - Repeat On (days)
+   - End Condition  
+4. Name your routine or leave as-is  
+5. Click `Done`
 
-<Arcade src="https://demo.arcade.software/5NPb5R6hXdIqrB6Pozxc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Scheduler | SmythOS" />
----
+<Arcade
+  src="https://demo.arcade.software/5NPb5R6hXdIqrB6Pozxc?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="Scheduler | SmythOS"
+/>
 
-### Routine Information
+<Spacer size="md" />
 
-Select a routine to view detailed information:
+### Routine Details
 
-1. **Info Tab**: Routine details, including name, endpoint, creation date, and next execution time.
-2. **Triggers Tab**: History of executions.
-3. **Logs Tab**: Link to `View in Logs Explorer` for detailed logs.
+Select a routine to review key data:
 
-Efficiently monitor and manage routine activities using these tabs.
+- **Info Tab**: Name, endpoint, next run  
+- **Triggers Tab**: Run history  
+- **Logs Tab**: Opens in [Logs Explorer](/docs/agent-studio/manage-agents/logs)
 
-### Scheduling
-- • Set appropriate intervals
-- • Monitor task completion
-- • Review logs regularly
+<TipCallout title="Stay Consistent">
+Check on your routines regularly to avoid silent failures or missed runs.
+</TipCallout>
+
+<Spacer size="lg" />
+
+## What’s Next
+
+Once you’ve explored task interaction options:
+
+- Learn how to [debug your agents](/docs/agent-studio/build-agents/debugging)
+- Review [Logs](/docs/agent-studio/manage-agents/logs) to trace workflows and errors
+- See how to [deploy agents to different surfaces](/docs/agent-deployments/overview)

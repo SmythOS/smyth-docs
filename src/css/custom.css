@@ -3,32 +3,35 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
-
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #3c89f9; 
+  --ifm-color-primary-dark: #1355b6; 
+  --ifm-color-primary-darker: #104aad;
+  --ifm-color-primary-darkest: #0c3986; 
+  --ifm-color-primary-light: #5f9aff;
+  --ifm-color-primary-lighter: #6ea6ff; 
+  --ifm-color-primary-lightest: #8cbaff; 
   --ifm-code-font-size: 95%;
+  --smyth-font-ui: "Inter", sans-serif;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 html {
   scroll-behavior: smooth;
 }
+.header {
+  position: relative !important;
+}
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #5f9aff; 
+  --ifm-color-primary-dark: #3c89f9;
+  --ifm-color-primary-darker: #2a7df8;
+  --ifm-color-primary-darkest: #106aeb;
+  --ifm-color-primary-light: #8cbaff;
+  --ifm-color-primary-lighter: #9ac4ff;
+  --ifm-color-primary-lightest: #beddff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
@@ -87,3 +90,73 @@ a.menu__link[href="/docs/agent-collaboration/overview"].menu__link--active
  {
   display: none;
 } */
+
+/* 1) Inter font‐face declarations */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-300.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-regular.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-500.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-600.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-700.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-800.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("https://smythos.com/fonts/inter-v12-latin-900.woff2")
+    format("woff2");
+}
+
+/* 2) Apply throughout the site */
+html *,
+body * {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* hide Cmd/Ctrl + K badge next to sidebar search */
+.DocSearch-Button-Keys,
+.DocSearch-Button-Key {
+  display: none !important;
+}

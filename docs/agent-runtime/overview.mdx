@@ -1,139 +1,113 @@
 ---
 title: Smyth Runtime Environment (SRE)
-description: Run AI agents reliably, securely, and flexibly with SmythOS’s purpose-built execution layer.
-keywords: [SmythOS, SRE, AI runtime, agent orchestration, zero-trust security, LLM infrastructure, ACL, observability, agent platform, Studio]
+description: A sophisticated, production-ready runtime platform for building and executing your AI Agents.
+keywords: [SRE, AI runtime, agent, SDK, components, subsystem, connectors, security, modular]
 sidebar_position: 1
 ---
 
 # Smyth Runtime Environment (SRE)
 
-<InfoCallout title="The Purpose-Built Runtime for AI Agents in SmythOS">
-SRE runs your agents with plug-in connectors for any supported LLM, datastore, or API.
+The Smyth Runtime Environment (SRE) provides you with a sophisticated, production-ready runtime platform designed specifically for AI Agents. You can think of it as an "Operating System for AI Agents," giving you a robust foundation that handles the complexities of execution so you can focus on building intelligent behaviors, not infrastructure.
+
+<InfoCallout title="Core Philosophy">
+SRE is built on operating system principles, providing a clean separation between core services and pluggable connectors. This architecture gives you a system that is modular, secure, and flexible by design.
 </InfoCallout>
 
-## What is SRE and why does it exist?
+## Security-First Design
 
-The [**Smyth Runtime Environment (SRE)**](https://github.com/SmythOS/smyth-runtime/) is ta sophisticated, production-ready runtime platform designed specifically for AI Agents. It provides:
+In SRE, every operation requires proper authorization through the **[Candidate/ACL system](/docs/agent-runtime/security)**. This zero-trust model means you can be confident that every action is secure by default.
 
--   Real-time logging and detailed execution traces visible in **Studio**
--   Pluggable [Connectors](/docs/sre/components) for LLMs, vector DBs, APIs, and more
--   Multi-environment consistency for deployment across cloud, on-prem, and local development
-## Why use SRE?
+```typescript
+// When your agent needs to access storage, SRE internally
+// creates an access candidate representing the agent's identity.
+const candidate = AccessCandidate.agent(agentId);
 
-SRE simplifies how you build and run agents. It abstracts the infrastructure layer, so you can focus on agent logic without managing credentials, API wrappers, or execution workflows manually.
+// Access is then granted specifically for that candidate, ensuring
+// operations are completely scoped and isolated.
+const storage = ConnectorService.getStorageConnector().user(candidate);
+await storage.write('data.json', content);
+```
 
-### Simplified Development
+## Subsystem Architecture
 
-- Clean, consistent APIs through the [SDK](/docs/sre/sdk-guide)
-- No need to understand connector details
-- Preconfigured defaults for local development
-- Type-safe functions and clear interfaces
+SRE is composed of several distinct subsystems that manage different aspects of the runtime. Understanding these will help you know how your agents operate. For a deeper look, see the [SRE Architecture](/docs/agent-runtime/architecture) page.
 
-### Scales to Production
+-   **IO Subsystem:** Your agent's gateway to the outside world, managing services for `Storage`, `VectorDB`, `Log`, `Router`, and more.
+-   **LLM Manager Subsystem:** Powers your agent's AI capabilities with a unified interface to providers like OpenAI and Google AI.
+-   **Security Subsystem:** Manages your credentials, identity, and permissions through `Vault` and `Account Management` services.
+-   **Memory Manager Subsystem:** Handles intelligent state management, including multi-tier caching and conversation history.
+-   **Agent Manager Subsystem:** The heart of execution, managing your agent's lifecycle, workflows, and real-time monitoring.
 
-- Your logic stays the same as you move from development to cloud
-- Built-in separation between agent code and system setup
-- Connectors handle retries, authentication, and service integration
-- Compatible with visual workflows in Studio or programmatic SDK use
+## Building with the Smyth SDK
 
-<Arcade
-  src="https://demo.arcade.software/?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="SRE architecture overview"
-/>
+The **[Smyth SDK](/docs/agent-runtime/sdk-guide)** is the primary interface for building agents programmatically. It provides you with a streamlined, developer-friendly experience.
 
-<TipCallout title="SRE Simplifies Infrastructure">
-Skip boilerplate and focus on building intelligent agents. SRE handles execution, access, and visibility.
-</TipCallout>
-<Spacer size="md" />
+### Agent Creation and Skills
 
-## Explore the Runtime System
+You can easily define an agent's persona and extend its capabilities with your own custom functions, known as skills.
 
-<CardGrid>
-  <Card title="Quickstart Guide" href="/docs/sre/quickstart">
-    Learn how to install SRE and run your first agent in minutes.
-  </Card>
-  <Card title="SRE Architecture" href="/docs/sre/architecture/">
-    Understand how SRE is structured behind the scenes.
-  </Card>
-  <Card title="Security Model" href="/docs/sre/security">
-    Discover how the Candidate/ACL system and Vaults protect agent execution.
-  </Card>
-  <Card title="Building Agents" href="/docs/sre/building-agents">
-    Use the visual builder in **Studio** or the SDK to create agents.
-  </Card>
-  <Card title="Components" href="/docs/sre/components">
-    Extend SRE with 40+ production-ready components.
-  </Card>
-  <Card title="Enterprise Deployment" href="/docs/sre/enterprise-deploy">
-    Deploy SRE in production cloud environments.
-  </Card>
-</CardGrid>
-<TipCallout title="Built for AI Agents">
-Use SRE to eliminate boilerplate infrastructure code and focus on agent logic.
-</TipCallout>
+```typescript
+import { Agent } from '@smythos/sdk';
 
-## How is the runtime structured?
+// Define a new agent
+const agent = new Agent({
+    name: 'DataAnalyst',
+    model: 'gpt-4',
+    behavior: 'You are an expert data analyst.',
+});
 
-SRE splits the runtime into two layers, as detailed in the [Architecture](/docs/sre/architecture) documentation:
-<InfoCallout title="Consistent Across Every Environment">
-You can run the same agent with the same logic, config, and security across development, staging, and production.
-</InfoCallout>
-
-| Layer | What It Does | Can You Customize? |
-| :--- | :--- | :--- |
-| **Core Runtime** | Task scheduler, message bus, metrics, quotas | No (versioned core) |
-| **Connectors** | LLMs, vector DBs, APIs, auth providers | Yes, programmatically configurable via the SDK |
-
-<TipCallout title="Swap services with a config change">
-You can replace an OpenAI model with an Anthropic model by updating a single line in your SDK configuration.
-</TipCallout>
-<Spacer size="md" />
-
-## Where can you run SRE?
-Anywhere you need... SRE supports multiple environments out of the box. See our [Deployment Guide](/docs/sre/deployment) for more details.
-
-<Tabs
-  tabs={[
-    { label: 'Cloud', content: (
-        <>
-          <p>Deploy SRE to any cloud environment and connect it to **Studio** for tracing and management. See our guide to <a href="/docs/sre/enterprise-deploy">enterprise deployment</a> for more.</p>
-        </>
-      )
+// Add a custom skill to the agent
+agent.addSkill({
+    name: 'processData',
+    description: 'Analyze and process data',
+    process: async (data) => {
+        // Your custom logic here
+        return { analysis: 'processed' };
     },
-    { label: 'Local Dev', content: (
-        <>
-          <p>Run SRE locally using Node.js. The SDK defaults to simple, in-memory connectors for rapid iteration with full logs and traces available in the console or **Studio**.</p>
-        </>
-      )
-    },
-    { label: 'Docker', content: (
-        <>
-          <p>SRE is container-ready, allowing you to build and deploy your agent runtime using Docker for consistent, isolated environments.</p>
-        </>
-      )
-    }
-  ]}
-/>
-<Spacer size="md" />
+});
+```
 
-## Is SRE the right choice for you?
+### Composing Workflows with Components
 
-### Use SRE if you:
+SRE includes over 40 production-ready **[Components](/docs/agent-runtime/components)** that you can use as building blocks. The SDK lets you connect these components to create complex logic flows.
 
--   Work with LLMs, APIs, or vector stores
--   Need consistent behavior across development and production
--   Want built-in observability and ACL enforcement
--   Care about versioned, auditable agent runs
+```typescript
+import { Component } from '@smythos/sdk';
 
-### SRE might not be for you if:
+// Create component instances
+const llm = Component.GenAILLM({ model: 'gpt-4' }, agent);
+const classifier = Component.Classifier({ classes: ['positive', 'negative'] }, agent);
 
--   You’re running a traditional backend or monolithic web app
--   You don’t need dynamic or [agent-based execution logic](/docs/sre/building-agents)
-<Spacer size="md" />
+// Connect the output of one component to the input of another
+classifier.in({ Input: llm.out.Reply });
+```
 
-## How to Get Started with SRE?
+## Development to Production Parity
 
-1.  [Install the Runtime](/docs/sre/getting-started)
-2.  [Run your first agent (Quickstart)](/docs/sre/quickstart)
-3.  [Create Agents in Studio or with the SDK](/docs/sre/hybrid-workflows)
-4.  [Explore the SDK Guide](/docs/sre/sdk-guide)
+A core advantage of SRE is that your agent's logic remains identical when you move from a development to a production environment. You only need to change the runtime's configuration, as shown in the [Deployment Guide](/docs/agent-runtime/deployment).
+
+```typescript
+// Your development setup can use simple, local connectors.
+const dev_sre = SRE.init({
+    Cache: { Connector: 'RAM' },
+    Storage: { Connector: 'Local' },
+});
+```
+
+```typescript
+// For production, you can swap in robust, scalable connectors.
+// Your agent's code does not need to change.
+const prod_sre = SRE.init({
+    Cache: { Connector: 'Redis', Settings: { url: '...' } },
+    Storage: { Connector: 'S3', Settings: { bucket: '...' } },
+});
+```
+
+## What's Next?
+
+Now that you have an overview of SRE, here are some recommended next steps:
+
+-   **[Getting Started](/docs/agent-runtime/getting-started):** Install the runtime and set up your first project.
+-   **[SRE Architecture](/docs/agent-runtime/architecture):** Dive deeper into the subsystems and their roles.
+-   **[Building Agents](/docs/agent-runtime/building-agents):** Learn the different ways to create and extend agents.
+-   **[SDK Guide](/docs/agent-runtime/sdk-guide):** Master the programmatic interface to SRE.

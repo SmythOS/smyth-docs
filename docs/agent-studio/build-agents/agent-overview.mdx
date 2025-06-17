@@ -6,7 +6,7 @@ sidebar_position: 3
 
 # Agent Overview
 
-In **SmythOS**, an **agent** is comprised of one or more workflows and can **reason**, **act**, and **respond** across multiple channels (API, chat, voice, batch).  
+In **SmythOS**, an **agent** is comprised of one or more skills and can **reason**, **act**, and **respond** across multiple channels (API, chat, voice, batch).  
 Agent orchestration is the practice of **designing, running, and governing** these agents so they meet your product and operational needs. In SmythOS, we provide not just the tools to create but also powerful orchestration features. 
 
 ## Core Concepts
@@ -14,7 +14,7 @@ Agent orchestration is the practice of **designing, running, and governing** the
 | Term | What it means |
 |------|--------------------------|
 | **Component** | The smallest building block—one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
-| **Skill** | A reusable **bundle of components** wired together to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). Import a skill once; drop it into many agents. |
+| **Skill** | A workflow connected to the Agent to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). |
 | **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
 | **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
 
@@ -39,7 +39,6 @@ Agent orchestration is the practice of **designing, running, and governing** the
 |------|----------|------------------|------------|------------------|
 | **Chat Agent** | Conversational assistants, support bots | Multi-turn dialog, memory on | Chat window | `/v1/agents/{id}/chat` |
 | **Task Agent** | Autonomous task chains, tool calls | Decompose → act → summarize | Log timeline | `/v1/agents/{id}/run` |
-| **Chatflow** | Complex multi-round dialog with conditional branches | State-aware, memory | Chat window | `/v1/chatflows/{id}/chat` |
 | **Workflow** | Single-shot automation & batch jobs | One-and-done | Form + result | `/v1/workflows/{id}/invoke` |
 
 ### Chat Agent vs. Task Agent

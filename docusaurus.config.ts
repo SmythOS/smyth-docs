@@ -25,8 +25,8 @@ const config: Config = {
   tagline: 'Build, deploy, and scale intelligent agents',
   favicon: 'img/favicon.ico',
 
-  url: 'https://smythos.com/docs/',
-  baseUrl: '/',
+  url: 'https://smythos.com',
+  baseUrl: '/docs/',
 
   organizationName: 'SmythOS',
   projectName: 'smythos-docs',

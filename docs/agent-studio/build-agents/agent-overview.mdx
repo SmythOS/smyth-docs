@@ -16,6 +16,7 @@ Agent orchestration is the practice of **designing, running, and governing** the
 | **Component** | The smallest building block—one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
 | **Skill** | A workflow connected to the Agent to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). |
 | **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
+| **Agent Settings** | Configure the agent's behavior, default LLM, manage embodiments, and customize its personality and capabilities. |
 | **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
 
 > **TL;DR** – *Components* ⟶ bundled into *Skills* ⟶ orchestrated by an *Agent* you can ship to users.

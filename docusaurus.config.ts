@@ -88,6 +88,16 @@ const config: Config = {
   ],
   clientModules: [require.resolve('./src/css/tailwind.css'),
   ],
+  stylesheets: [
+        { href: '/css/header.css', type: 'text/css' },
+  ],
+
+  // scripts: [
+  //   {
+  //     src: '/js/header.js',
+  //     defer: true, 
+  //   },
+  // ],
 
   themeConfig: {
     sidebar: {},
@@ -286,7 +296,6 @@ const config: Config = {
         from: '/docs/integrations/trello',
         to: '/docs/agent-studio/integrations/trello-integration',
       },
-      // Fix typos
       {
         from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration',
         to: '/docs/agent-studio/integrations/elevenlabs-integration',

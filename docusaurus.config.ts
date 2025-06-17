@@ -25,10 +25,10 @@ const config: Config = {
   tagline: 'Build, deploy, and scale intelligent agents',
   favicon: 'img/favicon.ico',
 
-  url: 'https://docs.smythos.com',
+  url: 'https://smythos.com/docs/',
   baseUrl: '/',
 
-  organizationName: 'Smyth-ai',
+  organizationName: 'SmythOS',
   projectName: 'smythos-docs',
 
   onBrokenLinks: 'warn',
@@ -48,7 +48,7 @@ const config: Config = {
           routeBasePath: 'docs',             
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: ({ versionDocsDirPath, docPath }) =>
-            `https://github.com/Smyth-ai/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
+            `https://github.com/SmythOS/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
            includeCurrentVersion: true,
         },
         blog: false,

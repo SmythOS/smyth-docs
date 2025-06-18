@@ -130,7 +130,7 @@ With the user's meme concept and a list of meme templates at hand, the next step
 
 This **LLM prompt** is designed to filter and choose meme templates that align closely with the provided meme concept. The prompt is structured as follows:
 
-- **Prompt:** >*Pick a few memes from my meme database that would fit the meme concept about {{meme_concept}} and return id, name and box_count. Only pick memes that have box_count of 1 or 2. meme database: {{meme_database}}*
+- **Prompt:** >*Pick a few memes from my meme database that would fit the meme concept about {`{{meme_concept}}`} and return id, name and box_count. Only pick memes that have box_count of 1 or 2. meme database: {`{{meme_database}}`}*
 
 This prompt is tasked with selecting templates that most accurately represent the meme concept. It evaluates the templates based on their suitability and returns the `id`, `name`, and `box_count` of those selected. And it only will select templates that has a `box_count` of 1 or 2. This is because templates with more than two `box_count`, are not included in the free plan.
 
@@ -165,10 +165,10 @@ This component is designed to generate entertaining and humorous jokes based on 
 
 #### Settings
 
-- **Prompt:** > *I'm on Reddit and need to make a ridiculously funny {{humor_type}} meme to stand out. This is extremely important to my mental health. Here is the meme assignment they've given me.*
+- **Prompt:** > *I'm on Reddit and need to make a ridiculously funny {`{{humor_type}}`} meme to stand out. This is extremely important to my mental health. Here is the meme assignment they've given me.*
 >
 > *I am allowed to work with the following memes:*
-> *{{meme_database}}*
+> *{`{{meme_database}}`}*
 >
 > *The id is something to remember, the name is the type of meme image you have to work with, and the box count is the number of text boxes you can generate text for.*
 >
@@ -217,10 +217,10 @@ The creation of jokes presents a unique challenge, as humor is inherently human 
 
 We will methodically break down this intricate prompt, step by step, to better understand and execute it effectively. 
 
-> *I'm on Reddit and need to make a ridiculously funny {{humor_type}} meme to stand out. This is extremely important to my mental health. Here is the meme assignment they've given me.*
+> *I'm on Reddit and need to make a ridiculously funny {`{{humor_type}}`} meme to stand out. This is extremely important to my mental health. Here is the meme assignment they've given me.*
 >
 > *I am allowed to work with the following memes:*
-> *{{meme_database}}*
+> *{`{{meme_database}}`}*
 >
 > *The id is something to remember, the name is the type of meme image you have to work with, and the box count is the number of text boxes you can generate text for.*
 >

@@ -2,48 +2,47 @@
 title: Hybrid Workflows
 description: Combine visual design with SDK programming to get the best of both worlds in SmythOS Runtime Environment.
 keywords: [SmythOS, SRE, hybrid workflows, SDK, visual builder, Studio, agent development, import smyth, export smyth]
-sidebar_position: 11
+sidebar_position: 12
 toc_max_heading_level: 2
-slug: /sre/hybrid-workflows
 ---
 
 # Hybrid Workflows in SRE
 
-SRE supports both visual and code-based agent development. You are not locked into one way of working; you can use **[Studio](/docs/agent-studio/overview)**, the **[SDK](/docs/sre/sdk-guide)**, or combine them for maximum efficiency.
+SRE supports both visual and code-based agent development. You are not limited to a single approach; you can use **[Studio](/docs/agent-studio/overview)**, the **[SDK](/docs/agent-runtime/sdk-guide)**, or combine them for maximum flexibility and productivity.
 
 <InfoCallout title="Why hybrid workflows matter">
-Studio gives you speed and clarity. The SDK gives you full control and custom logic. Hybrid workflows let you design in one place, extend in another, and keep everything working as one agent.
+Studio gives you speed and clarity, while the SDK provides full control and custom logic. Hybrid workflows let you design visually, extend in code, and keep everything working as a unified agent.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## The Hybrid Advantage
 
-Some tasks are easier visually, like laying out logic or sharing ideas with non-technical teammates. Others need the power of version-controlled code and deep integrations. **Hybrid workflows let you do both without compromise.**
+Some tasks are easier visually, such as mapping out agent logic or collaborating with non-technical team members. Other requirements, like version control or custom integrations, benefit from a code-first workflow. **Hybrid workflows let you take advantage of both methods without compromise.**
 
 This approach is ideal if you:
 
--   Want to **prototype fast** in a visual canvas but **scale in code**.
--   Work in **cross-functional teams** (e.g., product + engineering).
--   Need **visual clarity** for core logic but **code control** for custom extensions.
--   Use Studio for testing and observability, but the SDK for CI/CD.
+- Want to prototype quickly in Studio but scale or customize in code
+- Work in cross-functional teams where both business and technical stakeholders contribute
+- Need visual clarity for agent flows but code-level control for extensions or automation
+- Use Studio for interactive testing and monitoring, but the SDK for CI/CD and integrations
 
 ### Best Tool for the Job
 
-| Use Case | Best Tool | Example |
-| :--- | :--- | :--- |
-| Rapid Prototyping | **[Studio](/docs/agent-studio/overview)** | Drag components and test agent flows instantly. |
-| CI/CD & Version Control | **[SDK](/docs/sre/sdk-guide)** | Store your agent's definition in a Git repository. |
-| Custom Logic & Integrations | **[SDK](/docs/sre/sdk-guide)** | Build a custom skill that queries a private API. |
-| Non-Technical Collaboration | **[Studio](/docs/agent-studio/overview)** | Let business users shape and review logic visually. |
-| Schema Enforcement & Testing| **[SDK](/docs-agent-runtime/sdk-guide)** | Add type checks to your agent’s response flow. |
+| Use Case                  | Best Tool                                    | Example                                           |
+| :------------------------ | :------------------------------------------- | :------------------------------------------------ |
+| Rapid Prototyping         | [Studio](/docs/agent-studio/overview)        | Drag components, test flows, and iterate visually |
+| CI/CD & Version Control   | [SDK](/docs/agent-runtime/sdk-guide)         | Store agent logic in Git, integrate with pipelines|
+| Custom Logic & Integrations| [SDK](/docs/agent-runtime/sdk-guide)        | Build custom skills or connect private APIs       |
+| Non-Technical Collaboration| [Studio](/docs/agent-studio/overview)       | Enable business users to shape agent workflows    |
+| Schema Enforcement & Testing| [SDK](/docs/agent-runtime/sdk-guide)       | Add type checks and test coverage for agents      |
 
 <Spacer size="md" />
 
 ## Exporting from Studio to the SDK
 
 <InfoCallout title="How it works: Portable Agent Schema" collapsible>
-Studio agents are stored as structured JSON. This makes them portable and editable in both code and visual environments. For example, a connection you draw between two components is defined as data, allowing it to be imported and understood by the SDK.
+Studio agents are stored as structured JSON, which makes them portable and editable in both code and visual environments. For example, a connection you draw between two components is defined as data, allowing it to be imported and understood by the SDK.
 
 ```json
 {
@@ -59,9 +58,9 @@ Studio agents are stored as structured JSON. This makes them portable and editab
 ```
 </InfoCallout>
 
-You can take any agent built visually in Studio and bring it into a code-based workflow. First, open the agent in Studio and use the keyboard shortcut (`Ctrl + Shift + E` or `⌘ + Shift + E`) to export its definition as a `.smyth` file.
+You can take any agent built visually in Studio and bring it into a code-based workflow. To do this, open the agent in Studio and use the keyboard shortcut (`Ctrl + Shift + E` or `⌘ + Shift + E`) to export its definition as a `.smyth` file.
 
-Once the file is in your project, you can load it directly into the SDK to create a fully functional agent instance that mirrors your visual design.
+Once exported, you can load it into your SDK project to create a fully functional agent that mirrors your visual design.
 
 ```typescript
 import { SDK } from 'smyth-runtime';
@@ -70,45 +69,36 @@ import agentData from './my-agent.smyth';
 // Load the agent definition from the exported file
 const agent = new SDK.Agent(agentData);
 
-// You can now interact with the agent just like any other SDK-based agent
+// Interact with the agent just like any other SDK-based agent
 const result = await agent.prompt('Give me a summary.');
 console.log(result);
 ```
 
-This is powerful because you can then programmatically extend the agent with new skills, run automated tests, or integrate it into a larger backend process.
+This lets you programmatically extend the agent with new skills, run automated tests, or integrate it into a larger backend process.
 
 <details>
-<summary>View a full, runnable example of extending an imported agent</summary>
-
-The following complete example shows how to load an agent, add a new custom skill that wasn't part of the visual design, and then create a workflow that uses both the agent's original abilities and the new skill.
+<summary>See a full example of extending an imported agent</summary>
 
 ```typescript
 import { SRE, SDK } from 'smyth-runtime';
 
 async function main() {
-  // 1. Initialize the SRE runtime for a local environment.
-  console.log('Initializing SRE...');
+  // 1. Initialize the SRE runtime for a local environment
   const sre = SRE.init({
     Cache: { Connector: 'RAM' },
     Storage: { Connector: 'Local' },
     Log: { Connector: 'ConsoleLog' },
   });
   await sre.ready();
-  console.log('SRE is ready.\n');
 
-  // 2. Load the agent from the .smyth file exported from Studio.
-  console.log('Loading agent from file...');
-  // Note: For this to run, you need a my-agent.smyth file.
-  // We will create a dummy agent here for demonstration.
+  // 2. Load the agent from the .smyth file
   const agent = new SDK.Agent({
     name: 'AINewsAnalystAgent',
     model: 'gpt-4',
     behavior: 'You are a sharp AI industry analyst. You provide concise, data-driven insights on the latest AI news and its impact on the market.',
   });
-  console.log(`Agent "${agent.name}" loaded.\n`);
 
-  // 3. Programmatically extend the agent with a new skill.
-  console.log('Adding custom skill "formatAIAnalysis"...');
+  // 3. Extend the agent with a new custom skill
   agent.addSkill({
     name: 'formatAIAnalysis',
     description: 'Formats a raw text analysis into a structured JSON report.',
@@ -127,38 +117,33 @@ async function main() {
       };
     },
   });
-  console.log('Skill added successfully.\n');
 
-  // 4. Prompt the agent about a trending topic.
+  // 4. Prompt the agent for analysis
   const topic = 'the release of the "Veo-3" AI model';
-  console.log(`Prompting agent for analysis of ${topic}...`);
   const analysisText = await agent.prompt(`Analyze the market impact of ${topic}.`);
-  console.log('--- Agent Raw Output ---\n', analysisText, '\n------------------------\n');
 
-  // 5. Use the new custom skill to process the agent's output.
-  console.log('Processing output with "formatAIAnalysis" skill...');
+  // 5. Use the new skill to process the agent's output
   const formattingSkill = agent.getSkill('formatAIAnalysis');
   const structuredReport = await formattingSkill.process(analysisText);
 
-  // 6. Display the final, structured result.
-  console.log('--- Final Structured Data ---\n', structuredReport, '\n---------------------------\n');
-  console.log('Workflow complete.');
+  // 6. Display the final result
+  console.log(structuredReport);
 }
-
-// Run the main function
 main().catch(console.error);
 ```
+
 </details>
+
 <Spacer size="md" />
 
 ## Importing from the SDK into Studio
 
-You can take any SDK-defined agent and visualize, test, or debug it in Studio.
+You can also take any agent you define with the SDK and visualize, test, or debug it in Studio.
 
-### Step-by-Step
+**Step-by-step:**
 
-1.  Build your agent in the SDK.
-2.  Export its data structure to a file:
+1. Build your agent in the SDK.
+2. Export its data structure to a file:
 
 ```typescript
 import fs from 'fs';
@@ -169,22 +154,29 @@ const agent = new SDK.Agent({ name: 'HybridAgent', model: 'gpt-4' });
 const agentData = agent.data;
 fs.writeFileSync('agent-for-studio.json', JSON.stringify(agentData, null, 2));
 ```
+3. In Studio, go to **Create Agent → Import from File**.
+4. Drag the exported JSON file onto the canvas or use the upload prompt.
 
-3.  In Studio, go to **Create Agent → Import from File**.
-4.  Drag the exported JSON file onto the canvas or use the upload prompt.
-
-Studio will automatically load the logic, components, and configuration so you can inspect and extend it visually.
+Studio will automatically load your logic, components, and configuration for visual inspection or extension.
 
 <WarningCallout title="Sync changes manually">
-If you edit the agent’s structure in the SDK after importing, re-export and re-import the file into Studio to see the changes.
+If you edit the agent’s structure in the SDK after importing, re-export and re-import the file into Studio to see your updates.
 </WarningCallout>
+
+<Spacer size="md" />
+
+## Tips for Mixed Teams
+
+- Let designers and product leads prototype in Studio.
+- Allow engineers to pull those prototypes into the SDK for productionizing, versioning, and integration.
+- Push major code updates back to Studio for continued visual review and collaboration.
 
 <Spacer size="md" />
 
 ## What's Next?
 
--   [Visual Agent Quickstart](/docs/agent-studio/quickstart/quickstart)
--   [Building Agents](/docs/sre/building-agents)
--   [SDK Guide](/docs/sre/sdk-guide)
--   [Component Library](/docs/sre/components)
--   [SRE Runtime Architecture](/docs/sre/architecture)
+- [Visual Agent Quickstart](/docs/agent-studio/quickstart/)
+- [Building Agents](/docs/agent-runtime/building-agents)
+- [SDK Guide](/docs/agent-runtime/sdk-guide)
+- [Component Library](/docs/agent-runtime/components)
+- [SRE Runtime Architecture](/docs/agent-runtime/architecture)

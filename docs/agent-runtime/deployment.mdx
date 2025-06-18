@@ -1,36 +1,28 @@
 ---
-title: Deplyoment
+title: Deployment
 description: Learn how the Smyth Runtime Environment starts up, initializes, and scales from development to production, including managed cloud options.
 keywords: [SmythOS, SRE, deployment, Agent Cloud, boot, initialization, scaling, production, development]
 sidebar_position: 8
 toc_max_heading_level: 2
-slug: /sre/deployment
 ---
 
 # Deployment with SRE
 
-SRE supports a flexible deployment lifecycle ranging from local development to a fully-managed cloud platform and large-scale enterprise environments.
+SRE supports a flexible deployment lifecycle, allowing you to move from local development to managed cloud or private infrastructure environments without rewriting your agent code.
 
 <InfoCallout title="What this covers">
-How the runtime initializes, what environments you can deploy to, and how each option supports your workflow.
+This page explains how SRE initializes, what deployment environments are available, and how each option supports your workflow.
 </InfoCallout>
+
+<Spacer size="md" />
 
 ## How SRE Starts Up
 
-Each time SRE runs, it follows a consistent boot process. This lets you configure it once and scale confidently from development to production.
+Each time SRE runs, it follows a consistent boot process. This process allows you to configure once and scale with confidence.
 
-### Boot Sequence Steps
+The [architecture](/docs/agent-runtime/architecture) reference describes this process in detail.
 
-The reference [architecture](/docs/sre/architecture) follows this general sequence:
-1.  Initialize core services: storage, cache, vault, logging
-2.  Register the agent manager and load available [components](/docs/sre/components)
-3.  Set up HTTP endpoints and routing, if applicable
-4.  Connect to configured LLM providers and vector databases
-5.  Load account and access control configuration
-6.  Signal readiness... your agents can now run
-
-```bash
-// Example: Initialize SRE for a production-like environment
+```typescript
 import { SRE } from 'smyth-runtime';
 
 const sre = SRE.init({
@@ -42,66 +34,67 @@ const sre = SRE.init({
 
 await sre.ready();
 ```
+
 <Spacer size="md" />
 
 ## Deployment Environments
 
-SRE offers several deployment options to fit your needs, from quick prototypes to scalable, secure production systems.
+SRE is designed to be portable and flexible. You can deploy your agents in different environments, depending on your needs.
 
-| Mode | Infrastructure | Common Use Case | How to Access |
-| :--- | :--- | :--- | :--- |
-| **Agent Cloud** | **SmythOS-managed** | Production, Staging, MVPs | Via **Studio** |
-| **Local Runtime** | Your own device (Docker possible)| Debugging, Local Dev | SDK / Docker |
-| **Self-Hosted** | Your private infra | Enterprise, Regulated Workloads | Custom Deployment |
+| Mode             | Infrastructure         | Common Use Case                  | How to Access         |
+| :--------------- | :--------------------- | :------------------------------- | :-------------------- |
+| Agent Cloud      | SmythOS-managed        | Production, staging, MVPs        | Via [Studio](/docs/agent-studio/overview) |
+| Local Runtime    | Your own device        | Debugging, local development     | SDK or Docker         |
+| Self-Hosted      | Your infrastructure    | Enterprise, regulated workloads  | Custom deployment     |
 
 <Spacer size="md" />
 
 ## Agent Cloud Deployment
 
-This is the fully-managed hosting option provided by SmythOS. It's the fastest way to get a production-ready agent online.
+Agent Cloud is the fully-managed hosting service provided by SmythOS. It is the fastest path to a production-ready deployment.
 
-### Benefits
-- Auto-scaling infrastructure with HTTPS
-- Zero-setup, managed environment
-- Centralized logs and traces in **[Studio](/docs/agent-studio/overview)**
-- Continuous deployment from Studio
+**Benefits include:**
+- Auto-scaling, production-grade infrastructure with HTTPS
+- No setup or maintenance required
+- Centralized logs and traces available in [Studio](/docs/agent-studio/overview)
+- Continuous deployment workflows from Studio
 
-### Steps to deploy
-1.  Open your agent in **Studio**.
-2.  Click the **Deploy** button.
-3.  Select the **Agent Cloud** target.
-4.  Set your agent version and release notes.
-5.  Click **Deploy**.
+**Deployment steps:**
+1. Open your agent in Studio.
+2. Click the Deploy button.
+3. Select the Agent Cloud target.
+4. Set your agent version and release notes.
+5. Click Deploy.
 
 <InfoCallout title="Use a custom subdomain">
-You can map your own subdomain to your Agent Cloud deployment in your account settings.
+You can map your own subdomain to your Agent Cloud deployment through your account settings.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## Local Development Setup
 
-Running SRE on your own machine is ideal for debugging, testing complex workflows, or building agents offline. The standard [Getting Started](/docs/sre/getting-started) guide uses a local setup by default.
+Running SRE on your own machine is ideal for development, testing workflows, or working offline. The [Getting Started](/docs/agent-runtime/getting-started) guide walks you through this process.
 
-- Run directly from code using the **[SDK](/docs/sre/sdk-guide)**
-- Use simple connectors like `RAM` for cache and `Local` for storage
-- Get immediate feedback with logs streamed to your console
+- Run code directly using the [SDK](/docs/agent-runtime/sdk-guide)
+- Use RAM for cache and Local for storage connectors
+- See immediate output in your local logs
 
 <Spacer size="md" />
 
-## Self-Hosted & Enterprise
+## Self-Hosted and Enterprise
 
-For maximum control and scale, you can run SRE inside your own infrastructure (e.g., AWS, GCP, Azure). This involves running the SRE process on your servers or containers and configuring it to use production-grade connectors for databases, caches, and secrets management.
+For complete control, run SRE on your own servers or cloud infrastructure. Configure it with production connectors for storage, secrets, logging, and compute. This approach fits organizations with enterprise or regulatory requirements.
 
 <InfoCallout title="Need help with this setup?">
-Contact [support@smythos.com](mailto:support@smythos.com) for enterprise deployment guidance.
+Contact [support@smythos.com](mailto:support@smythos.com) for enterprise deployment guidance or advanced configuration support.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Continue From Here
+## Continue from here
 
-- **[Agent Architecture →](/docs/sre/architecture)**
-- **[Runtime SDK Guide →](/docs/sre/sdk-guide)**
-- **[Studio Agent Builder →](/docs/agent-studio/overview)**
-- **[Building Agents →](/docs/sre/building-agents)**
+- [Agent Architecture](/docs/agent-runtime/architecture)
+- [Runtime SDK Guide](/docs/agent-runtime/sdk-guide)
+- [Studio Agent Builder](/docs/agent-studio/overview)
+- [Building Agents](/docs/agent-runtime/building-agents)

@@ -3,7 +3,6 @@ title: SDK
 description: Learn how to use the Smyth SDK to define, configure, and extend AI agents in code using components, skills, and workflows.
 keywords: [SmythOS, SRE, SDK, agents, TypeScript, components, skills]
 sidebar_position: 9
-slug: /sre/sdk
 ---
 
 # Using the Smyth Runtime SDK
@@ -18,17 +17,17 @@ The Smyth SDK is the fastest way to build intelligent agents programmatically. I
 
 The SDK is a developer layer built on top of the [Smyth Runtime Environment](/docs/agent-runtime/overview). It provides type-safe APIs to:
 
--   Create and configure AI agents
--   Add custom skills and tools
--   Build workflows using modular [components](/docs/sre/components)
--   Manage conversations with context
--   Scale from local development to production environments
+- Create and configure AI agents
+- Add custom skills and tools
+- Build workflows using modular [components](/docs/agent-runtime/components)
+- Manage conversations with context
+- Scale from local development to production environments
 
 <Spacer size="md" />
 
 ## Creating an agent
 
-You start with a basic agent definition using `new SDK.Agent()`. This includes a name, model, and default behavior, which sets the base persona for your agent.
+You can define an agent by using `new SDK.Agent()`, providing a name, model, and default behavior. This establishes your agent’s base persona.
 
 ```typescript
 const agent = new SDK.Agent({
@@ -39,20 +38,20 @@ const agent = new SDK.Agent({
 ```
 
 <TipCallout title="Use case fit">
-Use this approach when you want a reusable agent that can act consistently across different prompts and flows.
+Use this approach when you want a reusable agent that acts consistently across different prompts and flows.
 </TipCallout>
 
 <Spacer size="md" />
 
 ## Adding custom skills
 
-Skills are code functions your agent can call internally or expose to the LLM as a tool. You define what it does with `agent.addSkill()`.
+Skills are functions that can be called by your agent, or exposed as tools to the underlying LLM. Use `agent.addSkill()` to define what each skill does.
 
 ```typescript
 agent.addSkill({
   name: 'getSummary',
   description: 'Summarizes a user input',
-  ai_exposed: true, // Allows the LLM to call this skill as a tool
+  ai_exposed: true,
   process: async (input) => {
     return { summary: `Summary: ${input}` };
   },
@@ -67,7 +66,7 @@ Set `ai_exposed: true` only for tools you want the agent to use in its reasoning
 
 ## Prompting the agent
 
-Use `agent.prompt()` for a one-shot interaction. This is great for tools, APIs, or functions that don’t need memory of previous messages.
+Use `agent.prompt()` for a single interaction. This method does not retain any memory of previous messages.
 
 ```typescript
 const response = await agent.prompt('Explain the Doppler effect.');
@@ -78,7 +77,7 @@ console.log(response);
 
 ## Using chat mode
 
-To maintain conversational history, use `agent.chat()`. It automatically keeps state between messages.
+To maintain conversation history and context, use `agent.chat()`. This keeps state between each message.
 
 ```typescript
 const chat = agent.chat();
@@ -90,20 +89,19 @@ console.log(chat.history);
 ```
 
 <TipCallout title="Context matters">
-Use chat when building assistants that need context, such as support agents or tutors.
+Use chat mode when building assistants that require context, such as support agents or tutors.
 </TipCallout>
 
 <Spacer size="md" />
 
 ## Building workflows with components
 
-The SDK gives you access to all [SRE components](/docs/sre/components), like LLMs, classifiers, and API calls. These can be connected programmatically.
+The SDK provides access to every [SRE component](/docs/agent-runtime/components), such as LLMs, classifiers, and API calls. Components can be connected programmatically.
 
 ```typescript
 const llm = SDK.GenAILLM({ model: 'gpt-4', prompt: 'Explain entropy' }, agent);
 const classifier = SDK.Classifier({ classes: ['physics', 'math', 'philosophy'] }, agent);
 
-// Wire the output of the LLM to the input of the Classifier
 classifier.in({ Input: llm.out.Reply });
 ```
 
@@ -111,7 +109,7 @@ classifier.in({ Input: llm.out.Reply });
 
 ## Extending functionality with custom components
 
-If you need custom logic, write your own component by extending the base `Component` class. It fits naturally into the agent's workflow.
+For custom workflow logic, extend the base `Component` class. Custom components fit directly into agent workflows.
 
 ```typescript
 export class UppercaseTransform extends Component {
@@ -125,7 +123,7 @@ export class UppercaseTransform extends Component {
 
 ## Wrapping external APIs as skills
 
-Skills are a powerful way to connect agents to outside services.
+You can connect to external APIs by defining a skill.
 
 ```typescript
 agent.addSkill({
@@ -141,14 +139,14 @@ agent.addSkill({
 ```
 
 <WarningCallout title="Async network handling">
-Always wrap external API calls with proper error handling. The SDK does not retry failed skill executions automatically.
+Always wrap external API calls with error handling. The SDK does not retry failed skill executions automatically.
 </WarningCallout>
 
 <Spacer size="md" />
 
 ## Configuring the runtime
 
-Your agent code can run against any [runtime configuration](/docs/sre/deployment), from local dev to production setups.
+Agents built with the SDK can run in any [runtime configuration](/docs/agent-runtime/deployment), from local development to production.
 
 ```typescript
 // Local config (development)
@@ -161,7 +159,7 @@ await sre.ready();
 ```
 
 ```typescript
-// Production-ready config for a self-hosted deployment
+// Production-ready config
 const sre = SRE.init({
   Cache: { Connector: 'Redis', Settings: { url: 'redis://prod-cache' } },
   Storage: { Connector: 'S3', Settings: { bucket: 'agent-data' } },
@@ -172,36 +170,34 @@ await sre.ready();
 ```
 
 <TipCallout title="Zero code changes">
-Your agent and skill logic stays the same across environments. Only your infrastructure setup changes.
+Your agent and skill logic remain the same across all environments. Only the infrastructure configuration changes.
 </TipCallout>
 
 <Spacer size="md" />
 
 ## SDK component coverage
 
-The SDK gives you access to every official [SRE component](/docs/sre/components), with type-safe wrappers.
+The SDK provides type-safe wrappers for all official [SRE components](/docs/agent-runtime/components).
 
 | Category | Examples |
 | :--- | :--- |
-| **LLMs and AI** | `GenAILLM`, `VisionLLM`, `LLMAssistant` |
-| **External APIs** | `APICall`, `WebScrape`, `ZapierAction` |
-| **Data tools** | `DataSourceIndexer`, `Classifier`, `JSONFilter`|
-| **Logic and flows**| `LogicAND`, `ForEach`, `Await` |
-| **File and code** | `FileStore`, `ServerlessCode`, `Code` |
+| LLMs and AI | `GenAILLM`, `VisionLLM`, `LLMAssistant` |
+| External APIs | `APICall`, `WebScrape`, `ZapierAction` |
+| Data tools | `DataSourceIndexer`, `Classifier`, `JSONFilter` |
+| Logic and flows | `LogicAND`, `ForEach`, `Await` |
+| File and code | `FileStore`, `ServerlessCode`, `Code` |
 
 <Spacer size="md" />
 
-## What's next
+## What’s next
 
-Now that you understand the SDK, here’s what to explore next:
-
--   [**Quickstart**](/docs/sre/quickstart) – Build a real agent in five steps
--   [**Component Reference**](/docs/sre/components) – Full catalog with examples
--   [**Deployment Options**](/docs/sre/deployment) – Run agents locally or in production
--   [**Core Concepts**](/docs/sre/core-concepts) – Learn how the runtime operates
+- [Quickstart](/docs/agent-runtime/quickstart) – Try a step-by-step agent build
+- [Component Reference](/docs/agent-runtime/components) – Explore all components
+- [Deployment Options](/docs/agent-runtime/deployment) – Learn to run agents in any environment
+- [Core Concepts](/docs/agent-runtime/core-concepts) – Learn how the runtime operates
 
 <Spacer size="md" />
 
 <InfoCallout title="Use this guide with Studio">
-You can build agents using the SDK and then import them into **[Smyth Studio](/docs/agent-studio/overview)** for visualization, testing, and collaboration. This enables both code-first and visual-first workflows.
+You can build agents using the SDK and then import them into [Smyth Studio](/docs/agent-studio/overview) for visualization, testing, and collaboration. Both code-first and visual-first workflows are fully supported.
 </InfoCallout>

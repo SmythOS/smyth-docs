@@ -1,71 +1,60 @@
 ---
-title: Getting Started with SRE
-sidebar_label: Getting Started
-description: Step-by-step guide to installing, configuring, and running your first AI agent on Smyth Runtime Environment.
-keywords: [SmythOS, SRE, getting started, installation, configuration, first agent, tutorial]
+title: Getting Started
+description: Install the SmythOS CLI or SDK and prepare your environment for building AI agents.
+keywords: [SRE, AI runtime, agent, SDK, CLI, getting started, installation]
 sidebar_position: 2
-slug: /sre/getting-started
 ---
 
-# Getting Started with SRE
+# Getting Started
 
-<InfoCallout title="What you'll learn">
-Install the Smyth Runtime, configure a local dev setup, and run your first test agent using the SDK.
+<InfoCallout title="Choose Your Path">
+You can start building with the Smyth Runtime Environment (SRE) using either the CLI or the SDK. Choose the method that best fits your workflow and experience.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## 1. Install the runtime
+## Method 1: Using the CLI <Badge type='Recommended' />
 
-Install the package via npm or clone the [GitHub repo](https://github.com/SmythOS/smyth-runtime/) and follow instructions from there:
+The CLI is the simplest and most guided way to create and configure new agent projects.
+
+1. Install the CLI globally:
+```bash
+npm i -g @smythos/cli
+```
+
+2. Create a new project interactively:
+```bash
+sre create
+```
+
+<InfoCallout title="Step-by-Step Guidance">
+The CLI will walk you through setting up your project and configuration, making it easy to get started quickly.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Method 2: Direct SDK Installation
+
+If you want to add SmythOS to an existing Node.js project, you can install the SDK directly:
 
 ```bash
-npm install smyth-runtime 
+npm install @smythos/sdk
+```
+or 
+
+```bash
+pnpm install @smythos/sdk
 ```
 
-## 2. Initialize the runtime
+<WarningCallout title="When to Use the SDK Install">
+The direct SDK method is best if you already have a codebase or want fine-grained control over integration.  
+For new projects, the CLI is recommended.
+</WarningCallout>
 
-Import and initialize SRE in your project with `SRE.init`. Use a simple configuration for local development:
+<Spacer size="md" />
 
-```typescript
-import { SRE, SDK } from 'smyth-runtime';
+Once you’ve completed either method, you’re ready to build and run your first agent.
 
-const sre = SRE.init({
-  Cache: { Connector: 'RAM' },
-  Storage: { Connector: 'Local' },
-  Log: { Connector: 'ConsoleLog' },
-});
+Continue to the [Quickstart](/docs/agent-runtime/quickstart) for a complete example.
 
-await sre.ready();
-```
-This sets up in-memory caching, local file storage, and console logging for you, which is a good starting point.
-
-## 3. Create an LLM instance
-
-Use the built-in `SDK.LLM` to test if an LLM is working. This does not create a full agent but is useful for a quick test.
-
-```typescript
-import { SDK } from 'smyth-runtime';
-
-const llm = new SDK.LLM('OpenAI', {
-    model: 'gpt-4',
-    temperature: 0.7,
-});
-const res = await llm.prompt('Explain quantum computing to a medical student');
-console.log(res);
-```
-
-## 4. Stream results (optional)
-
-The `.stream()` method is useful for chat or other interactive applications:
-
-```typescript
-const stream = await llm.prompt('Write a short story').stream();
-stream.on('content', (chunk) => process.stdout.write(chunk));
-```
-
-## What’s next?
-
-- [**Create a real agent (Quickstart Guide)**](/docs/sre/quickstart)
-- [Learn about SRE's architecture](/docs/sre/architecture)
-- [Explore the SDK in depth](/docs/sre/sdk-guide)
+<Spacer size="md" />

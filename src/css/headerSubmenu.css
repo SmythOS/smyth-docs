@@ -1,96 +1,121 @@
+/* Sticky submenu */
 .header-submenu {
   position: sticky;
   top: 0;
   width: 100%;
   box-sizing: border-box;
-  background: #ffffff;
+  background: #fff;
   border-bottom: 1px solid #e0e0e0;
   z-index: 10;
 }
 
-/* ─────────────────────  Three-column Grid Wrapper  ───────────────────── */
-
+/* Responsive submenu container and nav */
 .header-submenu-container {
-  max-width: var(--ifm-container-width-xl);
+  max-width: 100vw;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.header-submenu-nav,
+.menu-bar {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100vw;
+}
+
+.header-submenu-list {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100vw;
+}
+
+/* Three-column grid wrapper */
+.header-submenu-container {
+  max-width: var(--ifm-container-width-xl, 1200px);
   margin: 0 auto;
   padding: 0.5rem 1rem;
-
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* balance left and right */
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   box-sizing: border-box;
 }
 
-/* ────────────────────────  Centred Icon Menu  ───────────────────────── */
-
-.menu-bar {
-  grid-column: 2;  
+/* Centered menu bar (middle column) */
+.menu-bar,
+.header-submenu-nav {
+  grid-column: 2;
   display: flex;
   align-items: center;
-              /* middle column */
+  justify-content: center;
+  width: 100%;
+  overflow-x: auto; /* prevents cramping if too many icons */
 }
 
-.menu-bar ul {
+/* Horizontal icon menu list */
+.menu-bar ul,
+.header-submenu-list {
   display: flex;
-  justify-content: center;       /* perfectly centred */
-  gap: 16px;                     /* exact 16 px gap between items */
+  justify-content: center;
+  gap: 16px;
   list-style: none;
   margin: 0;
   padding: 0;
-  white-space: nowrap;           /* prevent wrapping */
+  white-space: nowrap;
+  align-items: center;
 }
 
-.menu-bar li {
+/* Individual item styling */
+.menu-bar li,
+.header-submenu-list li {
   display: flex;
   align-items: center;
+  list-style: none;
 }
 
-.menu-bar a {
+/* Link styling */
+.menu-bar a,
+.header-submenu-link {
   display: inline-flex;
   align-items: center;
-  color: #333333;
+  color: #333;
   font-size: 0.925rem;
   text-decoration: none;
+  gap: 0.5rem;
+  transition: color 0.15s;
+  padding: 4px 6px;
 }
 
-.menu-bar a svg {
+.menu-bar a svg,
+.header-submenu-link svg {
   margin-right: 6px;
   stroke-width: 1.2;
 }
 
-.menu-bar a:hover {
+.menu-bar a:hover,
+.header-submenu-link:hover {
   color: #007acc;
 }
 
-.menu-bar a.active {
-  border-bottom: 2px solid #3c89f9; /* highlight active link */
+.menu-bar .active a,
+.header-submenu-list .active .header-submenu-link,
+.header-submenu-link[aria-current="page"] {
+  color: #2563eb;
+  font-weight: bold;
+  border-bottom: 2px solid #3c89f9;
   padding-bottom: 4px;
 }
 
-/* ─────────────────────  Search Bar on Far Right  ───────────────────── */
-
-.header-submenu-search {
-  grid-column: 3;
-  justify-self: end;
-}
-
-.header-submenu-search .DocSearch-Button {
-  height: 32px;
-  font-size: 0.875rem;
-}
-
-/* ───────────────────────────  Mobile Tweak  ─────────────────────────── */
-
+/* Mobile responsive tweaks */
 @media (max-width: 600px) {
-  .menu-bar ul {
-    gap: 12px;       
-    padding: 0 8px;           /* slightly tighter on small screens */
+  .menu-bar ul,
+  .header-submenu-list {
+    gap: 12px;
+    padding: 0 8px;
   }
-  .menu-bar a {
+  .menu-bar a,
+  .header-submenu-link {
     font-size: 0.875rem;
-     padding: 4px 6px;  
+    padding: 4px 6px;
   }
 }
-  .menu-bar {
-    overflow-x: auto;           /* prevents cramping if too many icons */
-  }

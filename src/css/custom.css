@@ -91,62 +91,54 @@ a.menu__link[href="/docs/agent-collaboration/overview"].menu__link--active
   display: none;
 } */
 
-/* 1) Inter font‐face declarations */
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-300.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-300.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-regular.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-500.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-500.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-600.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-600.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-700.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-700.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-800.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-800.woff2") format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url("https://smythos.com/fonts/inter-v12-latin-900.woff2")
-    format("woff2");
+  src: url("https://smythos.com/wp-content/themes/generatepress_child/fonts/inter-v12-latin-900.woff2") format("woff2");
 }
 
 /* 2) Apply throughout the site */

@@ -20,11 +20,11 @@ async function tailwindPlugin() {
 }
 
 const config: Config = {
-
   title: 'SmythOS Documentation',
   tagline: 'Build, deploy, and scale intelligent agents',
-  favicon: 'img/favicon.ico',
+  favicon: 'https://smythos.com/favicon.ico',
 
+  // Base configuration
   url: 'https://smythos.com',
   baseUrl: '/docs/',
 
@@ -44,14 +44,27 @@ const config: Config = {
       'classic',
       {
         docs: {
-          path: 'docs',                        
-          routeBasePath: 'docs',             
+          path: 'docs',
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: ({ versionDocsDirPath, docPath }) =>
             `https://github.com/SmythOS/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
-           includeCurrentVersion: true,
+          includeCurrentVersion: true,
         },
         blog: false,
+        pages: {
+          path: 'src/pages',
+          routeBasePath: '/',
+          include: ['**/*.{js,jsx,ts,tsx,md,mdx}'],
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+            '**/index.{js,jsx,ts,tsx,md,mdx}',
+          ],
+          mdxPageComponent: '@theme/MDXPage',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -65,7 +78,6 @@ const config: Config = {
   ],
 
   plugins: [
-    // local Docusaurus search
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -75,29 +87,20 @@ const config: Config = {
       },
     ],
     tailwindPlugin,
-    // async function tailwindPlugin() {
-    //   return {
-    //     name: 'tailwindcss-loader',
-    //     configurePostCss(postcssOptions) {
-    //       postcssOptions.plugins.push(require('tailwindcss'));
-    //       postcssOptions.plugins.push(require('autoprefixer'));
-    //       return postcssOptions;
-    //     },
-    //   };
-    // },
-  ],
-  clientModules: [require.resolve('./src/css/tailwind.css'),
-  ],
-  stylesheets: [
-        { href: '/css/header.css', type: 'text/css' },
   ],
 
-  // scripts: [
-  //   {
-  //     src: '/js/header.js',
-  //     defer: true, 
-  //   },
-  // ],
+  clientModules: [require.resolve('./src/css/tailwind.css')],
+  
+  stylesheets: [
+    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/header.css', type: 'text/css' },
+    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/main.css', type: 'text/css' },
+    // { href: '/css/header.css', type: 'text/css' },
+  ],
+
+  scripts: [
+    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/main.js', async: false },
+    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/menu.js', async: false, defer: true },
+   ],
 
   themeConfig: {
     sidebar: {},
@@ -125,6 +128,11 @@ const config: Config = {
     onBrokenLinks: 'warn',
     onBrokenAnchors: 'ignore',
     redirects: [
+      // Root redirects
+      {
+        from: '/',
+        to: '/agent-studio/overview',
+      },
       // Agent Studio redirects
       {
         from: '/docs/agent-studio/agent-settings/logs',
@@ -159,7 +167,7 @@ const config: Config = {
         from: '/docs/agent-collaboration/agent-work-schedule',
         to: '/docs/agent-studio/build-agents/building-workflows',
       },
-      // Integration redirects
+      // Integration redirects - ensure consistent paths
       {
         from: '/docs/integrations/email',
         to: '/docs/agent-studio/integrations/email-integration',

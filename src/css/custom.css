@@ -146,9 +146,3 @@ html *,
 body * {
   font-family: "Inter", sans-serif !important;
 }
-
-/* hide Cmd/Ctrl + K badge next to sidebar search */
-.DocSearch-Button-Keys,
-.DocSearch-Button-Key {
-  display: none !important;
-}

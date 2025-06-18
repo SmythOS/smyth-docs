@@ -114,7 +114,7 @@ export default function Navbar() {
                 <img src="https://smythos.com/wp-content/themes/generatepress_child/img/smythos-dark.svg" alt="SmythOS Logo" width={108} height={24} />
               </a>
             </div>
-            <div className="header-center" style={{ display: 'flex' }}>
+            <div className="header-center">
               <nav role="navigation" aria-label="Main Navigation" id="main-nav" className="main-nav-start">
                 <ul>
                   {MAIN_NAV.map((item, idx) => (

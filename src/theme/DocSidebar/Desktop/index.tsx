@@ -2,7 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import {useThemeConfig} from '@docusaurus/theme-common';
 import Logo from '../../Navbar/Logo';
-import SearchBar from '@theme/SearchBar';               
+import SearchBar from '@theme/SearchBar';     
+import NavbarSearch from '../../Navbar/Search';          
 import CollapseButton from './CollapseButton';
 import Content from './Content';
 
@@ -30,6 +31,10 @@ function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: Props) {
       {/* 🔍 Search input */}
       <div className={styles.sidebarSearch}>
         <SearchBar />
+      </div>
+        {/* 🔍 Search input */}
+        <div className={styles.sidebarSearch}>
+        <NavbarSearch />
       </div>
 
       {/* Sidebar tree */}

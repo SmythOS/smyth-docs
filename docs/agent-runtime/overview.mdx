@@ -1,0 +1,181 @@
+---
+title: SRE
+description: A sophisticated, production-ready runtime platform for building and executing your AI Agents.
+keywords: [SRE, AI runtime, agent, SDK, CLI, components, subsystem, connectors, security, modular]
+sidebar_position: 1
+---
+
+# Smyth Runtime Environment (SRE)
+
+The Smyth Runtime Environment (SRE) is a production-ready runtime platform purpose-built for AI agents. SRE abstracts away infrastructure complexity so you can focus on designing intelligent agent logic.
+
+<InfoCallout title="Core Philosophy">
+SRE follows operating system design principles. Through separation of core runtime services from pluggable connectors, SRE offers modularity, security, and flexibility across all agent workloads.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Ways to Build: Studio, SDK, and CLI
+
+SRE supports multiple ways to build and manage agents, so you can pick what fits your workflow.
+
+- [**Studio**](/docs/agent-studio/overview) (Visual builder): Drag-and-drop interface for agent flows. Great for rapid prototyping and cross-functional teams.
+- [**SDK**](/docs/agent-runtime/sdk-guide) (Code-first): Write, connect, and extend agents in TypeScript for full control and CI/CD support.
+- [**CLI**](/docs/agent-runtime/cli-guide) (Command line): Scaffold, run, and manage agents or workflows directly from your terminal.
+
+<Spacer size="md" />
+
+## Subsystem Architecture
+
+SRE is organized into modular subsystems, each responsible for a core area of the agent runtime:
+
+| Subsystem | Purpose | Key Features |
+| :-------------------- | :------------------------------------------------------------------------ | :------------------------------------------------ |
+| [**IO**](/docs/agent-runtime/architecture#io-subsystem) | Data input/output, storage, API routing, logging | Pluggable connectors for Storage, VectorDB, etc. |
+| [**LLM Manager**](/docs/agent-runtime/architecture#llm-manager-subsystem) | Unified access to LLMs, inference, caching, usage tracking | Multi-provider support (OpenAI, Anthropic, more) |
+| [**Security**](/docs/agent-runtime/architecture#security-subsystem) | Credentials, authentication, secrets, access policies | Vault-backed storage, ACLs, identity management |
+| [**Memory Manager**](/docs/agent-runtime/architecture#memory-manager-subsystem) | Tracks agent state, multi-tier caching, session/conversation context | RAM/Redis/S3/Local cache, context management |
+| [**Agent Manager**](/docs/agent-runtime/architecture#agent-manager-subsystem) | Orchestrates agent execution, lifecycle, monitoring, component workflows | Real-time logs, async ops, visual workflow support |
+
+<Spacer size="md" />
+## Security-First Design
+
+<TipCallout title="Advanced patterns from the SRE repo">
+For advanced patterns, sample projects, and the latest updates, see the official [SRE GitHub repository](https://github.com/SmythOS/sre).
+</TipCallout>
+
+SRE enforces security at every level using a zero-trust **Candidate/ACL** model. Every resource access, like storage or APIs, is scoped to a specific candidate identity and explicitly permissioned.
+
+```typescript
+const candidate = AccessCandidate.agent(agentId);
+const storage = ConnectorService.getStorageConnector().user(candidate);
+await storage.write('data.json', content);
+```
+
+All agent actions are isolated by default.
+
+<Spacer size="md" />
+
+## Building Agents: Studio, SDK, and CLI
+
+You can build and manage agents in several ways.
+
+<InfoCallout title="Explore all agent-building options">
+See [Building Agents](/docs/agent-runtime/building-agents) for a full guide, or [Hybrid Workflows](/docs/agent-runtime/hybrid-workflows) to combine Studio and SDK.
+</InfoCallout>
+
+### SDK (Code-First)
+
+The [Smyth SDK](/docs/agent-runtime/sdk-guide) provides a developer-friendly API for defining, configuring, and extending agents programmatically.
+
+#### Agent Definition and Skills
+
+```typescript
+import { Agent } from '@smythos/sdk';
+
+const agent = new Agent({
+    name: 'DataAnalyst',
+    model: 'gpt-4',
+    behavior: 'You are an expert data analyst.',
+});
+
+agent.addSkill({
+    name: 'processData',
+    description: 'Analyze and process data',
+    process: async (data) => {
+        return { analysis: 'processed' };
+    },
+});
+```
+
+#### Composing Workflows with Components
+
+```typescript
+import { Component } from '@smythos/sdk';
+
+const llm = Component.GenAILLM({ model: 'gpt-4' }, agent);
+const classifier = Component.Classifier({ classes: ['positive', 'negative'] }, agent);
+
+classifier.in({ Input: llm.out.Reply });
+```
+
+### CLI (Command-Line)
+
+You can also use the SmythOS CLI to quickly scaffold new projects, manage agent workflows, and deploy agents.
+
+- Scaffold new projects interactively
+- Run agents and workflows from the command line
+- Integrate CLI flows with SDK or Studio as needed
+
+#### Project Management with SRE CLI
+
+- **Scaffold:**  
+  ```bash 
+  npm i -g @smythos/cli 
+  ```
+  ```bash 
+  sre create
+  ```
+
+- **Run an agent:**  
+  ```bash 
+  sre run ./my-agent.smyth 
+  ```  
+  or  
+  ```bash 
+  sre run 
+  ```
+
+The CLI is ideal for rapid prototyping, local testing, or integrating with other tools in your stack.
+
+### Studio (Visual Builder)
+
+- Design agent logic visually in your browser with drag-and-drop flows
+- Instantly preview, test, and debug in real time
+- Great for non-coders, cross-functional teams, and rapid prototyping
+
+ **For more details, read [Agent Studio](/docs/agent-studio/overview)**
+
+<Spacer size="md" />
+## Seamless Development to Production
+
+SRE lets you use the same agent logic in development and production and only change the runtime configuration, not your business logic.
+
+```typescript
+// Development setup
+const sre = SRE.init({
+    Cache: { Connector: 'RAM' },
+    Storage: { Connector: 'Local' },
+});
+```
+
+```typescript
+// Production setup
+const sre = SRE.init({
+    Cache: { Connector: 'Redis', Settings: { url: '...' } },
+    Storage: { Connector: 'S3', Settings: { bucket: '...' } },
+});
+```
+
+Your agent workflows and skills remain unchanged across environments.
+
+## Studio, SDK, or CLI?
+
+| Workflow | Best For | Strengths | Limitations |
+| :-- | :-- | :-- | :-- |
+| Studio | Rapid prototyping, low-code teams | Visual, intuitive, instant feedback | Less flexible for custom logic |
+| SDK | Developers, CI/CD, full control | Custom logic, type-safe, versioning | Needs coding, steeper learning |
+| CLI | Automation, scripting, quick tests | Fast, scriptable, works with both | Not visual, command-line only |
+
+<InfoCallout title="How teams use this">
+Start in Studioto ideate, switch to SDK for scale and integration, and automate with CLI for pipelines and testing.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What's Next?
+
+- [Getting Started](/docs/agent-runtime/getting-started): Install and configure your first project.
+- [SRE Architecture](/docs/agent-runtime/architecture/): Explore the modular subsystems in depth.
+- [Building Agents](/docs/agent-runtime/building-agents): Learn all the agent creation workflows.
+- [SDK Guide](/docs/agent-runtime/sdk-guide): Dive deeper into the programmatic interface.

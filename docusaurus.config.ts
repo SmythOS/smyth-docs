@@ -1,31 +1,39 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+require('dotenv').config();
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+const tailwindPostcss = require('@tailwindcss/postcss');
+
+async function tailwindPlugin() {
+  return {
+    name: 'tailwindcss-loader',
+    configurePostCss(postcssOptions) {
+      postcssOptions.plugins.push(
+        tailwindPostcss({
+          config: './tailwind.config.js',
+        })
+      );
+      postcssOptions.plugins.push(require('autoprefixer'));
+      return postcssOptions;
+    },
+  };
+}
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'SmythOS Documentation',
+  tagline: 'Build, deploy, and scale intelligent agents',
+  favicon: 'https://smythos.com/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  // Base configuration
+  url: 'https://smythos.com',
+  baseUrl: '/docs/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'SmythOS',
+  projectName: 'smythos-docs',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -36,108 +44,300 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          path: 'docs',
+          routeBasePath: '/',
+          sidebarPath: require.resolve('./sidebars.ts'),
+          editUrl: ({ versionDocsDirPath, docPath }) =>
+            `https://github.com/SmythOS/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
+          includeCurrentVersion: true,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+        blog: false,
+        pages: {
+          path: 'src/pages',
+          routeBasePath: '/',
+          include: ['**/*.{js,jsx,ts,tsx,md,mdx}'],
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+            '**/index.{js,jsx,ts,tsx,md,mdx}',
+          ],
+          mdxPageComponent: '@theme/MDXPage',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
-      } satisfies Preset.Options,
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          filename: 'sitemap.xml',
+        },
+      },
     ],
   ],
 
-  themeConfig: {
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
-    navbar: {
-      title: 'My Site',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        indexBlog: false,
       },
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
-        },
-        {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-    },
+    ],
+    tailwindPlugin,
+  ],
+
+  clientModules: [require.resolve('./src/css/tailwind.css')],
+  
+  stylesheets: [
+    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/main.css', type: 'text/css' },
+    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/header.css', type: 'text/css' },
+    // { href: '/css/header.css', type: 'text/css' },
+  ],
+
+  scripts: [
+    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/main.js', async: false },
+    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/menu.js', async: false, defer: true },
+   ],
+
+  themeConfig: {
+    sidebar: {},
+    // navbar: {
+    //   title: 'SmythOS',
+    //   logo: {
+    //     alt: 'SmythOS Logo',
+    //     src: 'img/smythos-500px.png',
+    //   },
+    //   items: [
+    //     // { to: '/docs', label: 'Docs Home', position: 'left' },
+    //     { to: '/docs/agent-studio/overview', label: 'Studio', position: 'left' },
+    //     { to: '/docs/agent-weaver/overview', label: 'Weaver', position: 'left' },
+    //     { to: '/docs/agent-runtime/overview', label: 'Runtime', position: 'left' },
+    //     { to: '/docs/agent-deployments/overview', label: 'Deployments', position: 'left' },
+    //     { to: '/docs/agent-collaboration/overview', label: 'Collaboration', position: 'left' },
+    //     { to: '/docs/agent-templates/overview', label: 'Templates', position: 'left' },
+    //     { href: 'https://github.com/Smyth-ai', label: 'GitHub', position: 'right' },
+    //   ],
+    // },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-  } satisfies Preset.ThemeConfig,
+    onBrokenLinks: 'warn',
+    onBrokenAnchors: 'ignore',
+    redirects: [
+      // Root redirects
+      {
+        from: '/',
+        to: '/agent-studio/overview',
+      },
+      // Agent Studio redirects
+      {
+        from: '/docs/agent-studio/agent-settings/logs',
+        to: '/docs/agent-studio/build-agents/debugging',
+      },
+      {
+        from: '/docs/agent-studio/agent-settings/authentication',
+        to: '/docs/agent-studio/key-concepts/vault',
+      },
+      {
+        from: '/docs/agent-studio/agent-settings/tasks',
+        to: '/docs/agent-studio/build-agents/building-workflows',
+      },
+      {
+        from: '/docs/agent-studio/agent-settings/overview',
+        to: '/docs/agent-studio/overview',
+      },
+      {
+        from: '/docs/agent-studio/building-agents/overview',
+        to: '/docs/agent-studio/build-agents/overview',
+      },
+      {
+        from: '/docs/agent-studio/building-agents/building-workflows',
+        to: '/docs/agent-studio/build-agents/building-workflows',
+      },
+      // Agent Collaboration redirects
+      {
+        from: '/docs/agent-collaboration/working-with-agents/vault',
+        to: '/docs/agent-studio/key-concepts/vault',
+      },
+      {
+        from: '/docs/agent-collaboration/agent-work-schedule',
+        to: '/docs/agent-studio/build-agents/building-workflows',
+      },
+      // Integration redirects - ensure consistent paths
+      {
+        from: '/docs/integrations/email',
+        to: '/docs/agent-studio/integrations/email-integration',
+      },
+      {
+        from: '/docs/integrations/microsoft-teams',
+        to: '/docs/agent-studio/integrations/microsoft-teams-integration',
+      },
+      {
+        from: '/docs/integrations/discord',
+        to: '/docs/agent-studio/integrations/discord-integration',
+      },
+      {
+        from: '/docs/integrations/slack',
+        to: '/docs/agent-studio/integrations/slack-integration',
+      },
+      {
+        from: '/docs/integrations/notion',
+        to: '/docs/agent-studio/integrations/notion-integration',
+      },
+      {
+        from: '/docs/integrations/google-calendar',
+        to: '/docs/agent-studio/integrations/google-calendar-integration',
+      },
+      {
+        from: '/docs/integrations/microsoft-calendar',
+        to: '/docs/agent-studio/integrations/microsoft-calendar-integration',
+      },
+      {
+        from: '/docs/integrations/stripe',
+        to: '/docs/agent-studio/integrations/stripe-integration',
+      },
+      {
+        from: '/docs/integrations/shopify',
+        to: '/docs/agent-studio/integrations/shopify-integration',
+      },
+      {
+        from: '/docs/integrations/hubspot',
+        to: '/docs/agent-studio/integrations/hubspot-integration',
+      },
+      {
+        from: '/docs/integrations/mailchimp',
+        to: '/docs/agent-studio/integrations/mailchimp-integration',
+      },
+      {
+        from: '/docs/integrations/klaviyo',
+        to: '/docs/agent-studio/integrations/klaviyo-integration',
+      },
+      {
+        from: '/docs/integrations/twilio',
+        to: '/docs/agent-studio/integrations/twilio-integration',
+      },
+      {
+        from: '/docs/integrations/sendgrid',
+        to: '/docs/agent-studio/integrations/sendgrid-integration',
+      },
+      {
+        from: '/docs/integrations/webflow',
+        to: '/docs/agent-studio/integrations/webflow-integration',
+      },
+      {
+        from: '/docs/integrations/wordpress-org',
+        to: '/docs/agent-studio/integrations/wordpress-org-integration',
+      },
+      {
+        from: '/docs/integrations/wordpress-com',
+        to: '/docs/agent-studio/integrations/wordpress-com-integration',
+      },
+      {
+        from: '/docs/integrations/squarespace',
+        to: '/docs/agent-studio/integrations/squarespace-integration',
+      },
+      {
+        from: '/docs/integrations/devto',
+        to: '/docs/agent-studio/integrations/devto-integration',
+      },
+      {
+        from: '/docs/integrations/youtube',
+        to: '/docs/agent-studio/integrations/youtube-integration',
+      },
+      {
+        from: '/docs/integrations/fal-ai',
+        to: '/docs/agent-studio/integrations/falai-integration',
+      },
+      {
+        from: '/docs/integrations/dataforseo',
+        to: '/docs/agent-studio/integrations/dataforseo-integration',
+      },
+      {
+        from: '/docs/integrations/tavily',
+        to: '/docs/agent-studio/integrations/tavily-integration',
+      },
+      {
+        from: '/docs/integrations/perplexity-ai',
+        to: '/docs/agent-studio/integrations/perplexity-ai-integration',
+      },
+      {
+        from: '/docs/integrations/playht',
+        to: '/docs/agent-studio/integrations/playht-integration',
+      },
+      {
+        from: '/docs/integrations/stability-ai',
+        to: '/docs/agent-studio/integrations/stability-ai-integration',
+      },
+      {
+        from: '/docs/integrations/google-translate',
+        to: '/docs/agent-studio/integrations/google-translate-integration',
+      },
+      {
+        from: '/docs/integrations/newsapi',
+        to: '/docs/agent-studio/integrations/newsapi-integration',
+      },
+      {
+        from: '/docs/integrations/openapi',
+        to: '/docs/agent-studio/integrations/openapi-integration',
+      },
+      {
+        from: '/docs/integrations/google-analytics',
+        to: '/docs/agent-studio/integrations/google-analytics-integration',
+      },
+      {
+        from: '/docs/integrations/pdfcrowd',
+        to: '/docs/agent-studio/integrations/pdfcrowd-integration',
+      },
+      {
+        from: '/docs/integrations/signnow',
+        to: '/docs/agent-studio/integrations/signnow-integration',
+      },
+      {
+        from: '/docs/integrations/tldv',
+        to: '/docs/agent-studio/integrations/tldv-integration',
+      },
+      {
+        from: '/docs/integrations/trello',
+        to: '/docs/agent-studio/integrations/trello-integration',
+      },
+      {
+        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration',
+        to: '/docs/agent-studio/integrations/elevenlabs-integration',
+      },
+      {
+        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration-integration',
+        to: '/docs/agent-studio/integrations/elevenlabs-integration',
+      },
+      // Account management redirects
+      {
+        from: '/docs/account-management/prganization-management',
+        to: '/docs/account-management/organization-management',
+      },
+      // Agent deployment redirects
+      {
+        from: '/docs/deployments',
+        to: '/docs/agent-deployments/overview',
+      },
+      {
+        from: '/docs/agent-deployment/subdomains',
+        to: '/docs/agent-deployments/deployments/subdomains',
+      },
+      {
+        from: '/docs/agent-deployment/quickstart',
+        to: '/docs/agent-deployments/quickstart',
+      },
+      // Agent runtime redirects
+      {
+        from: '/docs/agent-runtime//quickstart',
+        to: '/docs/agent-runtime/quickstart',
+      },
+    ],
+  },
 };
 
 export default config;
+

@@ -92,8 +92,8 @@ const config: Config = {
   clientModules: [require.resolve('./src/css/tailwind.css')],
   
   stylesheets: [
-    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/header.css', type: 'text/css' },
     { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/main.css', type: 'text/css' },
+    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/header.css', type: 'text/css' },
     // { href: '/css/header.css', type: 'text/css' },
   ],
 

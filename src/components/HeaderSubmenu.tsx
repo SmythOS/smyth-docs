@@ -6,9 +6,6 @@ import SvgRuntime from './icons/SvgRuntime';
 import SvgDeployments from './icons/SvgDeployments';
 import SvgCollaboration from './icons/SvgCollaboration';
 import SvgTemplates from './icons/SvgTemplates';
-import '@site/src/css/headerSubmenu.css';
-
-
 
 const DOCS_SUBMENU = [
   { label: 'Studio', href: '/docs/agent-studio/overview', Icon: SvgStudio },

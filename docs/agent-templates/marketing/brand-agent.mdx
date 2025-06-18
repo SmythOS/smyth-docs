@@ -1,7 +1,6 @@
 ---
 title: Brand Agent
 description: A comprehensive tutorial on setting up and testing a Brand Agent in SmythOS.
-tags: [tutorial, agents, brand, SmythOS, workflow]
 ---
 # Tutorial: Brand Agent
 
@@ -169,9 +168,9 @@ Now, we'll proceed to set up the **LLM Prompt** component to ensure our agent ef
 
 >*Ask the user a first name, last name, email address and company name as optional.*
 >*If the user provide the first name, last name and email address, provide the following information to the **notify_smyth_team** endpoint:*
->*first_name: the first name of the user* >*last_name: the last name of the user*
+>`*first_name`: the first name of the user* >*`last_name`: the last name of the user*
 >*email: the email of the user*
->*company_name: company name of the user*
+>*`company_name`: company name of the user*
 >
 >*If the user doesn't provide the first name, last name and email address, keep asking that info.*
 
@@ -202,13 +201,13 @@ Moving forward with our plans, we will configure a specialized API endpoint name
 
 **Inputs:**
 
-- **Name:** *first_name*
+- **Name:** `*first_name*`
 - **Description:** *This input field is designed for quick and easy collection of user first name*
-- **Name:** *last_name*
+- **Name:** `*last_name*`
 - **Description:** *This input field is designed for quick and easy collection of user last name*
 - **Name:** *email*
 - **Description:** *This input field is designed for collection of user email address*
-- **Name:** *company_name* (optional)
+- **Name:** `*company_name*` (optional)
 - **Description:** *This input field is designed for quick and easy collection of user company name*
 
 <Image
@@ -222,13 +221,13 @@ Moving forward with our plans, we will configure a specialized API endpoint name
 
 We’ll set up outputs to mirror the inputs, ensuring the data flows seamlessly through the endpoint:
 
-- **Name:** *first_name*
+- **Name:** `*first_name*`
 - **Expression:** *body.first_name*
-- **Name:** *last_name*
+- **Name:** `*last_name*`
 - **Expression:** *body.last_name*
 - **Name:** *email*
 - **Expression:** *body.email*
-- **Name:** *company_name*
+- **Name:** `*company_name*`
 - **Expression:** *body.company_name*
 
 <Image
@@ -245,10 +244,10 @@ With the values of **name**, **email**, and **summary** at our disposal, we are 
 **Prompt:**
 >*Please compose a message to notify Smyth Team saying that a user wants to get in contact. Use the provided name and email. Use the following information.*
 >
->- *first name = {{first_name}}*
->- *last name = {{last_name}}*
->- *email = {{email}}*
->- *company name = {{company_name}}*
+>- *first name = {`{{first_name}}`}*
+>- *last name = {`{{last_name}}`}*
+>- *email = {`{{email}}`}*
+>- *company name = {`{{company_name}}`}*
 
 <Image
   src="/img/brand-agent/generateMessageSettings.png"
@@ -259,10 +258,10 @@ With the values of **name**, **email**, and **summary** at our disposal, we are 
 
 **Inputs:**
 
-1. **Name:** *first_name*
-2. **Name:** *last_name*
+1. **Name:** `*first_name*`
+2. **Name:** `*last_name*`
 3. **Name:** *email*
-4. **Name:** *company_name* (Optional)
+4. **Name:** `*company_name*` (Optional)
 
 **Outputs:**
 

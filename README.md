@@ -1,6 +1,6 @@
 # SmythOS Documentation
 
-This repository contains the **open source** documentation for SmythOS. The docs are written in Markdown/MDX and built with [Docusaurus](https://docusaurus.io/).
+This repository contains the **open source** documentation for [SmythOS](https://smythos.com/docs/). The docs are written in Markdown/MDX and built with [Docusaurus](https://docusaurus.io/).
 
 The content covers everything from building agents in the cloud-based Studio to running them locally with the Runtime and deploying them in production. Browse the documentation online or run it locally using the instructions below.
 
@@ -8,7 +8,6 @@ The content covers everything from building agents in the cloud-based Studio to 
 
 The docs are organized into several areas:
 
-- **Introduction** – quickstart, glossary, and core concepts.
 - **Studio** – visually build, test, and debug agents.
 - **Weaver** – describe your goal and have Weaver create agents with no code.
 - **Runtime** – run agents locally or at scale.
@@ -71,4 +70,4 @@ We welcome contributions and fixes. If you spot an issue or want to add new cont
 2. Make your changes to the Markdown/MDX files in `docs/` or to the components in `src/`.
 3. Open a pull request describing your changes.
 
-No production deployment is required to contribute—just open a PR and share your improvements.
+No production deployment is required to contribute. Simply open a PR and share your improvements.

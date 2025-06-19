@@ -3,7 +3,7 @@ title: SharePoint Integration
 description: Connect Microsoft SharePoint with SmythOS to enable seamless document access, file listing, and collaboration features in your agent workflows.
 og:title: SmythOS & SharePoint - Supercharge Your Content Workflows
 og:description: Learn how to integrate Microsoft SharePoint with SmythOS. Enable your agents to access, search, and manage files within your SharePoint environment.
-og:image: /img/integrations/smythos_sharepoint.png
+og:image: /docs/img/integrations/smythos_sharepoint.png
 keywords: [SharePoint SmythOS Integration, Connect SharePoint to SmythOS, Microsoft 365 Workflow Automation, SharePoint API No Code, Document Management Agents]
 ---
 # SharePoint Integration
@@ -73,7 +73,7 @@ Retrieves your tenant’s root SharePoint site.
 | `name` | Internal SharePoint site name |
 | `response`, `headers` | Raw API output and metadata |
 
-<Image src="/img/sharepoint/screenshot1.png" alt="Get Root Site Inputs" />
+<Image src="/docs/img/sharepoint/screenshot1.png" alt="Get Root Site Inputs" />
 
 <TipCallout title="Use Case" collapsible> Start all SharePoint document operations by determining the root site ID. </TipCallout>
 
@@ -94,7 +94,7 @@ Query team sites using keywords.
 | `value` | Matching site(s) metadata |
 | `response`, `headers` | Raw API output and metadata |
 
-<Image src="/img/sharepoint/screenshot5.png" alt="Search Site Input" />
+<Image src="/docs/img/sharepoint/screenshot5.png" alt="Search Site Input" />
 
 <WarningCallout title="Token Errors">
 Use the "Sign Out" → "Authenticate" cycle when tokens expire or become invalid.
@@ -117,7 +117,7 @@ Lists all sites under the authenticated tenant.
 | `sites` | Array of SharePoint site objects |
 | `response`, `headers` | Raw API response |
 
-<Image src="/img/sharepoint/screenshot9.png" alt="All Sites Output" />
+<Image src="/docs/img/sharepoint/screenshot9.png" alt="All Sites Output" />
 
 <TipCallout>
 Use this to populate dropdowns or enable conditional logic based on selected site.
@@ -140,7 +140,7 @@ Lists folders/files from the root directory of a SharePoint site.
 | `items` | Array of files/folders |
 | `response`, `headers` | Full API response |
 
-<Image src="/img/sharepoint/screenshot12.png" alt="Drive Items Output" />
+<Image src="/docs/img/sharepoint/screenshot12.png" alt="Drive Items Output" />
 
 <WarningCallout title="Missing Site ID">
 Always run `Get Root Site` or `Search Site` to obtain a valid `site_id` before using this component.
@@ -168,7 +168,7 @@ Always run `Get Root Site` or `Search Site` to obtain a valid `site_id` before u
 
 <Divider />
 
-<Image src="/img/integrations/smythos_sharepoint.png" alt="SharePoint integration diagram" />
+<Image src="/docs/img/integrations/smythos_sharepoint.png" alt="SharePoint integration diagram" />
 ## What’s Next?
 
 Explore these automation ideas:

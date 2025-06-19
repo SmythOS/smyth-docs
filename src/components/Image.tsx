@@ -5,7 +5,7 @@ import React from "react";
  * and (optionally) adds a subtle border + drop shadow.
  * Supports an optional aspect ratio box.
  *
- * @prop {string}   src            – required, image URL (e.g. "/img/foo.png" or external link)
+ * @prop {string}   src            – required, image URL (e.g. "/docs/img/foo.png" or external link)
  * @prop {string}   [alt='']       – optional, alt text for accessibility
  * @prop {string}   [caption]      – optional caption shown under the image
  * @prop {boolean}  [bordered=true]– whether to draw a 1px gray border + soft shadow

@@ -70,4 +70,14 @@ We welcome contributions and fixes. If you spot an issue or want to add new cont
 2. Make your changes to the Markdown/MDX files in `docs/` or to the components in `src/`.
 3. Open a pull request describing your changes.
 
-No production deployment is required to contribute. Simply open a PR and share your improvements.
+No production deployment is required to contribute. Simply open a PR and share your improvements. Please see our [Contributing Guide](CONTRIBUTING.md) for complete details. 
+
+## What's Next?
+
+-   We will release an open source visual agent IDE later this year.
+-   Support us at [SmythOS](https://smythos.com) and read the [SmythOS Documentation](https://smythos.com/docs/).
+-   Join our [community](https://discord.gg/smythos) to stay updated on new features, connectors, and capabilities.
+
+/smɪθ oʊ ɛs/
+
+Ride the llama. Skip the drama.

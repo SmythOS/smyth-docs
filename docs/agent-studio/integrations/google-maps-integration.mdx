@@ -3,7 +3,7 @@ title: Google Maps Integration
 description: Integrate Google Maps with SmythOS to geocode addresses and discover nearby places directly from your agent workflows.
 og:title: SmythOS & Google Maps - Location Intelligence for Your Agents
 og:description: Learn to connect Google Maps to SmythOS and add location search, geocoding, and point-of-interest discovery to your automated agents.
-og:image: /img/integrations/smythos_googlemaps.png
+og:image: /docs/img/integrations/smythos_googlemaps.png
 keywords: [Google Maps SmythOS Integration, Geocoding API Automation, Nearby Places API, Google Maps Agents, Location Automation, Google Maps API No-Code]
 ---
 
@@ -72,7 +72,7 @@ This component converts a human-readable address into GPS coordinates (latitude,
 |-------|----------|-------------|
 | <code>urlEncodedAddress</code> | <Badge type="required" /> | Address string formatted for URL (e.g., <code>1600+Amphitheatre+Parkway,+Mountain+View,+CA</code>). |
 
-<Image src="/img/googlemaps/screenshot2.png" alt="Geocode Address Input" />
+<Image src="/docs/img/googlemaps/screenshot2.png" alt="Geocode Address Input" />
 
 #### Outputs
 
@@ -82,7 +82,7 @@ This component converts a human-readable address into GPS coordinates (latitude,
 | <code>response</code> | Raw JSON from Google Geocoding API. |
 | <code>headers</code> | HTTP headers from the API call. |
 
-<Image src="/img/googlemaps/screenshot3.png" alt="Geocode Output Example" />
+<Image src="/docs/img/googlemaps/screenshot3.png" alt="Geocode Output Example" />
 
 <TipCallout title="Use Case" collapsible>
 Convert shipping or address input into coordinates and pass to logistics API or distance calculator.
@@ -107,7 +107,7 @@ Returns nearby points of interest (POIs) based on location, radius, and keyword.
 | <code>radius</code> | <Badge type="required" /> | Search radius in meters. |
 | <code>keyword</code> | <Badge type="required" /> | Place type or keyword (e.g., <code>bookstore</code>, <code>atm</code>). |
 
-<Image src="/img/googlemaps/screenshot5.png" alt="Nearby Search Input" />
+<Image src="/docs/img/googlemaps/screenshot5.png" alt="Nearby Search Input" />
 
 #### Outputs
 
@@ -117,7 +117,7 @@ Returns nearby points of interest (POIs) based on location, radius, and keyword.
 | <code>response</code> | Full response from the Places API. |
 | <code>headers</code> | Metadata headers returned from the call. |
 
-<Image src="/img/googlemaps/screenshot6.png" alt="Nearby Places Output" />
+<Image src="/docs/img/googlemaps/screenshot6.png" alt="Nearby Places Output" />
 
 <TipCallout title="Use Case" collapsible>
 Pair this with a user’s geocoded address to find relevant venues nearby: coffee, pharmacies, or retail.
@@ -163,6 +163,6 @@ Example workflows to try:
 - **Routing Helper:** Convert multiple addresses to coordinates → Optimize with Maps Distance Matrix
 - **Venue Recommender:** Detect location from IP → Recommend restaurants or hotels nearby
 
-<Image src="/img/integrations/smythos_googlemaps.png" alt="Google Maps integration overview" />
+<Image src="/docs/img/integrations/smythos_googlemaps.png" alt="Google Maps integration overview" />
 
 <Divider />

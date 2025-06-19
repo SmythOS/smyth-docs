@@ -3,7 +3,7 @@ title: Algolia Integration
 description: Add lightning-fast search to your agents using Algolia. Configure your Application ID and Search-Only API key to connect.
 og:title: SmythOS + Algolia
 og:description: Search, filter, and rank index data instantly using Algolia in SmythOS workflows.
-og:image: /img/integrations/smythos_algolia.png
+og:image: /docs/img/integrations/smythos_algolia.png
 keywords: [Algolia Search, Algolia API Integration, Search Agents, Instant Search, Algolia Application ID, Algolia Index, SmythOS Search Automation]
 ---
 
@@ -58,7 +58,7 @@ Use this component to perform keyword searches within a specific index tied to y
 | <code>text</code> | <Badge type="required" /> | The user query string (e.g., "t-shirt large") |
 | <code>app_id</code> | <Badge type="required" /> | Your Algolia Application ID (from dashboard) |
 
-<Image src="/img/integrations/algolia_inputs.png" alt="Algolia Inputs" />
+<Image src="/docs/img/integrations/algolia_inputs.png" alt="Algolia Inputs" />
 
 > **Note:** You can add advanced filters or custom parameters using the <code>+ Add Input</code> button.
 
@@ -70,7 +70,7 @@ Use this component to perform keyword searches within a specific index tied to y
 | <code>response</code> | Full JSON API response |
 | <code>headers</code> | HTTP response headers |
 
-<Image src="/img/integrations/algolia_outputs.png" alt="Algolia Output" />
+<Image src="/docs/img/integrations/algolia_outputs.png" alt="Algolia Output" />
 
 <PromptCard prompt={`{
   "component": "algolia.search",
@@ -111,4 +111,4 @@ Use Algolia in flows like:
 - 🧭 Multi-index search (run separate searches across indexes in parallel)
 - 💬 Natural language queries from user input → Algolia search → Doc response
 
-<Image src="/img/integrations/smythos_algolia.png" alt="Algolia Integration Illustration" />
+<Image src="/docs/img/integrations/smythos_algolia.png" alt="Algolia Integration Illustration" />

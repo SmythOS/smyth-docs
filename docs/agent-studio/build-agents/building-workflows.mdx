@@ -1,50 +1,88 @@
 ---
 title: Workflows
-description: Automate any process by chaining pre-built components that interact with resources, transform data, and run logic—triggered by schedules, chat, API calls, or voice and other embodiments.
-keywords: [SmythOS, workflows, automation, skills, skills, components, no-code, orchestration]
-sidebar_position: 4
+description: Automate any process by chaining prebuilt components that interact with resources, transform data, and run logic—triggered by schedules, chat, API calls, or voice and other embodiments.
+keywords: [SmythOS, workflows, automation, agent skills, components, orchestration, no-code]
+sidebar_position: 2
 ---
 
-# Workflows
+# Building Workflows
 
-A **workflow** in SmythOS is a self-contained sequence of **components**—modular blocks that query data, perform actions, transform inputs, and run logic. Workflows can execute on a schedule, in response to webhooks, via API calls, through chat interactions, or on any other supported embodiment (voice, batch, UI button). Enable your agent to use workflows by linking them via an [Agent Skill](/docs/agent-studio/components/base/agent-skill).
+A **workflow** in SmythOS is a modular chain of components that defines how your agent processes data, connects to services, and performs actions. Workflows can be triggered by chat, API calls, schedules, or other interfaces—giving you a flexible way to automate anything from lead enrichment to document parsing.
 
----
+Workflows are reusable, configurable, and composable. To make them usable by agents, you connect them using an [Agent Skill](/docs/agent-studio/components/base/agent-skill), which serves as an entry point.
 
-## Assemble components 
+<Spacer size="md" />
 
-Drag and drop components into the [Studio Canvas](docs/agent-studio/key-concepts/canvas), configure inputs, settings, and error paths, then connect them to define control flow. Each component can:
+## How Workflows Work
 
-- **Query** a data source (e.g., database, spreadsheet, RAG search)  
-- **Act** on external services (e.g., HTTP API, SaaS integration)  
-- **Process** data (e.g., JavaScript code, math operations)  
-- and much more. For more detailed list, refer to [components]
+Each workflow is made up of [components](/docs/agent-studio/components/overview) that each do one thing well. These include logic operators, API calls, LLMs, file processors, and data transformers. You can:
 
----
+- Fetch data from external systems using [API Call](/docs/agent-studio/components/base/api-output) or scraping components
+- Apply logic and conditional branching using control components
+- Pass data between steps with fully configurable inputs and outputs
 
-## Define control flow
+You build and arrange these components visually using the [Studio Canvas](/docs/agent-studio/key-concepts/canvas), which lets you drag, connect, configure, and test as you go.
 
-Connections between components determine execution order and data passing. Components can either be:
+<Spacer size="md" />
 
-- **Sequential**: one component after another.  
-- **Branching**: parallel or conditional paths.
+## Building a Workflow
 
-## Invoke via Agent or API
+To create a workflow in SmythOS:
 
-Workflows can be triggered in three ways:
+1. Open a new agent or edit an existing one using the Studio Canvas  
+2. Add an [Agent Skill](/docs/agent-studio/components/base/agent-skill) component—this marks the start of a workflow  
+3. Add other components from the [Component Library](/docs/agent-studio/components/overview) based on your use case  
+4. Define input/output connections and configure each component
+5. Test the full skill using **Form Preview**, or run step-by-step using [Debugging Tools](/docs/agent-studio/build-agents/debugging)
 
-- **Direct API Call**  
-  Each workflow has its own REST endpoint. Call it from your code [check below]
+<InfoCallout title="Tip for large workflows">
+Use modular skills and break logic into manageable paths. You can reuse subflows or create templates for similar operations.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## How Workflows Are Triggered
+
+Workflows can run in three primary ways, depending on how you want to use them.
+
+### [API Call](/docs/agent-studio/componenets/advanced/api-call)
+
+Each workflow is exposed as a REST API endpoint. You can call it directly from your own applications or scripts.
+
 ```bash
 curl -X POST \
   "https://api.smythos.com/v1/workflows/{workflow_id}/startTrigger?apiKey=$SMYTH_WORKFLOW_KEY" \
   -H "Content-Type: application/json" \
   -d '{"orderId":1234,"amount":49.99}'
+```
 
-- **Agent Invocation**  
-  Connect the workflow to an Agent via the [Agent Skill Component](/docs/agent-studio/components/base/agent-skill) to enable agent orchestration. An agent can use one or more workflows in response to chat, voice, or other embodiments.
+This is useful for server-to-server automation, webhooks, or backend workflows.
 
-- **Task Invocation**
-  Tasks can be triggered through scheduled runs or batch processing, allowing for automated execution of workflows at specified intervals or in bulk operations. 
+### Agent Invocation
 
-*Ready to automate? Browse our [Agent Templates] or start building a new workflow in the SmythOS Studio!*  
+If your workflow is linked to an agent using the [Agent Skill component](/docs/agent-studio/components/base/agent-skill), the agent can invoke it in response to a user prompt, a chat message, or other agent-triggered events like voice input or UI interactions.
+
+This is the primary way agents turn inputs into structured behaviors.
+
+### Task Invocation
+
+Workflows can also run automatically using [Scheduled Tasks](/docs/agent-studio/manage-agents/tasks) or [Bulk Processing](/docs/agent-studio/manage-agents/tasks#bulk-operations). This helps automate repetitive actions such as daily reporting, data fetching, or routine batch jobs.
+
+<Spacer size="md" />
+
+## Structuring Workflows: Flow Types
+
+SmythOS supports multiple control flow patterns:
+
+- **Sequential Flow**: Components run one after the other
+- **Branching Flow**: Logic determines which branch to execute next
+- **Parallel Flow**: Multiple branches execute independently
+
+Execution flows are visualized directly on the canvas, and you can monitor performance and logic using the [Inspect Panel](/docs/agent-studio/build-agents/debugging#inspect-panel).
+
+<InfoCallout title="Need complex decision-making?">
+Add classifiers, code components, or logic gates to dynamically route data through your workflows.
+</InfoCallout>
+
+<Spacer size="md" />
+*Ready to automate? Browse our [Agent Templates]((https://app.smythos.com/templates)) or start building a new workflow in the SmythOS Studio!*  

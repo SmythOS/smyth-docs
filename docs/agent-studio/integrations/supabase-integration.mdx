@@ -3,7 +3,7 @@ title: Supabase Integration
 description: Connect SmythOS to Supabase to interact with your PostgreSQL database, manage data, and build powerful backends directly from your agent workflows.
 og:title: SmythOS & Supabase - Automate Your Open Source Backend
 og:description: Learn to integrate Supabase with SmythOS. Empower your agents to insert, read, update, and delete rows in your database, connecting your application data to any automation.
-og:image: /img/integrations/smythos_supabase.png
+og:image: /docs/img/integrations/smythos_supabase.png
 tags: [database, serverless, postgres, backend]
 keywords: [Supabase SmythOS Integration, Connect Supabase to SmythOS, SmythOS Supabase, Automate Database, PostgreSQL API, No-Code Backend, Firebase Alternative]
 ---
@@ -349,10 +349,10 @@ You are now ready to build powerful, data-driven applications with the **SmythOS
 
 Consider these ideas:
 * **Build an Agent That...**
-    * Acts as a complete serverless backend for a user registration system. It uses the [Firebase Auth Integration](/docs/integrations/firebase) for authentication, and then `Insert Row` to save new user profiles to your Supabase `profiles` table.
-    * Creates a logging service. After any critical action (like sending an email with [Resend](/docs/integrations/resend) or processing a payment with [Stripe](/docs/agent-studio/integrations/stripe-integration)), an agent inserts a log record into a `logs` table in Supabase.
+    * Acts as a complete serverless backend for a user registration system. It uses the [Firebase Auth Integration](/docs/agent-studio/integrations/firebase-integration) for authentication, and then `Insert Row` to save new user profiles to your Supabase `profiles` table.
+    * Creates a logging service. After any critical action (like sending an email with [Resend](/docs/agent-studio/integrations/resend-integration) or processing a payment with [Stripe](/docs/agent-studio/integrations/stripe-integration)), an agent inserts a log record into a `logs` table in Supabase.
     * Powers a dynamic website. An agent uses `Read Rows` to fetch content (like blog posts or product listings) from your Supabase database and provides it to a frontend framework.
 
 * **Explore Other Integrations:**
-    * Use Supabase as the source of truth for a marketing campaign. An agent can `Read Rows` to get a list of customer emails, then pass them to the [Mailchimp Integration](/docs/integrations/mailchimp) to add them to a new campaign.
-    * When a new record is added to a Supabase table (detected via a webhook), trigger an agent to send a notification to a [Slack](/docs/integrations/slack) channel.
+    * Use Supabase as the source of truth for a marketing campaign. An agent can `Read Rows` to get a list of customer emails, then pass them to the [Mailchimp Integration](/docs/agent-studio/integrations/mailchimp-integration) to add them to a new campaign.
+    * When a new record is added to a Supabase table (detected via a webhook), trigger an agent to send a notification to a [Slack](/docs/agent-studio/integrations/slack-integration) channel.

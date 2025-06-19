@@ -1,82 +1,82 @@
 ---
-title: Agent Overview
+title: Agent
 keywords: [SmythOS, agent orchestration, AI agents, workflow]
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # Agent Overview
 
-In **SmythOS**, an **agent** is comprised of one or more skills and can **reason**, **act**, and **respond** across multiple channels (API, chat, voice, batch). Unlike traditional workflows that follow predetermined sequences, agents use language models to intelligently determine which actions to take based on your specific queries and context. Agent orchestration is the practice of **designing, running, and governing** these agents so they meet your product and operational needs. In SmythOS, we provide not just the tools to create but also powerful orchestration features. 
+In SmythOS, an **agent** is more than just a workflow. It is a decision-making unit that uses language models to choose the right tools, actions, and responses based on the task at hand. Agents combine logic, memory, and orchestration to operate across channels such as API, chat, voice, batch, or embedded UI.
 
-## Core Concepts
-| Term | What it means |
-|------|--------------------------|
-| **Component** | The smallest building block... one task with defined inputs ➜ outputs.<br/>_Examples: API Call, GenAI-LLM, Web Scraper, RAG Search._ |
-| **Skill** | A workflow connected to the Agent to solve a sub-task (e.g., "Enrich a company record" or "Summarize a PDF"). |
-| **Agent** | A production-ready package that stitches **multiple skills** into a full workflow, adds memory, auth, and deployment metadata, and exposes REST / WebSocket / UI endpoints. |
-| **Vault** | An encrypted locker for API keys and secrets, referenced by components at runtime so credentials never leak. |
+<InfoCallout title="Real-time adaptability">
+Agents can route logic, call APIs, summarize documents, fetch data, and even collaborate with other agents without requiring predefined paths.
+</InfoCallout>
 
-> **TL;DR** – *Components* ⟶ bundled into *Skills* ⟶ orchestrated by an *Agent* you can ship to users.
+## How Agents Work
 
----
+SmythOS agents are built from three key layers:
 
-## What an agent gives you
+| Concept     | Description |
+|-------------|-------------|
+| **Component** | A single-purpose building block. Each component performs a discrete task, like calling an API, searching the web, or running an LLM prompt. |
+| [**Skill**](/docs/agent-studio/build-agents/building-workflows)     | A complete workflow composed of components. Skills perform higher-order actions such as summarising a PDF or enriching a CRM lead. |
+| **Agent**     | A container for skills with orchestration logic, memory, prompts, and access control. The agent handles incoming queries, selects the right skill, and executes it. |
 
-Agents act as **decision-makers** that can interact with other agents and tools. When you send a query to an agent, it analyzes the request and chooses the most appropriate tools and skills to provide the best response. This adaptive behavior, combined with configurable prompts, allows agents to handle a wide range of scenarios dynamically.
+<TipCallout title="Think of it like this:">
+Components are your tools, skills are your workflows, and agents are the intelligent operator.
+</TipCallout>
 
-To build an effective agent, you'll:
+## What Agents Enable
 
-1. **Configure basic settings** - Set up the agent's behavior, personality, and decision-making capabilities. [Learn more →](/docs/agent-studio/manage-agents/overview)
-2. **Add skills** - Define the specific capabilities your agent can use to accomplish tasks
+When you publish an agent, you unlock a powerful runtime that supports both backend and user-facing experiences:
 
-Here's what your agent can do once configured:
+| Feature                    | Why it matters |
+|----------------------------|----------------|
+| **REST and WebSocket APIs** | Call agents from any app, script, or service using simple endpoints. |
+| **Embedded Web UI**         | Every agent comes with a generated interface that you can customize, brand, and embed. |
+| **Prompt and model control** | Modify prompts, switch LLMs, and debug tokens without re-deploying. |
+| **Deployment and versioning** | Publish safely with rollback support and environment isolation. |
+| **Observability tools**     | View run logs, trace token usage, and label agent outputs. |
 
-| Capability | Why it matters |
-|------------|----------------|
-| **Token-based REST & WebSocket APIs** | Call your agent from backend or frontend code in a single line. |
-| **Hosted Web UI** | SmythOS auto-generates a polished chat or form UI you can embed or white-label. |
-| **Visual Builder & Prompt Ops** | Tune prompts, swap LLMs, inspect token logs—no redeploy needed. |
-| **Observability & Annotation** | Real-time run logs, cost tracing, and human-in-the-loop evaluation. |
-| **Deployment controls** | Versioning, staged roll-outs, RBAC.|
+You can configure all of these in the [Agent Settings page](/docs/agent-studio/manage-agents/overview), where you control behavior, personality, rate limits, and access policies.
 
-{/* 
-## Agent flavors
+## What Agents Are Good At
 
-| Type | Best for | Interaction mode | Default UI | Example Endpoint |
-|------|----------|------------------|------------|------------------|
-| **Chat Agent** | Conversational assistants, support bots | Multi-turn dialog, memory on | Chat window | `/v1/agents/{id}/chat` |
-| **Task Agent** | Autonomous task chains, tool calls | Decompose → act → summarize | Log timeline | `/v1/agents/{id}/run` |
-| **Workflow** | Single-shot automation & batch jobs | One-and-done | Form + result | `/v1/workflows/{id}/invoke` |
+SmythOS agents are useful across a wide range of operational and product contexts:
 
-### Chat Agent vs. Task Agent
+- **Customer Support**  
+  Interpret queries, fetch documentation, and return suggested replies.
+- **Marketing and Content**  
+  Generate campaign copy, product descriptions, blog drafts, and taglines.
+- **Internal Automation**  
+  Parse incoming tickets, update spreadsheets, and ping teams on Slack.
+- **Data Intelligence**  
+  Analyze files, execute code on data, and return summaries or charts.
+- **Email Assistants**  
+  Personalize and batch-send cold emails or nurture messages.
 
-| Feature | Chat Agent | Task Agent |
-|---------|-----------|-----------|
-| **Context persistence** | Continuous | Optional / per run |
-| **Tool invocation** | Limited (FAQ, RAG) | Full autonomy, external APIs |
-| **Streaming output** | ✅ | ✅ |
-| **Example use-case** | Customer-support bot | Lead-enrichment pipeline |
-*/}
+Each use case combines workflows (skills) with AI tools and your custom logic.
 
----
-## Common use-cases
+## How to Build an Agent
 
-- **Customer Service** – Classify intent ➜ retrieve KB docs ➜ draft, stream, and log replies.  
-- **Content Generation** – Outline ➜ research ➜ generate ➜ style-check ➜ deliver.  
-- **Task Automation** – Trigger from Slack ➜ process data ➜ update Jira ➜ notify stakeholder.  
-- **Data Analysis** – Ingest CSV ➜ run SQL or Pandas ➜ summarize insights ➜ return chart.  
-- **Email Automation** – Draft, personalize, and queue sends at scale.
+You can create your first agent in a few steps:
 
+1. Go to your [dashboard](https://app.smythos.com) and create a new agent, or remix one from the [template gallery](/docs/agent-templates/overview).
+2. Add an [Agent Skill](/docs/agent-studio/components/base/agent-skill) to define how the agent should behave.
+3. Connect components using the [Studio Canvas](/docs/agent-studio/key-concepts/canvas) to structure your logic.
+4. Configure the prompts, inputs, and memory settings for dynamic behavior.
 
-## Get started in 4 steps
-
-1. **Create a new agent** from the dashboard or clone a [template](/docs/agent-templates/overview).  
-2. **Design the workflow**: drag nodes, wire inputs/outputs, and set memory or tool calls.  
-3. **Publish** ➜ SmythOS assigns an agent ID and generates API keys/scopes.  
-4. **Trigger** the agent via UI **or** call the API:
+Once your agent is ready, you can publish and interact with it using the API.
 
 ```bash
 curl -X POST https://api.smythos.com/v1/agents/{agent_id}/run \
   -H "Authorization: Bearer $SMYTH_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"inputs": {"query": "Generate five tagline ideas for SmythOS"}}'
+```
+
+<InfoCallout title="Want to test visually?">
+Use the built-in Form Preview feature to simulate input and see the agent’s full response without writing any code.
+</InfoCallout>
+
+<Spacer size="md" />

@@ -3,7 +3,7 @@ title: Stripe Integration
 description: Connect SmythOS to Stripe to automate customer creation, payment processing, and subscription management directly from your agent workflows.
 og:title: SmythOS & Stripe - Automate Your Payment Operations
 og:description: Learn to integrate Stripe with SmythOS. Empower your agents to create and manage customers, handle payments, and automate billing and financial workflows.
-og:image: /img/integrations/smythos_stripe.png
+og:image: /docs/img/integrations/smythos_stripe.png
 keywords: [Stripe SmythOS Integration, Connect Stripe to SmythOS, SmythOS Stripe API, Automate Payments, Payment Processing API, No-Code Stripe, Subscription Billing]
 ---
 # Stripe Integration with SmythOS
@@ -194,7 +194,7 @@ Consider these ideas:
 * **Build an Agent That...**
     * Manages the full new user lifecycle. When a user signs up in [Firebase Auth](/docs/agent-studio/integrations/firebase-integration), the agent creates a corresponding customer in Stripe and a user profile in your [Firestore](/docs/agent-studio/integrations/firestore-integration) database.
     * Automates invoicing. The agent retrieves a list of monthly active users, generates an invoice for each one using the Stripe API (via a custom API component), and then sends them an email notification using [Resend](/docs/agent-studio/integrations/resend-integration).
-    * Handles failed payments. When a subscription payment fails (triggered by a Stripe webhook), an agent sends a notification to the customer via SMS using [Twilio](/docs/integrations/twilio) and creates a follow-up task in [Asana](/docs/agent-studio/integrations/asana-integration) for the customer success team.
+    * Handles failed payments. When a subscription payment fails (triggered by a Stripe webhook), an agent sends a notification to the customer via SMS using [Twilio](/docs/agent-studio/integrations/twilio-integration) and creates a follow-up task in [Asana](/docs/agent-studio/integrations/asana-integration) for the customer success team.
 
 * **Explore Other Integrations:**
     * Use Stripe as a trigger. A Stripe webhook can notify your agent of a new purchase, which then grants the user access to a specific course or product.

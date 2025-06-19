@@ -15,7 +15,7 @@ Before delving into the specifics of workflow components, we highly recommend ta
 > **Note:** The `Brand` agent is available as a template, allowing you to use it for experimentation and exploration of its functionality and structure.
 
 <Image
-  src="/img/brand-agent/agentTemplate.png"
+  src="/docs/img/brand-agent/agentTemplate.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -33,7 +33,7 @@ In this case we will use the following name and description:
 - **Description:** >*This agent is specially made to give detailed and accurate answers about Smyth. Make sure to stay on topic and only respond to questions about Smyth and related issues. If the question is not about Smyth, please understand that it focuses only on topics related to Smyth. Also choose not to talk about Smyth's competitors or share information about them.*
 
 <Image
-  src="/img/brand-agent/createAgent.png"
+  src="/docs/img/brand-agent/createAgent.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -51,7 +51,7 @@ This component requires both a **name** and a **description**. For this example,
 - **Description:** >*This specific endpoint is carefully made to handle and answer many different questions that are only about Smyth.*
 
 <Image
-  src="/img/brand-agent/apiEndpointDetails.png"
+  src="/docs/img/brand-agent/apiEndpointDetails.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -67,7 +67,7 @@ Next, we need to specify the inputs and outputs. Given that this component will 
 We will keep the **Color** and **Optional** settings in their default states, as they are not mandatory for this particular example and can be left as-is.
 
 <Image
-  src="/img/brand-agent/apiEndpointInputs.png"
+  src="/docs/img/brand-agent/apiEndpointInputs.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -76,7 +76,7 @@ We will keep the **Color** and **Optional** settings in their default states, as
 We don't need much when it comes to outputs. We just need to set up an output to get the **question**. Let's make an output and call it **body.question**. With this name, we can easily pull out the **question** from the **body** output. If you'd like to learn more about how **API endpoint** components work, please take a look at the [Reference](https://app.smythos.com/doc#/components/APIEndpoint) section.
 
 <Image
-  src="/img/brand-agent/apiEndpointOutputs.png"
+  src="/docs/img/brand-agent/apiEndpointOutputs.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -95,7 +95,7 @@ With the data source now integrated into **SmythOS**, we can move forward with c
 For the purpose of this example, we can leave the remaining settings in their default states. Just by choosing the appropriate Data Space, the component is adequately configured to function correctly.
 
 <Image
-  src="/img/brand-agent/dataLookupSettings.png"
+  src="/docs/img/brand-agent/dataLookupSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -125,7 +125,7 @@ Let's move forward with setting up the Classifier component to better sort incom
 >*Only fill in the variable for the right category and leave the other one empty.*
 
 <Image
-  src="/img/brand-agent/classifierSettings.png"
+  src="/docs/img/brand-agent/classifierSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -138,7 +138,7 @@ Having specified the output variables in the prompt, we'll now proceed to create
   - **Description:** *This category encompasses all other inquiries directly related to SmythOS and its wide array of features.*
 
 <Image
-  src="/img/brand-agent/classifierOutputs1.png"
+  src="/docs/img/brand-agent/classifierOutputs1.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -151,7 +151,7 @@ Having specified the output variables in the prompt, we'll now proceed to create
   - **Description:** *This category is designated for topics that pertain to gaining access to SmythOS, as well as any queries regarding the platform’s pricing details.*
 
 <Image
-  src="/img/brand-agent/classifierOutputs2.png"
+  src="/docs/img/brand-agent/classifierOutputs2.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -175,7 +175,7 @@ Now, we'll proceed to set up the **LLM Prompt** component to ensure our agent ef
 >*If the user doesn't provide the first name, last name and email address, keep asking that info.*
 
 <Image
-  src="/img/brand-agent/requestInfoSettings.png"
+  src="/docs/img/brand-agent/requestInfoSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -193,7 +193,7 @@ Moving forward with our plans, we will configure a specialized API endpoint name
 - **Description:** *This endpoint is meticulously designed to capture the first name, last name, email address, and company name as optional. Utilizing this essential information to promptly notify the Smyth team.*
 
 <Image
-  src="/img/brand-agent/notifyEndpointSettings.png"
+  src="/docs/img/brand-agent/notifyEndpointSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -211,7 +211,7 @@ Moving forward with our plans, we will configure a specialized API endpoint name
 - **Description:** *This input field is designed for quick and easy collection of user company name*
 
 <Image
-  src="/img/brand-agent/notifyEndpointInput4.png"
+  src="/docs/img/brand-agent/notifyEndpointInput4.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -231,7 +231,7 @@ We’ll set up outputs to mirror the inputs, ensuring the data flows seamlessly 
 - **Expression:** *body.company_name*
 
 <Image
-  src="/img/brand-agent/notifyEndpointOutput1.png"
+  src="/docs/img/brand-agent/notifyEndpointOutput1.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -250,7 +250,7 @@ With the values of **name**, **email**, and **summary** at our disposal, we are 
 >- *company name = {`{{company_name}}`}*
 
 <Image
-  src="/img/brand-agent/generateMessageSettings.png"
+  src="/docs/img/brand-agent/generateMessageSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -269,7 +269,7 @@ With the values of **name**, **email**, and **summary** at our disposal, we are 
    - **Expresion:** *Reply.message*
 
 <Image
-  src="/img/brand-agent/generateMessageOutput.png"
+  src="/docs/img/brand-agent/generateMessageOutput.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -294,7 +294,7 @@ Look up the required information on how to send messages to a Google Chat space 
 - Here, we dynamically incorporate the message input variable to transmit the content.
 
 <Image
-  src="/img/brand-agent/apiCallSettings.png"
+  src="/docs/img/brand-agent/apiCallSettings.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -306,7 +306,7 @@ Look up the required information on how to send messages to a Google Chat space 
    - **Note:** This input is designated to receive the message generated by the LLM Prompt component, ready to be dispatched to the Google Chat space.
 
 <Image
-  src="/img/brand-agent/apiCallInput.png"
+  src="/docs/img/brand-agent/apiCallInput.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -336,7 +336,7 @@ The agent description has been updated to accurately reflect its enhanced capabi
 These updates reinforce the agent's role in user engagement and efficient notification management within SmythOS.
 
 <Image
-  src="/img/brand-agent/agentDescription.png"
+  src="/docs/img/brand-agent/agentDescription.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -347,14 +347,14 @@ The principles demonstrated here can be adapted freely and applied to various ot
     
 ## Test
 
-**S SmythOS** offers these embodiment options inside the Builder so we can assess the agent behavior.
+**SmythOS** offers these embodiment options inside the Builder so we can assess the agent behavior.
 
 - **Chatbot Embodiment:** This option transforms the agent into a web-based conversational interface, allowing for real-time interactions and responses within a chat format.
 - **API Embodiment:** This exposes the agent’s workflow as a hosted API, complete with auto-generated documentation. It facilitates direct endpoint calls or integration within applications, providing a flexible way to connect and interact with the agent’s capabilities.
 - **AI Platform Plugins Embodiment:** This enables deployment of the agent as a plugin on AI platforms like ChatGPT, seamlessly integrating its functionalities into existing systems and expanding its reach.
 
 <Image
-  src="/img/brand-agent/embodiments.png"
+  src="/docs/img/brand-agent/embodiments.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}
@@ -364,7 +364,7 @@ These different ways to set up **SmythOS** mean it can work well for many types 
 Given that we've just created a Brand Agent, utilizing the **Chatbot Embodiment** is an excellent strategy for testing the agent’s performance in real-world scenarios.
 
 <Image
-  src="/img/brand-agent/chatbot.png"
+  src="/docs/img/brand-agent/chatbot.png"
   alt="alt text"
   maxWidth={900}
   imgStyle={{ border: '3px solid #3efcc2', borderRadius: '10px' }}

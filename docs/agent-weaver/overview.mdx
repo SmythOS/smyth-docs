@@ -3,12 +3,15 @@ sidebar_position: 2
 ---
 # Build Agents with Weaver
 
-**Weaver** is the natural language-first interface in **SmythOS** that lets you build, fix, and use AI agents simply by describing what you want.  
-Unlike traditional agent builder tools that ask you to think like a developer, Weaver is task-oriented: you describe goals; Weaver builds workflows.  
-It’s where your prompt becomes agent... and your typing becomes *Smyth-ing*.
-<InfoCallout title="TL;DR"> 
-Type a goal, and Weaver does the **prompt-based AI agent creation** for you. No drag-and-drop required. 
+**Weaver** is the prompt-first interface in SmythOS that lets you build AI agents by simply describing what you want. Unlike traditional agent builder tools that ask you to think like a developer, Weaver is task-oriented: you describe goals; Weaver builds.  
+
+<InfoCallout title="What is Weaver?">
+Weaver lets you describe your automation goal in natural language. It interprets your prompt, builds the logic, and delivers a working agent ready to run.
 </InfoCallout>
+
+Weaver transforms your text instructions into complete, testable workflows without needing to write a single line of code.
+It’s where your prompt becomes agent... and your typing becomes *Smyth-ing*.
+
 ## Understand Agent Weaver in 3 Minutes
 While **Studio** gives you a classic drag-and-drop canvas for building agents manually, **Weaver starts with natural conversation** in a single prompt box.
 
@@ -49,10 +52,11 @@ Here’s how it works:
 -> Try a prompt like:  
 <PromptCard prompt="Create a research agent that finds product reviews and summarizes them in markdown." />
 
-That makes Weaver the fastest way to **build AI agents in SmythOS**.
+This makes Weaver the fastest way to **build AI agents in SmythOS**.
 
-> **Agent Smyth Weaver** is the **no-code AI workflow builder** inside SmythOS that turns plain-language requests into deployable agents.  
-> Tell it what you want → it assembles the skills, wires the logic, and lets you test in seconds.
+<TipCallout title="Want a head start?">
+Check the available [prebuilt templates](/docs/agent-weaver/prebuilt-templates) to see what’s possible, then remix to fit your use case.
+</TipCallout>
 
 ## Why We Built Weaver
 
@@ -68,10 +72,42 @@ It’s not just easier... it’s friendlier, faster, and far more forgiving for 
 >- **After exhausting credits:** Users are limited to 5 requests per 24 hours.
 >- **Credit restoration:** Credits are automatically restored at the beginning of each month.
 
-# Key Features of Weaver
+## Key Features of Weaver
+
+| Capability | Description |
+|------------|-------------|
+| **Prompt-Based Build** | Start with plain text. Weaver handles planning and assembly. |
+| **Auto-Linked Components** | It chooses components from the SmythOS library and wires them automatically. |
+| **Live Testing** | Test agents directly in chat. |
+| **AI-Powered Fixes** | Use the “Fix with AI” option for broken or misconfigured components. |
+| **Zero-Code Deployment** | Launch agents to API or Web UI instantly. |
 
 <Arcade src="https://demo.arcade.software/XQM8Ycf7Hh9C9PNqGxOq?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Weaver | SmythOS" />
 
+## Quick Links
+
+<CardGrid>
+  <Card
+    title="Prompt Guide"
+    description="How to write prompts that generate the right workflows"
+    to="/docs/agent-weaver/prompt-guide"
+  />
+  <Card
+    title="Quickstart"
+    description="Launch your first AI agent in minutes"
+    to="/docs/agent-weaver/quickstart"
+  />
+  <Card
+    title="Best Practices"
+    description="Strategies for modular and testable agent design"
+    to="/docs/agent-weaver/best-practices"
+  />
+  <Card
+    title="Optimization"
+    description="Reduce latency, costs, and token usage"
+    to="/docs/agent-weaver/optimization"
+  />
+</CardGrid>
 ## How to Get Started with Weaver
 
 We call this flow **Chat-to-Agent**:
@@ -107,6 +143,7 @@ Component break? Happens to the best of us. Weaver gives you:
 - Weaver rewrites only what’s broken or selected -> Your agent keeps running; no blanket rebuild required.
 
 <WarningCallout>Weaver doesn’t try to fix the entire agent unless you ask it to. You’re always in control. </WarningCallout>
+
 ## Inside Weaver
 
 Weaver combines:
@@ -118,42 +155,48 @@ Weaver combines:
 
 It’s fast, helpful, and never passive-aggressive.
 
-## Who Should Use Weaver? (Hint: Probably You Soon)
+## Understand Key Concepts of Weaver
 
-- Ops leads converting checklists into automations  
-- PMs prototyping in a **SmythOS AI design environment**  
-- Analysts who want results, not infrastructure  
-- Developers who’d rather start at 80 % than 0 %
+| Term | Meaning |
+|------|----------------------|
+| [**Agent**](/docs/agent-studio/build-agents/agent-overview) | Task-running bot powered by LLMs & skills |
+| [**Workflow**](/docs/agent-studio/build-agents/building-workflows) | Sequence of components linked by inputs/outputs |
+| [**Component**](docs/agent-studio/components) |  A single block that performs a task (API call, generation, classification, etc.)  (`●` mandatory · `○` optional) |
 
-If you’ve ever thought *“I know what I want, I just don’t know how to build it,”* Weaver’s for you.
+You can learn more about input/output design and flow behavior in the [Weaver I/O guide](/docs/agent-weaver/input-output), and explore how Weaver handles broken logic in the [debugging section](/docs/agent-weaver/debugging-agents).
 
-## Why Build with Weaver: Modularity
+<InfoCallout title="Behind the scenes">
+Weaver uses a smart orchestration engine that understands prompts, assigns components, and preserves schema structure across complex workflows.
+</InfoCallout>
 
-Agents in SmythOS consist of **skills** (logic blocks) and **components**. Weaver encourages:
+## Start Building with Weaver
+
+Weaver supports both simple and multi-step use cases for [building agents](/docs/agent-weaver/quickstart), such as:
+
+- Blog writing and publishing  
+- Email sequence automation  
+- Market research + summarization  
+- Internal reporting workflows  
+
+Weaver encourages:
 
 - Task-based thinking (“extract keywords” > “run NLP”)  
 - Smaller, focused workflows  
 - Reuse over reinvention
 
-<TipCallout title= "Fix your componenet"> 
-When something breaks, fix that **component**, not the whole workflow.
- </TipCallout>
+<TipCallout title="Fix with AI">
+If a component breaks, use Weaver’s contextual AI repair. It suggests or implements changes only for the affected block.
+</TipCallout>
 
-## Core Concepts on Weaver
+## Who Should Use Weaver? (Hint: Probably You Soon)
 
-| Term | Plain-English Meaning |
-|------|----------------------|
-| **Agent** | Task-running bot powered by LLMs & skills |
-| **Skill** | Reusable function like “summarize text” |
-| **Workflow** | Components linked by inputs/outputs |
-| **Component** | Single block (`●` mandatory · `○` optional) |
+- Ops leads converting checklists into automations  
+- PMs prototyping in a **SmythOS AI design environment**  
+- Analysts who want results
+- Developers who’d rather start at 80 % than 0 %
 
-## When Components Run (or Don’t)
+If you’ve ever thought *“I know what I want, I just don’t know how to build it,”* Weaver’s for you.
 
-- **Runs** → all mandatory inputs connected  
-- **Waits** → mandatory inputs unresolved  
-- **Skips** → mandatory input missing → Weaver bypasses
-
-Knowing this will help you keep the **no-code AI agent creation** smooth.
-
-> This logic prevents agents from sitting idle just because you forgot to wire an optional line.
+<InfoCallout title="Weaver is for everyone">
+No matter if you're an ops lead, content strategist, or developer, Weaver makes automation more accessible.
+</InfoCallout>

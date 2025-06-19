@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeaderComponent: React.FC = () => {
   return (
@@ -92,177 +93,189 @@ const HeaderComponent: React.FC = () => {
           <nav role="navigation" aria-label="Sub Navigation">
             <ul>
               <li>
-                <a href="/docs/agent-studio/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g
-                      clipPath="url(#a)"
-                      transform="translate(.4993 -.3315)"
-                      stroke="currentColor"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M1 7.9982c0-2.6252.0281-3.5 3.5-3.5s3.5.8748 3.5 3.5.011 3.5-3.5 3.5-3.5-.8748-3.5-3.5ZM9.334 3.8315c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333S9.334 5.5816 9.334 3.8315zM9.334 12.8315c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3333-.5832-2.3333-2.3333z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path d="m7.2236 11.051 2 1M7.7764 6.051l2-1" />
-                      <path
-                        d="M3 8.4982c.8649.8056 2.1521.6859 2.8225 0"
-                        strokeWidth="1.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="a">
-                        <path
-                          fill="currentColor"
-                          transform="translate(0 .4982)"
-                          d="M0 0h16v16H0z"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>{" "}
-                  Studio{" "}
-                </a>
-              </li>
-              <li>
-                <a href="/docs/agent-weaver/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 4.2087c0-1.1046-.8953-2-2-2H4c-1.1046 0-2 .8954-2 2v5.8555c0 1.1046.8954 2 2 2h1.4413a.9998.9998 0 0 1 .7071.2929l1.1445 1.1445c.3905.3905 1.0237.3905 1.4142 0l1.1445-1.1445a.9997.9997 0 0 1 .7071-.293H12c1.1047 0 2-.8953 2-2z"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="m10.5 7.4711-1 2.5L8 6.4369 6.5 9.9712l-1.5-4"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M11.1766 6.328A1.7693 1.7693 0 0 0 10 5.1496a1.7695 1.7695 0 0 0 1.1766-1.1785 1.7696 1.7696 0 0 0 1.1767 1.1785 1.7695 1.7695 0 0 0-1.1767 1.1784z"
-                      fill="currentColor"
-                    />
-                  </svg>{" "}
-                  Weaver{" "}
-                </a>
-              </li>
-              <li>
-                <a href="/docs/agent-runtime/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.661 3.0247h4.6815c1.6287 0 2.6374.8841 2.6328 2.5083v4.9305c0 1.6242-1.0093 2.5128-2.638 2.5128H5.661c-1.6236 0-2.6374-.9042-2.6374-2.5544V5.533c0-1.6242 1.0138-2.5083 2.6374-2.5083zM10.6986 3.0248V2M7.9989 3.025v-1.025M5.299 3.025v-1.025M5.299 12.9752V14m2.6999-1.025v1.025m2.6997-1.025v1.025M3.0251 5.2994H2.0002m1.025 2.6998h-1.025m1.025 2.6997h-1.025M12.9749 10.6989h1.0249m-1.025-2.6997h1.025m-1.025-2.6998h1.025"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      clipRule="evenodd"
-                      d="M9.1163 5.6302h-2.23c-.7739 0-1.2572.421-1.2572 1.1948v2.33c0 .786.4833 1.2169 1.2571 1.2169h2.2275c.7765 0 1.257-.4236 1.257-1.1975V6.825c.0027-.7738-.4785-1.1948-1.2544-1.1948z"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>{" "}
-                  Runtime{" "}
-                </a>
-              </li>
-              <li>
-                <a href="/docs/agent-deployments/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.9572 5.385c.42-.42 1.1017-.4194 1.5218.0007.42.42.4207 1.1017.0007 1.5218-.42.42-1.1018.4193-1.5219-.0007-.42-.42-.4207-1.1018-.0006-1.5218z"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M13.2474 2.3463c-3.6388-.2471-8.129 3.1116-8.612 6.8915-.0112.3302.1093.6424.3349.868l.9115.9115c.2256.2256.5378.346.868.3349 3.7798-.4833 7.1385-4.9733 6.8914-8.6121-.0146-.215-.1788-.3792-.3938-.3938z"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="m10.9474 9.2185-.21 2.9536a.6773.6773 0 0 1-.3742.6056l-1.6356.8178a.677.677 0 0 1-.945-.3915l-.7651-1.8692M6.8113 5.0857l-2.955.1895a.677.677 0 0 0-.608.37l-.8291 1.63a.677.677 0 0 0 .385.9477l1.8638.778M4.9084 12.3398c-.1802 1.1997-1.5846.9759-2.5003 1.1135.1376-.9157-.0785-2.3124 1.1212-2.4926"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>{" "}
-                  Deployments{" "}
-                </a>
-              </li>
-              <li>
-                <a href="/docs/agent-collaboration/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8.0527 4.797c-.4017.061-.8102-.0006-1.2158.0093-.9404.0235-1.6773.8516-2.3928 1.4127-.3662.2875-.8778.2494-1.2012-.0892-.3589-.375-.3589-.9837 0-1.3593.773-.8081 1.4558-1.5587 2.5038-1.983 1.4542-.5893 2.803-.3029 4.2757 0M8.054 4.8156H7.26M2.9737 13.6672h.5955c.4547 0 .7375-.334.7375-.807v-2.7695c0-.473-.2828-.8075-.7375-.8075h-.5955"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M8.9888 9.1661c-.6536-.1708-1.306-.3052-1.9883-.2876-1.0817.027-1.8378.655-2.6948 1.253M7.9473 11.2025c.4017-.061.8102.0006 1.2159-.0094.9403-.0234 1.6772-.8515 2.3927-1.4126.3663-.2875.8778-.2494 1.2012.0892.359.375.359.9836 0 1.3592-.773.8082-1.4558 1.5588-2.5038 1.9832-1.4541.5892-2.803.3028-4.2757 0m1.9686-2.0282H8.74M7.0108 6.832c.6535.1708 1.306.3052 1.9883.2876 1.0817-.027 1.8378-.655 2.6948-1.253"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M13.0255 2.3328H12.43c-.4546 0-.7374.334-.7374.807v2.7694c0 .473.2828.8076.7374.8076h.5956"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>{" "}
-                  Collaboration{" "}
-                </a>
-              </li>
-              <li>
-                <a href="/docs/agent-templates/overview/">
-                  <svg
-                    width={16}
-                    height={16}
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M1.9997 4.3333C1.9997 2.5832 2.0184 2 4.333 2s2.3333.5832 2.3333 2.3333c0 1.7502.0074 2.3334-2.3333 2.3334s-2.3333-.5832-2.3333-2.3334zM9.3336 4.3333C9.3336 2.5832 9.3524 2 11.667 2s2.3334.5832 2.3334 2.3333c0 1.7502.0073 2.3334-2.3334 2.3334s-2.3334-.5832-2.3334-2.3334zM1.9997 11.6667c0-1.7502.0187-2.3333 2.3333-2.3333s2.3333.5831 2.3333 2.3333C6.6663 13.4168 6.6737 14 4.333 14s-2.3333-.5832-2.3333-2.3333zM9.3336 11.6667c0-1.7502.0188-2.3333 2.3334-2.3333s2.3334.5831 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3334-.5832-2.3334-2.3333z"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>{" "}
-                  Templates{" "}
-                </a>
-              </li>
+  <Link to="/docs/agent-studio/overview/" style={{ display: 'flex', alignItems: 'center' }}>
+    <svg
+      width={16}
+      height={16}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        clipPath="url(#a)"
+        transform="translate(.4993 -.3315)"
+        stroke="currentColor"
+      >
+        <path
+          clipRule="evenodd"
+          d="M1 7.9982c0-2.6252.0281-3.5 3.5-3.5s3.5.8748 3.5 3.5.011 3.5-3.5 3.5-3.5-.8748-3.5-3.5ZM9.334 3.8315c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333S9.334 5.5816 9.334 3.8315zM9.334 12.8315c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3333-.5832-2.3333-2.3333z"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path d="m7.2236 11.051 2 1M7.7764 6.051l2-1" />
+        <path
+          d="M3 8.4982c.8649.8056 2.1521.6859 2.8225 0"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="currentColor"
+            transform="translate(0 .4982)"
+            d="M0 0h16v16H0z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+    <span style={{ marginLeft: '0.5rem' }}>Studio</span>
+  </Link>
+</li>
+<li>
+  <Link to="/docs/agent-weaver/overview/">
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <svg
+        width={16}
+        height={16}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M14 4.2087c0-1.1046-.8953-2-2-2H4c-1.1046 0-2 .8954-2 2v5.8555c0 1.1046.8954 2 2 2h1.4413a.9998.9998 0 0 1 .7071.2929l1.1445 1.1445c.3905.3905 1.0237.3905 1.4142 0l1.1445-1.1445a.9997.9997 0 0 1 .7071-.293H12c1.1047 0 2-.8953 2-2z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="m10.5 7.4711-1 2.5L8 6.4369 6.5 9.9712l-1.5-4"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.1766 6.328A1.7693 1.7693 0 0 0 10 5.1496a1.7695 1.7695 0 0 0 1.1766-1.1785 1.7696 1.7696 0 0 0 1.1767 1.1785 1.7695 1.7695 0 0 0-1.1767 1.1784z"
+          fill="currentColor"
+        />
+      </svg>
+      <span style={{ marginLeft: '0.5rem' }}>Weaver</span>
+    </span>
+  </Link>
+</li>
+<li>
+  <Link to="/docs/agent-runtime/overview/">
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <svg
+        width={16}
+        height={16}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.661 3.0247h4.6815c1.6287 0 2.6374.8841 2.6328 2.5083v4.9305c0 1.6242-1.0093 2.5128-2.638 2.5128H5.661c-1.6236 0-2.6374-.9042-2.6374-2.5544V5.533c0-1.6242 1.0138-2.5083 2.6374-2.5083zM10.6986 3.0248V2M7.9989 3.025v-1.025M5.299 3.025v-1.025M5.299 12.9752V14m2.6999-1.025v1.025m2.6997-1.025v1.025M3.0251 5.2994H2.0002m1.025 2.6998h-1.025m1.025 2.6997h-1.025M12.9749 10.6989h1.0249m-1.025-2.6997h1.025m-1.025-2.6998h1.025"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          clipRule="evenodd"
+          d="M9.1163 5.6302h-2.23c-.7739 0-1.2572.421-1.2572 1.1948v2.33c0 .786.4833 1.2169 1.2571 1.2169h2.2275c.7765 0 1.257-.4236 1.257-1.1975V6.825c.0027-.7738-.4785-1.1948-1.2544-1.1948z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span style={{ marginLeft: '0.5rem' }}>Runtime</span>
+    </span>
+  </Link>
+</li>
+<li>
+  <Link to="/docs/agent-deployments/overview/">
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <svg
+        width={16}
+        height={16}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8.9572 5.385c.42-.42 1.1017-.4194 1.5218.0007.42.42.4207 1.1017.0007 1.5218-.42.42-1.1018.4193-1.5219-.0007-.42-.42-.4207-1.1018-.0006-1.5218z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.2474 2.3463c-3.6388-.2471-8.129 3.1116-8.612 6.8915-.0112.3302.1093.6424.3349.868l.9115.9115c.2256.2256.5378.346.868.3349 3.7798-.4833 7.1385-4.9733 6.8914-8.6121-.0146-.215-.1788-.3792-.3938-.3938z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="m10.9474 9.2185-.21 2.9536a.6773.6773 0 0 1-.3742.6056l-1.6356.8178a.677.677 0 0 1-.945-.3915l-.7651-1.8692M6.8113 5.0857l-2.955.1895a.677.677 0 0 0-.608.37l-.8291 1.63a.677.677 0 0 0 .385.9477l1.8638.778M4.9084 12.3398c-.1802 1.1997-1.5846.9759-2.5003 1.1135.1376-.9157-.0785-2.3124 1.1212-2.4926"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span style={{ marginLeft: '0.5rem' }}>Deployments</span>
+    </span>
+  </Link>
+</li>
+<li>
+  <Link to="/docs/agent-collaboration/overview/">
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <svg
+        width={16}
+        height={16}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8.0527 4.797c-.4017.061-.8102-.0006-1.2158.0093-.9404.0235-1.6773.8516-2.3928 1.4127-.3662.2875-.8778.2494-1.2012-.0892-.3589-.375-.3589-.9837 0-1.3593.773-.8081 1.4558-1.5587 2.5038-1.983 1.4542-.5893 2.803-.3029 4.2757 0M8.054 4.8156H7.26M2.9737 13.6672h.5955c.4547 0 .7375-.334.7375-.807v-2.7695c0-.473-.2828-.8075-.7375-.8075h-.5955"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8.9888 9.1661c-.6536-.1708-1.306-.3052-1.9883-.2876-1.0817.027-1.8378.655-2.6948 1.253M7.9473 11.2025c.4017-.061.8102.0006 1.2159-.0094.9403-.0234 1.6772-.8515 2.3927-1.4126.3663-.2875.8778-.2494 1.2012.0892.359.375.359.9836 0 1.3592-.773.8082-1.4558 1.5588-2.5038 1.9832-1.4541.5892-2.803.3028-4.2757 0m1.9686-2.0282H8.74M7.0108 6.832c.6535.1708 1.306.3052 1.9883.2876 1.0817-.027 1.8378-.655 2.6948-1.253"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13.0255 2.3328H12.43c-.4546 0-.7374.334-.7374.807v2.7694c0 .473.2828.8076.7374.8076h.5956"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span style={{ marginLeft: '0.5rem' }}>Collaboration</span>
+    </span>
+  </Link>
+</li>
+
+<li>
+  <Link to="/docs/agent-templates/overview/">
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <svg
+        width={16}
+        height={16}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clipRule="evenodd"
+          d="M1.9997 4.3333C1.9997 2.5832 2.0184 2 4.333 2s2.3333.5832 2.3333 2.3333c0 1.7502.0074 2.3334-2.3333 2.3334s-2.3333-.5832-2.3333-2.3334zM9.3336 4.3333C9.3336 2.5832 9.3524 2 11.667 2s2.3334.5832 2.3334 2.3333c0 1.7502.0073 2.3334-2.3334 2.3334s-2.3334-.5832-2.3334-2.3334zM1.9997 11.6667c0-1.7502.0187-2.3333 2.3333-2.3333s2.3333.5831 2.3333 2.3333C6.6663 13.4168 6.6737 14 4.333 14s-2.3333-.5832-2.3333-2.3333zM9.3336 11.6667c0-1.7502.0188-2.3333 2.3334-2.3333s2.3334.5831 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3334-.5832-2.3334-2.3333z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span style={{ marginLeft: '0.5rem' }}>Templates</span>
+    </span>
+  </Link>
+</li>
+
             </ul>
           </nav>
         </div>
@@ -442,290 +455,316 @@ const HeaderComponent: React.FC = () => {
           </div>
           <ul className="submenu" role="menu">
             <li role="none">
-              <a href="/docs/agent-studio/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <g
-                    clipPath="url(#a)"
-                    transform="matrix(1.22728 0 0 1.22728 .7945 -.225)"
-                    stroke="currentColor"
-                  >
-                    <path
-                      clipRule="evenodd"
-                      d="M1 7.9982c0-2.6252.0281-3.5 3.5-3.5s3.5.8748 3.5 3.5.011 3.5-3.5 3.5-3.5-.8748-3.5-3.5zm8.334-4.1667c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333S9.334 5.5816 9.334 3.8315zm0 9c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3333-.5832-2.3333-2.3333z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path d="m7.2236 11.051 2 1m-1.4472-6 2-1" />
-                    <path
-                      d="M3 8.4982c.8649.8056 2.1521.6859 2.8225 0"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="a">
-                      <path
-                        fill="currentColor"
-                        transform="translate(0 .4982)"
-                        d="M0 0h16v16H0Z"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>{" "}
-                <span className="link-text">Studio</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
+<Link to="/docs/agent-studio/overview/" role="menuitem">
+  <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <svg
+      width={20}
+      height={20}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+    >
+      <g
+        clipPath="url(#a)"
+        transform="matrix(1.22728 0 0 1.22728 .7945 -.225)"
+        stroke="currentColor"
+      >
+        <path
+          clipRule="evenodd"
+          d="M1 7.9982c0-2.6252.0281-3.5 3.5-3.5s3.5.8748 3.5 3.5.011 3.5-3.5 3.5-3.5-.8748-3.5-3.5zm8.334-4.1667c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333S9.334 5.5816 9.334 3.8315zm0 9c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3333-.5832-2.3333-2.3333z"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path d="m7.2236 11.051 2 1m-1.4472-6 2-1" />
+        <path
+          d="M3 8.4982c.8649.8056 2.1521.6859 2.8225 0"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="currentColor"
+            transform="translate(0 .4982)"
+            d="M0 0h16v16H0Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <span className="link-text">Studio</span>
+
+    <svg
+      className="icon-right"
+      width={20}
+      height={20}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </span>
+</Link>
+
             </li>
             <li role="none">
-              <a href="/docs/agent-weaver/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M18.3077 4.7505c0-1.5295-1.2397-2.7693-2.7692-2.7693H4.4615c-1.5294 0-2.7692 1.2398-2.7692 2.7693v8.1076c0 1.5294 1.2398 2.7692 2.7692 2.7692h1.9957a1.3843 1.3843 0 0 1 .979.4056l1.5847 1.5847c.5407.5407 1.4175.5407 1.9582 0l1.5847-1.5847a1.3842 1.3842 0 0 1 .979-.4057h1.9957c1.5295 0 2.7692-1.2397 2.7692-2.7693z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38461" }}
-                  />
-                  <path
-                    d="m13.4615 9.2676-1.3846 3.4616L10 7.8357l-2.077 4.8936L5.8463 7.191"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38461" }}
-                  />
-                  <path
-                    d="M14.3984 7.6849a2.4498 2.4498 0 0 0-1.6292-1.6316 2.45 2.45 0 0 0 1.6292-1.6318 2.4502 2.4502 0 0 0 1.6292 1.6318 2.45 2.45 0 0 0-1.6292 1.6316Z"
-                    fill="currentColor"
-                    style={{ strokeWidth: "1.38461" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Weaver</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
+            <Link to="/docs/agent-weaver/overview/" role="menuitem">
+  <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <svg
+      width={20}
+      height={20}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M18.3077 4.7505c0-1.5295-1.2397-2.7693-2.7692-2.7693H4.4615c-1.5294 0-2.7692 1.2398-2.7692 2.7693v8.1076c0 1.5294 1.2398 2.7692 2.7692 2.7692h1.9957a1.3843 1.3843 0 0 1 .979.4056l1.5847 1.5847c.5407.5407 1.4175.5407 1.9582 0l1.5847-1.5847a1.3842 1.3842 0 0 1 .979-.4057h1.9957c1.5295 0 2.7692-1.2397 2.7692-2.7693z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{ strokeWidth: "1.38461" }}
+      />
+      <path
+        d="m13.4615 9.2676-1.3846 3.4616L10 7.8357l-2.077 4.8936L5.8463 7.191"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        style={{ strokeWidth: "1.38461" }}
+      />
+      <path
+        d="M14.3984 7.6849a2.4498 2.4498 0 0 0-1.6292-1.6316 2.45 2.45 0 0 0 1.6292-1.6318 2.4502 2.4502 0 0 0 1.6292 1.6318 2.45 2.45 0 0 0-1.6292 1.6316Z"
+        fill="currentColor"
+        style={{ strokeWidth: "1.38461" }}
+      />
+    </svg>
+
+    <span className="link-text">Weaver</span>
+
+    <svg
+      className="icon-right"
+      width={20}
+      height={20}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </span>
+</Link>
             </li>
             <li role="none">
-              <a href="/docs/agent-runtime/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M6.7614 3.1111h6.482c2.2552 0 3.6518 1.2242 3.6455 3.473v6.8269c0 2.2489-1.3975 3.4793-3.6526 3.4793h-6.475c-2.248 0-3.6517-1.252-3.6517-3.5369V6.5842c0-2.249 1.4037-3.473 3.6518-3.473zm6.9751.0002v-1.419m-3.738 1.4192V1.6923M6.2602 3.1115V1.6923m0 15.1964v1.419m3.7383-1.4192v1.4192m3.738-1.4192v1.4192M3.1117 6.2607H1.6926M3.1118 9.999H1.6926m1.4192 3.738H1.6926m15.1957 0h1.4191m-1.4192-3.738h1.4192m-1.4192-3.7382h1.4192"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38462" }}
-                  />
-                  <path
-                    clipRule="evenodd"
-                    d="M11.5456 6.7187H8.458c-1.0716 0-1.7408.583-1.7408 1.6544v3.2261c0 1.0883.6692 1.685 1.7406 1.685h3.0842c1.0752 0 1.7405-.5866 1.7405-1.6581V8.373c.0037-1.0714-.6625-1.6544-1.7369-1.6544z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38462" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Runtime</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
+  <Link to="/docs/agent-runtime/overview/" role="menuitem">
+    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <svg
+        width={20}
+        height={20}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M6.7614 3.1111h6.482c2.2552 0 3.6518 1.2242 3.6455 3.473v6.8269c0 2.2489-1.3975 3.4793-3.6526 3.4793h-6.475c-2.248 0-3.6517-1.252-3.6517-3.5369V6.5842c0-2.249 1.4037-3.473 3.6518-3.473zm6.9751.0002v-1.419m-3.738 1.4192V1.6923M6.2602 3.1115V1.6923m0 15.1964v1.419m3.7383-1.4192v1.4192m3.738-1.4192v1.4192M3.1117 6.2607H1.6926M3.1118 9.999H1.6926m1.4192 3.738H1.6926m15.1957 0h1.4191m-1.4192-3.738h1.4192m-1.4192-3.7382h1.4192"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.38462" }}
+        />
+        <path
+          clipRule="evenodd"
+          d="M11.5456 6.7187H8.458c-1.0716 0-1.7408.583-1.7408 1.6544v3.2261c0 1.0883.6692 1.685 1.7406 1.685h3.0842c1.0752 0 1.7405-.5866 1.7405-1.6581V8.373c.0037-1.0714-.6625-1.6544-1.7369-1.6544z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.38462" }}
+        />
+      </svg>
+
+      <span className="link-text">Runtime</span>
+
+      <svg
+        className="icon-right"
+        width={20}
+        height={20}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  </Link>
+</li>
+
+            <li role="none">
+            <Link to="/docs/agent-deployments/overview/" role="menuitem">
+    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <svg
+        width={20}
+        height={20}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M11.3953 6.1846c.6131-.613 1.6082-.6122 2.2214.001.6131.6131.6141 1.6082.001 2.2214-.613.6131-1.6083.6121-2.2215-.001-.613-.613-.6141-1.6083-.0009-2.2214z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45971" }}
+        />
+        <path
+          d="M17.6578 1.749c-5.3116-.3607-11.866 4.542-12.571 10.0596-.0164.482.1595.9377.4888 1.267l1.3305 1.3306c.3294.3293.785.505 1.267.4888 5.5175-.7055 10.4202-7.2596 10.0595-12.5711-.0213-.3139-.261-.5536-.5748-.5749Z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45971" }}
+        />
+        <path
+          d="m14.3004 11.7804-.3065 4.3114a.9887.9887 0 0 1-.5462.884l-2.3875 1.1938a.9882.9882 0 0 1-1.3794-.5715l-1.1169-2.7285m-.301-9.1218-4.3134.2766a.9882.9882 0 0 0-.8875.54L1.8518 8.9439a.9882.9882 0 0 0 .562 1.3834l2.7205 1.1356m.351 4.8738c-.263 1.7512-2.313 1.4246-3.6497 1.6254.2008-1.3366-.1146-3.3754 1.6366-3.6385"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45971" }}
+        />
+      </svg>
+
+      <span className="link-text">Deployments</span>
+
+      <svg
+        className="icon-right"
+        width={20}
+        height={20}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  </Link>
             </li>
             <li role="none">
-              <a href="/docs/agent-deployments/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M11.3953 6.1846c.6131-.613 1.6082-.6122 2.2214.001.6131.6131.6141 1.6082.001 2.2214-.613.6131-1.6083.6121-2.2215-.001-.613-.613-.6141-1.6083-.0009-2.2214z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45971" }}
-                  />
-                  <path
-                    d="M17.6578 1.749c-5.3116-.3607-11.866 4.542-12.571 10.0596-.0164.482.1595.9377.4888 1.267l1.3305 1.3306c.3294.3293.785.505 1.267.4888 5.5175-.7055 10.4202-7.2596 10.0595-12.5711-.0213-.3139-.261-.5536-.5748-.5749Z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45971" }}
-                  />
-                  <path
-                    d="m14.3004 11.7804-.3065 4.3114a.9887.9887 0 0 1-.5462.884l-2.3875 1.1938a.9882.9882 0 0 1-1.3794-.5715l-1.1169-2.7285m-.301-9.1218-4.3134.2766a.9882.9882 0 0 0-.8875.54L1.8518 8.9439a.9882.9882 0 0 0 .562 1.3834l2.7205 1.1356m.351 4.8738c-.263 1.7512-2.313 1.4246-3.6497 1.6254.2008-1.3366-.1146-3.3754 1.6366-3.6385"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45971" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Deployments</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
+            <Link to="/docs/agent-collaboration/overview/" role="menuitem">
+    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <svg
+        width={20}
+        height={20}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10.0769 5.3258c-.5862.089-1.1824-.001-1.7743.0135-1.3723.0343-2.4477 1.2428-3.4919 2.0616-.5344.4196-1.281.364-1.753-.1301-.5237-.5473-.5237-1.4356 0-1.9837 1.1282-1.1793 2.1246-2.2747 3.654-2.8939 2.1221-.86 4.0905-.442 6.2396 0M10.0788 5.353H8.92M2.6649 18.2703h.869c.6636 0 1.0763-.4874 1.0763-1.1776V13.051c0-.6902-.4127-1.1784-1.0762-1.1784h-.869"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45933" }}
+        />
+        <path
+          d="M11.443 11.7017c-.9539-.2492-1.906-.4454-2.9016-.4197-1.5786.0394-2.682.9559-3.9326 1.8286m5.3143 1.563c.5862-.0891 1.1823.0008 1.7744-.0138 1.3722-.0342 2.4476-1.2426 3.4917-2.0615.5346-.4195 1.281-.364 1.753.1302.5239.5473.5239 1.4354 0 1.9835-1.128 1.1795-2.1245 2.2748-3.6539 2.8942-2.122.8598-4.0905.4419-6.2397 0m2.8729-2.9598h1.1584M8.5564 8.2955c.9537.2493 1.9059.4454 2.9016.4197 1.5786-.0394 2.682-.9559 3.9326-1.8285"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45933" }}
+        />
+        <path
+          d="M17.3339 1.7297h-.869c-.6635 0-1.0762.4874-1.0762 1.1776v4.0415c0 .6903.4127 1.1786 1.0761 1.1786h.8692"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.45933" }}
+        />
+      </svg>
+
+      <span className="link-text">Collaboration</span>
+
+      <svg
+        className="icon-right"
+        width={20}
+        height={20}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  </Link>
             </li>
             <li role="none">
-              <a href="/docs/agent-collaboration/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10.0769 5.3258c-.5862.089-1.1824-.001-1.7743.0135-1.3723.0343-2.4477 1.2428-3.4919 2.0616-.5344.4196-1.281.364-1.753-.1301-.5237-.5473-.5237-1.4356 0-1.9837 1.1282-1.1793 2.1246-2.2747 3.654-2.8939 2.1221-.86 4.0905-.442 6.2396 0M10.0788 5.353H8.92M2.6649 18.2703h.869c.6636 0 1.0763-.4874 1.0763-1.1776V13.051c0-.6902-.4127-1.1784-1.0762-1.1784h-.869"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45933" }}
-                  />
-                  <path
-                    d="M11.443 11.7017c-.9539-.2492-1.906-.4454-2.9016-.4197-1.5786.0394-2.682.9559-3.9326 1.8286m5.3143 1.563c.5862-.0891 1.1823.0008 1.7744-.0138 1.3722-.0342 2.4476-1.2426 3.4917-2.0615.5346-.4195 1.281-.364 1.753.1302.5239.5473.5239 1.4354 0 1.9835-1.128 1.1795-2.1245 2.2748-3.6539 2.8942-2.122.8598-4.0905.4419-6.2397 0m2.8729-2.9598h1.1584M8.5564 8.2955c.9537.2493 1.9059.4454 2.9016.4197 1.5786-.0394 2.682-.9559 3.9326-1.8285"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45933" }}
-                  />
-                  <path
-                    d="M17.3339 1.7297h-.869c-.6635 0-1.0762.4874-1.0762 1.1776v4.0415c0 .6903.4127 1.1786 1.0761 1.1786h.8692"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.45933" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Collaboration</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
-            </li>
-            <li role="none">
-              <a href="/docs/agent-templates/overview/" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M1.6918 4.923c0-2.4232.026-3.2307 3.2307-3.2307 3.2049 0 3.2308.8075 3.2308 3.2307 0 2.4234.0102 3.2309-3.2308 3.2309S1.6918 7.3464 1.6918 4.923zm10.1547 0c0-2.4232.026-3.2307 3.2308-3.2307s3.2309.8075 3.2309 3.2307c0 2.4234.01 3.2309-3.2309 3.2309-3.241 0-3.2308-.8075-3.2308-3.2309zM1.6918 15.077c0-2.4234.026-3.2308 3.2307-3.2308 3.2049 0 3.2308.8074 3.2308 3.2308 0 2.4232.0102 3.2307-3.2308 3.2307s-3.2307-.8075-3.2307-3.2307zm10.1547 0c0-2.4234.026-3.2308 3.2308-3.2308s3.2309.8074 3.2309 3.2308c0 2.4232.01 3.2307-3.2309 3.2307-3.241 0-3.2308-.8075-3.2308-3.2307z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38462" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Templates</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
+            <Link to="/docs/agent-templates/overview/" role="menuitem">
+    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <svg
+        width={20}
+        height={20}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path
+          clipRule="evenodd"
+          d="M1.6918 4.923c0-2.4232.026-3.2307 3.2307-3.2307 3.2049 0 3.2308.8075 3.2308 3.2307 0 2.4234.0102 3.2309-3.2308 3.2309S1.6918 7.3464 1.6918 4.923zm10.1547 0c0-2.4232.026-3.2307 3.2308-3.2307s3.2309.8075 3.2309 3.2307c0 2.4234.01 3.2309-3.2309 3.2309-3.241 0-3.2308-.8075-3.2308-3.2309zM1.6918 15.077c0-2.4234.026-3.2308 3.2307-3.2308 3.2049 0 3.2308.8074 3.2308 3.2308 0 2.4232.0102 3.2307-3.2308 3.2307s-3.2307-.8075-3.2307-3.2307zm10.1547 0c0-2.4234.026-3.2308 3.2308-3.2308s3.2309.8074 3.2309 3.2308c0 2.4232.01 3.2307-3.2309 3.2307-3.241 0-3.2308-.8075-3.2308-3.2307z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ strokeWidth: "1.38462" }}
+        />
+      </svg>
+
+      <span className="link-text">Templates</span>
+
+      <svg
+        className="icon-right"
+        width={20}
+        height={20}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  </Link>
             </li>
           </ul>
         </li>

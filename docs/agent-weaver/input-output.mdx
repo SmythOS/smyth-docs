@@ -73,31 +73,16 @@ Inputs can also be styled using color labels for better workflow clarity.
 
 <Divider/>
 
-## 3. Outputs You’ll See Most
-
-In an AI workflow builder like Weaver, outputs can vary by skill — but the most common ones include:
-
-1. **`reply`** — The LLM’s natural language output  
-2. **Structured JSON** — For chaining into later steps  
-3. **Binary link** — A signed URL from a file-producing skill  
-4. **`_error`** — A machine-readable error object
-
-### Example `_error` Format
-
-```json
-{
-  "issue": "Slack token revoked",
-  "raw_response": { "status": 401 },
-  "suggested_fix": "Reconnect Slack OAuth"
-}
-```
-
 <Divider/>
-## 4. Chaining Outputs to Inputs
+## 3. Chaining Outputs to Inputs
 
 **Rule of thumb:** blue → red only.
 - Drag from blue output ports to red input ports
 
-<Divider/>
+## 4. When Components Run (or Don’t)
 
-<InfoCallout> **Key Takeaway:** Treat ports like API parameters — respect types, honor required flags, and your agent will hum. </InfoCallout>
+- **Runs** → all mandatory inputs connected  
+- **Waits** → mandatory inputs unresolved  
+- **Skips** → mandatory input missing → Weaver bypasses
+
+Knowing this will help you keep the **no-code AI agent creation** smooth.

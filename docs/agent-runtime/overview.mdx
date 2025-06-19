@@ -7,7 +7,7 @@ sidebar_position: 1
 
 # Smyth Runtime Environment (SRE)
 
-[SRE](https://github.com/SmythOS/sre) is a unified runtime inspired by operating system kernels, designed for building, running, and managing intelligent agents efficiently. It handles infrastructure so you can focus on agent logic, security, and performance at any scale.
+[The SRE](https://github.com/SmythOS/sre) is a unified runtime inspired by operating system kernels, designed for building, running, and managing intelligent agents efficiently. It handles infrastructure so you can focus on agent logic, security, and performance at any scale.
 
 <InfoCallout title="What sets SRE apart">
 SRE simplifies agent development with a modular, unified interface for storage, computation, and AI resources. Security is foundational, not optional. The platform is open, extensible, and supports flexible workflows for every stage of agent lifecycle.
@@ -15,7 +15,7 @@ SRE simplifies agent development with a modular, unified interface for storage, 
 
 <Spacer size="md" />
 
-## Key Features
+## Key Features of SRE
 
 | Feature               | Description                                                      |
 |-----------------------|------------------------------------------------------------------|
@@ -35,7 +35,7 @@ Use SRE in the way that matches your project or team:
 
 | Method                                  | Best for                          | How it works                                                   |
 |:---------------------------------------- |:---------------------------------- |:-------------------------------------------------------------- |
-| [Studio](/docs/agent-studio/overview)    | Visual prototyping, collaboration  | Build and test agent workflows in the browser with drag-and-drop UI. |
+| [Studio](/docs/agent-studio/overview)    | Visual prototyping, collaboration  | [Build](https://app.smythos.com/builder) and test agent workflows in the browser with drag-and-drop UI. |
 | [SDK](/docs/agent-runtime/sdk-guide)     | Developers, automation, CI/CD      | Programmatic agent creation, configuration, and extension in TypeScript. |
 | [CLI](/docs/agent-runtime/cli-guide)     | Scripting, automation, power users | Scaffold, run, and manage agents and workflows via the terminal. |
 
@@ -67,41 +67,7 @@ const storage = ConnectorService.getStorageConnector().user(candidate);
 await storage.write('data.json', content);
 ```
 
-For details, see [Security Model](/docs/agent-runtime/security).
-
-<Spacer size="md" />
-
-## Quick Start
-
-### CLI Project Creation:
-
-```bash
-npm i -g @smythos/cli
-sre create
-```
-
-### SDK Installation: 
-```bash
-npm install @smythos/sdk
-```
-
-For full setup steps, visit [Getting Started](/docs/agent-runtime/getting-started).
-
-<Spacer size="md" />
-
-## Example: Running an Agent
-
-```typescript
-import { Agent, Model } from '@smythos/sdk';
-import path from 'path';
-
-async function main() {
-    const agentPath = path.resolve(__dirname, 'my-agent.smyth');
-    const agent = Agent.import(agentPath, { model: Model.OpenAI('gpt-4o') });
-    const result = await agent.prompt('Hello, how are you?');
-    console.log(result);
-}
-```
+For details, see [Security Model](/docs/agent-runtime/security) and explore examples at [SRE GitHub repo](https://github.com/SmythOS/sre).
 
 <Spacer size="md" />
 
@@ -117,12 +83,12 @@ main();
 ```
 If you need to customize connectors for storage, security, or scaling (such as using external vaults, cloud storage, or enterprise logging), you can provide your own initialization. This unlocks advanced configuration and full control.
 
-See [Enterprise Deployment](/docs/agent-runtime/enterprise-deploy) for examples and guidance on customizing your SRE setup for production workloads.
+See [Enterprise Deployment](/docs/agent-runtime/enterprise-deployment) and [SRE repo](https://github.com/SmythOS/sre) for examples and guidance on customizing your SRE setup for production workloads.
 
 <Spacer size="md" />
 
 ## What's Next?
-
+- [Quickstat](/docs/agent-runtime/quickstart): Quickly build your first agent using SRE.
 - [Building Agents](/docs/agent-runtime/building-agents): Combine these components into agent workflows.
 - [SDK Guide](/docs/agent-runtime/sdk-guide): Programmatically add and configure components.
 - [Architecture](/docs/agent-runtime/architecture): See how these components fit into the overall SRE system.

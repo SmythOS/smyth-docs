@@ -3,7 +3,7 @@ title: Microsoft Integration with SmythOS
 description: Seamlessly connect Microsoft Calendar with SmythOS to automate event creation, retrieve event details, and manage your calendar directly within your agent workflows.
 og:title: SmythOS & Microsoft Calendar - Master Your Schedule with Automation
 og:description: Learn how to integrate Microsoft Calendar with SmythOS. Use components to create calendars, manage events, and automate scheduling through your agents.
-og:image: /img/integrations/smythos_microsoft_.png
+og:image: /docs/img/integrations/smythos_microsoft_.png
 keywords: [Microsoft SmythOS Integration, Calendar SmythOS, Connect Calendar to SmythOS, SmythOS Calendar Components, Automate Calendar, SmythOS Microsoft 365 Calendar Automation]
 tags: [input, communication, collaboration]
 ---
@@ -150,7 +150,7 @@ The component settings may provide a versatile button designed to toggle between
 - **Sign Out Button**: Allows users to disconnect the current Microsoft account from the SmythOS integration.
 This button is critical if the component cannot retrieve a valid token due to issues like invalidity, expiration, or other token-related problems. Using sign-out and then re-authenticating can resolve these.
 </InfoCallout>
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
+<Image src="/docs/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Example of Authentication/Sign Out button in component settings._
 <Divider />
 
@@ -454,7 +454,7 @@ The component provides a versatile button designed to toggle between **Authentic
 - **Authenticate Button**: This button serves as an additional method to authenticate, complementing the main **Authenticate** button already present in the component.
 - **Sign Out Button**: Allows users to sign out when they are currently authenticated.
 This button is critical for resolving token-related issues.
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
+<Image src="/docs/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Example of Authentication/Sign Out button in component settings._
 
 #### Inputs
@@ -464,7 +464,7 @@ _Image: Example of Authentication/Sign Out button in component settings._
 | `name` | string | Yes | The name of the new calendar. This is typically provided within the `Body` input. |
 | `Body` | object | Yes | A JSON object containing the properties for the new calendar. At a minimum, this should include `{"name": "Your Calendar Name"}`. Other properties like `color` can also be set. |
 
-<Image src="/img/microsoft_calendar/screenshot2.png" alt="Inputs for Create Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot2.png" alt="Inputs for Create Calendar component" />
 _Image: Inputs for the Create Calendar component, highlighting `userId`. The `name` is part of the `Body`._
 
 > **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section. The `Body` input is where you'd structure the calendar resource.
@@ -479,7 +479,7 @@ _Image: Inputs for the Create Calendar component, highlighting `userId`. The `na
 | `color` | string | The color assigned to the calendar. Extracted from `Response.color`. |
 | `owner_email` | string | The email address of the calendar owner. Extracted from `Response.owner.address`. |
 
-<Image src="/img/microsoft_calendar/screenshot3.png" alt="Outputs for Create Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot3.png" alt="Outputs for Create Calendar component" />
 _Image: Outputs from the Create Calendar component._
 
 ```json
@@ -509,11 +509,11 @@ After a project is completed, an agent renames the project's shared calendar to 
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
+<Image src="/docs/img/microsoft_calendar/screenshot1.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 
 #### Body (Input)
 This is the field where the JSON data to update the calendar properties goes. You only need to include the properties you want to change.
-<Image src="/img/microsoft_calendar/screenshot4.png" alt="Body input for Update Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot4.png" alt="Body input for Update Calendar component" />
 _Image: Example of the Body input field in the component settings, showing a sample JSON schema for updating calendar properties._
 
 #### Inputs
@@ -523,7 +523,7 @@ _Image: Example of the Body input field in the component settings, showing a sam
 | `calendarId` | string | Yes | The unique ID of the calendar that you want to update. |
 | `Body` | object | Yes | A JSON object containing the calendar properties to update (e.g., `{"name": "Updated Calendar Name", "color": "lightRed"}`). |
 
-<Image src="/img/microsoft_calendar/screenshot5.png" alt="Inputs for Update Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot5.png" alt="Inputs for Update Calendar component" />
 _Image: Inputs for the Update Calendar component._
 
 > **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
@@ -537,7 +537,7 @@ _Image: Inputs for the Update Calendar component._
 | `name` | string | The updated name of the calendar. Extracted from `Response.name`. |
 | `color` | string | The updated color of the calendar. Extracted from `Response.color`. |
 
-<Image src="/img/microsoft_calendar/screenshot6.png" alt="Outputs for Update Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot6.png" alt="Outputs for Update Calendar component" />
 _Image: Outputs from the Update Calendar component._
 
 ```json
@@ -569,7 +569,7 @@ When a temporary project concludes, an agent automatically deletes the associate
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot7.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
+<Image src="/docs/img/microsoft_calendar/screenshot7.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Authentication settings, similar for all components._
 
 #### Inputs
@@ -578,7 +578,7 @@ _Image: Authentication settings, similar for all components._
 | `userId` | string | Yes | The ID (GUID) or User Principal Name (UPN) of the user whose calendar is being deleted (e.g., `me`). |
 | `calendarId` | string | Yes | The unique ID of the calendar that you want to delete. |
 
-<Image src="/img/microsoft_calendar/screenshot8.png" alt="Inputs for Delete Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot8.png" alt="Inputs for Delete Calendar component" />
 _Image: Inputs for the Delete Calendar component._
 
 > **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
@@ -590,7 +590,7 @@ _Image: Inputs for the Delete Calendar component._
 | `Headers` | object | HTTP headers from the API response. |
 | `status` | string | A status message indicating success or failure (e.g., "Successfully deleted" or an error message if parsed by SmythOS). |
 
-<Image src="/img/microsoft_calendar/screenshot9.png" alt="Outputs for Delete Calendar component" />
+<Image src="/docs/img/microsoft_calendar/screenshot9.png" alt="Outputs for Delete Calendar component" />
 _Image: Outputs from the Delete Calendar component._
 
 ```json
@@ -620,7 +620,7 @@ An agent processes a new employee onboarding form and automatically schedules a 
 
 #### Body (Input)
 This is the field where the JSON payload to create an event goes. The schema includes properties like `subject`, `body`, `start`, `end`, `attendees`, `location`, etc.
-<Image src="/img/microsoft_calendar/screenshot10.png" alt="Body input for Create Event component" />
+<Image src="/docs/img/microsoft_calendar/screenshot10.png" alt="Body input for Create Event component" />
 _Image: Example of the Body input field in the component settings, showing a sample JSON schema for creating an event._
 
 #### Inputs
@@ -630,7 +630,7 @@ _Image: Example of the Body input field in the component settings, showing a sam
 | `calendarId` | string | No | Optional. The ID of the specific calendar to create the event in. If omitted, the event is created in the user's default calendar. |
 | `Body` | object | Yes | A JSON object representing the event to be created. Must include `subject`, `start` (with `dateTime` and `timeZone`), and `end` (with `dateTime` and `timeZone`). Other fields like `body`, `attendees`, `location` are optional. |
 
-<Image src="/img/microsoft_calendar/screenshot11.png" alt="Inputs for Create Event component" />
+<Image src="/docs/img/microsoft_calendar/screenshot11.png" alt="Inputs for Create Event component" />
 _Image: Inputs for the Create Event component._
 
 > **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
@@ -647,7 +647,7 @@ _Image: Inputs for the Create Event component._
 | `start_dateTime` | string | The start date and time of the event. Extracted from `Response.start.dateTime`. |
 | `end_dateTime` | string | The end date and time of the event. Extracted from `Response.end.dateTime`. |
 
-<Image src="/img/microsoft_calendar/screenshot12.png" alt="Outputs for Create Event component" />
+<Image src="/docs/img/microsoft_calendar/screenshot12.png" alt="Outputs for Create Event component" />
 _Image: Outputs from the Create Event component._
 
 ```json
@@ -700,7 +700,7 @@ An agent fetches all events scheduled for "today" for a specific user to provide
 
 #### Settings
 (Refer to the "Settings" section under [Create Calendar](#create-calendar) for details on Client ID/Secret and authentication.)
-<Image src="/img/microsoft_calendar/screenshot13.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
+<Image src="/docs/img/microsoft_calendar/screenshot13.png" alt="Microsoft Calendar Authentication Settings in SmythOS" />
 _Image: Authentication settings, similar for all components._
 
 #### Inputs
@@ -714,7 +714,7 @@ _Image: Authentication settings, similar for all components._
 | `$top` | integer | No | Optional. The maximum number of events to return in a single response (for pagination). Default is often 10. Max varies. |
 | `$skip` | integer | No | Optional. The number of events to skip from the beginning of the result set (for pagination). |
 
-<Image src="/img/microsoft_calendar/screenshot14.png" alt="Inputs for List Events component" />
+<Image src="/docs/img/microsoft_calendar/screenshot14.png" alt="Inputs for List Events component" />
 _Image: Inputs for the List Events component._
 
 > **Note:** With the flexibility and customization in mind, `SmythOS` allows you to expand the default input list by adding new inputs using the `+` button situated in the `Inputs` section.
@@ -727,7 +727,7 @@ _Image: Inputs for the List Events component._
 | `value` | array | An array of event objects retrieved from the calendar, matching the filter criteria. Each object is a full Microsoft Graph Event resource. Extracted from `Response.value`. |
 | `@odata.nextLink` | string | If present in the `Response`, this URL can be used to fetch the next page of results. |
 
-<Image src="/img/microsoft_calendar/screenshot15.png" alt="Outputs for List Events component" />
+<Image src="/docs/img/microsoft_calendar/screenshot15.png" alt="Outputs for List Events component" />
 _Image: Outputs from the List Events component._
 
 ```json

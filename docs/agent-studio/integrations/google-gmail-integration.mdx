@@ -5,7 +5,7 @@ title: Google Gmail Integration
 description: Connect SmythOS to Gmail. Automate email processing, sending, and management directly from your agents.
 og:title: SmythOS & Gmail - Supercharge Your Email Workflows
 og:description: Learn to integrate Gmail with SmythOS. Empower agents to read, send, organize, and manage emails for dynamic automated communication.
-og:image: /img/integrations/smythos_gmail_default.png
+og:image: /docs/img/integrations/smythos_gmail_default.png
 keywords: [Gmail SmythOS Integration, Connect Gmail to SmythOS, SmythOS Gmail Components, Automate Gmail, Email Automation, SmythOS Email]
 ---
 
@@ -475,7 +475,7 @@ Retrieves a list of draft emails from the user's Gmail account.
 | `q` | `string` | No | Query string to filter drafts (similar to Gmail search). |  |
 | `pageToken` | `string` | No | Token to retrieve a specific page of results. |  |
 
-<Image src="/img/gmail/screenshot2.png" title="Configuring List Drafts Inputs" />
+<Image src="/docs/img/gmail/screenshot2.png" title="Configuring List Drafts Inputs" />
 _Image: Example of input configuration for listing drafts._
 
 #### Outputs
@@ -487,7 +487,7 @@ _Image: Example of input configuration for listing drafts._
 | `Response`| `object`| Delivers a detailed JSON response from Gmail. |
 | `Headers` | `object`| Displays HTTP headers received with the API response. |
 
-<Image src="/img/gmail/screenshot3.png" title="List Drafts Outputs" />
+<Image src="/docs/img/gmail/screenshot3.png" title="List Drafts Outputs" />
 _Image: Example of outputs after listing drafts._
 
 ```json
@@ -520,7 +520,7 @@ Fetches a specific draft email by its ID for review or further action.
 | `draftId` | `string` | Yes | The unique identifier for the draft to be retrieved. |  |
 | `format` | `string` | No | Format to return the draft in (`minimal`, `full`, `raw`, `metadata`). | `full` |
 
-<Image src="/img/gmail/screenshot5.png" title="Get Draft Inputs" />
+<Image src="/docs/img/gmail/screenshot5.png" title="Get Draft Inputs" />
 _Image: Input configuration for the Get Draft component._
 
 #### Outputs
@@ -532,7 +532,7 @@ _Image: Input configuration for the Get Draft component._
 | `Response` | `object` | Contains the full JSON response from Gmail. |
 | `Headers` | `object` | Shows headers from the API response. |
 
-<Image src="/img/gmail/screenshot6.png" title="Get Draft Outputs" />
+<Image src="/docs/img/gmail/screenshot6.png" title="Get Draft Outputs" />
 _Image: Outputs provided by the Get Draft component._
 
 ```json
@@ -565,7 +565,7 @@ Replaces the content of an existing draft email. The entire draft, including hea
 | `draftId` | `string` | Yes | The unique identifier of the draft to be updated. |  |
 | `body_data_base64url_encode` | `string` | Yes | The new full email message (RFC 2822 format, including all headers like To, Subject, and body), base64url encoded. |  |
 
-<Image src="/img/gmail/screenshot8.png" title="Update Draft Inputs" />
+<Image src="/docs/img/gmail/screenshot8.png" title="Update Draft Inputs" />
 _Image: Input configuration for updating a draft._
 
 #### Outputs
@@ -576,7 +576,7 @@ _Image: Input configuration for updating a draft._
 | `Response` | `object` | A complete JSON response from Gmail. |
 | `Headers` | `object` | The HTTP headers returned from the API call. |
 
-<Image src="/img/gmail/screenshot9.png" title="Update Draft Outputs" />
+<Image src="/docs/img/gmail/screenshot9.png" title="Update Draft Outputs" />
 _Image: Outputs after updating a draft._
 
 ```json
@@ -609,7 +609,7 @@ Creates a new draft email in the user's Gmail account. The DRAFT label is automa
 | `userId` | `string` | Yes | The Gmail user ID. | `me` |
 | `body_data_base64url_encode` | `string` | Yes | The full email message (RFC 2822 format, including all headers like To, Subject, and body), base64url encoded. |  |
 
-<Image src="/img/gmail/screenshot17.png" title="Create Draft Inputs" />
+<Image src="/docs/img/gmail/screenshot17.png" title="Create Draft Inputs" />
 _Image: Input configuration for creating a draft._
 
 #### Outputs
@@ -620,7 +620,7 @@ _Image: Input configuration for creating a draft._
 | `Response` | `object` | Returns a detailed JSON structure from Gmail. |
 | `Headers` | `object` | Lists HTTP headers from the API call. |
 
-<Image src="/img/gmail/screenshot18.png" title="Create Draft Outputs" />
+<Image src="/docs/img/gmail/screenshot18.png" title="Create Draft Outputs" />
 _Image: Outputs after creating a draft._
 
 ```json
@@ -653,7 +653,7 @@ Sends an existing draft email.
 | `body_data_base64url_encode` | `string` | No | Optional. If provided, this will update the draft with this content before sending. If omitted, the existing draft content is sent. Full RFC 2822 message, base64url encoded. | |
 
 
-<Image src="/img/gmail/screenshot20.png" title="Send Draft Inputs" />
+<Image src="/docs/img/gmail/screenshot20.png" title="Send Draft Inputs" />
 _Image: Input configuration for sending a draft._
 
 #### Outputs
@@ -665,7 +665,7 @@ _Image: Input configuration for sending a draft._
 | `Response` | `object` | A detailed JSON structure from Gmail confirming the send operation. |
 | `Headers` | `object` | HTTP headers associated with the API response. |
 
-<Image src="/img/gmail/screenshot21.png" title="Send Draft Outputs" />
+<Image src="/docs/img/gmail/screenshot21.png" title="Send Draft Outputs" />
 _Image: Outputs after sending a draft._
 
 ```json
@@ -696,7 +696,7 @@ Permanently deletes a specified draft email.
 | `userId` | `string` | Yes | The Gmail user ID. | `me` |
 | `draftId` | `string` | Yes | The unique identifier of the draft you wish to delete. |  |
 
-<Image src="/img/gmail/screenshot23.png" title="Delete Draft Inputs" />
+<Image src="/docs/img/gmail/screenshot23.png" title="Delete Draft Inputs" />
 _Image: Input configuration for deleting a draft._
 
 #### Outputs
@@ -705,7 +705,7 @@ _Image: Input configuration for deleting a draft._
 | `Response` | `object` | Provides a detailed JSON structure confirming deletion from Gmail (often empty on success, HTTP 204). |
 | `Headers` | `object` | Displays HTTP headers from the API call. |
 
-<Image src="/img/gmail/screenshot24.png" title="Delete Draft Outputs" />
+<Image src="/docs/img/gmail/screenshot24.png" title="Delete Draft Outputs" />
 _Image: Outputs after deleting a draft._
 
 ```json
@@ -740,7 +740,7 @@ Retrieves a list of messages from the user's Gmail mailbox, with options for fil
 | `labelIds` | `array` | No | Optional array of label IDs to only return messages with all specified labels. |  |
 | `pageToken` | `string` | No | Token to retrieve a specific page of results. |  |
 
-<Image src="/img/gmail/screenshot11.png" title="List Messages Inputs" />
+<Image src="/docs/img/gmail/screenshot11.png" title="List Messages Inputs" />
 _Image: Input configuration for listing messages._
 
 #### Outputs
@@ -752,7 +752,7 @@ _Image: Input configuration for listing messages._
 | `Response` | `object` | A comprehensive JSON response from Gmail. |
 | `Headers` | `object` | HTTP headers returned with the API call. |
 
-<Image src="/img/gmail/screenshot12.png" title="List Messages Outputs" />
+<Image src="/docs/img/gmail/screenshot12.png" title="List Messages Outputs" />
 _Image: Outputs after listing messages._
 
 ```json
@@ -786,7 +786,7 @@ Retrieves a specific email message by its ID, providing detailed content and met
 | `format` | `string` | No | Format to return the message in (`minimal`, `full`, `raw`, `metadata`). | `full` |
 | `metadataHeaders` | `array` | No | When `format` is `metadata`, this specifies a list of header names to be included (e.g., `["From", "To", "Subject"]`). | |
 
-<Image src="/img/gmail/screenshot14.png" title="Get Message Inputs" />
+<Image src="/docs/img/gmail/screenshot14.png" title="Get Message Inputs" />
 _Image: Input configuration for getting a specific message._
 
 #### Outputs
@@ -804,7 +804,7 @@ _Image: Input configuration for getting a specific message._
 | `Response` | `object` | Delivers a comprehensive JSON response from Gmail. |
 | `Headers` | `object` | Provides the HTTP headers associated with the API response. |
 
-<Image src="/img/gmail/screenshot15.png" title="Get Message Outputs" />
+<Image src="/docs/img/gmail/screenshot15.png" title="Get Message Outputs" />
 _Image: Outputs from the Get Message component._
 
 ```json
@@ -836,7 +836,7 @@ Sends a new email message directly. This is for composing and sending in one ste
 | `userId` | `string` | Yes | The Gmail user ID. | `me` |
 | `body_data_base64url_encode` | `string` | Yes | The full email message (RFC 2822 format, including all headers like To, Subject, and body), base64url encoded. |  |
 
-<Image src="/img/gmail/screenshot32.png" title="Send Message Inputs" />
+<Image src="/docs/img/gmail/screenshot32.png" title="Send Message Inputs" />
 _Image: Input configuration for sending a message._
 
 #### Outputs
@@ -848,7 +848,7 @@ _Image: Input configuration for sending a message._
 | `Response` | `object` | A comprehensive JSON structure from Gmail confirming the successful dispatch. |
 | `Headers` | `object` | The HTTP headers associated with the API call. |
 
-<Image src="/img/gmail/screenshot33.png" title="Send Message Outputs" />
+<Image src="/docs/img/gmail/screenshot33.png" title="Send Message Outputs" />
 _Image: Outputs after sending a message._
 
 ```json
@@ -879,7 +879,7 @@ Moves a specified email message to the trash bin. Trashed messages can typically
 | `userId` | `string` | Yes | The Gmail user ID. | `me` |
 | `id` | `string` | Yes | The unique identifier of the Gmail message to move to trash (this is the `messageId`). |  |
 
-<Image src="/img/gmail/screenshot26.png" title="Move to Trash Inputs" />
+<Image src="/docs/img/gmail/screenshot26.png" title="Move to Trash Inputs" />
 _Image: Input configuration for moving a message to trash._
 
 #### Outputs
@@ -890,7 +890,7 @@ _Image: Input configuration for moving a message to trash._
 | `Response` | `object` | A detailed JSON response from Gmail confirming the move to trash. |
 | `Headers` | `object` | Displays the HTTP headers associated with the API response. |
 
-<Image src="/img/gmail/screenshot27.png" title="Move to Trash Outputs" />
+<Image src="/docs/img/gmail/screenshot27.png" title="Move to Trash Outputs" />
 _Image: Outputs after moving a message to trash._
 
 ```json
@@ -921,7 +921,7 @@ Permanently deletes a specified email message from the user's mailbox. This acti
 | `userId` | `string` | Yes | The Gmail user ID. | `me` |
 | `id` | `string` | Yes | The unique identifier of the message to delete permanently (this is the `messageId`). |  |
 
-<Image src="/img/gmail/screenshot29.png" title="Delete Message Inputs" />
+<Image src="/docs/img/gmail/screenshot29.png" title="Delete Message Inputs" />
 _Image: Input configuration for deleting a message._
 
 #### Outputs
@@ -930,7 +930,7 @@ _Image: Input configuration for deleting a message._
 | `Response` | `object` | A detailed JSON response from Gmail confirming the message deletion (often empty on success, HTTP 204). |
 | `Headers` | `object` | Displays HTTP headers from the API response. |
 
-<Image src="/img/gmail/screenshot30.png" title="Delete Message Outputs" />
+<Image src="/docs/img/gmail/screenshot30.png" title="Delete Message Outputs" />
 _Image: Outputs after deleting a message._
 
 ```json

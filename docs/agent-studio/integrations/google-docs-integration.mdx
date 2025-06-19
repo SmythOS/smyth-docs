@@ -3,7 +3,7 @@ title: Google Docs Integration
 description: Connect Google Docs to your agents to create, append, and retrieve live documents directly in your workflows.
 og:title: SmythOS + Google Docs
 og:description: Automate document generation and updates with live Google Docs actions inside SmythOS.
-og:image: /img/integrations/smythos_googledocs.png
+og:image: /docs/img/integrations/smythos_googledocs.png
 keywords: [Google Docs Integration, Google Docs API, Google Docs Automation, SmythOS Google Docs, Append Text Google Docs, Create Document Agents]
 ---
 
@@ -65,7 +65,7 @@ Fetch a Google Doc’s full JSON representation, including title and structured 
 |-------|----------|-------------|
 | <code>documentId</code> | <Badge type="required" /> | Unique ID from the Google Docs URL |
 
-<Image src="/img/google_docs/screenshot2.png" alt="Get Document Input" />
+<Image src="/docs/img/google_docs/screenshot2.png" alt="Get Document Input" />
 
 #### Outputs
 
@@ -76,7 +76,7 @@ Fetch a Google Doc’s full JSON representation, including title and structured 
 | <code>response</code> | Full JSON body |
 | <code>headers</code> | HTTP metadata from the API |
 
-<Image src="/img/google_docs/screenshot3.png" alt="Get Document Output" />
+<Image src="/docs/img/google_docs/screenshot3.png" alt="Get Document Output" />
 
 <PromptCard prompt={`{
   "component": "docs.getDocument",
@@ -96,7 +96,7 @@ Add raw text content to the end of an existing Google Document.
 | <code>documentId</code> | <Badge type="required" /> | The target document’s ID |
 | <code>text</code> | <Badge type="required" /> | The string to append to the doc |
 
-<Image src="/img/google_docs/screenshot5.png" alt="Append Text Inputs" />
+<Image src="/docs/img/google_docs/screenshot5.png" alt="Append Text Inputs" />
 
 #### Outputs
 
@@ -107,7 +107,7 @@ Add raw text content to the end of an existing Google Document.
 | <code>response</code> | Full Google Docs API response |
 | <code>headers</code> | HTTP metadata for diagnostics |
 
-<Image src="/img/google_docs/screenshot6.png" alt="Append Output" />
+<Image src="/docs/img/google_docs/screenshot6.png" alt="Append Output" />
 
 <PromptCard prompt={`{
   "component": "docs.appendText",
@@ -131,7 +131,7 @@ Creates a new blank Google Doc with a given title.
 |-------|----------|-------------|
 | <code>title</code> | <Badge type="required" /> | The new document’s display title |
 
-<Image src="/img/google_docs/screenshot8.png" alt="Create Doc Input" />
+<Image src="/docs/img/google_docs/screenshot8.png" alt="Create Doc Input" />
 
 #### Outputs
 
@@ -141,7 +141,7 @@ Creates a new blank Google Doc with a given title.
 | <code>response</code> | JSON body of doc metadata |
 | <code>headers</code> | API response headers |
 
-<Image src="/img/google_docs/screenshot9.png" alt="Create Output" />
+<Image src="/docs/img/google_docs/screenshot9.png" alt="Create Output" />
 
 <PromptCard prompt={`{
   "component": "docs.createDocument",
@@ -182,4 +182,4 @@ Try these agent use cases:
 - Team updates bot that logs check-ins to a shared Google Doc
 - Invoice generation that writes line items into templated Docs
 
-<Image src="/img/integrations/smythos_googledocs.png" alt="Google Docs agent demo" />
+<Image src="/docs/img/integrations/smythos_googledocs.png" alt="Google Docs agent demo" />

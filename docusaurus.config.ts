@@ -191,7 +191,7 @@ const config: Config = {
         to: '/docs/agent-studio/key-concepts/vault',
       },
       {
-        from: '/docs/agent-collaboration/agent-work-schedule',
+        from: '/docs/agent-collaboration/agent-work-schedules',
         to: '/docs/agent-studio/build-agents/building-workflows',
       },
       // Integration redirects - ensure consistent paths
@@ -204,15 +204,15 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/microsoft-teams-integration',
       },
       {
-        from: '/docs/integrations/discord',
+        from: '/docs/agent-studio/integrations/discord-integration',
         to: '/docs/agent-studio/integrations/discord-integration',
       },
       {
-        from: '/docs/integrations/slack',
+        from: '/docs/agent-studio/integrations/slack-integration',
         to: '/docs/agent-studio/integrations/slack-integration',
       },
       {
-        from: '/docs/integrations/notion',
+        from: '/docs/agent-studio/integrations/notion-integration',
         to: '/docs/agent-studio/integrations/notion-integration',
       },
       {
@@ -228,35 +228,35 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/stripe-integration',
       },
       {
-        from: '/docs/integrations/shopify',
+        from: '/docs/agent-studio/integrations/shopify-integration',
         to: '/docs/agent-studio/integrations/shopify-integration',
       },
       {
-        from: '/docs/integrations/hubspot',
+        from: '/docs/agent-studio/integrations/hubspot-integration',
         to: '/docs/agent-studio/integrations/hubspot-integration',
       },
       {
-        from: '/docs/integrations/mailchimp',
+        from: '/docs/agent-studio/integrations/mailchimp-integration',
         to: '/docs/agent-studio/integrations/mailchimp-integration',
       },
       {
-        from: '/docs/integrations/klaviyo',
+        from: '/docs/agent-studio/integrations/klaviyo-integration',
         to: '/docs/agent-studio/integrations/klaviyo-integration',
       },
       {
-        from: '/docs/integrations/twilio',
+        from: '/docs/agent-studio/integrations/twilio-integration',
         to: '/docs/agent-studio/integrations/twilio-integration',
       },
       {
-        from: '/docs/integrations/sendgrid',
+        from: '/docs/agent-studio/integrations/sendgrid-integration',
         to: '/docs/agent-studio/integrations/sendgrid-integration',
       },
       {
-        from: '/docs/integrations/webflow',
+        from: '/docs/agent-studio/integrations/webflow-integration',
         to: '/docs/agent-studio/integrations/webflow-integration',
       },
       {
-        from: '/docs/integrations/wordpress-org',
+        from: '/docs/agent-studio/integrations/wordpress-org-integration',
         to: '/docs/agent-studio/integrations/wordpress-org-integration',
       },
       {
@@ -264,11 +264,11 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/wordpress-com-integration',
       },
       {
-        from: '/docs/integrations/squarespace',
+        from: '/docs/agent-studio/integrations/squarespace-integration',
         to: '/docs/agent-studio/integrations/squarespace-integration',
       },
       {
-        from: '/docs/integrations/devto',
+        from: '/docs/agent-studio/integrations/devto-integration',
         to: '/docs/agent-studio/integrations/devto-integration',
       },
       {
@@ -276,27 +276,27 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/youtube-integration',
       },
       {
-        from: '/docs/integrations/fal-ai',
+        from: '/docs/agent-studio/integrations/falai-integration',
         to: '/docs/agent-studio/integrations/falai-integration',
       },
       {
-        from: '/docs/integrations/dataforseo',
+        from: '/docs/agent-studio/integrations/dataforseo-integration',
         to: '/docs/agent-studio/integrations/dataforseo-integration',
       },
       {
-        from: '/docs/integrations/tavily',
+        from: '/docs/agent-studio/integrations/tavily-integration',
         to: '/docs/agent-studio/integrations/tavily-integration',
       },
       {
-        from: '/docs/integrations/perplexity-ai',
+        from: '/docs/agent-studio/integrations/perplexity-ai-integration',
         to: '/docs/agent-studio/integrations/perplexity-ai-integration',
       },
       {
-        from: '/docs/integrations/playht',
+        from: '/docs/agent-studio/integrations/playht-integration',
         to: '/docs/agent-studio/integrations/playht-integration',
       },
       {
-        from: '/docs/integrations/stability-ai',
+        from: '/docs/agent-studio/integrations/stability-ai-integration',
         to: '/docs/agent-studio/integrations/stability-ai-integration',
       },
       {
@@ -304,11 +304,11 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/google-translate-integration',
       },
       {
-        from: '/docs/integrations/newsapi',
+        from: '/docs/agent-studio/integrations/newsapi-integration',
         to: '/docs/agent-studio/integrations/newsapi-integration',
       },
       {
-        from: '/docs/integrations/openapi',
+        from: '/docs/agent-studio/integrations/openapi-integration',
         to: '/docs/agent-studio/integrations/openapi-integration',
       },
       {
@@ -316,19 +316,19 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/google-analytics-integration',
       },
       {
-        from: '/docs/integrations/pdfcrowd',
+        from: '/docs/agent-studio/integrations/pdfcrowd-integration',
         to: '/docs/agent-studio/integrations/pdfcrowd-integration',
       },
       {
-        from: '/docs/integrations/signnow',
+        from: '/docs/agent-studio/integrations/signnow-integration',
         to: '/docs/agent-studio/integrations/signnow-integration',
       },
       {
-        from: '/docs/integrations/tldv',
+        from: '/docs/agent-studio/integrations/tldv-integration',
         to: '/docs/agent-studio/integrations/tldv-integration',
       },
       {
-        from: '/docs/integrations/trello',
+        from: '/docs/agent-studio/integrations/trello-integration',
         to: '/docs/agent-studio/integrations/trello-integration',
       },
       {

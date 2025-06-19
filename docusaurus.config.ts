@@ -3,7 +3,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
 const tailwindPostcss = require('@tailwindcss/postcss');
-const timestamp = Math.floor(Date.now() / 1000);
+// const timestamp = Math.floor(Date.now() / 1000);
 
 async function tailwindPlugin() {
   return {
@@ -101,17 +101,30 @@ const config: Config = {
 
   clientModules: [require.resolve('./src/css/tailwind.css')],
 
+  // stylesheets: [
+  //   { 
+  //     href: `https://smythos.com/wp-content/themes/generatepress_child/css/docs.css?ver=${timestamp}`, 
+  //     type: 'text/css' 
+  //   },
+  // ],
+  
+  // scripts: [
+  //   { 
+  //     src: `https://smythos.com/wp-content/themes/generatepress_child/js/docs.js?ver=${timestamp}`, 
+  //     async: false 
+  //   },
+  // ],
+  
   stylesheets: [
-    { 
-      href: `https://smythos.com/wp-content/themes/generatepress_child/css/docs.css?ver=${timestamp}`, 
-      type: 'text/css' 
+    {
+      href: 'https://smythos.com/wp-content/themes/generatepress_child/css/docs.css',
+      type: 'text/css',
     },
   ],
-  
   scripts: [
-    { 
-      src: `https://smythos.com/wp-content/themes/generatepress_child/js/docs.js?ver=${timestamp}`, 
-      async: false 
+    {
+      src: 'https://smythos.com/wp-content/themes/generatepress_child/js/docs.js',
+      async: false,
     },
   ],
   

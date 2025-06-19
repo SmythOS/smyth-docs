@@ -3,6 +3,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
 const tailwindPostcss = require('@tailwindcss/postcss');
+const timestamp = Math.floor(Date.now() / 1000);
 
 async function tailwindPlugin() {
   return {
@@ -77,30 +78,43 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
+  themes: [
     [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
-      {
-        hashed: true,
-        language: ['en'],
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        
+        hashed: false,
+        language: ["en"],
         indexBlog: false,
-      },
+        indexDocs: true,
+        docsRouteBasePath: "/",
+        // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
+        // forceIgnoreNoIndex: true,
+      }),
     ],
+  ],
+
+  plugins: [
     tailwindPlugin,
   ],
 
   clientModules: [require.resolve('./src/css/tailwind.css')],
-  
-  stylesheets: [
-    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/main.css', type: 'text/css' },
-    { href: 'https://smythos.com/wp-content/themes/generatepress_child/css/header.css', type: 'text/css' },
-    // { href: '/css/header.css', type: 'text/css' },
-  ],
 
+  stylesheets: [
+    { 
+      href: `https://smythos.com/wp-content/themes/generatepress_child/css/docs.css?ver=${timestamp}`, 
+      type: 'text/css' 
+    },
+  ],
+  
   scripts: [
-    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/main.js', async: false },
-    { src: 'https://smythos.com/wp-content/themes/generatepress_child/js/menu.js', async: false, defer: true },
-   ],
+    { 
+      src: `https://smythos.com/wp-content/themes/generatepress_child/js/docs.js?ver=${timestamp}`, 
+      async: false 
+    },
+  ],
+  
 
   themeConfig: {
     sidebar: {},

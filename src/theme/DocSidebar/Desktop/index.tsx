@@ -1,19 +1,25 @@
 import React from 'react';
 import clsx from 'clsx';
-import {useThemeConfig} from '@docusaurus/theme-common';
+import { useThemeConfig } from '@docusaurus/theme-common';
 import Logo from '../../Navbar/Logo';
-import SearchBar from '@theme/SearchBar';     
-import NavbarSearch from '../../Navbar/Search';          
+import SearchBar from '@theme/SearchBar';
 import CollapseButton from './CollapseButton';
 import Content from './Content';
-
 import styles from './styles.module.css';
+import '@site/src/css/custom.css';
 
-function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: Props) {
+interface Props {
+  path: string;
+  sidebar: any;
+  onCollapse: () => void;
+  isHidden: boolean;
+}
+
+function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }: Props) {
   const {
-    navbar: {hideOnScroll},
+    navbar: { hideOnScroll },
     docs: {
-      sidebar: {hideable},
+      sidebar: { hideable },
     },
   } = useThemeConfig();
 
@@ -23,24 +29,13 @@ function DocSidebarDesktop({path, sidebar, onCollapse, isHidden}: Props) {
         styles.sidebar,
         hideOnScroll && styles.sidebarWithHideableNavbar,
         isHidden && styles.sidebarHidden,
-      )}>
-
-      {/* Logo (only rendered when hide-on-scroll is enabled) */}
-      {hideOnScroll && <Logo tabIndex={-1} className={styles.sidebarLogo} />}
-
-      {/* 🔍 Search input */}
+      )}
+    >
+      {hideOnScroll && <Logo />}
       <div className={styles.sidebarSearch}>
         <SearchBar />
       </div>
-        {/* 🔍 Search input */}
-        <div className={styles.sidebarSearch}>
-        <NavbarSearch />
-      </div>
-
-      {/* Sidebar tree */}
       <Content path={path} sidebar={sidebar} />
-
-      {/* Collapse button (if enabled in themeConfig) */}
       {hideable && <CollapseButton onClick={onCollapse} />}
     </div>
   );

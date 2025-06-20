@@ -1,4 +1,5 @@
 require('dotenv').config();
+const webpack = require('webpack');
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
@@ -31,6 +32,12 @@ const config: Config = {
 
   organizationName: 'SmythOS',
   projectName: 'smythos-docs',
+
+  customFields: {
+    // Make env vars available in components
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+  },
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -79,27 +86,45 @@ const config: Config = {
   ],
 
   themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-      ({
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+    //   ({
         
-        hashed: false,
-        language: ["en"],
-        indexBlog: false,
-        indexDocs: true,
-        docsRouteBasePath: "/",
-        // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
-        // forceIgnoreNoIndex: true,
-      }),
-    ],
+    //     hashed: false,
+    //     language: ["en"],
+    //     indexBlog: false,
+    //     indexDocs: true,
+    //     docsRouteBasePath: "/",
+    //     // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
+    //     // forceIgnoreNoIndex: true,
+    //   }),
+    // ],
+    //[
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+    //   ({
+        
+    //     hashed: false,
+    //     language: ["en"],
+    //     indexBlog: false,
+    //     indexDocs: true,
+    //     docsRouteBasePath: "/",
+    //     // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
+    //     // forceIgnoreNoIndex: true,
+    //   }),
+    // ],
   ],
 
   plugins: [
     tailwindPlugin,
   ],
 
-  clientModules: [require.resolve('./src/css/tailwind.css')],
+  clientModules: [require.resolve('./src/css/tailwind.css'),
+    require.resolve('./src/components/DocsHelpPopup.tsx'),
+  ],
+  
+
 
   // stylesheets: [
   //   { 
@@ -131,6 +156,11 @@ const config: Config = {
 
   themeConfig: {
     sidebar: {},
+      algolia: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
+      },
     // navbar: {
     //   title: 'SmythOS',
     //   logo: {

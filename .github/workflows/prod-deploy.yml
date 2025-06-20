@@ -42,21 +42,31 @@ jobs:
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
           
+          # Create compressed archive of build folder
+          echo "Creating compressed archive..."
+          tar -czf build.tar.gz -C build .
+          ls -lh build.tar.gz
+          
           # Create target directory if it doesn't exist
           ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
             mkdir -p /opt/apps/smyth-docs/build
           "
           
-          # Remove old content and copy new build
+          # Transfer compressed file to server
+          echo "Transferring compressed file..."
+          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $USER@$HOST:/tmp/build.tar.gz
+          
+          # Extract and move files on server
+          echo "Extracting files on server..."
           ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
             rm -rf /opt/apps/smyth-docs/build/*
+            cd /opt/apps/smyth-docs/build
+            tar -xzf /tmp/build.tar.gz
+            rm -f /tmp/build.tar.gz
           "
           
-          # Copy build folder to server
-          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r build/* $USER@$HOST:/opt/apps/smyth-docs/build/
-          
           # Cleanup
-          rm -f private_key.pem
+          rm -f private_key.pem build.tar.gz
           
           echo "Build copied to server successfully!"
 

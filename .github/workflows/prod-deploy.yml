@@ -37,16 +37,16 @@ jobs:
           
           # Create target directory if it doesn't exist
           ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
-            mkdir -p /opt/apps/build
+            mkdir -p /opt/apps/smyth-docs/build
           "
           
           # Remove old content and copy new build
           ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
-            rm -rf /opt/apps/build/*
+            rm -rf /opt/apps/smyth-docs/build/*
           "
           
           # Copy build folder to server
-          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r build/* $USER@$HOST:/opt/apps/build/
+          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r build/* $USER@$HOST:/opt/apps/smyth-docs/build/
           
           # Cleanup
           rm -f private_key.pem

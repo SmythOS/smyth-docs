@@ -7,7 +7,7 @@ toc_max_heading_level: 2
 
 # Vault
 
-**Vault** is the central, encrypted store for every secret your agents need—API keys, access tokens, even entire model configs.  
+**Vault** is the central, encrypted store for every secret your agents need: API keys, access tokens, even entire model configs.  
 Integrations pull credentials from Vault at run-time, so nothing sensitive is hard-coded.
 
 <InfoCallout title="Why centralize secrets with the Vault?">
@@ -96,20 +96,20 @@ Every key has three fields:
 
 <Spacer size="md" />
 
-## Use Keys Inside Agents with the Vault
+## Use Keys Inside Agents
 SmythOS automatically injects keys from the Vault into agent components when scoped correctly.
 
-### In [API Output Component](/docs/agent-studio/components/base/api-output)
+### [API Output Component](/docs/agent-studio/components/base/api-output)
 
 * **Headers**: `Authorization: Bearer {{key}}`  
 * **Params / body**: map Vault values directly  
 * **OAuth 2**: client credentials flow pulls from Vault
 
-### In [Hugging Face Integrations](/docs/agent-studio/integrations/hugging-face-integration)
+### [Hugging Face Integrations](/docs/agent-studio/integrations/hugging-face-integration)
 
 Paste or reference your token in **Access Token**.
 
-### In [Zapier Actions](/docs/agent-studio/integrations/zapier-integration)
+### [Zapier Actions](/docs/agent-studio/integrations/zapier-integration)
 
 Keys scoped to **Zapier Action** auto-attach to every run.
 

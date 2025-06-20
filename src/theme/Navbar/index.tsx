@@ -29,6 +29,9 @@ const HeaderComponent: React.FC = () => {
                 <a href="/why-smythos/">Why SmythOS</a>
               </li>
               <li>
+                <a href="/product/agent-studio/">Product</a>
+              </li>
+              <li>
                 <a href="/pricing/">Pricing</a>
               </li>
               <li className="active">
@@ -417,6 +420,311 @@ const HeaderComponent: React.FC = () => {
                   />
                 </svg>{" "}
                 <span className="link-text">Pricing</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li className="menu-label has-submenu-m" role="none">
+          <div className="menu-label-content">
+            Product{" "}
+            <svg
+              width={14}
+              height={14}
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.20518 14.2972C8.64463 14.7366 9.3583 14.7366 9.79775 14.2972L16.5478 7.54717C16.9872 7.10771 16.9872 6.39404 16.5478 5.95459C16.1083 5.51514 15.3946 5.51514 14.9552 5.95459L8.99971 11.9101L3.04424 5.95811C2.60479 5.51865 1.89111 5.51865 1.45166 5.95811C1.01221 6.39756 1.01221 7.11123 1.45166 7.55068L8.20166 14.3007L8.20518 14.2972Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <ul className="submenu" role="menu">
+            <li role="none">
+              <a href="/product/agent-studio/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <g
+                    clipPath="url(#a)"
+                    transform="matrix(1.22728 0 0 1.22728 .7945 -.225)"
+                    stroke="currentColor"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M1 7.9982c0-2.6252.0281-3.5 3.5-3.5s3.5.8748 3.5 3.5.011 3.5-3.5 3.5-3.5-.8748-3.5-3.5zm8.334-4.1667c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333S9.334 5.5816 9.334 3.8315zm0 9c0-1.7501.0187-2.3333 2.3333-2.3333s2.3334.5832 2.3334 2.3333c0 1.7501.0073 2.3333-2.3334 2.3333s-2.3333-.5832-2.3333-2.3333z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path d="m7.2236 11.051 2 1m-1.4472-6 2-1" />
+                    <path
+                      d="M3 8.4982c.8649.8056 2.1521.6859 2.8225 0"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="a">
+                      <path
+                        fill="currentColor"
+                        transform="translate(0 .4982)"
+                        d="M0 0h16v16H0Z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>{" "}
+                <span className="link-text">Studio</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/product/agent-weaver/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M18.3077 4.7505c0-1.5295-1.2397-2.7693-2.7692-2.7693H4.4615c-1.5294 0-2.7692 1.2398-2.7692 2.7693v8.1076c0 1.5294 1.2398 2.7692 2.7692 2.7692h1.9957a1.3843 1.3843 0 0 1 .979.4056l1.5847 1.5847c.5407.5407 1.4175.5407 1.9582 0l1.5847-1.5847a1.3842 1.3842 0 0 1 .979-.4057h1.9957c1.5295 0 2.7692-1.2397 2.7692-2.7693z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38461" }}
+                  />
+                  <path
+                    d="m13.4615 9.2676-1.3846 3.4616L10 7.8357l-2.077 4.8936L5.8463 7.191"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38461" }}
+                  />
+                  <path
+                    d="M14.3984 7.6849a2.4498 2.4498 0 0 0-1.6292-1.6316 2.45 2.45 0 0 0 1.6292-1.6318 2.4502 2.4502 0 0 0 1.6292 1.6318 2.45 2.45 0 0 0-1.6292 1.6316Z"
+                    fill="currentColor"
+                    style={{ strokeWidth: "1.38461" }}
+                  />
+                </svg>{" "}
+                <span className="link-text">Weaver</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/product/agent-runtime/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M6.7614 3.1111h6.482c2.2552 0 3.6518 1.2242 3.6455 3.473v6.8269c0 2.2489-1.3975 3.4793-3.6526 3.4793h-6.475c-2.248 0-3.6517-1.252-3.6517-3.5369V6.5842c0-2.249 1.4037-3.473 3.6518-3.473zm6.9751.0002v-1.419m-3.738 1.4192V1.6923M6.2602 3.1115V1.6923m0 15.1964v1.419m3.7383-1.4192v1.4192m3.738-1.4192v1.4192M3.1117 6.2607H1.6926M3.1118 9.999H1.6926m1.4192 3.738H1.6926m15.1957 0h1.4191m-1.4192-3.738h1.4192m-1.4192-3.7382h1.4192"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38462" }}
+                  />
+                  <path
+                    clipRule="evenodd"
+                    d="M11.5456 6.7187H8.458c-1.0716 0-1.7408.583-1.7408 1.6544v3.2261c0 1.0883.6692 1.685 1.7406 1.685h3.0842c1.0752 0 1.7405-.5866 1.7405-1.6581V8.373c.0037-1.0714-.6625-1.6544-1.7369-1.6544z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38462" }}
+                  />
+                </svg>{" "}
+                <span className="link-text">Runtime</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/product/agent-deployments/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M11.3953 6.1846c.6131-.613 1.6082-.6122 2.2214.001.6131.6131.6141 1.6082.001 2.2214-.613.6131-1.6083.6121-2.2215-.001-.613-.613-.6141-1.6083-.0009-2.2214z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45971" }}
+                  />
+                  <path
+                    d="M17.6578 1.749c-5.3116-.3607-11.866 4.542-12.571 10.0596-.0164.482.1595.9377.4888 1.267l1.3305 1.3306c.3294.3293.785.505 1.267.4888 5.5175-.7055 10.4202-7.2596 10.0595-12.5711-.0213-.3139-.261-.5536-.5748-.5749Z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45971" }}
+                  />
+                  <path
+                    d="m14.3004 11.7804-.3065 4.3114a.9887.9887 0 0 1-.5462.884l-2.3875 1.1938a.9882.9882 0 0 1-1.3794-.5715l-1.1169-2.7285m-.301-9.1218-4.3134.2766a.9882.9882 0 0 0-.8875.54L1.8518 8.9439a.9882.9882 0 0 0 .562 1.3834l2.7205 1.1356m.351 4.8738c-.263 1.7512-2.313 1.4246-3.6497 1.6254.2008-1.3366-.1146-3.3754 1.6366-3.6385"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45971" }}
+                  />
+                </svg>{" "}
+                <span className="link-text">Deployments</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/product/agent-collaboration/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10.0769 5.3258c-.5862.089-1.1824-.001-1.7743.0135-1.3723.0343-2.4477 1.2428-3.4919 2.0616-.5344.4196-1.281.364-1.753-.1301-.5237-.5473-.5237-1.4356 0-1.9837 1.1282-1.1793 2.1246-2.2747 3.654-2.8939 2.1221-.86 4.0905-.442 6.2396 0M10.0788 5.353H8.92M2.6649 18.2703h.869c.6636 0 1.0763-.4874 1.0763-1.1776V13.051c0-.6902-.4127-1.1784-1.0762-1.1784h-.869"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45933" }}
+                  />
+                  <path
+                    d="M11.443 11.7017c-.9539-.2492-1.906-.4454-2.9016-.4197-1.5786.0394-2.682.9559-3.9326 1.8286m5.3143 1.563c.5862-.0891 1.1823.0008 1.7744-.0138 1.3722-.0342 2.4476-1.2426 3.4917-2.0615.5346-.4195 1.281-.364 1.753.1302.5239.5473.5239 1.4354 0 1.9835-1.128 1.1795-2.1245 2.2748-3.6539 2.8942-2.122.8598-4.0905.4419-6.2397 0m2.8729-2.9598h1.1584M8.5564 8.2955c.9537.2493 1.9059.4454 2.9016.4197 1.5786-.0394 2.682-.9559 3.9326-1.8285"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45933" }}
+                  />
+                  <path
+                    d="M17.3339 1.7297h-.869c-.6635 0-1.0762.4874-1.0762 1.1776v4.0415c0 .6903.4127 1.1786 1.0761 1.1786h.8692"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.45933" }}
+                  />
+                </svg>{" "}
+                <span className="link-text">Collaboration</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/templates/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M1.6918 4.923c0-2.4232.026-3.2307 3.2307-3.2307 3.2049 0 3.2308.8075 3.2308 3.2307 0 2.4234.0102 3.2309-3.2308 3.2309S1.6918 7.3464 1.6918 4.923zm10.1547 0c0-2.4232.026-3.2307 3.2308-3.2307s3.2309.8075 3.2309 3.2307c0 2.4234.01 3.2309-3.2309 3.2309-3.241 0-3.2308-.8075-3.2308-3.2309zM1.6918 15.077c0-2.4234.026-3.2308 3.2307-3.2308 3.2049 0 3.2308.8074 3.2308 3.2308 0 2.4232.0102 3.2307-3.2308 3.2307s-3.2307-.8075-3.2307-3.2307zm10.1547 0c0-2.4234.026-3.2308 3.2308-3.2308s3.2309.8074 3.2309 3.2308c0 2.4232.01 3.2307-3.2309 3.2307-3.241 0-3.2308-.8075-3.2308-3.2307z"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38462" }}
+                  />
+                </svg>{" "}
+                <span className="link-text">Templates</span>
                 <svg
                   className="icon-right"
                   width={20}
@@ -1057,6 +1365,50 @@ const HeaderComponent: React.FC = () => {
                   />
                 </svg>{" "}
                 <span className="link-text">Press</span>
+                <svg
+                  className="icon-right"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+              </a>
+            </li>
+            <li role="none">
+              <a href="/our-people/" role="menuitem">
+                <svg
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M7.6914 19.1305c-3.5475 0-6.5783-.5363-6.5783-2.6848 0-2.1487 3.0113-4.0847 6.5783-4.0847 3.5475 0 6.5772 1.9176 6.5772 4.0654 0 2.1476-3.0103 2.7041-6.5772 2.7041zm0-9.8287c2.3283 0 4.2162-1.8878 4.2162-4.2162 0-2.3283-1.888-4.2161-4.2164-4.2161-2.3282 0-4.216 1.8878-4.216 4.2163-.0088 2.3205 1.8665 4.2083 4.1862 4.216z"
+                    stroke="currentColor"
+                    strokeWidth="1.739"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M14.6888 8.1366c1.3555-.3622 2.3543-1.598 2.3543-3.0683.001-1.5343-1.0878-2.8153-2.535-3.112m.8178 9.6348c1.9205 0 3.561 1.3023 3.561 2.4645 0 .685-.5652 1.3884-1.425 1.5904"
+                    stroke="currentColor"
+                    strokeWidth="1.739"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>{" "}
+                <span className="link-text">People</span>
                 <svg
                   className="icon-right"
                   width={20}

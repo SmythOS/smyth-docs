@@ -1,0 +1,65 @@
+name: 'PROD: Deploy'
+run-name: PROD - Deploy
+
+on:
+  push:
+    branches: [prod]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Copy build to server
+        env:
+          PRIVATE_KEY: ${{ secrets.PROD_SERVER_SSH_PRIVATE_KEY }}
+          HOST: ${{ secrets.PROD_SERVER_HOST }}
+          USER: ${{ secrets.PROD_SERVER_USER }}
+        run: |
+          # Setup SSH key
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          
+          # Create target directory if it doesn't exist
+          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
+            mkdir -p /opt/apps/build
+          "
+          
+          # Remove old content and copy new build
+          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
+            rm -rf /opt/apps/build/*
+          "
+          
+          # Copy build folder to server
+          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r build/* $USER@$HOST:/opt/apps/build/
+          
+          # Cleanup
+          rm -f private_key.pem
+          
+          echo "Build copied to server successfully!"
+
+      - name: Run deploy script
+        env:
+          PRIVATE_KEY: ${{ secrets.PROD_SERVER_SSH_PRIVATE_KEY }}
+          HOST: ${{ secrets.PROD_SERVER_HOST }}
+          USER: ${{ secrets.PROD_SERVER_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "/opt/git/smyth-docs/deploy-docs.sh smyth-docs origin/main"
+          rm -f private_key.pem

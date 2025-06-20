@@ -22,6 +22,13 @@ jobs:
       - name: Install dependencies
         run: sudo npm install
 
+      - name: Create .env file
+        env:
+          ENV_FILE_CONTENT: ${{ secrets.PROD_ENV_FILE_CONTENT }}
+        run: |
+          echo "$ENV_FILE_CONTENT" > .env
+          echo ".env file created successfully!"
+
       - name: Build project
         run: sudo npm run build
 

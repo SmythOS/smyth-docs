@@ -53,7 +53,7 @@ jobs:
           
           echo "Build copied to server successfully!"
 
-        - name: Run deploy script
+      - name: Run deploy script
         env:
           PRIVATE_KEY: ${{ secrets.PROD_SERVER_SSH_PRIVATE_KEY }}
           HOST: ${{ secrets.PROD_SERVER_HOST }}

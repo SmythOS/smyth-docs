@@ -20,10 +20,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: sudo npm install
 
       - name: Build project
-        run: npm run build
+        run: sudo npm run build
 
       - name: Copy build to server
         env:

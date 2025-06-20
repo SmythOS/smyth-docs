@@ -86,34 +86,18 @@ const config: Config = {
   ],
 
   themes: [
-    // [
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-    //   ({
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
         
-    //     hashed: false,
-    //     language: ["en"],
-    //     indexBlog: false,
-    //     indexDocs: true,
-    //     docsRouteBasePath: "/",
-    //     // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
-    //     // forceIgnoreNoIndex: true,
-    //   }),
-    // ],
-    //[
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-    //   ({
-        
-    //     hashed: false,
-    //     language: ["en"],
-    //     indexBlog: false,
-    //     indexDocs: true,
-    //     docsRouteBasePath: "/",
-    //     // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
-    //     // forceIgnoreNoIndex: true,
-    //   }),
-    // ],
+        hashed: false,
+        language: ["en"],
+        indexBlog: false,
+        indexDocs: true,
+        docsRouteBasePath: "/",
+      }),
+    ],
   ],
 
   plugins: [
@@ -156,11 +140,11 @@ const config: Config = {
 
   themeConfig: {
     sidebar: {},
-      algolia: {
-        appId: process.env.ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_API_KEY,
-        indexName: process.env.ALGOLIA_INDEX_NAME,
-      },
+      // algolia: {
+      //   appId: process.env.ALGOLIA_APP_ID,
+      //   apiKey: process.env.ALGOLIA_API_KEY,
+      //   indexName: process.env.ALGOLIA_INDEX_NAME,
+      // },
     // navbar: {
     //   title: 'SmythOS',
     //   logo: {

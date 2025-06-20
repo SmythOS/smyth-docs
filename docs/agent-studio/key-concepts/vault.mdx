@@ -17,7 +17,7 @@ Use the Vault to centralize authentication across all agents and integrations, i
 
 ## Built-In AI Providers
 
-SmythOS supports direct access to leading AI models with no extra setup.
+Use one of the SmythOS-managed OpenAI, Anthropic, Google AI, or Perplexity models with no extra setup. This enables you to build and test AI functionality quickly. When your agent's ready for production, configure and replace with your custom API key.
 
 | Provider     | Availability        | Reference Link                                 |
 |--------------|---------------------|-------------------------------------------------|
@@ -27,14 +27,14 @@ SmythOS supports direct access to leading AI models with no extra setup.
 | Perplexity   | Built-in            | [Perplexity API](https://docs.perplexity.ai/)   |
 
 <WarningCallout>
-Using built-in providers will consume credits from your [SmythOS plan](/docs/account-management/subscription-management).
+Built-in providers consume SmythOS credits (free credits included in [plans](/docs/account-management/subscription-management).). To use your own provider, add your custom keys.
 </WarningCallout>
 
 <Spacer size="md" />
 
-## Custom AI Model Configuration
+## Custom AI Provider Configuration
 
-You can bring your own credentials for third-party or enterprise providers.
+You can start using SmythOS AI features without any setup by leveraging our built-in models, powered through SmythOS-managed credentials. This is ideal for quick prototyping and evaluation. When you're ready to move to production or need more control, you can connect your own API credentials to use third-party or enterprise-grade models.
 
 ### Supported Providers
 
@@ -57,40 +57,21 @@ You can bring your own credentials for third-party or enterprise providers.
 
 <Spacer size="md" />
 
-## Set Up an Enterprise Model
+## Configuring Enterprise Models
 
-To integrate your own enterprise-grade AI model:
+To set up your own enterprise-grade AI model:
 
 1. **Go to Vault** → Click `Add Enterprise Model`
 2. Choose a provider: **Bedrock** or **Vertex AI**
 3. Name your model and enable desired features (e.g., Text Completion)
 4. Provide provider-specific credentials:
 
-<Spacer size="md" />
+#### Provider Credential Requirements & Advanced Settings
 
-### Google Vertex AI
-
-- Google Service Account Key  
-- Project ID  
-- Region  
-
-### Amazon Bedrock
-
-- AWS Access Key ID  
-- AWS Secret Access Key  
-- Region  
-
-<Spacer size="md" />
-
-### Advanced Settings
-
-After credential input, configure:
-
-- Context window size  
-- Max output tokens  
-- Temperature  
-- Top-p sampling  
-- Custom response formatting  
+| Provider         | Required Credentials                              | Advanced Settings                                      |
+|-----------------|---------------------------------------------------|--------------------------------------------------------|
+| Google Vertex AI | - Google Service Account Key  <br> - Project ID  <br> - Region | - Context window size  <br> - Max output tokens  <br> - Temperature  <br> - Top-p sampling  <br> - Custom response formatting |
+| Amazon Bedrock   | - AWS Access Key ID  <br> - AWS Secret Access Key  <br> - Region | - Context window size  <br> - Max output tokens  <br> - Temperature  <br> - Top-p sampling  <br> - Custom response formatting |
 
 <Arcade src="https://demo.arcade.software/IW2DEAFY3PcEM8w2IYpF?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Global Keys | SmythOS" />
 

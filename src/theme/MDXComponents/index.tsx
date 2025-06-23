@@ -17,7 +17,9 @@ import BaseCallout from '@site/src/components/BaseCallout';
 import { InfoCallout } from '@site/src/components/InfoCallout';
 import { WarningCallout } from '@site/src/components/WarningCallout';
 import { TipCallout } from '@site/src/components/TipCallout';
+import { HelpCallout } from '@site/src/components/HelpCallout';
 import { SuccessCallout } from '@site/src/components/SuccessCallout';
+import NeedHelpCallout from '@site/src/components/NeedHelpCallout';
 import Steps from '@site/src/components/Steps';
 import TermTable from '@site/src/components/TermTable';
 import ComponentCard from '@site/src/components/ComponentCard';
@@ -50,6 +52,8 @@ export default {
   InfoCallout,
   WarningCallout, 
   SuccessCallout,
+  NeedHelpCallout,
+  HelpCallout,
   TipCallout,
   FeatureGrid,
   ComponentCard,

@@ -79,7 +79,7 @@ Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
 
 - **Small skills > monoliths** — easier to pin-point.  
 - **Use test prompts** — keep a gallery of real-world inputs.  
- - **Watch run logs** — <DocLink to="../agent-studio/agent-settings/logs">agent activity logs</DocLink> surface slow steps early.
+ - **Watch run logs** — <DocLink to="/docs/agent-studio/manage-agents/logs">agent activity logs</DocLink> surface slow steps early.
 > **Red borders happen.**  
 > Weaver’s debug tools turn mystery errors into 3-click fixes.
 
@@ -147,18 +147,4 @@ Reply: { "primary_keywords": [...], ... }
 | ⚪ Grey (running) | In progress | Sit tight |
 | 🔴 Red | Failed | Click → **Fix with AI** |
 
-<Divider/>
-
-## The `_error` Output Pattern
-
-Every skill can emit an `_error` object:
-
-```json
-{
-  "issue": "WordPress 403 — auth failed",
-  "suggested_fix": "Refresh OAuth token or check user role",
-  "raw_response": { "status": 403, "body": "Forbidden" }
-}
-``` 
-<PromptCard prompt={"If status === 403 then prompt user to connect WordPress again"} />
 <InfoCallout> **Takeaway:** Debug mode + coloured borders + `_error` outputs = painless troubleshooting. </InfoCallout>

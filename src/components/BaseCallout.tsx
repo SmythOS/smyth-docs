@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   Lightbulb,
   CheckCircle,
+  HelpCircle,
   ChevronDown,
 } from 'lucide-react';
 
@@ -12,7 +13,7 @@ interface Props {
   children: ReactNode;
   collapsible?: boolean;
   defaultOpen?: boolean;
-  type: 'info' | 'warn' | 'tip' | 'success';
+  type: 'info' | 'warn' | 'tip' | 'success' | 'help';
 }
 
 const BaseCallout = ({
@@ -44,6 +45,11 @@ const BaseCallout = ({
     icon: <CheckCircle size={20} style={{ color: '#0d9488', marginRight: 6 }} />,
     label: 'SUCCESS',
     borderColor: '#14b8a6',
+},
+help: {                                             
+  icon: <HelpCircle size={20} style={{ color: '#6b7280', marginRight: 6 }} />,
+  label: 'HELP',
+  borderColor: '#6b7280',
 },
   } as const;
 
@@ -153,6 +159,10 @@ const BaseCallout = ({
 
           :root[data-theme='light'] .callout-success { background-color: #ccfbf1; */ color: #065f46; }
           :root[data-theme='dark'] .callout-success { background-color: #0d948822; color: #99f6e4;  }
+          :root[data-theme='dark']  .callout-body code { background-color: #334155; color: #fbbf24; }
+
+          :root[data-theme='light'] .callout-help    { background-color: #f3f4f6;  color: #374151; }
+          :root[data-theme='dark']  .callout-help    { background-color: #37415144; color: #d1d5db; }
           :root[data-theme='dark']  .callout-body code { background-color: #334155; color: #fbbf24; }
         `}
       </style>

@@ -20,12 +20,12 @@ Store them once, use them everywhere: REST calls, LLMs, webhooks, and automation
 
 Use one of the SmythOS-managed OpenAI, Anthropic, Google AI, or Perplexity models with no extra setup. This enables you to build and test AI functionality quickly. When your agent's ready for production, configure and replace with your custom API key.
 
-| Provider     | Availability        | Reference Link                                 |
-|--------------|---------------------|-------------------------------------------------|
-| OpenAI       | Built-in            | [OpenAI API](https://platform.openai.com/)      |
-| Anthropic    | Built-in            | [Anthropic API](https://docs.anthropic.com/)    |
-| Google AI    | Built-in            | [Google AI Console](https://console.developers.google.com) |
-| Perplexity   | Built-in            | [Perplexity API](https://docs.perplexity.ai/)   |
+| Provider     | Availability        |
+|--------------|---------------------|
+| OpenAI       | Built-in            | 
+| Anthropic    | Built-in            | 
+| Google AI    | Built-in            |
+| Perplexity   | Built-in            | 
 
 <WarningCallout title="Credit usage">
 Built-in providers draw from your SmythOS credit pool ([plans](/docs/account-management/subscription-management) include free credits).  
@@ -48,10 +48,10 @@ You can start using SmythOS AI features without any setup by leveraging our buil
 
 ### Enterprise platforms
 
-| Provider         | Use Case         | API Reference                              |
-|------------------|------------------|---------------------------------------------|
-| Amazon Bedrock   | Secure LLM access| [Bedrock Docs](https://aws.amazon.com/bedrock/) |
-| Google Vertex AI | Managed ML infra | [Vertex AI](https://cloud.google.com/vertex-ai/docs) |
+| Provider         | Use Case         |
+|------------------|------------------|
+| Amazon Bedrock   | Secure LLM access| 
+| Google Vertex AI | Managed ML infra |
 
 <Spacer size="md" />
 
@@ -99,24 +99,25 @@ Every key has three fields:
 ## Use Keys Inside Agents
 SmythOS automatically injects keys from the Vault into agent components when scoped correctly.
 
-### [API Output Component](/docs/agent-studio/components/base/api-output)
+### API Output Component
 
+In the [API Output](/docs/agent-studio/components/base/api-output) component, 
 * **Headers**: `Authorization: Bearer {{key}}`  
 * **Params / body**: map Vault values directly  
 * **OAuth 2**: client credentials flow pulls from Vault
 
-### [Hugging Face Integrations](/docs/agent-studio/integrations/hugging-face-integration)
+### Hugging Face Integrations
 
-Paste or reference your token in **Access Token**.
+Paste or reference your [Hugging Face](/docs/agent-studio/integrations/hugging-face-integration) token in **Access Token**.
 
-### [Zapier Actions](/docs/agent-studio/integrations/zapier-integration)
+### Zapier Actions
 
-Keys scoped to **Zapier Action** auto-attach to every run.
+Keys scoped to [Zapier Action](/docs/agent-studio/integrations/zapier-integration) auto-attach to every run.
 
 <Spacer size="md" />
 
 ## What's Next
 
 - [Agent API Output Component](/docs/agent-studio/components/base/api-output)  
-- [Authenticated Workflows](/docs/agent-studio/agent-settings/authentication)  
+- [Authenticated Workflows](/docs/agent-studio/manage-agents/authentication)  
 - [Deploy Agents with Vault Access](/docs/agent-deployments/overview)

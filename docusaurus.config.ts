@@ -37,6 +37,9 @@ const config: Config = {
     // Make env vars available in components
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    supportFormUrl: 'https://smythos.com/talk-to-us/',
+    supportEmail: 'support@smythos.com',
+    supportDiscordUrl: 'https://discord.gg/3mMNSMNY',
   },
 
   onBrokenLinks: 'warn',
@@ -172,7 +175,8 @@ const config: Config = {
     //   theme: prismThemes.github,
     //   darkTheme: prismThemes.dracula,
     // },
-    onBrokenLinks: 'warn',
+    onBrokenLinks: 'throw',
+    onBrokenMarkdownLinks: 'throw',
     onBrokenAnchors: 'ignore',
     redirects: [
       // Root redirects
@@ -186,11 +190,11 @@ const config: Config = {
         to: '/docs/agent-studio/build-agents/debugging',
       },
       {
-        from: '/docs/agent-studio/agent-settings/authentication',
+        from: '/docs/agent-studio/manage-agents/authentication',
         to: '/docs/agent-studio/key-concepts/vault',
       },
       {
-        from: '/docs/agent-studio/agent-settings/tasks',
+        from: '/docs/agent-studio/manage-agents/tasks',
         to: '/docs/agent-studio/build-agents/building-workflows',
       },
       {
@@ -366,7 +370,7 @@ const config: Config = {
       },
       // Agent deployment redirects
       {
-        from: '/docs/deployments',
+        from: '/docs/agent-deployments/overview',
         to: '/docs/agent-deployments/overview',
       },
       {

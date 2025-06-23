@@ -86,18 +86,18 @@ const config: Config = {
   ],
 
   themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-      ({
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+    //   ({
         
-        hashed: false,
-        language: ["en"],
-        indexBlog: false,
-        indexDocs: true,
-        docsRouteBasePath: "/",
-      }),
-    ],
+    //     hashed: false,
+    //     language: ["en"],
+    //     indexBlog: false,
+    //     indexDocs: true,
+    //     docsRouteBasePath: "/",
+    //   }),
+    // ],
   ],
 
   plugins: [
@@ -107,8 +107,6 @@ const config: Config = {
   clientModules: [require.resolve('./src/css/tailwind.css'),
     require.resolve('./src/components/DocsHelpPopup.tsx'),
   ],
-  
-
 
   // stylesheets: [
   //   { 
@@ -140,11 +138,19 @@ const config: Config = {
 
   themeConfig: {
     sidebar: {},
-      // algolia: {
-      //   appId: process.env.ALGOLIA_APP_ID,
-      //   apiKey: process.env.ALGOLIA_API_KEY,
-      //   indexName: process.env.ALGOLIA_INDEX_NAME,
-      // },
+      algolia: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
+        contextualSearch: true, 
+        // searchPagePath: 'search',
+        searchParameters: {
+          clickAnalytics: true,
+          hitsPerPage: 12,
+          analyticsTags: ['docs-prod']
+        },
+        insights: true     
+      },
     // navbar: {
     //   title: 'SmythOS',
     //   logo: {
@@ -162,10 +168,10 @@ const config: Config = {
     //     { href: 'https://github.com/Smyth-ai', label: 'GitHub', position: 'right' },
     //   ],
     // },
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
+    // prism: {
+    //   theme: prismThemes.github,
+    //   darkTheme: prismThemes.dracula,
+    // },
     onBrokenLinks: 'warn',
     onBrokenAnchors: 'ignore',
     redirects: [

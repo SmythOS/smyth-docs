@@ -184,3 +184,14 @@ body * {
   left: unset !important;
   right: unset !important;
 }
+
+
+/* offset panel so it sits under the navbar instead of cut off */
+.DocSearch-Container {
+  top: 80px !important; 
+}
+
+/* Let the panel spill outside the navbar if it ever sits inside it */
+.navbar {
+  overflow: visible;
+}

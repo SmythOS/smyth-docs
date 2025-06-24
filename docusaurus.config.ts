@@ -154,6 +154,12 @@ const config: Config = {
         },
         insights: true     
       },
+      metadata: [
+        {
+          name: 'robots',
+          content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+        },
+      ],
     // navbar: {
     //   title: 'SmythOS',
     //   logo: {

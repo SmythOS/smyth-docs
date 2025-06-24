@@ -3,7 +3,7 @@ run-name: PROD - Deploy
 
 on:
   push:
-    branches: [prod]
+    branches: [main]
   workflow_dispatch:
 
 jobs:

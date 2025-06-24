@@ -23,7 +23,7 @@ async function tailwindPlugin() {
 
 const config: Config = {
   title: 'SmythOS Documentation',
-  tagline: 'Build, deploy, and scale intelligent agents',
+  tagline: 'Build, deploy, and scale open-source AI agents',
   favicon: 'https://smythos.com/favicon.ico',
 
   // Base configuration
@@ -33,13 +33,15 @@ const config: Config = {
   organizationName: 'SmythOS',
   projectName: 'smythos-docs',
 
+  trailingSlash: true,
+
   customFields: {
     // Make env vars available in components
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
     supportFormUrl: 'https://smythos.com/talk-to-us/',
     supportEmail: 'support@smythos.com',
-    supportDiscordUrl: 'https://discord.gg/3mMNSMNY',
+    supportDiscordUrl: 'https://discord.gg/smythos',
   },
 
   onBrokenLinks: 'warn',

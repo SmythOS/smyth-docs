@@ -96,7 +96,7 @@ To access data from the first result, you would use an expression like `Results[
 - **Set a Realistic Timeout:** Always configure the `Maximum Wait Time` to a reasonable value to prevent your workflow from getting stuck indefinitely.
 - **Handle Partial Results:** If your workflow might time out before all jobs are complete, add a **Condition** block after `Await` to check if `Results.length` matches the number of jobs you expected.
 - **Use for User-Facing Workflows:** `Await` is perfect for scenarios where a user is actively waiting for a result, such as data processing or report generation.
-- **Combine with For Each:** After awaiting multiple jobs, use a **[For Each Loop](../logic/for-each)** to process the `Results` array.
+- **Combine with For Each:** After awaiting multiple jobs, use a **[For Each Loop](/docs/agent-studio/components/logic/for-each)** to process the `Results` array.
 
 <Spacer size="md" />
 

@@ -10,7 +10,7 @@ const HeaderComponent: React.FC = () => {
         <div className="header-left active">
           <a href="/" className="logo" aria-label="SmythOS Home">
             <img
-              src="https://smythos.com/wp-content/themes/generatepress_child/img/smythos-dark.svg"
+              src="https://smythos.com/wp-content/themes/generatepress_child/img/smythos-logo.svg"
               alt="SmythOS Logo"
               width={108}
               height={24}

@@ -15,7 +15,7 @@ Workflows are reusable, configurable, and composable. To make them usable by age
 
 ## How Workflows Work
 
-Each workflow is made up of [components](/docs/agent-studio/components/overview) that each do one thing well. These include logic operators, API calls, LLMs, file processors, and data transformers. You can:
+Each workflow is made up of [components](/docs/agent-studio/components) that each do one thing well. These include logic operators, API calls, LLMs, file processors, and data transformers. You can:
 
 - Fetch data from external systems using [API Call](/docs/agent-studio/components/base/api-output) or scraping components
 - Apply logic and conditional branching using control components
@@ -31,7 +31,7 @@ To create a workflow in SmythOS:
 
 1. Open a new agent or edit an existing one using the Studio Canvas  
 2. Add an [Agent Skill](/docs/agent-studio/components/base/agent-skill) component—this marks the start of a workflow  
-3. Add other components from the [Component Library](/docs/agent-studio/components/overview) based on your use case  
+3. Add other components from the [Component Library](/docs/agent-studio/components) based on your use case  
 4. Define input/output connections and configure each component
 5. Test the full skill using **Form Preview**, or run step-by-step using [Debugging Tools](/docs/agent-studio/build-agents/debugging)
 
@@ -45,7 +45,7 @@ Use modular skills and break logic into manageable paths. You can reuse subflows
 
 Workflows can run in three primary ways, depending on how you want to use them.
 
-### [API Call](/docs/agent-studio/componenets/advanced/api-call)
+### [API Call](/docs/agent-studio/components/advanced/api-call)
 
 Each workflow is exposed as a REST API endpoint. You can call it directly from your own applications or scripts.
 

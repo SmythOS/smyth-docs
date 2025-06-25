@@ -252,7 +252,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/google-calendar-integration',
       },
       {
-        from: '/docs/integrations/microsoft-calendar',
+        from: '/docs/agent-studio/integrations/microsoft-calendar-integration',
         to: '/docs/agent-studio/integrations/microsoft-calendar-integration',
       },
       {

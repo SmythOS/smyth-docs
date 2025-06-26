@@ -61,7 +61,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: ({ versionDocsDirPath, docPath }) =>
-            `https://github.com/SmythOS/smyth-docs/edit/dev/${versionDocsDirPath}/${docPath}`,
+            `https://github.com/SmythOS/smyth-docs/edit/main/${versionDocsDirPath}/${docPath}`,
           includeCurrentVersion: true,
         },
         blog: false,

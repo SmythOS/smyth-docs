@@ -228,11 +228,11 @@ const config: Config = {
       },
       // Integration redirects - ensure consistent paths
       {
-        from: '/docs/integrations/email',
+        from: '/docs/agent-studio/integrations/email',
         to: '/docs/agent-studio/integrations/email-integration',
       },
       {
-        from: '/docs/integrations/microsoft-teams',
+        from: '/docs/agent-studio/integrations/microsoft-teams',
         to: '/docs/agent-studio/integrations/microsoft-teams-integration',
       },
       {
@@ -248,7 +248,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/notion-integration',
       },
       {
-        from: '/docs/integrations/google-calendar',
+        from: '/docs/agent-studio/integrations/google-calendar',
         to: '/docs/agent-studio/integrations/google-calendar-integration',
       },
       {
@@ -256,7 +256,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/microsoft-calendar-integration',
       },
       {
-        from: '/docs/integrations/stripe',
+        from: '/docs/agent-studio/integrations/stripe',
         to: '/docs/agent-studio/integrations/stripe-integration',
       },
       {
@@ -292,7 +292,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/wordpress-org-integration',
       },
       {
-        from: '/docs/integrations/wordpress-com',
+        from: '/docs/agent-studio/integrations/wordpress-com',
         to: '/docs/agent-studio/integrations/wordpress-com-integration',
       },
       {
@@ -304,7 +304,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/devto-integration',
       },
       {
-        from: '/docs/integrations/youtube',
+        from: '/docs/agent-studio/integrations/youtube',
         to: '/docs/agent-studio/integrations/youtube-integration',
       },
       {
@@ -332,7 +332,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/stability-ai-integration',
       },
       {
-        from: '/docs/integrations/google-translate',
+        from: '/docs/agent-studio/integrations/google-translate',
         to: '/docs/agent-studio/integrations/google-translate-integration',
       },
       {
@@ -344,7 +344,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/openapi-integration',
       },
       {
-        from: '/docs/integrations/google-analytics',
+        from: '/docs/agent-studio/integrations/google-analytics',
         to: '/docs/agent-studio/integrations/google-analytics-integration',
       },
       {
@@ -368,7 +368,7 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/elevenlabs-integration',
       },
       {
-        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration-integration',
+        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration',
         to: '/docs/agent-studio/integrations/elevenlabs-integration',
       },
       // Account management redirects
@@ -382,11 +382,11 @@ const config: Config = {
         to: '/docs/agent-deployments/overview',
       },
       {
-        from: '/docs/agent-deployment/subdomains',
+        from: '/docs/agent-deployments/subdomains',
         to: '/docs/agent-deployments/deployments/subdomains',
       },
       {
-        from: '/docs/agent-deployment/quickstart',
+        from: '/docs/agent-deployments/quickstart',
         to: '/docs/agent-deployments/quickstart',
       },
       // Agent runtime redirects

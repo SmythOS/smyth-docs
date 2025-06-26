@@ -7,7 +7,7 @@ toc_max_heading_level: 2
 
 # Await Component
 
-Use the **Await** component to pause your main workflow until one or more background jobs, started by the **[Async Component](./async)**, have finished. This allows you to retrieve results from asynchronous tasks and use them in your main flow.
+Use the **Await** component to pause your main workflow until one or more background jobs, started by the **[Async Component](/docs/agent-studio/components/advanced/async)**, have finished. This allows you to retrieve results from asynchronous tasks and use them in your main flow.
 
 <InfoCallout title="Why this matters">
 `Await` bridges the gap between your main workflow and background processes. It's the key to making a workflow wait for a long-running task to complete so you can use its output in subsequent steps, like showing results to a user or making decisions based on the processed data.
@@ -113,6 +113,6 @@ To access data from the first result, you would use an expression like `Results[
 
 ## What to Try Next
 
-- Use a **[Code Component](../advanced/code)** after `Await` to parse the `Results` array and transform it into a more usable format.
-- Feed the output from `Await` into a **[GenAI LLM Component](../ai-and-machine-learning/genai-llm)** to summarize the results from multiple background jobs.
+- Use a **[Code Component](/docs/agent-studio/components/advanced/code)** after `Await` to parse the `Results` array and transform it into a more usable format.
+- Feed the output from `Await` into a **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)** to summarize the results from multiple background jobs.
 - Add a **Condition** block to check for empty `Results` and handle cases where no jobs were completed before the timeout.

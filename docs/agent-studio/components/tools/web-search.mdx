@@ -85,13 +85,13 @@ While `Output` contains everything, using the specific `Results`, `Images`, and 
 <InfoCallout title="If your search isn't working as expected...">
 - **Irrelevant Results:** Your `SearchQuery` might be too broad. Try making it more specific. Also, consider using the `Exclude Domains` setting to filter out noisy or unhelpful sites.
 - **No AI Answer Generated:** The `Include Questions and Answers` feature depends on the content of the search results. If the top results do not contain a clear answer to the query, the LLM may not be able to generate one.
-- **Search Fails:** In rare cases, the search provider might be temporarily unavailable. You can build retry logic into your workflow using a **[Condition Component](../logic/logical-and)** to check for an empty result and loop back if needed.
+- **Search Fails:** In rare cases, the search provider might be temporarily unavailable. You can build retry logic into your workflow using a **[Condition Component](/docs/agent-studio/components/logic/logical-and)** to check for an empty result and loop back if needed.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## What to Try Next
 
-- Take the `Results` array and pass it to a **[ForEach Loop](../advanced/for-each)**. Inside the loop, use the **[Web Scrape Component](./web-scrape)** on each URL to extract its full content.
-- Use the `Answer` output and feed it directly into an **[API Output Component](../base/api-output)** to create an agent that can answer questions with sourced information.
-- Use the search results to feed a RAG pipeline. Scrape the content of the top results and use **[RAG Remember](../rag-data/rag-remember)** to add the new information to your agent's knowledge base.
+- Take the `Results` array and pass it to a **[ForEach Loop](/docs/agent-studio/components/advanced/for-each)**. Inside the loop, use the **[Web Scrape Component](./web-scrape)** on each URL to extract its full content.
+- Use the `Answer` output and feed it directly into an **[API Output Component](/docs/agent-studio/components/base/api-output)** to create an agent that can answer questions with sourced information.
+- Use the search results to feed a RAG pipeline. Scrape the content of the top results and use **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** to add the new information to your agent's knowledge base.

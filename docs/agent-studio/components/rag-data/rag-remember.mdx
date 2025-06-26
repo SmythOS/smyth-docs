@@ -68,7 +68,7 @@ The component provides a simple success or failure indicator.
 ## Best Practices
 
 - **Keep Data Chunking in Mind:** RAG systems work best with well-structured, reasonably sized chunks of text. Instead of remembering a single 100-page document, consider breaking it into smaller sections or paragraphs and remembering each one individually with its own source identifier.
-- **Use Rich Metadata:** Good metadata is key to effective searching later on. Include relevant keywords, categories, dates, or source information to help the **[RAG Search Component](./rag-search)** find the most relevant information.
+- **Use Rich Metadata:** Good metadata is key to effective searching later on. Include relevant keywords, categories, dates, or source information to help the **[RAG Search Component](/docs/agent-studio/components/rag-data/rag-search)** find the most relevant information.
 - **Create Dynamic Learning Loops:** Have your agent take the output of a conversation or an analysis from an LLM and feed it into `RAG Remember`. This allows the agent to learn from its interactions.
 - **Structure Your Namespaces:** Use different namespaces to separate different types of knowledge (e.g., "product-manuals," "customer-faq," "internal-policies").
 
@@ -86,6 +86,6 @@ The component provides a simple success or failure indicator.
 
 ## What to Try Next
 
-- After a conversation with a user, use a **[GenAI LLM Component](../base/gen-ai-llm)** to summarize the key takeaways, and then use `RAG Remember` to store that summary in a "conversation-history" namespace.
-- Create a workflow that reads files from a folder, loops through them with **[ForEach](../advanced/for-each)**, and uses `RAG Remember` to add each file's content to the knowledge base.
-- Pair this component with **[RAG Search](./rag-search)** and **[RAG Forget](./rag-forget)** to build a complete lifecycle for your agent's knowledge management.
+- After a conversation with a user, use a **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)** to summarize the key takeaways, and then use `RAG Remember` to store that summary in a "conversation-history" namespace.
+- Create a workflow that reads files from a folder, loops through them with **[ForEach](/docs/agent-studio/components/advanced/for-each)**, and uses `RAG Remember` to add each file's content to the knowledge base.
+- Pair this component with **[RAG Search](/docs/agent-studio/components/rag-data/rag-search)** and **[RAG Forget](./rag-forget)** to build a complete lifecycle for your agent's knowledge management.

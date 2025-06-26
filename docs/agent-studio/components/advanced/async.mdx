@@ -78,7 +78,7 @@ The **Debug Mode** toolbar cannot be used on the async branch because it execute
 
 ## Step 4: When to Use the Await Component
 
-Use the **[Await Component](../special/await)** only when your main workflow must pause and wait for a result from the async job before it can continue.
+Use the **[Await Component](/docs/agent-studio/components/advanced/await)** only when your main workflow must pause and wait for a result from the async job before it can continue.
 
 | Use Case                                           | Use `Async` alone?                    | Use `Async` + `Await`?                   |
 |----------------------------------------------------|---------------------------------------|------------------------------------------|
@@ -114,7 +114,6 @@ If you just need to solve a timeout, `Async` alone is sufficient. Only add `Awai
 
 ## What to Try Next
 
-- Combine **`Async`** with the **[Await Component](../special/await)** to get results back in your main flow.
-- Add a **[Send Email](../communication/send-email)** component at the end of your async branch to notify you when the job is complete.
+- Combine **`Async`** with the **[Await Component](/docs/agent-studio/components/advanced/await)** to get results back in your main flow.
 - Use `Async` to wrap a **[For Each Loop](/docs/agent-studio/components/logic/for-each)** that processes thousands of records from a database without timing out.
-- Store results from an async job in a permanent location using **[RAG Remember](../rag-data/rag-remember)** or by calling an external database.
+- Store results from an async job in a permanent location using **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** or by calling an external database.

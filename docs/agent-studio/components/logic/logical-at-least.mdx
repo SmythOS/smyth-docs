@@ -70,7 +70,7 @@ Connect the `Verified` output to the steps that should run when the threshold is
 - **Check for Optional Data:** Use this component to verify that a user has submitted at least one of several optional pieces of information (e.g., "user provided at least a phone number OR an email address").
 - **Tallying Approvals:** In a workflow that requires multiple approvals, you can use `Logic At Least` to proceed once a minimum number of approvers have responded positively.
 - **Scoring and Thresholds:** Use this to check if a set of data meets a minimum quality score. For example, if you run 5 different validation checks, you might decide to proceed if at least 4 of them pass.
-- **Set Minimum to 1 for an OR Gate:** If you set **Minimum Inputs** to `1`, this component behaves exactly like a **[Logic OR](./logical-or)** component.
+- **Set Minimum to 1 for an OR Gate:** If you set **Minimum Inputs** to `1`, this component behaves exactly like a **[Logic OR](/docs/agent-studio/components/logic/logical-or)** component.
 
 <Spacer size="md" />
 
@@ -87,5 +87,5 @@ Connect the `Verified` output to the steps that should run when the threshold is
 ## What to Try Next
 
 - Use this component to check if at least one of several possible contact methods (email, phone, SMS) provided by a user is valid.
-- Combine this with a **[ForEach Loop](../advanced/for-each)** to process a list of items and then check if at least a certain number of them returned a successful result.
+- Combine this with a **[ForEach Loop](/docs/agent-studio/components/advanced/for-each)** to process a list of items and then check if at least a certain number of them returned a successful result.
 - Chain multiple logic components together, for example, using a `Logic AND` to ensure critical inputs are present, and then a `Logic At Least` for optional ones.

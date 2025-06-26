@@ -99,7 +99,7 @@ For greater control, you can configure the component to run the code in your own
 | **AWS Region** | The AWS region where the function should be deployed (e.g., `us-east-1`).                                                                                                                                                                     |
 
 <TipCallout title="Store Your Keys Securely">
-Never paste your AWS keys directly into these fields. Always store them securely in the **[Vault](../../agent-collaboration/working-with-agents/vault)** and reference them here as variables (e.g., `{{vault.aws_access_key}}`).
+Never paste your AWS keys directly into these fields. Always store them securely in the **[Vault](./docs/agent-studio/key-concepts/vault)** and reference them here as variables (e.g., `{{vault.aws_access_key}}`).
 </TipCallout>
 
 <Spacer size="md" />
@@ -127,4 +127,4 @@ Never paste your AWS keys directly into these fields. Always store them securely
 ## What to Try Next
 
 - Use this component to connect to a service that doesn't have a dedicated integration by making requests with `axios` or `node-fetch`.
-- Connect this to the output of an **[API Call Component](..//docs/agent-studio/components/base/api-call)** to perform a custom transformation on the response data that is too complex for a simple filter.
+- Connect this to the output of an **[API Call Component](/docs/agent-studio/components/base/api-call)** to perform a custom transformation on the response data that is too complex for a simple filter.

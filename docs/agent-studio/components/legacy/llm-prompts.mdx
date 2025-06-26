@@ -10,7 +10,7 @@ toc_max_heading_level: 2
 Use the **LLM Prompt** component to generate text content from a prompt in a single, stateless turn. It's ideal for straightforward tasks like summarization, translation, or content creation where conversation history is not required.
 
 <InfoCallout title="When to use this component">
-This is a versatile component for single-turn AI generation. For multi-turn, stateful conversations that require memory, consider using the **[LLM Assistant Component](./llm-assistant)**. For the most up-to-date features, see the **[GenAI LLM Component](../base/gen-ai-llm)**.
+This is a versatile component for single-turn AI generation. For multi-turn, stateful conversations that require memory, consider using the **[LLM Assistant Component](/docs/agent-studio/components/advanced/llm-assistant)**. For the most up-to-date features, see the **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)**.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -143,5 +143,5 @@ To use custom outputs effectively, your prompt should instruct the model to retu
 ## What to Try Next
 
 - Chain multiple `LLM Prompt` components together, where the `Reply` of one becomes an input for the next, creating a processing pipeline.
-- Use a **[Classifier Component](../base/classifier)** to determine user intent, then route to different `LLM Prompt` components with specialized prompts.
+- Use a **[Classifier Component](/docs/agent-studio/components/base/classifier)** to determine user intent, then route to different `LLM Prompt` components with specialized prompts.
 - Pass the output to a **[JSON Filter Component](./json-filter)** to further clean or simplify the data before using it in other steps.

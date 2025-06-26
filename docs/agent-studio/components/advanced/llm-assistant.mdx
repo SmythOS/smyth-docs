@@ -35,7 +35,7 @@ Choose the language model that will power your assistant. You can use built-in m
 | Field          | Required?                   | Description                                                                 | Tips                                                                                                                                                                                            |
 |----------------|-----------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Model** | <Badge type="required">Yes</Badge> | The LLM used for generating responses.                                      | Defaults to SmythOS-provided models (e.g., OpenAI). You can also select other shared models like Claude or Together AI. For more, see [Model Rates](/docs/account-management/model-rates). |
-| **Custom Model** | <Badge type="optional">No</Badge>  | Connect to your own LLM provider, such as Amazon Bedrock or Google Vertex AI. | This is an enterprise feature. You will need to provide your own credentials and select a foundation model. [Contact us](https://smythos.com/contact-us/) to enable it.                |
+| **Custom Model** | <Badge type="optional">No</Badge>  | Connect to your own LLM provider, such as Amazon Bedrock or Google Vertex AI. | This is an enterprise feature. You will need to provide your own credentials and select a foundation model. [Contact us](https://smythos.com/talk-to-us) to enable it.                |
 
 <Arcade src="https://demo.arcade.software/feB8bIw53rxIILXr2QwP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="LLM Assistant | SmythOS" />
 
@@ -109,6 +109,6 @@ The component produces a single output containing the assistant's reply.
 
 ## What to Try Next
 
-- Use an **[Agent Skill](../base/agent-skill)** to provide a user-friendly interface for your `LLM Assistant`.
-- Pass the `Response` output into a **[RAG Remember Component](../rag-data/rag-remember)** to store key facts from the conversation.
-- Use a **[Classifier Component](../base/classifier)** on the `UserInput` before it reaches the assistant to detect user intent and route the conversation.
+- Use an **[Agent Skill](/docs/agent-studio/components/base/agent-skill)** to provide a user-friendly interface for your `LLM Assistant`.
+- Pass the `Response` output into a **[RAG Remember Component](/docs/agent-studio/components/rag-data/rag-remember)** to store key facts from the conversation.
+- Use a **[Classifier Component](/docs/agent-studio/components/base/classifier)** on the `UserInput` before it reaches the assistant to detect user intent and route the conversation.

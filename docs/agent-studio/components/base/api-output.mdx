@@ -7,7 +7,7 @@ toc_max_heading_level: 2
 
 # API Output Component
 
-Use the **API Output** component to structure and standardize the final output of a workflow. It's especially powerful when used as the final step in an **[Agent Skill](../base/agent-skill)**, ensuring that any workflow acting as an API endpoint returns a clean, predictable, and well-formed JSON response.
+Use the **API Output** component to structure and standardize the final output of a workflow. It's especially powerful when used as the final step in an **[Agent Skill](/docs/agent-studio/components/base/agent-skill)**, ensuring that any workflow acting as an API endpoint returns a clean, predictable, and well-formed JSON response.
 
 <InfoCallout title="Why this matters">
 Consistent and clean outputs are crucial for building reliable agents. The `API Output` component acts as a formal "return" statement for your workflows, making them easier to call, debug, and integrate with other systems.
@@ -123,6 +123,5 @@ If you have two inputs, `status` (value: "ok") and `user_id` (value: 123), the o
 
 ## What to Try Next
 
-- Make this the final component in an **[Agent Skill](./agent-skill)** to define its return value.
-- Create two `API Output` components in your workflow and use a **[Condition](../logic/condition)** to route to one for a "success" response and the other for a "failure" response.
+- Make this the final component in an **[Agent Skill](/docs/agent-studio/components/base/agent-skill)** to define its return value.
 - Call a skill that uses `API Output` from an external application to see how it receives the clean, structured JSON response.

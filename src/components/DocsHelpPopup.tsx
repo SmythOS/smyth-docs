@@ -5,7 +5,7 @@ import { Smile, Send, X, CheckCircle } from 'lucide-react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const AVATAR = '/docs/img/aria-smythos-cmo.png';
-const POPUP_DELAY_MS = 150000;
+const POPUP_DELAY_MS = 200000;
 
 function useSupabase() {
   const { siteConfig } = useDocusaurusContext();

@@ -38,7 +38,7 @@ Specify where to store the information and how to identify it.
 | **Metadata** | <Badge type="optional">No</Badge>  | A JSON object for storing additional, structured information about the data source (e.g., `{"category": "product_docs", "version": 1.2}`). |
 
 <TipCallout title="Using Source Identifiers">
-Think of the `Source Identifier` as a filename. It gives you a way to reference, update, or delete this specific piece of knowledge later using the **[RAG Forget Component](./rag-forget)**.
+Think of the `Source Identifier` as a filename. It gives you a way to reference, update, or delete this specific piece of knowledge later using the **[RAG Forget Component](/docs/agent-studio/components/rag-data/rag-forget)**.
 </TipCallout>
 
 <Arcade src="https://demo.arcade.software/ecoKltQXUAtdueZrVaXn?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="RAG Remember | SmythOS" />
@@ -88,4 +88,4 @@ The component provides a simple success or failure indicator.
 
 - After a conversation with a user, use a **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)** to summarize the key takeaways, and then use `RAG Remember` to store that summary in a "conversation-history" namespace.
 - Create a workflow that reads files from a folder, loops through them with **[ForEach](/docs/agent-studio/components/advanced/for-each)**, and uses `RAG Remember` to add each file's content to the knowledge base.
-- Pair this component with **[RAG Search](/docs/agent-studio/components/rag-data/rag-search)** and **[RAG Forget](./rag-forget)** to build a complete lifecycle for your agent's knowledge management.
+- Pair this component with **[RAG Search](/docs/agent-studio/components/rag-data/rag-search)** and **[RAG Forget](/docs/agent-studio/components/rag-data/rag-forget)** to build a complete lifecycle for your agent's knowledge management.

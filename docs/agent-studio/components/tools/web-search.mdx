@@ -10,7 +10,7 @@ toc_max_heading_level: 2
 Use the **Web Search** component to perform a targeted web search and get back a structured list of results. This component is the simplest way for your agent to find information on the internet, with advanced options to filter by time, exclude domains, and even generate an AI-powered summary of the findings.
 
 <InfoCallout title="Why this matters">
-Giving your agent the ability to search the web is a foundational step in creating a powerful and knowledgeable assistant. It can find real-time information, research topics, answer user questions with up-to-date data, and provide the source material for more complex components like the **[Web Scrape Component](./web-scrape)**.
+Giving your agent the ability to search the web is a foundational step in creating a powerful and knowledgeable assistant. It can find real-time information, research topics, answer user questions with up-to-date data, and provide the source material for more complex components like the **[Web Scrape Component](/docs/agent-studio/components/tools/web-scrape)**.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -73,7 +73,7 @@ While `Output` contains everything, using the specific `Results`, `Images`, and 
 
 ## Best Practices
 
-- **Use for Initial Research:** `Web Search` is excellent for the first step of a research task. Use it to find relevant URLs, then pass those URLs to the **[Web Scrape Component](./web-scrape)** for deep content extraction.
+- **Use for Initial Research:** `Web Search` is excellent for the first step of a research task. Use it to find relevant URLs, then pass those URLs to the **[Web Scrape Component](/docs/agent-studio/components/tools/web-scrape)** for deep content extraction.
 - **Enable AI Answers for Quick Summaries:** The `Include Questions and Answers` option is a very efficient way to get a direct answer to a query without needing a separate LLM call.
 - **Filter for Relevance:** Use `Time Range` and `Exclude Domains` to narrow your search and improve the quality of your results. For example, when researching a recent event, set the time range to `day` or `week`.
 - **Handle No Results:** Your workflow should be able to handle cases where a search returns no results. Check if the `Results` output is empty and branch your logic accordingly.
@@ -92,6 +92,6 @@ While `Output` contains everything, using the specific `Results`, `Images`, and 
 
 ## What to Try Next
 
-- Take the `Results` array and pass it to a **[ForEach Loop](/docs/agent-studio/components/advanced/for-each)**. Inside the loop, use the **[Web Scrape Component](./web-scrape)** on each URL to extract its full content.
+- Take the `Results` array and pass it to a **[ForEach Loop](/docs/agent-studio/components/advanced/for-each)**. Inside the loop, use the **[Web Scrape Component](/docs/agent-studio/components/tools/web-scrape)** on each URL to extract its full content.
 - Use the `Answer` output and feed it directly into an **[API Output Component](/docs/agent-studio/components/base/api-output)** to create an agent that can answer questions with sourced information.
 - Use the search results to feed a RAG pipeline. Scrape the content of the top results and use **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** to add the new information to your agent's knowledge base.

@@ -344,8 +344,8 @@ const config: Config = {
         to: '/docs/agent-studio/integrations/openapi-integration',
       },
       {
-        from: '/docs/agent-studio/integrations/google-analytics',
-        to: '/docs/agent-studio/integrations/google-analytics-integration',
+        from: '/docs/agent-studio/integrations/google-analytics-integration',
+        to: '/docs/agent-studio/integrations/google-analytics-integration-integration',
       },
       {
         from: '/docs/agent-studio/integrations/pdfcrowd-integration',

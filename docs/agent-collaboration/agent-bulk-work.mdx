@@ -20,11 +20,23 @@ It’s perfect for processing structured inputs like contact lists, user queries
 
 1. Go to **Agents**
 2. Open the deployed agent you want to use
-3. Find the **Endpoints** section
-4. Click the **Bulk Work** button on your target endpoint
+3. Find the **Tasks** tab on the **Settings** tab in the left sidebar
+4. Go the Agent Skilll section
+4. Click the **Bulk Work** button on your target Agent SKill
+
+<Image 
+  src="/docs/img/agent_collaboration/open-bulk-work.jpg" 
+  alt="Open Bulk Work screen in the Agents section" 
+  caption="Click the Bulk Work button under your chosen agent skill to open the Bulk Work table." 
+/>
 
 You’ll land in a table where you can add data manually or upload a CSV.
 
+<Image 
+  src="/docs/img/agent_collaboration/agent-bulk-work.jpg" 
+  alt="Bulk Work screen showing data added and ready to run" 
+  caption="After adding a row manually or uploading a CSV with headers matching the agent skill, the data appears in the Bulk Work table ready for processing." 
+/>
 <Spacer size="md" />
 
 ## Add Input Data
@@ -50,7 +62,15 @@ If the CSV column names don’t match the required inputs exactly, your upload w
 
 <Spacer size="md" />
 
+<Image 
+  src="/docs/img/agent_collaboration/bulk-work-in-progress.jpg" 
+  alt="Bulk Work run in progress after adding data" 
+  caption="After uploading a CSV or manually adding rows with headers matching your endpoint, the Bulk Work run will begin processing." 
+/>
+
 ### Example Format
+
+Remember, the header rows must match the input fields exactly.
 
 | query                          | max_results |
 |-------------------------------|-------------|

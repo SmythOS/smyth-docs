@@ -339,7 +339,6 @@ function Popup() {
                   e.currentTarget.style.color = '#2563eb';
                 }}
               >
-                <Smile size={22} />
                 Talk to a human
               </button>
             </div>

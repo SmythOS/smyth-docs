@@ -9,7 +9,7 @@ sidebar_position: 3
 > **Weaver** is the **no-code AI workflow builder** inside SmythOS.  
 > Describe a goal in plain language → Weaver assembles, connects, and generates the agent for you.
 
-<InfoCallout title="TL;DR"> In the next three minutes you’ll create, debug, and deploy a working agent without touching YAML, APIs, or the visual canvas. </InfoCallout>
+<InfoCallout title="TL;DR"> In the next three minutes you’ll create, debug, and deploy a working agent without touching code, APIs, or the visual canvas. </InfoCallout>
 
 <Divider/>
 
@@ -19,7 +19,7 @@ sidebar_position: 3
 - Zero coding skills. Weaver handles the heavy lifting.
 - Think of a goal... e.g. *“Send daily summaries from Airtable to Slack.”*
 
-That’s it. **No config files. No coding.**
+That’s it. No coding. No hassle.
 
 <Divider/>
 
@@ -31,9 +31,11 @@ Open Weaver and paste the prompt below:
 
 Weaver will instantly:
 
-- Parse the prompt  
+- Parse the prompt
+- Ask questions to help tailor the workflow
+- Provide a plan after thinking
 - Select and connect relevant components
-- Build the first draft visually and 
+- Build the first draft visually
 
 <Divider/>
 
@@ -87,14 +89,14 @@ Weaver’s **LLM orchestration framework** gives inline feedback, no silent erro
 
 <Divider/>
 
-## Step 5 - Debug in Place (Enable Debug Mode)
+## Step 5 - Enable Debug Mode
 
-If a step fails:
+If something goes wrong:
 
-1. Click the red-bordered component.  
-2. Review the snapshot of I/O and Weaver’s explanation.  
-3. Hit **Fix with AI**... often one click is enough.  
-4. Multi-select with <kbd>Cmd/Ctrl</kbd> + click to repair several blocks together.
+1. Click any block with a red border to open the error details
+2. Review the input/output snapshot and Weaver’s explanation
+3. Hit "Fix with AI" — one click usually solves it
+4. <kdb>Cmd/Ctrl + click</kdb> to select and fix multiple blocks at once
 
 <Divider/>
 
@@ -107,7 +109,7 @@ When everything passes:
 
 Weaver allows you:
 
- - Share the agent to <DocLink to='/docs/agent-collaboration/overview'>collaborate</DocLink> with your friends and colleagues by inviting them
-- To debug using activity logs
+    - Share the agent to <DocLink to='/docs/agent-collaboration/overview'>collaborate</DocLink> with your friends and colleagues by inviting them
+    - To debug using activity logs
 
-<InfoCallout> **You did it!** You used prompt-based agent creation to build, test, and deploy without ever opening the drag-and-drop canvas. That’s true **no-code agent orchestration**. </InfoCallout>
+<SuccessCallout title="You did it!">You used prompt-based agent creation to build, test, and deploy without ever opening the drag-and-drop canvas. That’s true **no-code agent building**. </SuccessCallout>

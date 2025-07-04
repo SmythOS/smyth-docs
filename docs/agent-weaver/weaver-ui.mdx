@@ -9,18 +9,10 @@ keywords:
 sidebar_position: 4
 ---
 
-#  Weaver Interface
+# Weaver Interface
 
-> **Meet Agent Smyth Weaver.**  
-> Weaver’s interface looks minimal, but every pixel hides a power shortcut.
-
-<Divider/>
-
-## Main Panels
 Weaver’s chat-first UI is a full-blown **AI workflow builder** that thinks, plans, and asks questions before it creates anything.
-
-> **Fun fact:** Weaver pauses to *think aloud* between prompts, sharing why it asks what it asks. This help you have transparency and confidence in every build step.
-
+<InfoCallout title="How Weaver Thinks"> Weaver pauses between prompts to "think aloud," sharing why it's asking a particular question. This gives you more transparency and control during the build process. </InfoCallout>
 
 | Panel | What lives here |
 |-------|-----------------|
@@ -31,52 +23,49 @@ Weaver’s chat-first UI is a full-blown **AI workflow builder** that thinks, pl
 <Divider/>
 
 ## Planned Workflows
-
-Weaver starts by understanding what kind of agent you're trying to build and then assembles the necessary flows step by step. For example if you asked it to help you write a blog, it will share something like:
+Weaver begins by understanding your end goal. Based on that, it maps out a complete workflow. For example if you asked it to help you write a blog, you might see:
 
 - **Generate Blog Structure** *(outline with title, headings, and subheadings)*
-• **Write Complete Blog Content**
-• **Research Topics** *(gather relevant information)*
-• **Blog Publishing** *(optional)*
+- **Write Complete Blog Content**
+- **Research Topics** *(gather relevant information)*
+- **Blog Publishing** *(optional step)
 
 Before Weaver assembles the agent, it may ask clarifying questions like:
 
 - **What type of blogs do you want to write?** (Technical, lifestyle, marketing, etc.)  
 - **What’s the typical length of blogs you need?** (Short-form, long-form, word count range)
 
-This ensures your **prompt-based agent creation** is fully tailored from the start.
+This ensures the final agent reflects your exact needs.
 
 <Divider/>
 
 ## Selecting Components
 
-- **Single-click** a block to open its inspector.  
-- **Ctrl/Cmd + click** to multi-select *(great for chain re-runs)*.  
-- **Shift + click empty grid** clears your selection.
-
+-Click once to open a component’s inspector.
+- Ctrl/Cmd + click to multi-select (ideal for batch editing or re-running chains).
+- Shift + click empty grid to clear your selection.
 <Divider/>
 
 ## Attach Images & Diagrams
 
-Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
+You can drag and drop PNG, JPG, or SVG files directly into the chat. Weaver will automatically:
 
-1. OCRs diagrams for text.  
-2. Reads arrows as tentative data-flow.  
-3. Generates component suggestions that mirror the picture.
+- Read and extract text from diagrams (OCR).
+- Interpret arrows as possible data flow.
+- Suggest components that match what’s shown in the image.
 
-<InfoCallout> **Tip:** Use a white-board snapshot to sketch a flow in seconds. </InfoCallout>
-
+<TipCallout title="Quick Sketches Welcome">Snap a photo of a whiteboard sketch or hand-drawn diagram. Weaver will interpret it and turn your ideas into useful suggestions in seconds. </TipCallout>
 <Divider/>
 
 ## Contextual Actions
 
-| Button | Appears when | Does what |
+| Button | When it appears | What it does |
 |--------|--------------|-----------|
-| **Fix with AI** | Component red / orange | Opens a prompt box pre-filled with error context. |
-| **Explain Component** | Any block | Weaver summarises purpose, inputs, and outputs. |
-| **Trash** | Hover a block | Deletes component and auto-rewires downstream if possible. |
+| **Fix with AI** | When a component shows red or orange | Opens a prompt box pre-filled with error context. |
+| **Explain Component** | Any time| Summarizes what the block does, including inputs and outputs. |
+| **Trash** | On hover | 	Deletes the component and automatically re-routes connections when possible. |
 
-<Divider/>
+<TipCallout title="Pro Tip">Status colours are your early-warning radar. </TipCallout>
 
  <details>
 <summary>Keyboard Shortcuts (click to expand)</summary>
@@ -118,7 +107,3 @@ Drag-and-drop PNG, JPG, or SVG into the chat. Weaver:
   ]}
 />
 </details>
-
-<Divider/>
-
-<InfoCallout> **Pro Tip:** Status colours are your early-warning radar. </InfoCallout>

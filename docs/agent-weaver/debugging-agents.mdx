@@ -7,9 +7,10 @@ keywords:
   - fix with AI
   - LLM orchestration framework
 sidebar_position: 6
+sidebar_label: Debugging
 ---
 
-# Debugging Agents with Weaver
+# Debugging with Weaver
 
 > Weaver’s debugging tools keep those hiccups from becoming hair-pullers.
 
@@ -17,7 +18,7 @@ sidebar_position: 6
 
 <Divider/>
 
-## 1 Recognise the Red Flags
+## 1. Recognise the Red Flags
 
 During a run, components signal status:
 
@@ -29,7 +30,7 @@ During a run, components signal status:
 
 <Divider/>
 
-## 2 Inspect Inputs & Outputs
+## 2. Inspect Inputs & Outputs
 
 Click the 🔴 component. Weaver shows:
 
@@ -44,7 +45,7 @@ Look for obvious culprits:
 
 <Divider/>
 
-## 3 Fix with AI (The 1-Click Wonder)
+## 3. Fix with AI (The 1-Click Wonder)
 
 If the error is text-related (bad prompt, wrong params):
 
@@ -52,12 +53,12 @@ If the error is text-related (bad prompt, wrong params):
 
 Press **Fix with AI**. Weaver rewrites the skill’s internal prompt or parameters, re-runs the single block, and shows the diff.
 
-> If it turns ✅ green, you’re done.  
+> If it turns green, you’re done.  
 > If still red, refine the instruction and try again.
 
 <Divider/>
 
-## 4 Multi-Select for Chain Re-runs
+## 4. Multi-Select for Chain Re-runs
 
 Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
 
@@ -66,7 +67,7 @@ Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
 
 <Divider/>
 
-## 5 Common Error Recipes
+## 5. Common Error Recipes
 
 | Symptom | Likely Fix |
 |---------|-----------|
@@ -75,7 +76,7 @@ Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
 
 <Divider/>
 
-## 6 Prevent Tomorrow’s Bugs
+## 6. Prevent Tomorrow’s Bugs
 
 - **Small skills > monoliths** — easier to pin-point.  
 - **Use test prompts** — keep a gallery of real-world inputs.  
@@ -85,7 +86,7 @@ Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
 
 <Divider/>
 
-## 7 When All Else Fails
+## 7. When All Else Fails
 
 1. Press Control + Shift + E to export your AI agent instantly. Run it locally using our cross-platform runtime (Mac, Windows, Linux)
 2. Visit <DocLink to="https://discord.gg/smythos">#debugging-help on Discord</DocLink>.  

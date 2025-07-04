@@ -19,14 +19,12 @@ sidebar_position: 7
 
 ## Why Best Practices Matter
 
-Hours saved debugging **≠** hours you can spend writing release notes about how little debugging you did.  
+Hours saved debugging ≠ hours you can spend writing release notes about how little debugging you did.  
 Tokens = money; broken flows = sad work DMs. Let’s stay happy.
-
 <Divider/>
 
 ## How to Build, Test, and Deploy Your AI Agent Workflow
-
-<FlowBar items={['Build small', 'Test early', 'Deploy staging', 'Ship to prod']} />
+Build small -> Test early -> Deploy to staging -> Ship to production.
 
 ### Build Small
 Add **one skill at a time**. If it fails, you know the culprit instantly.
@@ -58,12 +56,12 @@ Push to a *dev* subdomain first; let the intern break it before customers do.
 <Divider/>
 
 ## Performance Baseline
+<TipCallout title="Follow these simple tips">
+**Remember:** Good names, small skills, and colour-coded sanity checks = a joyous Weaver life.
+</TipCallout>
 
 | Optimise | How |
 |----------|-----|
 | **Choose models wisely** | GPT-4o mini beats full GPT-4o on price |
 | **Throttle loops** | Drop [*Sleep* Component](/docs/agent-studio/components/advanced/sleep) after 10 iterations |
 
-<InfoCallout>
-**Remember:** Good names, small skills, and colour-coded sanity checks = a joyous Weaver life.
-</InfoCallout>

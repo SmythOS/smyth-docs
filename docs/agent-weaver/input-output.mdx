@@ -13,17 +13,12 @@ keywords:
   - SmythOS AI design environment
 sidebar_position: 8
 ---
-# Understanding I/O
-
-> Mastering Weaver’s ● and ○ ports turns tangled flows into rock-solid agents.
-
+# Weaver I/O
 <InfoCallout title="TL;DR"> ● = required data, ○ = optional.  Blue ports carry data forward; red means “feed me first.” </InfoCallout>
 
-<Divider/>
+## Data Flows in Agent Weaver
 
-## Understand How Data Flows in Agent Weaver
-
-Learning how inputs and outputs work in Weaver is essential to building reliable agents. This guide walks you through port types, input formats, chaining logic, and more... as  part of the **SmythOS AI design environment** and its **no-code agent orchestration** framework.
+Learning how inputs and outputs work in Weaver is essential to building reliable agents. 
 
 <Divider/>
 
@@ -36,12 +31,9 @@ Learning how inputs and outputs work in Weaver is essential to building reliable
 | **● Solid** | Blue output | Main output — passed to the next block |
 | **○ Hollow** | Blue output | Derived or secondary output |
 
-
 <Divider/>
 
-## 2. Input Types (and Gotchas)
-
-### Input Categories
+## 2. Input Types 
 
 Agent Weaver supports several **drag-and-drop AI tool** input types:
 
@@ -70,8 +62,6 @@ Agent Weaver supports several **drag-and-drop AI tool** input types:
 Inputs can also be styled using color labels for better workflow clarity.
 
 <PromptCard prompt={`Goal: Summarise weekly_sales.csv then email report\n\nSkills:\n1. Read file from S3 (file input)\n2. Summarise table (json output)\n3. Email summary (string input)`} />
-
-<Divider/>
 
 <Divider/>
 ## 3. Chaining Outputs to Inputs

@@ -73,12 +73,12 @@ You can trigger a workflow programmatically using a REST API. Here's a sample re
 
 ```bash
 curl -X POST \
-  "https://api.smythos.com/v1/agent-skills/{skill_id}/startTrigger?apiKey=$SMYTH_KEY" \
+  "https://api.smythos.com/v1/agent-skills/<skill-id>/startTrigger?apiKey=$SMYTH_KEY" \
   -H "Content-Type: application/json" \
   -d '{"orderId":1234,"amount":49.99}'
 ```
 
-Replace {skill_id} and $SMYTH_KEY with your actual Agent Skill ID and API key.
+Replace {`skill_id`} and {`$SMYTH_KEY`} with your actual Agent Skill ID and API key.
 
 <Spacer size="md" />
 
@@ -120,7 +120,7 @@ Store keys and passwords in **[Vault](/docs/agent-studio/key-concepts/vault)** i
 ## Best Practices for Reliable Workflows
 
 <InfoCallout title="Add Logic, Loops, and Memory to Workflows">
-If you want to loop through data, run tasks in parallel, pause steps, or store info, see all options in the [Logic, Flow & Memory Tools](/docs/agent-studio/components/overview#logic-flow--memory-tools) section.
+If you want to loop through data, run tasks in parallel, pause steps, or store info, see all options in the [Logic, Flow & Memory Tools](/docs/agent-studio/components#choosing-the-right-component) section.
 </InfoCallout>
 
 - Start small and expand gradually  
@@ -155,6 +155,6 @@ Yes. A single workflow (Agent Skill) can be reused across multiple agents or tri
 
 ## What's Next
 
-* See the **[Component Overview](/docs/agent-studio/components/overview)**.  
+* See the **[Component Overview](/docs/agent-studio/components)**.  
 * Learn more in the **[Deployment Guide](/docs/agent-deployments/overview)**.  
 * Try some **[Agent Templates](https://app.smythos.com/templates)**.  

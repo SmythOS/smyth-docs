@@ -19,8 +19,8 @@ Quickly compare Linear components by what they do and their key I/O. Click any c
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Create Issue**](#create-issue) | Write | Creates a new issue in a specified team's backlog. | <Badge type="required" /> `title`, `description`, `teamId` | `issueId` | Automatically creating a bug report from a customer ticket. |
-| [**List Teams**](#list-teams) | Read | Retrieves a list of all teams in your Linear workspace. | <Badge type="required" /> `trigger` | `teamId`, `teamName`| Finding the correct team ID to create an issue in. |
+| [**Create Linear Issue**](#create-linear-issue) | Write | Creates a new issue in a specified team's backlog. | <Badge type="required" /> `title`, `description`, `teamId` | `issueId` | Automatically creating a bug report from a customer ticket. |
+| [**Get Team Information**](#get-team-information) | Read | Retrieves a list of all teams in your Linear workspace. | <Badge type="required" /> `trigger` | `teamId`, `teamName`| Finding the correct team ID to create an issue in. |
 
 
 <InfoCallout>
@@ -63,7 +63,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your Linear API Key as the value. Give it a memorable name, like `linear_api_key`.
-3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
 
 ### Step 3: Configure a Linear Component
 1.  In your SmythOS agent graph, drag and drop any Linear component.
@@ -78,8 +78,8 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 | If you need to… | Target | Use this Component | Why this one? |
 |-----------------|--------|--------------------|---------------|
-| **Create a new bug report or feature request** | A `teamId` and a `title` | [Create Issue](#create-issue) | The primary method for programmatically adding new items to your Linear boards. |
-| **Find the ID for your "Engineering" or "Design" team** | Your workspace | [List Teams](#list-teams) | This is an essential first step to get the `teamId` required to create issues. |
+| **Create a new bug report or feature request** | A `teamId` and a `title` | [Create Linear Issue](#create-linear-issue) | The primary method for programmatically adding new items to your Linear boards. |
+| **Find the ID for your "Engineering" or "Design" team** | Your workspace | [Get Team Information](#get-team-information) | This is an essential first step to get the `teamId` required to create issues. |
 
 <Divider/>
 
@@ -87,7 +87,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 This section provides detailed information for each Linear component.
 
-### <a name="create-issue"></a>Create Issue
+### <a name="create-linear-issue"></a>Create Linear Issue
 Creates a new issue within a specified team in your Linear workspace.
 
 <InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-linear) section.</InfoCallout>
@@ -125,7 +125,7 @@ The `description` field fully supports Markdown. Use `\n` for new lines and othe
 
 <Divider/>
 
-### <a name="list-teams"></a>List Teams
+### <a name="get-team-information"></a>Get Team Information
 Retrieves a list of all teams within your Linear workspace. (Formerly "Get Team Information").
 
 <InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-linear) section.</InfoCallout>
@@ -164,8 +164,8 @@ The default `teamId` and `teamName` outputs only show the first team in the list
 
 * **Secure Your API Key:** Your Linear API Key grants access to your workspace. Always store it in the SmythOS `Vault` and never expose it.
 * **Use the GraphQL API for Advanced Queries:** While these components cover common actions, Linear's power lies in its GraphQL API. For complex queries (e.g., getting all issues with a specific label assigned to a specific user), you may need to use a generic GraphQL component in SmythOS.
-* **Find Your Team ID:** The most common prerequisite for creating issues is the `teamId`. Use the `List Teams` component first to programmatically find the correct ID rather than hardcoding it.
-* **Automate Your Triage:** Combine the `Create Issue` component with other tools to build a powerful triage system. An agent can receive an alert, use an LLM to determine its priority and relevant team, find the `teamId`, and then create a well-formatted issue.
+* **Find Your Team ID:** The most common prerequisite for creating issues is the `teamId`. Use the `Get Team Information` component first to programmatically find the correct ID rather than hardcoding it.
+* **Automate Your Triage:** Combine the `Create Linear Issue` component with other tools to build a powerful triage system. An agent can receive an alert, use an LLM to determine its priority and relevant team, find the `teamId`, and then create a well-formatted issue.
 
 <Divider />
 
@@ -177,7 +177,7 @@ The default `teamId` and `teamName` outputs only show the first team in the list
 
 * **Error: `404 Not Found`**
   * **Cause:** The `teamId` provided is incorrect or does not exist.
-  * **Solution:** Use the `List Teams` component to get a valid list of team IDs and ensure you are using the correct one.
+  * **Solution:** Use the `Get Team Information` component to get a valid list of team IDs and ensure you are using the correct one.
 
 * **Error: `400 Bad Request` / Validation Error**
   * **Cause:** A required field like `title` or `teamId` is missing from the request.

@@ -11,7 +11,7 @@ keywords: [Perplexity AI SmythOS Integration, Connect Perplexity AI to SmythOS, 
 > **Want to build agents with access to real-time web knowledge?** Connect Perplexity AI to SmythOS and empower them with conversational search models that provide up-to-date, sourced answers.
 
 <InfoCallout title="TL;DR">
-Securely link your Perplexity AI account to SmythOS using an API key. Then, use the "Chat Completion" component to run a variety of powerful language models, including online models that can browse the web.
+Securely link your Perplexity AI account to SmythOS using an API key. Then, use the "Conversational Search" component to run a variety of powerful language models, including online models that can browse the web.
 </InfoCallout>
 
 ## List of Perplexity AI Components
@@ -19,7 +19,7 @@ The Perplexity AI integration provides a single, powerful component for accessin
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Chat Completion**](#chat-completion)| AI Task | Runs chat and text generation on various models, including web-connected ones. | <Badge type="required" /> `prompt`<br /><Badge type="optional" /> `model` | `message_content`| Research, fact-checking, content creation. |
+| [**Conversational Search**](#conversational-search)| AI Task | Runs chat and text generation on various models, including web-connected ones. | <Badge type="required" /> `prompt`<br /><Badge type="optional" /> `model` | `message_content`| Research, fact-checking, content creation. |
 
 
 <InfoCallout>
@@ -62,10 +62,10 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your Perplexity AI API Key as the value. Give it a memorable name, like `perplexity_api_key`.
-3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
 
 ### Step 3: Configure the Perplexity AI Component
-1.  In your SmythOS agent graph, drag and drop the **Perplexity AI Chat Completion** component.
+1.  In your SmythOS agent graph, drag and drop the **Perplexity AI Conversational Search** component.
 2.  Click the component to open its **Settings** panel.
 3.  In the `API Key` field, select the secret you saved in the Vault (e.g., `perplexity_api_key`).
 4.  Select your desired `Model` from the dropdown list.
@@ -93,7 +93,7 @@ The "online" models are unique to Perplexity and can access the internet. The "i
 
 This section provides detailed information for the Perplexity AI component.
 
-### <a name="chat-completion"></a>Chat Completion
+### <a name="conversational-search"></a>Conversational Search
 Provides a unified interface to send prompts to Perplexity's suite of powerful and web-connected language models.
 
 <InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-perplexity-ai) section.</InfoCallout>
@@ -110,7 +110,7 @@ Provides a unified interface to send prompts to Perplexity's suite of powerful a
 | Field | Type | Description |
 |-------|------|-------------|
 | `message_content` | string | The text content of the AI's generated response. |
-| `id` | string | The unique identifier for the chat completion request. |
+| `id` | string | The unique identifier for the Conversational Search request. |
 | `Response`| object | The full, raw JSON response from the Perplexity AI API, including usage data. |
 | `Headers` | object | The HTTP headers from the API response. |
 

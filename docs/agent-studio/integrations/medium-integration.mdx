@@ -19,7 +19,7 @@ Quickly compare Medium components by what they do and their key I/O. Click any c
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Publish Blog**](#publish-blog) | Write | Publishes an article directly to a user's profile or publication. | <Badge type="required" /> `title`, `content`<br/><Badge type="optional" /> `userId` | `blogId`, `blogUrl` | Syndicating content from another blog. |
+| [**Publish Blog Post**](#publish-blog) | Write | Publishes an article directly to a user's profile or publication. | <Badge type="required" /> `title`, `content`<br/><Badge type="optional" /> `userId` | `blogId`, `blogUrl` | Syndicating content from another blog. |
 | [**Get User Details**](#get-user-details)| Read | Retrieves the profile details of the authenticated user. | <Badge type="required" /> `trigger` | `userId` | Verifying the authenticated user's ID. |
 
 
@@ -64,7 +64,7 @@ Your Integration Token is a sensitive credential. Use the SmythOS `Vault` to sto
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your Medium Integration Token as the value. Give it a memorable name, like `medium_integration_token`.
-3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
+3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
 
 ### Step 3: Configure a Medium Component
 1.  In your SmythOS agent graph, drag and drop any Medium component.
@@ -79,7 +79,7 @@ Your Integration Token is a sensitive credential. Use the SmythOS `Vault` to sto
 
 | If you need to… | Target | Use this Component | Why this one? |
 |-----------------|--------|--------------------|---------------|
-| **Publish a new article** | A title and content | [Publish Blog](#publish-blog) | The core component for programmatically publishing content to Medium. |
+| **Publish a new article** | A title and content | [Publish Blog Post](#publish-blog) | The core component for programmatically publishing content to Medium. |
 | **Confirm which user is authenticated** | Your own account | [Get User Details](#get-user-details) | A simple way to verify your connection and retrieve your own user ID. |
 
 <Divider/>
@@ -88,7 +88,7 @@ Your Integration Token is a sensitive credential. Use the SmythOS `Vault` to sto
 
 This section provides detailed information for each Medium component.
 
-### <a name="publish-blog"></a>Publish Blog
+### <a name="publish-blog"></a>Publish Blog Post
 Publishes a new post to the authenticated user's profile or, if a `publicationId` is provided, to a specific publication.
 
 <InfoCallout>This component requires an `Integration Token` for authentication, as detailed in the [Getting Started](#getting-started-with-medium) section.</InfoCallout>
@@ -150,7 +150,7 @@ Retrieves the profile information of the user authenticated by the Integration T
 | `Headers` | object | The HTTP headers from the API response. |
 
 <TipCallout title="Use Case">
-This component is primarily used as a first step to get your `userId`, which you can then pass into the `Publish Blog` component to explicitly set the author.
+This component is primarily used as a first step to get your `userId`, which you can then pass into the `Publish Blog Post` component to explicitly set the author.
 </TipCallout>
 
 ```json
@@ -167,7 +167,7 @@ This component is primarily used as a first step to get your `userId`, which you
 * **Secure Your Integration Token:** Always store your Medium Integration Token in the SmythOS `Vault`.
 * **Content Formatting:** Decide whether you want to provide your content as HTML or Markdown and set the "Content Format" setting accordingly. For blog posts, Markdown is often easier to generate and manage.
 * **Include the Title in the Body:** This is the most common point of confusion. Remember to add your article's title as a heading (e.g., `# My Title`) at the top of your `content` input if you want it to be visible on the published page.
-* **Publishing to Publications:** To publish to a specific Medium Publication you own or contribute to, you first need to get that publication's ID. You can do this by using a custom API call to list the user's publications, then passing that ID into an advanced input field for the `Publish Blog` component.
+* **Publishing to Publications:** To publish to a specific Medium Publication you own or contribute to, you first need to get that publication's ID. You can do this by using a custom API call to list the user's publications, then passing that ID into an advanced input field for the `Publish Blog Post` component.
 
 <Divider />
 

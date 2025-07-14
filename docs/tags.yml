@@ -3,7 +3,7 @@ collaboration:
   label: 'Collaboration'
   permalink: '/tags/collaboration'
   description: 'Topics around teamwork, shared workspaces, and agent collaboration.'
-  
+
 communication:
   label: 'Communication'
   permalink: '/tags/communication'
@@ -19,6 +19,21 @@ writing:
   label: 'Writing'
   permalink: '/tags/writing'
   description: 'Agent tasks that involve text generation, summarization, and formatting.'
+
+research:
+  label: 'Research'
+  permalink: '/tags/research'
+  description: 'Research and knowledge discovery workflows.'
+
+marketing:
+  label: 'Marketing'
+  permalink: '/tags/marketing'
+  description: 'Marketing strategies, campaigns, and integrations.'
+
+content-management:
+  label: 'Content Management'
+  permalink: '/tags/content-management'
+  description: 'Content management best practices and system integrations.'
 
 # ─── Data, Input & Output ──────────────────────────
 analytics:
@@ -76,3 +91,49 @@ serverless:
   label: 'Serverless'
   permalink: '/tags/serverless'
   description: 'Topics on deploying agents without managing servers or containers.'
+
+# ─── Integrations & Platforms ─────────────────────
+ecommerce:
+  label: 'Ecommerce'
+  permalink: '/tags/ecommerce'
+  description: 'Integration with ecommerce platforms and shopping workflows.'
+
+cms:
+  label: 'CMS'
+  permalink: '/tags/cms'
+  description: 'Content management systems integrations and workflows.'
+
+inventory:
+  label: 'Inventory'
+  permalink: '/tags/inventory'
+  description: 'Inventory management integrations and agent interactions.'
+
+website:
+  label: 'Website'
+  permalink: '/tags/website'
+  description: 'Website platform integrations and content workflows.'
+
+content:
+  label: 'Content'
+  permalink: '/tags/content'
+  description: 'Content creation, management, and publication workflows.'
+
+blogging:
+  label: 'Blogging'
+  permalink: '/tags/blogging'
+  description: 'Blogging platform integrations and content workflows.'
+# ─── AI & Creative ───────────────────────────────
+ai:
+  label: 'AI'
+  permalink: '/tags/ai'
+  description: 'Artificial intelligence integrations and agent capabilities.'
+
+image-generation:
+  label: 'Image Generation'
+  permalink: '/tags/image-generation'
+  description: 'Generating images using AI models and relevant agent tasks.'
+
+creative:
+  label: 'Creative'
+  permalink: '/tags/creative'
+  description: 'Creative content generation and design-focused agent workflows.'

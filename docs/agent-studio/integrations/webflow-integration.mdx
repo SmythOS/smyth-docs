@@ -3,8 +3,9 @@ title: Webflow Integration
 description: Connect SmythOS to Webflow to automate managing your site's content, collections, items, and pages directly from your agent workflows.
 og:title: SmythOS & Webflow - Automate Your Website's Content
 og:description: Learn to integrate Webflow with SmythOS. Empower your agents to create, update, and delete collection items, manage pages, and automate your entire content pipeline.
-og:image: /docs/img/integrations/smythos_webflow.png
+og:image: /img/integrations/smythos_webflow.png
 keywords: [Webflow SmythOS Integration, Connect Webflow to SmythOS, SmythOS Webflow CMS, Automate Webflow, Webflow API, No-Code Webflow, CMS Automation]
+tags: [cms, website, content, automation]
 ---
 # Webflow Integration with SmythOS
 
@@ -19,15 +20,29 @@ Quickly compare Webflow components by what they do and their key I/O. Click any 
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
+| **Site Management** |
+| [**List Sites**](#list-sites) | Read | Retrieves a list of all sites in your Webflow account. | <Badge type="required" /> `trigger` | `sites` | The first step to find your `site_id`. |
+| [**Get Site**](#get-site) | Read | Retrieves a Webflow site by its site ID. | <Badge type="required" /> `site_id` | `displayName` | Verifying site details before performing actions. |
+| **Page Management** |
+| [**List Pages**](#list-pages) | Read | Retrieves a list of all pages for a Webflow site. | <Badge type="required" /> `site_id` | `pages` | Getting a sitemap or finding a specific `page_id`. |
+| [**Get Page Metadata**](#get-page-metadata)| Read | Retrieves metadata for a single page. | <Badge type="required" /> `page_id` | `title`, `seo` | Auditing a page's SEO settings. |
+| [**Update Page Metadata**](#update-page-metadata)| Write | Updates the SEO and Open Graph settings for a static page. | <Badge type="required" /> `page_id`, `Body` | `title`, `seo` | Programmatically optimizing page titles and descriptions. |
+| **Collection Management** |
+| [**List Collections**](#list-collections) | Read | Retrieves a list of all CMS collections for a site. | <Badge type="required" /> `site_id` | `collections` | Finding the ID of your "Blog Posts" collection. |
+| [**Get Collection Details**](#get-collection-details)| Read | Retrieves comprehensive details of a collection. | <Badge type="required" /> `collection_id` | `displayName` | Checking a collection's schema before adding items. |
+| [**Create Collection**](#create-collection) | Write | Creates a new collection for a specific site. | <Badge type="required" /> `site_id`, `displayName` | `id` | Setting up a new "Case Studies" section. |
+| [**Delete Collection**](#delete-collection) | Write | Deletes a collection using its ID. | <Badge type="required" /> `collection_id` | `Response` | Removing an old, unused CMS collection. |
+| [**Create Collection Field**](#create-collection-field)| Write | Creates a new custom field in a collection. | <Badge type="required" /> `collection_id`, `type` | `id` | Adding a "Publication Date" field to a blog. |
+| [**Update Collection Field**](#update-collection-field)| Write | Updates a custom field in a collection. | <Badge type="required" /> `collection_id`, `field_id` | `id` | Renaming a collection field. |
+| [**Delete Collection Field**](#delete-collection-field)| Write | Deletes a custom field in a collection. | <Badge type="required" /> `collection_id`, `field_id` | `Response` | Removing an unnecessary field from a collection. |
+| **Collection Item Management** |
 | [**Create Collection Item**](#create-collection-item)| Write | Adds a new item to a CMS collection. | <Badge type="required" /> `collection_id`, `Body` | `id` | Automatically creating a new blog post from a draft. |
+| [**List Collection Items**](#list-collection-items)| Read | Retrieves a list of all items within a collection. | <Badge type="required" /> `collection_id`<br/><Badge type="optional" /> `limit` | `items` | Getting all blog posts to display on a custom dashboard. |
+| [**Get Collection Item**](#get-collection-item) | Read | Retrieves the details of a single collection item. | <Badge type="required" /> `collection_id`, `item_id` | `fieldData` | Fetching the content of a specific blog post for analysis. |
 | [**Update Collection Item**](#update-collection-item)| Write | Updates the fields of an existing collection item. | <Badge type="required" /> `collection_id`, `item_id`, `Body` | `id` | Syncing product information from an external source. |
 | [**Delete Collection Item**](#delete-collection-item)| Write | Permanently deletes an item from a collection. | <Badge type="required" /> `collection_id`, `item_id` | `Response` | Removing an event post after the event has passed. |
 | [**Publish Item**](#publish-item) | Write | Publishes one or more collection items to your live site. | <Badge type="required" /> `collection_id`, `itemIds` | `publishedItemIds` | Pushing staged content live after approval. |
-| [**List Collection Items**](#list-collection-items)| Read | Retrieves a list of all items within a collection. | <Badge type="required" /> `collection_id`<br/><Badge type="optional" /> `limit` | `items` | Getting all blog posts to display on a custom dashboard. |
-| [**Get Collection Item**](#get-collection-item) | Read | Retrieves the details of a single collection item. | <Badge type="required" /> `collection_id`, `item_id` | `fieldData` | Fetching the content of a specific blog post for analysis. |
-| [**List Collections**](#list-collections) | Read | Retrieves a list of all CMS collections for a site. | <Badge type="required" /> `site_id` | `collections` | Finding the ID of your "Blog Posts" collection. |
-| [**Update Page Metadata**](#update-page-metadata)| Write | Updates the SEO and Open Graph settings for a static page. | <Badge type="required" /> `page_id`, `Body` | `title`, `seo` | Programmatically optimizing page titles and descriptions. |
-| [**List Sites**](#list-sites) | Read | Retrieves a list of all sites in your Webflow account. | <Badge type="required" /> `trigger` | `sites` | The first step to find your `site_id`. |
+
 
 <InfoCallout>
 <details>
@@ -70,7 +85,7 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your Webflow API Token as the value. Give it a memorable name, like `webflow_api_token`.
-3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
 ### Step 3: Configure a Webflow Component
 1.  In your SmythOS agent graph, drag and drop any Webflow component.
@@ -85,7 +100,7 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 
 | If you need to… | Target | Use this Component | Why this one? |
 |-----------------|--------|--------------------|---------------|
-| **Add a new blog post** to your CMS | A `collection_id` | [Create Collection Item](#create-collection-item) | The standard method for creating new content within a Webflow CMS Collection. |
+| **Add a new blog post** to your CMS | A `collection_id` and content | [Create Collection Item](#create-collection-item) | The standard method for creating new content within a Webflow CMS Collection. |
 | **Update the text** of an existing blog post | An `item_id` | [Update Collection Item](#update-collection-item) | Use this to modify the fields of an item that already exists. |
 | **Push a staged item live** | One or more `itemIds` | [Publish Item](#publish-item) | This is the crucial step to make your CMS items visible on your live website. |
 | **Get all items** from your "Team Members" collection | A `collection_id` | [List Collection Items](#list-collection-items)| Retrieves multiple items at once, perfect for populating lists. |
@@ -98,10 +113,80 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 
 This section provides detailed information for each Webflow component.
 
+### <a name="delete-collection-item"></a>Delete Collection Item
+Deletes an item from a specified collection.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The unique identifier of the collection. |
+| `item_id` | string | Yes | The unique identifier of the item to be deleted. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | Contains details about the deleted item. |
+| `Headers` | object | Includes HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+An agent automatically removes an event from a "Upcoming Events" collection after the event date has passed.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-collection-item"></a>Get Collection Item
+Retrieves the details of a single item from a collection.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The unique identifier of the collection. |
+| `item_id` | string | Yes | The unique identifier of the item. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `lastPublished`| string | The timestamp of when the item was last published. |
+| `lastUpdated`| string | The timestamp of when the item was last updated. |
+| `fieldData` | object | The data fields associated with the collection item. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+Before updating an item, an agent fetches its current `fieldData` to check existing values.
+</TipCallout>
+
+### <a name="list-collection-items"></a>List Collection Items
+Retrieves a list of all items within a specified Webflow collection.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The unique identifier of the collection. |
+| `limit` | integer| Optional | The maximum number of items to retrieve. Default: `100`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `items` | array | An array of item objects within the collection. |
+| `Response`| object | The raw JSON response from the API, including pagination info. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+A reporting agent uses this component to get all items from a "Testimonials" collection to display on a custom dashboard.
+</TipCallout>
+
+<Divider/>
+
 ### <a name="create-collection-item"></a>Create Collection Item
 Creates a new item within a specified CMS Collection.
 
-<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-webflow) section.</InfoCallout>
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
 #### Component-Specific Settings
 - **Body:** A JSON editor where you define the `fieldData` for the new item. The keys must match the "slugs" of your collection fields in Webflow.
@@ -109,7 +194,7 @@ Creates a new item within a specified CMS Collection.
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `collection_id`| string | Yes | The unique ID of the collection where the item will be created. |
+| `collection_id`| string | Yes | The unique identifier of the collection where the item will be created. |
 
 #### Outputs
 | Field | Type | Description |
@@ -121,20 +206,6 @@ Creates a new item within a specified CMS Collection.
 An agent takes form submissions for new job postings and uses this component to automatically create a new item in the "Careers" collection on the Webflow site.
 </TipCallout>
 
-```json
-{
-  "component": "webflow.createCollectionItem",
-  "collection_id": "62e3c8f3b4bC1a4e19293a5c",
-  "Body": {
-    "fieldData": {
-      "name": "My Awesome New Blog Post",
-      "post-body": "<p>This is the content of my post.</p>",
-      "slug": "my-awesome-new-blog-post"
-    }
-  }
-}
-```
-
 <WarningCallout title="Body Schema and Publishing">
 The `fieldData` keys must match your collection's field slugs exactly. This component creates the item in a `staged` state; you must use the `Publish Item` component to make it live.
 </WarningCallout>
@@ -144,7 +215,7 @@ The `fieldData` keys must match your collection's field slugs exactly. This comp
 ### <a name="update-collection-item"></a>Update Collection Item
 Updates the fields of an existing item in a CMS Collection.
 
-<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-webflow) section.</InfoCallout>
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
 #### Component-Specific Settings
 - **Body:** A JSON editor where you define the `fieldData` to be updated.
@@ -170,7 +241,7 @@ An agent syncs product prices from an external database to the Webflow "Products
 ### <a name="publish-item"></a>Publish Item
 Publishes one or more collection items, making them visible on your live website.
 
-<InfoCallout>This component requires an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-webflow) section.</InfoCallout>
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
@@ -191,28 +262,294 @@ After an agent creates a new blog post with `Create Collection Item`, it immedia
 
 <Divider/>
 
-### <a name="list-and-get-components"></a>List & Get Components
-Includes **List Sites**, **Get Site**, **List Collections**, **Get Collection Details**, **List Pages**, **Get Page Metadata**, **List Collection Items**, and **Get Collection Item**. These components are used to retrieve information from your Webflow account.
+### <a name="list-sites"></a>List Sites
+Retrieves a list of all sites in your Webflow account.
 
-<InfoCallout>These components require an `API Token` for authentication, as detailed in the [Getting Started](#getting-started-with-webflow) section.</InfoCallout>
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
-#### Common Inputs
+#### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `site_id` | string | Varies | The ID of the site to query. |
-| `collection_id`| string | Varies | The ID of the collection to query. |
-| `item_id` | string | Varies | The ID of the specific item to retrieve. |
-| `page_id` | string | Varies | The ID of the page to query. |
+| `trigger` | any | Yes | Any value to trigger the component's execution. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `sites`/`collections`/`pages`/`items` | array | An array of the requested resources. |
-| `fieldData`| object | (Get Item) The specific fields of a single collection item. |
+| `sites` | array | An array of site objects available in your Webflow account. |
+| `Response`| object | The raw JSON response from the API. |
 
-<TipCallout title="Use Case: Finding a Collection ID">
-To create a new blog post, you need the ID for your "Blog Posts" collection. First, use `List Sites` to get your `site_id`. Then, pass that `site_id` to `List Collections` to find the correct collection and its `collection_id`.
+<TipCallout title="Use Case">
+This is an essential first step for many workflows. An agent uses this component to find the correct `site_id` before performing other actions like listing collections.
 </TipCallout>
+
+<Divider/>
+
+### <a name="get-site"></a>Get Site
+Retrieves detailed information about a specific Webflow site by its ID.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site_id` | string | Yes | The unique identifier of the site you want to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `workspaceId`| string | The ID of the workspace the site belongs to. |
+| `displayName`| string | The display name of the site. |
+| `lastPublished`| string | The timestamp of when the site was last published. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent verifies the `displayName` and `lastPublished` date of a site as part of a monitoring workflow.
+</TipCallout>
+
+### <a name="list-pages"></a>List Pages
+Retrieves a list of all static pages for a Webflow site.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site_id` | string | Yes | The unique identifier of the site to retrieve pages from. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `pages` | array | An array of page objects associated with the site. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An SEO agent retrieves all pages for a site to loop through them and check their metadata using the `Get Page Metadata` component.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-page-metadata"></a>Get Page Metadata
+Retrieves metadata, including SEO and Open Graph settings, for a single page.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `page_id` | string | Yes | The unique identifier of the page. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | The title of the page. |
+| `seo` | object | An object containing SEO metadata like meta title and description. |
+| `openGraph`| object | An object containing Open Graph data for social sharing. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent fetches a page's metadata to check if the SEO description is populated before attempting to update it.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-page-metadata"></a>Update Page Metadata
+Updates page-level metadata, including SEO and Open Graph fields.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the `seo` and/or `openGraph` objects with their new values.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `page_id` | string | Yes | The unique identifier of the page to update. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | The updated title of the page. |
+| `seo` | object | The updated SEO metadata object. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An SEO agent generates an optimized meta description with an LLM and uses this component to update the page's SEO settings directly.
+</TipCallout>
+
+<Divider/>
+
+### <a name="list-collections"></a>List Collections
+Retrieves a list of all CMS collections within a Webflow site.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site_id` | string | Yes | The unique identifier of the site. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `collections`| array | An array of collection objects available on the site. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+A content agent uses this component to find the `collection_id` for the "Blog Posts" collection before creating a new item in it.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-collection-details"></a>Get Collection Details
+Retrieves comprehensive details of a collection, including its fields.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The unique identifier for the collection. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique identifier of the collection. |
+| `displayName`| string | The display name of the collection. |
+| `fields` | array | The fields (schema) present in the collection. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+Before creating a new collection item, an agent fetches the collection details to understand its schema and required fields.
+</TipCallout>
+
+<Divider/>
+
+### <a name="create-collection"></a>Create Collection
+Creates a new CMS collection for a specific site.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `site_id` | string | Yes | The ID of the site where the collection will be created. |
+| `displayName`| string | Yes | The display name of the collection (e.g., "Team Members"). |
+| `singularName`| string | Yes | The singular name of an item (e.g., "Team Member"). |
+| `slug` | string | Optional| The URL-friendly version of the collection name. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique identifier of the new collection. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent sets up a new website section by creating a "Case Studies" collection to house customer success stories.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-collection"></a>Delete Collection
+Deletes a collection by its ID.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The unique ID of the collection to delete. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The raw JSON response from the API, confirming deletion. |
+
+<TipCallout title="Use Case">
+A cleanup agent removes an old, temporary "Events 2024" collection at the end of the year.
+</TipCallout>
+
+<WarningCallout title="Irreversible Action">
+Deleting a collection also deletes all of its items. This cannot be undone.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="create-collection-field"></a>Create Collection Field
+Creates a new custom field within a collection's schema.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The ID of the collection to modify. |
+| `type` | string | Yes | The type of field (e.g., `PlainText`, `RichText`, `Image`). |
+| `displayName`| string | Yes | The user-friendly name of the field. |
+| `helpText` | string | Optional| Descriptive text to help editors. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The unique identifier of the created field. |
+| `type` | string | The type of the created field. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent adds a new "Author Bio" (RichText) field to the "Blog Posts" collection to enhance author pages.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-collection-field"></a>Update Collection Field
+Updates a custom field in a collection.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor to define the properties to update, such as `displayName` or `helpText`.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The ID of the collection. |
+| `field_id` | string | Yes | The ID of the field to update. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | The ID of the updated field. |
+| `displayName`| string | The updated display name of the field. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+An agent renames a collection field from "Post Summary" to "SEO Meta Description" for clarity.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-collection-field"></a>Delete Collection Field
+Deletes a custom field from a collection.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `collection_id`| string | Yes | The ID of the collection. |
+| `field_id` | string | Yes | The ID of the field to delete. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The raw JSON response from the API, confirming deletion. |
+
+<TipCallout title="Use Case">
+A cleanup agent removes an old, unused field from a collection schema to simplify the editor interface.
+</TipCallout>
+
+<WarningCallout title="Data Loss">
+Deleting a field will remove all data stored in that field across all items in the collection. This is irreversible.
+</WarningCallout>
 
 <Divider />
 
@@ -229,7 +566,7 @@ To create a new blog post, you need the ID for your "Blog Posts" collection. Fir
 
 * **Error: `401 Unauthorized`**
   * **Cause:** The API Token is incorrect, has been revoked, or does not have the necessary permissions.
-  * **Solution:** Verify the API Token in your SmythOS Vault is correct. In your Webflow settings, check that the key is active and has the required scopes (e.g., `cms:write`).
+  * **Solution:** Verify that the API Token in your SmythOS Vault is correct. In your Webflow settings, check that the key is active and has the required scopes (e.g., `cms:write`).
 
 * **Error: `404 Not Found`**
   * **Cause:** An incorrect `site_id`, `collection_id`, or `item_id` was provided.
@@ -237,7 +574,7 @@ To create a new blog post, you need the ID for your "Blog Posts" collection. Fir
 
 * **Error: `400 Bad Request` / Validation Error**
   * **Cause:** The JSON `Body` payload for a create/update operation is malformed, missing required fields, or a field key does not match the collection's field slug.
-  * **Solution:** Carefully validate your `fieldData` object. Ensure every key matches a field slug in your Webflow collection and that the value is in the correct format for that field type.
+  * **Solution:** Carefully validate your JSON syntax. Refer to the official Webflow API documentation for the correct structure for the operation you are performing.
 
 * **Items are Created but Not Visible on the Live Site**
   * **Cause:** You have successfully used `Create Collection Item` but have not yet used the `Publish Item` component.

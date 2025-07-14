@@ -3,8 +3,9 @@ title: WordPress.org Integration
 description: Connect SmythOS to your self-hosted WordPress.org site to automate content management, publishing, and site updates directly from your agent workflows.
 og:title: SmythOS & WordPress.org - Automate Your Self-Hosted Content
 og:description: Learn to integrate your self-hosted WordPress.org site with SmythOS. Empower agents to create, update, and retrieve posts using Application Passwords for secure, automated control.
-og:image: /docs/img/integrations/smythos_wordpress_org.png
+og:image: /img/integrations/smythos_wordpress_org.png
 keywords: [WordPress.org SmythOS Integration, Connect WordPress.org to SmythOS, SmythOS WordPress, Automate Blogging, WordPress REST API, No-Code WordPress]
+tags: [cms, blogging, content management, automation]
 ---
 # WordPress.org Integration with SmythOS
 
@@ -74,7 +75,7 @@ Your encoded credentials are a sensitive secret. Use the SmythOS `Vault` to stor
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your **Base64 encoded string** as the value. Give it a memorable name, like `wordpress_org_auth`.
-3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
 ### Step 4: Configure a WordPress.org Component
 1.  In your SmythOS agent graph, drag and drop any WordPress.org component.
@@ -82,7 +83,7 @@ Your encoded credentials are a sensitive secret. Use the SmythOS `Vault` to stor
 3.  In the `Base 64 encoded username and app password` field, select the secret you saved in the Vault.
 4.  Your connection is now configured for that component.
 
-<InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to each WordPress.org component you use that performs a write action (Create, Update, Delete).</InfoCallout>
+<InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to each WordPress.org component that performs a write action (Create, Update, Delete).</InfoCallout>
 <Divider />
 
 ## Which WordPress.org Component Should I Use?
@@ -101,105 +102,170 @@ Your encoded credentials are a sensitive secret. Use the SmythOS `Vault` to stor
 
 This section provides detailed information for each WordPress.org component.
 
-### <a name="create-draft-post"></a>Create Draft Post
-Creates a new post in a `draft` status on your WordPress.org site, including SEO metadata.
-
-<InfoCallout>This component requires Base64 encoded credentials for authentication, as detailed in the [Getting Started](#getting-started-with-wordpressorg) section.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `domain_name` | string | Yes | The full URL of your WordPress.org site. |
-| `title` | string | Yes | The title of the new draft post. |
-| `content` | string | Yes | The body content of the post, which can be plain text or HTML. |
-| `meta_description`| string | Optional| A brief SEO summary of the post. |
-| `keywords` | string | Optional| Comma-separated SEO keywords. |
-| `categories`| integer | Optional| The WordPress category ID(s) for the post. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer| The unique ID of the newly created draft post. |
-| `Response`| object | The full, raw JSON response from the WordPress REST API. |
-
-<TipCallout title="Use Case">
-An agent generates a first draft of a technical article using an AI model, then calls this component to save it to WordPress with relevant SEO metadata for an editor to review.
-</TipCallout>
-
-<Divider/>
-
-### <a name="create-post-with-image"></a>Create Post With Image
-Creates a new draft post and associates it with a featured image from your WordPress Media Library.
-
-<InfoCallout>This component requires Base64 encoded credentials for authentication, as detailed in the [Getting Started](#getting-started-with-wordpressorg) section.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `domain_name` | string | Yes | The URL of your WordPress.org site. |
-| `title` | string | Yes | The title of the new post. |
-| `content` | string | Yes | The body content of the post (HTML or plain text). |
-| `image_id` | string | Yes | The ID of an image that is already uploaded to your WordPress Media Library. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | integer| The unique ID of the newly created post. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent generates a blog post and a corresponding image. It first uploads the image to the Media Library (using a different component or process), gets the `image_id`, and then calls this component to create the draft and set the featured image in one step.
-</TipCallout>
-
-<Divider/>
-
 ### <a name="update-post"></a>Update Post
-Edits the content of an existing post on your site.
+This component allows you to update the content of an existing post on a WordPress.org website.
 
-<InfoCallout>This component requires Base64 encoded credentials for authentication, as detailed in the [Getting Started](#getting-started-with-wordpressorg) section.</InfoCallout>
+<InfoCallout>This component requires Base64 encoded credentials for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `domain_name` | string | Yes | The URL of your WordPress.org site. |
-| `post_id` | string | Yes | The unique ID of the post to update. |
-| `content` | string | Yes | The new HTML or text content for the post. |
+| `domain_name` | string | Yes | The URL of your WordPress site. |
+| `post_id` | string | Yes | The ID of the post you wish to update. |
+| `content` | string | Yes | The new text content of the post. Accepts raw text or HTML. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | integer| The ID of the updated post. |
-| `content` | string | The updated content of the post. |
-| `Response`| object | The raw JSON response, containing the full updated post object. |
+| `id` | integer| The unique identifier of the updated post. |
+| `content`| string | The updated content of the post. |
+| `Response`| object | The complete server response, including the updated post details. |
 
 <TipCallout title="Use Case">
 An agent monitors a product database. When a product's description changes, the agent uses this component to update the corresponding product page on the WordPress site.
 </TipCallout>
 
+<Arcade src="https://demo.arcade.software/Q0ceziGGQqDljUkhmyGx?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Update Post" />
+
 <Divider/>
 
-### <a name="list-and-get-posts"></a>List & Get Posts
-Includes **List Posts** and **Get Post**. These components retrieve post data from your site.
+### <a name="list-posts"></a>List Posts
+This component retrieves a collection of posts from a WordPress.org site.
 
-<InfoCallout>These components do not require authentication as they access publicly available data.</InfoCallout>
+<InfoCallout>This component does not require authentication as it accesses public data.</InfoCallout>
 
-#### Common Inputs
+#### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `domain_name`| string | Yes | The URL of your WordPress.org site. |
-| `post_id` | string | (For Get Post) Yes | The unique ID of the post to retrieve. |
-| `per_page` | integer| (For List) Optional | The number of posts to retrieve. Default: `10`. |
+| `per_page` | integer| Optional | The number of posts to retrieve per page. Defaults to `10`. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `posts` | array | (List Posts) An array of post objects. |
-| `title`, `content`, `link` | any | (Get Post) Specific details of the retrieved post. |
-| `Response`| object | The raw JSON response from the API. |
+| `posts` | array | A list of posts retrieved in the specified format. |
+| `Response`| object | The entire server response including data about the retrieved posts. |
+| `Headers` | object | HTTP headers containing additional metadata from the response. |
 
 <TipCallout title="Use Case">
-A "content audit" agent uses `List Posts` to get all articles, then loops through them, using `Get Post` to fetch the full content for analysis or backup.
+A "content syndication" agent uses this component to get the latest posts from a source blog to be re-published elsewhere.
 </TipCallout>
+
+<Arcade src="https://demo.arcade.software/mV11AlNWcMy99D3Tl1gr?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org List Posts" />
+
+<Divider/>
+
+### <a name="get-post"></a>Get Post
+Retrieve a specific post from your WordPress.org site by accessing its detailed record.
+
+<InfoCallout>This component does not require authentication as it accesses public data.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `domain_name`| string | Yes | The URL of your WordPress.org site. |
+| `post_id` | string | Yes | The unique identifier of the post you wish to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | The title of the post fetched. |
+| `content`| string | The main content or body of the post. |
+| `link` | string | Direct URL to the retrieved post. |
+| `Response`| object | Contains the full server response including metadata and post data. |
+
+<TipCallout title="Use Case">
+An agent, tasked with summarizing an article, uses this component to fetch the full `content` before passing it to an LLM.
+</TipCallout>
+
+<Arcade src="https://demo.arcade.software/2MAHfE57ztLT13OcD94n?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Get Post" />
+
+<Divider/>
+
+### <a name="create-draft-post"></a>Create Draft Post
+This component allows for the creation of a draft post on your WordPress.org site.
+
+<InfoCallout>This component requires Base64 encoded credentials for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `domain_name`| string | Yes | The full URL of your WordPress.org site. |
+| `title` | string | Yes | The title of the draft post. |
+| `content` | string | Yes | The main text content of the draft post. Accepts raw text or HTML. |
+| `meta_description`| string | Optional| A brief summary of the post for SEO. |
+| `keywords` | string | Optional| Relevant SEO keywords associated with the post, separated by commas. |
+| `categories`| integer | Optional| The ID for the WordPress post category. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | integer| The unique identifier of the newly created draft post. |
+| `Response`| object | Provides the full server response including all metadata related to the draft post created. |
+
+<TipCallout title="Use Case">
+An agent generates a first draft of a technical article using an AI model, then calls this component to save it to WordPress with relevant SEO metadata for an editor to review.
+</TipCallout>
+
+<Arcade src="https://demo.arcade.software/7iSVJIIzcNmP39Ijs9UP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Create Draft Post" />
+
+<Divider/>
+
+### <a name="create-post-with-image"></a>Create Post With Image
+This component creates a draft post with a featured image attachment on your WordPress.org site.
+
+<InfoCallout>This component requires Base64 encoded credentials for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `domain_name`| string | Yes | The URL of your WordPress.org site. |
+| `title` | string | Yes | The title of your post. |
+| `content` | string | Yes | The body of the post (plain text or HTML). |
+| `meta_description`| string | Optional| A concise SEO-friendly description of the post. |
+| `keywords` | string | Optional| Comma-separated keywords relevant to the post for SEO. |
+| `image_id` | string | Yes | The ID of an image already uploaded to your WordPress media library. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | integer| The unique identifier for the newly created draft post. |
+| `Response`| object | The complete server response, including all metadata related to the created draft post with an image. |
+
+<TipCallout title="Use Case">
+An agent generates a blog post and a corresponding image. It first uploads the image to the Media Library (using a different component or process), gets the `image_id`, and then calls this component to create the draft and set the featured image in one step.
+</TipCallout>
+
+<Arcade src="https://demo.arcade.software/cyBLONuB5xxkBy4JZaSG?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WPorg Create Post With Image" />
+
+<Divider/>
+
+### <a name="delete-post"></a>Delete Post
+This component facilitates the deletion of a specific post from your WordPress.org site.
+
+<InfoCallout>This component requires Base64 encoded credentials for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `domain_name`| string | Yes | The URL of your WordPress.org site where the post exists. |
+| `post_id` | string | Yes | The unique identifier of the post you wish to delete. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | Displays the full server response, which includes confirmation of the deletion or details about any errors encountered. |
+| `Headers` | object | Lists HTTP headers that provide additional context about the response. |
+
+<TipCallout title="Use Case">
+An agent identifies promotional posts for events that have already passed and automatically deletes them to keep the blog content current.
+</TipCallout>
+
+<WarningCallout title="Irreversible Action">
+This action permanently deletes the post. Use with caution.
+</WarningCallout>
+
+<Arcade src="https://demo.arcade.software/HWrgHHPEeyf9pwEchsrb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Delete Post" />
 
 <Divider />
 

@@ -3,7 +3,7 @@ title: GoHighLevel Integration
 description: Connect SmythOS to GoHighLevel to automate your marketing, sales, and CRM workflows, managing contacts and opportunities directly from your agents.
 og:title: SmythOS & GoHighLevel - Automate Your All-in-One Platform
 og:description: Learn to integrate GoHighLevel with SmythOS. Empower your agents to create and manage contacts, tasks, and sales opportunities, streamlining your entire business operations.
-og:image: /docs/img/integrations/smythos_gohighlevel.png
+og:image: /img/integrations/smythos_gohighlevel.png
 keywords: [GoHighLevel SmythOS Integration, Connect GoHighLevel to SmythOS, SmythOS GHL, Automate CRM, GoHighLevel API, No-Code Marketing Automation]
 ---
 # GoHighLevel Integration with SmythOS
@@ -19,26 +19,37 @@ Quickly compare GoHighLevel components by what they do and their key I/O. Click 
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Create Contact**](#create-contact) | Write | Creates a new contact in a specific location. | <Badge type="required" /> `email`<br/><Badge type="optional" /> `firstName`, `phone` | `id`, `locationId` | Adding a new lead from a website form. |
-| [**Update Contact**](#update-contact) | Write | Updates the fields of an existing contact. | <Badge type="required" /> `contactId`, `Body` | `id`, `email` | Updating a contact's details from a CRM. |
-| [**Get Contacts**](#get-contacts) | Read | Retrieves a list of all contacts in a location. | <Badge type="required" /> `trigger`<br/><Badge type="optional" /> `limit` | `contacts` | Syncing your contacts to an external system. |
+| [**Create Contact**](#create-contact) | Write | Creates a new contact in a specific location. | <Badge type="required" /> `email`<br/><Badge type="optional" /> `firstName` | `id` | Adding a new lead from a web form. |
 | [**Get Contact**](#get-contact) | Read | Retrieves a contact by its unique ID. | <Badge type="required" /> `contactId` | `id`, `email`| Fetching contact details for personalization. |
+| [**Get Contacts**](#get-contacts) | Read | Retrieves a list of all contacts in a location. | <Badge type="required" /> `trigger`<br/><Badge type="optional" /> `limit` | `contacts` | Syncing your contacts to an external system. |
 | [**Search Contact By Email**](#search-contact-by-email)| Search | Finds contacts by their email address. | <Badge type="required" /> `email_query` | `contacts` | Checking if a lead already exists before creating it. |
 | [**Search Contact By Phone**](#search-contact-by-phone)| Search | Finds contacts by their phone number. | <Badge type="required" /> `phone_query` | `contacts` | Finding a contact record from a caller ID. |
+| [**Update Contact**](#update-contact) | Write | Updates the fields of an existing contact. | <Badge type="required" /> `contactId`, `Body` | `id` | Updating a contact's details from a CRM. |
 | [**Delete Contact**](#delete-contact) | Write | Permanently deletes a contact by their ID. | <Badge type="required" /> `contactId`| `Response` | Handling data removal requests. |
 | [**Add Contact Tags**](#add-contact-tags) | Write | Adds one or more tags to a contact. | <Badge type="required" /> `contactId`, `tags` | `tags` | Segmenting contacts based on their actions. |
-| [**Delete Contact Campaigns**](#delete-contact-campaigns)| Write | Removes a contact from all campaigns. | <Badge type="required" /> `contactId` | `Response` | Opting a user out of all marketing. |
+| [**Create Note**](#create-note) | Write | Adds a note to a specific contact's record. | <Badge type="required" /> `contactId`, `body` | `id` | Logging a summary of a phone call. |
+| [**Get Contact Notes**](#get-contact-notes) | Read | Retrieves all notes associated with a contact. | <Badge type="required" /> `contactId` | `notes` | Reviewing a contact's history before an appointment. |
+| [**Update Note**](#update-note) | Write | Updates the content of an existing note. | <Badge type="required" /> `contactId`, `noteId`, `body` | `id`, `body` | Correcting or adding information to a previous note. |
+| [**Delete Note**](#delete-note) | Write | Deletes a specific note from a contact's record. | <Badge type="required" /> `contactId`, `noteId` | `Response` | Removing temporary or irrelevant notes. |
+| [**Get Contact Appointments**](#get-contact-appointments) | Read | Retrieves all appointments for a specific contact. | <Badge type="required" /> `contactId` | `Response` | Checking a client's appointment history. |
+| [**Delete Contact Campaigns**](#delete-contact-campaigns)| Write | Removes a contact from all campaigns. | <Badge type="required" /> `contactId` | `Response` | Handling a global marketing unsubscribe request. |
 | [**Create Task**](#create-task) | Write | Creates a new task and assigns it to a contact. | <Badge type="required" /> `contactId`, `title`, `dueDate` | `id` | Automatically creating a "Follow Up" task. |
+| [**Get Task**](#get-task) | Read | Retrieves a task for a contact by ID. | <Badge type="required" /> `contactId`, `taskId` | `id`, `title`| Checking if a task is complete. |
 | [**Get Contact Tasks**](#get-contact-tasks) | Read | Retrieves all tasks associated with a specific contact. | <Badge type="required" /> `contactId` | `tasks` | Reviewing all open items for a client before a call. |
-| [**Update Task Status**](#update-task-status) | Write | Updates the status of a task to complete or incomplete. | <Badge type="required" /> `contactId`, `taskId`, `status`| `id`, `isCompleted`| Marking a task as done from another system. |
+| [**Update Task**](#update-task) | Write | Updates the title, description, and due date of a task. | <Badge type="required" /> `contactId`, `taskId`, `title` | `id` | Rescheduling a task. |
+| [**Update Task Status**](#update-task-status) | Write | Updates the status of a task to complete or incomplete. | <Badge type="required" /> `contactId`, `taskId`, `status`| `id` | Marking a task as done from another system. |
+| [**Delete Task**](#delete-task) | Write | Deletes a task for a contact. | <Badge type="required" /> `contactId`, `taskId`| `Response` | Removing a cancelled task. |
 | [**Create Opportunity**](#create-opportunity) | Write | Creates a new opportunity (deal) in a pipeline. | <Badge type="required" /> `pipelineId`, `title`, `stageId`, `contactId` | `id`, `name` | Starting a new sales process for a qualified lead. |
+| [**Get Opportunity**](#get-opportunity) | Read | Retrieves a specific opportunity by its ID. | <Badge type="required" /> `pipelineId`, `opportunityId` | `id`, `name` | Getting details for a sales report. |
 | [**Get Opportunities**](#get-opportunities) | Read | Retrieves all opportunities from a specific pipeline. | <Badge type="required" /> `pipelineId` | `opportunities`| Generating a sales pipeline report. |
 | [**Update Opportunity**](#update-opportunity) | Write | Updates the properties of an existing opportunity. | <Badge type="required" /> `opportunityId`, `Body`| `id`, `name`| Moving a deal to the next stage in the pipeline. |
-| [**Create Note**](#create-note) | Write | Adds a note to a specific contact's record. | <Badge type="required" /> `contactId`, `body` | `id` | Logging a summary of a phone call. |
-| [**Get Contact Notes**](#get-contact-notes) | Read | Retrieves all notes for a specific contact. | <Badge type="required" /> `contactId` | `notes` | Getting historical context on a customer. |
+| [**Delete Opportunity**](#delete-opportunity) | Write | Deletes an opportunity by its ID. | <Badge type="required" /> `pipelineId`, `opportunityId` | `Response` | Removing a lost or invalid opportunity. |
+| [**Get Pipelines**](#get-pipelines) | Read | Retrieves all sales pipelines in a location. | <Badge type="required" /> `trigger` | `pipelines`| Finding the correct pipeline ID. |
+| [**Get Workflows**](#get-workflows) | Read | Retrieves all automation workflows in a location. | <Badge type="required" /> `trigger` | `workflows`| Auditing your automated campaigns. |
 | [**Create Tag**](#create-tag) | Write | Creates a new tag that can be used on contacts. | <Badge type="required" /> `name` | `id` | Setting up a new "Q4-Promo" tag. |
 | [**Get All Tags**](#get-all-tags) | Read | Retrieves all tags available in a location. | <Badge type="required" /> `trigger` | `tags` | Finding the correct tag to apply to a contact. |
-
+| [**Find User by Email**](#find-user-by-email) | Search | Finds a user by their email address (requires Agency Key). | <Badge type="required" /> `email` | `id` | Finding a user's ID to assign tasks or permissions. |
+| [**Get All Agency Users**](#get-all-agency-users) | Read | Retrieves all users in an agency (requires Agency Key). | <Badge type="required" /> `trigger` | `users`| Auditing all user accounts in the agency. |
 
 <InfoCallout>
 <details>
@@ -84,7 +95,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your GoHighLevel API Key as the value. Give it a memorable name, like `gohighlevel_location_key` or `gohighlevel_agency_key`.
-3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
 ### Step 3: Configure a GoHighLevel Component
 1.  In your SmythOS agent graph, drag and drop any GoHighLevel component.
@@ -100,11 +111,11 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 | If you need to… | Target | Use this Component | Why this one? |
 |-----------------|--------|--------------------|---------------|
 | **Add a new lead** to your CRM | An email, name, and other details | [Create Contact](#create-contact) | The standard method for creating a new contact record in a location. |
-| **Find a contact** before updating them | An email or phone number | [Search Contact](#search-contact) | The best way to check for duplicates and get a `contactId`. |
+| **Find a contact** before updating them | An email or phone number | [Search Contact By Email](#search-contact-by-email) | The best way to check for duplicates and get a `contactId`. |
 | **Create a new task** for a team member | A `contactId` and a `title` | [Create Task](#create-task) | The primary method for adding to-do items related to a contact. |
 | **Start a new sales opportunity** | A `pipelineId` and `contactId` | [Create Opportunity](#create-opportunity)| Adds a new deal to your sales pipeline for tracking. |
 | **Tag a contact** after they take an action | A `contactId` and tags | [Add Contact Tags](#add-contact-tags) | Allows you to segment your contacts for targeted marketing. |
-| **Get a list of all your sales pipelines** | Your entire location | **Get Pipelines** | Necessary to find the correct `pipelineId` to create opportunities in. |
+| **Get a list of all your sales pipelines** | Your entire location | [Get Pipelines](#get-pipelines) | Necessary to find the correct `pipelineId` to create opportunities in. |
 
 <Divider/>
 
@@ -203,7 +214,7 @@ Finds contacts by their phone number.
 | `Response` | object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-When receiving an inbound call, an agent can use the caller's number to search for their contact record and provide the support team with their history.
+An agent connected to a call system uses the incoming caller ID to search for an existing contact to log the call against.
 </TipCallout>
 
 <Divider/>
@@ -223,10 +234,10 @@ Retrieves a contact by their unique ID.
 |-------|------|-------------|
 | `id` | string | The ID of the retrieved contact. |
 | `email`| string | The email of the retrieved contact. |
-| `Response`| object | The raw JSON response from the API. |
+| `Response`| object | The raw JSON response from the API, containing all contact details. |
 
 <TipCallout title="Use Case">
-After finding a contact via search, an agent uses their ID with this component to get all their detailed properties.
+After finding a contact via search, an agent uses their ID with this component to get all their detailed properties before updating them.
 </TipCallout>
 
 <Divider/>
@@ -243,7 +254,7 @@ Updates the fields of an existing contact by their ID.
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `contactId`| string | Yes | The ID of the contact to update. |
-| `email` | string | Optional | If provided, will update the contact's email. |
+| `email` | string | Optional | If provided in the body, will update the contact's email. |
 
 #### Outputs
 | Field | Type | Description |
@@ -272,6 +283,7 @@ Permanently deletes a contact by their ID.
 | Field | Type | Description |
 |-------|------|-------------|
 | `Response`| object | The raw JSON response from the API, confirming the deletion. |
+| `Headers` | object | The HTTP headers from the API response. |
 
 <TipCallout title="Use Case">
 When a user requests their data be deleted under GDPR, an agent is triggered to remove their record from all systems, including using this component to delete their GoHighLevel contact.
@@ -280,580 +292,72 @@ When a user requests their data be deleted under GDPR, an agent is triggered to 
 <WarningCallout title="Irreversible Action">
 This action permanently deletes the contact and cannot be undone. Use with care.
 </WarningCallout>
-### <a name="get-note"></a>Get Note
-Retrieve a specific note for a contact by ID.
+### <a name="add-contact-tags"></a>Add Contact Tags
+Adds one or more tags to a contact.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose note you want to retrieve. |
-| `noteId` | string | Yes | The ID of the specific note to retrieve. |
+| `contactId`| string | Yes | The ID of the contact to add tags to. |
+| `tags`| array | Yes | An array of strings representing the tags to add. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | string | The ID of the retrieved note. |
-| `body` | string | The content of the retrieved note. |
-| `createdAt`| string | The creation date of the retrieved note. |
+| `tags`| array | The list of tags that were added to the contact. |
 | `Response`| object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-To verify a note's content before taking an action, an agent fetches the specific note using its ID.
+When a user signs up for a specific webinar, an agent adds a tag with the webinar's name to their contact profile for future segmentation.
 </TipCallout>
 
 <Divider/>
 
-### <a name="delete-note"></a>Delete Note
-Delete a note for a contact by ID.
+### <a name="create-note"></a>Create Note
+Adds a new note to a specific contact's record.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose note you want to delete. |
-| `noteId` | string | Yes | The ID of the specific note to delete. |
+| `contactId` | string | Yes | The ID of the contact you want to add a note to. |
+| `body` | string | Yes | The content of the note. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `Response`| object | A successful deletion returns an empty object. |
-| `Headers` | object | HTTP headers detailing the API request-response process. |
-
-<TipCallout title="Use Case">
-A cleanup agent removes temporary or outdated notes from contact records to keep them tidy.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-note"></a>Update Note
-Update a contact's note.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose note you want to update. |
-| `noteId` | string | Yes | The ID of the specific note to update. |
-| `body` | string | Yes | The updated content of the note. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated note. |
-| `body` | string | The content of the updated note. |
-| `createdAt`| string | The date the note was updated. |
+| `id` | string | The unique ID of the created note. |
+| `body` | string | The content of the created note. |
+| `createdAt`| string | The date the note was created. |
 | `Response`| object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-An agent corrects a typo or adds additional information to a previously logged note on a contact's file.
+An agent summarizes a phone call transcript and uses this component to add the summary to the customer's contact record.
 </TipCallout>
 
 <Divider/>
 
-### <a name="create-tag"></a>Create Tag
-Create a new tag in your location.
+### <a name="get-contact-notes"></a>Get Contact Notes
+Retrieves all notes for a contact.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `name` | string | Yes | The name of the new tag to create. |
+| `contactId` | string | Yes | The ID of the contact whose notes you want to retrieve. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | string | The ID of the newly created tag. |
-| `Response`| object | The raw JSON response from the API. |
+| `notes` | array | The list of notes associated with the contact. |
+| `Response` | object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-Before launching a new marketing campaign, an agent creates a new tag (e.g., "Q4-Holiday-Promo") to be applied to all leads from that campaign.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-all-tags"></a>Get All Tags
-Retrieve all tags available in a location.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `tags` | array | The list of all retrieved tags. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent needs to apply a tag to a contact but only knows the tag's name. It uses this component to get all tags, finds the correct one, and gets its ID for use in the "Add Contact Tags" component.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-tag"></a>Get Tag
-Retrieve a specific tag by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved tag. |
-| `name` | string | The name of the retrieved tag. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-To verify a tag exists before using it in a workflow, an agent fetches its details by its ID.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-tag"></a>Update Tag
-Update a tag's name by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to update. |
-| `name` | string | Yes | The new name for the tag. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated tag. |
-| `name` | string | The updated name of the tag. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent renames the "Newsletter-2024" tag to "Newsletter-Archive-2024" as part of an end-of-year cleanup process.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-tag"></a>Delete Tag
-Delete a tag by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | A successful deletion returns an empty response. |
-| `Headers` | object | The HTTP headers from the API response. |
-
-<TipCallout title="Use Case">
-An agent removes an old, unused tag from the system to keep the list of available tags clean and relevant.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-pipelines"></a>Get Pipelines
-Retrieve all sales pipelines in a location.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `pipelines`| array | The list of pipelines retrieved. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-This is a critical first step for opportunity management. An agent uses this component to find the ID of the "Enterprise Sales" pipeline before creating a new opportunity in it.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-opportunity"></a>Get Opportunity
-Retrieve a specific opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline containing the opportunity. |
-| `opportunityId`| string | Yes | The ID of the specific opportunity to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved opportunity. |
-| `name` | string | The name of the retrieved opportunity. |
-| `status` | string | The current status of the opportunity (`open`, `won`, `lost`). |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-Before taking an action, an agent fetches an opportunity's details to check its current status and monetary value.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-opportunity"></a>Delete Opportunity
-Delete an opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A cleanup agent deletes duplicate or erroneously created opportunities from the sales pipeline.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-opportunity-status-and-stage"></a>Update Opportunity Status and Stage
-Updates an opportunity's status and stage within a pipeline.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to update. |
-| `status` | string | Yes | The new status (`open`, `won`, or `lost`). |
-| `stageId` | string | Yes | The ID of the new stage within the pipeline. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-When a contract is signed, an agent is triggered to update the corresponding opportunity's status to "won".
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-task"></a>Get Task
-Retrieves a specific task for a contact by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact the task belongs to. |
-| `taskId` | string | Yes | The ID of the task to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved task. |
-| `title` | string | The title of the task. |
-| `isCompleted`| boolean | The completion status of the task. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent checks if a follow-up task is already completed before sending a reminder notification.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-task"></a>Update Task
-Updates the title, description, and due date of a task.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact the task belongs to. |
-| `taskId` | string | Yes | The ID of the task to update. |
-| `title` | string | Yes | The new title for the task. |
-| `dueDate` | string | Yes | The new due date for the task. |
-| `description`| string | Optional | The new description for the task. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated task. |
-| `title` | string | The updated title of the task. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-If a meeting is rescheduled, an agent finds the related task and updates its `dueDate` to match the new meeting time.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-task-status"></a>Update Task Status
-Updates a task's status to either `completed` or `incompleted`.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact the task belongs to. |
-| `taskId` | string | Yes | The ID of the task to update. |
-| `status` | string | Yes | The new status: `completed` or `incompleted`. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated task. |
-| `isCompleted`| boolean | The new completion status of the task. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-When a user replies to a follow-up email, an agent marks the corresponding "Send follow-up" task as `completed`.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-task"></a>Delete Task
-Deletes a task for a contact.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact the task belongs to. |
-| `taskId` | string | Yes | The ID of the task to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent deletes an automatically created reminder task once the main action has been completed.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-campaigns"></a>Get Campaigns
-Retrieves all marketing campaigns in a location.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `campaigns`| array | A parsed list of campaigns. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A marketing agent retrieves all campaigns to analyze their statuses and performance metrics.
-</TipCallout>
-
-<Divider/>
-
-### <a name="find-user-by-email"></a>Find User by Email
-Finds a user by their email address. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `email` | string | Yes | The email address of the user to find. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the user found. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An admin agent needs to get a team member's user ID to add them to a new sub-account.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-all-agency-users"></a>Get All Agency Users
-Retrieves all users in an agency. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `users` | array | A list of all user objects in the agency. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A security agent runs monthly to get a list of all agency users for an access audit.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-agency-user"></a>Get Agency User
-Retrieves a specific agency user by their ID. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `userId`| string | Yes | The ID of the user to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the user. |
-| `firstName`| string | The first name of the user. |
-| `lastName` | string | The last name of the user. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent gets a user's name and role for a permissions report.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-location-users"></a>Get Location Users
-Retrieves all users assigned to a specific location (sub-account).
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `users` | array | A list of user objects in the location. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-To assign a task, an agent first gets all users in the specific location to find the correct assignee ID.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-contact-appointments"></a>Get Contact Appointments
-Retrieves all appointments for a specific contact.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose appointments you want to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response containing a list of appointment objects. |
-
-<TipCallout title="Use Case">
-Before scheduling a new call, an agent checks the contact's existing appointments to avoid double-booking.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-contact-campaigns"></a>Delete Contact Campaigns
-Removes a contact from all campaigns.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact to remove from all campaigns. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-When a contact replies "STOP" to a marketing message, an agent is triggered to remove them from all future campaigns to honor their request.
-</TipCallout>
-### <a name="get-note"></a>Get Note
-Retrieve a specific note for a contact by ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose note you want to retrieve. |
-| `noteId` | string | Yes | The ID of the specific note to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved note. |
-| `body` | string | The content of the retrieved note. |
-| `createdAt`| string | The creation date of the retrieved note. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-To verify a note's content before taking an action, an agent fetches the specific note using its ID.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-note"></a>Delete Note
-Deletes a note for a contact by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose note you want to delete. |
-| `noteId` | string | Yes | The ID of the specific note to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | A successful deletion returns an empty object. |
-| `Headers` | object | HTTP headers detailing the API request-response process. |
-
-<TipCallout title="Use Case">
-A cleanup agent removes temporary or outdated notes from contact records to keep them tidy.
+Before a sales call, an agent retrieves all recent notes for a contact to provide the sales rep with the latest context.
 </TipCallout>
 
 <Divider/>
@@ -884,176 +388,59 @@ An agent corrects a typo or adds additional information to a previously logged n
 
 <Divider/>
 
-### <a name="create-tag"></a>Create Tag
-Creates a new tag in your location.
+### <a name="delete-note"></a>Delete Note
+Deletes a note for a contact by its ID.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `name` | string | Yes | The name of the new tag to create. |
+| `contactId`| string | Yes | The ID of the contact whose note you want to delete. |
+| `noteId` | string | Yes | The ID of the specific note to delete. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | string | The ID of the newly created tag. |
-| `Response`| object | The raw JSON response from the API. |
+| `Response`| object | A successful deletion returns an empty object. |
+| `Headers` | object | HTTP headers detailing the API request-response process. |
 
 <TipCallout title="Use Case">
-Before launching a new marketing campaign, an agent creates a new tag (e.g., "Q4-Holiday-Promo") to be applied to all leads from that campaign.
+A cleanup agent removes temporary or outdated notes from contact records to keep them tidy.
 </TipCallout>
 
 <Divider/>
 
-### <a name="get-all-tags"></a>Get All Tags
-Retrieves all tags available in a location.
+### <a name="get-contact-appointments"></a>Get Contact Appointments
+Retrieves all appointments for a specific contact.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
+| `contactId`| string | Yes | The ID of the contact whose appointments you want to retrieve. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `tags` | array | The list of all retrieved tags. |
-| `Response`| object | The raw JSON response from the API. |
+| `Response`| object | The raw JSON response containing a list of appointment objects. |
 
 <TipCallout title="Use Case">
-An agent needs to apply a tag to a contact but only knows the tag's name. It uses this component to get all tags, finds the correct one, and gets its ID for use in the "Add Contact Tags" component.
+Before scheduling a new call, an agent checks the contact's existing appointments to avoid double-booking.
 </TipCallout>
 
 <Divider/>
 
-### <a name="get-tag"></a>Get Tag
-Retrieves a specific tag by its ID.
+### <a name="delete-contact-campaigns"></a>Delete Contact Campaigns
+Removes a contact from all campaigns.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved tag. |
-| `name` | string | The name of the retrieved tag. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-To verify a tag exists before using it in a workflow, an agent fetches its details by its ID.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-tag"></a>Update Tag
-Updates a tag's name by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to update. |
-| `name` | string | Yes | The new name for the tag. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated tag. |
-| `name` | string | The updated name of the tag. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent renames the "Newsletter-2024" tag to "Newsletter-Archive-2024" as part of an end-of-year cleanup process.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-tag"></a>Delete Tag
-Deletes a tag by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `tagId` | string | Yes | The ID of the tag to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | A successful deletion returns an empty response. |
-| `Headers` | object | The HTTP headers from the API response. |
-
-<TipCallout title="Use Case">
-An agent removes an old, unused tag from the system to keep the list of available tags clean and relevant.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-pipelines"></a>Get Pipelines
-Retrieves all sales pipelines in a location.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `pipelines`| array | The list of retrieved pipelines. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-This is a critical first step for opportunity management. An agent uses this component to find the ID of the "Enterprise Sales" pipeline before creating a new opportunity in it.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-opportunity"></a>Get Opportunity
-Retrieves a specific opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline containing the opportunity. |
-| `opportunityId`| string | Yes | The ID of the specific opportunity to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|----------|-------------|
-| `id` | string | The ID of the retrieved opportunity. |
-| `name` | string | The name of the retrieved opportunity. |
-| `status` | string | The current status of the opportunity (`open`, `won`, `lost`). |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-Before taking an action, an agent fetches an opportunity's details to check its current status and monetary value.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-opportunity"></a>Delete Opportunity
-Deletes an opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to delete. |
+| `contactId`| string | Yes | The ID of the contact to remove from all campaigns. |
 
 #### Outputs
 | Field | Type | Description |
@@ -1061,31 +448,34 @@ Deletes an opportunity by its ID.
 | `Response`| object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-A cleanup agent deletes duplicate or erroneously created opportunities from the sales pipeline.
+When a contact replies "STOP" to a marketing message, an agent is triggered to remove them from all future campaigns to honor their request.
 </TipCallout>
 
 <Divider/>
 
-### <a name="update-opportunity-status-and-stage"></a>Update Opportunity Status and Stage
-Updates an opportunity's status and stage within a pipeline.
+### <a name="create-task"></a>Create Task
+Creates a new task for a specific contact.
 
 <InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to update. |
-| `status` | string | Yes | The new status (`open`, `won`, or `lost`). |
-| `stageId` | string | Yes | The ID of the new stage within the pipeline. |
+| `contactId` | string | Yes | The ID of the contact the task is for. |
+| `title` | string | Yes | The title or subject of the task. |
+| `dueDate` | string | Yes | The due date for the task. |
+| `description`| string | Optional| A more detailed description of the task. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
+| `id` | string | The unique ID of the created task. |
+| `title` | string | The title of the task. |
+| `isCompleted`| boolean | The initial completion status of the task (`false`). |
 | `Response`| object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-When a contract is signed, an agent is triggered to update the corresponding opportunity's status to "won".
+When a new contact is created, an agent automatically creates a follow-up task for a sales representative, due in 24 hours, with the title "Call new lead: [Contact Name]".
 </TipCallout>
 
 <Divider/>
@@ -1111,6 +501,28 @@ Retrieves a specific task for a contact by its ID.
 
 <TipCallout title="Use Case">
 An agent checks if a follow-up task is already completed before sending a reminder notification.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-contact-tasks"></a>Get Contact Tasks
+Retrieves all tasks associated with a specific contact.
+
+<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `contactId` | string | Yes | The ID of the contact whose tasks you want to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `tasks` | array | A parsed list of task objects associated with the contact. |
+| `Response`| object | The raw JSON response from the API. |
+
+<TipCallout title="Use Case">
+A customer success agent, before a check-in call, uses this component to retrieve all open tasks for a contact to get a full picture of ongoing activities.
 </TipCallout>
 
 <Divider/>
@@ -1185,311 +597,6 @@ Deletes a task for a contact.
 
 <TipCallout title="Use Case">
 An agent deletes an automatically created reminder task once the main action has been completed.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-campaigns"></a>Get Campaigns
-Retrieves all marketing campaigns in a location.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `campaigns`| array | A parsed list of campaigns. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A marketing agent retrieves all campaigns to analyze their statuses and performance metrics.
-</TipCallout>
-
-<Divider/>
-
-### <a name="find-user-by-email"></a>Find User by Email
-Finds a user by their email address. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `email` | string | Yes | The email address of the user to find. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the user found. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An admin agent needs to get a team member's user ID to add them to a new sub-account.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-all-agency-users"></a>Get All Agency Users
-Retrieves all users in an agency. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `users` | array | A list of all user objects in the agency. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A security agent runs monthly to get a list of all agency users for an access audit.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-agency-user"></a>Get Agency User
-Retrieves a specific agency user by their ID. This component requires an Agency-level API Key.
-
-<InfoCallout>This component requires an `Agency API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `userId`| string | Yes | The ID of the user to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the user. |
-| `firstName`| string | The first name of the user. |
-| `lastName` | string | The last name of the user. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent gets a user's name and role for a permissions report.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-location-users"></a>Get Location Users
-Retrieves all users assigned to a specific location (sub-account).
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger`| any | Yes | Any value to trigger execution. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `users` | array | A list of user objects in the location. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-To assign a task, an agent first gets all users in the specific location to find the correct assignee ID.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-contact-appointments"></a>Get Contact Appointments
-Retrieves all appointments for a specific contact.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact whose appointments you want to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response containing a list of appointment objects. |
-
-<TipCallout title="Use Case">
-Before scheduling a new call, an agent checks the contact's existing appointments to avoid double-booking.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-contact-campaigns"></a>Delete Contact Campaigns
-Removes a contact from all campaigns.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId`| string | Yes | The ID of the contact to remove from all campaigns. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-When a contact replies "STOP" to a marketing message, an agent is triggered to remove them from all future campaigns to honor their request.
-</TipCallout>
-### <a name="create-note"></a>Create Note
-Adds a new note to a specific contact's record.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId` | string | Yes | The ID of the contact to which the note will be added. |
-| `body` | string | Yes | The text content of the note. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The unique ID of the created note. |
-| `body` | string | The content of the created note. |
-| `createdAt`| string | The timestamp indicating when the note was created. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-After a sales call, an agent takes the call summary and uses this component to log it as a new note on the customer's contact record for future reference.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-contact-tasks"></a>Get Contact Tasks
-Retrieves all tasks associated with a specific contact.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `contactId` | string | Yes | The ID of the contact whose tasks you want to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `tasks` | array | A parsed list of task objects associated with the contact. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A customer success agent, before a check-in call, uses this component to retrieve all open tasks for a contact to get a full picture of ongoing activities.
-</TipCallout>
-
-<Divider/>
-
-### <a name="get-opportunity"></a>Get Opportunity
-Retrieves a specific opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline containing the opportunity. |
-| `opportunityId`| string | Yes | The ID of the specific opportunity to retrieve. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the retrieved opportunity. |
-| `name` | string | The name of the retrieved opportunity. |
-| `status` | string | The current status of the opportunity (`open`, `won`, `lost`). |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-Before taking an action, an agent fetches an opportunity's details to check its current status and monetary value.
-</TipCallout>
-
-<Divider/>
-
-### <a name="delete-opportunity"></a>Delete Opportunity
-Deletes an opportunity by its ID.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId`| string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to delete. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `Response`| object | The raw JSON response from the API. |
-| `Headers` | object | HTTP headers detailing the API request-response process. |
-
-<TipCallout title="Use Case">
-A cleanup agent deletes duplicate or erroneously created opportunities from the sales pipeline.
-</TipCallout>
-
-<Divider/>
-
-### <a name="create-opportunity"></a>Create Opportunity
-Creates a new opportunity (deal) in a pipeline.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId` | string | Yes | The ID of the pipeline where the opportunity will be created. |
-| `title` | string | Yes | The title or name of the opportunity. |
-| `status` | string | Yes | The initial status (`open`, `won`, or `lost`). Default is `open`. |
-| `stageId` | string | Yes | The ID of the pipeline stage for the new opportunity. |
-| `contactId`| string | Yes | The ID of the contact to associate with the opportunity. |
-| `monetaryValue`| float | Optional| The monetary value of the opportunity. |
-| `source`| string | Optional| The source of the opportunity lead. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the created opportunity. |
-| `name` | string | The name of the created opportunity. |
-| `pipelineId`| string | The ID of the pipeline the opportunity belongs to. |
-| `pipelineStageId`| string | The ID of the stage the opportunity is in. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-After a contact books a demo, an agent automatically creates a new opportunity for them in the "New Leads" pipeline stage.
-</TipCallout>
-
-<Divider/>
-
-### <a name="update-opportunity"></a>Update Opportunity
-Updates an existing opportunity's properties.
-
-<InfoCallout>This component requires a `Location API Key` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `pipelineId` | string | Yes | The ID of the pipeline associated with the opportunity. |
-| `opportunityId`| string | Yes | The ID of the opportunity to update. |
-| `title` | string | Yes | The new title for the opportunity. |
-| `status` | string | Yes | The new status (`open`, `won`, or `lost`). |
-| `stageId` | string | Yes | The new stage ID for the opportunity. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | The ID of the updated opportunity. |
-| `pipelineId`| string | The associated pipeline ID. |
-| `status`| string | The current status of the updated opportunity. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-When a contract is sent, an agent updates the associated opportunity's stage to "Contract Sent".
 </TipCallout>
 
 <Divider />

@@ -19,8 +19,8 @@ Quickly compare SendGrid components by what they do and their key I/O. Click any
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Send Dynamic Email**](#send-dynamic-email)| Write | Sends an email using a pre-built SendGrid Dynamic Transactional Template. | <Badge type="required" /> `from`, `to`, `template_id`, `JSON_template_handlebars` | `Response` | Sending personalized welcome emails or order confirmations. |
-| [**Send Static Email**](#send-static-email) | Write | Sends a simple email with a subject and content defined directly in the agent. | <Badge type="required" /> `from`, `to`, `subject`, `content` | `Response` | Sending quick system alerts or basic notifications. |
+| [**Send Dynamic Email**](#send-dynamic-email)| Write | Sends an email using a pre-built SendGrid Dynamic Transactional Template. | <Badge type="required" /> `from`, `to`, `template_id`, `JSON_template_handlebars` | `Response`, `Headers` | Sending personalized welcome emails or order confirmations. |
+| [**Send Static Email**](#send-static-email) | Write | Sends a simple email with a subject and content defined directly in the agent. | <Badge type="required" /> `from`, `to`, `subject`, `content` | `Response`, `Headers` | Sending quick system alerts or basic notifications. |
 
 
 <InfoCallout>

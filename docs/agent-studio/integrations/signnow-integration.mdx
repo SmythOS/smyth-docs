@@ -19,7 +19,7 @@ Quickly compare SignNow components by what they do and their key I/O.
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Send for Signature**](#send-for-signature)| Write | Sends a document from your SignNow account to a recipient to be signed. | <Badge type="required" /> `document_id`, `to`, `from`, `subject` | `id` | Sending a sales contract to a new client for their signature. |
+| [**Send E-docs for Signature**](#send-for-signature)| Write | Sends a document from your SignNow account to a recipient to be signed. | <Badge type="required" /> `document_id`, `to`, `from`, `subject` | `id` | Sending a sales contract to a new client for their signature. |
 
 
 <InfoCallout>
@@ -78,7 +78,7 @@ Your Access Token is a sensitive credential. Use the SmythOS `Vault` to store it
 
 | If you need to… | Target | Use this Component | Why this one? |
 |-----------------|--------|--------------------|---------------|
-| **Send a document out for signature** | A `document_id` and a recipient's email | [Send for Signature](#send-for-signature) | This is the core component for initiating the e-signature process for a document. |
+| **Send a document out for signature** | A `document_id` and a recipient's email | [Send E-docs for Signature](#send-for-signature) | This is the core component for initiating the e-signature process for a document. |
 
 <Divider/>
 
@@ -86,7 +86,7 @@ Your Access Token is a sensitive credential. Use the SmythOS `Vault` to store it
 
 This section provides detailed information for the SignNow component.
 
-### <a name="send-for-signature"></a>Send for Signature
+### <a name="send-for-signature"></a>Send E-docs for Signature
 Sends an invitation to a recipient to sign a specific document that exists in your SignNow account. (Formerly "Send E-docs for Signature").
 
 <InfoCallout>This component requires an `Access Token` for authentication, as detailed in the [Getting Started](#getting-started-with-signnow) section.</InfoCallout>

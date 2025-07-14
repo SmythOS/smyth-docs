@@ -3,8 +3,9 @@ title: Squarespace Integration
 description: Connect SmythOS to Squarespace to automate e-commerce operations like managing products, variants, inventory, and orders directly from your agents.
 og:title: SmythOS & Squarespace - Automate Your E-Commerce Store
 og:description: Learn to integrate Squarespace with SmythOS. Empower your agents to create and update products, sync inventory, and retrieve order data to streamline your online store operations.
-og:image: /docs/img/integrations/smythos_squarespace.png
+og:image: /img/integrations/smythos_squarespace.png
 keywords: [Squarespace SmythOS Integration, Connect Squarespace to SmythOS, SmythOS E-commerce Automation, Automate Squarespace, Squarespace API, No-Code E-commerce]
+tags: [ecommerce, cms, inventory, automation]
 ---
 # Squarespace Integration with SmythOS
 
@@ -19,17 +20,29 @@ Quickly compare Squarespace components by what they do and their key I/O. Click 
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
-| [**Create Product**](#create-product) | Write | Creates a new physical product in your store. | <Badge type="required" /> `storePageId`, `name`, `sku`, `basePrice` | `product_id`, `url` | Adding a new item to your catalog from an external system. |
+| [**Create Product**](#create-product) | Write | Creates a new physical product in your store. | <Badge type="required" /> `storePageId`, `name`, `sku` | `product_id`, `url` | Adding a new item to your catalog from an external system. |
 | [**Update Product**](#update-product) | Write | Updates the information for an existing product. | <Badge type="required" /> `productId`, `Body` | `product_id` | Changing a product's name or description. |
-| [**Update Product Variant**](#update-product-variant) | Write | Updates a specific variant of a product (e.g., size or color). | <Badge type="required" /> `productId`, `variantId`, `Body` | `productVariantId` | Updating the price or SKU of a specific product size. |
-| [**Increase/Decrease Stock**](#increase--decrease-stock-quantity) | Write | Adjusts the stock quantity for product variants. | <Badge type="required" /> `variantId`, `quantity` | `Response` | Syncing inventory with a warehouse management system. |
+| [**Delete Product**](#delete-product) | Write | Permanently deletes a product and all its variants. | <Badge type="required" /> `product_id` | `Response` | Removing discontinued items from your store. |
+| [**Get Products**](#get-products) | Read | Retrieves a list of all products in your store. | <Badge type="required" /> `trigger` | `products` | Getting a full catalog export for analysis. |
+| [**Get Specific Products**](#get-specific-products)| Read | Retrieves information for one or more specific products. | <Badge type="required" /> `product_ids` | `products` | Fetching details for a select group of items. |
+| [**Create Product Variant**](#create-product-variant)| Write | Creates a new variant (e.g., size or color) for a product. | <Badge type="required" /> `product_id`, `sku`, `basePrice` | `productVariantId` | Adding a "Large" size option to a t-shirt. |
+| [**Update Product Variant**](#update-product-variant)| Write | Updates a specific variant of a product. | <Badge type="required" /> `productId`, `variantId`, `Body` | `productVariantId` | Updating the price or SKU of a specific product size. |
+| [**Delete Product Variant**](#delete-product-variant)| Write | Deletes a specific variant from a product. | <Badge type="required" /> `productId`, `variantId` | `Response` | Removing the "Small" size option when it's sold out. |
+| [**Increase Stock Quantity**](#increase-stock-quantity)| Write | Increases the stock quantity for product variants. | <Badge type="required" /> `variantId`, `quantity` | `Response` | Adding new stock after a shipment arrives. |
+| [**Decrease Stock Quantity**](#decrease-stock-quantity)| Write | Decreases the stock quantity for product variants. | <Badge type="required" /> `variantId`, `quantity` | `Response` | Syncing inventory after an in-store sale. |
+| [**Set Unlimited Stock**](#set-unlimited-stock-quantity)| Write | Sets the stock for variants to be unlimited. | <Badge type="required" /> `variantIds` | `Response` | Marking a digital product as having unlimited stock. |
+| [**Get All Inventory**](#get-all-inventory) | Read | Retrieves stock information for all product variants. | <Badge type="required" /> `trigger` | `inventory` | Performing a full inventory audit. |
+| [**Get Specific Inventory**](#get-specific-inventory)| Read | Retrieves stock information for specific variants. | <Badge type="required" /> `variantIds` | `inventory` | Checking the stock level for a particular item. |
 | [**Get All Orders**](#get-all-orders)| Read | Retrieves all order information from your store. | <Badge type="required" /> `trigger` | `orderResults` | Exporting order data for custom reporting. |
 | [**Get Specific Order**](#get-specific-order)| Read | Retrieves information for a single, specific order. | <Badge type="required" /> `orderId` | `orderId` | Fetching details to process a customer support query. |
-| [**Get Products**](#get-products) | Read | Retrieves a list of all products in your store. | <Badge type="required" /> `trigger` | `products` | Getting a full catalog export for analysis. |
-| [**Get All Inventory**](#get-all-inventory) | Read | Retrieves stock information for all product variants. | <Badge type="required" /> `trigger` | `inventory` | Performing a full inventory audit. |
+| [**Get All Transactions**](#get-all-transactions)| Read | Retrieves all financial transaction information. | <Badge type="required" /> `trigger` | `transactions` | Syncing financial data with accounting software. |
+| [**Get Specific Transactions**](#get-specific-transactions)| Read | Retrieves one or more specific financial transactions. | <Badge type="required" /> `transactionIds` | `transactions` | Investigating a particular payment. |
 | [**Upload Product Image**](#upload-product-image) | Write | Uploads a new image to a product's gallery. | <Badge type="required" /> `productId`, `image` | `imageId` | Automating the addition of new product photos. |
-| [**Delete Product**](#delete-product) | Write | Permanently deletes a product and all its variants. | <Badge type="required" /> `product_id` | `Response` | Removing discontinued items from your store. |
-
+| [**Update Product Image**](#update-product-image) | Write | Updates the alt text for a product image. | <Badge type="required" /> `productId`, `imageId`, `altText` | `imageId` | Improving image SEO programmatically. |
+| [**Delete Product Image**](#delete-product-image) | Write | Deletes an image from a product's gallery. | <Badge type="required" /> `productId`, `imageId` | `Response` | Removing outdated product photos. |
+| [**Assign Product Image to Variant**](#assign-product-image-to-variant)| Write | Links a product image to a specific product variant. | <Badge type="required" /> `productId`, `variantId`, `imageId` | `Response` | Showing the red t-shirt when the "Red" variant is selected. |
+| [**Reorder Product Image**](#reorder-product-image)| Write | Changes the display order of images in a product gallery. | <Badge type="required" /> `productId`, `imageId`, `afterImageId` | `Response` | Making a new photo the primary image for a product. |
+| [**Get Store Pages**](#get-store-pages) | Read | Retrieves all store pages on your site. | <Badge type="required" /> `trigger` | `storePages` | Finding the correct `storePageId` to create a product on. |
 
 <InfoCallout>
 <details>
@@ -75,7 +88,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your Squarespace API Key as the value. Give it a memorable name, like `squarespace_api_key`.
-3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
 ### Step 3: Configure a Squarespace Component
 1.  In your SmythOS agent graph, drag and drop any Squarespace component.
@@ -93,7 +106,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 | **Add a new t-shirt** to your store | A store page | [Create Product](#create-product) | The primary method for adding a new product to your catalog. |
 | **Change a product's description** | A `productId` | [Update Product](#update-product) | Modifies the top-level details of an existing product. |
 | **Update the price of the 'Large' size** | A `variantId` | [Update Product Variant](#update-product-variant) | Offers granular control to edit a specific product variant. |
-| **Sync inventory** from a supplier | A `variantId` and `quantity`| [Increase / Decrease Stock Quantity](#increase--decrease-stock-quantity) | The correct way to adjust stock levels without overwriting other data. |
+| **Sync inventory** from a supplier | A `variantId` and `quantity`| [Increase Stock Quantity](#increase-stock-quantity) | The correct way to adjust stock levels without overwriting other data. |
 | **Get a list of all unshipped orders** | All orders | [Get All Orders](#get-all-orders) | Retrieves all orders, which you can then filter in your agent. |
 | **Add a new photo** to a product page | A `productId` and image file| [Upload Product Image](#upload-product-image) | The standard way to add new images to a product's gallery. |
 
@@ -106,7 +119,7 @@ This section provides detailed information for each Squarespace component.
 ### <a name="create-product"></a>Create Product
 Creates a new physical product with at least one variant on a specified store page.
 
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
@@ -131,102 +144,509 @@ An agent reads new product data from a Google Sheet, then calls this component f
 
 <Divider/>
 
-### <a name="update-product-and-variants"></a>Update Product and Variants
-Includes **Update Product** and **Update Product Variant**. These components allow you to modify existing products or their specific variants.
+### <a name="update-product"></a>Update Product
+Updates the top-level information for a physical product.
 
-<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Component-Specific Settings
-- **Body:** A JSON editor where you define the fields to be updated. Refer to the Squarespace API documentation for the correct schema.
+- **Body:** A JSON editor containing the schema of the product fields to update.
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `productId` | string | Yes | The ID of the product to update. |
-| `variantId` | string | (For Variants Only) Yes | The ID of the specific variant to update. |
+| `productId` | string | Yes | The unique identifier of the product you wish to update. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `product_id` / `productVariantId` | string | The ID of the updated product or variant. |
-| `Response`| object | The raw JSON response from the Squarespace API. |
+| `product_id` | string | The unique identifier of the updated product. |
+| `Response`| object | The full API response from Squarespace. |
 
 <TipCallout title="Use Case">
-A merchandising agent runs daily, finds all products in the "Summer Sale" category, and uses `Update Product Variant` to apply a 20% discount to the `salePrice` of each variant.
+An agent syncs data from a PIM system, using this component to update product names and descriptions on the Squarespace store to match the source of truth.
 </TipCallout>
 
 <WarningCallout title="Body Schema is Key">
-The `Body` payload must be a valid JSON object matching the schema defined in the Squarespace Developer Documentation for updating products or variants.
+The `Body` payload must be a valid JSON object matching the schema defined in the Squarespace Developer Documentation for updating products.
 </WarningCallout>
 
 <Divider/>
 
-### <a name="inventory-management"></a>Inventory Management
-Includes components like **Increase/Decrease Stock Quantity**, **Set Unlimited Stock**, **Get All Inventory**, and **Get Specific Inventory**.
+### <a name="delete-product"></a>Delete Product
+Permanently deletes a physical product, including all its variants and images.
 
-<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
-
-#### Common Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `variantId` / `variantIds`| string | Varies | The unique ID(s) of the product variant(s) to adjust. |
-| `quantity` | integer| Varies | The amount to increase or decrease the stock by. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `inventory` | array | (Get Inventory) An array containing inventory details for each variant. |
-| `Response`| object | The raw JSON response from the Squarespace API. |
-
-<TipCallout title="Use Case">
-When an order is returned to the warehouse, a logistics agent calls the `Increase Stock Quantity` component to add the returned items back into the Squarespace inventory.
-</TipCallout>
-
-<Divider/>
-
-### <a name="order-management"></a>Order Management
-Includes **Get All Orders** and **Get Specific Order**. These components allow you to retrieve order data from your store.
-
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `orderId` | string | (For Specific Order) Yes| The ID of the order to retrieve. |
-| `trigger` | string | (For All Orders) Yes | Any value to trigger the component. |
+| `product_id`| string | Yes | The unique identifier of the product to delete. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `orderResults`/`orderId` | any | The list of all orders, or the ID of the specific order. |
-| `Response`| object | The raw JSON response from the API, containing detailed order information. |
+| `Response`| object | The full API response from Squarespace, detailing the deletion process. |
+| `Headers` | object | HTTP headers providing additional data details. |
 
 <TipCallout title="Use Case">
-A reporting agent runs `Get All Orders` every morning, filters for orders placed in the last 24 hours, and sends a summary of daily sales to a Teams channel.
+An agent runs a cleanup script to remove discontinued products from the store catalog.
+</TipCallout>
+
+<WarningCallout title="Irreversible Action">
+This action is permanent and cannot be undone.
+</WarningCallout>
+
+<Divider/>
+
+### <a name="get-products"></a>Get Products
+Retrieves information for all products in your store.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | string | Yes | An input to trigger the component execution. |
+| `type` | string | Optional| The type of products to retrieve (e.g., `PHYSICAL`). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `products` | array | An array containing the details of each product. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent performs a full catalog export by fetching all products and writing their names, SKUs, and prices to a Google Sheet for analysis.
 </TipCallout>
 
 <Divider/>
 
-### <a name="image-management"></a>Image Management
-Includes **Upload Product Image**, **Update Product Image**, **Delete Product Image**, **Reorder Product Image**, and **Assign Product Image to Variant**.
+### <a name="get-specific-products"></a>Get Specific Products
+Retrieves information for one or more specific products by their IDs.
 
-<InfoCallout>These components require an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-squarespace) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
-#### Common Inputs
+#### Inputs
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
-| `productId` | string | Yes | The ID of the product to which the image belongs. |
-| `imageId` | string | Varies | The ID of the image to modify or assign. |
-| `image`| binary | (For Upload) Yes | The image file to upload. |
+| `product_ids`| string | Yes | A comma-separated list of product IDs to retrieve. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `imageId` | string | (Upload/Update) The ID of the image. |
-| `Response`| object | The raw JSON response from the API. |
+| `products` | array | An array containing the details of each specified product. |
+| `Response`| object | The full API response from Squarespace. |
 
 <TipCallout title="Use Case">
-An agent takes new photos from a cloud folder, runs `Upload Product Image` to add them to the correct product, and then uses `Assign Product Image to Variant` to link the new red t-shirt photo to the "Red" color variant.
+After receiving a list of top-selling items, an agent uses this component to fetch the full details for only those specific products.
+</TipCallout>
+
+<Divider/>
+
+### <a name="create-product-variant"></a>Create Product Variant
+Creates a new variant for a physical product.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `product_id` | string | Yes | The unique identifier of the parent product. |
+| `sku` | string | Yes | Stock keeping unit for the new variant. |
+| `basePrice`| string | Yes | The base price of the new variant. |
+| `attributes`| object | Optional| An object defining the variant's attributes (e.g., `{"Size": "Large"}`). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `productVariantId`| string | The unique identifier of the newly created product variant. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent adds a new "XXL" size option to an existing t-shirt product by creating a new variant with the appropriate attributes.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-product-variant"></a>Update Product Variant
+Updates a specific variant of a physical product.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Component-Specific Settings
+- **Body:** A JSON editor where you define the fields to be updated, such as `sku`, `pricing`, or `stock`.
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the parent product. |
+| `variantId` | string | Yes | The unique identifier of the product variant to update. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `productVariantId`| string | The unique identifier of the updated product variant. |
+| `Response`| object | The full, raw JSON response from the Squarespace API. |
+
+<TipCallout title="Use Case">
+A merchandising agent runs daily, finds all products in the "Summer Sale" category, and uses this component to apply a 20% discount to the `salePrice` of each variant.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-product-variant"></a>Delete Product Variant
+Deletes a specific variant from a product.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `variantId` | string | Yes | The unique identifier of the variant to delete. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+| `Headers` | object | HTTP headers providing additional data details. |
+
+<TipCallout title="Use Case">
+When the "Small" size of a t-shirt is permanently discontinued, an agent removes that specific variant from the product.
+</TipCallout>
+
+### <a name="increase-stock-quantity"></a>Increase Stock Quantity
+Increases the stock quantity for product variants.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantId` | string | Yes | The unique identifier of the product variant. |
+| `quantity` | integer| Yes | The amount by which to increase the stock quantity. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+When a new shipment is received at the warehouse, an agent updates the stock levels in Squarespace by calling this component for each variant.
+</TipCallout>
+
+<Divider/>
+
+### <a name="decrease-stock-quantity"></a>Decrease Stock Quantity
+Decreases the stock quantity for product variants.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantId` | string | Yes | The unique identifier of the product variant. |
+| `quantity` | integer| Yes | The amount by which to decrease the stock quantity. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent syncs sales from a physical point-of-sale system, using this component to decrease the stock in Squarespace to match.
+</TipCallout>
+
+<Divider/>
+
+### <a name="set-unlimited-stock-quantity"></a>Set Unlimited Stock Quantity
+Sets the stock for one or more product variants to be unlimited.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantIds`| string | Yes | A comma-separated list of variant IDs to set as unlimited stock. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+For digital products or services that have no physical inventory, an agent uses this component to mark them as having unlimited stock.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-all-inventory"></a>Get All Inventory
+Retrieves real-time stock information for all product variants.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | string | Yes | An input to trigger the component execution. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `inventory` | array | An array containing the inventory details for each product variant. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+A reporting agent runs a daily inventory audit by fetching all stock levels and flagging any items that have fallen below a certain threshold.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-specific-inventory"></a>Get Specific Inventory
+Retrieves real-time stock information for specific product variants.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `variantIds`| string | Yes | A comma-separated list of variant IDs to retrieve inventory for. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `inventory` | array | An array containing the inventory details for each specified product variant. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+When a user views a product page, an agent could use this component to fetch the real-time stock level for the selected size and color variant.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-all-orders"></a>Get All Orders
+Retrieves all order information from your Squarespace store.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | string | Yes | An input to trigger the component execution. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `orderResults`| array | An array containing the details of each order. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+A fulfillment agent runs every hour, fetches all new orders, and sends the shipping details to a third-party logistics provider.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-specific-order"></a>Get Specific Order
+Retrieves information for a single, specific order.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `orderId` | string | Yes | The unique identifier of the order to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `orderId` | string | The unique identifier of the retrieved order. |
+| `Response`| object | The full API response, detailing the specific order. |
+
+<TipCallout title="Use Case">
+A customer service agent takes an order number from a support ticket and uses this component to fetch all the details of that order to resolve the customer's issue.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-all-transactions"></a>Get All Transactions
+Retrieves all financial transaction information.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | string | Yes | An input to trigger the component execution. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `transactions`| array | An array containing the details of each transaction. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An accounting agent runs monthly to fetch all transactions and syncs them with external accounting software like QuickBooks.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-specific-transactions"></a>Get Specific Transactions
+Retrieves one or more specific financial transactions by their IDs.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `transactionIds`| string | Yes | A comma-separated list of transaction IDs to retrieve. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `transactions`| array | An array containing the details of each specified transaction. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+To investigate a customer's payment query, an agent retrieves the specific transaction details using the ID from their order.
+</TipCallout>
+
+<Divider/>
+
+### <a name="upload-product-image"></a>Upload Product Image
+Uploads a new image to a product's gallery.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `image` | binary | Yes | The image file you wish to upload. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `imageId` | string | The unique identifier of the uploaded image. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent automates adding new product photos from a cloud drive folder to the correct product pages on the store.
+</TipCallout>
+
+<Divider/>
+
+### <a name="update-product-image"></a>Update Product Image
+Updates the alt text for a product image.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `imageId` | string | Yes | The unique identifier of the image. |
+| `altText` | string | Yes | The new alt text for the image. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `imageId` | string | The unique identifier of the updated image. |
+| `imageUrl`| string | The URL of the updated image. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An SEO agent generates descriptive alt text for product images using an AI model and then uses this component to update them in bulk.
+</TipCallout>
+
+<Divider/>
+
+### <a name="delete-product-image"></a>Delete Product Image
+Deletes an image from a product's gallery.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `imageId` | string | Yes | The unique identifier of the image to be deleted. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent performs a content cleanup, removing old or outdated photos from product pages.
+</TipCallout>
+
+<Divider/>
+
+### <a name="assign-product-image-to-variant"></a>Assign Product Image to Variant
+Assigns an existing product image to a specific product variant.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `variantId` | string | Yes | The unique identifier of the variant. |
+| `imageId` | string | Yes | The unique identifier of the image to be assigned. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+After uploading a new photo of a red t-shirt, an agent uses this component to ensure that photo is displayed when a customer selects the "Red" color variant.
+</TipCallout>
+
+<Divider/>
+
+### <a name="reorder-product-image"></a>Reorder Product Image
+Updates the display order of a product's images.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `productId` | string | Yes | The unique identifier of the product. |
+| `imageId` | string | Yes | The ID of the image to move. |
+| `afterImageId`| string | Yes | The ID of the image that the reordered image should be placed after. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+An agent makes a newly uploaded photo the primary image for a product by reordering it to be the first in the gallery.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-store-pages"></a>Get Store Pages
+Retrieves all store pages on your site.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | string | Yes | An input to trigger the component execution. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `storePages`| array | An array containing the details of each store page, including their IDs. |
+| `Response`| object | The full API response from Squarespace. |
+
+<TipCallout title="Use Case">
+This is an essential first step for many workflows. An agent uses this component to find the correct `storePageId` before creating a new product.
 </TipCallout>
 
 <Divider />

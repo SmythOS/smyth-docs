@@ -1,9 +1,9 @@
 ---
 title: tl;dv Integration
-description: Connect SmythOS to tl;dv to automatically retrieve meeting recordings, transcripts, and highlights directly within your agent workflows.
+description: Connect SmythOS to tl;dv to automatically retrieve meeting recordings, transcripts, and highlights directly from your agent workflows.
 og:title: SmythOS & tl;dv - Automate Your Meeting Intelligence
 og:description: Learn to integrate tl;dv with SmythOS. Empower your agents to fetch meeting data, search transcripts, and analyze highlights to streamline your collaborative processes.
-og:image: /docs/img/integrations/smythos_tldv.png
+og:image: /img/integrations/smythos_tldv.png
 keywords: [tldv SmythOS Integration, Connect tldv to SmythOS, SmythOS Meeting Transcription, Automate Meeting Notes, AI Meeting Assistant, No-Code Meeting API]
 ---
 # tl;dv Integration with SmythOS
@@ -67,12 +67,12 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 1.  In your SmythOS dashboard, navigate to the **Vault**.
 2.  Create a new secret and paste your tl;dv API Key as the value. Give it a memorable name, like `tldv_api_key`.
-3.  For more details, see the [Vault Documentation](/docs/agent-studio/key-concepts/vault).
+3.  For more details, see the [Vault Documentation](https://app.smythos.com/doc/#/vault/keysManagement).
 
 ### Step 3: Configure a tl;dv Component
 1.  In your SmythOS agent graph, drag and drop any tl;dv component.
 2.  Click the component to open its **Settings** panel.
-3.  In the `TLDV API Key` field, select the secret you saved in the Vault (e.g., `tldv_api_key`).
+3.  In the `TLDV API key` field, select the secret you saved in the Vault (e.g., `tldv_api_key`).
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** tl;dv component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
@@ -94,35 +94,10 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 
 This section provides detailed information for each tl;dv component.
 
-### <a name="get-meetings-list"></a>Get Meetings List
-Retrieves a paginated list of all meetings recorded in your tl;dv account.
-
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-tldv) section.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `trigger` | any | Yes | Any input value to trigger the component's execution. |
-| `page` | integer | Optional | The page number of results to retrieve. Default: `1`. |
-| `limit` | integer | Optional | The number of meetings per page. Default: `50`. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `meetings` | array | An array of objects, where each object represents a meeting. |
-| `Response`| object | The full, raw JSON response from the tl;dv API. |
-| `Headers` | object | The HTTP headers from the API response. |
-
-<TipCallout title="Use Case" collapsible>
-A weekly agent runs this component to get the list of all meetings from the past week, then iterates through them to perform further analysis, such as fetching each transcript.
-</TipCallout>
-
-<Divider/>
-
 ### <a name="get-meeting"></a>Get Meeting
 Retrieves detailed metadata about a single meeting using its unique ID.
 
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-tldv) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
@@ -139,7 +114,7 @@ Retrieves detailed metadata about a single meeting using its unique ID.
 | `invitees`| array | A list of people who were invited to the meeting. |
 | `Response`| object | The raw JSON response from the tl;dv API. |
 
-<TipCallout title="Use Case" collapsible>
+<TipCallout title="Use Case">
 After finding a relevant meeting via search, an agent uses this component to get the meeting's name, date, and invitee list for a report.
 </TipCallout>
 
@@ -148,7 +123,7 @@ After finding a relevant meeting via search, an agent uses this component to get
 ### <a name="get-transcript"></a>Get Transcript
 Retrieves the full text transcript of a meeting using its ID.
 
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-tldv) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
@@ -162,7 +137,7 @@ Retrieves the full text transcript of a meeting using its ID.
 | `meetingId`| string | The ID of the meeting the transcript belongs to. |
 | `Response`| object | The raw JSON response from the tl;dv API. |
 
-<TipCallout title="Use Case" collapsible>
+<TipCallout title="Use Case">
 An agent is tasked with summarizing a customer call. It takes the `meetingId`, fetches the transcript with this component, and then feeds the `data` output into an LLM for summarization.
 </TipCallout>
 
@@ -171,7 +146,7 @@ An agent is tasked with summarizing a customer call. It takes the `meetingId`, f
 ### <a name="get-highlights"></a>Get Highlights
 Retrieves the timestamped highlights that were created for a specific meeting.
 
-<InfoCallout>This component requires an `API Key` for authentication, as detailed in the [Getting Started](#getting-started-with-tldv) section.</InfoCallout>
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |
@@ -184,8 +159,78 @@ Retrieves the timestamped highlights that were created for a specific meeting.
 | `data` | array | An array of highlight objects, each containing the highlighted text and timestamp. |
 | `Response`| object | The raw JSON response from the tl;dv API. |
 
-<TipCallout title="Use Case" collapsible>
+<TipCallout title="Use Case">
 To create a "best of" reel, an agent fetches the highlights from several meetings and compiles the text into a single document.
+</TipCallout>
+
+### <a name="get-meetings-list"></a>Get Meetings List
+Retrieves a paginated list of all meetings recorded in your tl;dv account.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `trigger` | any | Yes | Any input value to trigger the component's execution. |
+| `page` | integer | Optional | The page number of results to retrieve. Default: `1`. |
+| `limit` | integer | Optional | The number of meetings per page. Default: `50`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `meetings` | array | An array of objects, where each object represents a meeting. |
+| `Response`| object | The full, raw JSON response from the tl;dv API. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+A weekly agent runs this component to get the list of all meetings from the past week, then iterates through them to perform further analysis, such as fetching each transcript.
+</TipCallout>
+
+<Divider/>
+
+### <a name="search-meetings"></a>Search Meetings
+Searches for meetings in your account based on a keyword query.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `query` | string | Yes | The search term to find matching meetings. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `results` | array | An array of meeting objects that match the search criteria. |
+| `Response`| object | The raw JSON response from the API. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+An agent needs to find all meetings where "Project Titan" was discussed. It uses this component with the query "Project Titan" to get a list of relevant recordings.
+</TipCallout>
+
+<Divider/>
+
+### <a name="get-meetings-by-date"></a>Get Meetings By Date
+Retrieves all meetings that occurred within a specified date range.
+
+<InfoCallout>This component requires an `API Key` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `date_from` | string | Yes | The start date for the date range in YYYY-MM-DD format. |
+| `date_to` | string | Yes | The end date for the date range in YYYY-MM-DD format. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `results` | array | An array of meeting objects that occurred within the specified date range. |
+| `Response`| object | The raw JSON response from the API. |
+| `Headers` | object | The HTTP headers from the API response. |
+
+<TipCallout title="Use Case">
+To generate a quarterly report, an agent uses this component to fetch all sales calls that happened between the start and end dates of the quarter.
 </TipCallout>
 
 <Divider />

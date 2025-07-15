@@ -223,7 +223,7 @@ const config: Config = {
         to: '/docs/agent-studio/key-concepts/vault',
       },
       {
-        from: '/docs/agent-collaboration/agent-work-schedules',
+        from: '/docs/agent-deployments/agent-work-schedules',
         to: '/docs/agent-studio/build-agents/building-workflows',
       },
       // Integration redirects - ensure consistent paths

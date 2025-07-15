@@ -5,7 +5,7 @@ og:title: SmythOS & Serpstat - Automate Your SEO and Digital Marketing Intellige
 og:description: Learn to integrate Serpstat with SmythOS. Empower your agents to fetch keyword data, analyze competitor domains, audit backlinks, and manage SEO projects at scale.
 og:image: /img/integrations/smythos_serpstat.png
 keywords: [Serpstat SmythOS Integration, Connect Serpstat to SmythOS, SmythOS SEO API, Automate SEO, Keyword Research API, Competitor Analysis, Backlink API]
-tags: [seo, analytics]
+tags: [seo, marketing, research, analytics]
 ---
 # Serpstat Integration with SmythOS
 
@@ -20,34 +20,64 @@ Quickly compare Serpstat components by what they do and their key I/O. Click any
 
 | **Component** | **Action** | **What it Does** | **Inputs** | **Key Outputs** | **Use Case** |
 |---------------|------------|------------------|------------|------------------|---------------|
+| [**Keyword Overview**](#keyword-overview) | Research | Provides a comprehensive overview for a list of keywords. | <Badge type="required" /> `keywords` | `result_data` | Getting a quick summary of keyword metrics. |
+| [**Related Keywords**](#related-keywords) | Research | Retrieves related keywords with their metrics. | <Badge type="required" /> `search_question` | `keyword`, `volume` | Building a topic cluster for content strategy. |
 | [**Search Suggestions**](#search-suggestions) | Research | Provides search suggestions for a requested keyword. | <Badge type="required" /> `keyword` | `result_data` | Discovering long-tail search terms. |
 | [**Keywords Selection**](#keywords-selection) | Export | Exports organic keywords for a term to a CSV file. | <Badge type="required" /> `keyword` | `Response` | Bulk keyword data analysis. |
-| [**Related Keywords**](#related-keywords) | Research | Retrieves related keywords with their metrics. | <Badge type="required" /> `search_question`| `keyword`, `volume` | Building a topic cluster for content strategy. |
-| [**Domain Ads**](#domain-ads) | Research | Returns paid keywords and ad copy for a domain. | <Badge type="required" /> `domain`, `se` | `result_data` | Analyzing a competitor's PPC strategy. |
-| [**Ads Examples**](#ads-examples) | Research | Retrieves ad copy examples for specific keywords. | <Badge type="required" /> `keyword`, `se` | `result_data` | Researching ad copy for a new campaign. |
-| [**Top Pages By Domain**](#top-pages-by-domain) | Research | Returns a site's pages ordered by SEO strength. | <Badge type="required" /> `domain` | `result_data` | Identifying a competitor's most valuable pages. |
 | [**Export Search Questions And Suggestions**](#export-search-questions-and-suggestions) | Export | Exports search suggestions and "People Also Ask" data. | <Badge type="required" /> `keyword`, `se` | `Response` | Gathering data for large-scale content planning. |
+| [**Domain Keywords**](#domain-keywords) | Research | Finds keywords a specific domain ranks for. | <Badge type="required" /> `domain`, `se` | `result_data` | Analyzing a competitor's organic keyword strategy. |
 | [**URL Rank Keywords**](#url-rank-keywords) | Research | Finds all keywords a specific URL ranks for. | <Badge type="required" /> `url`, `se` | `result_data` | Deconstructing a competitor's on-page SEO. |
+| [**Competitors in OSERP**](#competitors-in-oserp)| Research | Lists a domain's main competitors in organic search. | <Badge type="required" /> `domain`, `se` | `result_data` | Identifying who you're up against in the SERPs. |
 | [**URL Competitors**](#url-competitors) | Research | Returns a list of competing URLs in organic search. | <Badge type="required" /> `url`, `se` | `result_data` | Finding who you compete with for specific topics. |
 | [**Missing Keywords**](#missing-keywords) | Research | Finds keywords competitors rank for, but you don't. | <Badge type="required" /> `url`, `se` | `result_data` | Identifying content gaps and SEO opportunities. |
+| [**Top Pages By Domain**](#top-pages-by-domain) | Research | Returns a site's pages ordered by SEO strength. | <Badge type="required" /> `domain` | `result_data` | Identifying a competitor's most valuable pages. |
+| [**Top Pages By Keyword**](#top-pages-by-keyword) | Research | Returns pages that rank for the most variations of a keyword. | <Badge type="required" /> `keyword` | `result_urls` | Finding top content for a specific topic. |
 | [**Traffic By URL Mask**](#traffic-by-url-mask) | Research | Estimates traffic for URLs matching a pattern. | <Badge type="required" /> `domain`<br/><Badge type="optional" /> `urlContains`| `traffic` | Analyzing traffic to a specific blog subfolder. |
-| [**Summary Report**](#summary-report) | Report | Gets general information about a domain's link profile. | <Badge type="required" /> `query`, `searchType` | `result_data` | A quick overview of a domain's backlink health. |
+| [**List Domain URLs**](#list-domain-urls) | Research | Returns a list of URLs within a domain. | <Badge type="required" /> `domain` | `result_data` | Getting a sitemap-like view of a competitor. |
+| [**Domain History**](#domain-history) | Research | Provides historical data on a domain's visibility. | <Badge type="required" /> `domain`, `se` | `result_data` | Tracking a domain's SEO performance over time. |
+| [**Domain Summary**](#domain-summary) | Report | Provides summary information for multiple domains. | <Badge type="required" /> `domains` | `result_data` | Quickly comparing key metrics for several domains. |
+| [**Domain VS Domain**](#domain-vs-domain) | Competitors | Returns common keywords between up to 3 domains. | <Badge type="required" /> `domains` | `result_data` | Finding keyword overlap with competitors. |
+| [**Domains' Unique Keywords**](#domains-unique-keywords) | Competitors | Finds unique keywords for domains that another domain lacks. | <Badge type="required" /> `domains`, `minusDomain` | `result_data` | Advanced content gap analysis. |
+| [**Domain Ads**](#domain-ads) | Research | Returns paid keywords and ad copy for a domain. | <Badge type="required" /> `domain`, `se` | `result_data` | Analyzing a competitor's PPC strategy. |
+| [**Ads Examples**](#ads-examples) | Research | Retrieves ad copy examples for specific keywords. | <Badge type="required" /> `keyword`, `se` | `result_data` | Researching ad copy for a new campaign. |
+| [**Paid SERP Competitors By Keyword**](#paid-serp-competitors-by-keyword) | Research | Lists PPC competitors for a given keyword. | <Badge type="required" /> `query`, `se` | `result_data` | Identifying top bidders for your target keywords. |
+| [**Summary Report (Backlinks)**](#summary-report) | Report | Gets general information about a domain's link profile. | <Badge type="required" /> `query`, `searchType` | `result_data` | A quick overview of a domain's backlink health. |
 | [**Backlinks Dynamics**](#backlinks-dynamics) | Audit | Shows the history of found and lost backlinks. | <Badge type="required" /> `query`, `searchType` | `result_data`| Tracking link building velocity over time. |
 | [**Domain Rank Distribution**](#domain-rank-distribution) | Audit | Shows the quality distribution of referring domains. | <Badge type="required" /> `query`, `searchType` | `result_data`| Assessing the authority of a backlink profile. |
 | [**TOP-10 Anchors**](#top-10-anchors) | Audit | Returns the top 10 most used anchor texts. | <Badge type="required" /> `domain`, `searchType` | `result_data`| Checking for a natural anchor text profile. |
 | [**Top Level Domains Distribution**](#top-level-domains-distribution) | Audit | Shows the TLD distribution of referring domains. | <Badge type="required" /> `domain`, `searchType` | `result_data`| Analyzing the geographic source of backlinks. |
 | [**Referring Domains**](#referring-domains) | Audit | Lists all unique domains linking to the analyzed site. | <Badge type="required" /> `query`, `searchType` | `result_data` | Assessing the quality of a site's link profile. |
 | [**Malicious Domains Donors**](#malicious-domains-donors) | Audit | Lists malicious domains linking to your site. | <Badge type="required" /> `query` | `result_data` | Identifying potentially harmful backlinks. |
+| [**Malicious Pages Donors**](#malicious-pages-donors) | Audit | Lists malicious pages linking to your site. | <Badge type="required" /> `domain`, `searchType` | `result_data`| Pinpointing specific toxic URLs. |
+| [**Malicious Domains Acceptors**](#malicious-domains-acceptors) | Audit | Lists malicious domains your site links out to. | <Badge type="required" /> `domain` | `result_data` | Auditing your outbound link profile for safety. |
 | [**Active Backlinks**](#active-backlinks) | Audit | Retrieves a list of active backlinks pointing to a domain. | <Badge type="required" /> `query`, `searchType` | `result_data` | Monitoring your link-building efforts. |
 | [**Lost Backlinks**](#lost-backlinks) | Audit | Retrieves a list of backlinks that are no longer active. | <Badge type="required" /> `query` | `result_data` | Finding link reclamation opportunities. |
-| [**List Audits**](#list-audits) | Read | Provides a list of all site audits for a project. | <Badge type="required" /> `projectId` | `result` | Checking the history of site audits. |
+| [**External Domains**](#external-domains) | Audit | Lists domains that the analyzed site links out to. | <Badge type="required" /> `query` | `result_data` | Analyzing your outbound link strategy. |
+| [**External Lost Links**](#external-lost-links) | Audit | Lists external links from your site that are now broken. | <Badge type="required" /> `query` | `result_data` | Fixing broken outbound links. |
+| [**External Active Links**](#external-active-links) | Audit | Lists active external links from your site. | <Badge type="required" /> `domain` | `result_data` | Reviewing all current outbound links. |
+| [**Anchors**](#anchors) | Audit | Gets a list of anchor texts used in backlinks. | <Badge type="required" /> `query` | `result_data` | A detailed view of your anchor text profile. |
+| [**Top Pages (Backlink)**](#top-pages-backlink) | Audit | Lists the pages on a site with the most backlinks. | <Badge type="required" /> `query`, `searchType` | `result_data` | Identifying your most authoritative content. |
+| [**Links Intersection Summary**](#links-intersection-summary) | Competitors | Shows the number of common referring domains between sites. | <Badge type="required" /> `query`, `intersect` | `result_data` | Quick competitor backlink overlap analysis. |
+| [**Links Intersection Detailing**](#links-intersection-detailing) | Competitors | Lists the specific backlinks from intersecting donors. | <Badge type="required" /> `query`, `intersect` | `result_data` | Finding specific domains that link to competitors. |
+| [**Create Serpstat Project**](#create-serpstat-project)| Write | Creates a new project in your Serpstat account. | <Badge type="required" /> `domain`, `name` | `project_id` | Setting up a new client or website for tracking. |
+| [**Delete Serpstat Project**](#delete-serpstat-project) | Write | Deletes a project from your Serpstat account. | <Badge type="required" /> `project_id` | `result` | Removing an old or completed project. |
+| [**List Serpstat Projects**](#list-serpstat-projects)| Read | Retrieves a list of all your projects in Serpstat. | <Badge type="required" /> `id` | `result_data` | Finding a `project_id` for other operations. |
 | [**Get Project Settings**](#get-project-settings) | Read | Returns the settings for a specific audit project. | <Badge type="required" /> `projectId` | `result` | Verifying audit configurations. |
 | [**Audit Settings Saving**](#audit-settings-saving) | Write | Saves new settings for a site audit project. | <Badge type="required" /> `projectId`, `mainSettings`| `result` | Programmatically configuring a site audit. |
+| [**Get Project Default Settings**](#get-project-default-settings) | Read | Retrieves the default settings for a project. | <Badge type="required" /> `id` | `result` | Checking default audit configurations. |
 | [**Audit Start**](#audit-start) | Write | Initiates a site audit for a specified project. | <Badge type="required" /> `projectId` | `reportId` | Kicking off a technical SEO audit automatically. |
 | [**Stop Running Audit**](#stop-running-audit) | Write | Stops an audit that is currently in progress. | <Badge type="required" /> `projectId` | `result` | Halting an audit if needed. |
-| [**List Team Users**](#list-team-users) | Read | Returns a list of all users in your Serpstat team. | <Badge type="required" /> `id` | `result_data` | Auditing team access. |
-| [**Add User To Team**](#add-user-to-team) | Write | Invites a new user to join your Serpstat team. | <Badge type="required" /> `email` | `success` | Automating user provisioning for new team members. |
-| [**Check Account Balance**](#check-account-balance) | Read | Returns the current credit balance on your account. | <Badge type="required" /> `id` | `available_usd`| Monitoring API usage and costs. |
+| [**List Audits**](#list-audits) | Read | Provides a list of all site audits for a project. | <Badge type="required" /> `projectId` | `result` | Checking the history of site audits. |
+| [**Audit Basic Info**](#audit-basic-info) | Site Audit | Returns basic summary information for an audit report. | <Badge type="required" /> `reportId` | `sdo`, `progress` | Checking the result of a completed audit. |
+| [**List Report Issues**](#list-report-issues) | Site Audit | Lists all issues found in a specific audit report. | <Badge type="required" /> `reportId` | `result_categories`| Getting a summary of technical SEO errors. |
+| [**Issue Elements Data**](#issue-elements-data) | Site Audit | Lists the specific URLs affected by a single issue. | <Badge type="required" /> `reportId`, `errorName` | `result_data`| Pinpointing pages with a specific error. |
+| [**Issue Subelements Data**](#issue-subelements-data) | Site Audit | Retrieves sub-elements related to a specific audit issue. | <Badge type="required" /> `projectId`, `reportId` | `result_data` | Getting granular data on complex SEO issues. |
+| [**List Project Regions**](#list-project-regions) | Rank Tracker | Returns the regions configured for a rank tracking project. | <Badge type="required" /> `projectId` | `regions` | Checking which countries are being tracked. |
+| [**List Rank Tracker Projects**](#list-rank-tracker-projects) | Rank Tracker | Get a list of your rank tracking projects. | <Badge type="required" /> `id` | `result_data` | Finding a `projectId` for other operations. |
+| [**Get SERP History By Keywords**](#get-serp-history-by-keywords) | Rank Tracker | Returns historical Google top-100 results for project keywords. | <Badge type="required" /> `projectId`, `projectRegionId` | `keywords` | Tracking ranking changes over time. |
+| [**List Team Users**](#list-team-users) | Account | Returns a list of all users in your Serpstat team. | <Badge type="required" /> `id` | `result_data` | Auditing team access. |
+| [**Add User To Team**](#add-user-to-team) | Account | Invites a new user to join your Serpstat team. | <Badge type="required" /> `email` | `success` | Automating user provisioning for new team members. |
+| [**Check Account Balance**](#check-account-balance) | Account | Returns the current credit balance on your account. | <Badge type="required" /> `id` | `available_usd`| Monitoring API usage and costs. |
 
 <InfoCallout>
 <details>
@@ -118,6 +148,54 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 
 This section provides detailed information for each Serpstat component.
 
+### <a name="keyword-overview"></a>Keyword Overview
+Provides a comprehensive overview for a list of keywords.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `keywords` | array | Yes | An array of keyword strings to analyze. |
+| `se` | string | Optional | Search engine and region. Default: `g_us`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of overview data for each keyword. |
+| `left_lines`| integer | Your remaining API requests. |
+
+<TipCallout title="Use Case">
+An agent takes a list of target keywords for a new campaign and uses this component to get a quick summary of their volume, CPC, and competition level.
+</TipCallout>
+
+<Divider/>
+
+### <a name="related-keywords"></a>Related Keywords
+Retrieves related keywords with their metrics and search intent data.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `search_question` | string | Yes | The keyword to find related terms for. |
+| `search_country` | string | Yes | Target country for search data. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | string | The related keyword found. |
+| `volume` | integer | The search volume for the related keyword. |
+| `cpc` | float | The Cost Per Click for the related keyword. |
+| `search-intent` | string | User intent classification (e.g., informational). |
+| `competition_value` | float | The level of advertiser competition. |
+
+<TipCallout title="Use Case">
+A content strategy agent uses this component to find a list of related keywords, then filters them by high `volume` and low `competition_value` to identify easy-win topics.
+</TipCallout>
+
 ### <a name="search-suggestions"></a>Search Suggestions
 Provides search suggestions for a requested keyword.
 
@@ -166,105 +244,6 @@ To perform a deep analysis, an agent uses this component to export thousands of 
 
 <Divider/>
 
-### <a name="related-keywords"></a>Related Keywords
-Retrieves related keywords with their metrics and search intent data.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `search_question` | string | Yes | The keyword to find related terms for. |
-| `search_country` | string | Yes | Target country for search data. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `keyword` | string | The related keyword found. |
-| `volume` | integer | The search volume for the related keyword. |
-| `cpc` | float | The Cost Per Click for the related keyword. |
-| `search-intent` | string | User intent classification (e.g., informational). |
-| `competition_value` | float | The level of advertiser competition. |
-
-<TipCallout title="Use Case">
-A content strategy agent uses this component to find a list of related keywords, then filters them by high `volume` and low `competition_value` to identify easy-win topics.
-</TipCallout>
-
-<Divider/>
-
-### <a name="domain-ads"></a>Domain Ads
-Returns paid keywords and ad copy for a specific domain.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `domain` | string | Yes | The target domain to analyze. |
-| `se` | string | Yes | Search engine and region. Default: `g_us`. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result_data`| array | An array containing the domain's ad data, including keywords and ad copy. |
-| `left_lines`| integer | Your remaining API requests. |
-
-<TipCallout title="Use Case">
-A competitive intelligence agent runs this component on a competitor's domain to analyze their PPC strategy, including the keywords they are bidding on and the ad copy they are using.
-</TipCallout>
-
-<Divider/>
-
-### <a name="ads-examples"></a>Ads Examples
-Retrieves paid keywords and ad copy examples for specific keywords.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `keyword` | string | Yes | The keyword to analyze for ad examples. |
-| `se` | string | Yes | Search engine and region. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result_data`| array | An array of ad examples for the specified keyword. |
-| `total`| integer | The total number of ad examples found. |
-
-<TipCallout title="Use Case">
-A PPC manager agent uses this component to research ad copy ideas for a new campaign by looking at what top competitors are using for a specific keyword.
-</TipCallout>
-
-### <a name="top-pages-by-domain"></a>Top Pages By Domain
-Returns a hierarchical list of a website's pages based on their SEO strength.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `domain` | string | Yes | The target domain. |
-| `se` | string | Optional | Search engine and region. Default: `g_us`. |
-| `page` | integer| Optional | Page number for pagination. Default: `1`. |
-| `size` | integer| Optional | Number of results per page. Default: `100`. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result_data`| array | An array of page objects, ordered by SEO value. |
-| `total`| integer | The total number of pages found. |
-| `left_lines`| integer | Your remaining API requests for the day. |
-
-<TipCallout title="Use Case">
-An SEO agent runs this component on a competitor's site to identify their most powerful pages, which are likely driving the most organic traffic.
-</TipCallout>
-
-<Divider/>
-
 ### <a name="export-search-questions-and-suggestions"></a>Export Search Questions And Suggestions
 Exports search suggestions and questions data to a file.
 
@@ -282,10 +261,33 @@ Exports search suggestions and questions data to a file.
 | Field | Type | Description |
 |-------|------|-------------|
 | `Response`| object | The API response, containing details about the initiated export task. |
-| `Headers` | object | The HTTP headers from the API response. |
 
 <TipCallout title="Use Case">
 For a deep-dive content strategy session, an agent exports all search suggestions and questions for a core topic to a CSV for manual review.
+</TipCallout>
+
+<Divider/>
+
+### <a name="domain-keywords"></a>Domain Keywords
+Finds keywords for which the analyzed domain ranks in the top 100 search results.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain. |
+| `se` | string | Optional | Search engine and region. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of keyword objects the domain ranks for. |
+| `total`| integer | Total number of ranking keywords found. |
+
+<TipCallout title="Use Case">
+To kick off a competitor analysis, an agent uses this component to get a full list of a competitor's organic keywords.
 </TipCallout>
 
 <Divider/>
@@ -307,10 +309,33 @@ Returns keywords that a specific URL ranks for in the top 100 Google search resu
 |-------|------|-------------|
 | `result_data`| array | An array of keywords the URL ranks for, including position. |
 | `total`| integer | Total number of ranking keywords found. |
-| `left_lines`| integer | Your remaining API requests. |
 
 <TipCallout title="Use Case">
 An agent analyzes a competitor's top blog post by passing its URL to this component to see all the keywords it ranks for, revealing content optimization strategies.
+</TipCallout>
+
+<Divider/>
+
+### <a name="competitors-in-oserp"></a>Competitors in OSERP
+Lists a domain's main competitors in the top 20 organic Google search results.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain. |
+| `se` | string | Optional | Search engine and region. Default: `g_us`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of competitor domain objects. |
+| `left_lines`| integer | Your remaining API requests. |
+
+<TipCallout title="Use Case">
+An agent runs this component monthly to identify new and emerging competitors in the organic search landscape.
 </TipCallout>
 
 <Divider/>
@@ -332,7 +357,6 @@ Returns a list of URLs that are competitors to a specific URL in organic search.
 |-------|------|-------------|
 | `result_data`| array | An array of competitor URL objects. |
 | `total`| integer | Total number of competitors found. |
-| `left_lines`| integer | Your remaining API requests. |
 
 <TipCallout title="Use Case">
 To understand the competitive landscape for a specific blog post, an agent uses this component to find the top-ranking competing articles.
@@ -356,10 +380,55 @@ Returns keywords that competitors rank for but the given URL does not.
 | Field | Type | Description |
 |-------|------|-------------|
 | `result_data`| array | An array of keyword objects you are missing. |
-| `left_lines`| integer | Your remaining API requests. |
 
 <TipCallout title="Use Case">
 A content optimization agent uses this component to find content gaps by comparing your page to a top competitor, generating a list of keywords to add to your article.
+</TipCallout>
+
+### <a name="top-pages-by-domain"></a>Top Pages By Domain
+Returns a hierarchical list of a website's pages based on their SEO strength.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain. |
+| `se` | string | Optional | Search engine and region. Default: `g_us`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of page objects, ordered by SEO value. |
+| `total`| integer | The total number of pages found. |
+
+<TipCallout title="Use Case">
+An SEO agent runs this component on a competitor's site to identify their most powerful pages, which are likely driving the most organic traffic.
+</TipCallout>
+
+<Divider/>
+
+### <a name="top-pages-by-keyword"></a>Top Pages By Keyword
+Returns website pages that rank for the largest number of variations of an analyzed keyword.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `keyword` | string | Yes | The keyword to analyze. |
+| `se` | string | Optional | Search engine and region. Default: `g_us`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_urls`| array | An array of URL data objects. |
+| `keyword`| string | The keyword that was analyzed. |
+
+<TipCallout title="Use Case">
+A content strategist uses this component to find the most comprehensive, top-ranking pages for a given topic to use as reference.
 </TipCallout>
 
 <Divider/>
@@ -382,7 +451,6 @@ Returns information about traffic and keyword count for URLs matching a specific
 |-------|------|-------------|
 | `urls` | array | A list of URLs matching the mask. |
 | `traffic` | integer | The estimated traffic for the matching URLs. |
-| `left_lines`| integer | Your remaining API requests. |
 
 <TipCallout title="Use Case">
 An agent analyzes the total traffic for all pages within the `/blog/` section of a website to measure the performance of the content marketing efforts.
@@ -390,7 +458,147 @@ An agent analyzes the total traffic for all pages within the `/blog/` section of
 
 <Divider/>
 
-### <a name="summary-report"></a>Summary Report
+### <a name="list-domain-urls"></a>List Domain URLs
+Returns the list of URLs within the analyzed domain and the number of keywords for each URL.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain. |
+| `se` | string | Optional | Search engine and region. Default: `g_us`. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of URL objects with their keyword counts. |
+| `total`| integer | Total number of URLs found. |
+
+<TipCallout title="Use Case">
+An agent gets a sitemap-like overview of a competitor's site structure and identifies which pages are targeting the most keywords.
+</TipCallout>
+
+<Divider/>
+
+### <a name="domain-history"></a>Domain History
+Provides historical data on a domain's number of keywords and visibility.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain to analyze. |
+| `se` | string | Yes | Search engine and region. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of historical data points showing keywords and visibility over time. |
+| `total`| integer | Total number of historical data points available. |
+
+<TipCallout title="Use Case">
+An agent tracks a competitor's SEO progress by fetching their domain history quarterly to see trends in keyword growth and overall visibility.
+</TipCallout>
+
+<Divider/>
+
+### <a name="domain-summary"></a>Domain Summary
+Provides summary information for an array of domains.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domains` | array | Yes | A list of domain strings to analyze. |
+| `se` | string | Yes | Search engine and region (e.g., `g_us`). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of summary objects, one for each requested domain. |
+
+<TipCallout title="Use Case">
+An agent gets a quick, high-level comparison of your domain versus three top competitors by passing all four domains to this component.
+</TipCallout>
+
+<Divider/>
+
+### <a name="domain-vs-domain"></a>Domain VS Domain
+Returns common keywords between up to 3 domains.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domains` | array | Yes | A list of 2 or 3 domains to compare. |
+| `se` | string | Yes | Search engine and region. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of keywords that the specified domains have in common. |
+| `total`| integer | Total number of common keywords. |
+
+<TipCallout title="Use Case">
+An agent finds the exact keywords that you and your top competitor both rank for to identify highly contested SERPs.
+</TipCallout>
+
+<Divider/>
+
+### <a name="domains-unique-keywords"></a>Domains' Unique Keywords
+Returns unique keywords of two domains that a third domain does not rank for.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domains` | array | Yes | A list of domains to analyze. |
+| `se` | string | Yes | Search engine and region. |
+| `minusDomain`| string | Yes | The domain to use for exclusion. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of keywords unique to the `domains` list and not found for the `minusDomain`. |
+
+<TipCallout title="Use Case">
+An agent performs an advanced content gap analysis by finding keywords that two of your competitors rank for, but you (`minusDomain`) do not.
+</TipCallout>
+### <a name="paid-serp-competitors-by-keyword"></a>Paid SERP Competitors By Keyword
+Lists PPC competitors for a given keyword.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `query` | string | Yes | The search query/keyword. |
+| `se` | string | Yes | Search engine and region. |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of competitor objects in paid search for the keyword. |
+| `left_lines`| integer | Your remaining API requests. |
+
+<TipCallout title="Use Case">
+A marketing agent identifies all the domains bidding on a high-value keyword to understand the competitive pressure in paid search.
+</TipCallout>
+
+<Divider/>
+
+### <a name="summary-report"></a>Summary Report (Backlinks)
 Provides general information and key metrics about a domain's or URL's backlink profile.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
@@ -414,57 +622,8 @@ As a first step in a backlink audit, an agent fetches the summary report for a d
 
 <Divider/>
 
-### <a name="backlinks-dynamics"></a>Backlinks Dynamics
-Returns the history of found and lost backlinks for the analyzed site over time.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `query` | string | Yes | The domain or URL to analyze. |
-| `searchType`| string | Yes | The type of query (e.g., `domain`). |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result_data`| array | An array of historical data points for found and lost backlinks. |
-| `count`| integer | The total count of historical data points. |
-| `left_lines`| integer | Your remaining API requests. |
-
-<TipCallout title="Use Case">
-A monitoring agent fetches this data monthly to track the velocity of a link-building campaign and identify any sudden drops in backlinks.
-</TipCallout>
-
-<Divider/>
-
-### <a name="domain-rank-distribution"></a>Domain Rank Distribution
-Returns the distribution of a domain's referring domains based on their Serpstat Domain Rank (SDR).
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `query` | string | Yes | The domain to analyze. |
-| `searchType`| string | Yes | The type of query, typically `domain`. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result_data`| array | An array of objects showing SDR ranges and the number of domains in each. |
-| `left_lines`| integer | Your remaining API requests. |
-
-<TipCallout title="Use Case">
-An agent uses this component to assess the quality of a competitor's backlink profile by checking how many of their referring domains have a high SDR.
-</TipCallout>
-
-<Divider/>
-
-### <a name="top-10-anchors"></a>TOP-10 Anchors
-Returns information about the top 10 most frequently used anchor texts for a domain's backlinks.
+### <a name="malicious-pages-donors"></a>Malicious Pages Donors
+Returns a list of links from malicious sites referring to the analyzed domain.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -478,20 +637,17 @@ Returns information about the top 10 most frequently used anchor texts for a dom
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of the top anchor texts and their counts. |
-| `referring_domains`| integer | The number of referring domains. |
-| `backlinks`| integer | The total number of backlinks. |
-| `unique_anchors`| integer | The number of unique anchors. |
-| `left_lines`| integer | Your remaining API requests. |
+| `result_data`| array | An array of malicious page objects with link details. |
+| `total`| integer | Total number of malicious pages found. |
 
 <TipCallout title="Use Case">
-An SEO agent analyzes a domain's top anchors to check for a natural distribution of branded, keyword-rich, and generic anchor texts.
+A security agent runs this component to find the exact URLs of toxic backlinks, which can then be added to a disavow file.
 </TipCallout>
 
 <Divider/>
 
-### <a name="top-level-domains-distribution"></a>Top Level Domains Distribution
-Returns information about the TLD distribution of a domain's backlinks.
+### <a name="malicious-domains-acceptors"></a>Malicious Domains Acceptors
+Returns a list of malicious domains that the analyzed domain links out to.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -499,26 +655,47 @@ Returns information about the TLD distribution of a domain's backlinks.
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `id` | string | Yes | A unique identifier for your request. |
-| `domain` | string | Yes | The target domain. |
-| `searchType`| string | Yes | The type of search, typically `domain`. |
-| `lang` | string | Yes | Language filter for the TLDs. |
+| `domain` | string | Yes | The target domain to audit. |
+| `searchType`| string | Optional| The type of search, default is `domain`. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of TLDs and their counts. |
-| `tld_count`| integer | The total count of unique TLDs. |
-| `domains_count`| integer | The total count of referring domains. |
-| `left_lines`| integer | Your remaining API requests. |
+| `result_data`| array | An array of malicious domains your site links to. |
+| `total`| integer | Total number of malicious acceptor domains found. |
 
 <TipCallout title="Use Case">
-An agent analyzes the TLD distribution to understand the geographic origin of a website's backlink profile.
+An agent audits your website's outbound links to ensure you are not linking to any known malicious or spammy domains.
 </TipCallout>
 
 <Divider/>
 
-### <a name="referring-domains"></a>Referring Domains
-Provides a list of all unique domains that link to the site you are analyzing.
+### <a name="external-domains"></a>External Domains
+Gives you a list of the domains that are linked to from the analyzed site.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `query` | string | Yes | The domain or URL to analyze. |
+| `searchType`| string | Optional| The type of query (`domain` or `url`). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of external domain objects. |
+| `total`| integer | Total number of external domains linked to. |
+
+<TipCallout title="Use Case">
+An agent reviews all external domains your site links to, which can be useful for partnership analysis or checking for broken affiliate links.
+</TipCallout>
+
+<Divider/>
+
+### <a name="external-lost-links"></a>External Lost Links
+Gives you a list of lost external links from a site you analyze (i.e., links that used to point from your site to another, but are now broken).
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -532,16 +709,41 @@ Provides a list of all unique domains that link to the site you are analyzing.
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of referring domain objects. |
-| `total`| integer | The total number of referring domains found. |
-| `left_lines`| integer | Your remaining API requests. |
+| `result_data`| array | An array of lost external link objects. |
+| `total`| integer | Total number of lost external links found. |
 
 <TipCallout title="Use Case">
-An agent retrieves the full list of referring domains for a competitor to identify potential outreach targets for a link-building campaign.
+A site maintenance agent runs this component to find and report broken outbound links that need to be fixed.
 </TipCallout>
 
-### <a name="malicious-domains-donors"></a>Malicious Domains Donors
-Lists malicious domains that are linking to the analyzed domain.
+<Divider/>
+
+### <a name="external-active-links"></a>External Active Links
+Lists all active external links pointing from your site to other domains.
+
+<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
+
+#### Inputs
+| Field | Type | Required | Notes |
+|-------|------|----------|-------------|
+| `id` | string | Yes | A unique identifier for your request. |
+| `domain` | string | Yes | The target domain to analyze. |
+| `searchType`| string | Yes | The type of search (`domain` or `url`). |
+
+#### Outputs
+| Field | Type | Description |
+|-------|------|-------------|
+| `result_data`| array | An array of active external link objects. |
+| `total`| integer | Total number of active external links found. |
+
+<TipCallout title="Use Case">
+An agent performs a full audit of all outbound links on a website for review.
+</TipCallout>
+
+<Divider/>
+
+### <a name="anchors"></a>Anchors
+Gives you a list of keywords used as anchors for a site's backlinks.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -550,22 +752,22 @@ Lists malicious domains that are linking to the analyzed domain.
 |-------|------|----------|-------------|
 | `id` | string | Yes | A unique identifier for your request. |
 | `query` | string | Yes | The domain or URL to analyze. |
-| `searchType`| string | Optional | The type of query (`domain` or `url`). |
+| `searchType`| string | Optional| The type of query (`domain` or `url`). |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of malicious domain objects. |
-| `total`| integer | The total number of malicious domains found. |
+| `result_data`| array | An array of anchor text objects and their usage counts. |
+| `total`| integer | Total number of unique anchors found. |
 
 <TipCallout title="Use Case">
-A security agent runs weekly to check for new malicious domains linking to the company website, flagging them for disavowal.
+An SEO specialist uses an agent to get a detailed breakdown of a competitor's anchor text strategy.
 </TipCallout>
 
 <Divider/>
 
-### <a name="active-backlinks"></a>Active Backlinks
-Gives you a list of active backlinks pointing to the site you analyze.
+### <a name="top-pages-backlink"></a>Top Pages (Backlink)
+Gives you a list of the leading pages of the analyzed site by the number of backlinks.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -579,17 +781,17 @@ Gives you a list of active backlinks pointing to the site you analyze.
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of active backlink objects, each with details about the source and target page. |
-| `total`| integer | The total number of active backlinks found. |
+| `result_data`| array | An array of page objects, sorted by the number of backlinks. |
+| `total`| integer | Total number of pages found. |
 
 <TipCallout title="Use Case">
-A monthly reporting agent fetches all new active backlinks to track the success of recent content promotion efforts.
+An agent identifies a competitor's "link magnet" pages by finding which of their URLs have attracted the most backlinks.
 </TipCallout>
 
 <Divider/>
 
-### <a name="lost-backlinks"></a>Lost Backlinks
-Gives you a list of lost backlinks for a site you analyze.
+### <a name="links-intersection-summary"></a>Links Intersection Summary
+Shows the number of common referring domains between multiple sites.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -597,23 +799,23 @@ Gives you a list of lost backlinks for a site you analyze.
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `id` | string | Yes | A unique identifier for your request. |
-| `query` | string | Yes | The domain or URL to analyze. |
-| `searchType`| string | Optional | The type of query (`domain` or `url`). |
+| `query` | string | Yes | The primary domain for comparison. |
+| `intersect`| string | Yes | Comma-separated list of competitor domains. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of lost backlink objects. |
-| `total`| integer | The total number of lost backlinks found. |
+| `result_data`| array | Summary data of the backlink intersection. |
+| `total`| integer | Total number of intersecting domains. |
 
 <TipCallout title="Use Case">
-A monitoring agent runs weekly to check for lost backlinks. If any high-value links are lost, it sends an alert to the SEO team to investigate for link reclamation opportunities.
+An agent gets a quick summary of how many of the same websites link to both you and your main competitor.
 </TipCallout>
 
 <Divider/>
 
-### <a name="list-serpstat-projects"></a>List Serpstat Projects
-Retrieves a list of all your projects configured in Serpstat.
+### <a name="links-intersection-detailing"></a>Links Intersection Detailing
+Lists the specific backlinks from the domains that link to multiple analyzed sites.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -621,23 +823,23 @@ Retrieves a list of all your projects configured in Serpstat.
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `id` | string | Yes | A unique identifier for your request. |
-| `page` | integer| Optional | Page number for pagination. |
-| `pageSize`| integer| Optional | Number of results per page. |
+| `query` | string | Yes | The primary domain for comparison. |
+| `intersect`| string | Yes | Comma-separated list of competitor domains. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `result_data`| array | An array of project objects, each with a name and `project_id`. |
-| `total`| integer | The total number of projects in your account. |
+| `result_data`| array | A detailed list of backlinks from the intersecting domains. |
+| `total`| integer | Total number of intersecting backlinks. |
 
 <TipCallout title="Use Case">
-This is an essential first step for any audit-related workflow. An agent uses this component to find the `project_id` for "client-website.com" before starting a new site audit.
+After finding common referring domains with the summary component, an agent uses this to get the exact URLs of the pages that link to your competitors, identifying high-value outreach targets.
 </TipCallout>
 
 <Divider/>
 
-### <a name="create-serpstat-project"></a>Create Serpstat Project
-Creates a new project in your Serpstat account for tracking and auditing.
+### <a name="issue-categories-statistics"></a>Issue Categories Statistics
+Brings in statistics by issue categories for a specific site audit report.
 
 <InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
 
@@ -645,87 +847,16 @@ Creates a new project in your Serpstat account for tracking and auditing.
 | Field | Type | Required | Notes |
 |-------|------|----------|-------------|
 | `id` | string | Yes | A unique identifier for your request. |
-| `domain` | string | Yes | The target domain for the new project. |
-| `name` | string | Optional| A descriptive name for the project. |
+| `reportId` | string | Yes | The ID of the audit report. |
 
 #### Outputs
 | Field | Type | Description |
 |-------|------|-------------|
-| `project_id`| integer | The unique ID of the newly created project. |
+| `result`| array | An array of statistics for each issue category. |
 | `Response`| object | The raw JSON response from the API. |
 
 <TipCallout title="Use Case">
-When an agent onboards a new client, it automatically creates a new project for their domain in Serpstat to begin tracking.
-</TipCallout>
-
-<Divider/>
-
-### <a name="audit-start"></a>Audit Start
-Initiates a site audit for a specified project.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `projectId`| string | Yes | The ID of the project in Serpstat to audit. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `reportId` | integer | The ID of the new audit report that has been started. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-A weekly agent uses this component to kick off a new technical SEO audit for a client's website.
-</TipCallout>
-
-<Divider/>
-
-### <a name="list-audits"></a>List Audits
-Provides a list of all site audits that have been run for a project.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `projectId`| string | Yes | The ID of the project to list audits for. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `result` | array | An array of audit report objects. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An agent uses this component to find the `reportId` of the most recent completed audit before fetching its results.
-</TipCallout>
-
-<Divider/>
-
-### <a name="add-user-to-team"></a>Add User To Team
-Invites a new user to join your Serpstat team.
-
-<InfoCallout>This component requires an `API Token` for authentication.</InfoCallout>
-
-#### Inputs
-| Field | Type | Required | Notes |
-|-------|------|----------|-------------|
-| `id` | string | Yes | A unique identifier for your request. |
-| `email` | string | Yes | The email address of the user to invite. |
-
-#### Outputs
-| Field | Type | Description |
-|-------|------|-------------|
-| `success`| boolean | Indicates if the invitation was sent successfully. |
-| `user_id`| integer | The ID of the invited user if they already had an account. |
-| `Response`| object | The raw JSON response from the API. |
-
-<TipCallout title="Use Case">
-An onboarding agent adds a new marketing team member to the company's Serpstat team automatically.
+An agent fetches the statistics for a completed audit to create a high-level summary chart for a client report.
 </TipCallout>
 
 <Divider />

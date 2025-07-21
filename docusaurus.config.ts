@@ -42,6 +42,8 @@ const config: Config = {
     supportFormUrl: 'https://smythos.com/talk-to-us/',
     supportEmail: 'support@smythos.com',
     supportDiscordUrl: 'https://discord.gg/smythos',
+    trackingID: process.env.TRACKING_ID,
+    containerID : process.env.GTM_CONTAINER_ID
   },
 
   onBrokenLinks: 'warn',
@@ -56,6 +58,13 @@ const config: Config = {
     [
       'classic',
       {
+        gtag: {
+          trackingID: process.env.TRACKING_ID,
+          anonymizeIP: true,          
+        },
+          googleTagManager: {
+          containerId: process.env.GTM_CONTAINER_ID
+        },
         docs: {
           path: 'docs',
           routeBasePath: '/',

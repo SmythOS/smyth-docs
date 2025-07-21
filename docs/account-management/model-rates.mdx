@@ -34,25 +34,39 @@ This page lists per-unit costs. For limits, included features, or seat counts, [
 </InfoCallout>
 ### OpenAI Models
 
-| Model        | Input*  | Cached Input* | Output* | Context | Image Support |
-|--------------|---------|----------------|---------|---------|----------------|
-| GPT-4o       | $2.50   | $1.25          | $10.00  | 128k    | Text tokens**  |
-| GPT-4o mini  | $0.15   | $0.075         | $0.60   | 128k    | Text tokens**  |
-| GPT-4.1      | $2.00   | $0.50          | $8.00   | 1M      | Text tokens**  |
-| GPT-4.1 mini | $0.40   | $0.10          | $1.60   | 1M      | Text tokens**  |
-| GPT-4.1 nano | $0.10   | $0.025         | $0.40   | 1M      | Text tokens**  |
-| o3           | $1.10   | $0.55          | $4.40   | 200k    | Text tokens**  |
-| o4-mini      | $0.10   | $0.05          | $0.30   | 200k    | Text tokens**  |
+| Model         | Input* | Cached Input* | Output* | Context Window | Image Handling        |
+|---------------|--------|----------------|---------|----------------|------------------------|
+| GPT-4o        | $2.50  | $1.25           | $10.00  | 128k tokens     | Input only (token-based)** |
+| GPT-4o mini   | $0.15  | $0.075          | $0.60   | 128k tokens     | Input only (token-based)** |
+| GPT-4.1       | $2.00  | $0.50           | $8.00   | 1M tokens       | Input only (token-based)** |
+| GPT-4.1 mini  | $0.40  | $0.10           | $1.60   | 1M tokens       | Input only (token-based)** |
+| GPT-4.1 nano  | $0.10  | $0.025          | $0.40   | 1M tokens       | Input only (token-based)** |
+| o3            | $1.10  | $0.55           | $4.40   | 200k tokens     | Input only (token-based)** |
+| o4-mini       | $0.10  | $0.05           | $0.30   | 200k tokens     | Input only (token-based)** |
 
-### Google Gemini & Anthropic Claude
+### Google Gemini
 
 | Model               | Search | Input* | Output* | Context | Media Processing |
 |---------------------|--------|--------|---------|---------|-------------------|
 | Gemini 2.5 Flash    | $0.035 | $0.10  | $0.40   | 1M      | 0.7/image, 0.1/media |
 | Gemini 2.5 PRO ≤200k| $0.035 | $1.25  | $10.00  | 1M      | same as above |
 | Gemini 2.5 PRO >200k| $0.035 | $2.50  | $15.00  | 1M      | same as above |
-| Claude 3.5 Haiku    | -      | $0.80  | $4.00   | 200k    | Text only |
-| Claude 3.7 Sonnet   | -      | $3.00  | $15.00  | 200k    | Text only |
+
+### Anthropic Claude
+
+| Model               | Input* | Output* | Context | Notes                         |
+|---------------------|--------|---------|---------|-------------------------------|
+| Claude 3.5 Haiku    | $0.80  | $4.00   | 200k    | Cost-efficient                |
+| Claude 3.7 Sonnet   | $3.00  | $15.00  | 200k    | Best balance of power & price |
+| Claude Sonnet 4     | $3.00  | $15.00  | 200k    | High-performance              |
+| Claude Opus 4       | $15.00 | $75.00  | 200k    | Most capable Claude model     |
+
+### Google AI Imagen (Image Generation)
+
+| Model           | Description                                                                 | Variant                               | Price per request |
+|----------------|-------------------------------------------------------------------------------|----------------------------------------|-------------------|
+| Imagen 4 Ultra | For advanced use-cases or when the best image quality is needed              | imagen-4-ultra-generate-preview-06-06 | $0.060            |
+| Imagen 4       | Highly detailed images with strong text rendering and lighting improvements  | imagen-4-generate-preview-06-06       | $0.040            |
 
 ### Perplexity Models
 

@@ -37,6 +37,26 @@ Once debugging is active:
 
 <Spacer size="md" />
 
+## Attach to Running Processes
+
+The Attach button allows you to connect the debugger to a process that is already running. This includes agents triggered from the Chat interface, API calls, schedules, or external systems.
+
+You do not need to restart or retrigger the agent. Simply enable Debug Mode and click Attach. SmythOS will begin listening for any live executions. As soon as one is detected, the debugger connects automatically and begins displaying the internal state, logs, and data flow in real time.
+
+This is helpful when:
+
+- You have already sent a message through the Test with Chat interface
+- A function or agent was triggered externally, such as through an API call
+- You are working with agents that were not started from the builder
+- You need to inspect a workflow already in progress without rerunning it
+
+Once attached, you can view inputs, outputs, errors, and execution steps in the visual builder as if the process had started in debug mode.
+
+<TipCallout title="How to use Attach after a process starts">
+Use Attach after you've triggered an agent via chat or API.  
+It listens for live calls and connects as soon as something runs.
+</TipCallout>
+
 ## Testing with Form Preview
 
 Use Form Preview to run full workflows from a UI-based form, directly inside the builder.

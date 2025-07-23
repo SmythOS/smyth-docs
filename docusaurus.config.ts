@@ -1,11 +1,9 @@
 require('dotenv').config();
-const webpack = require('webpack');
-import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 
+const isProd = process.env.NODE_ENV === 'production';
 const tailwindPostcss = require('@tailwindcss/postcss');
 // const timestamp = Math.floor(Date.now() / 1000);
-
 async function tailwindPlugin() {
   return {
     name: 'tailwindcss-loader',
@@ -13,7 +11,7 @@ async function tailwindPlugin() {
       postcssOptions.plugins.push(
         tailwindPostcss({
           config: './tailwind.config.js',
-        })
+        }) 
       );
       postcssOptions.plugins.push(require('autoprefixer'));
       return postcssOptions;
@@ -56,13 +54,6 @@ const config: Config = {
     [
       'classic',
       {
-        gtag: {
-          trackingID: process.env.TRACKING_ID,
-          anonymizeIP: true,          
-        },
-          googleTagManager: {
-          containerId: process.env.GTM_CONTAINER_ID
-        },
         docs: {
           path: 'docs',
           routeBasePath: '/',
@@ -114,7 +105,14 @@ const config: Config = {
 
   plugins: [
     tailwindPlugin,
-  ],
+      isProd &&
+      process.env.GTM_CONTAINER_ID && [
+        '@docusaurus/plugin-google-tag-manager',
+        {
+          containerId: process.env.GTM_CONTAINER_ID,
+        },
+      ],
+  ].filter(Boolean),
 
   clientModules: [require.resolve('./src/css/tailwind.css'),
     require.resolve('./src/components/DocsHelpPopup.tsx'),
@@ -192,216 +190,7 @@ const config: Config = {
     // },
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'throw',
-    onBrokenAnchors: 'ignore',
-    redirects: [
-      // Root redirects
-      {
-        from: '/',
-        to: '/agent-studio/overview',
-      },
-      // Agent Studio redirects
-      {
-        from: '/docs/agent-studio/agent-settings/logs',
-        to: '/docs/agent-studio/build-agents/debugging',
-      },
-      {
-        from: '/docs/agent-studio/manage-agents/authentication',
-        to: '/docs/agent-studio/key-concepts/vault',
-      },
-      {
-        from: '/docs/agent-studio/manage-agents/tasks',
-        to: '/docs/agent-studio/build-agents/building-workflows',
-      },
-      {
-        from: '/docs/agent-studio/agent-settings/overview',
-        to: '/docs/agent-studio/overview',
-      },
-      {
-        from: '/docs/agent-studio/building-agents/overview',
-        to: '/docs/agent-studio/build-agents/overview',
-      },
-      {
-        from: '/docs/agent-studio/building-agents/building-workflows',
-        to: '/docs/agent-studio/build-agents/building-workflows',
-      },
-      // Agent Collaboration redirects
-      {
-        from: '/docs/agent-collaboration/working-with-agents/vault',
-        to: '/docs/agent-studio/key-concepts/vault',
-      },
-      {
-        from: '/docs/agent-deployments/agent-work-schedules',
-        to: '/docs/agent-studio/build-agents/building-workflows',
-      },
-      // Integration redirects - ensure consistent paths
-      {
-        from: '/docs/agent-studio/integrations/email',
-        to: '/docs/agent-studio/integrations/email-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/microsoft-teams',
-        to: '/docs/agent-studio/integrations/microsoft-teams-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/discord-integration',
-        to: '/docs/agent-studio/integrations/discord-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/slack-integration',
-        to: '/docs/agent-studio/integrations/slack-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/notion-integration',
-        to: '/docs/agent-studio/integrations/notion-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/google-calendar',
-        to: '/docs/agent-studio/integrations/google-calendar-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/microsoft-calendar-integration',
-        to: '/docs/agent-studio/integrations/microsoft-calendar-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/stripe',
-        to: '/docs/agent-studio/integrations/stripe-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/shopify-integration',
-        to: '/docs/agent-studio/integrations/shopify-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/hubspot-integration',
-        to: '/docs/agent-studio/integrations/hubspot-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/mailchimp-integration',
-        to: '/docs/agent-studio/integrations/mailchimp-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/klaviyo-integration',
-        to: '/docs/agent-studio/integrations/klaviyo-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/twilio-integration',
-        to: '/docs/agent-studio/integrations/twilio-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/sendgrid-integration',
-        to: '/docs/agent-studio/integrations/sendgrid-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/webflow-integration',
-        to: '/docs/agent-studio/integrations/webflow-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/wordpress-org-integration',
-        to: '/docs/agent-studio/integrations/wordpress-org-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/wordpress-com',
-        to: '/docs/agent-studio/integrations/wordpress-com-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/squarespace-integration',
-        to: '/docs/agent-studio/integrations/squarespace-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/devto-integration',
-        to: '/docs/agent-studio/integrations/devto-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/youtube',
-        to: '/docs/agent-studio/integrations/youtube-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/falai-integration',
-        to: '/docs/agent-studio/integrations/falai-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/dataforseo-integration',
-        to: '/docs/agent-studio/integrations/dataforseo-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/tavily-integration',
-        to: '/docs/agent-studio/integrations/tavily-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/perplexity-ai-integration',
-        to: '/docs/agent-studio/integrations/perplexity-ai-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/playht-integration',
-        to: '/docs/agent-studio/integrations/playht-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/stability-ai-integration',
-        to: '/docs/agent-studio/integrations/stability-ai-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/google-translate',
-        to: '/docs/agent-studio/integrations/google-translate-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/newsapi-integration',
-        to: '/docs/agent-studio/integrations/newsapi-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/openapi-integration',
-        to: '/docs/agent-studio/integrations/openapi-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/google-analytics-integration',
-        to: '/docs/agent-studio/integrations/google-analytics-integration-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/pdfcrowd-integration',
-        to: '/docs/agent-studio/integrations/pdfcrowd-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/signnow-integration',
-        to: '/docs/agent-studio/integrations/signnow-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/tldv-integration',
-        to: '/docs/agent-studio/integrations/tldv-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/trello-integration',
-        to: '/docs/agent-studio/integrations/trello-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration',
-        to: '/docs/agent-studio/integrations/elevenlabs-integration',
-      },
-      {
-        from: '/docs/agent-studio/integrations/elevenlabs-integrationns/elevenlabs-integration',
-        to: '/docs/agent-studio/integrations/elevenlabs-integration',
-      },
-      // Account management redirects
-      {
-        from: '/docs/account-management/prganization-management',
-        to: '/docs/account-management/organization-management',
-      },
-      // Agent deployment redirects
-      {
-        from: '/docs/agent-deployments/overview',
-        to: '/docs/agent-deployments/overview',
-      },
-      {
-        from: '/docs/agent-deployments/subdomains',
-        to: '/docs/agent-deployments/deployments/subdomains',
-      },
-      {
-        from: '/docs/agent-deployments/quickstart',
-        to: '/docs/agent-deployments/quickstart',
-      },
-      // Agent runtime redirects
-      {
-        from: '/docs/agent-runtime//quickstart',
-        to: '/docs/agent-runtime/quickstart',
-      },
-    ],
+    onBrokenAnchors: 'ignore',  
   },
 };
 

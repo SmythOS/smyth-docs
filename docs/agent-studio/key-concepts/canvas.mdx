@@ -20,14 +20,14 @@ The Studio Canvas is your main workspace for building, connecting, and testing A
 | [Deploying Agents](#deploying-agents) | Move from draft to production safely |
 | [Monitoring and Debugging](#monitoring-and-debugging) | Review execution, logs, and performance |
 | [Error Handling](#error-handling) | Catch, alert, or recover from failures |
+| [Mobile Experience Warning](#mobile-experience) | Understand how mobile device constraints affect the canvas UI |
 
 <Spacer size="md" />
-
 ## Canvas Layout
 
 When you open an agent in Studio, the screen is divided into three key areas:
 
-- **Left sidebar**: Navigate tabs like Components, Agent Settings, Deployment History, and Logs.
+- **Left sidebar**: Navigate tabs like Components, Agent Settings, Deployment History, Templates, and Vault.
 - **Canvas workspace**: The visual editor where you arrange and connect components.
 - **Right sidebar**: Configure individual components, test input/output, and inspect settings.
 
@@ -41,7 +41,7 @@ Your work is saved automatically as a draft. Drafts don’t affect production ag
 
 You build workflows by visually connecting components. Here’s how:
 
-1. **Drag components** from the component library on the left onto the canvas.
+1. **Drag components** from the component list on the left onto the canvas.
 2. **Connect outputs to inputs** to pass data between components.
 3. **Configure settings** using the panel on the right.
 4. **Test as you build** using the built-in preview and inspect tools.
@@ -92,8 +92,38 @@ Add fallback logic and alerts to reduce downtime and improve agent resilience.
 
 <Spacer size="md" />
 
+## Mobile Experience 
+
+When accessing the SmythOS canvas on devices with screen widths smaller than 1024px, you’ll encounter a **Mobile Experience Limited** warning modal. This appears because the canvas interface relies on ample screen space for effective workflow building.
+
+Small screens limit usability when:
+
+- Arranging and wiring components  
+- Accessing input/output fields  
+- Configuring settings panels  
+
+For the best experience, use devices with screen widths of **1024px or larger**.
+
+### Modal Options
+
+The warning modal offers the following options:
+
+1. **Copy Link to Desktop** – Copies the current URL for opening on a desktop.
+2. **Email Link to Myself** – Sends the current canvas link to your registered email address.
+3. **Continue Anyway** – Dismisses the modal and allows limited use on mobile.
+4. **Do Not Show Again** – Hides the modal in future sessions on the same device.
+
+### Additional Resources
+
+At the bottom of the modal:
+
+- **Documentation Link** – Directs to relevant SmythOS docs.
+- **Contact Support Link** – Opens an invite to the SmythOS Discord community.
+
+<Spacer size="md" />
+
 ## What to Try Next
 
-- [Deploy Agents Locally, via Cloud, or Embed Options](/docs/agent-deployments/overview)
-- [Agent Tasks: Chat, Bulk, Scheduled](/docs/agent-studio/manage-agents/tasks)
+- [Deploy Agents Locally, via Cloud, or Embed Options](/docs/agent-deployments/overview)  
+- [Agent Tasks: Chat, Bulk, Scheduled](/docs/agent-studio/manage-agents/tasks)  
 - [Debugging Agents in Studio](/docs/agent-studio/build-agents/debugging)

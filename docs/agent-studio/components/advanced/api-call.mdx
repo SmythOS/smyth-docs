@@ -100,18 +100,22 @@ Store API keys in [Vault](/docs/agent-studio/key-concepts/vault) and inject them
 
 ## Step 4: Handle Pagination or Rate Limits
 
-<TipCallout title="Pagination logic">
-Loop paginated responses using a **Condition** block.
+import CodeBlock from '@theme/CodeBlock';
 
-```json
-{
+<TipCallout title="Pagination logic" type="tip">
+  Loop paginated responses using a **Condition** block.
+
+  <CodeBlock language="json">
+    {String.raw`{
   "if": "Response.next_page != null",
   "then": "repeat API Call with {{Response.next_page}}"
-}
-```
+}`}
+  </CodeBlock>
 
-Use headers like `Retry-After` or `X-RateLimit-Remaining` to control rate-limited calls.
+  Use headers like `Retry‑After` or `X‑RateLimit‑Remaining` to control rate‑limited calls.
 </TipCallout>
+
+
 
 <Spacer size="md" />
 

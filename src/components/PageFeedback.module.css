@@ -1,0 +1,172 @@
+/* SmythOS Palette Variables */
+:root {
+    --smyth-accent: #3c89f9;
+    --smyth-accent-dark: #326fc7;
+    --smyth-border: #d0d7de;
+    --smyth-text: #4b5563;
+    --smyth-bg: #f9fafb;
+    --smyth-cancel-bg: #f3f4f6;
+    --smyth-cancel-border: #d1d5db;
+    --smyth-cancel-hover-bg: #e5e7eb;
+    --smyth-success-green: #16a34a;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    font-family: inherit;
+  }
+  
+  .widget {
+    display: inline-block;
+    padding: 1rem 1.2rem;
+    background: var(--smyth-bg);
+    border: 1px solid var(--smyth-border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--smyth-text);
+    min-width: 280px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .prompt {
+    margin-right: 12px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  
+  .voteButtonGroup {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .voteButton {
+    background: #fff;
+    border: 2px solid var(--smyth-border);
+    color: var(--smyth-text);
+    border-radius: 6px;
+    padding: 0.35rem 0.65rem;
+    margin-right: 6px;
+    cursor: pointer;
+    opacity: 1;
+    outline-offset: 3px;
+    transition: background-color 0.2s, transform 0.15s, border-color 0.2s;
+    transform: none;
+  }
+  
+  .voteButton:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+  
+  .voteButton.active:disabled {
+    transform: scale(0.9);
+  }
+  
+  .voteButton:not(.active):not(:disabled):hover {
+    background-color: #ebf4ff;
+  }
+  
+  .voteButton.active {
+    background-color: var(--smyth-accent);
+    border-color: var(--smyth-accent-dark);
+    color: #fff;
+  }
+  
+  .status {
+    margin-left: 12px;
+    font-size: 0.85rem;
+    min-height: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    vertical-align: middle;
+    color: var(--smyth-accent-dark);
+    user-select: none;
+  }
+  
+  .status.success {
+    color: var(--smyth-success-green);
+    font-weight: 600;
+  }
+  
+  .formArea {
+    margin-top: 16px;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--smyth-text);
+  }
+  
+  .input, .textarea {
+    width: 100%;
+    border: 1px solid var(--smyth-border);
+    border-radius: 8px;
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--smyth-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .input:focus, .textarea:focus {
+    outline: none;
+    border-color: var(--smyth-accent);
+    box-shadow: 0 0 0 2px rgba(60, 137, 249, 0.2);
+  }
+  
+  .textarea {
+    resize: vertical;
+  }
+  
+  .actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .submitButton, .cancelButton {
+    border: none;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.25s;
+  }
+  
+  .submitButton {
+    background: var(--smyth-accent-dark);
+    color: #fff;
+  }
+  .submitButton:not(:disabled):hover {
+    background-color: var(--smyth-accent);
+  }
+  
+  .cancelButton {
+    background-color: var(--smyth-cancel-bg);
+    border: 1px solid var(--smyth-cancel-border);
+    color: var(--smyth-text);
+  }
+  .cancelButton:not(:disabled):hover {
+    background-color: var(--smyth-cancel-hover-bg);
+  }
+  
+  .submitButton:disabled, .cancelButton:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }

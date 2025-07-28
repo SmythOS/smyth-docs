@@ -147,6 +147,10 @@ help: {
           }
           .callout-body > *:first-child { margin-top: 0; }
           .callout-body > *:last-child  { margin-bottom: 0; }
+          .callout-body .token.property    { color: #2563eb; }  /* keys */
+          .callout-body .language-json .token.string { color: #f97316; }  /* values */
+          .callout-body .token.punctuation { color: #64748b; }
+          .callout-body .token.operator    { color: #ef4444; }
 
           :root[data-theme='light'] .callout-info    { background-color: #e0f2fe;  color: #0c0c0c; }
           :root[data-theme='dark']  .callout-info    { background-color: #1e3a8a22; color: #dbeafe; }

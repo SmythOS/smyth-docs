@@ -6,6 +6,10 @@ description: How to deploy your SmythOS agent as an OpenAI-compatible LLM endpoi
 
 # Deploy Your Agent as LLM
 
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 > **No extra logic. No extra servers.** SmythOS lets you expose any agent through a drop-in OpenAI-compatible interface.
 
 <InfoCallout>
@@ -104,12 +108,19 @@ Use the following fields:
 | `Authorization`| ✅        | `Bearer YOUR_VAULT_KEY`                                   |
 | `stream`       | Optional | `true` to enable Server-Sent Events for live response     |
 
+
 <Tabs
-  tabs={[
-    {
-      label: 'cURL',
-      content: (
-        <pre><code>{`curl https://llm.emb-stg.smyth.ai/_openai/v1/chat/completions \
+  defaultValue="curl"
+  groupId="api-request"
+  values={[
+    { label: 'cURL', value: 'curl' },
+    { label: 'Python', value: 'python' },
+    { label: 'Node.js', value: 'node' }
+  ]}>
+
+  <TabItem value="curl">
+    <CodeBlock language="bash">
+{`curl https://llm.emb-stg.smyth.ai/_openai/v1/chat/completions \
   -H "Authorization: Bearer YOUR_VAULT_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -117,48 +128,48 @@ Use the following fields:
     "messages": [
       {"role": "user", "content": "What's the refund policy?"}
     ]
-  }'`}</code></pre>
-      )
-    },
-    {
-      label: 'Python',
-      content: (
-        <pre><code>{`from openai import OpenAI
-import os
+  }'`}
+    </CodeBlock>
+  </TabItem>
 
-client = OpenAI(
-    api_key=os.environ["SMYTHOS_AGENTLLM_KEY"],
-    base_url="https://llm.emb‑stg.smyth.ai/_openai/v1",
+  <TabItem value="python">
+    <CodeBlock language="python">
+{`import openai
+
+openai.api_base = "https://llm.emb-stg.smyth.ai/_openai/v1"
+openai.api_key = "YOUR_VAULT_KEY"
+
+completion = openai.ChatCompletion.create(
+    model="cmb5b4js00fmjh6333d0foxjr@prod",
+    messages=[
+        {"role": "user", "content": "What's the refund policy?"}
+    ]
 )
+print(completion.choices[0].message.content)`}
+    </CodeBlock>
+  </TabItem>
 
-resp = client.chat.completions.create(
-    model="cmb5b4js00fmjh6333d0foxjr@1.0",
-    messages=[{"role": "user", "content": "Hello!"}],
-)
-
-print(resp.choices[0].message.content)`}</code></pre>
-      )
-    },
-    {
-      label: 'Node.js',
-      content: (
-        <pre><code>{`import OpenAI from "openai";
+  <TabItem value="node">
+    <CodeBlock language="javascript">
+{`import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.VAULT_KEY,
   baseURL: "https://llm.emb-stg.smyth.ai/_openai/v1",
+  apiKey: process.env.VAULT_KEY
 });
 
-const response = await openai.chat.completions.create({
+const chatResponse = await openai.chat.completions.create({
   model: "cmb5b4js00fmjh6333d0foxjr@prod",
   messages: [
     { role: "user", content: "What's the refund policy?" }
-  ]
-});`}</code></pre>
-      )
-    }
-  ]}
-/>
+  ],
+});
+
+console.log(chatResponse.choices[0].message.content);`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+
 
 <PromptCard prompt='Use /chat/completions with model cmb5b4js00fmjh6333d0foxjr@prod and your Vault key to talk to your agent.' />
 

@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 
 const isProd = process.env.NODE_ENV === 'production';
 const tailwindPostcss = require('@tailwindcss/postcss');
-// const timestamp = Math.floor(Date.now() / 1000);
+
 async function tailwindPlugin() {
   return {
     name: 'tailwindcss-loader',
@@ -88,21 +88,6 @@ const config: Config = {
     ],
   ],
 
-  themes: [
-    // [
-    //   require.resolve("@easyops-cn/docusaurus-search-local"),
-    //   /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
-    //   ({
-        
-    //     hashed: false,
-    //     language: ["en"],
-    //     indexBlog: false,
-    //     indexDocs: true,
-    //     docsRouteBasePath: "/",
-    //   }),
-    // ],
-  ],
-
   plugins: [
     tailwindPlugin,
       isProd &&
@@ -117,20 +102,6 @@ const config: Config = {
   clientModules: [require.resolve('./src/css/tailwind.css'),
     require.resolve('./src/components/DocsHelpPopup.tsx'),
   ],
-
-  // stylesheets: [
-  //   { 
-  //     href: `https://smythos.com/wp-content/themes/generatepress_child/css/docs.css?ver=${timestamp}`, 
-  //     type: 'text/css' 
-  //   },
-  // ],
-  
-  // scripts: [
-  //   { 
-  //     src: `https://smythos.com/wp-content/themes/generatepress_child/js/docs.js?ver=${timestamp}`, 
-  //     async: false 
-  //   },
-  // ],
   
   stylesheets: [
     {
@@ -167,27 +138,6 @@ const config: Config = {
           content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
         },
       ],
-    // navbar: {
-    //   title: 'SmythOS',
-    //   logo: {
-    //     alt: 'SmythOS Logo',
-    //     src: 'img/smythos-500px.png',
-    //   },
-    //   items: [
-    //     // { to: '/docs', label: 'Docs Home', position: 'left' },
-    //     { to: '/docs/agent-studio/overview', label: 'Studio', position: 'left' },
-    //     { to: '/docs/agent-weaver/overview', label: 'Weaver', position: 'left' },
-    //     { to: '/docs/agent-runtime/overview', label: 'Runtime', position: 'left' },
-    //     { to: '/docs/agent-deployments/overview', label: 'Deployments', position: 'left' },
-    //     { to: '/docs/agent-collaboration/overview', label: 'Collaboration', position: 'left' },
-    //     { to: '/docs/agent-templates/overview', label: 'Templates', position: 'left' },
-    //     { href: 'https://github.com/Smyth-ai', label: 'GitHub', position: 'right' },
-    //   ],
-    // },
-    // prism: {
-    //   theme: prismThemes.github,
-    //   darkTheme: prismThemes.dracula,
-    // },
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'throw',
     onBrokenAnchors: 'ignore',  
@@ -195,4 +145,3 @@ const config: Config = {
 };
 
 export default config;
-

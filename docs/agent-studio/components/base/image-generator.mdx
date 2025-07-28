@@ -7,7 +7,7 @@ toc_max_heading_level: 2
 
 # Image Generator Component
 
-Use the **Image Generator** component to create new images from text prompts (text-to-image) or modify existing ones (image-to-image). It leverages advanced models like DALL-E 3 and FLUX to bring your creative ideas to life.
+Use the **Image Generator** component to create new images from text prompts (text-to-image) or modify existing ones (image-to-image). It leverages advanced models to bring your creative ideas to life.
 
 <InfoCallout title="Why this matters">
 Visual content is highly engaging. With the Image Generator, your agent can create custom graphics, illustrations, and art on the fly, opening up a world of possibilities for dynamic content creation, personalization, and enhanced user interaction.
@@ -45,16 +45,16 @@ Choose a model and fine-tune its parameters to control the style, quality, and d
 
 ## Step 2: Define Inputs
 
+<TipCallout title="Dynamic Prompts">
+You can create additional text inputs for the component and reference them in the main `Prompt` field. For example, you could have an input named `subject` and write a prompt like: "An oil painting of a `{{subject}}` in a surrealist style."
+</TipCallout>
+
 Provide the creative direction for the image generation through prompts and optional attachments.
 
 | Input            | Required?                   | Description                                                                                                     |
 |------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------|
 | **Prompt** | <Badge type="required">Yes</Badge> | The primary text description of the image you want to create.                                                   |
 | **Attachment** | <Badge type="optional">No</Badge>  | An optional image file (binary input) used for image-to-image generation.                                       |
-
-<TipCallout title="Dynamic Prompts">
-You can create additional text inputs for the component and reference them in the main `Prompt` field. For example, you could have an input named `subject` and write a prompt like: "An oil painting of a `{{subject}}` in a surrealist style."
-</TipCallout>
 
 <InfoCallout title="Multiple Image Inputs">
 For models that support it, you can add multiple binary inputs. The component will automatically recognize and use them in the generation process without needing to reference them explicitly in the prompt.

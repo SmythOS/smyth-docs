@@ -7,7 +7,7 @@ sidebar_position: 3
 
 # Custom Storage
 
-**Custom Storage** lets you connect your own vector database, such as Pinecone, to handle document embeddings outside of SmythOS. This gives you full control over storage, scaling, and retrieval logic, especially in enterprise or multi-agent environments.
+**Custom Storage** lets you connect your own vector database, such as Pinecone, to handle document embeddings outside of SmythOS. This gives you full control over storage, scaling, and retrieval logic—especially in enterprise or multi-agent environments.
 
 <InfoCallout title="Why use Custom Storage?">
 Use Custom Storage if you need external access to your vector data, want to scale embedding limits, or plan to share the same data across multiple agents or systems.
@@ -15,59 +15,122 @@ Use Custom Storage if you need external access to your vector data, want to scal
 
 <Spacer size="md" />
 
-## How it works
+## How It Works
 
-When Custom Storage is enabled, all indexing operations from your [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) write directly to the external vector store. SmythOS fetches context from there during retrieval-augmented generation (RAG).
+When Custom Storage is configured, all indexing operations from your [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) write directly to the external vector store. During Retrieval-Augmented Generation (RAG), SmythOS queries that store for relevant context.
 
-This setup is managed from the [Data Pool](/docs/agent-collaboration/data-pool).
+This setup is managed from the [Data Pool](/docs/agent-collaboration/data-pool), and supports both built-in RAG tools and direct API-based approaches.
 
 <Spacer size="md" />
 
-## Pinecone setup
+## Working with Pinecone in SmythOS
 
-To use Pinecone:
+There are two ways to integrate Pinecone with SmythOS:
 
-1. Create an account at [pinecone.io](https://www.pinecone.io/)
-2. Create an index with:
-   - **Dimension**: `1536`
-   - **Environment**: e.g. `us-west4-gcp`
-3. Copy the following values from your Pinecone dashboard:
-   - **API Key**
-   - **Index Name**
-   - **Index Host URL**
-   - **Region/Environment**
-4. In SmythOS Studio, open **Data Pool**
-5. Click **Customize Storage**
-6. Paste your Pinecone credentials into the form
-7. Save configuration
+### 1. Use Built-in RAG Components
 
-<Image src="/docs/img/agent_collaboration/customize-storage-pinecone.jpg" alt="Custom Storage configuration form in SmythOS" caption="Paste your Pinecone credentials and save to activate external storage." />
+For most workflows, use these drag-and-drop components in Studio:
+
+- `RAG Remember` to write data into Pinecone  
+- `RAG Search` to retrieve context during queries  
+- `RAG Forget` to remove data from the index  
+
+This approach gives you a clean, user-friendly interface for managing vector data.
+
+### 2. Use Direct API Access
+
+<InfoCallout title="For components that consume credits">
+- An icon appears next to these components indicating they contain cost information  
+- When clicked, the estimated cost is displayed in the details panel  
+- This allows real-time monitoring of resource usage during development
+</InfoCallout>
+
+Advanced users can use the `API Call` component to communicate directly with Pinecone’s REST API. This enables custom operations such as batch inserts, metadata filtering, or advanced querying.
+
+To configure:
+
+- Add your Pinecone API key from the **Vault**  
+- Use endpoint URLs from [Pinecone's API reference](https://docs.pinecone.io/reference)  
+- Pass headers, payloads, and parameters manually  
 
 <WarningCallout title="Vector dimension must be 1536">
-SmythOS requires a vector dimension of 1536 to match the embedding model format. Other values will not work.
+SmythOS requires a vector dimension of 1536 to match its embedding model. Other dimensions are not supported.
 </WarningCallout>
 
 <Spacer size="md" />
 
-## When to use internal vs custom storage
+## Best Practices for Data Organization
 
-| Use Case                                  | Internal Storage        | Custom Storage (Pinecone) |
-|-------------------------------------------|-------------------------|----------------------------|
-| Quick setup and testing                   | ✓                       |                            |
-| Production-grade indexing                 |                         | ✓                          |
-| Control over storage and cost             |                         | ✓                          |
-| Multi-agent shared knowledge base         |                         | ✓                          |
-| Maximum retrieval speed within SmythOS    | ✓                       |                            |
+Organizing your data into multiple Data Spaces can improve both relevance and performance during semantic search.
 
-<TipCallout title="Most users can start with internal storage">
-If you are unsure whether you need Custom Storage, begin with the default setup. You can migrate later if needed.
+### Use Multiple Data Spaces for Targeted Queries
+
+Rather than placing all your content in a single index, create separate Data Spaces for different types of content:
+
+- `contacts-data` for contact records  
+- `product-specs` for product metadata  
+- `support-docs` for documentation and FAQs  
+
+This separation ensures that each agent or component searches only within the appropriate context.
+
+### Contextual Search with RAG Components
+
+- Configure the `RAG Search` component to point to the specific Data Space required for the task  
+- Tailor the query to match the content type and format stored within that space  
+
+### Benefits of This Approach
+
+- **Higher precision** by avoiding irrelevant results  
+- **Faster searches** due to smaller index sizes  
+- **Simplified maintenance** by updating only relevant sections  
+- **Smarter agents** that specialize in specific domains  
+
+<InfoCallout title="Why Data Spaces matter">
+Files within a Data Space are converted into vector embeddings. While you cannot target individual files, you can isolate content types by creating multiple, purpose-specific Data Spaces.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Pinecone Setup Steps
+
+1. Create an account at [pinecone.io](https://www.pinecone.io/)  
+2. Set up an index with:  
+   - **Dimension**: `1536`  
+   - **Environment**: e.g., `us-west4-gcp`  
+3. From your Pinecone dashboard, copy:  
+   - API Key  
+   - Index Name  
+   - Host URL  
+   - Environment  
+4. In SmythOS Studio:  
+   - Open **Data Pool**  
+   - Click **Customize Storage**  
+   - Paste the credentials into the configuration form  
+   - Save and activate  
+
+<Image src="/docs/img/agent_collaboration/customize-storage-pinecone.jpg" alt="Custom Storage configuration form in SmythOS" caption="Paste your Pinecone credentials and save to activate external storage." />
+
+<Spacer size="md" />
+
+## When to Use Internal vs Custom Storage
+
+| Use Case                               | Internal Storage | Custom Storage (Pinecone) |
+|----------------------------------------|------------------|----------------------------|
+| Quick testing and prototyping          | ✓                |                            |
+| Large-scale production use             |                  | ✓                          |
+| Full control over indexing and cost    |                  | ✓                          |
+| Shared access across multiple agents   |                  | ✓                          |
+| Fastest performance inside SmythOS     | ✓                |                            |
+
+<TipCallout title="Start simple, scale when needed">
+If you're unsure whether Custom Storage is necessary, start with the default internal setup. You can always switch to Pinecone later.
 </TipCallout>
 
 <Spacer size="md" />
 
 ## What's Next
 
-- [Data Pool overview](/docs/agent-collaboration/data-pool)
-- [Create and manage Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)
-- [Connect data to agents](/docs/agent-collaboration/spaces)
+- [Data Pool overview](/docs/agent-collaboration/data-pool)  
+- [Create and manage Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)  
+- [Connect data to agents](/docs/agent-collaboration/spaces)  
 - [Monitor usage in Analytics](/docs/agent-collaboration/user-management)

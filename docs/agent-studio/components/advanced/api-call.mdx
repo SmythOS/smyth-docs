@@ -25,6 +25,14 @@ Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetc
 - [What to Try Next](#what-to-try-next)
 
 <Spacer size="md" />
+
+<Image
+  src="/docs/img/components/api-call.png"
+  alt="API Call component UI"
+  bordered={true}
+  maxWidth={600}
+/>
+
 ## Step 1: Set the Core Request
 
 | Field | Required? | Purpose | Quick Tips |
@@ -50,7 +58,6 @@ Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetc
 ## Step 2: Add Inputs
 
 <Steps>
-  <li>Open the <strong>Inputs</strong> tab</li>
   <li>Select <strong>+ Add Input</strong></li>
   <li>Define type, default value, and mark optional if needed</li>
 </Steps>
@@ -71,9 +78,9 @@ Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetc
 
 ### Use the Vault
 
-<InfoCallout>
+<TipCallout>
 Store API keys in [Vault](/docs/agent-studio/key-concepts/vault) and inject them like `{{vault.api_key}}` inside headers or body.
-</InfoCallout>
+</TipCallout>
 
 ### Built-in OAuth 2.0
 
@@ -97,37 +104,6 @@ Store API keys in [Vault](/docs/agent-studio/key-concepts/vault) and inject them
 | **JWT (Bearer Token)** | Encoded token in headers | Authenticated access via token sharing |
 
 <Spacer size="md" />
-
-## Step 4: Handle Pagination or Rate Limits
-
-import CodeBlock from '@theme/CodeBlock';
-
-<TipCallout title="Pagination logic" type="tip">
-  Loop paginated responses using a **Condition** block.
-
-  <CodeBlock language="json">
-    {String.raw`{
-  "if": "Response.next_page != null",
-  "then": "repeat API Call with {{Response.next_page}}"
-}`}
-  </CodeBlock>
-
-  Use headers like `Retry‑After` or `X‑RateLimit‑Remaining` to control rate‑limited calls.
-</TipCallout>
-
-
-
-<Spacer size="md" />
-
-## Step 5: Enable Mock Mode
-
-<TipCallout>
-Mock Mode helps you simulate API responses for testing without hitting the live service.
-</TipCallout>
-
-1. Toggle <strong>Use Mock Data</strong> in the settings panel
-2. Edit the mock response JSON in the editor
-3. Use <strong>Debug</strong> to simulate how your agent will behave
 
 ### Sample Success
 
@@ -153,13 +129,6 @@ Mock Mode helps you simulate API responses for testing without hitting the live 
   }
 }
 ```
-
-<Image
-  src="/docs/img/components/mock-editor.png"
-  alt="Mock editor in API component"
-  bordered={true}
-  maxWidth={300}
-/>
 
 <Spacer size="md" />
 
@@ -247,13 +216,6 @@ You can extract just the part you need:
 - Keep inputs and outputs named clearly  
 - Use Mock Mode during dev or rate-limited testing
 
-<Image
-  src="/docs/img/components/api-call-ui.png"
-  alt="API Call component UI"
-  bordered={true}
-  maxWidth={600}
-/>
-
 <Spacer size="md" />
 
 ## Troubleshooting Tips
@@ -276,6 +238,6 @@ You can extract just the part you need:
 - Chain multiple API calls for multi-step workflows  
 - Adapt examples from the [Common Examples](#common-api-examples) above to your use case
 
-<TipCallout title="Tip">
+<TipCallout>
 When copying code from API docs, just replace the dynamic values with `{{input.name}}` or `{{vault.secret}}`.
 </TipCallout>

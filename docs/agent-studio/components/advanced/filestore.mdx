@@ -1,0 +1,97 @@
+---
+title: Filestore
+description: Store binary data and expose it as a temporary public URL for external sharing.
+keywords: [filestore, binary, url, file, ttl, external sharing, smythos]
+toc_max_heading_level: 2
+---
+
+# Filestore Component
+
+Use the **Filestore** component to store binary content,such as images, CSVs, or files generated in `Code` or returned from an `API Call` and expose it through a public, time-limited URL. This makes it easy to share outputs with users or downstream systems outside SmythOS.
+
+<InfoCallout title="Why this matters">
+Binary data generated in your agent is normally internal. `Filestore` makes it publicly accessible with a signed URL.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What You’ll Configure
+
+- [Define Inputs](#step-1-define-inputs)
+- [Understand Outputs](#step-2-understand-outputs)
+- [Using Filestore in a Workflow](#step-3-using-filestore-in-a-workflow)
+- [Best Practices](#best-practices)
+- [Troubleshooting Tips](#troubleshooting-tips)
+- [What to Try Next](#what-to-try-next)
+
+<Spacer size="md" />
+
+## Step 1: Define Inputs
+
+| Field         | Required? | Description                                                 | Example             |
+|---------------|-----------|-------------------------------------------------------------|---------------------|
+| **Data**      | <Badge type="required">Yes</Badge> | The binary content to store.                           | Internal binary output from your workflow components |
+| **File Name** | <Badge type="required">Yes</Badge> | The name used for the downloaded file.                 | `users.csv`, `image.png` |
+| **TTL**       | <Badge type="required">Yes</Badge> | How long the public URL remains valid.                 | `1 day`, `3 days`    |
+
+<TipCallout title="Valid binary inputs">
+Use binary outputs from real components like `Code`, `API Call`. This component does not generate content itself.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Step 2: Understand Outputs
+
+| Output     | Description                                   |
+|------------|-----------------------------------------------|
+| **Url**    | A public URL pointing to the stored file. |
+
+This URL is valid until the TTL expires and can be safely shared downstream.
+
+<Spacer size="md" />
+
+## Step 3: Using Filestore in a Workflow
+
+Use the **visual flow builder** to connect binary-generating components to `Filestore`. Here’s how:
+
+1. Use a step that returns binary data, such as:
+   - `API Call` 
+   - `Code` 
+   - `Web Scrape`
+2. Drag a line from that component’s output into the `Data` input of `Filestore`.
+3. Enter a descriptive **File Name**, like `summary.csv`.
+4. Set the **TTL** to control how long the link remains active.
+5. Connect the `Url` output to another component.
+
+<Image src="/docs/img/components/filestore.jpg" alt="Visual mapping of binary output into Filestore" caption="Map a binary output from Code or API Call into Filestore to make it public." />
+
+<TipCallout title="No-code binary flow">
+Simply map outputs visually from supported components that produce file buffers into Filestore.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Best Practices
+
+- **Use meaningful file names** to help recipients understand the download.
+- **Avoid long TTLs** unless required because shorter links reduce risk of stale data access.
+- **Validate binary format** before mapping to `Data`.
+- **Use immediately** and share the URL as part of the same workflow.
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If the public URL fails or is blank">
+- Ensure the upstream component returned a valid binary.
+- Check that `File Name` has a proper extension like `.csv` or `.png`.
+- Verify TTL has not expired by the time the link is accessed.
+- Use **Agent Logs** to inspect runtime values.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- Use with `Code` to package dynamic data.
+

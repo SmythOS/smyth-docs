@@ -19,6 +19,12 @@ async function tailwindPlugin() {
   };
 }
 
+['ALGOLIA_APP_ID', 'ALGOLIA_API_KEY', 'ALGOLIA_INDEX_NAME'].forEach(v => {
+  if (isProd && !process.env[v]) {
+    throw new Error(`Missing env var: ${v}`);
+  }
+});
+
 const config: Config = {
   title: 'SmythOS Documentation',
   tagline: 'Build, deploy, and scale open-source AI agents',
@@ -42,8 +48,8 @@ const config: Config = {
     supportDiscordUrl: 'https://discord.gg/smythos',
   },
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
 
   i18n: {
     defaultLocale: 'en',
@@ -118,7 +124,7 @@ const config: Config = {
   
 
   themeConfig: {
-    sidebar: {},
+    // sidebar: {},
       algolia: {
         appId: process.env.ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_API_KEY,
@@ -133,15 +139,43 @@ const config: Config = {
         insights: true     
       },
       metadata: [
+        { name: 'robots', content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',},
+        { name: 'keywords', content: 'smythos, ai agents, open source ai, documentation, agent runtime, sre, studio, agent templates, agemt deployment, agent OS' },
+        { property: 'og:image', content: 'https://smythos.com/wp-content/uploads/2025/07/smythos-documentation.png' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'SmythOS' },
+        { property: 'og:url', content: 'https://smythos.com/docs/' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:site', content: '@SmythOS' },
+      ],
+    },
+      headTags: [
         {
-          name: 'robots',
-          content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+          tagName: 'link',
+          attributes: {
+            rel: 'preconnect',
+            href: 'https://smythos.com',
+          },
+        },
+        {
+          tagName: 'script',
+          attributes: { type: 'application/ld+json' },
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'SmythOS',
+            url: 'https://smythos.com',
+            logo: 'https://smythos.com/wp-content/themes/generatepress_child/img/smythos-logo.svg',
+            "sameAs": [
+              "https://www.linkedin.com/company/smythos/",
+              "https://github.com/SmythOS",
+            ]
+          }),
         },
       ],
-    onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'throw',
-    onBrokenAnchors: 'ignore',  
-  },
+
+  
+  
 };
 
 export default config;

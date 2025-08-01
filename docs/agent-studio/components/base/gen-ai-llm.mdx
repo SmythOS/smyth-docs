@@ -33,7 +33,7 @@ No custom code needed. You only need a prompt, a model, and the right inputs.
 <InfoCallout title="Model setup">
 SmythOS includes default models (e.g. OpenAI GPT).  
 You can also connect custom providers like Claude or Gemini.  
-See [Model Rates →](/docs/account-management/model-rates) for cost and usage.
+See [Billing Management →](/docs/account-management/billing-management) for cost and usage.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -96,12 +96,27 @@ You can rename inputs, assign types (string, file, etc.), and set defaults or ma
         </>
       )
     },
-    {
+{
       label: 'Max Tokens',
       content: (
         <>
-          <p><strong>Max Tokens</strong> limits the output length.</p>
-          <p>Total = prompt + reply must fit within this cap.</p>
+          <p><strong>Max Tokens</strong> limits the output length. This is the maximum number of tokens the model can generate in a single response.</p>
+          <ul>
+            <li><strong>Default Value:</strong> <strong>8192 (8k tokens)</strong></li>
+            <li><strong>Purpose:</strong> Controls the size of the model’s response output</li>
+            <li><strong>Applies to:</strong> All supported AI models</li>
+            <li><strong>Configuration:</strong>
+              <ul>
+                <li>Settings persist across browser sessions</li>
+                <li>Can be modified per component instance</li>
+                <li>Reset button returns to default <strong>8192</strong> value</li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Note:</strong> This default provides a good balance between response completeness and processing efficiency.</p>
+          <TipCallout title="Pro Tip">
+            The <strong>8k default</strong> works well for most use cases. Adjust only if you need longer responses or want to reduce token usage for cost optimization.
+          </TipCallout>
         </>
       )
     },
@@ -143,7 +158,7 @@ You can rename inputs, assign types (string, file, etc.), and set defaults or ma
         </>
       )
     },
-   {
+    {
       label: 'Agent System Prompt',
       content: (
         <>

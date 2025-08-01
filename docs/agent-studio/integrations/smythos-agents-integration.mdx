@@ -28,9 +28,9 @@ The integration provides one powerful component for connecting agents together.
 
 Connecting agents is a core concept in building advanced AI systems. It allows you to move from single-purpose automations to complex, intelligent workflows.
 
-- **♻️ Reusability:** Build a specialized agent that does one thing well (e.g., summarize text, analyze sentiment). You can then reuse that "subagent" in dozens of other "parent" agents without duplicating any logic.
-- **🧩 Modularity:** Break down a large, complex problem into smaller, manageable sub-tasks. Assign each sub-task to a dedicated subagent. This makes your main agent easier to build, debug, and maintain.
-- **📈 Scalability:** Easily extend the capabilities of a parent agent by simply building a new subagent and calling it. This allows your systems to grow in complexity without becoming unmanageable.
+- **Reusability:** Build a specialized agent that does one thing well (e.g., summarize text, analyze sentiment). You can then reuse that "subagent" in dozens of other "parent" agents without duplicating any logic.
+- **Modularity:** Break down a large, complex problem into smaller, manageable sub-tasks. Assign each sub-task to a dedicated subagent. This makes your main agent easier to build, debug, and maintain.
+- **Scalability:** Easily extend the capabilities of a parent agent by simply building a new subagent and calling it. This allows your systems to grow in complexity without becoming unmanageable.
 - **Hierarchical Control:** Design "manager" agents that orchestrate multiple "worker" subagents. The manager can make high-level decisions and delegate the detailed work, mimicking a real-world team structure.
 
 </details>
@@ -92,6 +92,11 @@ Executes a specified "subagent" as part of the current agent's workflow, passing
     - `Dev`: Always calls the `Dev` version of the subagent, useful for testing.
     - `Prod Latest`: Always calls the latest `Prod` version of the subagent, ensuring stability.
 - **Description for Model:** A description of what the subagent does. This is pre-filled from the subagent's `Behavior` field but can be edited. This text helps the parent agent's AI understand the subagent's capabilities.
+
+<InfoCallout>
+- The model selected here overrides only the **orchestrating AI** of the sub-agent - the AI that decides which skills/endpoints to call and interprets responses. Individual LLM components within the sub-agent's workflows retain their own model settings and are not affected by this selection.
+- For example, if your sub-agent contains LLM components using GPT-4, and you set this component to use Claude, the internal GPT-4 components will continue using GPT-4, while Claude becomes the decision-making AI that orchestrates the sub-agent's capabilities.
+</InfoCallout>
 
 #### Inputs
 | Field | Type | Required | Notes |

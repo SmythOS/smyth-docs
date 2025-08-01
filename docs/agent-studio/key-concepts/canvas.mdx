@@ -16,6 +16,7 @@ The Studio Canvas is your main workspace for building, connecting, and testing A
 | Feature | Purpose |
 |--------|---------|
 | [Canvas Layout](#canvas-layout) | Overview of interface zones and navigation |
+| [Component Placement Guidelines](#component-placement-guidelines) | Placement rules and drop behavior |
 | [Building Workflows](#building-workflows) | Step-by-step guide to adding and connecting components |
 | [Deploying Agents](#deploying-agents) | Move from draft to production safely |
 | [Monitoring and Debugging](#monitoring-and-debugging) | Review execution, logs, and performance |
@@ -34,21 +35,31 @@ When you open an agent in Studio, the screen is divided into three key areas:
 <InfoCallout title="Auto-Save Enabled">
 Your work is saved automatically as a draft. Drafts don’t affect production agents until deployed.
 </InfoCallout>
+<Spacer size="md" />
+
+## Component Placement Guidelines
+
+### Valid Drop Zones
+Components must be placed within the designated canvas area for proper functionality.
+
+### Invalid Placement Warning
+When attempting to drop components outside the canvas area, you'll see:
+
+- **Warning Message**: "Oops! you are dropping this component off the Canvas - please drop it inside"
+- **Behavior**: The tooltip appears briefly and auto-dismisses
+- **Result**: No component is added to the workflow
 
 <Spacer size="md" />
 
 ## Building Workflows
 
-You build workflows by visually connecting components. Here’s how:
+You build workflows directly on the canvas by connecting reusable components. Each workflow defines how your agent processes input and produces a result.
 
-1. **Drag components** from the component list on the left onto the canvas.
-2. **Connect outputs to inputs** to pass data between components.
-3. **Configure settings** using the panel on the right.
-4. **Test as you build** using the built-in preview and inspect tools.
-5. **Adjust the flow** as needed—components can reference earlier results in the chain.
-6. **Connect to Agent** by adding an Agent Skill and connecting it to your workflow.
+- Drag components from the sidebar onto the canvas
+- Connect output ports to input ports to pass data between steps
+- Configure individual components in the right panel
 
-> You have access to 40+ production-ready components including LLMs, APIs, RAG tools, and logic handlers. Learn more in the [Components Overview](/docs/agent-runtime/overview).
+Read the [Building Workflows](/docs/agent-studio/build-agents/building-workflows) guide to explore advanced tips, trigger types, external integrations, and best practices for authoring AI workflows, 
 
 <Spacer size="md" />
 

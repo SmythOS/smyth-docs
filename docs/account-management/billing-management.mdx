@@ -1,0 +1,140 @@
+---
+title: Billing Management
+description: Understand exactly how much each AI model or component will cost you in SmythOS, so you can plan and budget with clarity.
+keywords: [model pricing, AI usage, LLM cost, billing, OpenAI pricing, Gemini pricing, agent cost]
+sidebar_position: 2
+---
+
+# Billing Management
+
+Use this page to check per-unit pricing for models, services, and components in SmythOS. This helps you forecast costs, avoid surprises, and use credits wisely. You can also [view subscription plans](/docs/account-management/overview) for limits and credit multipliers.
+
+<InfoCallout title="Using SmythOS-managed models">
+You don’t need API keys for default models. SmythOS manages setup, billing, and usage limits.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Billing Principles
+
+<TipCallout title="Avoid surprise charges">
+Monitor usage from the [Analytics Dashboard](https://app.smythos.com/analytics), and set limits on the [My Plan](https://app.smythos.com/my-plan) page.
+</TipCallout>
+
+- Each plan includes monthly credits
+- Overages are billed **pay-as-you-go**
+- Charges apply only after credits are exhausted
+- External API model charges are non-refundable
+- Failed runs or tests in development are never billed
+
+<SuccessCallout title="Real-time usage insights">
+Use the [Analytics Dashboard](https://app.smythos.com/analytics) to view task activity, token consumption, and exports.
+</SuccessCallout>
+
+<Spacer size="md" />
+
+## Model Pricing
+
+<InfoCallout title="Need plan-level limits?">
+This section covers unit pricing. For plan quotas and features, see [Compare Plans and Features](/docs/account-management/overview).
+</InfoCallout>
+
+### OpenAI Models
+
+| Model         | Input* | Cached Input* | Output* | Context Window | Image Support         |
+|---------------|--------|----------------|---------|----------------|------------------------|
+| GPT-4o        | $2.50  | $1.25           | $10.00  | 128k tokens     | Input only (token-based)** |
+| GPT-4o mini   | $0.15  | $0.075          | $0.60   | 128k tokens     | Input only             |
+| GPT-4.1       | $2.00  | $0.50           | $8.00   | 1M tokens       | Input only             |
+| GPT-4.1 mini  | $0.40  | $0.10           | $1.60   | 1M tokens       | Input only             |
+| GPT-4.1 nano  | $0.10  | $0.025          | $0.40   | 1M tokens       | Input only             |
+| o3            | $1.10  | $0.55           | $4.40   | 200k tokens     | Input only             |
+| o4-mini       | $0.10  | $0.05           | $0.30   | 200k tokens     | Input only             |
+
+### Gemini (Google AI)
+
+| Model               | Search | Input* | Output* | Context | Media Handling         |
+|---------------------|--------|--------|---------|---------|-------------------------|
+| Gemini 2.5 Flash    | $0.035 | $0.10  | $0.40   | 1M      | $0.70/image, $0.10/media |
+| Gemini 2.5 PRO ≤200k| $0.035 | $1.25  | $10.00  | 1M      | Same as above           |
+| Gemini 2.5 PRO >200k| $0.035 | $2.50  | $15.00  | 1M      | Same as above           |
+
+### Claude (Anthropic)
+
+| Model             | Input* | Output* | Context | Notes                            |
+|-------------------|--------|---------|---------|----------------------------------|
+| Claude 3.5 Haiku  | $0.80  | $4.00   | 200k    | Efficient, fast                  |
+| Claude 3.7 Sonnet | $3.00  | $15.00  | 200k    | Balanced performance             |
+| Claude Sonnet 4   | $3.00  | $15.00  | 200k    | High-performance version         |
+| Claude Opus 4     | $15.00 | $75.00  | 200k    | Most powerful Claude model       |
+
+### Perplexity Models
+
+| Model                | Search | Input* | Output* | Context | Notes                  |
+|----------------------|--------|--------|---------|---------|-------------------------|
+| Sonar                | $0.005 | $1.00  | $1.00   | 128k    | Basic model            |
+| Sonar PRO            | $0.005 | $3.00  | $15.00  | 200k    | Premium tier           |
+| Sonar Reasoning Pro  | $0.005 | $2.00  | $8.00   | 128k    | Reasoning-optimized    |
+| Sonar Deep Research  | $0.005 | $2.00  | $8.00   | 128k    | +$3.00 for deep reasoning |
+
+<InfoCallout title="Token-based billing">
+*Prices are per 1M tokens.  
+**For image input, tokens = width × height / 750.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Core Services and Components
+
+### Execution Costs
+
+| Service        | Rate                                 |
+|----------------|---------------------------------------|
+| Weaver Engine  | $3.00 input / $12.00 output per 1M tokens |
+| Task Execution | $0.001 per completed task             |
+| NodeJS Runtime | $0.0001 per second                    |
+| Vanilla JS     | Free                                  |
+
+**What counts as a task?**
+- 1 component = 1 task
+- Bulk run with 100 rows × 2 components = 200 tasks
+- Failed runs = 0 tasks
+- Development/test runs = Free
+
+<WarningCallout title="Production-only pricing">
+Task costs only apply in live deployments. Testing in the builder is always free.
+</WarningCallout>
+
+<Spacer size="md" />
+
+### Image Tools
+
+| Tool         | Provider     | Rate                          |
+|--------------|--------------|-------------------------------|
+| GPT Image    | OpenAI       | $5 input, $10 image input, $40 output per 1M tokens |
+| HD 8 Steps   | Flux Schnell | $0.001 per request            |
+| HD 50 Steps  | Flux Dev     | $0.008 per request            |
+
+### Web Utilities
+
+| Tool         | Provider   | Cost               |
+|--------------|------------|--------------------|
+| Web Search   | Tavily     | $0.008 per search  |
+| Web Scraping | ScrapFly   | $0.00015 per credit|
+
+### System Components
+
+| Component           | Cost                  |
+|---------------------|-----------------------|
+| NodeJS Runtime      | $0.0001 per second    |
+| Computer Use        | $0.0025 per second    |
+| MCP                 | Model-specific pricing|
+
+<Spacer size="md" />
+
+## Controlling Costs
+
+- [Set a billing limit](/docs/account-management/subscription-management#set-a-billing-limit)
+- [Track usage in analytics](/docs/agent-collaboration/user-management)
+- [Export detailed reports](https://app.smythos.com/analytics)
+- [Review model multipliers](/docs/account-management/overview)

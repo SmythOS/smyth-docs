@@ -1,99 +1,130 @@
 ---
 title: Subscription Management
-description: Manage your plan, track usage, cancel subscriptions, and set billing limits from the My Plan page.
-keywords: [subscription, billing, manage plan, cancel subscription, set limits, my plan, downgrade]
+description: Manage your plan, set billing limits, cancel your subscription, and understand role-based access from the My Plan page.
+keywords: [subscription, billing, manage plan, cancel subscription, downgrade, my plan, credit usage]
 sidebar_position: 5
 ---
 
 # Subscription Management
 
-The [**My Plan**](https://app.smythos.com/my-plan) page gives you control over your current [subscription tier](/docs/account-management/overview), usage limits, billing preferences, and cancellation settings. You can access it anytime from the top-right menu of your SmythOS dashboard.
+The [**My Plan**](https://app.smythos.com/my-plan) page lets you manage your subscription tier, usage limits, billing caps, and cancellation settings. You can access it anytime from the top-right menu of your SmythOS dashboard.
 
 <InfoCallout title="Where to manage your plan">
-Click your profile picture, choose **My Plan**, and manage everything from credit usage to plan cancellation in one place.
+Click your profile picture, choose **My Plan**, and manage everything from credit usage to cancellation in one place.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## View Plan and Usage
 
-At the top of the [**My Plan** page](https://app.smythos.com/my-plan), you'll see your active plan summary: which tier you're on, who owns it, and your current billing cycle.
-
-Usage metrics shown below help you track your activity in real time:
+At the top of the **My Plan** page, you'll see a summary of your active plan:
 
 | Section             | Description                                                  |
 |---------------------|--------------------------------------------------------------|
-| **Model Use**       | How many [credits](/docs/account-management/model-rates) you’ve consumed this cycle |
-| **Data Pool Usage** | Storage volume used out of your total GB quota               |
-| **Active Agents**   | Total number of agents deployed this month                   |
+| **Plan Details**     | Your subscription tier, renewal date, and team ownership     |
+| **Model Use**       | [Credits](/docs/account-management/billing-management) consumed this cycle |
+| **Data Pool Usage** | GB of storage used out of your quota                         |
+| **Active Agents**   | Total agents deployed during this billing cycle              |
 
-<InfoCallout title="Credits reset automatically">
-Your included credits renew monthly at the start of each new billing period.
+<InfoCallout title="Credit resets">
+Credits renew at the start of each billing cycle. Plan multipliers affect how much each action costs.
 </InfoCallout>
 
-You can also review how your plan’s credit multiplier affects cost on the [Model Rates page](/docs/account-management/model-rates).
+For detailed model pricing, see the [Billing Management](/docs/account-management/billing-management) page.
 
 <Spacer size="md" />
 
 ## Set a Billing Limit
 
-To prevent overspending once your credits run out, you can enable a billing cap.
+You can prevent overages by enabling a billing cap:
 
 1. Scroll to the **Set Billing Limit** section
-2. Toggle the limit on
-3. Enter your billing threshold in USD
+2. Toggle the feature ON
+3. Enter a USD threshold
 
-SmythOS will stop usage charges once your cap is reached.
+Once your usage exceeds the included credits **and** hits the limit, charges stop.
 
 <WarningCallout title="Limits apply after credits are used">
-Credits are always used first. Billing only starts once you're over the included monthly quota.
+Credits are always consumed first. Paid billing begins only when your usage goes beyond your plan’s quota.
 </WarningCallout>
 
-To monitor consumption more closely, use the [Analytics Dashboard](/docs/agent-collaboration/user-management).
+To monitor usage, check the [Analytics Dashboard](/docs/agent-collaboration/user-management).
 
 <Spacer size="md" />
 
 ## Cancel a Subscription
+<InfoCallout title="Only team owners can cancel subscriptions">
+If you don’t see the cancel option, check your [role and permissions](/docs/agent-collaboration/user-management). Only the [team owner](/docs/account-management/organization-management) has permission to cancel the plan.
+</InfoCallout>
+To downgrade your plan:
 
-To downgrade to the Free plan:
+1. Open **My Plan**  
+2. Scroll to **Cancel Subscription**  
+3. Click **Cancel Subscription**  
+4. Complete the Stripe cancellation flow
 
-1. Go to **My Plan**
-2. Scroll to the **Cancel Subscription** section
-3. Click **Cancel Subscription**
-4. Complete the cancellation flow on Stripe
+Your account will remain active until the end of your current billing cycle. After that, it will move to the [Free Forever tier](https://smythos.com/pricing/).
 
-Your subscription will remain active until the end of the current billing cycle. After that, your account will move to the [Free Forever tier](https://smythos.com/pricing/).
+// Image src="/docs/img/cancel-subscription.jpg" alt="Cancel subscription panel in SmythOS" caption="Downgrade takes effect at the end of your billing cycle." />
 
-<WarningCallout title="Only team owners can cancel subscriptions">
-If you don’t see the cancel button, check your [role and permissions](/docs/agent-collaboration/user-management). Only the [team owner](/docs/account-management/organization-management) can cancel a subscription.
+<Spacer size="md" />
+
+<WarningCallout title="Important"> 
+Only the team owner can cancel the subscription.  
+If you're **not** the team owner and try to cancel, **nothing will happen**.  
+Ask your team owner to cancel on your behalf.
 </WarningCallout>
 
-<Image src="/docs/img/cancel-subscription.jpg" alt="Cancel subscription panel in SmythOS" caption="Downgrade takes effect at the end of your billing cycle." />
+<Spacer size="md" />
+
+## Subscription Cancellation Behavior
+
+### What Happens After You Cancel
+
+- **Continued Access:** You keep full access until the billing cycle ends  
+- **UI Indicators:** Subscription appears as “scheduled for cancellation”  
+- **Stripe Status:** Check the Stripe portal for confirmation  
+
+### Downgrade Notifications
+
+When your account switches to the Free tier:
+
+- You’ll receive an automatic downgrade email  
+- The email includes new plan limits  
+- Review feature access on the [Plans and Pricing](https://smythos.com/pricing) page
+
+### Billing Period Notes
+
+- Paid features remain available until the cycle ends  
+- No additional charges occur after cancellation  
+- Track your billing status via Stripe
 
 <Spacer size="md" />
 
 ## Role-Based Access
 
-Your ability to cancel or manage subscriptions depends on your assigned role.
+Plan management is permission-based:
 
-Full access is available to users with the [Super Admin role](/docs/agent-collaboration/user-management), which must be set from the [Organization Management](/docs/account-management/organization-management) panel.
+- **Team Owner:** Full access to cancel subscriptions  
+- **Super Admins:** Can manage limits, view usage  
+- **Members/Viewers:** Cannot access subscription settings
+
+Roles are managed via [Organization Management](/docs/account-management/organization-management).
 
 <Spacer size="md" />
 
-## Get Support
+## Need Help?
 
-If you're unsure about billing, usage caps, or plan changes, help is available.
-
-<TipCallout title="Need help fast?">
-Reach out to our [Support team](https://smythos.com/talk-to-us), or post a question in the Discord server for community and team help.
+<TipCallout title="Have a billing or subscription question?">
+Contact [Support](https://smythos.com/talk-to-us), or post in the [Discord server](https://discord.gg/smythos) for help from the community or team.
 </TipCallout>
 
 <Spacer size="md" />
 
-## What's Next?
+## What’s Next?
 
-- [Compare Plans and Features](/docs/account-management/overview)
-- [Model Rates](/docs/account-management/model-rates)
-- [Roles and Permissions](/docs/agent-collaboration/user-management)
-- [Organization Management](/docs/account-management/organization-management)
+- [Billing Management](/docs/account-management/billing-management)  
+- [Compare Plans and Features](/docs/account-management/overview)  
+- [Account Deletion](/docs/account-management/account-deletion)  
+- [Roles and Permissions](/docs/agent-collaboration/user-management)  
 - [Analytics Dashboard](/docs/agent-collaboration/user-management)

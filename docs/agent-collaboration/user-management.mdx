@@ -89,9 +89,64 @@ Set a custom role as the default for easier onboarding.
 
 <Spacer size="md" />
 
+## Managing Team Invitations
+
+You can view and manage all **pending invites** from the **User Management** screen. This includes tracking invite status, expiration, and taking actions like resending or deleting invites.
+
+<InfoCallout title="Why this matters">
+Pending invites allow you to track who hasn’t joined yet—and take action before access expires or needs re-issuing.
+</InfoCallout>
+
+### Viewing Pending Invites
+
+Navigate to:
+
+1. **User Management** in the sidebar
+2. Select the **Pending Invites** tab next to “Team Members”
+
+You’ll see a table showing:
+
+| Column       | Description                                        |
+|--------------|----------------------------------------------------|
+| **Email**    | The invited user's email address                   |
+| **Role**     | Role assigned during the invite (e.g. Super Admin) |
+| **Sent Date**| When the invite was sent                           |
+| **Expires**  | Expiry date of the invite                          |
+| **Status**   | One of: `Pending`, `Expired`, or `Accepted`        |
+| **Actions**  | Options to **Resend** or **Delete**                |
+
+<Image src="/docs/img/agent_collaboration/user-invites-table.jpg" alt="Pending User Invites Table in SmythOS" caption="Track and manage pending team invites from a single place." />
+
+### Invite Expiration Behavior
+
+Invites expire automatically after **7 days**. If an invite is not accepted before expiration:
+
+- The status changes to `Expired`
+- The user will no longer be able to use the invite link
+- You’ll need to **resend** or **delete** the invite
+
+<WarningCallout title="Expired invites are non-functional">
+Users who try to accept an expired invite will see an error. Always resend if needed.
+</WarningCallout>
+
+### Resending or Deleting Invites
+
+Hover over the icons in the **Actions** column:
+
+| Icon | Action         | Tooltip        |
+|------|----------------|----------------|
+| 🔁   | Resend Invite  | “Resend”       |
+| 🗑️   | Delete Invite  | “Delete”       |
+
+<TipCallout title="Need to update a role before resending?">
+Delete the invite and send a new one with the correct role.
+</TipCallout>
+
+<Spacer size="md" />
+
 ## Usage & Billing Analytics
 
-The **Analytics Dashboard** helps you understand how agents consume compute — by task, cost, and performance.
+The **Analytics Dashboard** helps you understand how agents consume compute: by task, cost, and performance.
 
 ### Dashboard Overview
 
@@ -177,7 +232,7 @@ Use filters to zoom in on agent or space. Check:
 Not yet. Switch organizations to view each one’s data individually.
 
 ### Can I see exact model pricing?
-Yes. Visit [Model Rates](/docs/account-management/model-rates) for full provider-based cost breakdowns.
+Yes. Visit [Billing Management](/docs/account-management/billing-management) for full provider-based cost breakdowns.
 
 ### Who can access Analytics?
 Only **Super Admins** and **Editors**. [Review roles here](/docs/agent-collaboration/user-management).
@@ -187,7 +242,7 @@ Only **Super Admins** and **Editors**. [Review roles here](/docs/agent-collabora
 ## What’s Next?
 
 - [Set Work Schedules](/docs/agent-deployments/agent-work-schedules)
-- [View and manage Model Rates](/docs/account-management/model-rates)
+- [View and manage Billing Management](/docs/account-management/billing-management)
 - [Invite teammates and assign roles](/docs/agent-collaboration/spaces/invite-members)
 - [Export usage reports](/docs/account-management/subscription-management)
 - [Switch Organizations](/docs/account-management/organization-management)

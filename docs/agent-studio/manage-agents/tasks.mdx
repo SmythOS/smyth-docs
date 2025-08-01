@@ -46,6 +46,24 @@ You can send long prompts, test different inputs, and get syntax-highlighted res
 
 <Spacer size="lg" />
 
+### Chat Interface Features
+
+#### Automatic Long Text Handling
+- **Character limit**: 8000 per message (as existing)
+- **Auto-attachment conversion**: Text exceeding 4000 characters when pasted is automatically converted to a downloadable .txt attachment
+- **Attachment features**:
+  - Preview functionality
+  - Remove option
+  - Content preservation
+- **Incremental typing**: Typing that exceeds 4000 characters gradually does not trigger auto-conversion
+- **Edge case**: Exactly 4000 characters remain as text; 4001+ characters convert to attachment
+
+#### Attachment Management
+- **File types**: .txt files for long text content
+- **Removal**: Remove attachment if needed before sending
+
+> **Note**: This feature helps manage long conversations and prevents issues with extremely long message inputs while maintaining chat history accessibility.
+
 ## Bulk Operations
 
 Use this when you want to send multiple items to the same endpoint for processing.

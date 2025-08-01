@@ -20,6 +20,7 @@ Visual content is highly engaging. With the Image Generator, your agent can crea
 - [Model and Generation Settings](#step-1-select-a-model-and-configure-settings)
 - [Define Inputs](#step-2-define-inputs)
 - [Handle the Generated Output](#step-3-handle-the-generated-output)
+- [Model Verification and Troubleshooting](#model-verification-and-troubleshooting)
 - [Best Practices](#best-practices)
 - [Troubleshooting Tips](#troubleshooting-tips)
 - [What to Try Next](#what-to-try-next)
@@ -71,6 +72,26 @@ The component produces a single output containing the newly created image.
 | **Output** | A reference to the generated image file, ready to be used in subsequent steps. | Binary         |
 
 <Spacer size="md" />
+
+## Model Verification and Troubleshooting
+
+### Verifying Available Models
+
+- Open the **Model** dropdown to confirm which models are currently available
+- Expected options include `GPT Image 1`, `FLUX Dev`, and `FLUX Schnell`
+
+### Model-Specific Settings
+
+- Each model provides different configuration options in the **Advanced Settings** panel
+- **FLUX models** offer additional settings:
+  - **Strength** — controls how closely output resembles the input image
+  - **Negative Prompt** — exclude specific elements from output
+- **GPT Image 1** uses a different set of parameters and does not include Strength or Negative Prompt
+
+### Troubleshooting Model Selection
+
+- If the model dropdown is empty or missing expected entries, check your internet connection or refresh the canvas
+- Still not showing? [Contact support](https://discord.gg/smythos) for help diagnosing model availability
 
 ## Best Practices
 

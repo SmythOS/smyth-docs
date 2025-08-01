@@ -70,17 +70,70 @@ Spaces use role-based access control. You assign one of four roles when adding a
 
 | Area              | Super Admin | Admin         | Editor        | Viewer        |
 |-------------------|-------------|---------------|---------------|---------------|
-| Edit Agents       | ✅          | ✅            | ✅            | ❌            |
-| Access Agent Logs | ✅          | ✅            | ✅            | ✅            |
-| Add Team Members  | ✅          | ✅            | ❌            | ❌            |
-| Modify Vault Keys | ✅          | ✅            | ✅            | ❌            |
-| Manage Branding   | ✅          | ✅            | ❌            | ❌            |
+| Edit Agents       | <Tick />          | <Tick />            | <Tick />            | <Cross />            |
+| Access Agent Logs | <Tick />          | <Tick />            | <Tick />            | <Tick />            |
+| Add Team Members  | <Tick />          | <Tick />            | <Cross />            | <Cross />            |
+| Modify Vault Keys | <Tick />          | <Tick />            | <Tick />            | <Cross />            |
+| Manage Branding   | <Tick />          | <Tick />            | <Cross />            | <Cross />            |
 
 <TipCallout title="Need full access details?">
 See the complete [Roles and Permissions](/docs/agent-collaboration/user-management) reference.
 </TipCallout>
 
 <Spacer size="md" />
+
+## Seat Limit Management
+
+### Seat Limit Warning System
+
+SmythOS displays warnings when you approach your plan's seat limits to prevent unexpected charges:
+
+**Warning Locations:**
+
+- **Space Settings:** When adding members to existing spaces  
+- **Create Space Flow:** When creating new spaces with initial members  
+
+**Warning Information Displayed:**
+
+- Current seat usage (e.g., "3 of 5 seats used")  
+- Cost per additional seat for your plan  
+- Total cost preview for adding new members  
+
+### Managing Seat Limits
+
+**Monitoring Usage:**
+
+- Check current seat usage in Space Settings  
+- Review seat costs before inviting new members  
+- Monitor team size across all spaces in your organization  
+
+**Avoiding Overage:**
+
+- **Upgrade Plan:** Consider upgrading if you consistently need more seats  
+- **Remove Inactive Members:** Regularly audit and remove unused accounts  
+- **Plan Ahead:** Account for seat needs when inviting multiple members  
+
+**Plan Seat Limits:**
+
+- **Free Forever:** 1 seat  
+- **Private Builder:** 1 seat  
+- **Startup:** 3 seats  
+- **Scaleup:** 5 seats  
+- **Enterprise:** Custom seat allocation  
+
+<InfoCallout>
+Additional seats beyond your plan limit incur extra charges. Review the warning messages carefully before confirming member additions.
+</InfoCallout>
+
+### Removing Members
+
+1. **Space Settings:** Go to Space Settings of the desired space  
+2. **Member List:** Find the list of members  
+3. **Remove Member:** Click the remove option next to the member's name  
+
+<WarningCallout>
+Space creators cannot be removed, and members cannot remove themselves.
+</WarningCallout>
 
 ## Branding Your Space
 

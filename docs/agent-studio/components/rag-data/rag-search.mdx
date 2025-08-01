@@ -1,152 +1,122 @@
 ---
 title: RAG Search
-description: Perform intelligent retrieval of indexed knowledge for your agents.
+description: Perform intelligent retrieval of indexed knowledge for your agents using semantic vector search.
 keywords: [RAG, vector search, namespace, metadata, score threshold, similarity, filtering]
 toc_max_heading_level: 2
 ---
 
 # RAG Search Component
 
-The RAG Search component retrieves relevant pieces of information previously stored using the RAG Remember component. It enables memory-aware agents by finding and returning the most contextually relevant content chunks using vector-based search.
+Use the **RAG Search** component to intelligently retrieve information from your agent’s memory. It fetches relevant content previously stored with **RAG Remember** using vector similarity, allowing your agent to generate grounded, context-aware responses.
 
 <InfoCallout title="Why this matters">
-RAG Search allows your agent to recall specific pieces of knowledge using semantic relevance. This enables more accurate and grounded responses without reprocessing entire documents.
+Your agent cannot reason without access to meaningful memory. RAG Search enables smarter behavior by surfacing only the most relevant, contextually matched chunks of information. It also gives you full control over filtering, ranking, and explaining the results.
 </InfoCallout>
-
-<Arcade
-  src="https://demo.arcade.software/AGw1jcRdkCPna3EyPyyX?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="RAG Search | SmythOS"
-/>
 
 <Spacer size="md" />
 
-## What You Will Configure
+## What You’ll Configure
 
-- Namespace
-- Result Count
-- Score Threshold
-- Include Score
-- Include Metadata
+- [Step 1: Define the Search Scope](#step-1-define-the-search-scope)
+- [Step 2: Filter and Format the Output](#step-2-filter-and-format-the-output)
+- [Best Practices](#best-practices)
+- [Troubleshooting Tips](#troubleshooting-tips)
+- [What to Try Next](#what-to-try-next)
 
-<Divider />
+<Spacer size="md" />
 
-## Namespace
+## Step 1: Define the Search Scope
 
-| Field | Required? | Description |
-|-------|-----------|-------------|
-| Namespace | Yes | The memory index to search against. This must match the namespace used when storing content with the RAG Remember component. |
+Configure which memory bucket to search and how many results to retrieve.
 
-<TipCallout>
-Use namespace labels like folders. Your agent will only search in the one you specify.
+| Setting        | Required? | Description |
+|----------------|-----------|-------------|
+| **Namespace**  | Yes       | Select the memory index to search. This must match the namespace used during storage with RAG Remember. |
+| **Results Count** | Yes    | Set how many top results to return. Usually between 3 and 5 provides a good balance between recall and precision. |
+
+<TipCallout title="Think of Namespaces as memory folders">
+Each namespace holds a separate collection of content. Your agent will only search in the one you specify here.
 </TipCallout>
 
 <Spacer size="md" />
 
-## Results Count
+## Step 2: Filter and Format the Output
 
-| Field | Required? | Description |
-|-------|-----------|-------------|
-| Results Count | Yes | The maximum number of top matches to return. Common values range from 3 to 5. |
+Use the score threshold to control result quality, and optionally include metadata or similarity scores in the output.
 
-<Spacer size="md" />
+| Setting            | Required? | Description |
+|--------------------|-----------|-------------|
+| **Score Threshold** | Optional | Filters results below the specified similarity score. Range is 0 to 1. A value like 0.7 ensures high-confidence matches. Default is 0 (no filtering). |
+| **Include Score**   | Optional | Adds the similarity score to each result in the output. Helpful for ranking or diagnostics. |
+| **Include Metadata** | Optional | Includes document-level info like file name or section if it was added during indexing. Useful for traceability. |
 
-## Score Threshold
-
-| Field | Required? | Description |
-|-------|-----------|-------------|
-| Score Threshold | Optional | Filters results based on a minimum similarity score between 0 and 1. A higher value returns only highly relevant results. Default is 0, meaning no filtering. |
-
-<InfoCallout title="Filtering behavior">
-If no results meet the threshold, the component will return an empty result set.
+<InfoCallout title="Filtering vs. displaying score">
+The score threshold filters what gets returned. The Include Score option adds the score value to each result. You can enable either or both.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Include Score
+## Query Input
 
 | Field | Required? | Description |
 |-------|-----------|-------------|
-| Include Score | Optional | When enabled, includes a similarity score (from 0 to 1) in each result, showing how closely the content matches the query. |
-
-<TipCallout>
-Use the slider to filter results. Use this checkbox to include the score in the output. These options are independent. You can filter without showing scores, or show scores without filtering.
-</TipCallout>
-
-<Spacer size="md" />
-
-## Include Metadata
-
-| Field | Required? | Description |
-|-------|-----------|-------------|
-| Include Metadata | Optional | If enabled, includes metadata such as document name, section, or tags if that information was provided during indexing. |
+| **Query** | Yes | The question or search phrase. Can be natural language or keyword-based. The better your phrasing, the better the match. |
 
 <InfoCallout>
-This option has no effect if the indexed data did not include metadata originally.
+Use clear and specific questions such as “What is the refund process?” instead of vague terms like “refund.”
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Inputs
+## Handle the Output
 
-### Query
-
-| Field | Required? | Description |
-|-------|-----------|-------------|
-| Query | Yes | The natural language question or search prompt the agent will use to find relevant content. Can be a phrase, sentence, or keyword. |
-
-<InfoCallout>
-Use clearly phrased queries like "What is the patient discharge process" to get better matches.
-</InfoCallout>
-
-<Spacer size="md" />
-
-## Outputs
-
-### Results
+Each result contains the retrieved content and may include metadata and similarity, depending on configuration.
 
 | Output  | Description |
 |---------|-------------|
-| Results | A list of matched content items. Each item may include: <ul><li><strong>content</strong>: the retrieved text</li><li><strong>metadata</strong>: document info (if enabled)</li><li><strong>similarity</strong>: a score between 0 and 1 (if Include Score is enabled)</li></ul> |
+| **Results** | A list of matched content items. Each item may include: <ul><li><strong>content</strong>: the retrieved text</li><li><strong>metadata</strong>: document info (if enabled)</li><li><strong>similarity</strong>: a score between 0 and 1 (if Include Score is enabled)</li></ul> |
 
 ### Example Output
 
 ```json
-
 [
   {
-    "content": "Patients must be discharged with documentation reviewed by both attending and nursing staff.",
-    "similarity": 0.82,
+    "content": "Refunds must be submitted within 7 days of the original transaction through the billing portal.",
+    "similarity": 0.88,
     "metadata": {
-      "document": "HospitalPolicy.pdf",
-      "section": "4.3"
+      "document": "RefundPolicy.pdf",
+      "section": "2.1"
     }
   }
 ]
 ```
 
-<InfoCallout>
-The similarity score will only appear in the output if the Include Score checkbox is selected.
-</InfoCallout>
-
 <Spacer size="md" />
-<Divider />
 
 ## Best Practices
 
-- Use specific, well-formed queries to get the most relevant results
-- Set the score threshold between 0.6 and 0.8 when high confidence is required
-- Enable score only if you need to inspect or act on result quality downstream
-- Keep namespaces consistent between RAG Remember and RAG Search
-- Include metadata if you need traceability or content routing
+- Use specific and well-phrased queries for more accurate results
+- Limit results to 3 to 5 to avoid overwhelming downstream logic
+- Apply a score threshold when quality matters
+- Include metadata if traceability is needed
+- Include score for debugging or conditional branching
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If your results seem off...">
+- **Check your namespace**: Results only come from the specified bucket. If you indexed under another name, nothing will match.
+- **Use a lower threshold**: If you set the threshold too high, you might filter out valid results.
+- **Inspect your query**: A vague or incomplete query can return irrelevant results or nothing at all.
+- **Verify indexing format**: Content indexed without proper chunking or metadata can reduce match quality.
+</InfoCallout>
 
 <Spacer size="md" />
 
 ## What to Try Next
 
-- Feed the results into a [GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm) component to summarise or format responses
-- Chain with conditionals based on similarity score for dynamic logic
-- Use score filtering to avoid hallucinated or loosely matched content
-
-<TipCallout>
-RAG Search is most effective when paired with [GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm). This gives you a grounded retrieval process followed by a high-quality language generation step.
-</TipCallout>
+- Use **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** to index fresh content
+- Pass the output of RAG Search into **[GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm)** to summarise or respond in natural language
+- Combine with conditional logic to route based on similarity or metadata
+- Build workflows that include score-based thresholds for fallback queries or alternate sources

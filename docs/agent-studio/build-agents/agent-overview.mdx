@@ -65,17 +65,10 @@ You can create your first agent in a few steps:
 
 1. Go to your [dashboard](https://app.smythos.com) and create a new agent, or remix one from the [template gallery](/docs/agent-templates/overview).
 2. Add an [Agent Skill](/docs/agent-studio/components/base/agent-skill) to define how the agent should behave.
-3. Connect components using the [Studio Canvas](/docs/agent-studio/key-concepts/canvas) to structure your logic.
-4. Configure the prompts, inputs, and memory settings for dynamic behavior.
+3. Connect components on the [Studio Canvas](/docs/agent-studio/key-concepts/canvas) to structure your workflows.
+4. Configure the prompts, inputs, and outputs, and [agent settings](/docs/agent-studio/manage-agents/overview)for dynamic behavior.
 
-Once your agent is ready, you can publish and interact with it using the API.
-
-```bash
-curl -X POST https://api.smythos.com/v1/agents/{agent_id}/run \
-  -H "Authorization: Bearer $SMYTH_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"inputs": {"query": "Generate five tagline ideas for SmythOS"}}'
-```
+Once your agent is ready, you can [test](/docs/agent-studio/build-agents/agent-overview) and [deploy](/docs/agent-deployments/overview) it. 
 
 <InfoCallout title="Want to test visually?">
 Use the built-in [Form Preview](/docs/agent-studio/build-agents/debugging#testing-with-form-preview) feature to simulate input and see the agent’s full response without writing any code.

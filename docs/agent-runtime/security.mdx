@@ -8,7 +8,7 @@ toc_max_heading_level: 2
 
 # SRE Security Model
 
-The Smyth Runtime Environment (SRE) is designed with security at its core. Every operation, agent execution, resource access, or collaboration, is protected by a security model that includes zero-trust access control, vault-backed secret management, and real-time role enforcement.
+The SmythOS Runtime Environment (SRE) is designed with security at its core. Every operation, agent execution, resource access, or collaboration, is protected by a security model that includes zero-trust access control, vault-backed secret management, and real-time role enforcement.
 
 <InfoCallout title="Security by Default">
 Every request in SRE is checked against role-based permissions and access policies. Only verified candidates with the correct role and explicit access can read, write, or execute.
@@ -31,7 +31,7 @@ const storage = ConnectorService.getStorageConnector().user(candidate);
 await storage.write('results.json', data);
 </codeblock>
 
-You can manage these permissions through [Roles and Permissions](/docs/agent-collaboration/user-management), and they are enforced consistently across [Spaces](/docs/agent-collaboration/spaces) and your [Organization](/docs/account-management/organization-management).
+You can manage these permissions through [Roles and Permissions](/docs/account-management/user-management), and they are enforced consistently across [Spaces](/docs/agent-collaboration/spaces) and your [Organization](/docs/account-management/organization-management).
 
 <Spacer size="md" />
 
@@ -69,7 +69,7 @@ Role-based access control is central to SRE. Roles define **who can do what**...
 
 If a candidate does not have the correct permissions, the action is denied before execution.
 
-To adjust or review roles, see the [Roles and Permissions guide](/docs/agent-collaboration/user-management).
+To adjust or review roles, see the [Roles and Permissions guide](/docs/account-management/user-management).
 
 <Spacer size="md" />
 
@@ -96,7 +96,7 @@ SRE security spans multiple subsystems. Here’s where to manage each area:
 
 | Security Area           | Where It’s Managed                                           |
 |-------------------------|-------------------------------------------------------------|
-| Identity & ACLs         | [Roles and Permissions](/docs/agent-collaboration/user-management) |
+| Identity & ACLs         | [Roles and Permissions](/docs/account-management/user-management) |
 | Credential Storage      | [Vault](/docs/agent-studio/key-concepts/vault)                                    |
 | User Roles & Login      | [Organization Management](/docs/account-management/organization-management) |
 | Agent Environments      | [Spaces](/docs/agent-collaboration/spaces)                  |
@@ -106,7 +106,7 @@ SRE security spans multiple subsystems. Here’s where to manage each area:
 
 ## What’s Next?
 
-- [Roles and Permissions](/docs/agent-collaboration/user-management)
+- [Roles and Permissions](/docs/account-management/user-management)
 - [Organization Management](/docs/account-management/organization-management)
 - [Spaces Overview](/docs/agent-collaboration/spaces)
 - [Enterprise Deployment](/docs/agent-runtime/enterprise-deployment)

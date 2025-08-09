@@ -41,11 +41,13 @@
     "@docusaurus/types": "^3.7.0",
     "@tailwindcss/postcss": "^4.1.7",
     "autoprefixer": "^10.4.21",
+    "bufferutil": "^4.0.9",
     "dotenv-cli": "^8.0.0",
     "lucide-react": "^0.511.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.7",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.2",
+    "utf-8-validate": "^6.0.5"
   },
   "browserslist": {
     "production": [
@@ -61,5 +63,9 @@
   },
   "engines": {
     "node": ">=18.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.9",
+    "utf-8-validate": "^6.0.5"
   }
 }

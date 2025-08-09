@@ -43,7 +43,6 @@ const config: Config = {
     // Make env vars available in components
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-    supportFormUrl: 'https://smythos.com/talk-to-us/',
     supportEmail: 'support@smythos.com',
     supportDiscordUrl: 'https://discord.gg/smythos',
   },
@@ -172,7 +171,51 @@ const config: Config = {
             ]
           }),
         },
-      ],
+          {
+            tagName: 'script',
+            attributes: {
+              type: 'application/ld+json',
+            },
+            innerHTML: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "Why do I get a 401 Unauthorized error?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Check if your AgentLLM key is valid and correctly passed in the Authorization header. You can regenerate the key under Test → LLM → Keys."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Why is the wrong version of my agent responding?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Check the 'model' string in your request. Make sure you're using the correct version tag like @dev, @prod, or @1.0."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What do I do if my request returns no output?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Confirm that your agent is correctly configured and LLM is toggled on. Then inspect logs under Deployments → Logs."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I find the correct baseURL and model string?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Go to Test → LLM → Code. Always copy the baseURL and model directly from there to avoid typos or environment mismatches."
+                  }
+                }
+              ]
+            })
+          }
+        ]
 
   
   

@@ -1,150 +1,211 @@
 ---
 title: Deploy as Chatbot
-keywords: [SmythOS, chatbot, agent deployment, website AI assistant, embed AI chatbot, live chat]
-description: How to deploy your SmythOS agent as an embeddable chatbot for your website or application.
+sidebar_label: Chatbot
+description: Step‑by‑step guide to embedding your SmythOS AI agent as an inline chat widget or floating support bubble and launch an on‑site AI assistant with zero backend code.
+keywords: [SmythOS, deploy as chatbot, AI chatbot, website chatbot, chat widget, embed AI assistant, floating chat bubble, inline chatbot, no-code chatbot deployment, support bot, website AI assistant, chatbot for websites, how to embed chatbot, open source chatbot]
 ---
 
 # Deploy as Chatbot
 
-> **Make your Agent talk to your users on your site.** Embed your SmythOS Agent as a fully branded AI assistant with just one script.
-
-<InfoCallout title="TL;DR">
-Enable the ChatBot embodiment, configure domain + settings, and paste one script block into your site’s HTML.
+<InfoCallout title="Quick Steps (TL;DR)">
+**1.** Enable **Chatbot** deployment in **Settings → Deployments**  
+**2.** Configure domain, styling, and intro message in **Configuration**  
+**3.** Copy-paste the generated script into your site to go live instantly
 </InfoCallout>
 
-<Divider />
+## When to Use Chatbot Deployment in SmythOS?
 
-## Why Deploy as a Chatbot?
+A SmythOS chatbot is simply **your existing agent wrapped in a web UI**. Once live, use it to:
 
-Your [Agent](/docs/agent-studio/build-agents/agent-overview) already has skills, workflows, and logic. Deploying it as a chatbot gives users real-time access to its abilities from any page on your site.
+- **Answer questions** using your Studio workflows  
+- **Receive files** when *Allow Attachments* is enabled  
+- **Match your brand** with custom colors, icon, and intro message
 
-- No extra hosting or backend required  
-- Brandable and fully configurable  
-- Instant access to all Agent logic
+<Arcade
+  src="https://demo.arcade.software/Oud3dQuNbwya8h2fQq2q?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="Deploy as Chatbot · SmythOS"
+/>
 
-<Divider />
+<Spacer size="md" />
 
-## Prerequisites
+## Step 1: Configure Your Domain
 
-Before starting, ensure:
+You can test the chatbot on a default subdomain or verify a custom one for production.
 
-- You’ve **deployed your Agent** (any version is fine)
-- The **ChatBot embodiment** is enabled in **Agent Settings**
-- Your desired domain is verified in **Subdomains**
-- (Optional) You have an API key in **Vault** if using authentication
+| Option | When to use | Steps |
+|--------|-------------|-------|
+| **Default subdomain** | You just want to test quickly | Nothing to do; SmythOS assigns one automatically |
+| **Custom subdomain** | You need a branded or production URL | Go to [Subdomains](https://app.smythos.com/domains), add the host, then click **Verify** to complete DNS validation |
 
-<Divider />
-
-## Step 1: Configure Domain Access
-
-1. Go to [Subdomains](https://app.smythos.com/domains)
-2. Use a SmythOS default subdomain or add your own
-3. Click **Verify** to confirm domain ownership
-
-<InfoCallout title="Staging vs Production Domains">
-Use `.stage.smyth.ai` for staging, `.pstage.smyth.ai` for production. These affect the embed URL.
-</InfoCallout>
-
-<Divider />
-
-## Step 2: Enable the ChatBot Embodiment
-
-1. Open your Agent in SmythOS  
-2. Navigate to **Settings → Deployments**  
-3. Toggle **ChatBot** to ON  
-
-<TipCallout title="Best Practice">
-Use the intro message to guide user expectations like “Hi! Ask me anything about onboarding or pricing.”
+<TipCallout title="Staging vs Production">
+Use the provided `.stage.smyth.ai` subdomain for testing and `.pstage.smyth.ai` for production. Both are free and instant.
 </TipCallout>
-<Divider />
 
-## Step 3: Customize Appearance and Behavior
+<Spacer size="md" />
 
-Go to **Settings → Deployments → Chatbot Configuration** to visually customize:
+## Step 2: Enable the Chatbot Deployment
 
-- **Name** — Chatbot instance label (used in settings)
-- **Intro Message** — First message shown to the user
-- **Personality** — System prompt that guides how the chatbot responds
-- **GPT Model** — Optional override of the Agent’s default model
-- **Allowed Domains** — Comma-separated list of sites the bot can appear on
-- **Icon URL** — Optional launcher icon (PNG or SVG)
-- **Code Syntax Theme** — How code blocks will appear in responses
-- **Message View** — CHoose compact or full chat mode
-- **Attachments** — Allow users to upload files into the chat
+This makes the chatbot available for public use. Once toggled on, the UI settings become configurable.
 
-<InfoCallout title="Customize via code" collapsible={true} defaultOpen={false}>
-To further customize via code, override settings when calling `ChatBot.init()`:
+1. Open your Agent → **Settings → Deployments**  
+2. Toggle **Chatbot** ON  
+3. Click **Configuration** to open the settings modal
+
+<Spacer size="md" />
+
+## Step 3: Customize the Chatbot Configuration
+
+This is where you define how your chatbot looks and behaves, including messages, brand styling, file uploads, and access control.
+
+<Image
+  src="/docs/img/agent_deployments/chatbot-config-ui.jpg"
+  alt="Chatbot configuration settings UI in SmythOS"
+  caption="Customize chatbot behavior, intro message, personality, and more"
+/>
+
+| Field | Description | Tip |
+|-------|-------------|-----|
+| **Name** | Internal label for this chatbot deployment | Helps you identify multiple bots |
+| **Intro Message** | First line visitors see when chat opens | Keep it friendly and concise |
+| **Personality** | System prompt that guides tone and style; specify tone, behavior, or any contextual instructions. | e.g., "You are a witty but helpful AI" |
+| **Allowed Domains** | Comma‑separated list where the bot is allowed to run to limit deployment to authorized websites.| Leave blank for no restriction |
+| **Icon** | URL for the launcher avatar (PNG/SVG) | Square images render best |
+| **Code Syntax Highlight Theme** | Theme for code blocks (e.g., `oneDark`, `dracula`) | Preview updates live in the right‑hand pane |
+| **Message View** | Embed chat inside a page element instead of floating bubble | Check the box to enable embed mode |
+| **Allow File Attachments** | Let users upload files during chat | Ideal for PDF or CSV analysis workflows |
+
+<Spacer size="md" />
+
+## Step 4: Customize Look and Feel of Chatbot
+
+| Customise | How |
+|-----------|-----|
+| Colors & fonts | Use the color‑picker in the config modal |
+| Bubble CSS | Pass `humanBubbleClass` / `botBubbleClass` in `ChatBot.init()` |
+| Icon | Paste an image URL (PNG / SVG) |
+
+### JavaScript Example
 
 ```js
 ChatBot.init({
-  domain: 'cmb5b4js00fmjh6333d0foxjr.agent.pstage.smyth.ai',
-  isChatOnly: false,
-  allowAttachments: false,
-  introMessage: 'Hi there! How can I help you today?',
-  name: 'SiteBot101',
-  personality: 'You are a helpful AI assistant for onboarding questions.',
+  name: 'My Agent 101',
+  introMessage: 'Happy to see you, how can I be of assistance today?',
+  // humanBubbleClass: 'human-chatbox-bubble',
+  // botBubbleClass: 'bot-chatbox-bubble',
+  domain: 'your-agent.agent.pstage.smyth.ai',
+  isChatOnly: false, // false = floating bubble, true = inline embed
+  allowAttachments: true
 });
 ```
-To apply CSS styling:
+
+### Custom CSS (Optional)
+
+You can override bubble styles using your custom classes.
 
 ```css
 .human-chatbox-bubble {
-  font-size: 15px;
-  color: #333;
+  font-size: 24px !important;
 }
 
+.bot-chatbox-bubble {
+  font-size: 30px !important;
+}
+
+/* Override elements inside bot bubbles */
 .bot-chatbox-bubble h1 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1e40af;
+  color: #000000;
 }
 ```
-</InfoCallout>
+<Spacer size="md" />
 
-<WarningCallout title="Code overrides UI">
-If a value is defined in both the config panel and code, the script version wins.
-</WarningCallout>
+## Step 5: Embed the Chatbot
 
-<Divider />
+SmythOS supports two deployment modes. Pick one based on how you want the chatbot to appear on your site.
 
-## Step 4: Embed the Chatbot
+### Inline Chat <Badge type="default">Default</Badge>
 
-Paste this **at the end of your site’s `<body>` tag**, ideally just before `</body>`:
+Inline mode renders the chatbot inside a specific container. Use this when embedding inside a sidebar, help desk page, or layout grid.
 
 ```html
-<script src="https://cmb5b4js00fmjh6333d0foxjr.agent.pstage.smyth.ai/static/embodiment/chatBot/chatbot-v2.js"></script>
+<div id="smythos-chatbot-container"></div>
+<!-- Place this div wherever you want the chat window to appear -->
+```
+
+Then add the script at the end of your page:
+
+```html
+<script src="https://your-agent.agent.pstage.smyth.ai/static/embodiment/chatBot/chatbot-v2.js"></script>
 <script>
+  // Same init call for both modes; only the value of `isChatOnly` changes.
   ChatBot.init({
-    domain: 'cmb5b4js00fmjh6333d0foxjr.agent.pstage.smyth.ai',
-    isChatOnly: false,
+    domain: 'your-agent.agent.pstage.smyth.ai',
+     isChatOnly: false, // false = floating bubble, true = inline embed
+    // attachments are not allowed by default; they can be enabled by checking the box in the configurations to allow them
     allowAttachments: false,
-    introMessage: '',
-    // ... additional settings ...
+    // ... additional settings go here ...
+    // if you set your intro message, then it would go here as shown in line below:
+    introMessage: 'This is the intro message for your chatbot',
+    // ... color settings here...
   });
 </script>
 ```
-<WarningCallout title="Use the right domain">
-The `domain` in your code **must match** your verified subdomain. Otherwise, the chatbot will not load.
+<InfoCallout title="Why inline?">
+Inline mode gives you full CSS control over width, height, and placement.
+</InfoCallout>
+
+### Floating Bubble <Badge type="optional">Popup</Badge>
+
+Adds a launcher in the bottom‑right corner, similar to a live‑chat widget.
+
+```html
+<script src="https://your-agent.agent.pstage.smyth.ai/static/embodiment/chatBot/chatbot-v2.js"></script>
+<script>
+  ChatBot.init({
+    domain: 'your-agent.agent.pstage.smyth.ai',
+    isChatOnly: false, // false = floating bubble, true = inline embed
+    // attachments are not allowed by default; they can be enabled by checking the box in the configurations to allow them
+    allowAttachments: false,
+    // ... additional settings go here ...
+    // if you set your intro message, then it would go here as shown in line below:
+    introMessage: 'This is the intro message for your chatbot',
+    // ... color settings here...
+  });
+</script>
+```
+
+<WarningCallout title="Use one mode per page">
+Inline and floating modes are mutually exclusive.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" />
 
-## Step 5: Confirm It's Live
+## Step 6: Deploy and Test
 
-After embedding:
+1. Make sure you’ve deployed at least one version of your Agent  
+2. Load the page where the script is embedded  
+3. Send a test message and confirm the Agent responds correctly
 
-- Visit the page where the script was added
-- Your chatbot launcher should appear
-- Open the chat and confirm it responds as expected
-
-<SuccessCallout>
-That’s it! Your Agent is now live as a chatbot on your website.
+<SuccessCallout title="Success">
+Your SmythOS chatbot is live! 
 </SuccessCallout>
 
-<Divider />
+<Spacer size="md" />
 
 ## What's Next?
 
-You can now:
-  - [Deploy as ChatGPT](/docs/agent-deployments/deployments/deploy-as-chatgpt)
-  - [Deploy as LLM](/docs/agent-deployments/deployments/deploy-as-llm)
+- [Build workflows in SmythOS](/docs/agent-studio/build-agents/building-workflows)  
+- [Use chatbot with ChatGPT](/docs/agent-deployments/deployments/deploy-as-chatgpt)  
+- [Expose your agent as an API](/docs/agent-deployments/deployments/deploy-as-llm)
+
+<details>
+<summary><strong>Troubleshooting</strong></summary>
+
+| Symptom | Fix |
+|--------|-----|
+| **Nothing shows on site** | Ensure `ChatBot.init()` is called after the DOM loads |
+| **404 on script** | Double-check your agent domain and subdomain |
+| **Unauthorized error** | Make sure your site is listed under **Allowed Domains** |
+| **Agent not responding** | Confirm the agent has a deployed version and live workflows |
+| **File upload not working** | Enable **Allow File Attachments** in chatbot configuration |
+</details>
+

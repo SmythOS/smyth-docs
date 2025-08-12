@@ -118,6 +118,9 @@ const Footer: React.FC = () => {
           </a>
         </span>
       </div>
+      <div className="service-mark-info" aria-label="Service mark information">
+        SmythOS® is a registered service mark.
+      </div>
         </div>
       </div>
     </footer>

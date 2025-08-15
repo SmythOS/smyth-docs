@@ -37,15 +37,16 @@ See [Billing Management →](/docs/account-management/billing-management) for co
 </InfoCallout>
 
 <Spacer size="md" />
+
 ## Step 1: Choose a Model
 
 | Field            | Required? | Description                                     | Tips |
 |------------------|-----------|-------------------------------------------------|------|
-| **Model**        | <Badge type="required">Yes</Badge> | The LLM used for classification                 | By default you will see **GPT 4o Mini (SmythOS 128K)**. You can also choose GPT 4.1 Nano, GPT 4.1 Mini, GPT o1, Claude Sonnet 3.7, Gemini 2.5 Pro, Sonar or other supported engines. |
-| **Custom Model** | <Badge type="optional">No</Badge>    | Use your own hosted model or external API        | You can connect to OpenAI, Claude, Google AI, Grok, or any endpoint compatible with your workflow. |
+| **Model**        | <Badge type="required">Yes</Badge> | The LLM used for generation or classification | By default you will see **GPT-5 Mini (SmythOS 400k)**. You can also choose GPT-5, GPT-5 Nano, GPT-5 Chat, Claude Sonnet 3.7, Gemini 2.5 Pro, Sonar, or other supported engines. |
+| **Custom Model** | <Badge type="optional">No</Badge> | Use your own hosted model or external API | Connect to OpenAI, Claude, Google AI, Groq, or any endpoint compatible with your workflow. |
 
-<InfoCallout title="Token limits">
-Default models have token windows from 128K to 1M tokens (shown next to each model name). If you need to classify very large inputs or include extra context, use a custom model with extended limits.
+<InfoCallout title="Token limits"> 
+Default GPT-5 family models have token windows up to 400k tokens (shown next to each model name). If you need to handle even larger inputs or maintain more conversation history, use a custom model with extended limits. 
 </InfoCallout>
 
 <Spacer size="md" />
@@ -146,6 +147,20 @@ You can rename inputs, assign types (string, file, etc.), and set defaults or ma
         </>
       )
     },
+        {
+      label: 'Verbosity',
+      content: (
+        <>
+          <p><strong>Verbosity</strong> controls how much detail the model includes in its reasoning output.</p>
+          <ul>
+            <li><strong>Low:</strong> Concise reasoning steps.</li>
+            <li><strong>Medium (default):</strong> Balanced detail.</li>
+            <li><strong>High:</strong> More explicit, step-by-step reasoning.</li>
+          </ul>
+          <p><strong>Applies to:</strong> GPT-5 models only.</p>
+        </>
+      )
+    },
     {
       label: 'Passthrough Mode',
       content: (
@@ -175,6 +190,23 @@ You can rename inputs, assign types (string, file, etc.), and set defaults or ma
           <p><strong>Context Window</strong> includes recent conversation history or memory in this LLM request.</p>
           <p>Enable to give the model visibility of prior messages, so it can maintain continuity.</p>
           <TipCallout>Ideal for multi-turn dialogues where the model needs context from earlier exchanges.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Reasoning Effort',
+      content: (
+        <>
+          <p><strong>Reasoning Effort</strong> sets how much processing the model invests in reasoning.</p>
+          <ul>
+            <li><strong>Low:</strong> Faster responses, fewer reasoning tokens used.</li>
+            <li><strong>Medium (default):</strong> Balanced speed and reasoning depth.</li>
+            <li><strong>High:</strong> More in-depth reasoning, potentially longer responses.</li>
+          </ul>
+          <p><strong>Applies to:</strong> GPT-5 and GPT Open Source (Groq) models.</p>
+          <TipCallout title="Why adjust this?">
+            Lower effort is useful for speed and cost savings. Higher effort can improve reasoning quality for complex problems.
+          </TipCallout>
         </>
       )
     }

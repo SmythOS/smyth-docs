@@ -3,6 +3,7 @@ title: Billing Management
 description: Understand exactly how much each AI model or component will cost you in SmythOS, so you can plan and budget with clarity.
 keywords: [model pricing, AI usage, LLM cost, billing, OpenAI pricing, Gemini pricing, agent cost]
 sidebar_position: 2
+toc_max_heading_level: 3
 ---
 
 # Billing Management
@@ -17,8 +18,8 @@ You don’t need API keys for default models. SmythOS manages setup, billing, an
 
 ## Billing Principles
 
-<TipCallout title="Avoid surprise charges">
-Monitor usage from the [Analytics Dashboard](https://app.smythos.com/analytics), and set limits on the [My Plan](https://app.smythos.com/my-plan) page.
+<TipCallout title="Real-time usage insights">
+Use the [Analytics Dashboard](https://app.smythos.com/analytics) to view task activity, token consumption, and exports, and set limits on the [My Plan](https://app.smythos.com/my-plan) page.
 </TipCallout>
 
 - Each plan includes monthly credits
@@ -26,10 +27,6 @@ Monitor usage from the [Analytics Dashboard](https://app.smythos.com/analytics),
 - Charges apply only after credits are exhausted
 - External API model charges are non-refundable
 - Failed runs or tests in development are never billed
-
-<SuccessCallout title="Real-time usage insights">
-Use the [Analytics Dashboard](https://app.smythos.com/analytics) to view task activity, token consumption, and exports.
-</SuccessCallout>
 
 <Spacer size="md" />
 
@@ -41,46 +38,68 @@ This section covers unit pricing. For plan quotas and features, see [Compare Pla
 
 ### OpenAI Models
 
-| Model         | Input* | Cached Input* | Output* | Context Window | Image Support         |
-|---------------|--------|----------------|---------|----------------|------------------------|
-| GPT-4o        | $2.50  | $1.25           | $10.00  | 128k tokens     | Input only (token-based)** |
-| GPT-4o mini   | $0.15  | $0.075          | $0.60   | 128k tokens     | Input only             |
-| GPT-4.1       | $2.00  | $0.50           | $8.00   | 1M tokens       | Input only             |
-| GPT-4.1 mini  | $0.40  | $0.10           | $1.60   | 1M tokens       | Input only             |
-| GPT-4.1 nano  | $0.10  | $0.025          | $0.40   | 1M tokens       | Input only             |
-| o3            | $1.10  | $0.55           | $4.40   | 200k tokens     | Input only             |
-| o4-mini       | $0.10  | $0.05           | $0.30   | 200k tokens     | Input only             |
+| Model         | Input Price (per 1M tokens) | Cached Input Price (per 1M tokens) | Output Price (per 1M tokens) | Max Context Size | Search Price (per 1k calls) | Image Support |
+|---------------|-----------------------------|-------------------------------------|------------------------------|------------------|-----------------------------|---------------|
+| GPT-5         | $1.30                        | $0.13                               | $10.00                       | 400k tokens      | $10.00                      | Text only (token-based) |
+| GPT-5 mini    | $0.30                        | $0.03                               | $2.00                        | 400k tokens      | $10.00                      | Text only (token-based) |
+| GPT-5 nano    | $0.10                        | $0.01                               | $0.40                         | 400k tokens      | N/A                         | Text only (token-based) |
+| GPT-5 Chat    | $1.30                        | $0.13                               | $10.00                       | 400k tokens      | N/A                         | Text only (token-based) |
+
+<WarningCallout title="Search Pricing Notes">
+Models with **N/A** in the *Search Price* column do not currently support the Search API in SmythOS.  
+</WarningCallout>
+
+<details>
+<summary> View Legacy & Discontinued OpenAI Models</summary>
+
+> **Warning:** These models are **legacy** or **discontinued** in SmythOS. They are not recommended for new projects and may lose support over time.
+
+| Model         | Input Price (per 1M tokens) | Cached Input Price (per 1M tokens) | Output Price (per 1M tokens) | Max Context Size | Search Price (per 1k calls) | Image Support | Status |
+|---------------|-----------------------------|-------------------------------------|------------------------------|------------------|-----------------------------|---------------|--------|
+| GPT-4o | $2.50                  | $1.25                               | $25.00                       | 128k tokens      | $25.00                      | Input only (token-based) | Legacy |
+| GPT-4o mini | $0.15              | $0.075                              | $0.60                        | 128k tokens      | $25.00                      | Input only | Legacy |
+| GPT-4.1       | $2.00                        | $0.50                               | $8.00                        | 1M tokens        | $25.00                      | Input only | Discontinued |
+| GPT-4.1 mini  | $0.40                        | $0.10                               | $1.60                        | 1M tokens        | $25.00                      | Input only | Discontinued |
+| GPT-4.1 nano  | $0.10                        | $0.025                              | $0.40                        | 1M tokens        | N/A                         | Input only | Discontinued |
+| o3            | $1.10                        | $0.55                               | $4.40                        | 200k tokens      | N/A                         | Input only | Legacy |
+| o4-mini       | $0.10                        | $0.05                               | $0.30                        | 200k tokens      | N/A                         | Input only | Discontinued |
+
+</details>
+
+<InfoCallout title="Image token calculation">
+For models that accept image input, pricing is based on text tokens.  
+**Approximate tokens** = `(width px × height px) / 750`.
+</InfoCallout>
 
 ### Gemini (Google AI)
 
-| Model               | Search | Input* | Output* | Context | Media Handling         |
-|---------------------|--------|--------|---------|---------|-------------------------|
-| Gemini 2.5 Flash    | $0.035 | $0.10  | $0.40   | 1M      | $0.70/image, $0.10/media |
-| Gemini 2.5 PRO ≤200k| $0.035 | $1.25  | $10.00  | 1M      | Same as above           |
-| Gemini 2.5 PRO >200k| $0.035 | $2.50  | $15.00  | 1M      | Same as above           |
+| Model               | Search Price (per 1k calls) | Input Price (per 1M tokens) | Output Price (per 1M tokens) | Max Context Size | Media Pricing |
+|---------------------|-----------------------------|-----------------------------|------------------------------|------------------|---------------|
+| Gemini 2.5 Flash    | $0.035                      | $0.10                        | $0.40                        | 1M tokens        | $0.70/image, $0.10/media |
+| Gemini 2.5 PRO ≤200k| $0.035                      | $1.25                        | $10.00                       | 1M tokens        | $0.70/image, $0.10/media |
+| Gemini 2.5 PRO >200k| $0.035                      | $2.50                        | $15.00                       | 1M tokens        | $0.70/image, $0.10/media |
+
+<Spacer size="md" />
 
 ### Claude (Anthropic)
 
-| Model             | Input* | Output* | Context | Notes                            |
-|-------------------|--------|---------|---------|----------------------------------|
-| Claude 3.5 Haiku  | $0.80  | $4.00   | 200k    | Efficient, fast                  |
-| Claude 3.7 Sonnet | $3.00  | $15.00  | 200k    | Balanced performance             |
-| Claude Sonnet 4   | $3.00  | $15.00  | 200k    | High-performance version         |
-| Claude Opus 4     | $15.00 | $75.00  | 200k    | Most powerful Claude model       |
+| Model             | Input Price (per 1M tokens) | Output Price (per 1M tokens) | Max Context Size | Notes |
+|-------------------|-----------------------------|------------------------------|------------------|-------|
+| Claude 3.5 Haiku  | $0.80                        | $4.00                        | 200k tokens      | Efficient, fast |
+| Claude 3.7 Sonnet | $3.00                        | $15.00                       | 200k tokens      | Balanced performance |
+| Claude Sonnet 4   | $3.00                        | $15.00                       | 200k tokens      | High-performance version |
+| Claude Opus 4     | $15.00                       | $75.00                       | 200k tokens      | Most powerful Claude model |
+
+<Spacer size="md" />
 
 ### Perplexity Models
 
-| Model                | Search | Input* | Output* | Context | Notes                  |
-|----------------------|--------|--------|---------|---------|-------------------------|
-| Sonar                | $0.005 | $1.00  | $1.00   | 128k    | Basic model            |
-| Sonar PRO            | $0.005 | $3.00  | $15.00  | 200k    | Premium tier           |
-| Sonar Reasoning Pro  | $0.005 | $2.00  | $8.00   | 128k    | Reasoning-optimized    |
-| Sonar Deep Research  | $0.005 | $2.00  | $8.00   | 128k    | +$3.00 for deep reasoning |
-
-<InfoCallout title="Token-based billing">
-*Prices are per 1M tokens.  
-**For image input, tokens = width × height / 750.
-</InfoCallout>
+| Model                | Search Price (per 1k calls) | Input Price (per 1M tokens) | Output Price (per 1M tokens) | Max Context Size | Notes |
+|----------------------|-----------------------------|-----------------------------|------------------------------|------------------|-------|
+| Sonar                | $0.005                      | $1.00                        | $1.00                        | 128k tokens      | Basic model |
+| Sonar PRO            | $0.005                      | $3.00                        | $15.00                       | 200k tokens      | Premium tier |
+| Sonar Reasoning Pro  | $0.005                      | $2.00                        | $8.00                        | 128k tokens      | Reasoning-optimized |
+| Sonar Deep Research  | $0.005                      | $2.00                        | $8.00                        | 128k tokens      | +$3.00 for deep reasoning |
 
 <Spacer size="md" />
 

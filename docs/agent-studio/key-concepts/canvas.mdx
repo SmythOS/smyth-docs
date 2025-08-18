@@ -21,6 +21,7 @@ The Studio Canvas is your main workspace for building, connecting, and testing A
 | [Deploying Agents](#deploying-agents) | Move from draft to production safely |
 | [Monitoring and Debugging](#monitoring-and-debugging) | Review execution, logs, and performance |
 | [Error Handling](#error-handling) | Catch, alert, or recover from failures |
+| [Canvas Search](#canvas-search) | Quickly locate and jump to components or agents |
 | [Mobile Experience Warning](#mobile-experience) | Understand how mobile device constraints affect the canvas UI |
 
 <Spacer size="md" />
@@ -102,6 +103,21 @@ Add fallback logic and alerts to reduce downtime and improve agent resilience.
 </TipCallout>
 
 <Spacer size="md" />
+
+## Canvas Search
+
+The Canvas includes a built-in search that lets you instantly find and focus on components without manually scrolling or panning across large workflows. Search is scoped to the current canvas, so results only include items within the workflow you are editing.
+
+### Using Search
+- Open the search menu from anywhere on the canvas (see [Keyboard Shortcuts](/docs/agent-studio/reference/keyboard-shortcuts) for the command).  
+- Type the **name of the component or agent** you are looking for.  
+  - For example, if your **GenAI LLM** component is named **Mood Analyser**, you must search for *Mood Analyser* rather than just “GenAI LLM.”  
+- Matching results appear in a list that you can navigate with arrow keys or clicks.  
+- Selecting a result automatically centers and highlights it in the canvas view.  
+
+<TipCallout title="Best Practice">
+Give each component a clear, descriptive name. This makes Canvas Search far more effective, especially in agents with many components.
+</TipCallout>
 
 ## Mobile Experience 
 

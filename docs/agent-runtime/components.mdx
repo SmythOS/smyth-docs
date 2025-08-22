@@ -30,12 +30,6 @@ Direct access to cutting-edge AI models and multimodal processing.
 - `HuggingFace` — Hugging Face models
 - `ImageGenerator` — Text-to-image generation
 
-**Example:**  
-```typescript
-const llm = SDK.GenAILLM({ model: 'gpt-4', prompt: 'Summarize this article' }, agent);
-const vision = SDK.VisionLLM({ image: imageBuffer }, agent);
-```
-
 <Spacer size="md" />
 
 ## External Integrations
@@ -49,15 +43,6 @@ Connect your agents to live web data and APIs.
 - `WebScrape` — Website content extraction
 - `ZapierAction` — Zapier triggers/automations
 - `MCPClient` — Model Context Protocol client (advanced integration)
-
-**Example:**  
-```typescript
-const search = SDK.WebSearch({ query: 'SmythOS news', maxResults: 5 }, agent);
-const api = SDK.APICall({
-  url: 'https://api.example.com/data',
-  method: 'GET'
-}, agent);
-```
 
 <Spacer size="md" />
 
@@ -73,13 +58,6 @@ Clean, index, filter, and classify your data before using it in workflows.
 - `JSONFilter` — Extract/filter from JSON structures
 - `Classifier` — Classify data by custom rules or AI
 
-**Example:**  
-```typescript
-const indexer = SDK.DataSourceIndexer({ documents: myDocs }, agent);
-const classifier = SDK.Classifier({ classes: ['finance', 'tech', 'health'] }, agent);
-classifier.in({ Input: llm.out.Reply });
-```
-
 <Spacer size="md" />
 
 ## Logic & Control Flow
@@ -92,12 +70,6 @@ Control agent workflow logic: branching, iteration, asynchronicity.
 - `LogicAtLeast`, `LogicAtMost` — Threshold-based logic
 - `ForEach` — Iterate over a list or array
 - `Async`, `Await` — Asynchronous workflow handling
-
-**Example:**  
-```typescript
-const forEach = SDK.ForEach({ items: [1,2,3] }, agent);
-// Process each item in the array through a step in your workflow
-```
 
 <Spacer size="md" />
 
@@ -112,12 +84,6 @@ Store, retrieve, and execute code or files inside your agent’s environment.
 - `Code` — Execute code snippets dynamically
 - `ServerlessCode` — Serverless compute (cloud function-style)
 
-**Example:**  
-```typescript
-const fileStore = SDK.FileStore({ filename: 'output.txt', content: 'Hello world' }, agent);
-const code = SDK.Code({ language: 'python', source: 'print("Hi")' }, agent);
-```
-
 <Spacer size="md" />
 
 
@@ -130,11 +96,6 @@ Integrate agents with system or plugin-level functionality.
 - `ComputerUse` — Automate computer/system tasks
 - `GPTPlugin` — Use OpenAI-compatible plugins
 - `APIEndpoint` — Create custom HTTP endpoints in the agent
-
-**Example:**  
-```typescript
-const endpoint = SDK.APIEndpoint({ path: '/report', handler: async (req) => ({ ok: true }) }, agent);
-```
 
 <Spacer size="md" />
 
@@ -179,11 +140,6 @@ You can add components to your agent either:
 
 - **Visually**: Drag and connect in [Studio](/docs/agent-studio/overview)
 - **Programmatically**: Use the [SDK Guide](/docs/agent-runtime/sdk-guide)  
-```typescript
-  import { SDK } from 'smyth-runtime';
-  const agent = new SDK.Agent({ name: 'FileBot', model: 'gpt-4' });
-  const fileStore = SDK.FileStore({ filename: 'log.txt', content: 'Test' }, agent);
- ```
 
 See the [Building Agents](/docs/agent-runtime/building-agents) guide for more advanced patterns.
 

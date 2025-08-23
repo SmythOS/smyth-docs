@@ -51,90 +51,112 @@ Before you begin the integration, please ensure you have the following:
 
 - An active **SmythOS account**. (If you're new to SmythOS, [you can sign up here](https://app.smythos.com/signup).)
 - A **Google Account** with Gmail enabled that you plan to integrate.
-- You will need to generate **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console. This process also involves configuring an OAuth consent screen and enabling the Gmail API. Detailed steps are provided below.
-- The **Authorized redirect URI** for SmythOS, which is: `https://app.smythos.com/oauth/google/callback` (You'll need this when creating credentials in Google Cloud Console).
+- You will need to generate **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console. This process involves configuring an OAuth consent screen and enabling the Gmail API. Detailed steps are provided below.
+- The **Authorized redirect URI** for SmythOS:  
+https://app.smythos.com/oauth/google/callback
+
 
 <Divider />
 
 ## Step-by-Step: Connecting Your Gmail Account
 
-Let's establish the connection between SmythOS and your Gmail. This involves obtaining OAuth 2.0 credentials from Google and then using them to authenticate within SmythOS. This is typically a one-time setup per Google account you wish to integrate.
+Connecting Gmail to SmythOS is a one-time setup. You’ll first create secure credentials in Google Cloud, then bring those into SmythOS.  
 
-### Part A: Obtaining Your `Client ID` and `Client Secret` from Google Cloud Console
+### Part A: Create Your Google OAuth Credentials
 
-1.  **Navigate to Google Cloud Console:**
-    * Go to `https://console.cloud.google.com/`.
-    * Sign in with the Google account associated with the Gmail account you intend to use.
-    * If you don't have a project, create a new one. Otherwise, select an existing project.
+#### 1. Open Google Cloud Console
+- Visit [Google Cloud Console](https://console.cloud.google.com/).
+- Sign in with the Google account that owns the Gmail inbox you want to connect.
+- Choose an existing project or create a new one for this integration.
 
-2.  **Enable the Gmail API:**
-    * In the search bar at the top, type "Gmail API" and select it from the results under "Marketplace."
-    * On the Gmail API page, click the `Enable` button. If it's already enabled, you can proceed to the next step.
+#### 2. Enable the Gmail API
+- In the left menu, go to **APIs & Services → Library**.
+- Search for **“Gmail API”** and click it.
+- Hit **Enable**.
 
-3.  **Configure the OAuth Consent Screen:**
-    * In the left-hand navigation menu (or by searching), go to "APIs & Services" > "OAuth consent screen."
-    * **User Type:**
-        * Choose "Internal" if your app is only for users within your Google Workspace organization.
-        * Choose "External" if you want any Google user (including yourself with a personal Gmail account) to be able to authorize the app. If you select "External" and your app is not yet published, it will be in "testing" mode, and you'll need to add test users.
-    * Click `Create`.
-    * **App Information:**
-        * **App name:** Enter a descriptive name, e.g., "SmythOS Gmail Integration."
-        * **User support email:** Select your email address.
-        * **App logo (Optional):** Upload a logo if desired.
-        * **Developer contact information:** Enter your email address.
-    * Click `Save and Continue`.
-    * **Scopes:** Click `Add or Remove Scopes`.
-        * In the filter, search for "Gmail API."
-        * Select the necessary scopes based on the actions your agents will perform. Common scopes include:
-            * `https://www.googleapis.com/auth/gmail.readonly` (Read all resources and their metadata)
-            * `https://www.googleapis.com/auth/gmail.compose` (Create, read, update, and send drafts and messages)
-            * `https://www.googleapis.com/auth/gmail.send` (Send messages only)
-            * `https://www.googleapis.com/auth/gmail.modify` (All operations except permanent deletion of threads and messages)
-            * `https://mail.google.com/` (Full access to the account's mail, including permanent deletion) - Use with caution.
-        * *Best Practice: Only request scopes that are essential. For example, if an agent only sends emails, `gmail.send` might be sufficient.*
-        * Click `Update` after selecting scopes.
-    * Click `Save and Continue`.
-    * **Test Users (if "External" and in testing mode):**
-        * Click `+ Add Users`.
-        * Enter the email addresses of the Google accounts that will be used to test this integration.
-    * Click `Save and Continue`.
-    * Review the summary page and click `Back to Dashboard`.
+#### 3. Configure the OAuth Consent Screen
+- Go to **Google Auth Platform → OAuth consent screen**.  
+- A short wizard will guide you through setup:
 
-4.  **Create OAuth 2.0 Credentials:**
-    * Navigate to "APIs & Services" > "Credentials."
-    * Click `+ Create Credentials` at the top and select `OAuth client ID`.
-    * **Application type:** Select `Web application` from the dropdown.
-    * **Name:** Give your OAuth client ID a descriptive name, e.g., "SmythOS Gmail Web Client."
-    * **Authorized redirect URIs:**
-        * Click `+ Add URI`.
-        * Enter the SmythOS callback URL: `https://app.smythos.com/oauth/google/callback`
-        * *This URI must be an exact match.*
-    * Click `Create`.
+**App Information**  
+- Enter an app name (e.g., `SmythOS Gmail Integration`)  
+- Add a user support email  
 
-5.  **Copy Your Credentials:**
-    * A dialog box will appear showing **Your Client ID** and **Your Client Secret**.
-    * **Copy both of these values immediately and store them securely.** You will need them to configure the integration in SmythOS.
-    <WarningCallout title="Secure Your Credentials!"> Your `Client ID` and especially your `Client Secret` are sensitive. Treat them like passwords. SmythOS offers a `Vault` for secure credential storage. [Learn more about SmythOS Vault here.](/docs/agent-studio/key-concepts/vault) </WarningCallout>
+**Audience (User Type)**  
+- **Internal** → restricts to your Workspace users  
+- **External** → allows any Google account (requires test users while in Testing mode)  
 
-### Part B: Authenticating in SmythOS
+**Developer Contact Information**  
+- Provide your email for Google notifications  
 
-1.  **Navigate to SmythOS Integrations:** In your SmythOS dashboard, find and click on the "Integrations" section.
-2.  **Add or Configure Gmail Integration:**
-    * Look for "Gmail" in the list of available integrations and click to add or configure it.
-3.  **Enter Your OAuth Credentials:**
-    * You will see fields to input the `Client ID` and `Client Secret` that you obtained from the Google Cloud Console in Part A.
-    * Carefully paste these values into the respective fields.
-4.  **Initiate Authentication:**
-    * Click the `Authenticate` button within the SmythOS Gmail integration settings.
-5.  **Google Authorization Flow:**
-    * You will be redirected to a Google Sign-In page. Log in using the Google account you want to connect with SmythOS.
-    * Google will then display a consent screen, showing the name of your app and the permissions it's requesting. Review these permissions.
-    * Click `Allow` or `Grant` to authorize SmythOS to access your Gmail data.
-6.  **Redirection to SmythOS:**
-    * After successful authorization, you'll be redirected back to SmythOS.
-    * The Gmail integration should now indicate that it's connected. **Connection Confirmed!**
+Click **Create** to finish.
 
-<InfoCallout title="Switching Google Accounts or Reconnecting?" collapsible > If you ever need to connect a different Google Account or refresh an existing connection, you can typically find a `Sign Out`, `Disconnect`, or `Deauthenticate` button within the Gmail integration settings in SmythOS. After deauthenticating, simply repeat the authentication steps. </InfoCallout>
+<InfoCallout title="Testing Mode">
+If you chose **External**, Google puts your app in *Testing* mode.  
+You must return to **Audience → Edit test users** and add the Gmail addresses that will be allowed to connect.
+</InfoCallout>
+
+#### 4. Create OAuth 2.0 Client Credentials
+- Go to **Google Auth Platform → Clients**.  
+- Click **Create client**.  
+- Choose **Web application**.  
+- Fill in:  
+  - **Name:** e.g., `SmythOS Gmail Web Client`  
+  - **Authorized redirect URIs:**  
+    ```
+    https://app.smythos.com/oauth/google/callback
+    ```
+- Click **Create**.
+
+<WarningCallout title="Exact Match Required">
+The redirect URI must match **exactly**. Even a trailing slash or typo will block the connection.
+</WarningCallout>
+
+#### 5. Copy Your Credentials
+- A dialog will show your **Client ID** and give you the option to download a JSON file.  
+- To view your **Client Secret**, open the client details page.  
+
+<TipCallout title="Secure Your Credentials">
+Treat your `Client ID` and `Client Secret` like passwords.  
+We recommend storing them in the [SmythOS Vault](/docs/agent-studio/key-concepts/vault) for safe management.
+</TipCallout>
+
+### Part B: Connect Gmail in SmythOS
+
+1. In your SmythOS dashboard, go to **Integrations**.  
+2. Find **Gmail** and click **Add / Configure**.  
+3. Paste in the **Client ID** and **Client Secret** you copied from Google Cloud.  
+4. Click **Authenticate**.  
+5. A **Google Sign-In** window opens:  
+   - Log in with the Gmail account you’re connecting  
+   - Review the requested permissions  
+   - Click **Allow**  
+6. You’ll return to SmythOS, and the integration will confirm connection.
+
+<SuccessCallout title="Connection Confirmed!">
+Your Gmail account is now successfully linked with SmythOS.  
+From here on, agents in SmythOS can securely send or read emails according to the scopes you granted.
+</SuccessCallout>
+
+### Optional: Fine-Tune Branding & Scopes
+
+**Branding options:**  
+- Upload a logo (120×120px, JPG/PNG/BMP, less than 1MB)  
+- Add app domain links (home page, privacy policy, ToS)  
+- Register **Authorized domains** (required if your links or URIs use them)  
+- Add developer contact emails  
+
+**Scopes (Data Access):**  
+Choose the minimum access SmythOS needs. For example, if SmythOS only needs to send emails, `gmail.send` is all you need:  
+
+- `https://www.googleapis.com/auth/gmail.send` → send emails  
+- `https://www.googleapis.com/auth/gmail.readonly` → read emails  
+- `https://www.googleapis.com/auth/gmail.modify` → read, send, delete (non-permanent)  
+- `https://mail.google.com/` → full access (**use only if absolutely necessary**)  
+
+<InfoCallout title="Need to Switch or Reconnect?" collapsible>
+If you want to connect a different Google account or refresh the integration, use the **Disconnect** or **Deauthenticate** option in SmythOS Gmail settings. Then repeat the authentication steps above.
+</InfoCallout>
 
 <Divider />
 

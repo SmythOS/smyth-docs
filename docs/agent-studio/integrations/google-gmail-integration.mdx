@@ -113,8 +113,11 @@ The redirect URI must match **exactly**. Even a trailing slash or typo will bloc
 </WarningCallout>
 
 #### 5. Copy Your Credentials
-- A dialog will show your **Client ID** and give you the option to download a JSON file.  
-- To view your **Client Secret**, open the client details page.  
+- A dialog will display your **Client ID** and allow you to **download JSON**.  
+- To get the **Client Secret**, click into your client details.  
+
+**Important Change:** Google no longer allows re-viewing secrets once you leave the page.  
+If you lose it, you must **create a new secret** from the Client details page.
 
 <TipCallout title="Secure Your Credentials">
 Treat your `Client ID` and `Client Secret` like passwords.  
@@ -123,15 +126,19 @@ We recommend storing them in the [SmythOS Vault](/docs/agent-studio/key-concepts
 
 ### Part B: Connect Gmail in SmythOS
 
-1. In your SmythOS dashboard, go to **Integrations**.  
-2. Find **Gmail** and click **Add / Configure**.  
-3. Paste in the **Client ID** and **Client Secret** you copied from Google Cloud.  
-4. Click **Authenticate**.  
-5. A **Google Sign-In** window opens:  
-   - Log in with the Gmail account you’re connecting  
+1. In your SmythOS agent [Canvas](/docs/agent-studio/key-concepts/canvas), go to **Integrations** in the left sidebar.  
+2. Find **Google Gmail** and click **Add / Configure** on the component(s) you want.  
+3. Paste in your **Client ID** and **Client Secret**.  
+4. **Save your settings**:  
+   - Close the sidebar (this ensures the fields are saved).  
+   - Then either:  
+     - Reopen Gmail settings and click **Authenticate**, **or**  
+     - Simply click the blue **Authenticate** button that appears below the Gmail component.  
+5. A **Google Sign-In** window will open:  
+   - Log in with the Gmail account you want to connect  
    - Review the requested permissions  
    - Click **Allow**  
-6. You’ll return to SmythOS, and the integration will confirm connection.
+6. You’ll be redirected back to SmythOS, and the Gmail integration will update.
 
 <SuccessCallout title="Connection Confirmed!">
 Your Gmail account is now successfully linked with SmythOS.  

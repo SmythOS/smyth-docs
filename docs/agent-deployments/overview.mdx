@@ -1,130 +1,145 @@
 ---
-description: Ship your agents to the cloud, on-prem, or local dev with version control and zero-downtime rollouts.
+title: Deployment
+description: Ship your agents to Agent Cloud, Enterprise, or Local Runtime with version control, seamless rollouts, and CLI workflows.
 keywords: [SmythOS, deployments, agent cloud, self-host, runtime local, CI/CD]
 sidebar_position: 1
 ---
 
-# Deploying Your Agent
+# Agent Deployment
 
-SmythOS supports three deployment modes. You can start with one that fits your current setup and switch later without changing your code.
+When your agent is ready, you need to choose how to run it. SmythOS gives you three options and the flexibility to move between them without rewriting your code.  
+
+You can:  
+- Launch instantly in Agent Cloud
+- Scale securely in Enterprise environments  
+- Build and test in Local Runtime on your own machine  
 
 <InfoCallout title="TL;DR">
-Use Agent Cloud for general use, Enterprise for private deployments, and Local Runtime for isolated development or testing.
+Use **Agent Cloud** for general use, **Enterprise** for private or regulated environments, and **Local Runtime** with the CLI for development or offline testing.
 </InfoCallout>
 
-<Spacer size="md" />
+<Arcade src="https://demo.arcade.software/XsYTxEJvIx0uRY9nZqn1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Quickstart Deployment Demo" />
 
-## Understanding Your Deployment Options
+## Deployment at a Glance
 
-SmythOS supports three distinct deployment paths; each is designed to match a different stage of development or production use case. Here's how to choose:
+Here is how the three modes compare:
 
-- **Agent Cloud**: Perfect for most users. It’s fast, managed, and requires zero infra knowledge.
-- **Enterprise Deployments**: Tailored for organizations with strict security, compliance, or hosting needs.
-- **Local Runtime**: Great for isolated dev/testing environments or air-gapped prototypes.
-
-<Spacer size="md" />
-
-### Comparison of Deployment Modes
-
-| Mode              | Infrastructure     | Who It's For           | Highlights                               | How to Access                         |
-| ----------------- | ------------------ | ---------------------- | ---------------------------------------- | ------------------------------------- |
-| **Agent Cloud**   | SmythOS-hosted     | Builders & teams       | Free subdomain, SSL, autoscaling         | Agent Settings → Deploy → Agent Cloud |
-| **Enterprise**    | Private / On-prem  | Regulated enterprises  | Custom SLAs, private cloud, full control | Contact Sales                         |
-| **Local Runtime** | Your local machine | Devs & offline testers | Lightweight, no internet needed          | Download SRL → Run locally            |
+| Mode              | Best For                         | Highlights                                | Things to Keep in Mind              | How to Access |
+| ----------------- | -------------------------------- | ----------------------------------------- | ----------------------------------- | ------------- |
+| **Agent Cloud**   | Quick testing and lightweight production | Free subdomain, HTTPS, autoscaling        | Limited infrastructure control       | Studio → Deploy → Agent Cloud |
+| **Enterprise**    | Regulated organizations and secure scaling  | Private VPC or on prem, custom connectors, SLA | Requires setup and configuration     | [Enterprise Guide](/docs/agent-runtime/enterprise-deployment) or [contact us](mailto:sales@smythos.com) |
+| **Local Runtime** | Developer iteration and offline systems  | Offline capable, CLI friendly, fast iteration | Headless, connector support evolving | Install [SRE CLI](/docs/agent-runtime/cli-guide) and run locally |
 
 <Spacer size="md" />
-## Choosing A Deployment Mode
-
-Choose your deployment method through the `Deploy` button in the top right corner:
 
 ## Agent Cloud (Default)
 
-Deploy your agent to **SmythOS-hosted infrastructure**, which is ideal for most use cases if you don't want to worry about infrastructure. It is:
+Agent Cloud is the easiest way to get your agent live. You do not need to think about servers, SSL certificates, or scaling. SmythOS hosts everything for you.  
 
-* Preconfigured with staging domains like `youragent.agent.pstage.smyth.ai`
-* Has secure HTTPS served instantly
-* Handles load without extra steps
+When you deploy here, you get:  
+- A preconfigured live subdomain such as `youragent.agent.pstage.smyth.ai`  
+- Automatic HTTPS with SSL  
+- Built in autoscaling so your agent can handle traffic without extra setup  
 
-<Image src="/docs/img/agent_deployments/agent-cloud.jpg" />
+<Image 
+  src="/docs/img/agent_deployments/agent-cloud.jpg" 
+  alt="Agent Cloud deployment dashboard in SmythOS showing a live subdomain and deploy options" 
+  caption="Agent Cloud is the simplest way to share a live agent with a secure URL and autoscaling built in." 
+/>
 
-### Why Use Agent Cloud?
-- You don’t want to worry about servers, scaling, or SSL certificates.
-- You want to deploy instantly to a shareable live URL.
-- You want free infrastructure for testing or lightweight production use.
+### Why You Should Use Agent Cloud
+- You want to share a working URL right away  
+- You prefer not to manage infrastructure  
+- You need a free option for testing or lightweight production  
 
-<Arcade src="https://demo.arcade.software/XsYTxEJvIx0uRY9nZqn1?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Deployment | SmythOS" />
+#### Custom Domains
 
-### Optional: Custom Domain Support
-
-You can point your custom domain to SmythOS in three simple steps:
-
-1. Go to [Subdomains](https://app.smythos.com/domains)
-2. Click **Add Subdomain** and enter the subdomain (e.g., `test.smyth.com`)
-3. You'll receive DNS instructions — create a **CNAME** record:
-   - **Host**: `test.smyth.com`
-   - **Target**: `b3830d6590893c02fbab61b0e08b4f8c.proxy.pstage.smyth.ai`
-4. Click **Verify** after setting your DNS. It may take up to 24 hours for DNS changes to propagate.
+If you want your own subdomain, for example `agent.yourcompany.com`, you can connect it to Agent Cloud.  
+See the [Subdomains Setup Guide](/docs/agent-deployments/subdomains) for full instructions.
 
 <Spacer size="md" />
 
-## Enterprise Deployments (On-Demand)
+## Enterprise Deployments
 
-SmythOS supports highly customized deployments for organizations that need full control:
+Enterprise deployment is for organizations that need private or controlled hosting. This option lets you run agents in your own infrastructure so you have full control over data and compliance.  
 
-* On-premise or private VPC hosting
-* Advanced network + data security
-* Seamless LLM integration via custom endpoints
-* Service-Level Agreements (SLAs) available
+You can:  
+- Deploy inside a private VPC or on prem servers  
+- Integrate with enterprise tools such as Redis, S3, HashiCorp Vault, and vector databases  
+- Meet security and compliance requirements like GDPR, HIPAA, and SOC2  
+- Get service level agreements for reliability and support  
 
-<WarningCallout title="Not Self-Service">
-Enterprise deployments require setup through our team. Please [contact Sales](mailto:sales@smythos.com) to get started.
+<WarningCallout title="Setup">
+Enterprise deployments require guided setup.  
+See the [Enterprise Guide](/docs/agent-runtime/enterprise-deployment) or the [SRE GitHub README](https://github.com/SmythOS/sre) for connector examples.  
+For sales support, [contact us](mailto:sales@smythos.com).  
 </WarningCallout>
 
 <Spacer size="md" />
 
 ## Local Runtime
 
-Use [**SmythOS Runtime Environment (SRE)**](/docs/agent-runtime/overview) for local testing and development. It is fast, private, and offline.
+Local Runtime is for developers who want to build and test fast, or for environments where you cannot connect to the internet. You use the SmythOS Runtime Environment (SRE), which is a CLI tool that runs agents directly on your machine.  
 
-<InfoCallout title="When to Use Local Runtime">
-To test workflows in isolated environments or build agents for air-gapped systems and offline demos.
-</InfoCallout>
+<Image 
+  src="/docs/img/agent_deployments/deploy-sre.png" 
+  alt="SmythOS Runtime Environment (SRE) CLI running a local agent deployment" 
+  caption="Run agents locally with the SRE CLI when you want fast iteration, offline testing, or complete isolation." 
+/>
+
+### When You Should Use Local Runtime
+- Iterative development and debugging  
+- Testing in isolated or offline setups  
+- Building for air gapped systems  
 
 ### How to Deploy Locally
-
-1. Click `Export Agent` in Builder (`Ctrl + Shift + E` or `Cmnd + Shift + E`)
-2. Save the exported `agent.json`
-3. Download SRL: [GitHub → Smyth Runtime Local](https://github.com/Smyth-ai/smyth-runtime-local)
-4. Run your agent locally:
-
+1. In Studio, click **Export** (`Ctrl + Shift + E` or `Cmd + Shift + E`)  
+2. Save the exported agent as a `.smyth` file  
+3. Install the SRE CLI:  
 ```bash
-srl run agent.json
+npm install -g @smythos/cli
 ```
 
-<WarningCallout title="Local Runtime Limitations"> For local model support and full API capabilities, follow progress on our [GitHub issue tracker](https://github.com/SmythOS/smyth-runtime). </WarningCallout> 
+4. Run your agent locally:  
+
+```bash
+sre run my-agent.smyth
+```
+
+<InfoCallout title="Important">
+Local Runtime is headless. For full model support and API connectors, see the [SRE GitHub repo](https://github.com/SmythOS/sre).
+</InfoCallout> 
+
+#### Example CLI workflow
+
+```bash
+# Export version 1.2.0 of your agent
+sre export my-agent --version 1.2.0
+
+# Run it locally
+sre run my-agent-1.2.0.smyth
+
+# Roll back if needed
+sre rollback my-agent --to 1.1.0
+```
+
 <Spacer size="md" />
 
-## Versioning & Changelog
+## Versioning and changelog
 
-Every deployment is **semantic-versioned** (`Major.Minor`). See [Versioning Guide](/docs/agent-deployments/versioning) for how version numbers work and when to increment them.
+Every deployment uses **semantic versioning** with Major.Minor numbers.  
 
-- **Major** = breaking workflow changes
-- **Minor** = additive or bug-fix updates
+- Major means breaking changes to your workflow  
+- Minor means new features or bug fixes  
 
-Release notes are **optional but recommended** — users see them in **Agent Settings → Deployments**.
+<TipCallout title="Best practice">
+Never reuse version numbers. Add release notes for each deployment when possible. They appear in **Studio → Agent Settings → Deployments**.
+</TipCallout>
 
 <Spacer size="md" />
+## Next steps
 
-## Which Mode Should I Use?
-
-| Mode            | Best For         | Highlights                                | Limits                                      |
-|----------------|------------------|-------------------------------------------|---------------------------------------------|
-| **Agent Cloud**  | Most users       | Free test domain, SSL, autoscaling        | None                                        |
-| **Enterprise**   | Regulated orgs   | Private VPC / on-prem, custom SLAs        | Contact Sales                               |
-| **Local Runtime**| Offline dev, POCs| Runs on laptop, free                      | No local models, no web server (beta)       |
-<Spacer size="md" />
-## What’s Next?
-
-- Want to deploy your first agent now? Start with the [Deployment Quickstart](/docs/agent-deployments/quickstart)
-- Curious how versioning works? See the [Versioning Guide](/docs/agent-deployments/versioning)
-- Using your own domain? Follow the [Subdomains Setup Guide](/docs/agent-deployments/subdomains)
+1. Complete the [Deployment Quickstart](/docs/agent-deployments/quickstart) to get your first agent live  
+2. Learn about [Versioning](/docs/agent-deployments/versioning) to manage safe rollouts  
+3. Set up a [Custom Domain](/docs/agent-deployments/subdomains) for branding  
+4. Explore [Hybrid Workflows](/docs/agent-runtime/hybrid-workflows) to combine Studio with the SDK  

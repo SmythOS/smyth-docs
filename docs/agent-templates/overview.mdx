@@ -1,63 +1,139 @@
 ---
 title: Templates
 sidebar_position: 1
-description: Discover and launch prebuilt SmythOS Templates that automate tasks across marketing, sales, development, and more.
+description: Discover, remix, and launch SmythOS templates to automate workflows in marketing, sales, development, and beyond.
+keywords: [SmythOS templates, AI templates, agent templates, no code automation, workflow automation, marketing automation, sales automation, developer automation, OCR templates, LinkedIn automation, Dropbox automation, PDF to text converter, sentiment analysis, content strategy generator, Azure Vision OCR]
 ---
 
 # Templates
 
-[SmythOS Templates](https://app.smythos.com/templates) are ready-to-use Agent blueprints built for real-world tasks, from scraping LinkedIn leads to analyzing customer sentiment or automating Dropbox folders. Remix, configure, and deploy in just a few clicks.
-
-If you’re here, chances are you want to automate something cool, save time, or just see what’s possible. Good news: you’re in exactly the right place.
+Templates are the fastest way to turn an idea into a working agent. With [SmythOS Templates](https://app.smythos.com/templates), you start from a ready-made blueprint for real-world tasks like scraping LinkedIn leads, analyzing sentiment, or managing Dropbox folders. You can open a template, remix it, and deploy in just a few clicks. 
 
 <InfoCallout title="What is a Template?">
-A **Template** in SmythOS is a prebuilt Agent configuration that solves a specific use case. It comes with ready-to-go components and tested workflows.
+A **Template** is a prebuilt agent setup for a specific job. It comes with tested components, default settings, and a working flow so you can get started immediately and then customize as you go.
 </InfoCallout>
 
-<Spacer />
+<Spacer size="md" />
 
-## Who Are Templates For?
+## Who Templates Are For
 
-Templates are probably for **you** if:
+Templates are perfect if you want to:
 
-- You want to automate a task fast without coding from zero
-- You’re exploring what SmythOS Agents can actually do
-- You need a working example to remix and learn from
-- You love copy-paste ✨ productivity ✨
+- Automate a task quickly without starting from scratch  
+- See real examples of how SmythOS agents work  
+- Learn by tweaking proven workflows  
+- Launch something today and improve it over time  
 
-<TipCallout title="Remix, Break, Rebuild">
-Every template is editable. Remix it, break it, rebuild it... it's yours to customize.
+<TipCallout title="Remix and make it yours">
+Every template is editable. Duplicate it, adjust the flow, swap components, and save your customized version as a new agent.
 </TipCallout>
 
-<Spacer />
+<Spacer size="md" />
 
 ## How to Use a Template
 
-1. Open the **Templates** tab in SmythOS Studio.
-2. Browse or search for a template by name or keyword.
-3. Click **Remix** to spin up your own version.
-4. Plug in API keys or credentials where needed.
-5. Test, tweak, and deploy — you're live.
+Here’s how to go from browsing a template to deploying your own agent:
 
-<Spacer />
+### Step 1: Open Templates
+Go to the **Templates** tab in **Studio** or open the gallery at [app.smythos.com/templates](https://app.smythos.com/templates).
 
-## Most Popular Templates
+### Step 2: Pick the right template
+Browse by category or use search. Open a template to see its description, required credentials, and a preview of the workflow.
 
-Here’s what people are loving and launching the most:
+### Step 3: Remix
+Click **Remix** to create your own copy inside Studio. This gives you a fully editable version.
 
-| Template | Category | What It Does |
+### Step 4: Connect credentials
+Go to **Studio → Settings → Credentials** to add any required API keys or accounts.  
+Most templates need at least one provider key. Always store secrets in the Vault, not inside node fields.
+
+### Step 5: Test your agent
+Choose a test mode that matches how you plan to run the agent:
+
+| Mode        | What it does                                  |
+|-------------|-----------------------------------------------|
+| **Form**    | Enter structured inputs and review outputs    |
+| **Chat**    | Talk to the agent in a chat-style interface   |
+| **API**     | Send a request like the production endpoint   |
+| **LLM**     | Try out an LLM integration                    |
+| **Postman** | Run real API calls with Postman               |
+| **Alexa**   | Test voice requests                           |
+| **MCP**     | Use Model Context Protocol                    |
+| **GPT**     | Validate with GPT-based clients               |
+
+### Step 6: Deploy
+When the template behaves as expected:  
+1. Click **Deploy** in Studio  
+2. Select **Agent Cloud** as the hosting option  
+3. Assign a version number  
+4. Share the live HTTPS URL  
+
+<WarningCallout title="Troubleshooting tip">
+If testing fails, check your credentials, required inputs, and any provider rate limits. Most errors resolve after adding the missing key, correcting inputs, or raising limits.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Popular Templates
+
+Start with these community favorites:
+
+| Template | Category | What it does |
 |----------|----------|--------------|
-| [**LinkedIn Leads Builder**](/docs/agent-templates/sales/linkedin-leads-builder) | Sales | Pulls leads from LinkedIn pages and search results |
+| [**LinkedIn Leads Builder**](/docs/agent-templates/sales/linkedin-leads-builder) | Sales | Collects leads from LinkedIn pages and search results |
 | [**Azure Vision OCR Agent**](/docs/agent-templates/dev/azure-vision) | Development | Extracts text from images using Azure Vision API |
-| [**Content Strategy Generator**](/docs/agent-templates/marketing/content-strategy-generator) | Marketing | Generates SEO content plans and ideas from domains |
-| [**Dropbox Folder Creator**](/docs/agent-templates/dev/folder-creator-dropbox) | Development | Creates folders in Dropbox using Zapier integration |
-| [**Sentiment & Emotion Analysis**](/docs/agent-templates/dev/sentiment-emotion-analysis) | Development | Analyzes text for emotional tone and sentiment |
-| [**PDF to Text Converter**](/docs/agent-templates/dev/pdf-text-converter) | Development | Converts PDF documents into plain, readable text |
+| [**Content Strategy Generator**](/docs/agent-templates/marketing/content-strategy-generator) | Marketing | Creates SEO content plans from a domain |
+| [**Dropbox Folder Creator**](/docs/agent-templates/dev/folder-creator-dropbox) | Development | Creates Dropbox folders via Zapier |
+| [**Sentiment and Emotion Analysis**](/docs/agent-templates/dev/sentiment-emotion-analysis) | Development | Analyzes text for sentiment and emotion |
+| [**PDF to Text Converter**](/docs/agent-templates/dev/pdf-text-converter) | Development | Converts PDFs to clean, readable text |
 
-<Spacer />
+<Spacer size="md" />
 
-## What’s Next?
+## Finding the Right Template
 
-- [Learn About Studio](/docs/agent-studio/overview)
-- [Learn About Weaver](/docs/agent-weaver/overview)
-- [Learn About Runtime](/docs/agent-runtime/overview)
+Here are a few ways to narrow your search:
+
+- Look up the platform you use (for example: Slack, Airtable, Dropbox)  
+- Filter by what you want to achieve (summarize, classify, extract)  
+- Open the template to review required credentials and example inputs  
+- Start with the closest match and **Remix** to adjust it for your needs  
+
+<Spacer size="md" />
+
+## Template Anatomy
+
+Each template usually includes:
+
+- **Inputs**: values you provide when running it, like a URL or file  
+- **Components**: nodes such as connectors, tools, or LLM steps  
+- **Flow**: how data moves between steps  
+- **Outputs**: the result, such as text, JSON, or a file  
+
+Knowing these parts makes customizing easier.
+
+<Spacer size="md" />
+
+## Security and Credentials
+
+- Add API keys in **Studio → Settings → Credentials**  
+- Give only the permissions required for the template  
+- Rotate or revoke secrets when access changes  
+- Never paste secrets directly into node fields  
+
+<Spacer size="md" />
+
+## Troubleshooting
+
+- **Missing credentials**: add the required key and retest  
+- **Invalid inputs**: check field requirements and examples  
+- **Rate limits**: reduce batch size, add retries, or request higher limits  
+- **Workflow errors**: inspect the failing block, review the snapshot, and use **Fix with AI**  
+
+<Spacer size="md" />
+
+## Next Steps
+
+- Learn the basics in the **[Studio overview](/docs/agent-studio/overview)**  
+- Try **[Weaver](/docs/agent-weaver/overview)** if you prefer describing goals in plain language  
+- Explore **[Runtime](/docs/agent-runtime/overview)** to run agents locally or in private environments  
+- Go live with the **[Deployment Quickstart](/docs/agent-deployments/quickstart)**  

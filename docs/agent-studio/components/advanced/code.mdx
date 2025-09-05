@@ -1,16 +1,15 @@
----
 title: Code
-description: Write and execute JavaScript in your agent workflows.
-keywords: [JavaScript, Code, custom logic, inputs, outputs, debugging, files, processing]
+description: Learn how to use the Code component to write and execute JavaScript directly in your agent workflows. Add custom logic, transform inputs, and handle outputs without external services.
+keywords: [JavaScript, Code component, custom logic, inputs, outputs, error handling, debugging, data processing, workflows, SaaS automation]
 toc_max_heading_level: 2
 ---
 
 # Code Component
 
-Use the **Code** component when you want full control over how your agent processes data. You can run JavaScript to transform inputs, validate content, or add custom logic between steps—no external service needed.
+The Code component lets you add custom logic to your workflows with plain JavaScript. Use it to transform inputs, validate content, handle errors, or run lightweight processing without relying on external APIs or servers.
 
 <InfoCallout title="Why this matters">
-The Code component gives you a powerful way to calculate, transform, or filter data in-line without needing a server or API. Best when built-in tools aren’t flexible enough for your custom logic.
+When built-in components aren’t flexible enough, the Code component gives you the power to calculate, filter, or transform data inline. It’s ideal for handling edge cases, quick validations, or lightweight processing logic.
 </InfoCallout>
 
 <Arcade
@@ -18,387 +17,185 @@ The Code component gives you a powerful way to calculate, transform, or filter d
   title="Code | SmythOS"
 />
 
-<Divider variant="subtle" />
-
-## What You’ll Configure
-
-- [Step 1: Write Your Code](#step-1-write-your-code)  
-- [Step 2: Add or Edit Inputs](#step-2-add-or-edit-inputs)  
-- [Step 3:  Configure Outputs](#step-3-configure-outputs)  
-- [Step 4: Add Error Handling](#step-4-add-error-handling)  
-- [Example: Parse CSV from URL](#example-parse-csv-from-url)  
-- [Post-Processing Options](#post-processing-options)  
-- [Handling Other File Formats](#handling-other-file-formats)  
-- [Best Practices](#best-practices)  
-- [Troubleshooting Tips](#troubleshooting-tips)  
-- [What to Try Next](#what-to-try-next)  
-
 <Spacer size="md" />
 
-## Step 1: Write Your Code
+---
+title: Code Component (JavaScript) – Add Custom Logic to Your Workflows
+description: Learn how to use the Code component to run JavaScript directly in your workflows. Transform inputs, configure outputs, handle errors gracefully, and add custom logic without external services.
+keywords: [JavaScript, Code component, custom logic, inputs, outputs, error handling, debugging, data processing, workflows, SaaS automation, scripting, automation logic, inline coding]
+toc_max_heading_level: 2
+---
 
-<InfoCallout title="Overview">
-In this section, you define and process data using JavaScript. By default, two inputs named **A** and **B** appear. You can rename, delete, or add inputs at any time. Each input is exposed as a variable prefixed with an underscore. Assign your final result to `_output`. Optionally assign a JSON object to `_error` if something goes wrong.
+# Code Component: Write JavaScript in Your Workflows
+
+The **Code component** lets you write JavaScript directly inside your workflow.  
+It gives you full control: transform inputs, calculate values, validate data, or handle errors — all without relying on external APIs or servers.  
+
+<InfoCallout title="Why use the Code Component?">
+When built-in components aren’t flexible enough, the Code component lets you calculate, filter, or transform data inline.  
+It’s perfect for quick validations, edge cases, and lightweight processing.
 </InfoCallout>
 
-<Spacer size="md" />
-
-### Inputs & Outputs Panel
-
-| Type        | Prefix          | Description                                                                                     |
-|-------------|-----------------|-------------------------------------------------------------------------------------------------|
-| **Input**   | `_<inputName>`  | Read-only. Every input you define appears here. Rename “A” or “B” under the Inputs tab.         |
-| **Primary Output** | `_output`        | Writable. Assign your final value—primitive or JSON—to this variable.                          |
-| **Error**   | `_error`        | Writable (optional). Assign a JSON object to signal an error. Downstream logic can catch this. |
-
-<TipCallout title="Naming Tip">
-Use clear, camelCase names for inputs (e.g., `orderTotal`, `customerName`). Then reference them as `_orderTotal` or `_customerName` in code. This prevents confusion later.
-</TipCallout>
-
-<Spacer size="md" />
-### Coding Guidelines
-<Tabs
-  tabs={[
-    {
-      label: 'Essentials',
-      content: (
-        <>
-          <p><strong>Vanilla JavaScript</strong></p>
-          <p>Write pure JavaScript—no external libraries or modules. All standard browser and Node APIs are available.</p>
-          <p><strong>Size Limit</strong></p>
-          <p>Each input is limited to 5 MB. If you need more, contact support.</p>
-          <p><strong>Split Complex Logic</strong></p>
-          <p>For heavy computations or external API calls, break your logic into multiple Code blocks or use an API Call component first.</p>
-        </>
-      )
-    },
-    {
-      label: 'Basic Example',
-      content: (
-        <>
-          <p><strong>Description</strong></p>
-          <p>Use default inputs “A” and “B” (numbers) to calculate a sum and bind to <code>_output</code>.</p>
-          <pre><code>
-{`// Default inputs "A" and "B":
-const _A = {{A}};
-const _B = {{B}};
-
-// Perform a calculation and bind to _output:
-let result = _A + _B;
-_output = {
-  sum: result,
-  message: \`The sum of \${_A} and \${_B} is \${result}\`
-};`}
-          </code></pre>
-        </>
-      )
-    },
-    {
-      label: 'Descriptive Example',
-      content: (
-        <>
-          <p><strong>Description</strong></p>
-          <p>Rename inputs to <code>customerName</code> (string) and <code>purchaseTotal</code> (number). Calculate a 10 % discount and bind to <code>_output</code>.</p>
-          <pre><code>
-{`// After renaming inputs:
-const _customerName = {{customerName}};   // e.g., "Alice"
-const _purchaseTotal = {{purchaseTotal}}; // e.g., 100.00
-
-// Calculate a 10% discount:
-const discountRate = 0.1;
-const discountedTotal = _purchaseTotal * (1 - discountRate);
-
-_output = {
-  name: _customerName,
-  original: _purchaseTotal,
-  discounted: discountedTotal,
-  message: \`Hello \${_customerName}, your discounted total is \$\${discountedTotal.toFixed(2)}.\`
-};`}
-          </code></pre>
-        </>
-      )
-    },
-    {
-      label: 'Error Handling',
-      content: (
-        <>
-          <p><strong>Description</strong></p>
-          <p>If an error occurs (e.g. missing required input), assign a JSON object to <code>_error</code>. Downstream logic can catch this.</p>
-          <pre><code>
-{`// Example of structured error:
-_error = {
-  message: "Missing input: customerName",
-  context: { provided: _customerName }
-};`}
-          </code></pre>
-          <TipCallout title="Why assign to _error?">
-            Assigning to <code>_error</code> ensures the agent handles failures gracefully (for example, retry logic or notifications). If <code>_error</code> is set, the primary output is skipped.
-          </TipCallout>
-        </>
-      )
-    }
-  ]}
+<Arcade
+  src="https://demo.arcade.software/HbTFpYUtUTtU3ZpafjWU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+  title="Code | SmythOS"
 />
 
 <Spacer size="md" />
 
-<TipCallout title="Default template">
-When you first open the Code component, you’ll see boilerplate similar to this:
+## Step 1: Understand Inputs and Outputs
+
+Every Code block works with **three types of variables**:
+
+| Type              | Prefix          | Description                                                                                     |
+|-------------------|-----------------|-------------------------------------------------------------------------------------------------|
+| **Input**         | `_<inputName>`  | Read-only variable for each input you define. Defaults are `A` and `B`.                         |
+| **Output**        | `_output`       | Required variable for your final result. Can be a primitive or a JSON object.                   |
+| **Error**         | `_error`        | Optional variable. Assign a JSON object to safely signal errors downstream.                     |
+
+<TipCallout title="Best Practice">
+Give inputs clear, descriptive names like `orderTotal` or `customerName`.  
+In code, they appear as `_orderTotal` or `_customerName`.  
+This makes your logic easier to read and debug.
 </TipCallout>
 
+<Spacer size="md" />
+
+## Step 2: Write Your Code
+
+At minimum, your script must set `_output`.  
+
+### Simplest Example: Hello World
 ```javascript
-// Use these variables to access your input values.
-// By default, the inputs are named "A" and "B":
-const _A = {{A}};
+{`_output = "Hello World!";`}
+```
+
+### Example: Add Two Numbers
+With default inputs `A` and `B`:  
+
+```javascript
+{`const _A = {{A}};
 const _B = {{B}};
 
-// This variable determines the output of your component:
-let _output = undefined;
-
-// Sample logic: add two numbers passed as inputs A and B.
-let sum = _A + _B;
-let message = `The sum of ${_A} and ${_B} is ${sum}`;
-_output = { sum, message };
-
-// To rename inputs later, click the Inputs tab and change "A" to something like "orderAmount",
-// then refer to it as "_orderAmount" in your code.
+_output = _A + _B;`}
 ```
 
 <Spacer size="md" />
 
-### Customizing Your Logic with Descriptive Names
+## Step 3: Add Inputs
 
-Rather than using generic names like <code>A</code> and <code>B</code>, it’s often clearer to give each input a descriptive name. For example, if your component needs a customer’s name and purchase total, you might define inputs <code>customerName</code> and <code>purchaseTotal</code>. In code, you would then refer to <code>_customerName</code> and <code>_purchaseTotal</code>. Here’s how that looks:
+You can add more inputs beyond `A` and `B`:
+
+1. Open the **Inputs** tab.  
+2. Click **+ Add Input**.  
+3. Name it (e.g. `purchaseTotal`, `taxRate`).  
+
+Each input becomes available in your code with an underscore prefix:  
 
 ```javascript
-// Suppose you have inputs named "customerName" (string) and "purchaseTotal" (number):
-const _customerName = {{customerName}};
-const _purchaseTotal = {{purchaseTotal}};
+{`const _purchaseTotal = {{purchaseTotal}};
+const _taxRate = {{taxRate}};
 
-// Perform a discount calculation:
-let discountRate = 0.1; // 10 % discount
-let discountedTotal = _purchaseTotal * (1 - discountRate);
-_output = {
-  name: _customerName,
-  original: _purchaseTotal,
-  discounted: discountedTotal,
-  message: `Hello ${_customerName}, your discounted total is $${discountedTotal.toFixed(2)}.`
-};
+const total = _purchaseTotal * (1 + _taxRate);
+
+_output = { total };`}
 ```
 
-In this example:
+<Spacer size="md" />
 
-- We read <code>_customerName</code> and <code>_purchaseTotal</code>.  
-- We calculate a 10 % discount.  
-- We assign a JSON object to <code>_output</code> with four fields: <code>name</code>, <code>original</code>, <code>discounted</code>, and <code>message</code>.  
+## Step 4: Configure Outputs
+
+Your script must always set `_output`.  
+If you assign an object, you can expose specific fields as **custom outputs** for downstream use.  
+
+```javascript
+{`_output = {
+  total: 50,
+  status: "OK"
+};`}
+```
+
+Now both `total` and `status` are available to later components.  
 
 <Spacer size="md" />
 
-## Step 2: Add or Edit Inputs
+## Step 5: Handle Errors Gracefully
 
-By default, the Code component shows two inputs named **A** and **B**. You can rename these to match your use case, delete them, or create as many new inputs as you need:
+Instead of breaking your workflow, use `_error` to signal problems.  
+This allows retries, fallback steps, or notifications instead of a hard stop.  
 
-1. Open the **Inputs** tab in the Code component panel.  
-2. Click **+ Add Input** to create a new input, or click the pencil icon next to an existing input to edit its name, type, or settings.  
+### Example: Missing Input
+```javascript
+{`if (!_customerName) {
+  _error = {
+    message: "Missing input: customerName",
+    context: { provided: _customerName }
+  };
+}`}
+```
 
-   <img
-     src=""
-     alt="Add Input dialog showing Name, Type, Required/Optional toggle, Color and Default Value"
-     style={{ width: '100%', marginTop: '1rem' }}
-   />
-
-   | Field                  | Required?                          | Description                                                                                                                                 |
-   |------------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-   | **Name**               | <Badge type="required">Yes</Badge>     | Identifier for this input. Use camelCase (for example `csvUrl`, `userEmail`, `orderAmount`). In code, reference it as `_<Name>` (e.g., `_csvUrl`). |
-   | **Type**               | <Badge type="required">Yes</Badge>     | Data type of the input: `string`, `number`, `boolean`, `object`, `file`, etc.                                                                |
-   | **Required / Optional**| <Badge type="required">Yes</Badge>     | Set to **Required** if your code cannot run without this input; otherwise choose **Optional** for fallback logic.                             |
-   | **Default Value**      | <Badge type="optional">No</Badge>       | A literal value used when no input is provided at runtime (handy for debugging or testing).                                                   |
-   | **Color**              | <Badge type="optional">No</Badge>       | Assign a hex label (for example `#F35063`) to color-code this input in the canvas for better organization.                                   |
-
-   <TipCallout title="Naming tip">
-   Use clear, descriptive names for your inputs so your code is self-explanatory. For instance, use `orderAmount` instead of `A`, and `taxRate` instead of `B`.
-   </TipCallout>
-
-3. Click **Save**. Any new input will appear as a special variable you can reference in Step 1’s code (for example, `_<inputName>`). To delete an input, click the trash icon next to its name.
-
-<Spacer size="md" />
-
-## Step 3: Configure Outputs
-
-Every Code component must assign to the special `_output` variable inside your script. This becomes the component’s primary **Output**. You can also define additional custom outputs if you want to extract subfields from a JSON object.
-
-### 3.1 Default Output
-
-- The primary **Output** is whatever you assign to the `_output` variable in your code.  
-- If `_error` is not set, this value is passed downstream to the next component.
-
-### 3.2 Adding Custom Outputs
-
-If you want to expose specific fields from your JSON object as separate outputs, do the following:
-
-1. Open the **Outputs** tab.  
-2. Click **+ Add Output** to open the **Add Output** modal:
-
-   <img
-     src=""
-     alt="Add Output dialog showing Output Name and Advanced Options (Expression, Color)"
-     style={{ width: '100%', marginTop: '1rem' }}
-   />
-
-   | Field             | Required?                          | Description                                                                                                                    |
-   |-------------------|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-   | **Output Name**   | <Badge type="required">Yes</Badge>     | The identifier for this custom output (for example `discountedTotal` or `message`). Should correspond to a field in `_output`. |
-   | **Expression**    | <Badge type="optional">No</Badge>       | Dot-notation path to extract from your `_output` object. For example, `Output.discountedTotal`, or `Output.summary.totalRows`.  |
-   | **Color**         | <Badge type="optional">No</Badge>       | Choose a hex label (for example `#3C89F9`) to color-code this output node on the canvas.                                        |
-
-   <TipCallout title="Expression usage">
-   If inside your code you set `_output = { total: 50, note: "OK" }`, you can create a custom output named `total` with expression `Output.total` to extract just that number. Use nested paths like `Output.user.address.city` for deeper fields.
-   </TipCallout>
-
-3. Click **Save**. The new output will appear under **Outputs** on the Code node. Downstream components can reference it directly.
-
-<Spacer size="md" />
-
-## Step 4: Add Error Handling
-
-You can optionally assign a JSON object to the special `_error` variable if something fails. That causes the component’s **Error Output** to fire instead of the normal output.
-
-<InfoCallout title="Why use `_error`?">
-If a required input is missing or an unexpected exception occurs, assigning to `_error` lets your agent handle it gracefully (for example, send a notification or retry) rather than crashing.
+<InfoCallout title="Why use _error?">
+Assigning a structured error ensures your workflow continues safely.  
+Downstream components can decide what to do next.
 </InfoCallout>
 
-```javaScript
-  // Example of structured error:
-  _error = {
-    message: "Missing input: csvUrl",
-    context: { provided: _csvUrl }
-  };
-```
-
-When `_error` is set, downstream logic can check for error outputs and decide how to proceed.
-
 <Spacer size="md" />
 
+## Advanced Usage
 
-## Example: Parse CSV from URL
+### Example: Parse CSV from URL
 
-This example shows how to take a link to a CSV file, fetch its contents using an **API Call** component first, and then convert the CSV text into a JSON array inside a Code block.
+A common real-world scenario:  
 
-1. **Agent Skill** – Captures a `csvUrl` from the user (Type: `string`).  
-2. **API Call** – Downloads the CSV:  
-   - Method: `GET`  
-   - URL: `{{csvUrl}}`  
-   - Output: `apiResponse` (plain CSV text)  
-3. **Code Component** – Parses the CSV text into objects:  
-   - Input: `apiResponse` (Type: `string`)  
-   - Outputs: `success` (boolean), `data` (array of row objects), and `summary` (object with `totalRows` and `headers`).
+1. Capture a `csvUrl` input.  
+2. Use an [API Call](/docs/agent-studio/components/advanced/api-call) to fetch the CSV file.  
+3. Parse the data with a Code block:  
 
-### Parsing Code
+```javascript
+{`const _csvText = _apiResponse;
+const lines = _csvText.split('\\n').filter(line => line.trim() !== '');
+const headers = lines[0].split(',').map(h => h.trim());
 
-```javaScript
-  // Read the raw CSV text from the API call output:
-  const _csvText = _apiResponse;
+const data = lines.slice(1).map(line => {
+  const values = line.split(',').map(v => v.trim());
+  return headers.reduce((row, header, i) => {
+    row[header] = values[i] || '';
+    return row;
+  }, {});
+});
 
-  // Split into lines and ignore empty rows:
-  const lines = _csvText.split('\n').filter(line => line.trim() !== '');
-
-  // Extract headers from the first line:
-  const headers = lines[0].split(',').map(h => h.trim());
-
-  // Build an array of row objects:
-  const data = [];
-  for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim());
-    const rowObj = {};
-    headers.forEach((header, index) => {
-      rowObj[header] = values[index] || '';
-    });
-    data.push(rowObj);
-  }
-
-  // Assign the structured output:
-  _output = {
-    success: true,
-    data,
-    summary: {
-      totalRows: data.length,
-      headers
-    }
-  };
+_output = {
+  success: true,
+  data,
+  summary: { totalRows: data.length, headers }
+};`}
 ```
 
-Then define custom outputs under **Outputs** like this:
-
-```json
-  [
-    {
-      "Name": "success",
-      "Expression": "Output.success"
-    },
-    {
-      "Name": "totalRows",
-      "Expression": "Output.summary.totalRows"
-    },
-    {
-      "Name": "headers",
-      "Expression": "Output.summary.headers",
-      "Format": "json"
-    }
-  ]
-```
-
-<Spacer size="md" />
-## Post-Processing Options
-
-Connect the structured output from your Code block to any of the following downstream actions:
-
-- **[GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm)** – Summarize or explain the parsed data.
-- **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** – Store records for later retrieval.
-- **[Another Code Component](/docs/agent-studio/components/advanced/code)** – Perform further calculations or validations.
-
-<TipCallout title="Tip">
-Split large or complex logic into multiple Code blocks so each block does one clear job and is easier to maintain.
-</TipCallout>
-
-<Spacer size="md" />
-
-## Handling Other File Formats
-
-| Format     | How to Handle                                 |
-|------------|-----------------------------------------------|
-| **JSON**   | Use `JSON.parse(_inputName)` to convert string into an object.  |
-| **XML**    | Use a lightweight parser or regex-based approach.             |
-| **Text**   | Use `split('\n')` and process line by line.                    |
-| **Binary** | Treat as a `file` object and convert as needed (for example, Base64). |
+This structured JSON can be used directly by components like **GenAI LLM**, **RAG Remember**, or another Code block.  
 
 <Spacer size="md" />
 
 ## Best Practices
 
-- Always assign a value to `_output` (primitive or object).  
-- Use `_error` to catch missing data or runtime issues.  
-- Use `console.log()` statements to debug in the **Logs** tab.  
-- Avoid processing more than **5 MB** of input at once—chunk large files.  
-- Chain Code components so each block handles a single, focused task.
+Keep your Code blocks clean, reliable, and easy to maintain:  
+
+- **Always set `_output`** – every script must assign a value.  
+- **Use `_error`** – report failures in structured form.  
+- **Name inputs clearly** – use camelCase, not single letters.  
+- **Validate inputs early** – catch missing/invalid values upfront.  
+- **Use multiple Code blocks** – avoid one giant script.  
+- **Debug with `console.log()`** – inspect values in the Logs tab.  
+- **Stay under 5 MB per input** – split or preprocess larger data.  
+- **Comment your code** – explain logic for future maintainers.  
 
 <Spacer size="md" />
 
-## Troubleshooting Tips
+## What’s Next
 
-<InfoCallout title="If your code fails…">
-- Did you assign anything to `_output`?  
-- Is each input name spelled exactly as defined (e.g. `csvUrl` → `_csvUrl`)?  
-- Did your script throw a JavaScript error? Check the **Logs** tab.  
-- Is your input too large or the wrong type?  
-- Try adding `console.log()` to inspect intermediate values in real time.
-</InfoCallout>
+Now that you know how to use the Code component:  
 
-<Spacer size="md" />
-
-## What to Try Next
-
-- Chain this Code block with another Code component to break logic into modular pieces.  
-- Feed your JSON output into **[GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm)** for human-readable summaries or analysis.
-- Use **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** to store parsed records for future queries.
-- Wrap this component in an **[Agent Skill](/docs/agent-studio/components/base/agent-skill)** to make it a reusable action for end users.
-- Experiment with replacing CSV parsing with JSON or XML to see how flexible this component can be with different formats.
+- Connect outputs to **[GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm)** for summaries or insights.  
+- Store structured data using **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)**.  
+- Combine Code with an **[API Call](/docs/agent-studio/components/advanced/api-call)** to fetch and process external data.  
+- Wrap custom code into a reusable **[Agent Skill](/docs/agent-studio/components/base/agent-skill)**.  
+- Scale logic with multiple Code blocks across your workflow.  

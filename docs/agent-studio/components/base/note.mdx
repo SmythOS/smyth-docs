@@ -1,69 +1,92 @@
 ---
 title: Note
-description: Add annotations, comments, and documentation directly within your workflows to improve clarity and organization.
-keywords: [Note, comment, documentation, annotation, description, workflow, organization]
+description: Use the Note component in SmythOS Studio to add annotations, comments, and Markdown/MDX documentation directly onto your workflow canvas. Improve clarity, collaboration, and workflow organization.
+keywords: ["SmythOS Note component", "workflow annotations", "add documentation to workflows", "Markdown notes", "MDX notes", "Studio Canvas", "SmythOS documentation", "workflow organization"]
 toc_max_heading_level: 2
 ---
 
 # Note Component
 
-Use the **Note** component to add comments, instructions, and documentation directly onto your workflow canvas. It's a simple but powerful tool for keeping your workflows organized, understandable, and easy for collaborators to follow.
+The **Note** component lets you add annotations, instructions, and documentation directly onto your **Studio Canvas**. Notes don’t connect to other components. Instead, they make your workflows easier to understand and maintain, especially when collaborating with others.
 
-<InfoCallout title="Why this matters">
-As workflows grow in complexity, they can become difficult to understand at a glance. Notes provide context where it's needed most, explaining complex logic, leaving instructions for teammates, or simply labeling different sections of your agent's process.
+<InfoCallout title="Why Notes Matter">
+As your workflows grow, it becomes harder to follow what each part is doing. Notes give you a way to explain complex logic, leave instructions for teammates, and label sections so you and others can quickly make sense of the canvas.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## What You’ll Configure
+## When to Use Notes
 
-- [Customize Content and Appearance](#step-1-customize-content-and-appearance)
-- [Best Practices](#best-practices)
-- [Troubleshooting Tips](#troubleshooting-tips)
-- [What to Try Next](#what-to-try-next)
+You’ll find Notes most helpful when you want to:
+
+- **Explain complex logic** next to a Code or Loop component.  
+- **Leave collaboration cues** for teammates, like “Connect to production database” or “Don’t change this API key.”  
+- **Visually organize sections** of your workflow (for example, “Step 1: Data Ingestion,” “Step 2: Processing,” “Step 3: Outputs”).  
+- **Document context** for future you, so you remember why you designed something a certain way.
 
 <Spacer size="md" />
 
-## Step 1: Customize Content and Appearance
+## Configure Notes
 
-The Note component is configured directly from its settings panel. There are no functional inputs or outputs; it is purely for documentation.
+You configure Notes directly from the settings panel. Notes have no functional inputs or outputs and they are purely for documentation.
 
-| Setting             | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Title** | The main header for your note. To edit, hover over the title on the component itself and click the edit icon. |
-| **Description** | The main body content of the note. This is where you write your detailed comments or instructions. |
-| **Text Color** | Sets the color of the title and description text using a hex code color picker. |
-| **Background Color**| Sets the background color of the note card using a hex code color picker.   |
+### Formatting Mode
 
-<TipCallout title="Color Coding">
-Use different background colors to visually categorize your notes. For example, use red for warnings, blue for general information, and green for completed sections.
+Notes support two formatting modes:
+
+| Mode | Description |
+|------|-------------|
+| **Plain Text** | Simple comments without styling. |
+| **Markdown (with MDX support)** | Add headings, lists, or even JSX-style MDX components. |
+
+<PromptCard
+  title="Markdown Note Example"
+  prompt={`## H2 Header
+- Bullet point one
+- Bullet point two
+
+<MyComponent title="Custom Title">
+  This is JSX-style content inside MDX.
+</MyComponent>`}
+/>
+
+### Appearance
+
+| Setting | Description |
+|---------|-------------|
+| **Title** | The note’s header. Edit it directly on the block in the canvas by hovering and clicking the pencil icon. |
+| **Content** | The body of your note. Write plain text, or use Markdown/MDX if formatting is enabled. |
+| **Text Color** | Choose a color for your text. |
+| **Background Color** | Choose a color for the card background. |
+
+<TipCallout title="Color Coding Notes">
+Use background colors to organize your canvas visually. For example, red for warnings, blue for informational notes, and green for sections you’ve finished. Stay consistent so teammates quickly learn your system.
 </TipCallout>
-
-<Arcade src="https://demo.arcade.software/hdAKAVEkIS3MP7JEZmin?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Note | SmythOS" />
 
 <Spacer size="md" />
 
 ## Best Practices
 
-- **Document Complex Logic:** Place a Note next to a **Code** component or a complex **ForEach Loop** to explain what it does, why it's there, and what its inputs/outputs are.
-- **Leave Instructions:** If you're collaborating, use Notes to leave messages for your teammates, such as "TODO: Connect this to the production database" or "Warning: Do not change this API key."
-- **Create Visual Sections:** Use large Notes with just a title as headers to break your workflow into logical sections (e.g., "Step 1: Ingest Data," "Step 2: Process Records," "Step 3: Send Notifications").
-- **Ensure Readability:** Choose a `Text Color` and `Background Color` with sufficient contrast to make your notes easy to read.
+- **Document logic near complexity:** Place Notes next to advanced components to explain what they do.  
+- **Use Notes for team workflows:** Write clear TODOs or warnings where teammates might otherwise be confused.  
+- **Structure the canvas visually:** Add Notes as headers to break your workflow into steps.  
+- **Keep them readable:** Always use text and background colors with enough contrast.  
 
 <Spacer size="md" />
 
-## Troubleshooting Tips
+## Troubleshooting Notes
 
-<InfoCallout title="Having trouble with a Note?">
-- **Cannot Edit Title:** The title is edited on the component itself, not in the settings panel. Hover your mouse over the note's title in the workflow, and an edit (pencil) icon will appear.
-- **Note is Hard to Read:** The contrast between your chosen text and background colors is likely too low. Adjust the colors in the settings panel to improve readability.
-- **Component has no connectors:** This is by design. The Note component is purely for documentation and does not process or pass data, so it has no input or output nodes to connect.
+<InfoCallout title="Common Issues">
+- **Can’t edit the title?** Edit directly on the block in the canvas, not in the settings panel.  
+- **Text is hard to read?** Adjust your text and background colors for better contrast.  
+- **No connectors showing?** Notes are for documentation only. They intentionally don’t have input or output nodes.  
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## What to Try Next
 
-- Place a `Note` next to an **[API Call](/docs/agent-studio/components/advanced/api-call)** component to document the endpoint's purpose and expected response format.
-- Use several `Note` components to create a "storyboard" for your workflow, outlining each major step before you build the logic.
-- Create a "Key" or "Legend" at the top of your workflow using Notes to explain the color-coding system you've used for other notes.
+- Add a Note beside an **[API Call](/docs/agent-studio/components/advanced/api-call)** to document the endpoint’s purpose.  
+- Use Notes to storyboard your workflow before connecting components in the **[Studio Canvas](/docs/agent-studio/key-concepts/canvas)**.  
+- Create a “legend” at the top of your workflow explaining your color-coding system.  
+- Explore [Collaboration features](/docs/agent-collaboration/overview) to see how Notes help teams work more smoothly.  

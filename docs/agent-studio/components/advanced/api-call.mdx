@@ -1,243 +1,216 @@
 ---
-title: API Call
-description: Configure and test the API Call component to hit any HTTP endpoint.
-keywords: [API Call, HTTP, integration, component, inputs, outputs, OAuth, Vault]
+title: API Call Component for HTTP Requests
+sidebar_label: API Call
+description: Connect your agent to any HTTP API. Configure method, URL, headers, body, and authentication with Vault secrets and OAuth. Test quickly, debug easily, and reuse outputs in your workflow.
+keywords: [API Call, HTTP request, API connector, REST API, call REST API, headers, OAuth, OAuth 2.0 client credentials, bearer token, Vault keys, Content-Type, JSON, multipart upload API, troubleshooting, JSONPath, mock data, SaaS automation]
 toc_max_heading_level: 2
 ---
 
 # API Call Component
 
-Use **API Call** when your agent needs to hit an external HTTP endpoint: to fetch data, trigger an action, or update a system.
-
-<InfoCallout title="Why this matters">You can reach nearly any REST-style service without custom code. <br/>Define your call once, pass dynamic inputs at runtime, and inject secrets via [Vault](/docs/agent-studio/key-concepts/vault).</InfoCallout>
-
-## What You’ll Configure
-
-- [Set the Core Request](#step-1-set-the-core-request)
-- [Add Inputs](#step-2-add-inputs)
-- [Add Authentication](#step-3-add-authentication)
-- [Handle Pagination and Rate Limits](#step-4-handle-pagination-or-rate-limits)
-- [Enable Mock Mode](#step-5-enable-mock-mode)
-- [Capture Outputs](#step-6-capture-outputs)
-- [Common API Examples](#common-api-examples)
-- [Best Practices](#best-practices)
-- [Troubleshooting Tips](#troubleshooting-tips)
-- [What to Try Next](#what-to-try-next)
+The **API Call component** connects your agent to any HTTP API. You can fetch data, send updates, or trigger actions.  
+If you’ve used Postman or `curl`, this will feel familiar — but with built-in **security, observability, retries, and Vault integration**.
 
 <Spacer size="md" />
 
-<Image
-  src="/docs/img/components/api-call.png"
-  alt="API Call component UI"
-  bordered={true}
-  maxWidth={600}
-/>
+## Quick Start: Test Your First Call
 
-## Step 1: Set the Core Request
+1. **Method**: `GET`  
+2. **URL**:  
+<PromptCard title="Sample URL" tags={['HTTP', 'GET']} copy>
+https://jsonplaceholder.typicode.com/todos/1
+</PromptCard>  
+3. Click **Test** → You should see a JSON object with `"id": 1`.  
 
-| Field | Required? | Purpose | Quick Tips |
-|-------|-----------|---------|------------|
-| **Method** | <Badge type="required">Yes</Badge> | HTTP verb (`GET`, `POST`, etc.) | Choose the simplest method that works |
-| **URL** | <Badge type="required">Yes</Badge> | Target endpoint | Supports variables like `{{input.userId}}`, `{{vault.token}}` |
-| **Headers** | <Badge type="optional">No</Badge> | Authorization, content-type, etc. | JSON format. Supports variables |
-| **Content-Type** | <Badge type="optional">No</Badge> | MIME type for the body | Examples: `application/json`, `form-data`, `text/plain` |
-| **Body** | <Badge type="optional">No</Badge> | Payload for methods like POST or PUT | Follows `Content-Type` and supports dynamic data |
-
-### URL Pattern Cheatsheet
-<Tabs
-  tabs={[
-    { label: 'Static', content: 'https://api.example.com/users' },
-    { label: 'Query Params', content: 'https://api.example.com/users?limit={{input.count}}' },
-    { label: 'Path Params', content: 'https://api.example.com/users/{{input.id}}' },
-    { label: 'Mixed', content: '{{vault.baseUrl}}/users/{{id}}?expand=roles' }
-  ]}
-/>
+Once you confirm this works, you can add headers, authentication, and outputs.  
 
 <Spacer size="md" />
 
-## Step 2: Add Inputs
+## Step 1: Choose Method and URL
 
-<Steps>
-  <li>Select <strong>+ Add Input</strong></li>
-  <li>Define type, default value, and mark optional if needed</li>
-</Steps>
+Every request needs:  
 
-| Type | Notes |
-|------|-------|
-| `string` | Basic text |
-| `number` | Integer or decimal |
-| `boolean` | `true` or `false` |
-| `array` | JSON list |
-| `object` | JSON object |
-| `binary` | Files, base64, or external URLs |
-| `date` | ISO 8601 format |
+- **Method**: tells the server what you want to do.  
+- **URL**: the endpoint you’re calling.  
+
+| Method  | Common use           | Body needed? | Safe to retry? |
+|---------|----------------------|--------------|----------------|
+| GET     | Fetch data           | No           | Yes |
+| POST    | Create a resource    | Often        | No |
+| PUT     | Replace a resource   | Yes          | Yes |
+| PATCH   | Update part of data  | Yes          | Yes |
+| DELETE  | Remove a resource    | Optional     | Yes |
+| HEAD    | Get only headers     | No           | Yes |
+| OPTIONS | Check allowed methods| No           | Yes |
+
+**Example:**  
+<PromptCard title="Sample GET request" tags={['HTTP']} copy>
+https://api.example.com/users/{{userId}}
+</PromptCard>
+
+<Spacer size="md" />
+
+## Step 2: Add Headers and Body
+
+Most APIs need more than just a URL. You usually add:  
+
+- **Headers** → key-value pairs for metadata like authentication and content type.  
+- **Body** → the request payload (data you send), required for methods like POST, PUT, PATCH.  
+
+<Spacer size="md" />
+
+### Headers
+
+| Header name    | Purpose              | Example |
+|----------------|----------------------|---------|
+| Authorization  | Authentication token | `Bearer {{KEY(MY_TOKEN)}}` |
+| Content-Type   | Format of request body| `application/json` |
+| X-API-Key      | Vendor-specific key  | `{{KEY(API_KEY)}}` |
+
+<TipCallout title="Secure headers">
+Use Vault to store tokens. Click the key icon in the header field and select a stored secret.  
+This prevents leaking keys into logs or history.
+</TipCallout>
+
+<Spacer size="md" />
+
+### Body
+
+The body is required for most **POST**, **PUT**, and **PATCH** requests.  
+The format depends on the API’s **Content-Type** header.  
+
+| Content-Type | Example payload | When to use |
+|--------------|-----------------|-------------|
+| application/json | ```json{`{ "name": "Alice", "role": "admin" }`}``` | Most modern APIs |
+| multipart/form-data | file + `{ "title": "Avatar" }` | File uploads |
+| application/x-www-form-urlencoded | `name=Alex&age=30` | Web forms |
+| text/plain | `Hello world` | Simple text APIs |
+| application/xml | `<user><name>Alex</name></user>` | Legacy XML APIs |
+| application/octet-stream | Raw binary | Uploading files/blobs |
+
+<InfoCallout title="Serialization behavior">
+The component automatically encodes the body to match the Content-Type.  
+If they don’t align, the server may return **400 Bad Request** or **415 Unsupported Media Type**.
+</InfoCallout>
+
+<Spacer size="md" />
+
+### Example: POST with JSON body
+
+```json
+{
+  "email": "user@example.com",
+  "active": true
+}
+```
+
+When you send this with `Content-Type: application/json`, the server expects properly formatted JSON.
 
 <Spacer size="md" />
 
 ## Step 3: Add Authentication
 
-### Use the Vault
+APIs almost always require authentication. There are **two main types** supported here:  
 
-<TipCallout>
-Store API keys in [Vault](/docs/agent-studio/key-concepts/vault) and inject them like `{{vault.api_key}}` inside headers or body.
+### Option A: Header Keys (simplest)
+
+You paste a static token or API key into the `Authorization` header.  
+
+```http
+`Authorization: Bearer {{KEY(MY_TOKEN)}}`
+```
+
+- **Good for**: testing, personal tokens, simple APIs.  
+- **Limitations**: tokens may expire, often lower rate limits.  
+
+<Spacer size="md" />
+
+### Option B: OAuth (recommended)
+
+OAuth is like giving your agent a *temporary pass* instead of a permanent key. The system automatically handles token refresh, so you don’t have to rotate secrets manually.  
+
+#### Supported OAuth flows
+| Flow | When to use | Example |
+|------|-------------|---------|
+| Authorization Code (with PKCE) | When a user needs to log in (e.g. “Login with Google”). | Connecting to Gmail, LinkedIn |
+| Client Credentials | When services talk directly, no user login needed. | Server-to-server APIs |
+| OAuth 1.0a | Older APIs still using this. | Legacy Twitter API |
+
+#### Setup in the component
+1. Select **OAuth** as authentication type.  
+2. Choose your provider (Google, LinkedIn, Twitter, or Custom).  
+3. Enter the required fields (client ID, secret, scopes).  
+4. Test the connection — tokens are fetched and managed automatically.  
+
+#### Why OAuth?
+- Tokens refresh automatically.  
+- More secure than static keys.  
+- Often grants higher API rate limits.  
+
+<TipCallout title="Mental model">
+- **API key** = a permanent password you paste in.  
+- **OAuth** = the system logs in for you and rotates short-lived passes.  
 </TipCallout>
 
-### Built-in OAuth 2.0
+<Spacer size="md" />
 
-| Field | Purpose |
-|-------|---------|
-| **Scopes** | Space-delimited list of access rights |
-| **Auth URL** | Where users authorize |
-| **Token URL** | Exchanges code for token |
-| **Client ID / Secret** | Credentials from your app |
-| **Callback URL** | Must match platform setup |
+## Step 4: Test Your Call
 
-<small>SmythOS handles automatic token refreshing when `expires_in` is present in the response.</small>
-
-### Other Auth Flows
-
-| Flow | Requirements | When to Use |
-|------|--------------|-------------|
-| **OAuth 1.0a** | Token URLs, Consumer Key/Secret, Callback | Older APIs like Twitter |
-| **Client Credentials** | Token URL, Client ID/Secret | Server-to-server, no user prompt |
-| **API Key in Header** | Header field like `Authorization` | Simple key-based access |
-| **JWT (Bearer Token)** | Encoded token in headers | Authenticated access via token sharing |
+1. Fill in Method and URL.  
+2. Add headers and authentication if required.  
+3. Click **Test**.  
+4. Inspect the **Response** tab — check status, headers, and body.  
 
 <Spacer size="md" />
 
-### Sample Success
+## Step 5: Work With Outputs
 
-```json
-{
-  "Response": {
-    "status": "ok",
-    "data": {
-      "user": { "id": 123, "name": "Jane Doe" }
-    }
-  }
-}
-```
+The response is available as `Response` and can be used in later steps.  
+Use **JSONPath** to extract values.
 
-### Sample Error
-
-```json
-{
-  "Response": {
-    "status": 429,
-    "error": "rate_limit",
-    "message": "Too many requests"
-  }
-}
-```
+| Use case | JSONPath expression |
+|----------|---------------------|
+| First item ID | `Response.data[0].id` |
+| Nested field | `Response.user.profile.email` |
+| Default fallback | `Response.items[0] ?? 'guest'` |
 
 <Spacer size="md" />
 
-## Step 6: Capture Outputs
+## Step 6: Handle Errors and Retries
 
-| Output | Description |
-|--------|-------------|
-| **Response** | Full API response (JSON or text) |
-| **Headers** | Key-value pairs from the response |
+| Status | Meaning | What to check |
+|--------|---------|---------------|
+| 400    | Bad request | Check body, parameters, Content-Type |
+| 401/403| Unauthorized | Token validity, scopes |
+| 404    | Not found | URL or resource ID |
+| 429    | Too many requests | Rate limiting; enable retries/backoff |
+| 5xx    | Server error | Retry later, check provider status |
 
-### Optional Custom Output
-
-You can extract just the part you need:
-
-```json
-{
-  "Name": "userId",
-  "Expression": "Response.data.user.id"
-}
-```
+Retries and backoff are built in. Secrets are redacted in logs.  
 
 <Spacer size="md" />
 
-## Common API Examples
+## Step 7: Debug and Mock
 
-### POST to Slack (Send alert)
-
-```json
-{
-  "url": "https://hooks.slack.com/services/T000/B000/XXX",
-  "method": "POST",
-  "headers": { "Content-Type": "application/json" },
-  "body": { "text": "New signup: {{input.userName}}" }
-}
-```
-
-### GET GitHub Issues (with params)
-
-```json
-{
-  "url": "https://api.github.com/repos/{{input.owner}}/{{input.repo}}/issues?state=open&per_page=100",
-  "method": "GET",
-  "headers": { "User-Agent": "SmythOS-Agent" }
-}
-```
-
-### PUT User with If-Match Header
-
-```json
-{
-  "url": "https://api.example.com/users/{{id}}",
-  "method": "PUT",
-  "headers": {
-    "Content-Type": "application/json",
-    "If-Match": "{{input.etag}}"
-  },
-  "body": { "name": "{{input.newName}}" }
-}
-```
-
-### Upload to Imgur (multipart)
-
-```json
-{
-  "url": "https://api.imgur.com/3/upload",
-  "method": "POST",
-  "headers": {
-    "Authorization": "Client-ID {{vault.imgur_client_id}}",
-    "Content-Type": "multipart/form-data"
-  },
-  "body": {
-    "image": "{{input.file}}",
-    "type": "file"
-  }
-}
-```
-<Spacer size="md" />
-
-## Best Practices
-
-- Test with **Debug Mode** before going live  
-- Use **Retry** and **Condition** blocks for error handling  
-- Never hardcode credentials — use [Vault](/docs/agent-studio/key-concepts/vault)  
-- Validate API URLs and tokens in Postman or curl  
-- Keep inputs and outputs named clearly  
-- Use Mock Mode during dev or rate-limited testing
+- **Preview request** to see variables resolved before sending.  
+- **Run logs** show full request/response for troubleshooting.  
+- **Mock Data** lets you simulate responses safely without calling live APIs.  
 
 <Spacer size="md" />
 
-## Troubleshooting Tips
+<InfoCallout title="Troubleshooting FAQ" collapsible>
+**How do I send a Bearer token?**  
+Add under Headers: `Authorization: Bearer {{KEY(TOKEN)}}`.  
 
-<InfoCallout title="If your call fails...">
-- Check the request headers — especially `Content-Type`  
-- Confirm that Vault keys exist and are correctly named  
-- Verify that the endpoint needs auth and you've supplied it  
-- Use Postman or curl to isolate request issues
+**Why do I see 415 Unsupported Media Type?**  
+Your request body doesn’t match the Content-Type header.  
+
+**How do I upload a file with multipart?**  
+Choose `multipart/form-data` and include both the file and metadata.  
+
+**How do I paginate results?**  
+Use query parameters like `page` or `cursor`, or parse `Link` headers.  
+
+**How do I extract nested JSON?**  
+Example: `Response.user.address[0].city`.  
 </InfoCallout>
-
-<Spacer size="md" />
-
-## What to Try Next
-
-- Combine **[API Call](/docs/agent-studio/components/advanced/api-call)** with **[Code Component](/docs/agent-studio/components/advanced/code)** to clean or validate responses  
-- Link with **[Agent Skill](/docs/agent-studio/components/base/agent-skill)** to allow natural inputs (text, voice) to trigger your call  
-- Use **Condition blocks** to handle branches like `status === 404`  
-- Store secrets in **[Vault](/docs/agent-studio/key-concepts/vault)** securely
-- Chain multiple API calls for multi-step workflows  
-- Adapt examples from the [Common Examples](#common-api-examples) above to your use case
-
-<TipCallout>
-When copying code from API docs, just replace the dynamic values with `{{input.name}}` or `{{vault.secret}}`.
-</TipCallout>

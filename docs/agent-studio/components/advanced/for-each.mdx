@@ -1,64 +1,63 @@
 ---
-title: ForEach
-description: Loop through an array of items to process each one individually and aggregate the results.
-keywords: [ForEach, loop, iteration, array, process, list, sequential, aggregate]
-toc_max_heading_level: 2
+title: ForEach Component
+description: Loop over arrays in SmythOS to run steps per item, transform data, and return one aggregated result.
+keywords: ["ForEach", "For Each", "loop array", "iterate list", "batch processing", "map transform", "workflow automation", "aggregate results", "SmythOS", "AI workflows"]
 ---
 
-# ForEach Component
+# For Each Component
 
-Use the **ForEach** component to loop through an array of items. It allows you to run a set of actions for each item in the list, making it perfect for processing batch data, transforming lists, or running sequential tasks.
+**For Each** runs a set of steps for every item in an array, then returns one aggregated result. Use it to process batch data, transform lists, or run repeatable tasks in sequence.
 
-<InfoCallout title="Why this matters">
-Manually processing lists is tedious and not scalable. The `ForEach` component automates the iteration process, allowing you to build powerful, data-driven workflows that can handle lists of any size, from API responses to database query results.
+<InfoCallout title="Why This Matters">
+Manually processing lists is tedious and not scalable.  **For Each** automates the repetition so workflows stay simple and reliable, whether the list has 3 items or 3,000.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## What You’ll Configure
+## Step 1: Provide the Input Array
 
-- [Provide an Input Array](#step-1-provide-an-input-array)
-- [Build the Loop Logic](#step-2-build-the-loop-logic)
-- [Select an Output Format](#step-3-select-an-output-format)
-- [Handle the Aggregated Results](#step-4-handle-the-aggregated-results)
-- [Best Practices](#best-practices)
-- [Troubleshooting Tips](#troubleshooting-tips)
-- [What to Try Next](#what-to-try-next)
+The component expects a single input: a JSON array.
 
-<Spacer size="md" />
+| Input | Required? | Description | Notes |
+|---|---|---|---|
+| **Array** | <Badge type="required">Yes</Badge> | Items to process one by one | Must be a valid JSON array such as `[1,2,3]`, `["a","b"]`, or an array of objects |
 
-## Step 1: Provide an Input Array
-
-The `ForEach` component requires a single input: the array you want to loop through.
-
-| Input   | Required?                   | Description                                          | Notes                                                             |
-|---------|-----------------------------|------------------------------------------------------|-------------------------------------------------------------------|
-| **Array** | <Badge type="required">Yes</Badge> | The list of items to be processed one by one.        | The input must be a valid JSON array. e.g., `[1, 2, 3]` or `["a", "b"]`. |
-
-<TipCallout title="Dynamic Arrays">
-You can pass an array from any previous step, such as the result of an **API Call**, a **Code** component, or a **Database** query.
+<TipCallout title="Dynamic Sources">
+Pass arrays from **API Call**, **Code**, **Database**, or any previous step that returns a list.
 </TipCallout>
 
-<Arcade src="https://demo.arcade.software/712A7jqiMFGqgWkutOCL?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="ForEach | SmythOS" />
+<Arcade src="https://demo.arcade.software/712A7jqiMFGqgWkutOCL?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="For Each | SmythOS" />
 
 <Spacer size="md" />
 
-## Step 2: Build the Loop Logic
+## Step 2: Build the Loop Steps
 
-Inside the `ForEach` component, you'll define the sequence of actions to be performed for *each item* in the array. Two special variables are available within this loop:
+Inside **For Each**, add the components that should run for each item. Two loop variables are available:
 
-| Variable      | Description                                               |
-|---------------|-----------------------------------------------------------|
-| **item** | The value of the current item being processed in the loop. |
-| **index** | The numerical position (starting from 0) of the current item. |
+| Variable | Description |
+|---|---|
+| **item** | The current list value such as `"alice"` or `{ "id": 42, "email": "a@b.com" }` |
+| **index** | Position of the current item starting at 0 |
 
-You can drag any component into the loop branch and use `{{item}}` and `{{index}}` as dynamic inputs.
+Use `{{item}}` and `{{index}}` as inputs to components inside the loop.  
+For objects, access fields like `{{item.email}}` or `{{item.id}}`.
 
-<Spacer size="md" />
+**Example input**
 
-## Step 3: Select an Output Format
+```json
+[
+  { "id": 101, "email": "a@example.com" },
+  { "id": 102, "email": "b@example.com" }
+]
+```
+**Example use inside the loop**
 
-This setting controls the structure of the final aggregated `Result` output after the loop completes.
+- API path: `/users/{{item.id}}`
+- Email field to validate: `{{item.email}}`
+
+## Step 3: Choose the Output Format
+
+This controls the structure of the final `Result` after all iterations finish.
 
 <Tabs
   tabs={[
@@ -66,8 +65,18 @@ This setting controls the structure of the final aggregated `Result` output afte
       label: 'Full',
       content: (
         <>
-          <p><strong>Full:</strong> Returns a detailed object for each iteration, including the item, index, and the full output of the last component inside the loop.</p>
-          <p>Use this for debugging or when you need comprehensive data from each step.</p>
+          <p><strong>Full</strong> returns an object per iteration with <code>index</code>, <code>item</code>, and the full output of the last step inside the loop.</p>
+          <p>Good for debugging and audits.</p>
+          <pre>
+            <code className="language-json">
+              {[
+                '[',
+                '  { "index": 0, "item": "apple", "result": { "status": 200, "value": "processed_apple" } },',
+                '  { "index": 1, "item": "banana", "result": { "status": 200, "value": "processed_banana" } }',
+                ']'
+              ].join('\n')}
+            </code>
+          </pre>
         </>
       )
     },
@@ -75,74 +84,114 @@ This setting controls the structure of the final aggregated `Result` output afte
       label: 'Minimal',
       content: (
         <>
-          <p><strong>Minimal:</strong> Returns only the direct output of the last component inside the loop for each iteration.</p>
-          <p>Use this for a cleaner, more streamlined result set.</p>
+          <p><strong>Minimal</strong> returns an object per iteration with just <code>index</code> and the last step’s direct output.</p>
+          <p>Good when the original item is not needed downstream.</p>
+          <pre>
+            <code className="language-json">
+              {[
+                '[',
+                '  { "index": 0, "result": "processed_apple" },',
+                '  { "index": 1, "result": "processed_banana" }',
+                ']'
+              ].join('\n')}
+            </code>
+          </pre>
         </>
       )
     },
     {
-      label: 'Array of Results',
+      label: 'Array Only',
       content: (
         <>
-          <p><strong>Array of Results:</strong> Creates a simple array containing just the output value of the final component from each iteration.</p>
-          <p>This is the most direct way to transform one array into another.</p>
+          <p><strong>Array Only</strong> returns a simple array of the last step’s output for each iteration.</p>
+          <p>Best for classic map or transform operations.</p>
+          <pre>
+            <code className="language-json">
+              {[
+                '[',
+                '  "processed_apple",',
+                '  "processed_banana"',
+                ']'
+              ].join('\n')}
+            </code>
+          </pre>
         </>
       )
     }
   ]}
 />
 
+
 <Spacer size="md" />
 
-## Step 4: Handle the Aggregated Results
+## Step 4: Use the Aggregated Result
 
-After the loop has finished processing all items, the `ForEach` component provides a single output containing the aggregated results from all iterations.
+**For Each** exposes one output after the loop completes.
 
-| Output    | Description                                                     | Data Structure                                    |
-|-----------|-----------------------------------------------------------------|---------------------------------------------------|
-| **Result** | An array containing the collected outcomes from all iterations. | The structure depends on the selected Output Format. |
+| Output | Description | Data Shape |
+|---|---|---|
+| **Result** | All collected outcomes from the loop | Depends on the selected Output Format |
+
+**End to end example**
+
+**Input**
 
 ```json
-// Example with Output Format: "Full"
 [
-  { "index": 0, "item": "apple", "result": { "output": "processed_apple" } },
-  { "index": 1, "item": "banana", "result": { "output": "processed_banana" } }
-]
-
-// Example with Output Format: "Array of Results"
-[
-  "processed_apple",
-  "processed_banana"
-]
+  "Ada Lovelace",
+  "Alan Turing"
+] 
 ```
 
-<TipCallout title="Using the Results">
-You can connect the `Result` output to any subsequent component to work with the newly created array.
+**Loop step inside For Each**
+
+- LLM prompt: `Summarise "{{item}}" in one sentence.`
+
+**Output with Array Only**
+
+```json
+[
+  "Ada Lovelace pioneered early computing concepts.",
+  "Alan Turing shaped modern computer science and cryptography."
+] 
+```
+
+<TipCallout title="Send Results Forward">
+Connect **Result** to downstream steps such as **Code**, **RAG Remember**, or another **For Each**.
 </TipCallout>
 
 <Spacer size="md" />
 
 ## Best Practices
 
-- **Keep Loop Logic Simple:** For complex operations, have the loop call an **Agent Skill**. This keeps your main workflow clean and makes the logic reusable.
-- **Handle Empty Arrays:** Add a **Condition** block before the `ForEach` to check if the input array is empty to avoid running the loop unnecessarily.
-- **Mind Your API Limits:** If you are making an API call inside the loop, be aware of rate limits. A long list can quickly exhaust your quota. Consider adding a delay if needed.
-- **Use "Array of Results" for Transformations:** When your goal is to map one array to another (e.g., extracting emails from a user list), this format is the most efficient.
+- **Keep Loop Steps Focused**  
+  Use small, single-purpose steps inside the loop. Move heavy logic to a reusable **Agent Skill** or **Code** step.
+- **Guard Against Empty Lists**  
+  Add a **Condition** before **For Each** to skip execution when the array is empty.
+- **Mind API Limits**  
+  If calling external APIs, consider rate limits. Add retries or spacing where needed.
+- **Choose the Right Output**  
+  Use **Array Only** for transforms, **Minimal** for light tracking, **Full** for traceability and audits.
 
 <Spacer size="md" />
 
-## Troubleshooting Tips
+## Troubleshooting
 
-<InfoCallout title="If your loop isn't working...">
-- **Check Your Input:** The most common error is providing data that isn't a valid array. Use a **Code** component with `console.log()` to inspect the input before it enters the `ForEach`.
-- **Examine a Single Iteration:** In **Debug Mode**, the logs will show the inputs and outputs for each iteration. Check the first loop run to ensure your logic is correct for a single item.
-- **Variable Typos:** Double-check that you are using `{{item}}` and `{{index}}` correctly within the loop. A typo like `{{items}}` will not work.
-- **Check Component Outputs:** The `Result` is based on the output of the *last* component in the loop. Make sure that component is producing the output you expect.
+<InfoCallout title="Common Causes and Fixes">
+- **Not an array**  
+  Ensure the input is a valid JSON array. Log it with **Code** if unsure.
+- **Wrong field path**  
+  Verify object access such as `{{item.email}}` matches the actual input.
+- **Unexpected Result shape**  
+  Remember the final value comes from the last step inside the loop. Confirm that step outputs what you need.
+- **Nothing returned**  
+  Check that the loop ran at least once and the array was not empty.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## What to Try Next
+## What To Try Next
 
-- Combine `ForEach` with an **[API Call](/docs/agent-studio/components/advanced/api-call)** to enrich each item in a list with data from an external service.
-- Feed the `Result` of a `ForEach` loop into a **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)** to generate a summary of the processed items.
+- Enrich each item with an **[API Call](/docs/agent-studio/components/advanced/api-call)** and return only the needed fields with **Array Only**.
+- Pipe the **Result** into **[GenAI LLM](/docs/agent-studio/components/base/gen-ai-llm)** to summarise the list in one paragraph.
+- Chain a second **For Each** to post process only the items that met a condition in the first pass.

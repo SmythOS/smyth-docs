@@ -1,122 +1,139 @@
 ---
 title: GenAI LLM
-description: Generate AI responses using prompt-driven input, with built-in models or custom APIs.
-keywords: [GenAI, LLM, language model, prompt, OpenAI, outputs, attachments]
-toc_max_heading_level: 2
+description: Use the GenAI LLM component in SmythOS Studio to summarise, generate, extract, and classify text with large language models. Configure prompts, connect inputs, fine-tune settings, map outputs, and debug efficiently.
+keywords: ["GenAI LLM", "SmythOS Studio", "LLM component", "prompt design", "OpenAI", "Claude", "Gemini", "Groq", "text generation", "summarisation", "classification", "extraction", "RAG", "debugging", "AI workflows"]
 ---
 
 # GenAI LLM Component
 
-Use the **GenAI LLM** component to generate dynamic responses using a prompt and an LLM like OpenAI or Anthropic. It's perfect for summaries, content generation, extraction, and more.
+The **GenAI LLM** component adds language skills to your agents. Write a precise prompt, select a model, connect inputs and outputs, then test and refine. Studio manages execution, security, observability, and file parsing so you can focus on building outcomes.
 
-<InfoCallout title="Why this matters">
-With GenAI LLM, you can transform inputs like text or files into structured or styled output.  
-No custom code needed. You only need a prompt, a model, and the right inputs.
+<InfoCallout title="When To Use GenAI LLM">
+Start here when you need to **summarise, generate, extract, or classify** text. It’s the core building block for most agents and workflows.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## What You’ll Configure
+## What You Can Build Quickly
 
-- [Model Selection](#step-1-choose-a-model)
-- [Prompt Setup](#step-2-define-the-prompt)
-- [Input Binding](#step-3-add-inputs)
-- [Advanced Parameters](#step-4-configure-advanced-settings)
-- [Output Mapping](#step-5-define-outputs)
-- [Testing & Debug](#step-6-debug-and-preview)
-- [Best Practices](#best-practices)
-- [Troubleshooting Tips](#troubleshooting-tips)
-- [What to Try Next](#what-to-try-next)
+- **Summarise**: Turn long documents into action-oriented briefs  
+- **Generate**: Draft emails, replies, or outlines automatically  
+- **Extract**: Pull values from text (names, dates, amounts) into JSON  
+- **Classify**: Route tickets by priority, category, or sentiment  
+- **Process Files**: Parse PDF or DOCX into searchable text  
 
-<Spacer size="md" />
+<Divider />
 
-<InfoCallout title="Model setup">
-SmythOS includes default models (e.g. OpenAI GPT).  
-You can also connect custom providers like Claude or Gemini.  
-See [Billing Management →](/docs/account-management/billing-management) for cost and usage.
+## Step 1: Select a Model
+
+Pick a built-in model or connect your own.
+
+| Field | Required? | Description | Notes |
+|-------|-----------|-------------|-------|
+| **Model** | <Badge type="required">Yes</Badge> | The LLM that executes your prompt | Includes GPT-5 family, Claude, Gemini, Groq, and others |
+| **Custom Model** | <Badge type="optional">No</Badge> | Your own hosted endpoint or API | Best for specialised domains or large context sizes |
+
+<InfoCallout title="Context Windows">
+Always leave space in the context window for both your input and the model’s output.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Step 1: Choose a Model
+## Step 2: Write a Precise Prompt
 
-| Field            | Required? | Description                                     | Tips |
-|------------------|-----------|-------------------------------------------------|------|
-| **Model**        | <Badge type="required">Yes</Badge> | The LLM used for generation or classification | By default you will see **GPT-5 Mini (SmythOS 400k)**. You can also choose GPT-5, GPT-5 Nano, GPT-5 Chat, Claude Sonnet 3.7, Gemini 2.5 Pro, Sonar, or other supported engines. |
-| **Custom Model** | <Badge type="optional">No</Badge> | Use your own hosted model or external API | Connect to OpenAI, Claude, Google AI, Groq, or any endpoint compatible with your workflow. |
-
-<InfoCallout title="Token limits"> 
-Default GPT-5 family models have token windows up to 400k tokens (shown next to each model name). If you need to handle even larger inputs or maintain more conversation history, use a custom model with extended limits. 
-</InfoCallout>
-
-<Spacer size="md" />
-
-## Step 2: Define the Prompt
+The prompt tells the model what to do, the format to use, and any constraints.
 
 <PromptCard
-  title="Basic Prompt"
-  prompt="Summarize {{Input}} into one paragraph."
-  tags={['LLM', 'prompt', 'template']}
+  title="Example Prompt"
+  prompt={`You are an assistant that extracts structured insights.
+From {{Attachment.text}}, create a JSON object with:
+- "title": one-sentence summary
+- "key_points": 3 bullet points
+- "action": a next step recommendation
+
+Return only valid JSON.`}
+  tags={['LLM', 'prompt', 'extraction', 'JSON']}
 />
 
-<TipCallout title="Prompt inputs">
-Use `{{Input}}`, `{{input.email}}`, or even `{{Attachment.text}}` in your prompt.  
-Files like PDFs or DOCX will be auto-processed into text where possible.
+<TipCallout title="Prompt Guidelines">
+- Be explicit about the task and expected format  
+- Reference inputs like `{{Input}}` or `{{Attachment.text}}`  
+- Constrain tone, length, or schema if needed  
+- Break complex requests into ordered steps  
 </TipCallout>
 
 <Spacer size="md" />
 
-## Step 3: Add Inputs
+## Step 3: Connect Inputs
 
-| Input Name    | Required? | Description                          | Notes |
-|---------------|-----------|--------------------------------------|-------|
-| **Input**     | <Badge type="required">Yes</Badge> | Main prompt content | Injected as `{{Input}}` |
-| **Attachment**| <Badge type="optional">No</Badge> | Files or images (PDF, DOCX, JPG, etc.) | Converted to text for model input |
+Inputs are values you pass into the model.
 
-<TipCallout>
-You can rename inputs, assign types (string, file, etc.), and set defaults or make them optional.
+| Input | Required? | Description | Notes |
+|-------|-----------|-------------|-------|
+| **Input** | <Badge type="required">Yes</Badge> | Main string or variable used in the prompt | Inserted as `{{Input}}` |
+| **Attachment** | <Badge type="optional">No</Badge> | Files like PDF, DOCX, PNG, or JPG | Auto-converted to text and available as `Attachment.text` |
+
+<Arcade src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Inputs | SmythOS" />
+
+<TipCallout title="Reusable Inputs">
+Rename inputs, set data types, and define defaults so your component is reusable across workflows.
 </TipCallout>
-
-<Arcade
-  src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="GenAI LLM Inputs | SmythOS"
-/>
 
 <Spacer size="md" />
 
-## Step 4: Configure Advanced Settings
+## Step 4: Configure Model Settings
 
+Start with defaults. Adjust only when you need to guide behaviour.
 <Tabs
+  className="overflow-x-auto whitespace-nowrap"
   tabs={[
     {
-      label: 'Temperature',
-      content: (
-        <>
-          <p><strong>Temperature</strong> controls randomness in model output.</p>
-          <p>Lower = focused. Higher = creative.</p>
-        </>
-      )
-    },
-{
       label: 'Max Tokens',
       content: (
         <>
-          <p><strong>Max Tokens</strong> limits the output length. This is the maximum number of tokens the model can generate in a single response.</p>
+          <p><strong>Maximum Output Tokens</strong> caps reply length and prevents cutoffs.</p>
           <ul>
-            <li><strong>Default Value:</strong> <strong>8192 (8k tokens)</strong></li>
-            <li><strong>Purpose:</strong> Controls the size of the model’s response output</li>
-            <li><strong>Applies to:</strong> All supported AI models</li>
-            <li><strong>Configuration:</strong>
-              <ul>
-                <li>Settings persist across browser sessions</li>
-                <li>Can be modified per component instance</li>
-                <li>Reset button returns to default <strong>8192</strong> value</li>
-              </ul>
-            </li>
+            <li><strong>Short replies</strong>: 128 to 256</li>
+            <li><strong>Long form</strong>: 1024 to 4096</li>
+            <li><strong>Typical default</strong>: 2048 or 8192 by model</li>
           </ul>
-          <p><strong>Note:</strong> This default provides a good balance between response completeness and processing efficiency.</p>
-          <TipCallout title="Pro Tip">
-            The <strong>8k default</strong> works well for most use cases. Adjust only if you need longer responses or want to reduce token usage for cost optimization.
+          <TipCallout title="Sizing tip">
+            Leave headroom in the context window for both input and output.
+          </TipCallout>
+          <PromptCard
+            title="Example"
+            prompt="Summarise {{Input}} in 120 to 150 words. Output markdown."
+          />
+        </>
+      )
+    },
+    {
+      label: 'Verbosity',
+      content: (
+        <>
+          <p><strong>Verbosity</strong> controls how much reasoning detail appears in the output.</p>
+          <ul>
+            <li><strong>Low</strong>: Minimal reasoning text</li>
+            <li><strong>Medium</strong>: Balanced detail</li>
+            <li><strong>High</strong>: Step by step explanations</li>
+          </ul>
+          <InfoCallout title="Availability">GPT 5 only.</InfoCallout>
+        </>
+      )
+    },
+    {
+      label: 'Reasoning',
+      content: (
+        <>
+          <p><strong>Reasoning Effort</strong> trades speed and cost for deeper analysis.</p>
+          <ul>
+            <li><strong>Low</strong>: Fast and economical</li>
+            <li><strong>Medium</strong>: Default balance</li>
+            <li><strong>High</strong>: Better for planning and multi constraint tasks</li>
+          </ul>
+          <InfoCallout title="Availability">GPT 5 only.</InfoCallout>
+          <TipCallout title="Good uses">
+            Multi step planning. Validated extraction. Non trivial transformations.
           </TipCallout>
         </>
       )
@@ -125,184 +142,258 @@ You can rename inputs, assign types (string, file, etc.), and set defaults or ma
       label: 'Top P',
       content: (
         <>
-          <p><strong>Top P</strong> is an alternative to Temperature that affects token-selection diversity.</p>
-        </>
-      )
-    },
-    {
-      label: 'Stop Sequences',
-      content: (
-        <>
-          <p><strong>Stop Sequences</strong> let you define when the model should stop generating.</p>
-        </>
-      )
-    },
-    {
-      label: 'Penalty Settings',
-      content: (
-        <>
-          <p><strong>Frequency Penalty</strong> discourages repeated tokens.</p>
-          <p><strong>Presence Penalty</strong> lowers repetition of ideas or topics.</p>
-          <TipCallout>Use only one at a time for best results.</TipCallout>
-        </>
-      )
-    },
-        {
-      label: 'Verbosity',
-      content: (
-        <>
-          <p><strong>Verbosity</strong> controls how much detail the model includes in its reasoning output.</p>
+          <p><strong>Top P</strong> samples from the smallest set of tokens whose probabilities sum to P.</p>
           <ul>
-            <li><strong>Low:</strong> Concise reasoning steps.</li>
-            <li><strong>Medium (default):</strong> Balanced detail.</li>
-            <li><strong>High:</strong> More explicit, step-by-step reasoning.</li>
+            <li><strong>0.7 to 0.9</strong>: Typical variety</li>
+            <li><strong>0.3 to 0.6</strong>: Tighter and more focused</li>
           </ul>
-          <p><strong>Applies to:</strong> GPT-5 models only.</p>
+          <TipCallout>Prefer one sampling control at a time. Use Top P if Temperature is unavailable.</TipCallout>
         </>
       )
     },
     {
-      label: 'Passthrough Mode',
+      label: 'Top K',
       content: (
         <>
-          <p><strong>Passthrough Mode</strong> gives you full control of LLM output without formatting.</p>
+          <p><strong>Top K</strong> restricts sampling to the K most likely tokens.</p>
           <ul>
-            <li><strong>Off:</strong> Output is parsed and streamed automatically</li>
-            <li><strong>On:</strong> You decide how it’s displayed or used</li>
+            <li><strong>K 20 to 50</strong>: Safer and consistent</li>
+            <li><strong>Higher K</strong>: More diverse with higher drift risk</li>
           </ul>
         </>
       )
     },
     {
-      label: 'Agent System Prompt',
+      label: 'Stop Seq',
       content: (
         <>
-          <p><strong>Agent System Prompt</strong> injects your agent’s top-level instructions or persona into this LLM call.</p>
-          <p>Enable when you need consistent tone or behavior across the agent.</p>
-          <TipCallout>Handy for ensuring any global “You are a helpful assistant” or custom instructions are applied here.</TipCallout>
-        </>
-      )
-    },
-    {
-      label: 'Context Window',
-      content: (
-        <>
-          <p><strong>Context Window</strong> includes recent conversation history or memory in this LLM request.</p>
-          <p>Enable to give the model visibility of prior messages, so it can maintain continuity.</p>
-          <TipCallout>Ideal for multi-turn dialogues where the model needs context from earlier exchanges.</TipCallout>
-        </>
-      )
-    },
-    {
-      label: 'Reasoning Effort',
-      content: (
-        <>
-          <p><strong>Reasoning Effort</strong> sets how much processing the model invests in reasoning.</p>
+          <p><strong>Stop Sequences</strong> define strings where generation should end.</p>
           <ul>
-            <li><strong>Low:</strong> Faster responses, fewer reasoning tokens used.</li>
-            <li><strong>Medium (default):</strong> Balanced speed and reasoning depth.</li>
-            <li><strong>High:</strong> More in-depth reasoning, potentially longer responses.</li>
+            <li>Use delimiters like <code>\n\n###</code> or <code>END_JSON</code></li>
+            <li>Helpful for multi section outputs and extractors</li>
           </ul>
-          <p><strong>Applies to:</strong> GPT-5 and GPT Open Source (Groq) models.</p>
-          <TipCallout title="Why adjust this?">
-            Lower effort is useful for speed and cost savings. Higher effort can improve reasoning quality for complex problems.
-          </TipCallout>
+          <InfoCallout title="Availability">Some models. Often not supported on OpenAI or Anthropic.</InfoCallout>
+          <PromptCard
+            title="Example"
+            prompt={[
+              'Extract a JSON object with keys title and summary from {{Input}}.',
+              'Only output JSON.',
+              'Stop when you reach END_JSON.',
+              '{ "title": "", "summary": "" }',
+              'END_JSON'
+            ].join('\n')}
+          />
+        </>
+      )
+    },
+    {
+      label: 'Penalty',
+      content: (
+        <>
+          <p><strong>Penalty Settings</strong> reduce repetition and encourage novelty.</p>
+          <ul>
+            <li><strong>Frequency Penalty</strong>: discourages repeated tokens</li>
+            <li><strong>Presence Penalty</strong>: encourages new topics compared to the input</li>
+          </ul>
+          <TipCallout>Adjust one at a time for predictable results.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Ctx Window',
+      content: (
+        <>
+          <p><strong>Context Window</strong> includes recent conversation or memory in the request.</p>
+          <ul>
+            <li>Include only relevant turns to save tokens</li>
+            <li>Summarise long history when needed</li>
+          </ul>
+          <PromptCard
+            title="Example"
+            prompt="Using the last 3 user turns only, summarise the decision and next action."
+          />
+        </>
+      )
+    },
+    {
+      label: 'Agent Prompt',
+      content: (
+        <>
+          <p><strong>Agent System Prompt</strong> applies your agent rules and tone to this call.</p>
+          <ul>
+            <li>Keep it short and explicit</li>
+            <li>Include non negotiable rules and style</li>
+          </ul>
+          <PromptCard
+            title="Template"
+            prompt={[
+              'You are a helpful agent.',
+              'Follow the schema.',
+              'If unsure, ask for the missing field.',
+              'Always return valid JSON.'
+            ].join('\n')}
+          />
+        </>
+      )
+    },
+    {
+      label: 'Passthrough',
+      content: (
+        <>
+          <p><strong>Passthrough Mode</strong> returns raw model output for custom parsing.</p>
+          <ul>
+            <li><strong>Off</strong>: Studio streams and formats output</li>
+            <li><strong>On</strong>: You own parsing and rendering</li>
+          </ul>
+          <TipCallout>Use when a downstream step validates or post processes the text.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Web Search',
+      content: (
+        <>
+          <p><strong>Use Web Search</strong> lets the model fetch current facts when accuracy depends on fresh data.</p>
+          <ul>
+            <li>Enable for news, prices, schedules</li>
+            <li>Disable for static knowledge tasks</li>
+          </ul>
+          <TipCallout>Pair with lower variability for reliable citations.</TipCallout>
+        </>
+      )
+    },
+    {
+      label: 'Temperature',
+      content: (
+        <>
+          <p><strong>Temperature</strong> adjusts randomness in token selection.</p>
+          <ul>
+            <li><strong>0.0 to 0.2</strong>: Deterministic for facts and extraction</li>
+            <li><strong>0.3 to 0.6</strong>: Balanced for assistants</li>
+            <li><strong>0.7 to 1.0</strong>: Creative for ideation</li>
+          </ul>
+          <InfoCallout title="Availability">Some models. Often not supported on OpenAI or Anthropic in this component.</InfoCallout>
+        </>
+      )
+    },
+    {
+      label: 'Recipes',
+      content: (
+        <>
+          <p><strong>Sampling Recipes</strong> to start fast.</p>
+          <ul>
+            <li><strong>Deterministic QA</strong>: Top P 0.4, Frequency Penalty 0.2</li>
+            <li><strong>Creative Copy</strong>: Top P 0.9, no penalties</li>
+            <li><strong>Structured Extract</strong>: Stop Sequences set, Frequency Penalty 0.3</li>
+          </ul>
         </>
       )
     }
   ]}
 />
 
-<Arcade
-  src="https://demo.arcade.software/As1gjawhDBX6BV3Y7CQz?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="GenAI LLM Settings | SmythOS"
-/>
+<Spacer size="md" />
+
+### Quick Reference
+
+| Setting | What It Controls | OpenAI | Anthropic | Other Providers |
+|---------|------------------|--------|-----------|-----------------|
+| **Maximum Output Tokens** | Caps how many tokens the model can generate in one reply | <Tick /> | <Tick /> | <Tick /> |
+| **Verbosity** | Detail level in reasoning output | GPT-5 only | <Cross /> | <Cross /> |
+| **Reasoning Effort** | Trade-off between deeper reasoning and speed | GPT-5 only | <Cross /> |<Cross />|
+| **Passthrough** | Returns raw, unformatted output | <Tick /> | <Tick /> | <Tick /> |
+| **Use Agent System Prompt** | Applies global system instructions consistently | <Tick /> | <Tick /> | <Tick /> |
+| **Use Context Window** | Includes conversation history in requests | <Tick /> | <Tick /> | <Tick /> |
+| **Use Web Search** | Lets the model fetch real-time facts | <Tick /> | <Tick /> | <Tick /> |
+| **Top P** | Probability mass sampling for variety | <Tick /> | <Tick /> | <Tick /> |
+| **Top K** | Restricts sampling to top K tokens | <Tick /> | <Tick /> | <Tick /> |
+| **Temperature** | Controls randomness and creativity | <Cross /> | <Cross /> | <Tick /> |
+| **Stop Sequences** | Defines strings where generation should end | <Cross /> | <Tick /> |  <Tick /> |
+
+<Arcade src="https://demo.arcade.software/As1gjawhDBX6BV3Y7CQz?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Settings | SmythOS" />
+
+<InfoCallout title="Quick Presets">
+**Extractor**: Max Tokens 256, Stop Sequences set, Frequency Penalty 0.3  
+**Summariser**: Max Tokens 512–1024, Temperature 0.3, Top P 1.0  
+**Brainstormer**: Max Tokens 512, Temperature 0.8, Top P 0.9  
+</InfoCallout>
 
 <Spacer size="md" />
 
 ## Step 5: Define Outputs
 
-| Field           | Required? | Description                        | Notes |
-|----------------|-----------|------------------------------------|-------|
-| **Reply**       | <Badge type="required">Yes</Badge> | The model's main output         | Default output |
-| **Custom Output** | <Badge type="optional">No</Badge> | Extract fields using expressions | `Reply.title`, `Reply.summary`, etc. |
+Expose the model’s reply and map fields for downstream use.
 
-```json
-{
-  "Name": "summary",
-  "Expression": "Reply.summary",
-  "Format": "markdown",
-  "Description": "The generated summary"
-}
-```
+| Output | Required? | Description | Example |
+|--------|-----------|-------------|---------|
+| **Reply** | <Badge type="required">Yes</Badge> | Main model output | Paragraph, list, or JSON text |
+| **Custom Output** | <Badge type="optional">No</Badge> | Extracted fields from the reply | `Reply.summary`, `Reply.json.customer_id` |
 
-<TipCallout title="Format values">
-Set `Format` to `text`, `markdown`, `html`, or `json` for downstream handling.
-</TipCallout>
-
-<InfoCallout title="Validation">
-SmythOS won’t validate your Custom Output expressions.  
-Make sure field names like `Reply.title` exist.
-</InfoCallout>
-
-<Arcade
-  src="https://demo.arcade.software/I35gGim7BajWDMmGkhBQ?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="GenAI LLM Outputs | SmythOS"
+<PromptCard
+  title="Custom Output Mapping"
+  prompt={`[
+  { "Name": "title", "Expression": "Reply.title" },
+  { "Name": "summary", "Expression": "Reply.summary", "Format": "markdown" }
+]`}
 />
 
-<Spacer size="md" />
-
-## Step 6: Debug and Preview
-
-<InfoCallout title="Live preview">
-Use **Debug** to run your prompt with real or sample input.  
-You’ll see live results and can tweak output mappings right away.
-</InfoCallout>
-
-**Example Prompt Input:**  
-“Write a short article about the Sakura tree.”
-
-**Example Custom Output Mapping:**
-
-```json
-[
-  { "Name": "title", "Expression": "Reply.title" },
-  { "Name": "content", "Expression": "Reply.body" },
-  { "Name": "keywords", "Expression": "Reply.keywords", "Format": "json" }
-]
-```
-
-<Spacer size="md" />
-
-## Best Practices
-
-- Use specific prompts: "List 3 key points from..." is better than "Summarize"
-- Format custom outputs if needed (`text`, `html`, `json`)
-- Use mock inputs in Debug to test multiple prompt paths
-- Avoid putting complex logic inside a prompt — let the model generate clean data
-- Use `Passthrough Mode` for total control over rendering or streaming
-- Use Retry + Condition blocks to handle failed outputs or empty results
-
-<Spacer size="md" />
-
-## Troubleshooting Tips
-
-<InfoCallout title="If your prompt isn't working...">
-- Confirm that your prompt references actual inputs (like `{{Input}}`)  
-- Check for typos in custom output expressions (e.g., `Reply.summary` vs `Reply.summray`)  
-- Make sure your model isn’t hitting token limits — reduce long attachments or prompts  
-- If file inputs aren’t being read, verify they are processed into `Attachment.text`  
-- For empty outputs, try lowering **Temperature** and simplifying your prompt  
-- Run in **Debug Mode** and inspect full raw output to fine-tune your extraction fields
+<InfoCallout title="Formatting Options">
+Custom outputs can be returned as `text`, `markdown`, `html`, or `json`, depending on downstream requirements.
 </InfoCallout>
 
 <Spacer size="md" />
-## What to Try Next
 
-- Combine **GenAI LLM** with **[Agent Skill](/docs/agent-studio/components/base/agent-skill)** to let users submit prompts naturally
-- Pipe GenAI output into **[RAG Remember](/docs/agent-studio/components/rag-data/rag-remember)** to store facts for reuse
-- Use **[Code Component](/docs/agent-studio/components/advanced/code)** downstream to transform, filter, or validate replies
+<Divider />
 
-<TipCallout>
-Looking for good prompt patterns? Visit our [Prompt Guide →](/docs/agent-weaver/prompt-guide).
+## Before You Go Live
+
+You are close. Run a quick loop to make sure this component behaves the way you expect, then [deploy](/docs/agent-deployments/quickstart) it and keep an eye on it.
+
+<InfoCallout title="Quick Play Test">
+- Open **Debug Mode** and run 3 real samples from your use case  
+- Read the **raw response** and confirm your **Custom Outputs** render correctly  
+- Try one bad input on purpose to see how the component fails and recovers  
+</InfoCallout>
+
+<TipCallout title="Review These Things">
+- Cutoffs → raise **Max Tokens** or trim the input  
+- Wobbly tone or drift → lower **Top P** or add a **Frequency Penalty**  
+- Messy format → add a clear schema in the prompt and use **Stop Sequences** if your model supports them  
+- Extra tokens spent on history → reduce **Context Window** or summarise prior turns  
 </TipCallout>
+
+<PromptCard
+  title="Test Your Component"
+  prompt={`Using {{Input}} or {{Attachment.text}}, return only this JSON:
+{
+  "title": "<one sentence>",
+  "key_points": ["<point 1>", "<point 2>", "<point 3>"],
+  "action": "<one next step>"
+}
+If a field is missing, output an empty string instead of guessing.`}
+/>
+
+### Ship And Watch It
+
+- Connect to the [Code Component](/docs/agent-studio/components/advanced/code) for validation or post processing  
+- Add to your workflow and follow the [Deploying Agents](/docs/agent-studio/guides/deploying) guide  
+- Keep an eye on logs and usage in **Observability**. Look for spikes in token count, latency jumps, or empty fields
+
+<InfoCallout title="Green Flags To Publish">
+- Sample inputs produce the exact shape you asked for  
+- Custom Outputs render as the right types: text, markdown, html, or json  
+- Guardrails for length, format, and repetition are in place  
+- You have at least one real failure case tested and handled  
+</InfoCallout>
+
+<TipCallout title="When To Revisit Settings">
+If your data changes or latency targets tighten, revisit **Max Tokens**, **Top P**, and **Reasoning Effort**. Small changes can reduce cost without hurting quality.
+</TipCallout>
+
+<Spacer size="lg" /> 
+
+## What's Next 
+
+- Review the [Prompt Guide](/docs/agent-weaver/prompt-guide) for proven techniques 
+- Use the [Debugging Guide](/docs/agent-studio/build-agents/debugging) for deeper techniques
+- Explore [Data Spaces](/docs/agent-collaboration/spaces/) if you need persistent knowledge

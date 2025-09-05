@@ -16,6 +16,7 @@ The Studio Canvas is your main workspace for building, connecting, and testing A
 | Feature | Purpose |
 |--------|---------|
 | [Canvas Layout](#canvas-layout) | Overview of interface zones and navigation |
+| [Menu Bar](#menu-bar) | Quick actions like copy, paste, delete, export, and search |
 | [Component Placement Guidelines](#component-placement-guidelines) | Placement rules and drop behavior |
 | [Building Workflows](#building-workflows) | Step-by-step guide to adding and connecting components |
 | [Deploying Agents](#deploying-agents) | Move from draft to production safely |
@@ -25,17 +26,46 @@ The Studio Canvas is your main workspace for building, connecting, and testing A
 | [Mobile Experience Warning](#mobile-experience) | Understand how mobile device constraints affect the canvas UI |
 
 <Spacer size="md" />
+
 ## Canvas Layout
 
 When you open an agent in Studio, the screen is divided into three key areas:
 
-- **Left sidebar**: Navigate tabs like Components, Agent Settings, Deployment History, Templates, and Vault.
-- **Canvas workspace**: The visual editor where you arrange and connect components.
-- **Right sidebar**: Configure individual components, test input/output, and inspect settings.
+- **Left sidebar**: Navigate tabs like Components, Agent Settings, Deployment History, Templates, and Vault.  
+- **Canvas workspace**: The visual editor where you arrange and connect components.  
+- **Right sidebar**: Configure individual components, test input/output, and inspect settings.  
 
 <InfoCallout title="Auto-Save Enabled">
 Your work is saved automatically as a draft. Drafts don’t affect production agents until deployed.
 </InfoCallout>
+
+<Spacer size="md" />
+
+## Menu Bar
+
+Right-click anywhere on the canvas or a component to open the menu bar. It gives you quick access to common actions:
+
+- **Copy** – Duplicate the selected component(s).  
+- **Paste** – Insert the copied component(s) into the canvas.  
+- **Delete selected components** – Remove the current selection.  
+  - Disabled if no component is selected.  
+  - Disabled if the selection includes system or meta nodes such as the Agent Card (non-deletable).  
+- **Export agent** – Download the agent in a shareable format.  
+- **Search** – Open the canvas search panel to locate components quickly.  
+
+### Menu states
+
+<Image 
+  src="/docs/img/canvas/menu-enabled.png" 
+  alt="Menu with actions enabled when a component is selected" 
+  caption="Menu with actions enabled when a component is selected." 
+/>
+
+<TipCallout title="Keyboard shortcuts">
+All menu bar actions also have keyboard shortcuts (for example, Copy, Paste, Delete, Export, and Search).  
+See the full list in the [Keyboard Shortcuts reference](/docs/agent-studio/reference/keyboard-shortcuts).
+</TipCallout>
+
 <Spacer size="md" />
 
 ## Component Placement Guidelines
@@ -46,8 +76,8 @@ Components must be placed within the designated canvas area for proper functiona
 ### Invalid Placement Warning
 When attempting to drop components outside the canvas area, you'll see:
 
-- **Warning Message**: "Oops! you are dropping this component off the Canvas - please drop it inside"
-- **Behavior**: The tooltip appears briefly and auto-dismisses
+- **Warning Message**: "Oops! you are dropping this component off the Canvas - please drop it inside"  
+- **Behavior**: The tooltip appears briefly and auto-dismisses  
 - **Result**: No component is added to the workflow
 
 <Spacer size="md" />
@@ -56,11 +86,11 @@ When attempting to drop components outside the canvas area, you'll see:
 
 You build workflows directly on the canvas by connecting reusable components. Each workflow defines how your agent processes input and produces a result.
 
-- Drag components from the sidebar onto the canvas
-- Connect output ports to input ports to pass data between steps
-- Configure individual components in the right panel
+- Drag components from the sidebar onto the canvas  
+- Connect output ports to input ports to pass data between steps  
+- Configure individual components in the right panel  
 
-Read the [Building Workflows](/docs/agent-studio/build-agents/building-workflows) guide to explore advanced tips, trigger types, external integrations, and best practices for authoring AI workflows, 
+Read the [Building Workflows](/docs/agent-studio/build-agents/building-workflows) guide to explore advanced tips, trigger types, external integrations, and best practices for authoring AI workflows.
 
 <Spacer size="md" />
 
@@ -68,10 +98,10 @@ Read the [Building Workflows](/docs/agent-studio/build-agents/building-workflows
 
 Once you’re satisfied with your workflow:
 
-1. Click [**Deploy**](/docs/agent-deployments/overview) in the top-right.
-2. Add release notes to describe the version.
-3. Confirm to push your agent to production.
-4. Use [**version history**](/docs/agent-deployments/versioning) to roll back if needed.
+1. Click [**Deploy**](/docs/agent-deployments/overview) in the top-right.  
+2. Add release notes to describe the version.  
+3. Confirm to push your agent to production.  
+4. Use [**version history**](/docs/agent-deployments/versioning) to roll back if needed.  
 
 <Spacer size="md" />
 
@@ -79,9 +109,9 @@ Once you’re satisfied with your workflow:
 
 Inspect lets you preview and debug workflows without deploying.
 
-- **Component preview**: Click any component to see inputs and outputs
-- **Run history**: Review previous executions and filter by success/failure
-- **Logs view**: Jump directly to detailed logs for each run
+- **Component preview**: Click any component to see inputs and outputs  
+- **Run history**: Review previous executions and filter by success/failure  
+- **Logs view**: Jump directly to detailed logs for each run  
 
 > **Need Production Logs?** Visit [Agent Logs](/docs/agent-studio/manage-agents/logs) for deeper visibility into executions.
 
@@ -93,10 +123,10 @@ You can define error handling for any step in your workflow—or globally.
 
 ### Options include:
 
-- **Retry policies**: Retry a component N times on failure
-- **Fallback paths**: Provide defaults or cached data
-- **Notifications**: Alert users via email or Slack
-- **Global error handler**: Catch all uncaught errors at the workflow level
+- **Retry policies**: Retry a component N times on failure  
+- **Fallback paths**: Provide defaults or cached data  
+- **Notifications**: Alert users via email or Slack  
+- **Global error handler**: Catch all uncaught errors at the workflow level  
 
 <TipCallout title="Best Practice">
 Add fallback logic and alerts to reduce downtime and improve agent resilience.
@@ -119,6 +149,8 @@ The Canvas includes a built-in search that lets you instantly find and focus on 
 Give each component a clear, descriptive name. This makes Canvas Search far more effective, especially in agents with many components.
 </TipCallout>
 
+<Spacer size="md" />
+
 ## Mobile Experience 
 
 When accessing the SmythOS canvas on devices with screen widths smaller than 1024px, you’ll encounter a **Mobile Experience Limited** warning modal. This appears because the canvas interface relies on ample screen space for effective workflow building.
@@ -135,17 +167,17 @@ For the best experience, use devices with screen widths of **1024px or larger**.
 
 The warning modal offers the following options:
 
-1. **Copy Link to Desktop** – Copies the current URL for opening on a desktop.
-2. **Email Link to Myself** – Sends the current canvas link to your registered email address.
-3. **Continue Anyway** – Dismisses the modal and allows limited use on mobile.
-4. **Do Not Show Again** – Hides the modal in future sessions on the same device.
+1. **Copy Link to Desktop** – Copies the current URL for opening on a desktop.  
+2. **Email Link to Myself** – Sends the current canvas link to your registered email address.  
+3. **Continue Anyway** – Dismisses the modal and allows limited use on mobile.  
+4. **Do Not Show Again** – Hides the modal in future sessions on the same device.  
 
 ### Additional Resources
 
 At the bottom of the modal:
 
-- **Documentation Link** – Directs to relevant SmythOS docs.
-- **Contact Support Link** – Opens an invite to the SmythOS Discord community.
+- **Documentation Link** – Directs to relevant SmythOS docs.  
+- **Contact Support Link** – Opens an invite to the SmythOS Discord community.  
 
 <Spacer size="md" />
 
@@ -153,4 +185,4 @@ At the bottom of the modal:
 
 - [Deploy Agents Locally, via Cloud, or Embed Options](/docs/agent-deployments/overview)  
 - [Agent Tasks: Chat, Bulk, Scheduled](/docs/agent-studio/manage-agents/tasks)  
-- [Debugging Agents in Studio](/docs/agent-studio/build-agents/debugging)
+- [Debugging Agents in Studio](/docs/agent-studio/build-agents/debugging)  

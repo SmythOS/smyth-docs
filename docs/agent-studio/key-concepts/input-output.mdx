@@ -1,0 +1,106 @@
+---
+title: I/O
+description: Understand how inputs and outputs (I/O) work across SmythOS Studio. Learn port types, supported data formats, chaining rules, and execution behavior to design reliable workflows.
+keywords: ["Studio I/O", "SmythOS Studio", "inputs and outputs", "data flow", "Studio components", "agent workflow design", "no code orchestration", "workflow chaining rules", "LLM orchestration"]
+sidebar_position: 8
+---
+
+# Inputs and Outputs in Studio
+
+In Studio, every workflow runs on the movement of **inputs and outputs (I/O)**. Components take in data through inputs, process it, and send results through outputs. Understanding how ports work ensures your agents run reliably at scale.
+
+<InfoCallout title="Quick Reference">
+● = required input, ○ = optional input  
+Blue = outputs, Red = inputs  
+Always connect **blue → red**
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Why I/O Matters
+
+Inputs and outputs are the backbone of Studio workflows. If a required input is missing, execution halts. If outputs are miswired, downstream components fail or return empty data. Designing clear I/O paths makes your agents predictable and easier to debug.
+
+If you’re new to the layout, start with the [Studio Canvas](/docs/agent-studio/key-concepts/canvas) to see how ports appear visually.
+
+<Spacer size="md" />
+
+## Port Symbols
+
+| Symbol | Port Colour | Meaning |
+|--------|-------------|---------|
+| **● Solid** | Red input | Required — execution stops until this is filled |
+| **○ Hollow** | Red input | Optional — used only if data is provided |
+| **● Solid** | Blue output | Main result passed forward |
+| **○ Hollow** | Blue output | Secondary or derived result |
+
+<Spacer size="md" />
+
+## Supported Input Types
+
+Studio supports a wide range of input categories and structured subtypes. These cover everything from plain text prompts to files, arrays, and objects.
+
+### Main Categories
+
+| Category | Description |
+|----------|-------------|
+| **Text** | Freeform strings or prompts |
+| **Image** | Upload or process PNG, JPG, SVG |
+| **Audio** | Process speech or audio files |
+| **Video** | Work with video metadata or clips |
+| **Structured** | JSON, arrays, objects, or schema-based formats |
+
+### Structured Subtypes
+
+| Subtype | Example | Notes |
+|---------|---------|-------|
+| `string` | `"Translate this to French"` | Most common type |
+| `number` | `3.14` | Decimal or float |
+| `integer` | `42` | Whole number |
+| `boolean` | `true` | On/off, yes/no toggles |
+| `array` | `["item1", "item2"]` | Useful for batching |
+| `object` | `{ "id": 1, "name": "Alice" }` | Flexible structured payload |
+| `binary` | PNG, CSV | Stored and returned as signed URL |
+| `date` | `2025-01-01` | ISO 8601 format |
+| `any` | Flexible fallback (not validated) |
+
+<Spacer size="md" />
+
+## Chaining Data Between Components
+
+The rule is simple: **blue output → red input**.
+
+- Outputs can feed multiple inputs downstream  
+- Optional inputs (○ red) are used only when a value is present  
+- Use transformer components when output and input formats don’t match  
+
+For examples of transformers and connectors, see the [Component Library](/docs/agent-studio/components).
+
+<Spacer size="md" />
+
+## Execution Rules
+
+Studio determines when a component runs based on its inputs:
+
+- **Runs** → all required inputs are connected and resolved  
+- **Waits** → one or more required inputs are missing  
+- **Skips** → required input missing and no fallback provided  
+
+This execution model prevents components from firing without the data they need.
+
+<InfoCallout title="Debugging I/O in Studio">
+If a component stays red, it usually means a required input is missing or wired incorrectly. Use [Agent Logs](/docs/agent-studio/manage-agents/logs) and [Debugging with Weaver](/docs/agent-weaver/debugging-agents) to inspect what’s happening.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Best Practices for I/O
+
+- Keep outputs small and scoped to only what’s needed downstream  
+- Test I/O paths incrementally with simple inputs before scaling up  
+- Use Notes or color-coded components to document sections of your flow  
+- Save real-world test inputs to re-run whenever you modify a workflow  
+
+<TipCallout title="Pro Tip">
+A clear I/O design makes it easier to move between Weaver and Studio. You can start an agent in Weaver and refine it in Studio without losing clarity on how data flows.
+</TipCallout>

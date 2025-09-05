@@ -1,75 +1,87 @@
 ---
 title: Quickstart
 sidebar_position: 1
-description: Build your first intelligent agent using SmythOS in minutes.
-keywords: [quickstart, lead enrichment, agent workflow, form preview, debugging]
+description: Get started with SmythOS by remixing your first agent, running it with test data, and deploying it in minutes.
+keywords: ["SmythOS quickstart", "build first agent", "lead enrichment workflow", "form preview testing", "agent deployment", "debugging agents"]
 ---
 
 # Quickstart Guide
 
-Use this quickstart to get a working agent up and running in SmythOS in just a few steps. You'll use the [Lead Enrichment Agent](/docs/agent-templates/sales/lead-enrichment-agent) as your starting point. It collects public data to enrich lead profiles with actionable insights.
+This quickstart walks you through building your first working agent in SmythOS. You’ll use the [Lead Enrichment Agent](/docs/agent-templates/sales/lead-enrichment-agent) template, which gathers public data to enrich lead profiles with actionable insights.
 
-<Youtube videoId="V0ft3GrLtjY" title="SmythOS - Lead Enrichment Agent" />
+<Youtube videoId="V0ft3GrLtjY" title="Lead Enrichment Agent Overview" />
+
+<Spacer size="md" />
+
+## Step 1: Remix a Template
+
+1. From the Studio, open the **[Templates](https://app.smythos.com/templates)** section in the top navigation.  
+2. Switch to the **Sales** tab.  
+3. Find the **Lead Enrichment Agent** and click **Remix**.  
+
+<Image src="/docs/img/lead_enrichment_agent/img_1.png" alt="Navigate to Templates in SmythOS" />  
+<Image src="/docs/img/lead_enrichment_agent/img_2.png" alt="Remix the Lead Enrichment Agent" />
 
 <Spacer size="md" />
 
-## Step 1: Remix the Lead Enrichment Agent
-
-To start, you'll remix a prebuilt agent from the Templates section:
-
-1. Go to **[Templates](https://app.smythos.com/templates)** from the top navigation bar.
-2. Open the **Sales** tab.
-3. Find the **Lead Enrichment Agent** and click **Remix**.
-
-<Image src="/docs/img/lead_enrichment_agent/img_1.png" alt="Navigate to Templates" />
-<Image src="/docs/img/lead_enrichment_agent/img_2.png" alt="Remix Agent" />
-
-<Spacer size="md" />
 ## Step 2: Run the Agent with Form Preview
 
-You can test your agent using either of these methods:
+Next, test your agent by providing some input. SmythOS offers several options such as Chat, API, LLM, and MCp. For this guide, we’ll use Form Preview, which lets you enter required fields and run the workflow.
 
-**Option 1: From the top toolbar**
+You can open Form Preview in two ways:  
 
-1. Click **Test** in the top-right toolbar.
-2. Switch to the **Form Preview** tab.
-3. Fill the form details.
-4. Click **Run** to execute the workflow.
+### Option A: From the top toolbar
+1. Click **Test** in the top-right toolbar.  
+2. Switch to the **Form Preview** tab.  
+3. Enter sample details.  
+4. Click **Run** to execute the workflow.  
 
-<Spacer size="md" />
+### Option B: From the canvas
+1. Click the **Form Preview** button on the block you want to test.  
+<Image src="/docs/img/lead_enrichment_agent/img_3.png" alt="Open Form Preview from the canvas" />  
+2. Provide inputs. Provide inputs. You can either enter your own details or use this sample to quickly run the agent:
 
-**Option 2: From the canvas**
-
-1. Click the **Form Preview** button on the relevant block.
-<Image src="/docs/img/lead_enrichment_agent/img_3.png" alt="Click Form Preview" />
-2. Enter the same input fields and fill the form. For example, you can use this:
-
-Full name: Aria Smyth
+<PromptCard
+  title="Sample Lead Enrichment Input"
+  prompt={`Full name: Aria Smyth
 Email: ariathesmyth@smythos.com
-Company name: SmythOS
+Company name: SmythOS`}
+/>
 
-<Image src="/docs/img/lead_enrichment_agent/gif_1.gif" alt="Run Form" />
-3. Click **Run** to test and view results.
-<Image src="/docs/img/lead_enrichment_agent/img_4.png" alt="Output" />
+<Image src="/docs/img/lead_enrichment_agent/gif_1.gif" alt="Fill in inputs and run the form" />  
+
+3. Click **Run** and the agent will return a structured lead profile.  
+
+<Image src="/docs/img/lead_enrichment_agent/img_4.png" alt="Form Preview showing output" />
+
+<InfoCallout title="No API Keys Yet?">
+If your agent includes an [API Call component](/docs/agent-studio/components/advanced/api-call), you can enable **Mock Mode** to test it with sample data before adding real keys.  
+This is useful for experimenting without setting up integrations right away.
+</InfoCallout>
 
 <Spacer size="md" />
 
-## Step 3: Test APIs Using Mock Data (Optional)
+## Step 3: Deploy Your Agent
 
-No API keys? Use mock data to test workflows with API Call components [API Call components](/docs/agent-studio/components/advanced/api-call).
+Once your agent runs successfully, you can deploy it from Studio.  
 
-For more details, visit [How to set up mock data](/docs/agent-studio/components/advanced/api-call#step-5-enable-mock-mode)
+Once your agent runs as expected, deploy it:
+
+1. Click **Deploy** in the workspace header.  
+2. Choose your environment: **Agent Cloud**, **Enterprise**, or **Local Runtime**.
+3. Use [Agent Logs](/docs/agent-studio/manage-agents/logs) to monitor execution history and debug if needed.  
+
+If you want to make your agent accessible under a branded domain, see the [Subdomains guide](/docs/agent-deployments/subdomains).
 
 <Spacer size="md" />
 
-## Step 4: Deploy the Agent
+## What’s Next
 
-If you're ready to [deploy](/docs/agent-deployments/overview) your agent, you can do it directly from the Studio.
+You now have a working agent. From here, you can explore the rest of the SmythOS platform:
 
-1. Click **Deploy** (top-right).
-2. Choose your environment: Cloud, Dev, or Custom.
-3. Monitor using Agent [**Logs**](/docs/agent-studio/manage-agents/logs).
-
-If you want to configure custom domains, see [Subdomains Guide](/docs/agent-deployments/subdomains).
+- Use [Weaver](/docs/agent-weaver/overview) for building agents conversationally from prompts.  
+- Switch to [Studio Canvas](/docs/agent-studio/canvas) for visual editing and advanced workflows.  
+- Learn about the [Runtime](/docs/agent-runtime/overview) to see how agents run in production.  
+- Review [Deployments](/docs/agent-deployments/overview) to publish your agent to users securely.  
 
 <NeedHelpCallout />

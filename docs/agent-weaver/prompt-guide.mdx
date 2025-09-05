@@ -1,158 +1,232 @@
 ---
 title: Prompt Engineering
-description: Craft clear prompts that get the results you want from Weaver.
-keywords:
-  - SmythOS
-  - Weaver
-  - prompt design
-  - prompt-based agent creation
-  - AI workflow builder
-  - no-code agent orchestration
+description: Learn how to design effective prompts for Weaver in SmythOS. This guide shows you the structure, techniques, and examples to create prompts that Weaver turns into reliable agents without unnecessary follow-ups.
+keywords: ["SmythOS", "Weaver prompt engineering", "Weaver prompt guide", "prompt-based agent creation", "AI workflow builder", "no code agent orchestration", "Weaver best practices", "workflow prompts"]
 sidebar_position: 5
 ---
+
 # Prompt Engineering with Weaver
 
-> **Good prompt ⇒ Great agent**  
-> Weaver will try its best with whatever you throw at it, but the clearer the ask, the cleaner the wiring.  
-> Think *tasks*, not *code* ... your job is to explain specifically what you want and let Weaver do the rest.
+Weaver can assemble a workflow from almost any instruction. But if you give it a vague prompt, it will ask follow-up questions and slow you down. If you give it a **clear, structured prompt**, Weaver has everything it needs to build the agent immediately with no follow-up questions.
 
-<InfoCallout title="TL;DR"> State a goal ➜ list skills ➜ add constraints. That’s 95 % of prompt craft. </InfoCallout>
+<InfoCallout title="The Golden Rule">
+Write every prompt with **Goal → Inputs → Skills → Outputs → Constraints**.  
+That structure gives Weaver complete context and reduces back-and-forth.
+</InfoCallout>
 
-<Divider/>
+<Spacer size="md" />
 
-## Mind-set Shift: Describe Jobs, Not Code
+## 1. Why Prompt Engineering Matters
 
-Bad habit (thinking like a developer):
+Prompts are the blueprint Weaver uses to create workflows. Clear prompts produce modular, testable agents that run correctly on the first try. Ambiguous prompts create guesswork and messy flows.
 
-> “Call the `summarise()` function with the weekly_sales dataset.”
+If you want ready-made examples, see the [Prompt Library](/docs/agent-weaver/prompt-library). This page teaches you how to write prompts yourself.
 
-Better habit (thinking like a PM):
+<Spacer size="md" />
 
-> “Summarise weekly sales data for Monday stand-up.”
+## 2. The Standard Prompt Structure
 
-More examples:
-
-- “Translate this blog post to Spanish.”  
-- “Email the summary to the team every Friday at 4 PM.”  
-- “Resize all images in `/uploads` to 1024 px wide.”
-
-<Divider/>
-
-## The Universal Prompt Framework
-
-Goal: [What you want to achieve]
-
-Skills:
-1. [Skill 1]
-2. [Skill 2]
-3. …
-
-Constraints:
-- [Any mandatory formats, limits, sources]
-
->Use **Goal → Skills → Constraints** every time.
-
-<Divider/>
-
-## Good vs Poor Prompts (Kyoto Edition)
+Every strong Weaver prompt includes these five sections:
 
 <PromptCard
-  title="Blog Prompt: Travel"
-  tags={['SEO', 'Formal tone', 'Markdown']}
-  collapsible
-  prompt={`Goal: Draft a 600-word travel article about Kyoto.
+  title="Prompt Template"
+  tags={['Template']}
+  prompt={`Goal: [Outcome in one clear sentence]
+
+Inputs:
+- [Required user inputs]
+- [Optional inputs if needed]
 
 Skills:
-1. Research attractions and local cuisine
-2. Generate SEO-friendly title and slug
-3. Produce Markdown article
-4. Extract five focus keywords
+1. [Actionable step 1]
+2. [Actionable step 2]
+3. [Actionable step 3]
+
+Outputs:
+- [Exact format: JSON schema, Markdown, table, file]
 
 Constraints:
-– Formal tone
-– UK English`}
+- [Word limits, item caps, tone, audience]
+- [Formatting rules or compliance needs]`}
 />
 
-<PromptCard prompt={`Write something about Kyoto. Make it good for SEO.`} />
+When you provide all five sections, Weaver has no missing context and it builds the agent right away instead of asking questions.
 
-> The first prompt gives Weaver four precise blocks to assemble.
-> The second leaves enough ambiguity to fill a Zen garden.
+<Spacer size="md" />
 
-<Divider/>
+## 3. Writing Effective Prompts
 
-## Advanced Examples
+### Be Specific with Goals
+<PromptCard
+  title="Clear vs Vague Goals"
+  tags={['Goals']}
+  prompt={`❌ Vague: "Write about Kyoto."
+✅ Clear: "Draft a 600-word blog about Kyoto with three sections: food, culture, and transport."`}
+/>
 
-### Weekly Sales Digest
-
-Goal: Deliver a Monday-morning sales digest email.
+### Break Work into Skills
+<PromptCard
+  title="Skills Example"
+  tags={['Skills']}
+  prompt={`Goal: Weekly sales digest
 
 Skills:
 1. Fetch weekly_sales.csv from S3
-2. Summarise trends into 5 bullet points
-3. Generate chart PNG
-4. Email to sales-team@acme.com
+2. Summarise data into 5 bullet points
+3. Generate bar chart PNG
+4. Email digest to sales@acme.com`}
+/>
 
-Constraints:
-- Use “Sales Digest” as subject
-- Skip weeks with less than 100 rows
-
-### Multilingual Blog Pipeline
-
-Goal: Publish each post in EN → ES → FR.
-
-Skills:
-1. Detect new post published to WordPress
-2. Translate Markdown to Spanish
-3. Translate Spanish to French
-4. Post translations under /es/ and /fr/
-
-Constraints:
-- Preserve Markdown formatting
-- Keep code blocks untouched
-
-### Airtable → Slack Snapshot
-
-Goal: Send daily Airtable summary to Slack.
+### Define Outputs and Constraints
+<PromptCard
+  title="Constrain the Output"
+  tags={['Constraints']}
+  prompt={`Goal: Create a 5-minute finance podcast script.
 
 Skills:
-1. Query “Tasks” base, get today’s records
-2. Count tasks by status
-3. Format a Slack message
-4. Post to #daily-ops
+1. Gather 3 finance stories
+2. Write intro, 3 sections, and a closing
+3. Add one host aside per story
+
+Outputs:
+- Markdown with sections: Intro, Story 1, Story 2, Story 3, Closing
 
 Constraints:
-- Run at 17:00 UTC
-- Use Slack block-kit
+- Max 700 words
+- Conversational tone
+- Exclude stock tips`}
+/>
 
-<Divider/>
+<Spacer size="md" />
 
-## Prompt Debugging 101
+## 4. Advanced Prompt Techniques
 
-1. **Locate the misbehaving component** (red border).
-2. Click on the component and ask Weaver to fix it and *explain what changed* (or click Fix with AI button on the componenet):
-   <PromptCard prompt={`Output missed the bullet list. Ensure summary is bullet-pointed.`} />
-3. Re-run just that block with debug mode enabled and step through it, not the whole agent.
-4. Rinse, repeat, ship.
+### Add Modifiers
+Use constraints to sharpen results.
 
-> *Still wrong?* Break the skill in two. Smaller skills fail more loudly.
+<PromptCard
+  title="Modifier Example"
+  tags={['Advanced']}
+  prompt={`Goal: Write a one-page product brief.
 
-<TipCallout title="Get the best out of Weaver">
-**Remember:** A clear goal, numbered **Skills**, and explicit constraints let Weaver be the best AI workflow composer you’ve ever met.
-</TipCallout>
+Inputs:
+- product_name
+- competitor_names[]
 
-<Divider/>
+Skills:
+1. Research competitors
+2. Summarise positioning
+3. Write product brief
 
-## Cheatsheet
+Outputs:
+- Markdown with headings
 
-| If you want…              | Add this to **Skills**          |
-| ------------------------- | ------------------------------- |
-| Ranking or classification | “Classify text sentiment”       |
-| Extraction                | “Extract company names”         |
-| Transformation            | “Convert JSON to CSV”           |
-| Messaging                 | “Send message to Teams channel” |
+Constraints:
+- Limit to 350 words
+- Reading level: Year 9
+- Include at least 3 reference links`}
+/>
 
-<Divider/>
+### Few-Shot Anchors
+Show Weaver the format you want by including one example.
 
-## Next Up
+<PromptCard
+  title="Few-Shot Example"
+  tags={['Style']}
+  prompt={`Goal: Generate a 120-word LinkedIn post.
 
-* Practice in the playground → <DocLink to="/docs/agent-weaver/quickstart">Build your first agent</DocLink>
+Skills:
+1. Capture one clear benefit
+2. Add two use cases
+3. End with a question
+
+Constraints:
+- Professional but warm tone
+- 120 words max
+
+Example to follow:
+"We reduced CSV import time by 70%. Teams can now clean data and build reports in one session. What would you import first?"`}
+/>
+
+### Multimodal Prompts
+Weaver can parse URLs and images directly.
+
+<PromptCard
+  title="URL Input Example"
+  tags={['Multimodal']}
+  prompt={`Goal: Convert a blog post into a help guide.
+
+Inputs:
+- blog_url: string
+
+Skills:
+1. Read the blog content at {blog_url}
+2. Extract step-by-step instructions
+3. Rewrite as a numbered help guide
+
+Outputs:
+- Markdown with H2 headings and steps
+
+Constraints:
+- Preserve technical terms from the source`}
+/>
+
+<PromptCard
+  title="Diagram Input Example"
+  tags={['Multimodal']}
+  prompt={`Goal: Build an agent from a workflow diagram.
+
+Inputs:
+- diagram_file: PNG or SVG
+
+Skills:
+1. Parse the diagram
+2. Identify components and connections
+3. Recreate the workflow in Canvas
+
+Outputs:
+- Complete wired agent
+
+Constraints:
+- Use labels from the diagram as component names`}
+/>
+
+<Spacer size="md" />
+
+## 5. Debugging and Iteration
+
+When results are off, refine the prompt rather than rewriting the entire agent.
+
+<PromptCard
+  title="Refinement Example"
+  tags={['Debugging']}
+  prompt={`The summary was too long. Limit it to 150 words. Format as bullet points only.`}
+/>
+
+<PromptCard
+  title="Schema Example"
+  tags={['Debugging']}
+  prompt={`Return JSON with these keys only: title, slug, summary, keywords[]. No other keys. Missing values = null.`}
+/>
+
+For full troubleshooting, see [Debugging with Weaver](/docs/agent-weaver/debugging-agents).
+
+<Spacer size="md" />
+
+## 6. Common Mistakes and Fixes
+
+| Mistake | Why It Fails | What To Do Instead |
+|---------|--------------|--------------------|
+| Vague goal | Weaver lacks context and asks follow-ups | State a measurable outcome in one sentence |
+| One giant skill | Hard to test or debug | Break into 3–5 numbered steps |
+| Missing constraints | Outputs sprawl or vary | Specify format, tone, and limits |
+| Unlimited output | Token waste and errors | Add caps (e.g., 200 words, 5 bullets) |
+| Ambiguous tone | Wrong style or locale | Define audience, tone, and language (e.g., UK English) |
+
+<Spacer size="md" />
+
+## Next Steps
+
+- Practice your first structured prompt with the [Weaver Quickstart](/docs/agent-weaver/quickstart).  
+- Explore curated examples in the [Prompt Library](/docs/agent-weaver/prompt-library).  
+- See how inputs and outputs connect in the [Weaver I/O](/docs/agent-weaver/weaver-io) guide.  

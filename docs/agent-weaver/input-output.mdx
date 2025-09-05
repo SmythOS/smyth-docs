@@ -1,78 +1,94 @@
 ---
-description: Learn how data flows through Agent Weaver — from required inputs to advanced error handling — using the no-code agent orchestration tools in SmythOS.
-keywords:
-  - Agent Weaver
-  - AI workflow builder
-  - no-code agent orchestration
-  - build AI agents SmythOS
-  - prompt-based agent creation
-  - AI automation designer
-  - drag-and-drop AI tool
-  - LLM orchestration framework
-  - workflow composer for agents
-  - SmythOS AI design environment
+description: Understand how inputs and outputs (I/O) work in Agent Weaver. Learn port types, supported data formats, chaining rules, and execution behavior for reliable agent design in SmythOS.
+keywords: ["Weaver I/O", "Agent Weaver data flow", "Weaver inputs", "Weaver outputs", "AI workflow builder", "no code agent orchestration", "prompt based agent creation", "LLM orchestration", "Weaver ports", "SmythOS agent design"]
 sidebar_position: 8
 ---
+
 # Weaver I/O
-<InfoCallout title="TL;DR"> ● = required data, ○ = optional.  Blue ports carry data forward; red means “feed me first.” </InfoCallout>
 
-## Data Flows in Agent Weaver
+Inputs and outputs (I/O) define how data flows through your agent in **Weaver**. Understanding ports, types, and chaining rules helps you design reliable workflows.
 
-Learning how inputs and outputs work in Weaver is essential to building reliable agents. 
+<InfoCallout title="Quick Guide">
+● = required input, ○ = optional input.  
+Blue = outputs, Red = inputs.  
+Always connect **blue → red**.
+</InfoCallout>
 
-<Divider/>
+<Spacer size="md" />
 
-## 1. What Each I/O Port Typically Means
+## Why I/O Matters
 
-| Symbol | Colour | Meaning |
-|--------|--------|---------|
-| **● Solid** | Red input | Required — the agent pauses until this is filled |
-| **○ Hollow** | Red input | Optional — executes only if input is passed |
-| **● Solid** | Blue output | Main output — passed to the next block |
-| **○ Hollow** | Blue output | Derived or secondary output |
+Every agent in Weaver depends on clear data flow. If required inputs are missing, the workflow pauses or fails. If outputs are miswired, downstream skills won’t get the right data. Mastering I/O is the key to predictable orchestration.
 
-<Divider/>
+For an overview of how ports appear on the Canvas, see the [Weaver Interface](/docs/agent-weaver/weaver-interface).
 
-## 2. Input Types 
+<Spacer size="md" />
 
-Agent Weaver supports several **drag-and-drop AI tool** input types:
+## 1. Understanding Port Symbols
 
+| Symbol | Port Colour | Meaning |
+|--------|-------------|---------|
+| **● Solid** | Red input | Required — execution halts until this input is filled |
+| **○ Hollow** | Red input | Optional — only runs if input is provided |
+| **● Solid** | Blue output | Primary output — data passed forward |
+| **○ Hollow** | Blue output | Secondary or derived output |
+
+<Spacer size="md" />
+
+## 2. Supported Input Types
+
+Weaver supports multiple input categories and structured subtypes.
+
+### Main Categories
 | Category | Description |
 |----------|-------------|
-| **Text** | Freeform entry, LLM prompts |
-| **Image** | Upload or pass image files (JPG, PNG) |
-| **Audio** | Voice/audio inputs |
-| **Video** | Short video clips or references |
-| **Others** | Advanced structured types (JSON, boolean, etc.) |
+| **Text** | Freeform strings or prompts |
+| **Image** | PNG, JPG, or SVG uploads |
+| **Audio** | Voice or audio file inputs |
+| **Video** | Short clips or references |
+| **Others** | Structured formats like JSON, arrays, or objects |
 
-### Subtypes (under “Others”)
-
+### Structured Subtypes
 | Subtype | Example | Notes |
 |---------|---------|-------|
-| `string` | `"Write a haiku"` | Common for prompt-based agent creation |
-| `number` | `3.14` | Float or decimal input |
+| `string` | `"Write a haiku"` | Most common input type |
+| `number` | `3.14` | Float or decimal |
 | `integer` | `42` | Whole numbers only |
-| `boolean` | `true`, `false` | Used for toggles |
-| `array` | `["one", "two"]` | Great for batching LLM calls |
-| `object` | `{ "key": "value" }` | Structured payloads |
-| `binary` | PNG, CSV | Stored in object store; returns signed URL |
-| `date` | `2025-01-01` | ISO 8601 format |
-| `any` | Flexible fallback (not validated) |
+| `boolean` | `true` | Often used as toggles |
+| `array` | `["one", "two"]` | Supports batching |
+| `object` | `{ "key": "value" }` | Flexible payload container |
+| `binary` | PNG, CSV | Stored in object store; Weaver returns signed URL |
+| `date` | `2025-01-01` | ISO 8601 date format |
+| `any` | Flexible fallback — not validated |
 
-Inputs can also be styled using color labels for better workflow clarity.
+<PromptCard prompt={`Goal: Summarise weekly_sales.csv and send report\n\nSteps:\n1. Read file from S3 (file input)\n2. Summarise table (JSON output)\n3. Email summary (string input)`} />
 
-<PromptCard prompt={`Goal: Summarise weekly_sales.csv then email report\n\nSkills:\n1. Read file from S3 (file input)\n2. Summarise table (json output)\n3. Email summary (string input)`} />
+For detailed component input/output specs, check the [Component Library](/docs/agent-studio/components).
 
-<Divider/>
+<Spacer size="md" />
+
 ## 3. Chaining Outputs to Inputs
 
-**Rule of thumb:** blue → red only.
-- Drag from blue output ports to red input ports
+The rule is simple: **blue output → red input**.  
 
-## 4. When Components Run (or Don’t)
+- Connect a component’s output (blue) to the next component’s input (red).  
+- You can pass one output into multiple inputs if needed.  
+- Use transformers (like JSON Filter) if the format doesn’t match downstream requirements.  
 
-- **Runs** → all mandatory inputs connected  
-- **Waits** → mandatory inputs unresolved  
-- **Skips** → mandatory input missing → Weaver bypasses
+<PromptCard prompt={`Example: Take "Research Results" (blue JSON output) → Connect to "Summarise Findings" (red string input) → Pass to "Generate Report" (blue text output).`} />
 
-Knowing this will help you keep the **no-code AI agent creation** smooth.
+<Spacer size="md" />
+
+## 4. Execution Rules
+
+Weaver decides whether a component runs based on its inputs:
+
+- **Runs** → all required (● red) inputs are connected and resolved.  
+- **Waits** → at least one required input is not yet provided.  
+- **Skips** → required input missing and no fallback provided.  
+
+This ensures that workflows don’t attempt to run components without the necessary data.
+
+<InfoCallout title="Debugging Ports">
+If a component stays red, it usually means a required input is missing or miswired. Use [Debugging with Weaver](/docs/agent-weaver/debugging-agents) to inspect input/output logs.
+</InfoCallout>

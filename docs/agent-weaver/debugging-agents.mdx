@@ -1,151 +1,140 @@
 ---
-description: Find, fix, and prevent errors in your SmythOS agents — without leaving chat.
-keywords:
-  - SmythOS
-  - Weaver
-  - agent debugging
-  - fix with AI
-  - LLM orchestration framework
+description: Debug and resolve issues in your SmythOS agents using Weaver. Learn to spot failures, inspect inputs and outputs, apply Fix with AI, read logs in Debug Mode, and prevent errors with the Sleep component.
+keywords: ["SmythOS", "Weaver debugging", "Fix with AI", "Debug Mode", "agent troubleshooting", "workflow errors", "component errors", "Sleep component", "SmythOS logs", "Weaver linter"]
 sidebar_position: 6
-sidebar_label: Debugging
+sidebar_label: Debug Agents
 ---
 
-# Debugging with Weaver
+# Debug Agents with Weaver
 
-> Weaver’s debugging tools keep those hiccups from becoming hair-pullers.
+Weaver gives you built-in tools to find, fix, and prevent errors without leaving chat or the Canvas. This guide walks you from quick fixes to deeper diagnosis, then prevention.
 
-<InfoCallout title="TL;DR"> Click the red component, read the I/O snapshot, hit **Fix with AI**, rerun. 80 % of issues disappear in less than 30 seconds. </InfoCallout>
+<InfoCallout title="Quick Fix Flow">
+Click the red component, review its input and output snapshot, press **Fix with AI**, then rerun. Most problems resolve in under a minute.
+</InfoCallout>
 
-<Divider/>
+<Spacer size="md" />
 
-## 1. Recognise the Red Flags
+## Spot Problems Quickly
 
-During a run, components signal status:
+Component border colors show status during a run:
 
-| Border Colour | Meaning | What to Do |
-|---------------|---------|-----------|
-| 🟢 Green | Success | Celebrate |
-| 🟡 Yellow | Waiting | Upstream input missing |
-| 🔴 Red | Failed | Time to debug |
+| Border Colour | Meaning | What To Do |
+|---|---|---|
+| 🟢 Green | Success | No action needed |
+| 🟡 Yellow | Waiting for upstream | Inspect earlier components |
+| 🟠 Orange | Missing required input | Connect the correct input or fill a field |
+| ⚪ Grey | Still running | Let it complete |
+| 🔴 Red | Failed | Start diagnosis |
 
-<Divider/>
+<TipCallout title="Why This Works">
+Weaver’s visual debugger and Canvas updates make it easy to “see where it broke” before you dive into details.
+</TipCallout>
 
-## 2. Inspect Inputs & Outputs
+<Spacer size="md" />
 
-Click the 🔴 component. Weaver shows:
+## Diagnose with Inputs and Outputs
 
-- **Inputs** it received  
-- **Outputs / error** it produced  
+Click any red component to open its inspector. You will see the **inputs the block received** and the **output or error** it produced. Look for:
 
-Look for obvious culprits:
+- Empty or malformed inputs  
+- 500-level API responses  
+- Quota or rate-limit errors  
+- JSON parsing failures  
 
-- Empty strings?  
-- 500-level API errors?  
-- Rate-limit messages?
+Example diagnosis:
 
-<Divider/>
+<PromptCard prompt="Input: { 'article': '' }  
+Output: Error: Empty string cannot be processed" />
 
-## 3. Fix with AI (The 1-Click Wonder)
+<InfoCallout title="Upstream vs Local Errors">
+If inputs are wrong or empty, fix the upstream step or wiring. If inputs look fine, adjust this component’s configuration or prompt.
+</InfoCallout>
 
-If the error is text-related (bad prompt, wrong params):
+<Spacer size="md" />
 
-<PromptCard prompt={`Article text exceeded 5 000 chars — trim to 800 and retry.`}/>
+## Fix with AI
 
-Press **Fix with AI**. Weaver rewrites the skill’s internal prompt or parameters, re-runs the single block, and shows the diff.
+When the issue is prompt or parameter related, use **Fix with AI** on the failing block. Provide a short, direct instruction:
 
-> If it turns green, you’re done.  
-> If still red, refine the instruction and try again.
+<PromptCard prompt="Article text exceeded 5000 characters. Trim to 800 characters and retry." />
 
-<Divider/>
+Weaver updates the component’s prompt or parameters, reruns the block, and shows you what changed. If it stays red, refine your instruction and try again.
 
-## 4. Multi-Select for Chain Re-runs
+<Spacer size="md" />
 
-Hold <kbd>Cmd/Ctrl</kbd> and click multiple components to:
+## Handle Cascading Failures
 
-- Re-execute them in order  
-- Debug cascading failures (e.g., bad JSON bubbles downstream)
+Select multiple components with **Cmd/Ctrl + click**, then rerun them in sequence. This helps when a bad output flows downstream and several blocks need to be re-executed together.
 
-<Divider/>
+<InfoCallout title="Rollback">
+If a series of changes made things worse, use the Revert and Reapply to revert to a clean state and try again.
+</InfoCallout>
 
-## 5. Common Error Recipes
+<Spacer size="md" />
+
+## Common Error Recipes
 
 | Symptom | Likely Fix |
-|---------|-----------|
-| **“JSON parse error”** | Add `Constraints: return pure JSON` in upstream skill. |
-| **OpenAI quota hit** | Insert “Delay 60 s” skill or upgrade plan. |
+|---|---|
+| **JSON parse error** | In the upstream LLM or transformer, constrain output to strict JSON and validate before passing forward. |
+| **Quota or rate limit** | Insert a **Sleep** component between retries. You can pass a variable like `Retry-After` to wait exactly as required. |
+| **Empty input** | Check Canvas wiring and ensure the expected upstream output is connected. |
+| **Unexpected API format** | Normalize with a JSON Filter or transformer before the next step. |
 
-<Divider/>
+<TipCallout title="Reference Components">
+You will find **Sleep** for timed pauses, **JSON Filter** for shaping payloads, and other helpers in the [Component Library](/docs/agent-studio/components).
+</TipCallout>
 
-## 6. Prevent Tomorrow’s Bugs
+<Spacer size="md" />
 
-- **Small skills > monoliths** — easier to pin-point.  
-- **Use test prompts** — keep a gallery of real-world inputs.  
- - **Watch run logs** — <DocLink to="/docs/agent-studio/manage-agents/logs">agent activity logs</DocLink> surface slow steps early.
-> **Red borders happen.**  
-> Weaver’s debug tools turn mystery errors into 3-click fixes.
+## Prevent Tomorrow’s Bugs
 
-<Divider/>
+- **Keep workflows modular** so each step is easy to test in isolation.  
+- **Save real test inputs** and reuse them while iterating.  
+- **Lean on linting** to catch prompt ambiguities, weak types, or missing auth early.  
+- **Throttle retries with Sleep** to respect API limits and backoff policies.
 
-## 7. When All Else Fails
+<InfoCallout title="Sleep Component Tip">
+Sleep can take a fixed duration or a variable such as an API’s `Retry-After` value, which makes rate-limit handling reliable.
+</InfoCallout>
 
-1. Press Control + Shift + E to export your AI agent instantly. Run it locally using our cross-platform runtime (Mac, Windows, Linux)
-2. Visit <DocLink to="https://discord.gg/smythos">#debugging-help on Discord</DocLink>.  
-3. Save your sanity.
+<Spacer size="md" />
 
-<InfoCallout> **Pro Tip:** Keep prompts shorter than 8 k tokens; Weaver auto-chunks, but smaller requests run (and fail) faster. </InfoCallout>
+## Use Debug Mode and Logs
 
-<Divider/>
-## Enable Debug Mode
+Turn on **Debug Mode** from the toolbar when you need deeper inspection. You will see:
 
-Flip the **Debug** toggle in the top toolbar to log:
+- Execution timeline per component  
+- Request and response payloads  
+- Headers and runtime metadata  
+- Parsed inputs and structured outputs  
+- Model prompts and replies  
+- Click-through trace from a log entry to the block on Canvas
 
-- Component timelines  
-- Step through each component or run an entire workflow  
-- Request/response payloads  
-- Runtime metadata (headers, params)  
-- Structured inputs and outputs  
+Use the **Agent Activity Logs** to compare expected versus actual results across runs and to spot slow or flaky steps.
 
-<InfoCallout> **TL;DR:** Toggle *Debug Mode*, watch coloured borders, hit **Fix with AI** when things go red. </InfoCallout>
+<InfoCallout title="Reading Logs Effectively">
+Filter by run, jump to the failing block, and compare payloads before and after your fix to confirm the change worked.
+</InfoCallout>
 
-<Divider/>
+<Spacer size="md" />
 
-## Reading Logs & Output
+## When You Need Extra Help
 
-When Debug Mode is enabled, Weaver captures detailed logs for every agent run — across all components.
+- Export your agent and test it locally with the SmythOS runtime.  
+- Share minimal repro steps and payloads in the Discord debugging channel.  
+- Keep logs handy so others can help you pinpoint the failure quickly.
 
-### What You’ll See
+<WarningCallout title="Start Small">
+Inspect the failing block first. Large, sweeping changes often mask the real issue and slow you down.
+</WarningCallout>
 
-1. **Timeline** — Execution order of each block  
-2. **Payload** — Raw input/output JSON per step  
-3. **Headers** — Full HTTP headers, user agent, IPs, custom flags  
-4. **Parsed Inputs** — Cleaned query/body/params data  
-5. **Component Logs** — Structured logs like prompts, scrapers, APIs  
-6. **Model Info** — LLM name, prompt, and reply  
-7. **Jump to Block** — Clickable trace into the visual workflow
+<Spacer size="md" />
 
-### Example Log Snapshot
+# Next Steps
 
-```plaintext
-=== Web Scrape Log ===
-Payload: {
-  "searchTopic": "general",
-  "includeQAs": true
-}
-
-=== LLM Prompt Log ===
-Model: gpt-4o
-Prompt: Analyze the following search results...
-Reply: { "primary_keywords": [...], ... }
-```
-
-### Component Status Palette
-
-| Colour / Banner | Meaning | Action |
-|-----------------|---------|--------|
-| 🟢 Green | Success | Celebrate |
-| 🟡 Yellow | Waiting for upstream | Check prior block |
-| 🟠 Orange banner | Missing required input | Drag a wire |
-| ⚪ Grey (running) | In progress | Sit tight |
-| 🔴 Red | Failed | Click → **Fix with AI** |
-
-<InfoCallout> **Takeaway:** Debug mode + coloured borders + `_error` outputs = painless troubleshooting. </InfoCallout>
+- See real prompts that trigger these patterns in the [Prompt Library](/docs/agent-weaver/prompt-library).  
+- If you are new to Weaver, try the [Weaver Quickstart](/docs/agent-weaver/quickstart).  
+- Browse the [Component Library](/docs/agent-studio/components) for Sleep, JSON tools, and other helpers.  
+- Review your run history in [Agent Logs](/docs/agent-studio/manage-agents/logs) whenever something feels off.

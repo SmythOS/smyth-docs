@@ -1,109 +1,101 @@
 ---
-description: Learn the panels, shortcuts, and AI actions that power Weaver’s chat-first agent builder.
-keywords:
-  - SmythOS
-  - Weaver
-  - UI tour
-  - chat-driven builder
-  - no-code agent orchestration
-sidebar_position: 4
+description: Learn how to use the Weaver interface in SmythOS Studio. Understand the chat panel, workflow planning, Canvas, and contextual actions with practical tips and examples.
+keywords: ["SmythOS Weaver", "Weaver interface", "Weaver UI", "Weaver panels", "Weaver Canvas", "chat-first builder", "no code workflow builder", "AI workflow builder", "Weaver Debugging", "SmythOS Studio"]
+sidebar_position: 3
 ---
 
 # Weaver Interface
 
-Weaver’s chat-first UI is a full-blown **AI workflow builder** that thinks, plans, and asks questions before it creates anything.
-<InfoCallout title="How Weaver Thinks"> Weaver pauses between prompts to "think aloud," sharing why it's asking a particular question. This gives you more transparency and control during the build process. </InfoCallout>
+Weaver’s interface combines a **chat panel and visual Canvas** into a single workspace. You describe your goals in natural language, and Weaver begins mapping the workflow while you watch it come to life.  
 
-| Panel | What lives here |
+If you want to see practical examples of prompts, browse the [Prompt Library](/docs/agent-weaver/prompt-library). To follow a step-by-step build, try the [Weaver Quickstart](/docs/agent-weaver/quickstart).  
+
+<InfoCallout title="How Weaver Guides You">
+Weaver does not immediately drop blocks onto the Canvas. It first explains its plan, asks clarifying questions, and only then begins building. This transparency helps you understand what is happening and keeps you in control.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Main Panels
+
+Weaver’s interface has three main areas that work together:  
+
+| Panel | What You’ll See |
 |-------|-----------------|
-| **Chat Panel** | This is where you describe your goal, chat with Weaver, view its thinking process, and answer clarifying questions. Logs, prompts, and test runs also appear here. |
-| **Planned Workflows and Skill Suggestions** | Weaver proposes what the agent should do (e.g. blog writing, research) and suggests components for each step. These are context-aware and based on your responses. |
-| **Component canvas** *(auto-generated)* | A live visual preview of the wired agent: includes skills, ports, and connections. |
+| **Chat Panel** | Where you describe your goals, view Weaver’s “thinking aloud,” and respond to follow-up questions. Logs and test results also appear here. |
+| **Planned Workflows & Skill Suggestions** | A draft plan of the steps Weaver thinks the workflow should include, along with recommended components for each. |
+| **Component Canvas** | A live diagram of your workflow. Components appear and connect here automatically, and you can edit them directly at any time. |
 
-<Divider/>
+<TipCallout title="Example Flow">
+If you ask *“Help me write a blog about AI agents”*, the chat panel will show Weaver’s reasoning. In Planned Workflows you may see steps like “Research topics,” “Generate outline,” and “Write draft.” At the same time, the Canvas begins wiring those steps together with components.
+</TipCallout>
 
-## Planned Workflows
-Weaver begins by understanding your end goal. Based on that, it maps out a complete workflow. For example if you asked it to help you write a blog, you might see:
+<Spacer size="md" />
 
-- **Generate Blog Structure** *(outline with title, headings, and subheadings)*
-- **Write Complete Blog Content**
-- **Research Topics** *(gather relevant information)*
-- **Blog Publishing** *(optional step)
+## How Workflows Are Planned
 
-Before Weaver assembles the agent, it may ask clarifying questions like:
+When you provide a goal, Weaver drafts a workflow before building it. For a blog-writing request, the plan could include:  
 
-- **What type of blogs do you want to write?** (Technical, lifestyle, marketing, etc.)  
-- **What’s the typical length of blogs you need?** (Short-form, long-form, word count range)
+- **Generate Outline** (titles and headings)  
+- **Research Supporting Material**  
+- **Write Full Draft**  
+- **Optional: Publish Blog**  
 
-This ensures the final agent reflects your exact needs.
+To refine the plan, Weaver often asks questions such as:  
+- *“Do you want technical, lifestyle, or marketing content?”*  
+- *“How long should the blog usually be?”*  
 
-<Divider/>
+This back-and-forth ensures the workflow reflects your actual needs instead of assumptions.
 
-## Selecting Components
+<Spacer size="md" />
 
--Click once to open a component’s inspector.
-- Ctrl/Cmd + click to multi-select (ideal for batch editing or re-running chains).
-- Shift + click empty grid to clear your selection.
-<Divider/>
+## Working with Components
 
-## Attach Images & Diagrams
+Once the Canvas begins to fill with components, you can interact with them directly:  
 
-You can drag and drop PNG, JPG, or SVG files directly into the chat. Weaver will automatically:
+- **Click** a block to open its inspector.  
+- **Ctrl/Cmd + click** to select multiple blocks for editing or re-running.  
+- **Shift + click** empty space to clear your selection.  
 
-- Read and extract text from diagrams (OCR).
-- Interpret arrows as possible data flow.
-- Suggest components that match what’s shown in the image.
+Weaver will automatically suggest components, but you can also add your own. The [Component Library](/docs/agent-studio/components) lists all available blocks, such as API connectors, content generators, and transformers.
 
-<TipCallout title="Quick Sketches Welcome">Snap a photo of a whiteboard sketch or hand-drawn diagram. Weaver will interpret it and turn your ideas into useful suggestions in seconds. </TipCallout>
-<Divider/>
+<Spacer size="md" />
+
+## Using Diagrams as Inputs
+
+You can drag and drop PNG, JPG, or SVG files into the chat. Weaver interprets these diagrams as a starting point by:  
+
+- Extracting text from the image.  
+- Reading arrows as potential data flows.  
+- Suggesting components that match what it sees.  
+
+<TipCallout title="From Whiteboard to Canvas">
+A quick snapshot of a whiteboard sketch is often enough for Weaver to suggest a working workflow structure.
+</TipCallout>
+
+<Spacer size="md" />
 
 ## Contextual Actions
 
-| Button | When it appears | What it does |
-|--------|--------------|-----------|
-| **Fix with AI** | When a component shows red or orange | Opens a prompt box pre-filled with error context. |
-| **Explain Component** | Any time| Summarizes what the block does, including inputs and outputs. |
-| **Trash** | On hover | 	Deletes the component and automatically re-routes connections when possible. |
+Weaver provides contextual actions that appear when you hover or click on components:  
 
-<TipCallout title="Pro Tip">Status colours are your early-warning radar. </TipCallout>
+| Action | When It Appears | What It Does |
+|--------|-----------------|--------------|
+| **Fix with AI** | When a component shows red or orange | Opens a pre-filled repair prompt with error context so Weaver can fix the issue. |
+| **Explain Component** | Any time | Gives a plain-language explanation of what the block does, including inputs and outputs. |
+| **Trash** | On hover | Deletes the component and reroutes connections when possible. |
 
- <details>
-<summary>Keyboard Shortcuts (click to expand)</summary>
+<TipCallout title="Watch Component Colours">
+Green means healthy, orange is a warning, and red signals a failure. Most problems can be fixed quickly using **Fix with AI**. For more advanced troubleshooting, see [Debugging Agents](/docs/agent-weaver/debugging-agents).
+</TipCallout>
 
-<Tabs
-  tabs={[
-    {
-      label: 'macOS',
-      content: (
-        <ul>
-          <li><kbd>⌘</kbd> + <kbd>Scroll Up</kbd> – Zoom in</li>
-          <li><kbd>⌘</kbd> + <kbd>Scroll Down</kbd> – Zoom out</li>
-          <li><kbd>⌘</kbd> + <kbd>Left Click</kbd> + <kbd>Drag</kbd> – Select multiple components</li>
-          <li><kbd>⌘</kbd> + <kbd>C</kbd>, <kbd>⌘</kbd> + <kbd>V</kbd> – Duplicate selected components</li>
-          <li><kbd>Delete</kbd> – Delete selected components</li>
-          <li><kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> – Export agent</li>
-          <li><kbd>Drag & Drop</kbd> .smyth file – Import agent</li>
-          <li><kbd>⌘</kbd> + <kbd>Z</kbd> – Undo</li>
-          <li><kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> – Redo</li>
-        </ul>
-      ),
-    },
-    {
-      label: 'Windows / Linux',
-      content: (
-        <ul>
-          <li><kbd>Ctrl</kbd> + <kbd>Scroll Up</kbd> – Zoom in</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Scroll Down</kbd> – Zoom out</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Left Click</kbd> + <kbd>Drag</kbd> – Select multiple components</li>
-          <li><kbd>Ctrl</kbd> + <kbd>C</kbd>, <kbd>Ctrl</kbd> + <kbd>V</kbd> – Duplicate selected components</li>
-          <li><kbd>Delete</kbd> – Delete selected components</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> – Export agent</li>
-          <li><kbd>Drag & Drop</kbd> .smyth file – Import agent</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Z</kbd> – Undo</li>
-          <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> – Redo</li>
-        </ul>
-      ),
-    },
-  ]}
-/>
-</details>
+<Spacer size="md" />
+
+# Next Steps
+
+The interface is only one part of working with Weaver. To keep learning:  
+
+- Explore the [Prompt Library](/docs/agent-weaver/prompt-library) for practical examples across use cases.  
+- Walk through the [Weaver Quickstart](/docs/agent-weaver/quickstart) to build your first complete agent.  
+- Review available components in the [Component Library](/docs/agent-studio/components) to understand what Weaver uses when wiring workflows.  
+- Refer to [Debugging Agents](/docs/agent-weaver/debugging-agents) whenever you run into issues.  

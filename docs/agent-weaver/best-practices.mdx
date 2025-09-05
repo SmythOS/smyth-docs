@@ -1,67 +1,91 @@
 ---
-description: Proven tips for designing reliable, maintainable SmythOS agents.
-keywords:
-  - SmythOS
-  - Weaver
-  - best practices
-  - robust workflows
-  - debugging strategies
-  - no-code agent orchestration
+description: Proven best practices for designing reliable and maintainable agents in SmythOS Weaver. Learn how to structure workflows, test effectively, name consistently, manage costs, and prevent errors.
+keywords: ["SmythOS", "Weaver best practices", "agent design", "robust workflows", "debugging strategies", "no code agent orchestration", "workflow optimization", "LLM cost control", "agent modularity"]
 sidebar_position: 7
 ---
+
 # Best Practices
 
-> Smart habits in **Weaver** will save you late-night bug-hunts and surprise token bills.
+Well-designed agents are easier to build, maintain, and extend in **Weaver**. Adopting smart habits saves debugging time, avoids runaway token costs, and keeps your workflows reliable in production.
 
-<InfoCallout title="TL;DR"> Build small ➜ test fast ➜ deploy in stages.  Everything else is icing. (There's plenty...) </InfoCallout>
+<InfoCallout title="Quick Rule of Thumb">
+Start small → Test often → Deploy in stages. These three practices cover most problems before they happen.
+</InfoCallout>
 
-<Divider/>
+<Spacer size="md" />
 
 ## Why Best Practices Matter
 
-Hours saved debugging ≠ hours you can spend writing release notes about how little debugging you did.  
-Tokens = money; broken flows = sad work DMs. Let’s stay happy.
-<Divider/>
+Every extra token consumed is a cost, and every hidden bug becomes harder to track down later. By following best practices, you’ll spend less time firefighting and more time building agents that work as expected.
 
-## How to Build, Test, and Deploy Your AI Agent Workflow
-Build small -> Test early -> Deploy to staging -> Ship to production.
+<Spacer size="md" />
 
-### Build Small
-Add **one skill at a time**. If it fails, you know the culprit instantly.
+## 1. Build and Test Habits
 
-### Test Early
-Toggle **Debug Mode** every run until borders turn 🟢 green.
+- **Add One Skill at a Time**: If something fails, you instantly know the source.  
+- **Test Early with Debug Mode**: Keep Debug Mode active until all blocks run green. Learn more about enabling it in the [Weaver Interface](/docs/agent-weaver/weaver-interface).  
+- **Rerun in Sections**: Use multi-select to rerun parts of a workflow without restarting the whole build.  
+- **Deploy in Stages**: Push to staging or a dev endpoint first. A small break in staging is easier to catch than in production.
 
-### Deploy Staging
-Push to a *dev* subdomain first; let the intern break it before customers do.
+<Spacer size="md" />
 
-<Divider/>
+## 2. Design Modular Workflows
 
-## Embrace Modularity
+Breaking complex goals into small, focused skills makes agents easier to debug and extend.  
 
-- Break big goals into **numbered skills** (Weaver parses lists).  
-- Use existing **Templates** (see <DocLink to="/docs/agent-templates/overview">Agent Templates</DocLink>) or remix them.
-- Keep each skill single-purpose.
+- **One Skill, One Purpose**: Keep tasks specific. For example, one block to “Extract Keywords” and another to “Summarise Text.”  
+- **Use Ordered Lists in Prompts**: Weaver parses numbered lists cleanly, which helps it generate modular plans.  
+- **Remix Instead of Rebuild**: Adapt from the [Prompt Library](/docs/agent-weaver/prompt-library) or clone a working agent and adjust only what you need.  
 
-<Divider/>
+<TipCallout title="Why Modularity Helps">
+If one block breaks, you fix that block, not the agent. This makes testing and iteration far faster.
+</TipCallout>
 
-## Naming Conventions
+<Spacer size="md" />
 
-| Item | Convention | Example |
-|------|------------|---------|
-| **Agent** | Verb + Outcome | Generate SEO Article |
-| **Skill** | Action + Object | Extract Keywords |
+## 3. Naming and Consistency
+
+Consistent names help teammates and your future self understand workflows quickly.
+
+| Item | Naming Pattern | Example |
+|------|----------------|---------|
+| **Agent** | Verb + Outcome | `Generate SEO Article` |
+| **Skill** | Action + Object | `Extract Keywords` |
 | **Inputs** | `snake_case` | `max_results` |
 
-<Divider/>
+<Spacer size="md" />
 
-## Performance Baseline
-<TipCallout title="Follow these simple tips">
-**Remember:** Good names, small skills, and colour-coded sanity checks = a joyous Weaver life.
-</TipCallout>
+## 4. Manage Performance and Cost
+
+Efficient agents are cheaper and faster to run.  
 
 | Optimise | How |
 |----------|-----|
-| **Choose models wisely** | GPT-4o mini beats full GPT-4o on price |
-| **Throttle loops** | Drop [*Sleep* Component](/docs/agent-studio/components/advanced/sleep) after 10 iterations |
+| **Choose models wisely** | Use GPT-4o mini for most steps; reserve full GPT-4o for complex reasoning. |
+| **Control loops** | Insert a [Sleep component](/docs/agent-studio/components/advanced/sleep) in loops to avoid rate limits. |
+| **Scope prompts** | Constrain outputs with instructions like “Return JSON only” or “Limit to 200 words.” |
 
+<InfoCallout title="Pro Tip">
+Benchmark your workflow with both small and large models to compare cost against accuracy before scaling.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## 5. Prevent Errors and Debug Smarter
+
+- **Inspect Inputs and Outputs** regularly to catch miswired or malformed data.  
+- **Apply Fix with AI** when components fail, you can read [Debugging with Weaver](/docs/agent-weaver/debugging-agents) for step-by-step guidance.  
+- **Maintain Test Inputs**: Keep a small set of real-world test prompts you can reuse when iterating.  
+- **Watch Status Colours**: Green = working, Yellow = waiting, Red = failed. These act as a live error map.  
+
+<Spacer size="md" />
+
+## 6. Deploy with Confidence
+
+- **Stage First, Then Production**: Always test in a staging environment before exposing agents to end users.  
+- **Log and Monitor**: Use [Agent Logs](/docs/agent-studio/manage-agents/logs) to review execution history and spot slow or failing steps.  
+- **Rollback Timeline**: If a recent change introduces instability, use rollback to return to the last working version.  
+
+<WarningCallout title="Avoid Hotfix Fatigue">
+Skipping staging and pushing straight to production often doubles your debugging workload. Always test safely first.
+</WarningCallout>

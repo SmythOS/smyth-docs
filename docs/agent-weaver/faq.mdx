@@ -1,73 +1,116 @@
 ---
-description: Quick answers to the most common Weaver questions.
-keywords:
-  - SmythOS
-  - Weaver
-  - FAQ
-  - troubleshooting
-  - agent issues
-  - no-code agent orchestration
+description: Frequently asked questions about Weaver in SmythOS. Learn about plan limits, running agents, debugging issues, and controlling costs.
+keywords: ["SmythOS Weaver", "Weaver FAQ", "Weaver limits", "Weaver troubleshooting", "Fix with AI issues", "agent logs", "billing and plans", "no code agent orchestration"]
 sidebar_position: 11
 ---
 
 # FAQ
 
-<TipCallout>
-**Bookmark this page.** Future-you will thank present-you.
-</TipCallout>
+<InfoCallout title="Save This Page">
+Many common issues can be fixed in seconds with the answers below. Keep it bookmarked for quick reference.
+</InfoCallout>
 
-<details>
-<summary> “Run” does nothing — no response.</summary>
+<Spacer size="md" />
 
-**Cause** — Model timeout or empty prompt.  
-**Fix**
+## Running Agents
 
-1. Check your internet connection.  
-2. Shorten the prompt (under 2 000 chars).  
-3. Reload the page.
-</details>
+<InfoCallout title="“Run” Does Nothing" collapsible>
+**Cause** — This usually happens when the prompt is empty or the model times out.  
 
-<details>
-<summary> “Fix with AI” button is greyed out.</summary>
+**Fix**  
+1. Make sure your internet connection is stable.  
+2. Keep prompts under 2,000 characters for smoother runs.  
+3. Reload the page and retry.  
 
-The button appears only when **at least one component is selected** *and* debug logs contain an error.  
-Select a red-border node, or multi-select with <kbd>Cmd/Ctrl</kbd>.
-</details>
+If issues persist, check if your daily message limit is reached (see [Plan Limits](#plan-limits)).
+</InfoCallout>
 
-<details>
-<summary> My agent costs too many tokens.</summary>
+<Spacer size="sm" />
 
-1. **Analytics → Model Usage** → identify agent & skill.  
-3. See <DocLink to="/docs/account-management/billing-management">Billing Management</DocLink>.
-</details>
+<InfoCallout title="External API Calls Time Out" collapsible>
+**Cause** — Some third-party APIs are slower than Weaver’s default wait time.  
 
-<details>
-<summary> Logs are empty.</summary>
+**Fix**  
+- Increase the **Maximum Wait Time** setting in the APICall component.  
+- For very long-running jobs, switch the workflow to an **Async → Await** pattern so execution can resume once the API responds.  
+</InfoCallout>
 
-Toggle **Debug** before hitting **Run** — logs capture only after activation.
-</details>
+<Spacer size="md" />
 
-<details>
-<summary> How do I upload an image?</summary>
+## Debugging Agents
 
-Drag-and-drop PNG/JPG/SVG into chat; Weaver converts to base64 and passes to the **ImageGenerator** skill automatically.
-</details>
+<InfoCallout title="“Fix with AI” Button Is Not Visible" collapsible>
+**Cause** — Fix with AI only appears when a component is selected *and* logs show an error.  
 
-<details>
-<summary> Select multiple components?</summary>
+**Fix**  
+1. Select the failing component with a red border.  
+2. Or multi-select with <kbd>Cmd</kbd> / <kbd>Ctrl</kbd>.  
+3. Run again with Debug Mode enabled.  
 
-Hold <kbd>Cmd</kbd> / <kbd>Ctrl</kbd> while clicking each component — or drag a selection box starting on empty canvas.
-</details>
+See [Debugging with Weaver](/docs/agent-weaver/debugging-agents) for full troubleshooting steps.  
+</InfoCallout>
 
-<details>
-<summary> External API response too slow: job times out.</summary>
+<Spacer size="sm" />
 
-Increase **Maximum Wait Time** in APICall settings or move the call to an **Async → Await** pattern.
-</details>
+<InfoCallout title="Logs Are Empty" collapsible>
+**Cause** — Debug Mode was not enabled.  
 
-<details>
-<summary> None of the above solved it... help!</summary>
+**Fix**  
+- Toggle **Debug Mode** in the top toolbar **before** pressing Run.  
+- Once active, logs will capture inputs, outputs, and errors for every component.  
 
-Jump into **#support** on [Discord](https://discord.gg/smythos). Weaver support crew is powered by ☕ and memes.
-</details>
+Read more in [Agent Logs](/docs/agent-studio/manage-agents/logs).  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Cost and Plan Limits
+
+<InfoCallout title="Plan Limits on Free Accounts" collapsible>
+Free plans allow up to **5 messages per day** in Weaver. After that, you’ll need to wait until the next day or upgrade your plan to continue building and testing agents.  
+
+**Tip** — If you hit limits often, move to a paid plan so you can iterate without interruptions.  
+See [Billing Management](/docs/account-management/billing-management) for upgrade options.
+</InfoCallout>
+
+<Spacer size="sm" />
+
+<InfoCallout title="Agent Consumes Too Many Tokens" collapsible>
+**Cause** — Some skills or prompts may be generating unnecessarily long outputs.  
+
+**Fix**  
+1. Go to **Analytics → Model Usage** to identify which skill is responsible.  
+2. Optimise prompts to keep responses scoped.  
+3. Choose lighter models (e.g., GPT-4o mini) when high accuracy is not required.  
+4. Add constraints to outputs (e.g., “Return JSON only” or “Limit response to 200 words”).  
+
+See [Best Practices](/docs/agent-weaver/best-practices) for more optimisation tips.  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Using Features
+
+<InfoCallout title="Upload an Image" collapsible>
+Drag and drop a PNG, JPG, or SVG directly into the chat. Weaver will convert the file to base64 and pass it to the appropriate image-processing component automatically.  
+</InfoCallout>
+
+<Spacer size="sm" />
+
+<InfoCallout title="Select Multiple Components" collapsible>
+Hold <kbd>Cmd</kbd> / <kbd>Ctrl</kbd> while clicking each component, **or** drag a selection box starting from an empty space on the Canvas.  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Getting Help
+
+<InfoCallout title="Still Stuck?" collapsible>
+If none of the above fixes solve your issue:  
+
+- Export your agent and test it locally with the SmythOS runtime.  
+- Share logs and repro steps in the **#support** channel on [Discord](https://discord.gg/smythos).  
+- The support team and community can help you resolve complex issues faster.  
+</InfoCallout>
+
 <Divider/>

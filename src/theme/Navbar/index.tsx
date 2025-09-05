@@ -1273,7 +1273,7 @@ const HeaderComponent: React.FC = () => {
               </a>
             </li>
             <li role="none">
-              <a href="/forged/" role="menuitem">
+              <a href="forged.smythos.com" role="menuitem">
                 <svg
                   width={20}
                   height={20}

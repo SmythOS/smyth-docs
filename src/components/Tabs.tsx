@@ -17,41 +17,61 @@ export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
 
   return (
     <div className={`tabs-container ${className ?? ''}`}>
-      <div className="tab-header">
+      <div className="tab-header" role="tablist" aria-label="Settings">
         {tabs.map((tab, i) => (
           <button
             key={tab.id ?? tab.label}
             className={`tab-button ${i === index ? 'active' : ''}`}
             onClick={() => setIndex(i)}
+            role="tab"
+            aria-selected={i === index}
+            aria-controls={`tab-panel-${i}`}
+            id={`tab-${i}`}
+            tabIndex={i === index ? 0 : -1}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      <div key={tabs[index].label} className="tab-content">
-      {tabs[index].content}
+      <div
+        key={tabs[index].label}
+        className="tab-content"
+        id={`tab-panel-${index}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${index}`}
+      >
+        {tabs[index].content}
       </div>
-
 
       <style>{`
         .tabs-container {
           border-radius: 12px;
           border: 1px solid #e5e7eb;
-          overflow: hidden;
           background: #ffffff;
           box-shadow: 0 2px 4px rgba(0,0,0,0.05);
           margin: 1rem 0;
           font-family: system-ui, sans-serif;
+          /* allow children to scroll horizontally */
+          overflow: visible;
         }
 
         .tab-header {
           display: flex;
+          gap: 2px;
           background: #f9fafb;
           border-bottom: 1px solid #e5e7eb;
+
+          /* enable horizontal scroll for many tabs */
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          white-space: nowrap;
+          scrollbar-width: thin;
         }
 
         .tab-button {
+          flex: 0 0 auto;             /* prevent shrinking */
           padding: 10px 16px;
           font-size: 0.875rem;
           font-weight: 500;
@@ -60,16 +80,11 @@ export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
           cursor: pointer;
           transition: background 0.2s;
           color: #4b5563;
+          border-radius: 8px 8px 0 0;
         }
 
-        .tab-button:hover {
-          background: #f3f4f6;
-        }
-
-        .tab-button.active {
-          background: #e0e7ff;
-          color: #1e40af;
-        }
+        .tab-button:hover { background: #f3f4f6; }
+        .tab-button.active { background: #e0e7ff; color: #1e40af; }
 
         .tab-content {
           padding: 20px 24px;
@@ -79,27 +94,10 @@ export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
           background-color: #ffffff;
         }
 
-        .tab-content h3 {
-          font-size: 1.25rem;
-          margin-top: 1.5rem;
-          margin-bottom: 0.5rem;
-          font-weight: 600;
-        }
-
-        .tab-content p {
-          margin: 0.5em 0;
-        }
-
-        .tab-content ul {
-          padding-left: 1.2em;
-          margin-top: 0.5rem;
-        }
-
-        .tab-content strong {
-          font-weight: 600;
-          color: #1f2937;
-        }
-
+        .tab-content h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .tab-content p { margin: 0.5em 0; }
+        .tab-content ul { padding-left: 1.2em; margin-top: 0.5rem; }
+        .tab-content strong { font-weight: 600; color: #1f2937; }
         .tab-content code {
           font-family: SFMono-Regular, Consolas, Menlo, monospace;
           background-color: #f3f4f6;
@@ -109,43 +107,15 @@ export default function Tabs({ tabs, defaultIndex = 0, className }: Props) {
           color: #b45309;
         }
 
-        :root[data-theme='dark'] .tabs-container {
-          background: #1e293b;
-          border-color: #334155;
-          color: #e2e8f0;
-        }
-
-        :root[data-theme='dark'] .tab-header {
-          background: #0f172a;
-          border-bottom-color: #334155;
-        }
-
-        :root[data-theme='dark'] .tab-button {
-          color: #cbd5e1;
-        }
-
-        :root[data-theme='dark'] .tab-button:hover {
-          background: #1e293b;
-        }
-
-        :root[data-theme='dark'] .tab-button.active {
-          background: #334155;
-          color: #ffffff;
-        }
-
-        :root[data-theme='dark'] .tab-content {
-          background-color: #1e293b;
-          color: #e2e8f0;
-        }
-
-        :root[data-theme='dark'] .tab-content strong {
-          color: #f8fafc;
-        }
-
-        :root[data-theme='dark'] .tab-content code {
-          background-color: #334155;
-          color: #fbbf24;
-        }
+        /* dark mode */
+        :root[data-theme='dark'] .tabs-container { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+        :root[data-theme='dark'] .tab-header { background: #0f172a; border-bottom-color: #334155; }
+        :root[data-theme='dark'] .tab-button { color: #cbd5e1; }
+        :root[data-theme='dark'] .tab-button:hover { background: #1e293b; }
+        :root[data-theme='dark'] .tab-button.active { background: #334155; color: #ffffff; }
+        :root[data-theme='dark'] .tab-content { background-color: #1e293b; color: #e2e8f0; }
+        :root[data-theme='dark'] .tab-content strong { color: #f8fafc; }
+        :root[data-theme='dark'] .tab-content code { background-color: #334155; color: #fbbf24; }
       `}</style>
     </div>
   );

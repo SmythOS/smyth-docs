@@ -1,0 +1,168 @@
+---
+title: Reusable Components
+description: Practical patterns and code recipes for building agents with the SmythOS Runtime Environment (SRE). Includes RAG, API calls, classification, parallel workflows, and integration with Studio.
+keywords: [SmythOS, SRE, recipes, examples, patterns, AI workflows, SDK, vector search, API call, classification, RAG, async workflows]
+sidebar_position: 9
+---
+
+# Agent Recipes
+
+The **SmythOS Runtime Environment (SRE)** gives you reusable components and connectors.  
+This page shows **common recipes** for combining them into working agents, using real examples from the [SRE repo](https://github.com/SmythOS/sre).
+
+<InfoCallout title="How to use these">
+- Copy and adapt directly into your project  
+- Mix and match with [Studio exports](/docs/agent-studio/overview) by importing `.smyth` files  
+- Extend each recipe with your own skills and data sources  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Recipe 1: RAG (Retrieval-Augmented Generation)
+
+Index documents, then answer queries with context.
+
+```ts
+{`import { Agent, Model } from '@smythos/sdk';
+
+// Create an agent with GPT-4
+const agent = new Agent({ name: 'RAG Demo', model: 'gpt-4o' });
+
+// Pinecone connector with OpenAI embeddings
+const pinecone = agent.vectorDB.Pinecone('my-namespace', {
+  indexName: 'my-index',
+  apiKey: process.env.PINECONE_API_KEY,
+  embeddings: Model.OpenAI('text-embedding-3-large'),
+});
+
+// Insert a document
+await pinecone.insertDoc('doc-1', 'The Eiffel Tower is in Paris, France.');
+
+// Query with retrieval
+const results = await pinecone.search('Where is the Eiffel Tower located?');
+console.log(results);
+`}
+```
+
+<TipCallout title="When to use">
+Use RAG for factual Q&A, knowledge base bots, and contextual assistants.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Recipe 2: API Call → Classify → Summarize
+
+Fetch external data, route it, and produce a concise answer.
+
+```ts
+{`import { Agent } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'News Summarizer', model: 'gpt-4o' });
+
+// Fetch data from an API
+const api = agent.component.APICall({ url: 'https://newsapi.org/v2/top-headlines' });
+
+// Classify articles by topic
+const classifier = agent.component.Classifier({ classes: ['tech', 'sports', 'politics'] });
+
+// Summarize with the LLM
+classifier.out.Topic.connect(agent.llm.OpenAI('gpt-4o').in.Input);
+
+// Example run
+const response = await agent.run();
+console.log(response);
+`}
+```
+
+<Spacer size="md" />
+
+## Recipe 3: Parallel Workflows (Fan-Out / Fan-In)
+
+Run multiple LLM prompts in parallel, then join results.
+
+```ts
+{`import { Agent } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'Parallel Demo', model: 'gpt-4o' });
+
+// Branch into async tasks
+const asyncBlock = agent.component.Async();
+
+// Two tasks in parallel
+asyncBlock.add(agent.llm.OpenAI('gpt-4o').prompt('Summarize AI news'));
+asyncBlock.add(agent.llm.OpenAI('gpt-4o').prompt('Summarize sports news'));
+
+// Join results
+const awaitBlock = agent.component.Await(asyncBlock);
+
+const output = await agent.run();
+console.log(output);
+`}
+```
+
+<TipCallout title="Why it matters">
+Parallel execution improves speed and lets agents tackle multiple subtasks simultaneously.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Recipe 4: Stream Responses for a Chat UI
+
+Stream tokens for a live user interface instead of waiting for full completion.
+
+```ts
+{`import { Agent, TLLMEvent } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'ChatBot', model: 'gpt-4o' });
+
+const stream = await agent.llm.OpenAI('gpt-4o').prompt('Tell me a joke.').stream();
+
+stream.on(TLLMEvent.Content, (chunk) => process.stdout.write(chunk));
+stream.on(TLLMEvent.End, () => console.log('\\n-- done --'));
+`}
+```
+
+<Spacer size="md" />
+
+## Recipe 5: Import and Extend a Studio Workflow
+
+Mix no-code (Studio) with code (SDK).
+
+```ts
+{`import path from 'node:path';
+import { Agent, Model } from '@smythos/sdk';
+
+async function main() {
+  const agentPath = path.resolve(__dirname, 'my-agent.smyth');
+
+  // Import Studio workflow
+  const agent = Agent.import(agentPath, {
+    model: Model.OpenAI('gpt-4o'),
+  });
+
+  // Extend with custom code skill
+  agent.addSkill({
+    name: 'reverse',
+    description: 'Reverse text',
+    process: async ({ input }) => input.split('').reverse().join(''),
+  });
+
+  // Run
+  const result = await agent.prompt('Reverse "SmythOS".');
+  console.log(result);
+}
+main().catch(console.error);
+`}
+```
+
+<InfoCallout title="Why it’s powerful">
+This workflow lets non-coders design in Studio, then developers extend with code for custom logic or integrations.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What’s Next?
+
+- Explore more in the [SRE repo examples](https://github.com/SmythOS/sre/tree/main/examples)  
+- Learn about [Building Agents](/docs/agent-runtime/building-agents)  
+- Dive into [Hybrid Workflows](/docs/agent-runtime/hybrid-workflows) for mixing approaches  

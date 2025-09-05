@@ -1,152 +1,216 @@
 ---
 title: Components
-description: Explore the full list of SmythOS Runtime Environment components available for building AI agents, organized by category, with examples.
-keywords: [SmythOS, SRE, components, AI agents, SDK, reference, API, workflow]
-sidebar_position: 8
+description: Reference guide to SmythOS Runtime Environment (SRE) components. Browse by category and see atomic code snippets for each type of component.
+keywords: [SmythOS, SRE, components, AI agents, SDK, TypeScript, LLM, storage, vector database, MCP, streaming, reference]
+sidebar_position: 9
 ---
 
 # SRE Components Reference
 
-The SmythOS Runtime Environment (SRE) provides over 40 production-ready components, building blocks you can combine to create robust [AI agents](/docs/agent-runtime/building-agents).  
-Each component encapsulates a reusable function, like calling a language model, fetching web data, or filtering JSON.
+The **SmythOS Runtime Environment (SRE)** provides a library of production-ready components.  
+Components are the **building blocks** of [AI agents](/docs/agent-runtime/building-agents). Each encapsulates a reusable function, such as prompting an LLM, filtering JSON, or exposing an API endpoint.
 
 <InfoCallout title="How to use components">
-You can add and connect components visually in [Studio](/docs/agent-studio/overview) or programmatically in the [SDK Guide](/docs/agent-runtime/sdk-guide).  
-Most agents are built by wiring together multiple components in a workflow.
+- **Studio**: drag and connect visually in [Studio](/docs/agent-studio/overview)  
+- **SDK**: configure and connect programmatically in the [SDK Guide](/docs/agent-runtime/sdk-guide)  
+Most real-world agents combine multiple components into workflows.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## AI & LLM Components
 
-Direct access to cutting-edge AI models and multimodal processing.
+Work with large language models and multimodal features.
 
-**Component List:**
+- `GenAILLM` — Unified interface for LLMs (OpenAI, Anthropic, Google, etc.)  
+- `LLMAssistant` — Multi-turn conversation  
+- `VisionLLM` — Image analysis  
+- `MultimodalLLM` — Text, image, and audio  
+- `HuggingFace` — Use Hugging Face-hosted models  
+- `ImageGenerator` — Text-to-image  
 
-- `GenAILLM` — Unified LLM interface (OpenAI, Anthropic, Google, etc.)
-- `VisionLLM` — Image analysis and understanding
-- `MultimodalLLM` — Text, image, audio together
-- `LLMAssistant` — Multi-turn conversational assistant
-- `HuggingFace` — Hugging Face models
-- `ImageGenerator` — Text-to-image generation
+**Example: prompt and stream responses**
+
+```ts
+{`import { Agent, TLLMEvent } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'LLM Demo', model: 'gpt-4o' });
+const llm = agent.llm.OpenAI('gpt-4o');
+
+// One-shot prompt
+const answer = await llm.prompt('Who wrote The Great Gatsby?');
+console.log(answer);
+
+// Stream tokens
+const stream = await llm.prompt('Stream this response.').stream();
+stream.on(TLLMEvent.Content, (chunk) => process.stdout.write(chunk));
+`}
+```
 
 <Spacer size="md" />
 
 ## External Integrations
 
-Connect your agents to live web data and APIs.
+Connect to web data and APIs.
 
-**Component List:**
+- `APICall` — HTTP requests with headers and OAuth  
+- `WebSearch` — Real-time search  
+- `WebScrape` — Extract site content  
+- `ZapierAction` — Trigger automations  
+- `MCPClient` — Model Context Protocol client  
 
-- `APICall` — HTTP(S) API requests, OAuth support
-- `WebSearch` — Live search via web engines
-- `WebScrape` — Website content extraction
-- `ZapierAction` — Zapier triggers/automations
-- `MCPClient` — Model Context Protocol client (advanced integration)
+<InfoCallout title="When to use">
+Choose External components whenever your agent needs real-time data or to trigger outside systems.
+</InfoCallout>
 
 <Spacer size="md" />
 
-## Data Processing Components
+## Data Processing
 
-Clean, index, filter, and classify your data before using it in workflows.
+Filter, clean, and prepare data.
 
-**Component List:**
+- `Classifier` — Categorize into classes  
+- `JSONFilter` — Extract or reshape JSON  
+- `DataSourceIndexer` — Index documents  
+- `DataSourceLookup` — Retrieve from an index  
+- `DataSourceCleaner` — Normalize inputs  
 
-- `DataSourceIndexer` — Index a batch of documents
-- `DataSourceLookup` — Fast search/lookup from index
-- `DataSourceCleaner` — Data normalization/cleaning
-- `JSONFilter` — Extract/filter from JSON structures
-- `Classifier` — Classify data by custom rules or AI
+**Example: parse documents**
+
+```ts
+{`import { Doc } from '@smythos/sdk';
+
+// Auto-detect parser by file type
+const parsed = await Doc.auto.parse('./files/report.pdf');
+
+// Or specify explicitly
+const pdf = await Doc.pdf.parse('./files/report.pdf');
+const md  = await Doc.md.parse('./files/notes.md');
+`}
+```
 
 <Spacer size="md" />
 
 ## Logic & Control Flow
 
-Control agent workflow logic: branching, iteration, asynchronicity.
+Shape how workflows run.
 
-**Component List:**
+- `LogicAND`, `LogicOR`, `LogicXOR` — Boolean logic  
+- `LogicAtLeast`, `LogicAtMost` — Threshold branching  
+- `ForEach` — Iterate over lists  
+- `Async`, `Await` — Run steps in parallel and then join  
 
-- `LogicAND`, `LogicOR`, `LogicXOR` — Boolean logic
-- `LogicAtLeast`, `LogicAtMost` — Threshold-based logic
-- `ForEach` — Iterate over a list or array
-- `Async`, `Await` — Asynchronous workflow handling
+<TipCallout title="Design tip">
+Logic components give agents conditionals and loops like control flow in code.
+</TipCallout>
 
 <Spacer size="md" />
-
 
 ## Storage & File Operations
 
-Store, retrieve, and execute code or files inside your agent’s environment.
+Work with files and code execution.
 
-**Component List:**
+- `FileStore` — Read/write files (local or S3)  
+- `Code` — Execute inline code  
+- `ServerlessCode` — Run serverless functions  
 
-- `FileStore` — Read/write files (local/S3)
-- `Code` — Execute code snippets dynamically
-- `ServerlessCode` — Serverless compute (cloud function-style)
+**Example: local and S3 storage**
+
+```ts
+{`import { Agent } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'Storage Demo', model: 'gpt-4o' });
+
+// Local storage
+const local = agent.storage.LocalStorage();
+await local.write('hello.txt', 'Hello world');
+const data = await local.read('hello.txt');
+
+// S3 storage
+const s3 = agent.storage.S3({
+  bucket: 'my-bucket',
+  region: 'us-east-1'
+});
+`}
+```
 
 <Spacer size="md" />
 
+## Vector Databases
+
+Embed, index, and search data.
+
+- Pinecone  
+- Milvus  
+- RAMVec (in-memory)  
+
+**Example: Pinecone search**
+
+```ts
+{`import { Agent, Model } from '@smythos/sdk';
+
+const agent = new Agent({ name: 'Vector Demo', model: 'gpt-4o' });
+
+const pinecone = agent.vectorDB.Pinecone('my-namespace', {
+  indexName: 'my-index',
+  apiKey: process.env.PINECONE_API_KEY,
+  embeddings: Model.OpenAI('text-embedding-3-large'),
+});
+
+await pinecone.insertDoc('doc-1', 'Some text to index');
+const results = await pinecone.search('Find similar content');
+console.log(results);
+`}
+```
+
+<Spacer size="md" />
 
 ## System Integration
 
-Integrate agents with system or plugin-level functionality.
+Expose agents across protocols and services.
 
-**Component List:**
+- `APIEndpoint` — Create custom HTTP endpoints  
+- `ComputerUse` — Automate system tasks  
+- `GPTPlugin` — OpenAI plugin format  
+- MCP transport — Run agent as an MCP server  
 
-- `ComputerUse` — Automate computer/system tasks
-- `GPTPlugin` — Use OpenAI-compatible plugins
-- `APIEndpoint` — Create custom HTTP endpoints in the agent
+**Example: run as MCP**
 
-<Spacer size="md" />
+```ts
+{`import { Agent, MCPTransport } from '@smythos/sdk';
 
-nt Summary Table
+const agent = new Agent({ name: 'MCP Demo', model: 'gpt-4o' });
 
-A complete overview of all available components, organized by category.
+// STDIO
+await agent.mcp(MCPTransport.STDIO);
 
-| Category                 | Component Name                | Description                                |
-| :----------------------- | :---------------------------- | :------------------------------------------ |
-| **AI & LLM**             | `GenAILLM`                    | Unified interface for multiple LLMs         |
-|                          | `VisionLLM`                   | Analyze and understand images               |
-|                          | `MultimodalLLM`               | Process text, image, and audio              |
-|                          | `LLMAssistant`                | Conversational AI assistant                 |
-|                          | `HuggingFace`                 | Hugging Face model APIs                     |
-|                          | `ImageGenerator`              | Generate images from text                   |
-| **External Integration** | `APICall`                     | HTTP requests (OAuth support)               |
-|                          | `WebSearch`                   | Real-time web search                        |
-|                          | `WebScrape`                   | Extract website content                     |
-|                          | `ZapierAction`                | Zapier automations                          |
-|                          | `MCPClient`                   | Model Context Protocol client               |
-| **Data Processing**      | `DataSourceIndexer`           | Index documents for lookup                  |
-|                          | `DataSourceLookup`            | Retrieve from indexed sources               |
-|                          | `DataSourceCleaner`           | Clean and normalize input                   |
-|                          | `JSONFilter`                  | Manipulate JSON data                        |
-|                          | `Classifier`                  | Categorize content into classes             |
-| **Logic & Control Flow** | `LogicAND`, `LogicOR`, `LogicXOR` | Boolean operations                    |
-|                          | `LogicAtLeast`, `LogicAtMost` | Conditional logic by threshold              |
-|                          | `ForEach`                     | Iterate over lists                          |
-|                          | `Async`, `Await`              | Manage async steps                          |
-| **Storage & Files**      | `FileStore`                   | File operations (read, write)               |
-|                          | `Code`                        | Execute custom code                         |
-|                          | `ServerlessCode`              | Run serverless functions                    |
-| **System Integration**   | `ComputerUse`                 | Automate system-level tasks                 |
-|                          | `GPTPlugin`                   | OpenAI plugin integration                   |
-|                          | `APIEndpoint`                 | Custom API endpoints                        |
+// Or SSE
+const url = await agent.mcp(MCPTransport.SSE, 3388);
+console.log('MCP listening at', url);
+`}
+```
 
 <Spacer size="md" />
 
-## How to Add and Use Components
+## Quick Reference
 
-You can add components to your agent either:
+A condensed table for fast scanning.
 
-- **Visually**: Drag and connect in [Studio](/docs/agent-studio/overview)
-- **Programmatically**: Use the [SDK Guide](/docs/agent-runtime/sdk-guide)  
-
-See the [Building Agents](/docs/agent-runtime/building-agents) guide for more advanced patterns.
+| Category | Components | What they do |
+|----------|------------|--------------|
+| **AI & LLM** | `GenAILLM`, `LLMAssistant`, `VisionLLM`, `MultimodalLLM`, `HuggingFace`, `ImageGenerator` | Prompting and multimodal |
+| **External** | `APICall`, `WebSearch`, `WebScrape`, `ZapierAction`, `MCPClient` | APIs and integrations |
+| **Data** | `Classifier`, `JSONFilter`, `DataSourceIndexer`, `DataSourceLookup`, `DataSourceCleaner` | Clean, transform, search |
+| **Logic** | `LogicAND`, `LogicOR`, `LogicXOR`, `LogicAtLeast`, `LogicAtMost`, `ForEach`, `Async`, `Await` | Control flow |
+| **Storage** | `FileStore`, `Code`, `ServerlessCode` | Files and compute |
+| **VectorDB** | Pinecone, Milvus, RAMVec | Embedding storage/search |
+| **System** | `APIEndpoint`, `ComputerUse`, `GPTPlugin`, MCP | Integrations and protocols |
 
 <Spacer size="md" />
 
-## What's Next?
+## What’s Next?
 
-- [Building Agents](/docs/agent-runtime/building-agents): Combine these components into agent workflows.
-- [SDK Guide](/docs/agent-runtime/sdk-guide): Programmatically add and configure components.
-- [Architecture](/docs/agent-runtime/architecture): See how these components fit into the overall SRE system.
+- [Recipes](/docs/agent-runtime/recipes) — Combine components into workflows  
+- [Building Agents](/docs/agent-runtime/building-agents) — Full workflow design  
+- [SDK Guide](/docs/agent-runtime/sdk-guide) — Programmatic usage  
+- [Architecture](/docs/agent-runtime/architecture) — Runtime internals

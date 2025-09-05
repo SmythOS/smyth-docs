@@ -1,60 +1,96 @@
 ---
 title: Getting Started
-description: Install the SmythOS CLI or SDK and prepare your environment for building AI agents.
-keywords: [SRE, AI runtime, agent, SDK, CLI, getting started, installation]
+description: Set up the SmythOS Runtime Environment (SRE) using either the CLI or the SDK. Learn how to install, initialize, and prepare your environment to build AI agents.
+keywords: [SmythOS Runtime Environment, SRE, install CLI, install SDK, getting started guide, setup, AI agents, node.js, automation]
 sidebar_position: 2
 ---
 
 # Getting Started
 
 <InfoCallout title="Choose Your Path">
-You can start building with the SmythOS Runtime Environment (SRE) using either the CLI or the SDK. Choose the method that best fits your workflow and experience.
+You can start building with the [SmythOS Runtime Environment (SRE)](/docs/agent-runtime/overview) in two ways:  
+- **CLI**: fastest and most guided setup  
+- **SDK**: flexible, direct integration into existing code  
 </InfoCallout>
+
+<Youtube videoId="jOH7zDb9QtM" title="SmythOS - SRE Scaffold Project" />
+
+## Which Should You Use?
+
+| Option | Best For | Why Choose It |
+|--------|----------|---------------|
+| **[CLI](/docs/agent-runtime/cli-guide)** <Badge type="Recommended" /> | Beginners, quick prototyping, CI/CD pipelines | Guided setup, no boilerplate, works with Studio and SDK |
+| **[SDK](/docs/agent-runtime/sdk-guide)** | Developers with existing Node.js projects, advanced customization | Fine-grained control, direct integration into your codebase |
 
 <Spacer size="md" />
 
-## Method 1: Using the CLI <Badge type='Recommended' />
+## Method 1: CLI Installation <Badge type='Recommended' />
 
-The CLI is the simplest and most guided way to create and configure new agent projects.
+The [CLI](/docs/agent-runtime/cli-guide) is the simplest way to create and configure new agent projects.  
 
 1. Install the CLI globally:
+
 ```bash
-npm i -g @smythos/cli
+npm install -g @smythos/cli
 ```
 
 2. Create a new project interactively:
+
 ```bash
 sre create
 ```
 
 <InfoCallout title="Step-by-Step Guidance">
-The CLI will walk you through setting up your project and configuration, making it easy to get started quickly.
+The CLI prompts you for language, project name, and configuration.  
+It sets up everything needed so you can focus on building your agent.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Method 2: Direct SDK Installation
+## Method 2: SDK Installation
 
-If you want to add SmythOS to an existing Node.js project, you can install the SDK directly:
+If you’re adding SRE to an existing Node.js project, install the [SDK](/docs/agent-runtime/sdk-guide) directly:
 
 ```bash
 npm install @smythos/sdk
 ```
-or 
+
+or
 
 ```bash
 pnpm install @smythos/sdk
 ```
 
-<WarningCallout title="When to Use the SDK Install">
-The direct SDK method is best if you already have a codebase or want fine-grained control over integration.  
+<WarningCallout title="When to choose the SDK">
+Use the SDK install method if:  
+- You’re integrating into an existing codebase  
+- You need fine-grained control over configuration  
 For new projects, the CLI is recommended.
 </WarningCallout>
 
 <Spacer size="md" />
 
-Once you’ve completed either method, you’re ready to build and run your first agent.
+## Verifying Your Setup
 
-Continue to the [Quickstart](/docs/agent-runtime/quickstart) for a complete example.
+After installing either method, you can verify the environment:
+
+```bash
+sre --version
+```
+
+For SDK installs, confirm your dependency is listed in `package.json`.
+
+<TipCallout title="Common mistake">
+If `sre` is not recognized, make sure your npm global bin directory is in your PATH.
+</TipCallout>
 
 <Spacer size="md" />
+
+## Next Steps
+
+Once you’ve installed and verified your setup, you’re ready to build and run your first agent.  
+
+- Follow the [Quickstart](/docs/agent-runtime/quickstart) to create and deploy a working agent  
+- Explore the [CLI Guide](/docs/agent-runtime/cli-guide) for automation and scripting  
+- Dive into the [SDK Guide](/docs/agent-runtime/sdk-guide) for programmatic workflows  
+- Learn more in the [Runtime Overview](/docs/agent-runtime/overview) to understand how SRE works under the hood  

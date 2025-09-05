@@ -1,0 +1,162 @@
+---
+title: Import Studio Agents
+sidebar_position: 7
+description: Learn how to export a SmythOS Studio agent as a .smyth file, add default_model, import it into the SmythOS Runtime Environment (SRE), and test it quickly with Terminal Chat.
+keywords: ["SmythOS Studio", "Studio Canvas", "SRE", "SmythOS Runtime Environment", ".smyth export", "import agent into SRE", "default_model required", "Terminal Chat testing", "SRE component compatibility"]
+---
+
+# Import Studio Agents into SRE
+
+If you’ve created an agent in **[SmythOS Studio (Visual Canvas)](/docs/agent-studio/overview)**, you don’t need to rebuild it to run locally. Export the agent as a `.smyth` file, add a `default_model`, and run it inside the **[SmythOS Runtime Environment (SRE)](/docs/agent-runtime/overview)**.  
+
+<InfoCallout title="Why this matters">
+This workflow lets you design visually in Studio, then bring your agent into SRE with almost no changes. If you create your project with examples enabled, you’ll also get a ready-to-use <code>terminalChat</code> helper for testing.
+</InfoCallout>
+
+This guide shows you the quickest path: export, add a `default_model`, import the `.smyth` into SRE, and test it with **Terminal Chat**.
+
+<Spacer size="md" />
+
+## Before you start
+
+Before you import your Studio agent into SRE, make sure you have the right setup:
+
+- You’ll need to be able to open your workflow in the **[SmythOS Studio builder](https://app.smythos.com/builder)** so you can export it.  
+- On your machine, have **[Node.js](https://nodejs.org)** installed and the **[SRE CLI set up](/docs/agent-runtime/quickstart)**.  
+- If your agent uses LLM-based components, keep your API key for OpenAI, Anthropic, or another provider handy.  
+
+And if you’re new to building visually, you can take a quick look at the **[Studio Canvas guide](/docs/agent-studio/canvas)** before you go further.
+
+<TipCallout title="Fastest path">
+When you create a new SRE project, choose **examples**. It comes with a ready-to-use <code>terminalChat</code> helper so you can test your agent instantly.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Step 1. Export your agent from Studio
+
+Open your agent in Studio and export it as a `.smyth` file.  
+
+For example, you might have a simple agent skill named `test` that takes a `name` and echoes back `Hello, <name>`.
+
+<TipCallout title="Shortcut">
+Use <kbd>Ctrl + Shift + E</kbd> on Windows/Linux or <kbd>⌘ + Shift + E</kbd> on macOS to export quickly.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Step 2. Add the required default_model
+
+SRE requires the `.smyth` file to include a `default_model`. This field is missing in Studio exports, so you’ll need to add it manually.
+
+<WarningCallout title="Required for import">
+Without <code>default_model</code>, SRE cannot import your agent.
+</WarningCallout>
+
+Here’s what you need to add:
+
+```json
+{
+  "default_model": "gpt-4.o"
+}
+```
+
+Replace `"gpt-4o"` with the LLM you plan to use, such as `"gpt-5"` or `"claude-3-sonnet"`.
+
+<Spacer size="md" />
+
+## Step 3. Import the .smyth file into SRE
+
+Next, bring your exported agent into your SRE project.
+
+1. Copy your `.smyth` file into the SRE project folder.  
+2. Create a new file (for example, `myAgent.ts`) and import the agent:
+
+```ts
+import { agentImport } from "sre/agent";
+
+const agentPath = "./myAgent.smyth";
+export const myAgent = agentImport(agentPath);
+```
+
+<Spacer size="md" />
+
+## Step 4. Test the agent with Terminal Chat
+
+Once imported, you can quickly test the agent with the built-in Terminal Chat helper.
+
+In your `index.ts` file:
+
+```ts
+import { terminalChat } from "./terminalChat";
+import { myAgent } from "./myAgent";
+
+terminalChat(myAgent);
+```
+
+Then run the project:
+
+```bash
+$ npm start
+? Enter session ID: demo-session
+> Hello Raul
+< Hello Raul`
+```
+
+<TipCallout title="Keep context between runs">
+Reuse the same session ID with <code>persist: true</code> if you want the agent to remember earlier messages.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Component compatibility in SRE
+
+Not every Studio component works in SRE. Here’s a quick compatibility table:
+
+| Component | SRE status | Notes |
+|---|---|---|
+| GenAI LLM | <Badge type="supported">Supported</Badge> | Works with your provider API key |
+| LLM Assistant | <Badge type="supported">Supported</Badge> | Default choice for chat style workflows |
+| Classifier | <Badge type="supported">Supported</Badge> | Uses your LLM provider |
+| Image Generator | <Badge type="supported">Supported</Badge> | Feature set depends on provider |
+| Web Search | <Badge type="not supported">Not supported</Badge> | Studio credit based |
+| Web Scrape | <Badge type="not supported">Not supported</Badge> | Studio credit based |
+| Node.js component | <Badge type="not supported">Not supported</Badge> | Use local code or <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer">Node.js</a> scripts alongside SRE |
+
+<InfoCallout title="Adapting unsupported components">
+If your agent uses unsupported nodes, replace them with SRE-friendly alternatives. For example, use an LLM call with custom fetch logic instead of Web Search.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## FAQs
+
+<InfoCallout title="Common Questions" collapsible defaultCollapsed>
+
+**Do I always need to add <code>default_model</code>?**  
+Yes. Adding it directly to the `.smyth` file is the simplest way to make sure SRE imports correctly.
+
+**Which model should I use for testing?**  
+Any general LLM works, such as <code>gpt-4o</code> or <code>claude-3-sonnet</code>. Use the one your team already relies on.
+
+**Why does my agent not remember earlier messages?**  
+Session persistence depends on the session ID. Reuse the same ID and enable persistence in <code>terminalChat</code>.
+
+**My Studio agent includes Web Search or Scraping. What now?**  
+Those features are not supported in SRE. Replace or mock them for local testing.
+
+**Can I update the agent after importing?**  
+Yes. Update in Studio, re-export as `.smyth`, and re-import into your project.
+
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What’s next
+
+- Understand execution in the **[Runtime overview](/docs/agent-runtime/overview)**  
+- Design richer workflows with **[Studio Canvas](/docs/agent-studio/canvas)**  
+- Start faster using **[Agent Templates](https://app.smythos.com/templates)**  
+- Deploy securely with the **[Deployments guide](/docs/agent-deployments/overview)**  
+
+<NeedHelpCallout />

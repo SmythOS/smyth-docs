@@ -1,0 +1,88 @@
+---
+title: UI for SRE Agents
+description: Give a SmythOS Runtime Environment (SRE) agent a web UI in the SmythOS Studio Builder by exposing a simple API. Turn Terminal Chat into a browser chat fast.
+keywords: ["SmythOS Studio", "Studio Builder", "SRE agent UI", "Terminal Chat", "web chat interface", "connect API to Studio", "SmythOS Runtime Environment", "agent UI"]
+---
+
+# Provide a UI for SRE agents in Studio
+
+If you already have an agent running in the **[SmythOS Runtime Environment (SRE)](/docs/agent-runtime/overview)**, you can surface it in the **[Studio Builder](https://app.smythos.com/builder)** with a simple web chat. No heavy front end work required.
+
+<InfoCallout title="How this works">
+You reuse the logic you tested with Terminal Chat, expose a minimal API in your local project, then point Studio Builder to that endpoint to render a lightweight chat UI.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Step 1: Confirm your SRE Agent Works
+
+Run your project and verify the agent responds as expected in the console.  
+Example: a `test` skill that accepts a name and returns `Hello, <name>`.
+
+```bash
+$ npm start
+? Enter session ID: demo-session
+> Raul
+> Hello Raul
+```
+
+<Spacer size="md" />
+
+## Step 2: Expose Your Agent as an API
+
+Add a small server file in your SRE project that forwards chat requests to the same agent methods you used with Terminal Chat. Keep it minimal. The goal is a stable endpoint Studio can call.
+
+<WarningCallout title="Keep the server running">
+Studio Builder cannot render the UI unless your local API endpoint is up and reachable.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Step 3: Connect the Endpoint in Studio
+
+Open the **[Studio Canvas](https://app.smythos.com/builder)** and point it to your local agent endpoint. Studio will load a simple chat interface so you can interact with the SRE agent in the browser.
+
+<Spacer size="md" />
+
+## Step 4: Test the Chat UI
+
+Send a message from the Studio chat window and confirm the response matches your console test.
+
+- Input: `Raul`  
+- Output: `Hello Raul`
+
+<Image src="/docs/img/agent_studio/chat-ui.png" alt="Chat UI for an SRE agent inside Studio Builder" caption="The SRE agent running in Studio with a browser-based chat UI." />
+
+<Spacer size="md" />
+
+## Step 5: Grow the UI as your agent evolves
+
+Start simple and iterate. Add input fields, basic styling, or small ops features like session reset. Keep the agent contract stable so Studio can call it reliably.
+
+<Spacer size="md" />
+
+## FAQs
+
+<InfoCallout title="Common Questions" collapsible defaultCollapsed>
+
+**Do I need to write front end code for this UI**  
+No. A small server plus the Builder connection is enough for a working browser chat.
+
+**What happens if my API is not running**  
+Studio will not be able to load the chat. Start your local server first, then open Builder.
+
+**Can I reuse my Terminal Chat logic**  
+Yes. The UI is just a thin layer that calls the same agent methods you already used.
+
+**Can I make the UI more advanced**  
+Yes. Add inputs, validation, or lightweight styling as needed. Keep the endpoint stable.
+
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What's next
+
+- Review the **[Runtime overview](/docs/agent-runtime/overview)** to understand how agents execute.
+- Explore **[Studio Canvas](/docs/agent-studio/canvas)** for richer visual flows. 
+- When you are ready to share the UI, see **[Deployments](/docs/agent-deployments/overview)**.

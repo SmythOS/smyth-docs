@@ -62,12 +62,18 @@ The connection between SmythOS and Notion is configured using a secure token.
 
 ### Step 1: Create a Notion Integration & Get Your Secret
 
-1.  In your Notion workspace, go to **Settings & Members** > **Integrations**.
-2.  Click **Develop your own integrations**.
-3.  Click **+ New integration**. Give it a name (e.g., "SmythOS Agent") and associate it with your workspace.
-4.  On the next screen, you will see your **Internal Integration Secret**. Click **Show** and then **Copy** this token. This is the key you'll use in SmythOS.
 
-    <Image src="https://developers.notion.com/images/getting-started/integration-secret.png" alt="Finding the Notion Integration Secret" />
+1. Open Notion Settings & members → Connections. Click Develop or manage integrations.
+
+2. Click New integration. Enter a name, pick your workspace, set Type to Internal, optionally add a logo. Click Save.
+
+3. Click Configure integration settings.
+
+4. On the Configuration tab, click Show for Internal Integration Secret and copy it. Store it securely as an environment variable or in a secrets manager. Use Refresh to rotate if needed. This is the key you'll use in SmythOS.
+
+5. Open the Access tab. Click Select pages, choose the pages or databases your bot needs, then Update access.
+
+<Image src="/docs/img/notion/notion-secret.png" alt="Finding the Notion Integration Secret" />
 
 ### Step 2: Store Your Secret in SmythOS Vault
 

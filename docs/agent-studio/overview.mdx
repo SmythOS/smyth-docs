@@ -1,85 +1,111 @@
 ---
 title: Introduction
-description: Welcome to SmythOS Agent Studio. Learn how to build, test, and deploy powerful AI agents using our visual workflow builder and no-code tools.
-keywords: [Agent Studio, SmythOS, AI agents, workflow automation, no-code, visual builder]
+description: Welcome to SmythOS Studio. Learn how to build, test, and deploy AI agents with the visual workflow builder, secure vault, data storage, and deployment controls.
+keywords: ["Agent Studio", "SmythOS Studio", "AI agents", "no code agent builder", "workflow automation", "visual workflow builder", "test AI agents", "deploy AI agents"]
 sidebar_position: 1
 ---
+
 # Introduction to Studio
 
-Studio is where you build, test, and launch intelligent AI agents, without writing code. You choose the logic, connect the data, and control exactly how your agent thinks and acts.
+**Studio** is where you design, test, and launch intelligent agents in SmythOS without writing code. You decide the logic, connect the data, and control how your agent thinks and acts.
 
-<InfoCallout title="What is Studio?">
-Studio is SmythOS's comprehensive platform for building, managing, and deploying AI agents. It includes a visual builder for drag-and-drop workflow creation, agent management tools, secure vault for credentials, data storage capabilities, and deployment controls in one integrated environment.
+<InfoCallout title="What Is Studio?">
+Studio is the central platform in SmythOS for building, managing, and deploying agents. It brings together a visual drag-and-drop [Canvas](/docs/agent-studio/key-concepts/canvas.mdx), secure [Vault](/docs/agent-studio/key-concepts/vault) for credentials, agent management tools, data storage, and deployment options in one place.
 </InfoCallout>
 
-## Start Here: What You Can Do
+<Spacer size="md" />
+
+## What You Can Do in Studio
 
 You can use Studio to:
 
-- Design custom agent workflows with logic, memory, and multi-step reasoning  
-- Connect to any API, internal tool, or third-party platform  
-- Automate repetitive tasks across data, content, or support workflows  
-- Deploy agents securely to run in production via chat, API, or webhooks  
-- Test, debug, and monitor everything in one place  
+- Build custom workflows with logic, memory, and multi-step reasoning  
+- Connect to APIs, internal tools, and third-party platforms  
+- Automate repetitive tasks across data, content, and support workflows  
+- Deploy agents to run in production via chat, API, or webhooks  
+- Test, debug, and monitor everything in a single environment  
 
-<TipCallout title="First time here?">
-Try the [Quickstart](/docs/agent-studio/quickstart) to create your first agent in just a few clicks.
+<TipCallout title="New to Studio?">
+Start with the [Quickstart Guide](/docs/agent-studio/quickstart) to build your first agent in just a few clicks.
 </TipCallout>
 
+<Spacer size="md" />
+
 ## Quick Links
+
 <CardGrid>
   <Card
     title="Quickstart"
-    description="Ship your first agent in 2 minutes."
+    description="Build your first agent in minutes."
     to="/docs/agent-studio/quickstart"
   />
-<Card
-    title="Debugging Agents"
-    description="Debug and ensure reliability."
-    to="/docs/agent-studio/build-agents/debugging"
+  <Card
+    title="Agent Overview"
+    description="Understand the fundamentals of agents in Studio."
+    to="/docs/agent-studio/build-agents/agent-overview"
   />
   <Card
     title="Integrations"
-    description="Core integrations at a glance."
+    description="See available integrations at a glance."
     to="/docs/agent-studio/integrations/overview"
+  />
+  <Card
+    title="Debugging Agents"
+    description="Learn how to debug and improve reliability."
+    to="/docs/agent-studio/build-agents/debugging"
   />
 </CardGrid>
 
-## Studio Platform Layout
+<Spacer size="md" />
 
-Understanding the platform's layout will help you navigate and build more efficiently.
+## Studio Layout Overview
 
-| Feature             | Description                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------- |
-| [Builder Canvas](https://app.smythos.com/builder) | The visual drag-and-drop environment where you design and connect the components of your agent's workflow. |
-| [Agents Page](https://https://app.smythos.com/agents) | The dashboard where you can open, manage, and organize all your agents into different [Project Spaces](/docs/account-management/spaces-management). |
-| [Agent Settings](/docs/agent-studio/manage-agents/overview) | A dedicated area to control an agent's behavior, security, and deployment configurations.      |
-| [Vault](/docs/agent-studio/key-concepts/vault) | A secure, centralized location to manage and use your API keys and other secrets across all your agents. |
-| [Analytics](/docs/account-management/user-management)| A dashboard to monitor your token usage and control your costs.                                 |
-| [Data Pool](/docs/agent-collaboration/data-pool/data-spaces) | A centralized RAG management system for your agent's knowledge base. |
+Knowing the main areas of Studio will help you get comfortable faster:
 
-<Divider />
+| Feature | Description |
+|---------|-------------|
+| [Studio Canvas](https://app.smythos.com/builder) | A drag-and-drop workspace where you design workflows by connecting components. |
+| [Agents Dashboard](https://app.smythos.com/agents) | A dashboard where you can open, manage, and organize agents into [Project Spaces](/docs/account-management/spaces-management). |
+| [Agent Settings](/docs/agent-studio/manage-agents/overview) | Configure an agent’s behavior, security, and deployment settings. |
+| [Vault](/docs/agent-studio/key-concepts/vault) | A secure place to manage API keys and secrets across agents. |
+| [Analytics](/docs/account-management/user-management) | Monitor token usage and keep track of costs. |
+| [Data Pool](/docs/agent-collaboration/data-pool/data-spaces) | Centralize your agent’s knowledge base with structured storage and retrieval. |
 
-## Try Common Studio Workflows
+<Spacer size="md" />
 
-SmythOS agents excel in a wide range of scenarios, including:
+## Common Workflows in Studio
 
-- **Customer Support Assistants**: Build bots that handle customer queries, answer FAQs, and escalate intelligently.
-- **Data Processing Pipelines**: Fetch, clean, analyze, and route data using agent logic.
-- **Search and Summarization Agents**: Combine web tools, LLMs, and RAG sources to generate insights.
-- **Content Moderation Workflows**: Automatically review and filter content based on business rules.
+SmythOS agents are flexible. Here are some ways users typically apply them:
 
-## Core Features
+- **Customer Support Agents**: Handle FAQs, resolve requests, and escalate when needed.  
+- **Data Processing Pipelines**: Collect, clean, analyze, and forward data automatically.  
+- **Search and Summarization Agents**: Combine web tools, LLMs, and [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) for insights.  
+- **Content Moderation Flows**: Review and filter content according to your business rules.  
 
-These core capabilities help you build, test, and ship agents faster:
+<Spacer size="md" />
 
-- **Visual Workflow Canvas**: Drag, drop, and connect components to define how your agent thinks and acts  
-- **No-Code Debugging and Testing**: Inspect live agent runs, logs, and errors right inside the canvas  
-- **Dynamic Input/Output Handling**: Work with text, images, files, and custom schema-based inputs  
-- **Secure API Access**: Use the [Vault](/docs/agent-studio/key-concepts/vault) to manage keys, tokens, and secrets  
-- **Component Library**: Choose from 40+ production-ready tools, from LLMs to logic gates to API calls  
+## Core Features You’ll Use
+
+Studio provides everything you need to build production-ready agents:
+
+- **Visual Workflow Canvas**: Drag, drop, and connect components to define logic  
+- **No-Code Debugging and Testing**: Inspect live runs and fix issues inside the canvas  
+- **Flexible Input and Output Handling**: Pass text, images, files, and structured data between steps  
+- **Secure API Access**: Store keys and tokens safely in [Vault](/docs/agent-studio/key-concepts/vault)  
+- **Component Library**: Choose from 40+ ready-to-use tools, including LLMs, API calls, and logic blocks  
+
+<Spacer size="md" />
+
+## Next Steps
+
+Now that you know what Studio is, here are some good next moves:
+
+- Build your first agent with the [Quickstart Guide](/docs/agent-studio/quickstart)  
+- Learn how to refine prompts and build faster with [Weaver](/docs/agent-weaver/overview)  
+- Explore deployment paths in [Agent Deployments](/docs/agent-deployments/overview)  
+- See how agents run locally or in private environments with the [Smyth Runtime Environment (SRE)](/docs/agent-runtime/overview)  
 
 <NeedHelpCallout />
 <small>
-We iterate fast and document just as quickly. If you notice anything missing or unclear, feel free to contribute. PRs and typo fixes are always welcome. Let's make agent development easier for everyone.
+Our docs evolve quickly as the platform grows. If you find something missing or unclear, contributions are always welcome. Every improvement makes agent development smoother for everyone.
 </small>

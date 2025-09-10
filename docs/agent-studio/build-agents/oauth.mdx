@@ -1,0 +1,136 @@
+---
+title: OAuth Connections
+description: Learn how to configure and reuse OAuth connections across agents, integrations, and API call components in SmythOS.
+keywords: [OAuth, authentication, API integrations, Google OAuth, LinkedIn OAuth, reusable auth, SmythOS auth]
+sidebar_position: 3
+---
+
+# OAuth Connections
+
+OAuth connections let you log in to external services once and then reuse that connection in any agent or integration.  
+This means no more re-entering keys or secrets in every component. You configure it once and select it whenever you need it.
+
+<InfoCallout title="Why this matters">
+Instead of setting up Google, LinkedIn, or Twitter credentials over and over, SmythOS stores them securely in your Vault. Next time you build an agent, you simply pick the saved connection.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Step 1: Open the Vault
+
+Go to the [Vault](/docs/agent-studio/key-concepts/vault) and scroll to OAuth Connections under Enterprise Models.
+
+<Image src="/docs/img/vault/oauth-connections.png" alt="Vault page showing OAuth Connections section" />
+
+<Spacer size="md" />
+
+## Step 2: Add a New OAuth Connection
+
+Click **Add OAuth Connection** and a setup window will open.
+
+<Image src="/docs/img/vault/add-oauth-connection.png" alt="Add OAuth Connection modal" />
+
+You’ll start with three basic fields:
+
+- **Name** — A label you’ll recognize later (e.g., *Google Workspace*, *LinkedIn CRM*).  
+- **Platform** — The service you’re connecting to (e.g., *Google Mail*, *HubSpot CRM*).  
+- **Auth Service** — The type of OAuth flow to use. The form changes depending on what you select.  
+
+<Spacer size="md" />
+
+## Step 3: Fill in the Details
+
+<InfoCallout title="Legacy connections">
+Connections created before Vault show a **Legacy** badge.  
+They still work, but add new ones here for consistency.
+</InfoCallout>
+
+Each service type asks for slightly different information. Here’s what you’ll see and how to complete it.
+
+### Google, LinkedIn, Twitter (Prefilled Services)
+
+If you choose one of these, SmythOS already knows the right URLs.  
+You’ll only need to provide:
+
+- **Client ID** and **Client Secret** — get these from your provider’s developer console.  
+  - Google: [Google Cloud Console → Credentials](https://console.cloud.google.com/apis/credentials)  
+  - LinkedIn: [LinkedIn Developer Portal → Apps](https://www.linkedin.com/developers/apps)  
+  - Twitter (X): [Developer Portal → Projects & Apps](https://developer.twitter.com/en/portal/dashboard)  
+- **Scopes** — permissions you want the agent to have (e.g., `https://www.googleapis.com/auth/gmail.readonly`).  
+
+<Image src="/docs/img/vault/google-oauth.png" alt="Google OAuth example" />
+
+<Spacer size="md" />
+
+### Custom OAuth 2.0
+
+For any service that supports OAuth2 but isn’t prefilled:
+
+<Image src="/docs/img/vault/custom-oauth2.png" alt="Custom OAuth 2.0 example" />
+
+- **Auth URL** — where users are redirected to log in (from your provider’s docs).  
+- **Token URL** — where SmythOS exchanges the code for a token.  
+- **Client ID / Client Secret** — from your provider’s developer settings.  
+- **Callback URL** — pre-filled by SmythOS. Copy this into your provider’s app settings.  
+- **Scopes** — the list of permissions (ask your provider or check their API docs).  
+
+<Spacer size="md" />
+
+### OAuth2 Client Credentials
+
+For services that don’t involve user login (server-to-server APIs):
+
+- **Token URL** — usually listed in the provider’s API documentation.  
+- **Client ID / Client Secret** — provided when you create an app in the provider’s console.  
+
+Tip: Use this if the API doesn’t involve a person logging in, only a system.  
+
+<Spacer size="md" />
+
+### OAuth 1.0 (Legacy)
+
+Some older APIs still use OAuth1.0. 
+
+You’ll need to provide:
+
+- **Request Token URL** — to get a temporary token.  
+- **Access Token URL** — to exchange it for an access token.  
+- **User Auth URL** — where users approve the request.  
+- **Consumer Key / Consumer Secret** — from your provider’s developer settings.  
+- **Callback URL** — pre-filled by SmythOS, add it to your provider’s settings.  
+
+<Spacer size="md" />
+
+## Step 4: Save and Authenticate
+
+Click **Add Connection**.  
+If the provider requires user login, you’ll be redirected to approve the connection.  
+
+Once done, the connection appears in your Vault. From there you can:
+
+- Authenticate / Sign out  
+- Edit details  
+- Duplicate a setup  
+- Remove it  
+
+<Spacer size="md" />
+
+## Step 5: Use in a Component
+
+When you add an API call or integration, expand the **OAuth** section.
+
+<Image src="/docs/img/vault/oauth-connections-canvas.png" alt="OAuth dropdown in a component" />
+
+- If you already have Vault connections, you’ll see them in the dropdown.  
+- If a connection was created before Vault existed, it shows with a **Legacy** badge.  
+- If nothing is set up yet, click **+ Add New** and follow the same steps without leaving the component.  \
+
+Then just click **Authenticate**, and your component is ready to go.  
+
+<Spacer size="md" />
+
+## Example Workflow
+
+- You go to the Vault and create a **Google OAuth connection** with Gmail scopes.  
+- A teammate later builds a new workflow and selects that connection in their component.  
+- Neither of you needs to reconfigure anything since the same saved connection works for both.  

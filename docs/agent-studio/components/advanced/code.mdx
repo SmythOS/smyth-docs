@@ -1,3 +1,4 @@
+---
 title: Code
 description: Learn how to use the Code component to write and execute JavaScript directly in your agent workflows. Add custom logic, transform inputs, and handle outputs without external services.
 keywords: [JavaScript, Code component, custom logic, inputs, outputs, error handling, debugging, data processing, workflows, SaaS automation]
@@ -10,30 +11,6 @@ The Code component lets you add custom logic to your workflows with plain JavaSc
 
 <InfoCallout title="Why this matters">
 When built-in components aren’t flexible enough, the Code component gives you the power to calculate, filter, or transform data inline. It’s ideal for handling edge cases, quick validations, or lightweight processing logic.
-</InfoCallout>
-
-<Arcade
-  src="https://demo.arcade.software/HbTFpYUtUTtU3ZpafjWU?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-  title="Code | SmythOS"
-/>
-
-<Spacer size="md" />
-
----
-title: Code Component (JavaScript) – Add Custom Logic to Your Workflows
-description: Learn how to use the Code component to run JavaScript directly in your workflows. Transform inputs, configure outputs, handle errors gracefully, and add custom logic without external services.
-keywords: [JavaScript, Code component, custom logic, inputs, outputs, error handling, debugging, data processing, workflows, SaaS automation, scripting, automation logic, inline coding]
-toc_max_heading_level: 2
----
-
-# Code Component: Write JavaScript in Your Workflows
-
-The **Code component** lets you write JavaScript directly inside your workflow.  
-It gives you full control: transform inputs, calculate values, validate data, or handle errors — all without relying on external APIs or servers.  
-
-<InfoCallout title="Why use the Code Component?">
-When built-in components aren’t flexible enough, the Code component lets you calculate, filter, or transform data inline.  
-It’s perfect for quick validations, edge cases, and lightweight processing.
 </InfoCallout>
 
 <Arcade
@@ -67,17 +44,17 @@ At minimum, your script must set `_output`.
 
 ### Simplest Example: Hello World
 ```javascript
-{`_output = "Hello World!";`}
+_output = "Hello World!";
 ```
 
 ### Example: Add Two Numbers
 With default inputs `A` and `B`:  
 
 ```javascript
-{`const _A = {{A}};
+const _A = {{A}};
 const _B = {{B}};
 
-_output = _A + _B;`}
+_output = _A + _B;
 ```
 
 <Spacer size="md" />
@@ -93,12 +70,12 @@ You can add more inputs beyond `A` and `B`:
 Each input becomes available in your code with an underscore prefix:  
 
 ```javascript
-{`const _purchaseTotal = {{purchaseTotal}};
+const _purchaseTotal = {{purchaseTotal}};
 const _taxRate = {{taxRate}};
 
 const total = _purchaseTotal * (1 + _taxRate);
 
-_output = { total };`}
+_output = { total };
 ```
 
 <Spacer size="md" />
@@ -109,10 +86,10 @@ Your script must always set `_output`.
 If you assign an object, you can expose specific fields as **custom outputs** for downstream use.  
 
 ```javascript
-{`_output = {
+_output = {
   total: 50,
   status: "OK"
-};`}
+};
 ```
 
 Now both `total` and `status` are available to later components.  
@@ -126,12 +103,12 @@ This allows retries, fallback steps, or notifications instead of a hard stop.
 
 ### Example: Missing Input
 ```javascript
-{`if (!_customerName) {
+if (!_customerName) {
   _error = {
     message: "Missing input: customerName",
     context: { provided: _customerName }
   };
-}`}
+}
 ```
 
 <InfoCallout title="Why use _error?">
@@ -152,7 +129,7 @@ A common real-world scenario:
 3. Parse the data with a Code block:  
 
 ```javascript
-{`const _csvText = _apiResponse;
+const _csvText = _apiResponse;
 const lines = _csvText.split('\\n').filter(line => line.trim() !== '');
 const headers = lines[0].split(',').map(h => h.trim());
 
@@ -168,7 +145,7 @@ _output = {
   success: true,
   data,
   summary: { totalRows: data.length, headers }
-};`}
+};
 ```
 
 This structured JSON can be used directly by components like **GenAI LLM**, **RAG Remember**, or another Code block.  

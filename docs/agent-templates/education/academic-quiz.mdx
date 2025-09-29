@@ -1,0 +1,114 @@
+---
+title: Academic Quiz Master Agent
+description: Learn how to use, test, and deploy the Academic Quiz Master Agent in SmythOS to generate research-based quizzes for students and educators.
+keywords: [academic quiz, AI quiz generator, test preparation, education AI, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Academic Quiz Master Agent  
+
+The **Academic Quiz Master Agent** helps you turn **scholarly research** into effective quizzes. You provide a topic, and the agent will:  
+
+- Search for **academic papers and materials** on the subject  
+- Analyze and synthesize the information into a structured summary  
+- Generate **15 quiz questions** (12 multiple-choice + 3 open-ended)  
+- Include **comprehensive answers** that focus on critical understanding, not just memorization  
+
+<InfoCallout title="Why use this agent?">  
+This agent creates **academically rigorous quizzes** that help students learn deeply and give educators ready-to-use, research-based assessment material.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Use Cases  
+
+- **Academic test preparation**  
+  Students can generate up-to-date quizzes based on scholarly research to prepare for exams or standardized tests.  
+
+- **Educational content development**  
+  Educators and course designers can create assessments that test **critical thinking and comprehension**, not just recall.  
+
+<TipCallout title="Pro tip">  
+Use this agent to **supplement lectures or study groups** with custom quizzes on the latest research in your field.  
+</TipCallout>  
+
+<Spacer size="lg" />  
+
+## Testing the Agent  
+
+### Step 1: Access the Agent  
+
+<Image src="/docs/img/academic_quiz/Homepage.jpg" alt="Academic Quiz Master template in SmythOS" />  
+
+- Go to the **Templates** section in the sidebar  
+- Open the **Education** tab  
+- Find **Academic Quiz Master Agent** and click **Remix**  
+<Image src="/docs/img/academic_quiz/Remix.jpg" alt="Academic Quiz Master template Remix in SmythOS" />  
+- The full workflow will open in Agent Studio  
+
+<Spacer size="md" />  
+
+### Step 2: Run the Agent  
+
+You can test the agent in two ways:  
+
+**Option 1: From the top toolbar**  
+
+1. Click **Test** (top-right)  
+2. Switch to **Form Preview**  
+3. Fill in your topic  
+4. Click **Run** to generate quiz questions  
+
+**Option 2: From the canvas**  
+
+<Image src="/docs/img/academic_quiz/Form Preview.jpg" alt="Form Preview for Academic Quiz Master Agent" />
+
+1. Click the **Form Preview** button on the `generate-questions` block  
+2. Enter a topic, for example:  
+   - *Artificial Intelligence in Education*  
+3. Click **Run** to see the quiz output  
+
+<Spacer size="lg" />  
+
+## Deploying the Agent  
+
+### Step 1: Start Deployment  
+
+<Image src="/docs/img/academic_quiz/Deploy.jpg"alt="Deploy button in SmythOS Agent Studio" />  
+
+- Click **Deploy** (top-right)  
+- Choose your environment:  
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+### Step 2: Choose Your Deployment Type  
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools  
+- **Chatbot** – Deploy as a chat interface  
+- **LLM** – Connect to large language models with API keys  
+- **API** – Call your agent programmatically  
+- **MCP** – Use Model Context Protocol for structured workflows  
+- **Alexa** – Launch as a voice assistant skill  
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)** page.
+
+<InfoCallout title="Best option">  
+If you are an educator, deploying as a **Chatbot** makes it easy for your students to take quizzes interactively.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Customization Tips  
+<TipCallout title="Example customization">  
+Want to create a **mixed-level quiz**? Add inputs for *difficulty level* and let the agent generate tiered questions that build from basic knowledge to advanced analysis.  
+</TipCallout>  
+
+- **Search settings** – Raise `sourcesLimit` from 10 to 15–20 for broader coverage; set `timeRange` to *year* for the latest research  
+- **AI models** – Use the most relevant or updated AI models for the best results and to help modify your output style.
+- **Temperature** – Keep at 0.3 for consistent academic rigor; increase to 0.5–0.7 for more variety in question style  
+- **Question quantity** – Adjust prompts to generate 10–25 questions based on topic complexity  
+- **Difficulty levels** – Add *beginner, intermediate, advanced* prompts to tailor learning  
+- **Additional inputs** – Add fields like *student_level*, *focus_areas*, or *preferred question types* (case studies, applications)  

@@ -1,0 +1,128 @@
+---
+title: Competitor Researcher and Analysis Agent
+description: Learn how to use, test, and deploy the Competitor Researcher and Analysis Agent in SmythOS for competitive intelligence and market analysis. 
+keywords: [competitor research, competitor analysis, market intelligence, sales enablement, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Competitor Researcher and Analysis Agent  
+
+The **Competitor Researcher and Analysis Agent** helps you run **in-depth competitor research** with minimal effort.  
+You provide two company names and their website URLs, and the agent will:  
+
+- Search the web for competitor insights  
+- Scrape both websites for detailed business information  
+- Create a **structured competitor analysis report** including:  
+  - Executive summary  
+  - Company profiles  
+  - Competitive strengths and weaknesses  
+  - Strategic takeaways  
+
+<InfoCallout title="Why use this agent?">  
+This agent gives strategists, executives, and sales teams the **competitive intelligence they need** to make informed business decisions and improve positioning.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Use Cases  
+
+- **Strategic business planning**  
+  Analyze competitors before entering new markets or launching products. Identify opportunities, threats, and differentiation strategies.  
+
+- **Competitive intelligence & market analysis**  
+  Track competitor activities, product launches, and positioning to stay ahead in your market.  
+
+- **Sales enablement**  
+  Equip your team with competitor insights so they can build stronger value propositions and handle objections with confidence.  
+
+<TipCallout title="Pro tip">  
+Use this agent to build **side-by-side competitor reports** that you can share directly with leadership or sales teams.  
+</TipCallout>  
+
+<Spacer size="lg" />  
+
+## Testing the Agent  
+
+### Step 1: Access the Agent  
+
+<Image src="/docs/img/competitor_research/Homepage.jpg" alt="Competitor Researcher Agent template in SmythOS" />  
+
+- Go to the **Templates** section in the sidebar  
+- Open the **Marketing** tab  
+- Find **Competitor Researcher and Analysis Agent** and click **Remix**  
+<Image src="/docs/img/competitor_research/Remix.jpg" alt="Competitor Researcher Agent template Remix in SmythOS" />  
+- The full workflow will open in Agent Studio  
+
+<Spacer size="md" />  
+
+### Step 2: Run the Agent  
+
+You can test the agent in two ways:  
+
+**Option 1: From the top toolbar**  
+
+<Image src="/docs/img/competitor_research/Form Preview.jpg" alt="Testing Competitor Researcher Agent from toolbar" />  
+
+1. Click **Test** (top-right)  
+2. Switch to **Form Preview**  
+3. Fill in the input fields  
+4. Click **Run** to execute  
+
+**Option 2: Form Preview from the canvas**  
+
+1. Click the **Form Preview** button on the `generate-competitor-analysis` block  
+2. Enter input details, for example:  
+   - Company A Name: *Tech Innovations Inc*  
+   - Company B Name: *Creative Solutions Ltd*  
+   - Company A URL: *https://www.techinnovations.com*  
+   - Company B URL: *https://www.creativesolutions.com*  
+3. Click **Run** to generate the competitor analysis report  
+
+<Spacer size="lg" />  
+
+## Deploying the Agent  
+
+### Step 1: Start Deployment  
+
+<Image src="/docs/img/competitor_research/Deploy.jpg"  alt="Deploy button in SmythOS Agent Studio" />  
+
+- Click **Deploy** (top-right corner of Agent Studio)  
+- Pick your environment:  
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />  
+
+### Step 2: Choose Your Deployment Type  
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools  
+- **Chatbot** – Deploy as a chat interface  
+- **LLM** – Connect to large language models with API keys  
+- **API** – Call your agent programmatically  
+- **MCP** – Use Model Context Protocol for structured workflows  
+- **Alexa** – Launch as a voice assistant skill  
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)** page.
+
+<InfoCallout title="Best option">  
+For most users, deploy to **Cloud** and test via **Chatbot** to share competitor insights quickly across your team.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Customization Tips  
+
+<TipCallout title="Example customization">  
+Want a **board-ready report**? Customize the analysis prompt to include an **executive summary, SWOT breakdown, pricing models, and recent press coverage** for each competitor.  
+</TipCallout>  
+
+- **Search volume** – Raise `sourcesLimit` from 3 to 8–12 for deeper analysis, or lower to 2 for faster comparisons  
+- **AI models** – Use **GPT-5** for quality, **GPT-5-mini** for speed   
+- **Analysis accuracy** – Lower temperature (0.2–0.4) for more precise reporting  
+- **Report depth** – Add sections like *pricing strategies*, *market positioning*, or *technology stack comparisons*  
+- **Time relevance** – Use `timeRange` (week, month, year) to focus on the latest competitor developments  
+- **Scraping resilience** – Keep `antiScrapingProtection` and `javascriptRendering` enabled for protected business sites  
+- **Additional sources** – Add LinkedIn pages, press releases, or investor reports for richer intelligence  

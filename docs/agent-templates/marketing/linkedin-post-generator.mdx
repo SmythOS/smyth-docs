@@ -1,0 +1,124 @@
+---
+title: LinkedIn Post Generator Agent
+description: Learn how to use, test, and deploy the LinkedIn Post Generator Agent in SmythOS. 
+keywords: [LinkedIn agent, LinkedIn automation, social media AI, content generator, SmythOS]
+toc_max_heading_level: 2
+---
+
+# LinkedIn Post Generator Agent  
+
+The **LinkedIn Post Generator Agent** helps you create professional, on-brand posts effortlessly. It combines real-time search, scraping, and multiple AI stages (using GPT-5 and GPT-5-mini) to:  
+
+- Gather fresh content from the web  
+- Summarize and draft LinkedIn posts  
+- Review and refine drafts  
+- Keep your writing style and tone consistent  
+- Deliver **ready-to-publish** posts with source links  
+
+<InfoCallout title="Why use this agent?">  
+This agent saves you hours of manual research and editing. You get polished LinkedIn posts that stay consistent with your brand voice and meet your content goals.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Use Cases  
+
+- **Boost LinkedIn engagement**  
+  Create regular, on-brand posts that highlight industry trends, company news, and educational content.  
+
+- **Scale content creation**  
+  Generate quality LinkedIn posts for multiple clients with unique voices, all while keeping relevance and consistency.  
+
+<TipCallout title="Pro tip">  
+This agent is especially useful if you manage **multiple company accounts** or work in an agency setting.  
+</TipCallout>  
+
+<Spacer size="lg" />  
+
+## Testing the Agent  
+
+### Step 1: Access the Agent  
+
+<Image src="/docs/img/linkedin_post_generator/Homepage.jpg"alt="LinkedIn Post Generator template in SmythOS" />  
+
+- Go to the **Templates** section in the sidebar  
+- Open the **Marketing** tab  
+- Find **LinkedIn Post Generator** and click **Remix**  
+<Image src="/docs/img/linkedin_post_generator/Remix.jpg" alt="LinkedIn Post Generator template Remix in SmythOS" />  
+- The full workflow will open in the Agent Studio  
+
+<Spacer size="md" />  
+
+### Step 2: Run the Agent  
+
+You can test the agent in two ways:  
+
+**Option 1: From the top toolbar**  
+
+<Image src="/docs/img/linkedin_post_generator/Form Preview.png" alt="Testing agent from toolbar in SmythOS" />  
+
+1. Click **Test** (top-right)  
+2. Switch to **Form Preview**  
+3. Fill in the input fields (e.g., topic, style, tone)  
+4. Click **Run** to see results  
+
+**Option 2: Form Preview from the canvas**  
+
+1. Click the **Form Preview** button on the `generate-linkedin-post` block  
+2. Enter input details, for example:  
+   - Topic: *AI in healthcare transforming patient care*  
+   - Style: *professional*  
+   - Tone: *informative*  
+3. Click **Run** to test the workflow  
+
+<Spacer size="lg" />  
+
+## Deploying the Agent  
+
+### Step 1: Start the Deployment  
+
+<Image src="/docs/img/linkedin_post_generator/Deploy.png" alt="Deploy button in SmythOS Agent Studio" />  
+
+- Click **Deploy** (top-right corner of Agent Studio)  
+- Pick your environment:  
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />  
+
+### Step 2: Choose Your Deployment Type  
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools  
+- **Chatbot** – Deploy as a chat interface  
+- **LLM** – Connect to large language models with API keys  
+- **API** – Call your agent programmatically  
+- **MCP** – Use Model Context Protocol for structured workflows  
+- **Alexa** – Launch as a voice assistant skill  
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)** page.
+
+<InfoCallout title="Best option">  
+If you’re just starting out, deploy to **Agent Cloud** and test with the **Chatbot** option for the fastest setup.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Customization Tips  
+
+<TipCallout title="Example customization">  
+Want short, punchy posts for executives? Lower the length, raise creativity, and add hashtags for visibility.  
+</TipCallout>  
+
+- **Search settings** – Adjust `sourcesLimit` and `timeRange` for fresher or broader results  
+- **Content processing** – Switch WebScrape output from *text* to *markdown*  
+- **AI models** – Use **GPT-5** for quality, **GPT-5-mini** for speed  
+- **Temperature** –  
+  - 0.3–0.5 for consistent, structured posts  
+  - 0.8–1.0 for creative, varied posts  
+- **Prompts** – Add industry terms or specific formatting needs  
+- **Extra inputs** – Include target audience, post length, or hashtags  
+- **Review criteria** – Customize reviewer prompts to fit brand or compliance rules  
+

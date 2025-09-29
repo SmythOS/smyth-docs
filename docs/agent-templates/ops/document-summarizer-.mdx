@@ -1,0 +1,130 @@
+---
+title: Document Summarizer Agent
+description: Learn how to use, test, and deploy the Document Summarizer Agent in SmythOS to turn PDFs into structured, AI-powered summaries.
+keywords: [document summarizer, PDF summarizer, AI summaries, contract analysis, research automation, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Document Summarizer Agent  
+
+The **Document Summarizer Agent** makes it easy to process long PDFs into clear, structured summaries. You upload a PDF, and the agent will:  
+
+- Extract the full text  
+- Analyze the content with AI  
+- Generate a **well-organized summary** with key points, details, and insights  
+
+Perfect for research papers, contracts, reports, manuals, and any PDF where you need quick comprehension.  
+
+<InfoCallout title="Why use this agent?">  
+Instead of reading entire documents, you get a **fast and accurate summary** that highlights what really matters.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Use Cases  
+
+- **Academic & research support**  
+  Summarize research studies, technical papers, and thesis sources to save hours on literature reviews.  
+
+- **Legal & contract review**  
+  Extract and highlight key clauses, terms, and obligations in agreements and filings.  
+
+- **Business intelligence & reports**  
+  Turn dense market research, financial reports, and white papers into **actionable insights** for strategy and decision-making.  
+
+<TipCallout title="Pro tip">  
+Use this agent to **screen large numbers of documents quickly** and decide which ones need deeper reading.  
+</TipCallout>  
+
+<Spacer size="lg" />  
+
+## Testing the Agent  
+
+### Step 1: Access the Agent  
+
+<Image src="/docs/img/document_summarizer/Homepage.jpg" alt="Document Summarizer Agent template in SmythOS" />  
+
+- Go to the **Templates** section in the sidebar  
+- Open the **Productivity** tab  
+- Find **Document Summarizer Agent** and click **Remix**  
+<Image src="/docs/img/document_summarizer/Remix.jpg" alt="Document Summarizer Agent Remix template in SmythOS" /> 
+- The full workflow will open in Agent Studio  
+
+<Spacer size="md" />  
+
+### Step 2: Connect PdfCrowd API  
+
+- Get your **[PdfCrowd API[(https://pdfcrowd.com/api/) key**  
+- In the workflow, open the **Pdf to Text** component  
+- Go to **Component Settings > Key**  
+- Paste your API key  
+
+<Spacer size="md" />  
+
+### Step 3: Run the Agent  
+
+You can test the agent in two ways:  
+
+**Option 1: From the top toolbar**  
+
+<Image src="/docs/img/document_summarizer/Form preview.jpg" alt="Testing Document Summarizer Agent from toolbar" />  
+
+1. Click **Test** (top-right)  
+2. Switch to **Form Preview**  
+3. Upload or provide your PDF link  
+4. Click **Run** to generate a summary  
+
+**Option 2: Form Preview from the canvas**  
+
+1. Click the **Form Preview** button on the `PDF to Text` block  
+2. Enter your PDF file URL, for example:  
+   - `https://example.com/sample.pdf`  
+3. Click **Run** to test and view results  
+
+<Spacer size="lg" />  
+
+## Deploying the Agent  
+
+### Step 1: Start Deployment  
+
+<Image src="/docs/img/document_summarizer/Deploy.jpg"  alt="Deploy button in SmythOS Agent Studio" />  
+
+- Click **Deploy** (top-right corner of Agent Studio)  
+- Pick your environment:  
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />  
+
+### Step 2: Choose Your Deployment Type  
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools  
+- **Chatbot** – Deploy as a chat interface  
+- **LLM** – Connect to large language models with API keys  
+- **API** – Call your agent programmatically  
+- **MCP** – Use Model Context Protocol for structured workflows  
+- **Alexa** – Launch as a voice assistant skill  
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)** page.
+
+<InfoCallout title="Best option">  
+For most users, deploying as a **Chatbot** makes it easiest to upload and summarize documents interactively.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Customization Tips  
+<TipCallout title="Example customization">  
+Need **legal-ready summaries**? Add a Code block to extract **parties, dates, payment terms, and obligations** directly from contracts.  
+</TipCallout>  
+- **Error handling** – Add outputs to capture failed PDFs or inaccessible files  
+- **Content processing** – Use a **GenAILLM** block to summarize, clean, or structure text further  
+- **Multiple PDFs** – Modify inputs to accept arrays for batch processing  
+- **Authentication** – Add headers to access secured PDFs  
+- **Content filtering** – Use a **Classifier** to sort summaries by topic (e.g., legal, technical, financial)  
+- **Rate limiting** – Add **FSleep** when summarizing multiple documents  
+- **Custom parsing** – Add a **Code** block to extract structured items like dates, contract clauses, or figures  
+

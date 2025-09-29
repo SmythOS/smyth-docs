@@ -1,0 +1,125 @@
+---
+title: SEO Blog Post Agent
+description: Learn how to use, test, and deploy the SEO Blog Post Agent in SmythOS to generate SEO-optimized blog content at scale.
+keywords: [SEO blog, blog post generator, content marketing, AI blogging, SmythOS]
+toc_max_heading_level: 2
+---
+
+# SEO Blog Post Agent  
+
+The **SEO Blog Post Agent** helps you create **comprehensive, search-optimized blog articles** in minutes. You provide a target keyphrase, and the agent will:  
+
+- Research relevant sources on the web  
+- Scrape top content for supporting details  
+- Generate a full **2,000-word blog post** with:  
+  - Engaging introduction  
+  - Three detailed sections  
+  - Strong conclusion  
+- Optimize everything for **SEO** with strategic keyword placement  
+
+<InfoCallout title="Why use this agent?">  
+This agent takes care of the research and drafting so you can focus on editing and publishing. You’ll save hours while consistently producing high-quality, SEO-friendly content.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Use Cases  
+
+- **Content marketing & SEO**  
+  Produce in-depth, keyword-optimized articles that attract organic traffic and improve rankings.  
+
+- **Business blogging & thought leadership**  
+  Establish authority by publishing informative, well-researched posts on industry topics.  
+
+- **Agencies & freelance writers**  
+  Scale output and deliver client-ready drafts faster, focusing your time on customization and polish.  
+
+<TipCallout title="Pro tip">  
+Use this agent to **analyze competitors’ content** and then generate stronger, more detailed articles targeting the same keywords.  
+</TipCallout>  
+
+<Spacer size="lg" />  
+
+## Testing the Agent  
+
+### Step 1: Access the Agent  
+
+<Image src="/docs/img/seo_blog_post_writer/Homepage.jpg" alt="SmythOS Templates homepage" />
+
+- Go to the **Templates** section in the sidebar  
+- Open the **Marketing** tab  
+- Find **SEO Blog Post Agent** and click **Remix**  
+<Image src="/docs/img/seo_blog_post_writer/Remix.jpg" alt="Remix the SEO Blog Post Agent" />
+- The full workflow will open in Agent Studio  
+
+<Spacer size="md" />  
+
+### Step 2: Run the Agent  
+
+You can test the agent in two ways:  
+
+**Option 1: From the top toolbar**  
+
+<Image src="/docs/img/seo_blog_post_writer/Form Preview.jpg" alt="Form Preview for SEO Blog Post Agent" />
+
+1. Click **Test** (top-right)  
+2. Switch to **Form Preview**  
+3. Enter your keyphrase and instructions  
+4. Click **Run** to generate your article  
+
+**Option 2: Form Preview from the canvas**  
+
+1. Click the **Form Preview** button on the `generate-blog-post` block  
+2. Enter details, for example:  
+   - KeyPhrase: *AI in healthcare*  
+   - Instructions: *Generate an SEO article based on research information. It should be engaging and attention-grabbing.*  
+3. Click **Run** to generate the blog post  
+
+<Spacer size="lg" />  
+
+## Deploying the Agent  
+
+### Step 1: Start Deployment  
+
+<Image src="/docs/img/seo_blog_post_writer/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of Agent Studio)  
+- Pick your environment:  
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />  
+
+### Step 2: Choose Your Deployment Type  
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools  
+- **Chatbot** – Deploy as a chat interface  
+- **LLM** – Connect to large language models with API keys  
+- **API** – Call your agent programmatically  
+- **MCP** – Use Model Context Protocol for structured workflows  
+- **Alexa** – Launch as a voice assistant skill  
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)** page.
+
+<InfoCallout title="Best option">  
+For content teams, deploying as an **API** makes it easy to integrate with CMS platforms like WordPress or HubSpot.  
+</InfoCallout>  
+
+<Spacer size="lg" />  
+
+## Customization Tips  
+<TipCallout title="Example customization">  
+Need **WordPress-ready articles**? Add a Code block to format output in WordPress HTML structure with H2/H3 headers, meta descriptions, and keyword tags.  
+</TipCallout>  
+- **Search parameters** – Increase `sourcesLimit` (default 4) for more research data  
+- **AI models** – Use **GPT-5** for quality, **GPT-5-mini** for speed
+- **Scraping protection** – Enable `antiScrapingProtection` for bot-protected sites  
+- **Time-based research** – Set `timeRange` (day/week/month) for fresher content  
+- **Error handling** – Add outputs to capture failed URLs for review  
+- **Content validation** – Insert a **Classifier** to check for SEO compliance  
+- **Rate limiting** – Add **FSleep** between scrapes to avoid being blocked  
+- **Custom formatting** – Use a **Code** block to output in CMS-friendly formats (WordPress, Drupal, Markdown)  
+

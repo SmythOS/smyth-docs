@@ -1,0 +1,91 @@
+---
+title: Memory Write Multi
+description: Store multiple key–value pairs in memory in a single operation.
+keywords: [Memory Write Multi, memory, key, value, storage, state, workflow, bulk write, persistent]
+toc_max_heading_level: 2
+---
+
+# Memory Write Multi Component
+
+Use the **Memory Write Multi** component to save multiple key–value pairs at once under a named memory. This is useful when you need to persist structured objects such as user profiles or settings.
+
+<InfoCallout title="Why this matters">
+Instead of writing keys one by one, you can pass a JSON object and store all values in a single step. This keeps your workflows simpler and more efficient.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Step 1: Configure Memory Name
+
+As with all memory operations, you must set a **Memory Name**. This groups related keys together and ensures data consistency.
+
+| Setting         | Required? | Description                                             | Example            |
+|-----------------|-----------|---------------------------------------------------------|--------------------|
+| **Memory Name** | <Badge type="required">Yes</Badge> | Namespace or group for stored keys. | `user-profile`     |
+
+<Spacer size="md" />
+
+## Step 2: Provide JSON Object
+
+Pass a valid JSON object containing the keys and values you want to store.
+
+- Keys must be strings.  
+- Values can be strings, numbers, or booleans.  
+- Nested objects and arrays are not supported in this version.  
+
+## Example
+
+```json
+{{
+  "first-name": "John",
+  "last-name": "Smith",
+  "user-id": 12345,
+  "email": "john@email.com",
+  "age": 30,
+  "is-active": true
+}}
+```
+
+<WarningCallout title="Overwriting keys">
+If you save a value with the same key under the same memory name, the existing value is replaced.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Step 3: Choose Scope
+
+Like the single write, this component supports two scopes:
+
+- **Request**: data is available only within the current workflow execution.  
+- **Persistent**: data is stored and retrievable across executions.  
+
+<InfoCallout title="Best choice">
+Use **Persistent** when storing user profiles or session data that you want to access later.  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Best Practices
+
+- Validate your JSON before running the workflow.  
+- Use consistent naming for keys (e.g., `firstName`, `lastName`) across workflows.  
+- Avoid special characters in keys except `-` or `_`.  
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If your memory write multi isn’t working...">
+- **Error on save?** Ensure the input is a flat JSON object, not an array or nested object.  
+- **Values not updating?** Check if your workflow is writing to the correct memory name.  
+- **Unexpected overwrite?** Confirm that unique keys are used or accept that duplicates overwrite.  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What to Try Next
+
+- Retrieve stored values with the **[Memory Read Component](/docs/agent-studio/components/memory/memory-read)**.
+- Delete unused keys with the **[Memory Delete Component](/docs/agent-studio/components/memory/memory-delete)**.  
+- Store a single value with the **[Memory Write Component](/docs/agent-studio/components/memory/memory-write)**.  
+

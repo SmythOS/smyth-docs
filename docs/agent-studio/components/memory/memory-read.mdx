@@ -1,0 +1,91 @@
+---
+title: Memory Read
+description: Retrieve key–value pairs from memory during workflow execution.
+keywords: [Memory Read, memory, key, value, storage, retrieve, state, workflow, request, persistent]
+---
+
+# Memory Read Component
+
+Use the Memory Read component to retrieve a value previously stored in memory by key.
+
+<InfoCallout title="Why this matters">
+Reading memory allows you to re-use stored state in later parts of your workflow. For example, retrieving a `user-id` written earlier and passing it to an API call.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Step 1: Configure Memory Name
+
+Provide the **Memory Name** used when the values were stored. Without the correct memory name, no data can be retrieved.
+
+| Setting         | Required? | Description                                          | Example             |
+|-----------------|-----------|------------------------------------------------------|---------------------|
+| **Memory Name** | <Badge type="required">Yes</Badge> | The namespace under which values are grouped. | `session-memory`    |
+
+<Spacer size="md" />
+
+## Step 2: Provide Key 
+
+<TipCallout title="Exact match required"> Memory name and key must exactly match the values used when writing. </TipCallout> 
+
+Set the Key to fetch exactly one value.
+
+Example:
+```json 
+{ "memory_name": "session_memory", "key": "user_id" }
+```
+
+<InfoCallout title="Check the Scope">
+If you cannot find values you expect, check if they were stored in **Request** scope instead of **Persistent**.  
+</InfoCallout>
+
+## Best Practices
+
+- Always confirm the memory name matches the one used in the write operation.  
+- Use bulk reads carefully if the memory contains large objects.  
+- Combine reads with debugging to verify retrieved values.  
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If your memory read isn’t working...">
+- **Empty result?** Double-check memory name and key.  
+- **Values missing?** They may have been written in Request scope and expired after execution.  
+- **Unexpected data?** Ensure no other workflow wrote to the same memory name with overlapping keys.  
+</InfoCallout>
+
+<Spacer size="md" />
+## FAQs
+
+<InfoCallout
+  type="info"
+  title="FAQs for Memory Read"
+  collapsible
+  defaultOpen={false}
+>
+  **Does Memory Read return all keys if no key is provided**  
+  No. Memory Read retrieves exactly one key. If `key` resolves to empty at runtime, the component will not execute and you will see a validation or skipped step outcome.
+
+  **How do I reliably read a value written with TTL**  
+  Use the same `memory_name` and `key` before the TTL expires.
+
+  **Why am I getting an empty result**  
+  - Wrong `memory_name` or `key`  
+  - Value was written with `Request` scope and the run ended  
+  - TTL expired  
+  - Reading in a different environment than the write
+
+  **Can I provide the key dynamically**  
+  Yes. Map it from a prior step or input. Guard against empty values.
+
+  **How do I fetch several values**  
+  Call Memory Read for each key or iterate over a known list of keys. There is no built in read all action.
+</InfoCallout>
+
+
+## What to Try Next
+
+- Store values using the **[Memory Write Component](/docs/agent-studio/components/memory/memory-write)**.  
+- Write multiple keys at once with the **[Memory Write Multi Component](/docs/agent-studio/components/memory/memory-write-multi)**.  
+- Remove unneeded data using the **[Memory Delete Component](/docs/agent-studio/components/memory/memory-delete)**.  

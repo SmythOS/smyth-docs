@@ -1,0 +1,123 @@
+---
+title: Google Workspace Assistant Agent
+description: Automate calendar, Gmail, Sheets, and Docs operations using natural language commands with the Google Workspace Assistant, integrating via Model Context Protocol (MCP).
+keywords: [google workspace, calendar management, gmail automation, google sheets, google docs, mcp, productivity, oauth, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Google Workspace Assistant Agent
+
+The **Google Workspace Assistant Agent** operates as a **Model Context Protocol (MCP) client** to automate productivity workflows across all core Google services, enabling seamless management via natural language commands in tools like Claude, ChatGPT, or Teams.
+
+The agent's capabilities include:
+
+- **Calendar Management:** Create, search, and update events with attendee handling.
+- **Gmail Automation:** Process messages using advanced search and create draft emails.
+- **Spreadsheet Handling:** Perform data entry, retrieval, and batch operations.
+- **Document Creation & Editing:** Create new Docs and edit existing file content.
+
+All functions are seamlessly integrated using **OAuth authentication** with Google Workspace APIs.
+
+<InfoCallout title="Why use this agent?">
+This agent transforms complex, multi-step productivity tasks into simple natural language commands, drastically streamlining administrative overhead and allowing users to manage their entire Google Workspace without leaving their favorite AI assistant.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Use Cases
+
+- **Streamlining Meeting Management Operations**
+  Automatically create calendar events with proper timezone handling and attendee invitations, search for specific meetings across date ranges, and update event details as needed. Eliminate manual scheduling bottlenecks while ensuring all stakeholders receive proper notifications and meeting information is consistently maintained across your organization’s calendar system.
+
+- **Accelerating Email Workflow Automation**
+  Search through Gmail messages using advanced filters for sender, subject, and date criteria, then create properly formatted draft emails for review before sending. Transform email management from time-consuming manual tasks into streamlined automated processes, enabling rapid response times while maintaining professional communication standards.
+
+- **Enhancing Document Collaboration Efficiency**
+  Create new Google Docs with structured content, retrieve existing document information by title or ID, and edit files through strategic content updates. Reduce document management overhead from hours to minutes while ensuring team members have access to current information and collaborative editing capabilities across all organizational documentation.
+
+<TipCallout title="Pro tip">
+Use the spreadsheet functions to automatically log data from forms or external APIs directly into Google Sheets, then trigger a Gmail notification to the team upon completion, creating a closed-loop reporting system.
+</TipCallout>
+
+<Spacer size="lg" />
+
+## Testing the Agent
+
+### Step 1: Access the Agent
+
+<Image src="/docs/img/google_workspace_assistant_agent/Homepage.jpg" alt="Google Workspace Assistant Agent template in SmythOS Templates" />
+
+- Go to the **Templates** section in the sidebar
+- Navigate to the **Ops** Tab
+- Find the **Google Workspace Assistant Agent** and click **Remix**
+
+<Image src="/docs/img/google_workspace_assistant_agent/Remix.jpg" alt="Google Workspace Assistant Agent template Remix in SmythOS" />
+
+- The agent workspace will display showing all workflow components
+- **Authentication Note:** Authenticate all the components that require Google OAuth Credentials (Calendar, Gmail, Sheets, Docs).
+
+<Spacer size="md" />
+
+### Step 2: Run the Agent
+
+You can test the agent using either of these methods:
+
+**Option 1: From the top toolbar**
+
+<Image src="/docs/img/google_workspace_assistant_agent/Form Preview.jpg" alt="Testing Google Workspace Assistant Agent from Form Preview" />
+
+1. Click **Test** (top-right)
+2. Switch to the **Form Preview** tab
+3. Fill the form details with your inputs
+4. Click **Run** to execute the workflow
+
+**Option 2: Form Preview from the Canvas**
+
+1. Click the **Form Preview** button on any of the APIEndpoint blocks, for example the **“Create Cal Event”** one.
+2. Enter the input fields and fill the form. For example:
+   - `Title`: `Weekly Marketing Strategy Review`
+   - `Description`: `Discuss upcoming campaigns, review performance metrics, and align team objectives for Q1 initiatives.`
+   - `Start DateTime`: `2025-01-15T14:00:00-08:00`
+   - `End DateTime`: `2025-01-15T15:30:00-08:00`
+   - `Attendees`: `[marketing@company.com, sales@company.com, analytics@company.com]`
+3. Click **Run** to test and view results.
+
+<Spacer size="lg" />
+
+## Deploying the Agent
+
+### Step 1: Start Deployment
+
+<Image src="/docs/img/google_workspace_assistant_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of the Studio interface)
+- Pick your environment:
+  - **Agent Cloud** (SmythOS-hosted, recommended)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+This agent is designed for **Model Context Protocol (MCP)** deployment to integrate with other large language models and conversational assistants.
+
+- **MCP** – Integrate via Model Context Protocol (MCP) for structured, context-aware interactions with platforms like Claude, ChatGPT, or Teams.
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+Deploying as **MCP** is the intended use case. This allows your team to manage Google Workspace tasks using natural language prompts within their existing conversational AI tools.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+To track project spending, modify the **Spreadsheet Operations** component to automatically enter data from a cost tracking form into a designated Google Sheet, ensuring the cell ranges and column formats match precisely for accurate reporting.
+</TipCallout>
+
+- **MCP Customization** – Configure the agent within any MCP-compatible platform (Claude, ChatGPT, Teams) by adjusting OAuth credentials and API endpoints, enabling seamless deployment across different productivity environments without code modifications
+- **Calendar Settings** – Adjust event details like timezones and reminders to fit your team’s scheduling preferences
+- **Spreadsheet Operations** – Customize cell ranges and column mappings to match existing data structures, enable batch processing for multiple row operations and implement validation rules for consistent data formatting across teams

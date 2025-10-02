@@ -1,0 +1,127 @@
+---
+title: Marketing Amplifier Agent
+description: Automate content creation (GPT-5, WordPress, Pexels) and multi-channel social distribution (Ayrshare) for maximum reach and streamlined editorial workflow.
+keywords: [content creation, wordpress, social media automation, ayrshare, gpt-5, pexels, content marketing, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Marketing Amplifier Agent
+
+The **Marketing Amplifier Agent** automates the entire **content creation and multi-channel distribution lifecycle** through two integrated workflows, eliminating manual bottlenecks from drafting to publishing.
+
+The agent performs two core functions:
+
+1.  **Content Generation & Publishing:** Generates WordPress articles using **GPT-5**, selects categories/SEO metadata, finds Pexels images, creates **draft posts** with media, and sends **Gmail notifications** for review.
+2.  **Social Amplification:** Amplifies published posts by creating social media teasers, fetching engaging images, and distributing content across multiple platforms via **Ayrshare integration**.
+
+<InfoCallout title="Why use this agent?">
+This agent is a complete content-to-distribution solution. It drastically reduces content production cycles, ensures consistent quality, and maximizes the reach of every piece of content with minimal manual effort.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Use Cases
+
+- **Streamlining Content Marketing Operations**
+  Automatically generate WordPress articles from topic ideas using GPT-5, complete with SEO optimization, category selection, and feature images. Eliminate manual content creation bottlenecks while maintaining consistent quality and ensuring all posts are draft-ready with proper metadata and visual assets for immediate review and publishing.
+
+- **Scaling Social Media Distribution**
+  Amplify published blog content across multiple social platforms through Ayrshare integration with platform-optimized teasers and engaging visuals. Transform single blog posts into comprehensive multi-channel campaigns, maximizing reach and engagement without manual social media management overhead.
+
+- **Automating Editorial Workflow Management**
+  Receive instant Gmail notifications when new articles are created and ready for review, enabling rapid editorial oversight and publication scheduling. Reduce content production cycle times from days to hours while maintaining editorial control and ensuring consistent brand voice across all published materials.
+
+<TipCallout title="Pro tip">
+Link the social amplification workflow to a WordPress webhook that triggers immediately upon a post status changing from 'draft' to 'published' for near-instant distribution across all social channels.
+</TipCallout>
+
+<Spacer size="lg" />
+
+## Testing the Agent
+
+### Step 1: Access the Agent
+
+<Image src="/docs/img/marketing_amplifier_agent/Homepage.jpg" alt="Marketing Amplifier Agent template in SmythOS Templates" />
+
+- Go to the **Templates** section in the sidebar
+- Navigate to the **Marketing** Tab
+- Find the **Marketing Amplifier Agent** and click **Remix**
+
+<Image src="/docs/img/marketing_amplifier_agent/Remix.jpg" alt="Marketing Amplifier Agent template Remix in SmythOS" />
+
+- The agent workspace will display showing all workflow components
+- **Authentication Note:** Authenticate all components that require Google OAuth Credentials and API keys for **WordPress**, **Pexels**, and **Ayrshare**.
+
+<Spacer size="md" />
+
+### Step 2: Run the Agent
+
+You can test the agent using either of these methods:
+
+**Option 1: From the top toolbar**
+
+<Image src="/docs/img/marketing_amplifier_agent/Form Preview.jpg" alt="Testing Marketing Amplifier Agent from Form Preview" />
+
+1. Click **Test** (top-right)
+2. Switch to the **Form Preview** tab
+3. Fill the form details with your inputs
+4. Click **Run** to execute the workflow
+
+**Option 2: Form Preview from the Canvas**
+
+1. Click the **Form Preview** button on any of the APIEndpoint blocks, for example, the **“Article-specs”** one.
+2. Enter the input fields and fill the form. For example:
+   - `Topic`: `The Benefits of Mindfulness Meditation for Workplace Productivity`
+   - `Word Count`: `1200`
+   - `Style`: `Professional and informative`
+   - `Author ID`: `3`
+   - `Email ID`: `editor@waitplay.com`
+   - `Domain Name`: `waitplay`
+3. Click **Run** to test and view results.
+
+<Spacer size="lg" />
+
+## Deploying the Agent
+
+### Step 1: Start Deployment
+
+<Image src="/docs/img/marketing_amplifier_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of the Studio interface)
+- Pick your environment:
+  - **Agent Cloud** (SmythOS-hosted, recommended)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Embed your personalized GPT model with customized instructions, behaviors, or tools.
+- **Chatbot** – Deploy a conversational agent that can interact with users via chat interfaces.
+- **LLM** – Connect directly to a large language model using API keys for flexible integrations.
+- **API** – Use API endpoints to programmatically call your agent from applications or services.
+- **MCP** – Integrate via Model Context Protocol (MCP) for structured, context-aware interactions.
+- **Alexa** – Deploy your agent as an Alexa skill, enabling voice-based user interactions.
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+For seamless integration into a content calendar system (like Airtable or Notion), deploy to **API**. This allows you to trigger content generation simply by adding a new topic to a row in your calendar.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+Refine your content generation by modifying the `GenAILLM` component to include a mandatory check for **readability scores** (e.g., Flesch-Kincaid) before generating the final draft, ensuring content is always accessible to your target audience.
+</TipCallout>
+
+- **Content Generation** – Switch between `GPT-5-mini` for speed vs `GPT-4o` for enhanced quality, adjust temperature settings (0.7-1.0) for creativity balance, and modify word count ranges to match your content strategy requirements
+- **WordPress Categories** – Update Category Selector component with your site’s specific category IDs and names, add custom category logic based on content themes, or integrate taxonomy management for automated classification
+- **SEO Optimization** – Customize Yoast SEO Generator prompts for brand-specific focus keywords, adjust meta description character limits (120-160), and add schema markup generation for enhanced search visibility
+- **Social Media Platforms** – Configure Ayrshare integration to target specific platforms (LinkedIn, Twitter, Facebook), customize post templates per platform, and adjust posting schedules for optimal engagement timing
+- **Notification Preferences** – Customize Gmail templates with additional metadata fields, add Slack/Teams notifications for immediate alerts

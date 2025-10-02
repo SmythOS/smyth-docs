@@ -1,66 +1,129 @@
-# Tutorial: YouTube to SEO Content Maker Agent
+---
+title: YouTube to SEO Content Maker Agent
+description: Learn how to use, set up, and test the YouTube to SEO Content Maker Agent in SmythOS to generate high-quality, SEO-optimized content from video transcripts.
+keywords: [youtube, seo content, content generation, video transcript, SmythOS, rapidapi]
+toc_max_heading_level: 2
+---
 
-This agent is designed to  generate content based on YouTube transcripts.
+# YouTube to SEO Content Maker Agent
 
-**Video Tutorial:** The create_content endpoint accepts YouTube video IDs, which are the characters found after `?v=` in the video URL (e.g., in `https://www.youtube.com/watch?v=4FT5RYuifwE`, the ID is `4FT5RYuifwE`).
+The **YouTube to SEO Content Maker Agent** is designed to transform a YouTube video's transcript into **high-quality, SEO-optimized written content** with minimal input.
+
+You provide a YouTube video ID, and the agent will:
+
+- Fetch the full transcript from the video
+- Use the transcript as a source to write a new piece of content
+- Generate structured, ready-to-publish content that can be optimized for SEO
+
+**Video Tutorial:** The `create_content` endpoint accepts YouTube video IDs, which are the characters found after `?v=` in the video URL (e.g., in `https://www.youtube.com/watch?v=4FT5RYuifwE`, the ID is `4FT5RYuifwE`).
 
 <Youtube videoId="DAMe6I9nZZ8" title="SmythOS - YouTube to SEO Content Maker Agent" />
 
-## RapidAPI Credentials
+<InfoCallout title="Why use this agent?">
+This agent helps content marketers and SEO specialists **save hours** by instantly repurposing video content into blog posts, articles, or other written formats, maximizing content reach and search visibility.
+</InfoCallout>
 
-RapidAPI provides a variety of endpoints for various purposes. Follow the following steps to get your Rapid API Key.
+<Spacer size="lg" />
 
-1. Go to https://rapidapi.com/
-2. If you do not have an account, proceed to create one by following the registration process.
-3. After completing the sign up process, you will be assigned a default API key that you can access [here](https://rapidapi.com/developer/apps). 
+## Use Cases
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/1.png" alt="alt text" />
+- **Repurposing Content**
+  Quickly turn your existing video library into a steady stream of blog posts to drive organic traffic.
 
-4. Copy your API key using the `copy icon`. You can also click the eye icon to view your API key. 
+- **SEO and Topic Authority**
+  Expand your website's content footprint by covering topics discussed in detail in your videos, boosting your site's topical authority.
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/2.png" alt="alt text" />
+- **Content Workflow Automation**
+  Automate the first draft of written content, allowing writers to focus on editing, optimization, and promotion.
 
-5. Store your API Key in a secure location, or you can add it to your vault. Click [here](/docs/agent-studio/key-concepts/vault?id=keys) to learn more about adding your API keys to the vault.
+<TipCallout title="Pro tip">
+After the agent generates the draft, use a separate SEO optimization agent (or a custom prompt) to inject target keywords and meta descriptions for maximum ranking potential.
+</TipCallout>
 
-### Youtube Transcriptor Subscription
+<Spacer size="lg" />
 
-1. Navigate to this [link](https://rapidapi.com/benrhzala90/api/youtube-transcriptor) to subscribe to the Youtube Transcriptor.
-2. Select a subscription plan from the options available: Basic (free) & Pro. The basic plan allows 20 API requests per month for free. 
+## Testing the Agent
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/3.png" alt="alt text" />
+### Step 1: Subscribe to the YouTube Transcriptor API
 
-3. Then, click the `Subscribe` button to complete the subscription.
+This agent requires an external API to fetch the video transcripts.
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/4.png" alt="alt text" />
+1. Go to [RapidAPI](https://rapidapi.com/) and create an account.
+2. Navigate to the [Youtube Transcriptor API](https://rapidapi.com/benrhzala90/api/youtube-transcriptor).
+3. Select a subscription plan (Basic is free for 20 requests/month) and click `Subscribe`.
 
-## Agent Setup
+<Spacer size="md" />
 
-1. In SmythOS, navigate to the templates tab.
+### Step 2: Access the Agent and Configure Credentials
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/5.png" alt="alt text" />
+<Image src="/docs/img/youtube_to_seo_content_maker_agent/Homepage.jpg" alt="Templates section in SmythOS" />
 
-2. You can scroll down to find the `Youtube to SEO Content Maker` agent or simply search for it in the Search tab, then click the `Remix` button.
+- Go to the **Templates** section in the sidebar.
+- Search for **YouTube to SEO Content Maker Agent**.
+- Click **Remix** to open the workflow in Agent Studio.
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/6.png" alt="alt text" />
+<Image src="/docs/img/youtube_to_seo_content_maker_agent/Remix.jpg" alt="YouTube to SEO Content Maker Agent template Remix in SmythOS" />
 
-3. Allow the template to initialize and configure. 
+<Spacer size="md" />
 
-### Get Youtube Transcript Component
+#### Connect to RapidAPI
 
-1. Click the gear icon to open the settings, then click the `edit` button situated in the headers section.
+This agent uses the RapidAPI platform for accessing YouTube transcripts. Follow our guide on [Connecting to RapidAPI](/docs/agent-templates/api-connections/rapid-api) to set up your API key within the agent's workflow.
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/7.png" alt="alt text" />
+<Spacer size="md" />
 
-2. Click the key icon and select your stored Rapid API Key from your vault, then click `Save` to continue.
+### Step 3: Run the Agent
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/8.png" alt="alt text" />
+<Image src="/docs/img/youtube_to_seo_content_maker_agent/Form Preview.jpg" alt="Form preview for testing the agent" />
 
-3. Then, don’t forget to click the check icon to save your configuration.
+1. Click **Test** (top-right) and switch to **Form Preview**.
+2. Fill in the input fields.
+3. Enter a valid **YouTube Video ID** (e.g., `4FT5RYuifwE`).
+4. Click **Run** to generate the SEO content report.
 
-<Image src="/docs/img/youtube_to_seo_content_maker_agent/9.png" alt="alt text" />
+<Spacer size="lg" />
 
-1. You’re all set!
+## Deploying the Agent
 
-## Live Training Video
+### Step 1: Start Deployment
 
-<Youtube videoId="BGwWQHuvh9M" title="SmythOS - YouTube to SEO Content Maker Live Training" />
+<Image src="/docs/img/youtube_to_seo_content_maker_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of Agent Studio)
+- Pick your environment:
+  - **Agent Cloud** (default, fully managed)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Add instructions, behaviors, or tools
+- **Chatbot** – Deploy as a chat interface
+- **LLM** – Connect to large language models with API keys
+- **API** – Call your agent programmatically
+- **MCP** – Use Model Context Protocol for structured workflows
+- **Alexa** – Launch as a voice assistant skill
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+For content teams, deploy to **API** to integrate the agent directly into your content management system (CMS) or workflow automation tools.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+Want a **fully structured blog post**? Customize the prompt to require a **Meta Title, H1 Tag, Table of Contents, Introduction, 3-5 Main Sections (H2), and a Conclusion**.
+</TipCallout>
+
+- **Content Format** – Adjust the final prompt to generate content as a blog post, social media captions, email newsletter, or an FAQ section.
+- **AI Models** – Use **GPT-5** for the highest quality, nuanced articles, or **GPT-5-mini** for faster drafting.
+- **Style and Tone** – Explicitly define the desired tone (e.g., professional, casual, technical) in the content generation prompt.
+- **Transcript Length** – Introduce a step to summarize long transcripts before generating the final content, ensuring the output is focused.
+- **Language** – Add a translation step if you need to generate content in multiple languages from a single English video.

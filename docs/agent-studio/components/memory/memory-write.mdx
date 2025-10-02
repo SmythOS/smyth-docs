@@ -1,0 +1,133 @@
+---
+title: Memory Write
+description: Store a single key–value pair in memory for use across workflow executions or within a single request.
+keywords: [Memory Write, memory, key, value, storage, state, workflow, request, persistent]
+---
+
+# Memory Write Component
+
+Use the **Memory Write** component to save a single key–value pair under a named memory. This allows you to persist information across agent workflows or hold temporary data during execution.
+
+<InfoCallout title="Why this matters">
+Memory gives agents short-term and long-term context. By writing values to memory, you can carry state forward (e.g., storing a `userId`) or share data across different components in a workflow.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What you need to know
+
+- memory_name is the namespace. Read and delete operations must use the same name.
+- key identifies the value.
+- value is any JSON serializable data.
+- scope controls how long the value lives. Choose Request or TTL.
+
+<WarningCallout title="Important"> If you omit a memory name, the value cannot be retrieved later. </WarningCallout> 
+
+<Spacer size="md" />
+
+## Step 1: Configure Memory Name
+
+Every memory operation requires a **Memory Name**. This groups related keys together and prevents clashes between different workflows.
+
+| Setting            | Required? | Description                                                                 |
+|--------------------|-----------|-----------------------------------------------------------------------------|
+| **Memory Name**    | <Badge type="required">Yes</Badge> | The namespace or group under which keys are stored. | `session-memory` |
+
+<WarningCallout title="Important">
+If you omit a memory name, the values cannot be retrieved later.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Step 2: Define Key and Value
+
+Provide the key to identify the data and the value you want to store.  
+You can hard code values or map them dynamically from workflow inputs or previous components.
+
+| Field     | Required? | Description                           | Example                |
+|-----------|-----------|---------------------------------------|------------------------|
+| **Key**   | <Badge type="required">Yes</Badge> | Identifier for the value.            | `user-id`              |
+| **Value** | <Badge type="required">Yes</Badge> | The content to store.                | `12345`                |
+
+## Example
+
+```json
+{{
+  "key": "user-id",
+  "value": 12345
+}}
+```
+
+<TipCallout title="Dynamic inputs">
+Map inputs from other components (e.g., API response fields) to automatically populate key–value pairs at runtime.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Step 3: Choose Scope
+
+Memory writes can be scoped as:
+
+| Scope   | Lifetime                          | Accessible from other workflows                | Use cases                                                         |
+| ------- | --------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
+| Request | Only during the current execution | No                                             | One run secrets, ephemeral session IDs, intermediate calculations |
+| TTL     | Until the selected TTL expires    | Yes, as long as you use the same `memory_name` | Short lived tokens, user preferences, cached lookups              |
+
+When you choose TTL, the component shows a TTL picker with preset durations such as 5 minutes, 15 minutes, 1 hour, 1 day, and up to 1 week.
+
+<InfoCallout title="Default behavior"> If you select **Request**, values are cleared once the workflow ends. They cannot be accessed in another agent skill or referenced by a separate workflow. </InfoCallout> 
+
+<Spacer size="md" />
+
+## Best Practices
+
+- **Always use descriptive keys** so values are easy to identify.  
+- **Reuse memory names** consistently across related components.  
+- **Avoid overwriting unintentionally**: writing with the same key under the same memory name replaces the old value.  
+
+<Spacer size="md" />
+
+## Troubleshooting Tips
+
+<InfoCallout title="If your memory write isn’t working...">
+- **Values not persisting?** Check if you set scope to `Request`. Switch to persistent memory if you need the value later.  
+- **Cannot read value back?** Verify that the same memory name is used in both Write and Read.  
+- **Key collision?** Make sure different workflows do not reuse the same memory name + key combination unless overwriting is intended.  
+</InfoCallout>
+
+<Spacer size="md" />
+
+## FAQs
+<InfoCallout
+  type="info"
+  title="FAQs for Memory Write"
+  collapsible
+  defaultOpen={false}
+>
+  **What is the difference between Request and TTL scopes**  
+  Request scope values exist only during the current execution and are cleared when the run ends.  
+  TTL scope values persist until the selected TTL expires and can be read from other workflows or skills that use the same `memory_name`.
+
+  **How do I share a value with another workflow or skill**  
+  Write with `scope: "TTL"` and set an appropriate `ttl`. In the other workflow, read with the same `memory_name` and `key` before TTL expiry.
+
+  **Can I store objects or only strings**  
+  Any JSON serializable value works. Keep values small for faster reads.
+
+  **What happens if I write the same key again**  
+  The new write overwrites the existing value under the same `memory_name` and `key`.
+
+  **Why can’t I read a value I just wrote**  
+  Common causes:
+  - Wrote with `Request` scope and the run ended  
+  - Mismatched `memory_name` or `key`  
+  - TTL expired before the read  
+  - Reading from a different environment than the write
+</InfoCallout>
+
+## What to Try Next
+
+- Retrieve stored values with the **[Memory Read Component](/docs/agent-studio/components/memory/memory-read)**.  
+- Store multiple keys at once using the **[Memory Write Multi Component](/docs/agent-studio/components/memory/memory-write-multi)**.  
+- Clean up unused data with the **[Memory Delete Component](/docs/agent-studio/components/memory/memory-delete)**.  
+

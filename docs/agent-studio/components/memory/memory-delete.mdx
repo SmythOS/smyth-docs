@@ -1,0 +1,111 @@
+---
+title: Memory Delete
+description: Remove key value pairs from SmythOS memory to prevent stale data and keep workflows clean.
+keywords: [Memory Delete, SmythOS memory, delete key, remove value, workflow cleanup, TTL, Request scope, agent memory]
+toc_max_heading_level: 2
+---
+
+# Memory Delete Component
+
+Use the **Memory Delete** component to remove a stored value from a named memory. This is useful for clearing temporary data, preventing outdated values from being reused, and keeping long running workflows tidy.
+
+<InfoCallout title="Why this matters">
+Deleting values reduces the risk of relying on stale data and helps you manage storage hygiene across workflows.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Step 1: Configure Memory Name
+
+Provide the **Memory Name** that groups the stored values. Only keys under this memory name are affected.
+
+| Setting         | Required? | Description                                   | Example           |
+|-----------------|-----------|-----------------------------------------------|-------------------|
+| **Memory Name** | <Badge type="required">Yes</Badge> | Namespace where the key exists. | `session_memory`  |
+
+<Spacer size="md" />
+
+## Step 2: Provide Key
+
+Specify the exact **Key** to remove. Only that key is deleted. Other keys in the same memory remain intact.
+
+```json
+{
+  "memory_name": "session_memory",
+  "key": "user_id"
+}
+```
+
+<TipCallout title="Dynamic keys">
+You can hard code the key or map it from a previous component, for example `{{Login.user_id}}`.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Step 3: Understand Scope Behavior
+
+Deletion works regardless of how the value was written.
+
+- **Request** scope values  
+  Deleting removes the value for the current execution. If the run is about to end, you may not need to delete since Request values are cleared automatically, but deleting can be useful to prevent downstream reuse in the same run.
+
+- **TTL** scope values  
+  Deleting removes the value from persistent storage immediately, even if the TTL has not expired. This prevents access from other skills or workflows that use the same `memory_name`.
+
+<InfoCallout title="Careful with TTL deletes">
+TTL backed values are shared across workflows that use the same memory name. Deleting them is permanent and cannot be undone.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Best practices
+
+- Confirm the memory name and key before deleting.  
+- Use unique memory names per feature or tenant to avoid cross workflow interference.  
+- For Request scope, prefer end of run deletes only when downstream steps could still read the value in the same execution.  
+- For TTL scope, set the shortest TTL that works, and delete as soon as the value is no longer needed.
+
+<Spacer size="md" />
+
+## Troubleshooting
+
+<InfoCallout title="If your memory delete is not working">
+- **Key not deleted**. Verify exact spelling of `memory_name` and `key`.  
+- **Still seeing old data**. Refresh and ensure no other component rewrites the key after deletion.  
+- **Unexpected wipe**. Check that other workflows are not using the same `memory_name` and key.  
+- **Validation issues**. Ensure both `memory_name` and `key` resolve to non empty values at runtime.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## FAQs
+
+<InfoCallout
+  type="info"
+  title="FAQs for Memory Delete"
+  collapsible
+  defaultOpen={false}
+>
+  **Do I need to delete Request scope values**  
+  Not strictly. They are cleared at the end of the run. Delete mid run if you must prevent reuse by downstream steps.
+
+  **Does delete work across workflows**  
+  Yes for TTL stored values. Deleting removes them immediately for all workflows that share the same `memory_name`.
+
+  **What happens if I delete a non existing key**  
+  You get a not found or no op response. Nothing is removed.
+
+  **How can I bulk delete keys**  
+  Use multiple Memory Delete components or iterate over a list of keys. There is no built in delete all action.
+
+  **Should I delete TTL values or just let them expire**  
+  Prefer the shortest useful TTL. Delete early when the value becomes sensitive or incorrect to prevent reuse.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## What to try next
+
+- Store a value with **[Memory Write Component](/docs/agent-studio/components/memory/memory-write)**.  
+- Save multiple values at once with **[Memory Write Multi Component](/docs/agent-studio/components/memory/memory-write-multi)**.  
+- Retrieve a value with **[Memory Read Component](/docs/agent-studio/components/memory/memory-read)**.  

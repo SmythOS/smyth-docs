@@ -37,9 +37,10 @@ Follow the standard instructions in the [Data Spaces guide](/docs/agent-collabor
 
 1. Open your Data Space
 2. Click **Add Data Source**
-3. Choose **URL** as the source type
-4. Enter your sitemap URL (e.g., `https://example.com/sitemap.xml`)
-5. Save
+3. Enter a suitable name for the data source as this is mandatory
+4. Enter your sitemap URL (e.g., `https://example.com/sitemap.xml`) in the last field
+<Image src="/docs/img/data_pool/data_spaces/add-sitemap-xml.png" alt="Sitemap XML format and where to enter it in Data Space SmythOS"/>
+5. Click **Add Data Source* for it to start indexing.
 
 SmythOS begins crawling and indexing immediately. You can monitor progress from the Data Pool dashboard.
 
@@ -63,17 +64,17 @@ Private, password-protected, or file-based sitemap uploads are not supported. Si
 
 Once indexing is complete, the content is available to agents via these components:
 
-### [RAG Search](/docs/agent-studio/components/rag-data/rag-search)
+### RAG Search
 
-Use this to retrieve semantically relevant results from the sitemap content. Configure it to query the correct Data Space, adjust result count, and toggle metadata inclusion.
+Use [RAG Search](/docs/agent-studio/components/rag-data/rag-search) to retrieve semantically relevant results from the sitemap content. Configure it to query the correct Data Space, adjust result count, and toggle metadata inclusion.
 
-### RAG Remember(/docs/agent-studio/components/rag-data/rag-remember)
+### RAG Remember
 
-Enhance a sitemap-based Data Space with additional content like manually written summaries or notes. This is useful when you want to enhance the crawled data.
+Enhance a sitemap-based Data Space with additional content like manually written summaries or notes using [RAG Remember](/docs/agent-studio/components/rag-data/rag-remember). This is useful when you want to enhance the crawled data.
 
-### RAG Forget(/docs/agent-studio/components/rag-data/rag-forget)
+### RAG Forget
 
-Only manually added content can be removed using this component. Sitemap-crawled content is persistent and cannot be deleted through workflows.
+Only manually added content can be removed using the [RAG Forget](/docs/agent-studio/components/rag-data/rag-forget) component. Sitemap-crawled content is persistent and cannot be deleted through workflows.
 
 <InfoCallout title="Combine crawled and manual data">
 You can add custom inputs to enhance sitemap-based knowledge without altering the original crawled material.
@@ -83,18 +84,18 @@ You can add custom inputs to enhance sitemap-based knowledge without altering th
 
 ### Single domain
 
-Use one Data Space for each domain and add its sitemap. Best for simple websites or small teams.
+Use one [Data Space](/docs/agent-collaboration/data-pool/data-spaces) for each domain and add its sitemap. Best for simple websites or small teams.
 
 ### Multi-domain
 
-Use separate Data Spaces for each domain. Helps keep content clean and improves targeted search.
+Use separate [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) for each domain. Helps keep content clean and improves targeted search.
 
 ### By content type
 
 Segment by purpose (e.g., product pages vs. blog posts) using content-specific sitemaps.
 
 <InfoCallout title="Use consistent naming">
-Name each Data Space clearly to simplify long-term management. For example: `product-sitemap`, `blog-sitemap`, `support-content`.
+Name each [Data Space](/docs/agent-collaboration/data-pool/data-spaces) clearly to simplify long-term management. For example: `product-sitemap`, `blog-sitemap`, `support-content`.
 </InfoCallout>
 
 ## Advanced: Custom Storage

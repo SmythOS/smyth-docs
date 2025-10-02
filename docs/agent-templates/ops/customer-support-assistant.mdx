@@ -1,0 +1,120 @@
+---
+title: Customer Support Assistant Agent
+description: Automate customer service by optimizing queries, searching knowledge bases (RAG), and generating professional, cited, and empathetic responses using GPT-5-mini.
+keywords: [customer support, customer service automation, gpt-5, knowledge base, rag, support history, ai-powered support, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Customer Support Assistant Agent
+
+The **Customer Support Assistant Agent** automates customer service through an intelligent workflow that ensures **accurate and empathetic support interactions** at scale.
+
+When a customer submits a question, the agent:
+
+- Optimizes the query using **GPT-5-mini**.
+- Searches the company **knowledge base** and **support history database** (RAG-based).
+- Generates a professional, formatted response with proper citations.
+- Includes **escalation recommendations** for complex issues.
+
+<InfoCallout title="Why use this agent?">
+This agent eliminates manual ticket routing and information gathering, providing instant, accurate, and consistent responses. It maximizes the value of existing knowledge assets while drastically reducing response times from hours to seconds.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Use Cases
+
+- **Streamlining Customer Support Operations**
+  Automatically resolve customer inquiries by searching company knowledge base and support history using AI-powered query optimization. Eliminate manual ticket routing and information gathering while providing instant, accurate responses with proper formatting and source citations for consistent support quality.
+
+- **Scaling Knowledge Base Utilization**
+  Transform static documentation and past support conversations into dynamic, searchable resources that provide contextual answers to customer questions. Maximize the value of existing knowledge assets while reducing response times from hours to seconds without compromising accuracy or personalization.
+
+<TipCallout title="Pro tip">
+Integrate the agent's API endpoint directly into your existing help desk software (e.g., Zendesk, Freshdesk) to automatically draft the first response to every incoming ticket, freeing up human agents for high-complexity escalations.
+</TipCallout>
+
+<Spacer size="lg" />
+
+## Testing the Agent
+
+### Step 1: Access the Agent
+
+<Image src="/docs/img/customer_support_assistant_agent/Homepage.jpg" alt="Customer Support Assistant Agent template in SmythOS Templates" />
+
+- Go to the **Templates** section in the sidebar
+- Navigate to the **Ops** Tab
+- Find the **Customer Support Assistant Agent** and click **Remix**
+
+<Image src="/docs/img/customer_support_assistant_agent/Remix.jpg" alt="Customer Support Assistant Agent template Remix in SmythOS" />
+
+- The agent workspace will display showing all workflow components
+- **RAG Setup:** Set up the RAG-based components with relevant data-spaces containing your company knowledge base and support history.
+
+<Spacer size="md" />
+
+### Step 2: Run the Agent
+
+You can test the agent using either of these methods:
+
+**Option 1: From the top toolbar**
+
+<Image src="/docs/img/customer_support_assistant_agent/Form Preview.jpg" alt="Testing Customer Support Assistant Agent from Form Preview" />
+
+1. Click **Test** (top-right)
+2. Switch to the **Form Preview** tab
+3. Fill the form details with your inputs
+4. Click **Run** to execute the workflow
+
+**Option 2: Form Preview from the Canvas**
+
+1. Click the **Form Preview** button on the APIEndpoint block labeled **“Answer Question”**.
+2. Enter the input fields and fill the form. For example:
+   - `Question`: `How do I reset my password? I’ve been trying to log into my account but it says my credentials are invalid. I received the welcome email last week but now I can’t access my dashboard. Can you help me understand the password reset process and tell me how long it typically takes?`
+3. Click **Run** to test and view results.
+
+<Spacer size="lg" />
+
+## Deploying the Agent
+
+### Step 1: Start Deployment
+
+<Image src="/docs/img/customer_support_assistant_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of the Studio interface)
+- Pick your environment:
+  - **Agent Cloud** (SmythOS-hosted, recommended)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Embed your personalized GPT model with customized instructions, behaviors, or tools.
+- **Chatbot** – Deploy a conversational agent that can interact with users via chat interfaces.
+- **LLM** – Connect directly to a large language model using API keys for flexible integrations.
+- **API** – Use API endpoints to programmatically call your agent from applications or services.
+- **MCP** – Integrate via Model Context Protocol (MCP) for structured, context-aware interactions.
+- **Alexa** – Deploy your agent as an Alexa skill, enabling voice-based user interactions.
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+For integration with existing help desk software, deploy as an **API**. For a customer-facing solution embedded on your website, deploy as a **Chatbot**.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+To prioritize speed and consistency in responses, modify the `Response Generation` component to use a low temperature setting (0.0-0.1) and rely more heavily on the information retrieved from the RAG database rather than creative language generation.
+</TipCallout>
+
+- **Response Generation** – Switch between `GPT-5-mini` for faster responses vs `GPT-4o` for enhanced accuracy, adjust temperature settings (0.0-0.3) for consistency vs creativity balance, and modify token limits to control response length based on your support complexity requirements
+- **Knowledge Base Sources** – Update `DataSourceLookup` namespaces with your company’s specific document collections, adjust `topK` values (3-10) for result quantity, and configure score thresholds (0.3-0.7) to filter relevant information quality
+- **Query Optimization** – Customize `Query Optimizer` prompts to include industry-specific terminology, add company product names and feature keywords, and adjust search strategies for technical vs general customer inquiries
+- **Response Formatting** – Modify `Formatted Response Generator` prompts for brand-specific tone and style, customize escalation triggers for complex issues, and add company-specific signature blocks or contact information for seamless customer experience

@@ -1,0 +1,131 @@
+---
+title: Sales Pipeline Assistant Agent
+description: Automate B2B lead qualification, enrichment, and scoring using GPT-5, integrating with HubSpot and Slack to alert sales teams of high-potential prospects.
+keywords: [lead qualification, sales pipeline, hubspot, slack, gpt-5, sales enablement, SmythOS]
+toc_max_heading_level: 2
+---
+
+# Sales Pipeline Assistant Agent
+
+The **Sales Pipeline Assistant Agent** automates the entire **lead qualification and enrichment process** for B2B sales teams, ensuring reps focus only on high-potential prospects.
+
+The agent will:
+
+- Gather company data online (enrichment).
+- Use **GPT-5** to extract key business information (e.g., company size, industry, funding).
+- Score leads using mathematical logic based on qualification criteria.
+- Create or update **HubSpot contacts**.
+- Send **Slack notifications** for high-scoring leads (hot prospects).
+
+<InfoCallout title="Why use this agent?">
+This agent eliminates manual lead research, scales your Sales Development Operations (SDO), and drastically reduces lead response times by instantly alerting sales teams to the hottest prospects that meet your Ideal Customer Profile (ICP).
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Use Cases
+
+- **Automating Lead Qualification for B2B Sales**
+  Process incoming HubSpot leads automatically by enriching company data, applying qualification rules, and scoring prospects based on ideal customer profile criteria. Eliminate manual research time while ensuring sales teams focus only on high-potential leads that meet specific business requirements.
+
+- **Scaling Sales Development Operations**
+  Handle high volumes of inbound leads across multiple channels with consistent qualification standards. Automatically research company backgrounds, assess fit against ICP criteria, and route qualified prospects to appropriate sales representatives with complete enriched profiles and priority scoring.
+
+- **Improving Sales Team Response Times**
+  Get instant Slack notifications for hot leads scoring 80+ points, enabling immediate follow-up on high-value prospects. Reduce lead response time from hours to minutes while ensuring no qualified opportunities slip through the cracks in your sales funnel.
+
+<TipCallout title="Pro tip">
+Use the agent's scoring mechanism to prioritize follow-up activity in your CRM, ensuring your sales reps always call the 'hottest' leads first to maximize conversion rates.
+</TipCallout>
+
+<Spacer size="lg" />
+
+## Testing the Agent
+
+### Step 1: Access the Agent
+
+<Image src="/docs/img/sales_pipeline_assistant_agent/Homepage.jpg" alt="Sales Pipeline Assistant Agent template in SmythOS Templates" />
+
+- Go to the **Templates** section in the sidebar
+- Navigate to the **Sales** Tab
+- Find the **Sales Pipeline Assistant Agent** and click **Remix**
+
+<Image src="/docs/img/sales_pipeline_assistant_agent/Remix.jpg" alt="Sales Pipeline Assistant Agent template Remix in SmythOS" />
+
+- The agent workspace will display showing all workflow components
+- **Authentication Note:** Authenticate all the components that require Google OAuth Credentials and API keys (HubSpot, Slack, etc.)
+
+<Spacer size="md" />
+
+### Step 2: Run the Agent
+
+You can test the agent using either of these methods:
+
+**Option 1: From the top toolbar**
+
+<Image src="/docs/img/sales_pipeline_assistant_agent/Form Preview.jpg" alt="Testing Sales Pipeline Assistant Agent from Form Preview" />
+
+1. Click **Test** (top-right)
+2. Switch to the **Form Preview** tab
+3. Fill the form details with your inputs
+4. Click **Run** to execute the workflow
+
+**Option 2: Form Preview from the Canvas**
+
+1. Click the **Form Preview** button on the APIEndpoint block labeled `process-leads`
+2. Enter the input fields and fill the form. For example:
+   - `Email`: `john.smith@techcorp.com`
+   - `Company Name`: `TechCorp Solutions`
+   - `Company Domain`: `techcorp.com`
+   - `First Name`: `John`
+   - `Last Name`: `Smith`
+   - `Role`: `VP of Engineering`
+3. Click **Run** to test and view results.
+
+<Spacer size="lg" />
+
+## Deploying the Agent
+
+### Step 1: Start Deployment
+
+<Image src="/docs/img/sales_pipeline_assistant_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of the Studio interface)
+- Pick your environment:
+  - **Agent Cloud** (SmythOS-hosted, recommended)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Embed your personalized GPT model with customized instructions, behaviors, or tools.
+- **Chatbot** – Deploy a conversational agent that can interact with users via chat interfaces.
+- **LLM** – Connect directly to a large language model using API keys for flexible integrations.
+- **API** – Use API endpoints to programmatically call your agent from applications or services.
+- **MCP** – Integrate via Model Context Protocol (MCP) for structured, context-aware interactions.
+- **Alexa** – Deploy your agent as an Alexa skill, enabling voice-based user interactions.
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+For scaling lead management, deploy to **API**. This allows you to integrate the agent directly with your CRM's inbound lead triggers (like HubSpot or Salesforce workflows) for hands-free automation.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+Adjust the lead scoring component to dynamically weigh criteria. For instance, you could give a higher score multiplier to leads with the title 'VP' or 'Director' working at companies with recent 'Series B' funding, ensuring your hottest leads rise to the top.
+</TipCallout>
+
+- **Lead Scoring** – Adjust scoring thresholds in `Code` component (currently 80+ for hot leads) and modify qualification criteria to match your ICP
+- **Search Settings** – Increase `WebSearch` `sourcesLimit` from 8 to 15+ sources and enable `antiScrapingProtection` in `WebScrape` for better data collection
+- **AI Models** – Switch between `GPT-4o/Claude Sonnet` for enrichment quality vs `GPT-4o-mini` for speed, lower temperature (0.1-0.3) for consistent scoring
+- **HubSpot/Slack** – Customize contact properties and notification channels, modify Slack message templates with additional enriched data fields
+- **Additional Inputs** – Add optional fields like phone, LinkedIn profile, or lead source to the APIEndpoint for enhanced qualification
+- **Notification Rules** – Configure multi-tier notifications (email/Teams) based on lead score ranges and customize alert thresholds

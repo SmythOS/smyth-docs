@@ -1,0 +1,100 @@
+---
+title: Local Docker Setup for Studio
+description: "Get the open-source SmythOS Studio running on your own machine in minutes with Docker. This guide provides simple, step-by-step instructions for a private, local AI agent development environment."
+keywords: ["Docker", "SmythOS Studio", "local setup", "self-hosting", "docker compose", "open source", "AI agents", "quickstart"]
+---
+
+# Local Docker Setup for Studio
+
+This guide will get you running with a private, local version of **Studio** using Docker. The entire process takes just a few minutes.
+
+<InfoCallout title="Why Run It Locally?">
+You get **full control, total privacy, and offline access.** It's the perfect sandbox for experimenting with agents, connecting to local data, and developing without limits.
+</InfoCallout>
+
+The full project is open-source and available on our [GitHub Repository](https://github.com/SmythOS/smythos-studio).
+
+<Spacer size="md" />
+
+## What You'll Need
+
+Before you start, make sure you have these three things ready:
+
+1.  **Docker Desktop:** This is the engine that runs your local studio. If you don't have it, you can download it for free from the [official Docker website](https://www.docker.com/products/docker-desktop/).
+2.  **Visual Studio Code:** We strongly recommend using VS Code. Its integrated terminal provides an all-in-one environment for running commands and editing configuration files, simplifying the entire setup process.
+3.  **An LLM API Key:** Agents need a "brain" to function. You'll need an API key from a provider like OpenAI to enable your agents to process and generate language.
+
+<Spacer size="md" />
+
+## The 3-Step Setup
+
+This setup uses Docker Compose to automatically create and connect all the necessary services for you.
+
+### 1. Get the Project Code
+
+First, open VS Code and launch its integrated terminal (you can use the `Terminal > New Terminal` menu option). Run the following command to download the source code from the [SmythOS Studio repository](https://github.com/SmythOS/smythos-studio) and open the project folder.
+
+```bash
+git clone https://github.com/SmythOS/smythos-studio.git
+cd smythos-studio
+```
+
+### 2. Configure Your Environment
+
+This is the most important step. You'll create a private configuration file and add your secret API key.
+
+A. First, in the VS Code terminal, copy the example configuration file to a new file named <code>.env</code>. This file is safely ignored by version control, so your secrets are never exposed.
+
+```bash
+cp .env.compose.example .env
+```
+
+B. Now, use the VS Code file explorer to find and open the new <code>.env</code> file. Add your LLM API key to enable your agents' core functionality.
+
+```text
+# Add this to your .env file
+OPENAI_API_KEY="sk-YourSecretAPIKeyGoesHere"
+```
+
+### 3. Launch the Studio
+
+With your configuration saved, you are ready to launch. Run the command below in the VS Code terminal to build and start your studio. The <code>-d</code> flag tells Docker to run everything in the background.
+
+```bash
+docker compose up -d
+```
+
+The first launch may take several minutes while Docker downloads all the components. To monitor the progress or check for errors, you can view the live logs with this command:
+
+```bash
+# Optional: View the live logs
+docker compose logs -f
+```
+
+Once the logs show that the services are healthy and running, your studio is live. Open your browser and navigate to:
+
+**<code>http://localhost</code>**
+
+Congratulations, you're now running SmythOS Studio locally!
+
+<Spacer size="md" />
+
+## Common Questions & Fixes
+
+-   **How do I stop everything?**
+    To stop and remove all the running containers, navigate to the project directory in your terminal and run <code>docker compose down</code>.
+
+-   **I got a "port is already allocated" error.**
+    This common error means another program on your computer is already using a port that Docker needs (usually port 80). Find and stop the other program (common culprits are other web servers or development tools) and try launching the studio again.
+
+-   **Where can I learn about a full production setup?**
+    This guide is optimized for a simple local setup. For deploying to a server with your own domain, SSL, and enhanced security, please refer to the **[Full Docker Deployment Guide](https://github.com/SmythOS/smythos-studio/blob/main/DOCKER_COMPOSE.md)** in our repository. If you encounter issues not covered here, you can also check the project's [GitHub Issues](https://github.com/SmythOS/smythos-studio/issues).
+
+<Spacer size="md" />
+
+## Ready for More?
+
+Now that your studio is running, you can start building:
+
+-   **Create an Agent:** Follow the [Quickstart Guide](/docs/agent-studio/quickstart) to build your first agent.
+-   **Explore the Core Concepts:** Learn about the [Canvas](/docs/agent-studio/key-concepts/canvas.mdx) and the [Vault](/docs/agent-studio/key-concepts/vault).

@@ -1,53 +1,128 @@
-# Tutorial: Lead Enrichment Guide
+---
+title: Lead Enrichment Agent
+description: Automatically generate comprehensive prospect profiles by researching personal and company data from the web for sales, recruiting, and personalized outreach.
+keywords: [lead enrichment, sales prospecting, abm, recruitment, prospect research, web scraping, SmythOS]
+toc_max_heading_level: 2
+---
 
-This guide will walk you through creating a lead enrichment agent using SmythOS.
+# Lead Enrichment Agent
 
-The **Lead Enrichment Agent** is an AI agent designed to gather and analyze online data to enhance lead profiles with rich, actionable insights...
+The **Lead Enrichment Agent** automates prospect research by combining web search and website scraping to deliver a **comprehensive profile summary** for personalized outreach.
 
-<Youtube videoId="V0ft3GrLtjY" title="SmythOS - Lead Enrichment Agent" />
+The agent takes a person’s name, company name, and company URL, and then:
 
-## Agent Setup
+- Automatically searches the web for professional and personal background information.
+- Scrapes the company website for business details and context.
+- Combines all findings into a profile summarizing background, company insights, and social media activity.
 
-1. Navigate to **Templates**.
+<InfoCallout title="Why use this agent?">
+This agent is perfect for sales teams and recruiters, providing quick, thorough prospect research that enables highly personalized outreach, increases conversion rates, and maximizes productivity.
+</InfoCallout>
 
-<Image src="/docs/img/lead_enrichment_agent/img_1.png" alt="Navigate to Templates" />
+<Spacer size="lg" />
 
-2. Select the **Sales** tab. Click the **Remix** button on the Lead Enrichment Agent template.
+## Use Cases
 
-<Image src="/docs/img/lead_enrichment_agent/img_2.png" alt="Remix Agent" />
+- **Sales Prospecting Enhancement**
+  Automatically research and profile high-value prospects before outreach calls or meetings. Gather comprehensive background information including work history, education, skills, and company details to personalize sales conversations and increase conversion rates.
 
-3. Allow the template to initialize and configure.
+- **Account-Based Marketing (ABM) Research**
+  Create detailed target account profiles by researching key decision-makers and their companies. Build comprehensive intelligence on prospects’ professional backgrounds, company initiatives, and organizational structure to craft highly targeted marketing campaigns.
 
-## Run Agent with Form Preview
+- **Business Development Lead Qualification**
+  Efficiently qualify inbound leads by researching prospects and their companies before sales meetings. Understand prospects’ business context, company size, industry challenges, and decision-making authority to prioritize high-quality opportunities and maximize sales team productivity.
 
-1. After loading the remixed agent workflow, click **Form Preview**.
+<TipCallout title="Pro tip">
+Integrate the final output of the enrichment agent with your CRM (like Salesforce or HubSpot) to automatically update contact records with fresh, detailed prospect intelligence before a sales rep even touches the lead.
+</TipCallout>
 
-<Image src="/docs/img/lead_enrichment_agent/img_3.png" alt="Click Form Preview" />
+<Spacer size="lg" />
 
-2. Enter the required information on the form then click **Run**.
+## Testing the Agent
 
-<Image src="/docs/img/lead_enrichment_agent/gif 1.gif" alt="Run Form" />
+### Step 1: Access the Agent
 
-3. Here’s the output:
+<Image src="/docs/img/lead_enrichment_agent/Homepage.jpg" alt="Lead Enrichment Agent template in SmythOS Templates" />
 
-<Image src="/docs/img/lead_enrichment_agent/img_4.png" alt="Output" />
+- Go to the **Templates** section in the sidebar
+- Navigate to the **Marketing** Tab
+- Find the **Lead Enrichment Agent** and click **Remix**
 
-> When working with templates or agents that use external API services, you can leverage the Mock Data feature for API Call components during testing and debugging:
->
->1. Enable **Debug Mode** in the toolbar at the top of the Builder
->2. Select an API Call component that uses API keys from the Vault
->3. In the component settings, enable the **Use Mock Data** toggle
->4. Define the mock response data you want the component to return
->5. Run your workflow to test without needing actual API credentials
+<Image src="/docs/img/lead_enrichment_agent/Remix.jpg" alt="Lead Enrichment Agent template Remix in SmythOS" />
 
-> **Pro Tip:** The Mock Data feature is perfect for testing third-party integrations without having to register for multiple external services. Learn more about [Mock Data configuration](/docs/agent-studio/components/advanced/api-call#step-5-enable-mock-mode).
+- The agent workspace will display showing all workflow components
 
-## Deploy the Agent in Your Workflow
+<Spacer size="md" />
 
-Once the setup is complete, deploy your agent to make it live and ready for integration into your workflow. SmythOS automatically provides a production subdomain for your deployed agent (e.g., `xyz.agent.pa.smyth.ai`), but you can also configure your own custom subdomain.
+### Step 2: Run the Agent
 
-Key deployment features:
-- • Automatic SSL/TLS certification
-- • Built-in rate limiting
-- • Request logging and monitoring
-- • Version control and rollback capabilities
+You can test the agent using either of these methods:
+
+**Option 1: From the top toolbar**
+
+<Image src="/docs/img/lead_enrichment_agent/Form Preview.jpg" alt="Testing Lead Enrichment Agent from Form Preview" />
+
+1. Click **Test** (top-right)
+2. Switch to the **Form Preview** tab
+3. Fill the form details with your inputs
+4. Click **Run** to execute the workflow
+
+**Option 2: Form Preview from the Canvas**
+
+1. Click the **Form Preview** button on the APIEndpoint block labeled **“research-information”**.
+2. Enter the input fields and fill the form. For example:
+   - `Full-name`: `Alexander De Ridder`
+   - `Company website url`: `www.smythos.com`
+   - `Company-name`: `SmythOS`
+3. Click **Run** to test and view results.
+
+<Spacer size="lg" />
+
+## Deploying the Agent
+
+### Step 1: Start Deployment
+
+<Image src="/docs/img/lead_enrichment_agent/Deploy.jpg" alt="Deploy button in SmythOS Agent Studio" />
+
+- Click **Deploy** (top-right corner of the Studio interface)
+- Pick your environment:
+  - **Agent Cloud** (SmythOS-hosted, recommended)
+  - **Enterprise** (self-managed, secure)
+  - **Local Runtime** (for development and offline use)
+
+<Spacer size="md" />
+
+### Step 2: Choose Your Deployment Type
+
+Pick how users will interact with your agent.
+
+- **Custom GPT** – Embed your personalized GPT model with customized instructions, behaviors, or tools.
+- **Chatbot** – Deploy a conversational agent that can interact with users via chat interfaces.
+- **LLM** – Connect directly to a large language model using API keys for flexible integrations.
+- **API** – Use API endpoints to programmatically call your agent from applications or services.
+- **MCP** – Integrate via Model Context Protocol (MCP) for structured, context-aware interactions.
+- **Alexa** – Deploy your agent as an Alexa skill, enabling voice-based user interactions.
+
+You can find detailed guides to them by reading the *[Deploy Your Agent As...](/docs/agent-deployments/deployments/)* page.
+
+<InfoCallout title="Best option">
+For integrating with CRM or sales automation platforms, deploy as an **API**. This allows you to trigger enrichment automatically when a new lead is added to your pipeline.
+</InfoCallout>
+
+<Spacer size="lg" />
+
+## Customization Tips
+
+<TipCallout title="Example customization">
+To improve research quality, adjust the **Research Accuracy** by lowering the temperature settings (0.3-0.5) in the `Information Extraction` and `Company Information` components to prioritize factual data extraction over creative interpretation.
+</TipCallout>
+
+- **Search Depth** – Increase `WebSearch` `sourcesLimit` from 5 to 10-15 for more comprehensive prospect research, or reduce to 3 for faster processing
+- **AI Model Selection** – Use `GPT-5` for complex prospect analysis requiring nuanced insights, or `GPT-5-mini` for faster lead processing in bulk operations
+- **Research Accuracy** – Lower temperature settings (0.3-0.5) in Information Extraction and Company Information components for more factual data extraction
+- **Profile Depth** – Adjust the `Research Information` prompt to include specific fields like “education background”, “recent achievements”, or “social media activity” based on your sales needs
+- **Time Sensitivity** – Enable `WebSearch` `timeRange` filtering (day/week/month) to focus on recent news and updates about prospects and companies
+- **Anti-Detection** – Toggle `WebScrape` `antiScrapingProtection` and `javascriptRendering` based on target company websites (enable for LinkedIn, corporate sites)
+- **Additional Research Sources** – Add custom inputs for LinkedIn URLs, Twitter handles, or specific company pages to enhance data gathering
+- **Output Formatting** – Modify the final `Research Information` prompt to structure output as CRM-ready fields (contact info, pain points, decision-making authority)
+- **Parallel Processing** – Add multiple `WebSearch` components with different queries (person + company, person + industry) for broader context gathering

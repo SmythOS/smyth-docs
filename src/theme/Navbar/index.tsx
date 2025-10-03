@@ -787,64 +787,6 @@ const HeaderComponent: React.FC = () => {
                     </svg>{" "}
                   </a>
                 </li>
-After Company -> People:
-                <li role="none">
-                  <a href="https://smythos.com/careers/" role="menuitem">
-                    <svg
-                      width={20}
-                      height={20}
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M10 10.993a.655.655 0 0 1 .655.656v2.296a.655.655 0 0 1-1.31 0v-2.296a.655.655 0 0 1 .655-.656"
-                        clipRule="evenodd"
-                        style={{ strokeWidth: "1.31062" }}
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M1.486 9.164a.655.655 0 0 1 .914-.161l.01.006c1.999 1.228 4.658 1.984 7.586 1.984 2.925 0 5.59-.754 7.59-1.98l.005-.004a.656.656 0 1 1 .77 1.062l-.027.018-.04.026c-2.231 1.375-5.146 2.19-8.298 2.19s-6.06-.815-8.29-2.19l-.032-.02-.027-.019a.655.655 0 0 1-.16-.912"
-                        clipRule="evenodd"
-                        style={{ strokeWidth: "1.31062" }}
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M4.148 6.068c-1.04.927-1.541 2.473-1.541 5.109s.5 4.183 1.541 5.111c1.064.948 2.857 1.403 5.852 1.403s4.788-.455 5.852-1.403c1.042-.928 1.541-2.474 1.541-5.111 0-2.634-.5-4.18-1.541-5.11-1.064-.948-2.857-1.403-5.852-1.403s-4.788.457-5.852 1.404m-.871-.979C4.727 3.797 6.959 3.355 10 3.355c3.043 0 5.273.442 6.723 1.734 1.474 1.312 1.98 3.349 1.98 6.088 0 2.74-.506 4.777-1.98 6.09C15.273 18.557 13.043 19 10 19s-5.273-.442-6.723-1.734c-1.474-1.312-1.98-3.35-1.98-6.09 0-2.738.506-4.775 1.98-6.087"
-                        clipRule="evenodd"
-                        style={{ strokeWidth: "1.31062" }}
-                      />
-                      <path
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        d="M6.494 3.655C6.494 2.255 7.531 1 8.95 1h2.102c1.418 0 2.455 1.256 2.455 2.655v.55a.655.655 0 0 1-1.31 0v-.55c0-.808-.577-1.344-1.145-1.344H8.95c-.568 0-1.144.536-1.144 1.344v.55a.655.655 0 0 1-1.31 0z"
-                        clipRule="evenodd"
-                        style={{ strokeWidth: "1.31062" }}
-                      />
-                    </svg>{" "}
-                    <span className="link-text">Careers</span>
-                    <svg
-                      className="icon-right"
-                      width={20}
-                      height={20}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                        stroke="currentColor"
-                        strokeWidth="1.25"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>{" "}
-                  </a>
-                </li>
           </ul>
         </li>
         <li className="menu-label has-submenu-m" role="none">
@@ -1573,6 +1515,63 @@ After Company -> People:
                 </svg>{" "}
               </a>
             </li>
+            <li role="none">
+                  <a href="https://smythos.com/careers/" role="menuitem">
+                    <svg
+                      width={20}
+                      height={20}
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M10 10.993a.655.655 0 0 1 .655.656v2.296a.655.655 0 0 1-1.31 0v-2.296a.655.655 0 0 1 .655-.656"
+                        clipRule="evenodd"
+                        style={{ strokeWidth: "1.31062" }}
+                      />
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M1.486 9.164a.655.655 0 0 1 .914-.161l.01.006c1.999 1.228 4.658 1.984 7.586 1.984 2.925 0 5.59-.754 7.59-1.98l.005-.004a.656.656 0 1 1 .77 1.062l-.027.018-.04.026c-2.231 1.375-5.146 2.19-8.298 2.19s-6.06-.815-8.29-2.19l-.032-.02-.027-.019a.655.655 0 0 1-.16-.912"
+                        clipRule="evenodd"
+                        style={{ strokeWidth: "1.31062" }}
+                      />
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M4.148 6.068c-1.04.927-1.541 2.473-1.541 5.109s.5 4.183 1.541 5.111c1.064.948 2.857 1.403 5.852 1.403s4.788-.455 5.852-1.403c1.042-.928 1.541-2.474 1.541-5.111 0-2.634-.5-4.18-1.541-5.11-1.064-.948-2.857-1.403-5.852-1.403s-4.788.457-5.852 1.404m-.871-.979C4.727 3.797 6.959 3.355 10 3.355c3.043 0 5.273.442 6.723 1.734 1.474 1.312 1.98 3.349 1.98 6.088 0 2.74-.506 4.777-1.98 6.09C15.273 18.557 13.043 19 10 19s-5.273-.442-6.723-1.734c-1.474-1.312-1.98-3.35-1.98-6.09 0-2.738.506-4.775 1.98-6.087"
+                        clipRule="evenodd"
+                        style={{ strokeWidth: "1.31062" }}
+                      />
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M6.494 3.655C6.494 2.255 7.531 1 8.95 1h2.102c1.418 0 2.455 1.256 2.455 2.655v.55a.655.655 0 0 1-1.31 0v-.55c0-.808-.577-1.344-1.145-1.344H8.95c-.568 0-1.144.536-1.144 1.344v.55a.655.655 0 0 1-1.31 0z"
+                        clipRule="evenodd"
+                        style={{ strokeWidth: "1.31062" }}
+                      />
+                    </svg>{" "}
+                    <span className="link-text">Careers</span>
+                    <svg
+                      className="icon-right"
+                      width={20}
+                      height={20}
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                        stroke="currentColor"
+                        strokeWidth="1.25"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>{" "}
+                  </a>
+                </li>
             <li role="none">
               <a href="/updates/changelog/" role="menuitem">
                 <svg

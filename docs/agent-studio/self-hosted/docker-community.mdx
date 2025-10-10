@@ -1,12 +1,11 @@
 ---
-title: Self-Host SmythOS Studio with Docker
+title: Self-Hosted Studio with Docker
 sidebar_label: Overview
 description: Learn what you get with a self-hosted SmythOS Studio deployment, system requirements, installation path options, troubleshooting, and FAQs.
 keywords: [smythos studio, self host, docker compose, open source ai, on prem ai, private deployment, local development, installation guide, troubleshooting, system requirements, networking]
-sidebar_position: 1
 ---
 
-# Self-Host SmythOS Studio with Docker
+# Self-Hosted Studio with Docker
 
 <InfoCallout title="What you will learn">
   By the end of this guide, you will know what self-hosting gives you, the required setup, available installation paths, and how to troubleshoot common issues.
@@ -14,22 +13,21 @@ sidebar_position: 1
 
 <Spacer size="md" />
 
-## 1. What’s Included
+## What’s Included
 
-Self-hosting gives you the **SmythOS Studio** experience on your own machine or server, including:
+Self-hosting gives you the **Studio** experience on your own machine or server, including:
 
-- Visual Studio Canvas for building agents  
+- Visual Canvas for building agents  
 - Built-in authentication, Vault, and environment variable management  
 - Debug, Inspect, and run history  
-- Local storage by default, with options to connect external services
 
 <TipCallout title="Is this for you?">
-  This setup is ideal if you can run Docker on a laptop or server and want full control, privacy, and a simple install path.
+  This setup is ideal if you can run Docker on your machine and want full control, privacy, and a simple install path.
 </TipCallout>
 
 <Spacer size="md" />
 
-## 2. System Requirements
+## System Requirements
 
 Before starting, make sure your environment meets these minimums:
 
@@ -43,27 +41,55 @@ Before starting, make sure your environment meets these minimums:
 
 <Spacer size="md" />
 
-## 3. Choose Your Installation Path
+## Quickstart
 
-Pick the approach that fits your needs:
 
-### Docker Compose (Recommended)
-The simplest and fastest way to get started is the [Quickstart with Docker](/docs/agent-studio/quickstart)
+## 1. Clone the Repository
 
-### Local Development Mode
-Best if you want to modify Studio or enable hot reload using the [Local Dev Guide](/docs/agent-studio/local-dev)
+```bash
+git clone https://github.com/SmythOS/smythos-studio.git
+cd smythos-studio
+```
 
 <Spacer size="md" />
 
-## 4. Installation Flow
+## 2. Create Your Environment File
 
-Here’s the general process:
+```bash
+cp .env.compose.example .env
+```
 
-1. Clone the Studio repository  
-2. Create a `.env` file with your required settings  
-3. Choose Docker Compose or Local Dev mode  
-4. Run Studio and open the UI to start building agents
+Open `.env` and set at minimum:
 
+```text
+DATABASE_URL="mysql://user:pass@db:3306/smythos"
+APP_BASE_URL="http://localhost"
+SESSION_SECRET="long-random-string"
+OPENAI_API_KEY="sk-your-key" # optional
+```
+
+<Spacer size="md" />
+
+## 3. Start the Stack
+```bash
+docker compose up -d
+```
+
+Optional: Watch logs to see services start
+
+```bash
+docker compose logs -f
+ ```
+
+When services are healthy, open:
+
+```bash
+http://localhost
+```
+You should see the Studio page. Create your first agent and run a quick test.
+
+<Spacer size="md" />
+aawa6
 <InfoCallout title="Source code">
   SmythOS Studio Community Edition is open source.  
   Browse the code on [GitHub](https://github.com/SmythOS/smythos-studio).
@@ -71,7 +97,7 @@ Here’s the general process:
 
 <Spacer size="md" />
 
-## 5. Troubleshooting
+## Troubleshooting
 
 **Port already in use**  
 Stop the conflicting service or change the published ports in Compose.
@@ -91,10 +117,10 @@ Confirm `APP_BASE_URL` matches the actual URL and that proxies forward headers c
 
 <Spacer size="md" />
 
-## 6. FAQ
+## FAQ
 
 **Can I run this on a laptop?**  
-Yes. Start locally and move to a server later without redoing your work.
+Yes. It's completly private to your device when you run it locally using Docker.
 
 **Do I need a public domain?**  
 No. Local setups work without a domain. For shared access, add a reverse proxy and HTTPS.
@@ -107,8 +133,8 @@ Open an issue on [GitHub](https://github.com/SmythOS/smythos-studio) or join the
 
 <Spacer size="md" />
 
-## 7. Next Steps
+## Next Steps
 
-- [Go to Quickstart](/docs/agent-studio/quickstart)  
-- [Learn Core Concepts](/docs/agent-studio/key-concepts/canvas)  
-- [Build Your First Workflow](/docs/agent-studio/building-workflows)
+- Go to [Quickstart](/docs/agent-studio/quickstart)  
+- Learn the Core Concepts of [Canvas](/docs/agent-studio/key-concepts/canvas)  
+- Build Your First [Workflow](/docs/agent-studio/build-agents/building-workflows)

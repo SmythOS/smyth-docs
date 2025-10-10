@@ -12,6 +12,8 @@ The **GenAI LLM** component adds language skills to your agents. Write a precise
 Start here when you need to **summarise, generate, extract, or classify** text. It’s the core building block for most agents and workflows.
 </InfoCallout>
 
+<Arcade src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Inputs | SmythOS" />
+
 <Spacer size="md" />
 
 ## What You Can Build Quickly
@@ -27,15 +29,14 @@ Start here when you need to **summarise, generate, extract, or classify** text. 
 ## Step 1: Select a Model
 
 Pick a built-in model or connect your own.
+<InfoCallout title="Context Windows">
+Always leave space in the context window for both your input and the model’s output.
+</InfoCallout>
 
 | Field | Required? | Description | Notes |
 |-------|-----------|-------------|-------|
 | **Model** | <Badge type="required">Yes</Badge> | The LLM that executes your prompt | Includes GPT-5 family, Claude, Gemini, Groq, and others |
 | **Custom Model** | <Badge type="optional">No</Badge> | Your own hosted endpoint or API | Best for specialised domains or large context sizes |
-
-<InfoCallout title="Context Windows">
-Always leave space in the context window for both your input and the model’s output.
-</InfoCallout>
 
 <Spacer size="md" />
 
@@ -72,8 +73,6 @@ Inputs are values you pass into the model.
 |-------|-----------|-------------|-------|
 | **Input** | <Badge type="required">Yes</Badge> | Main string or variable used in the prompt | Inserted as `{{Input}}` |
 | **Attachment** | <Badge type="optional">No</Badge> | Files like PDF, DOCX, PNG, or JPG | Auto-converted to text and available as `Attachment.text` |
-
-<Arcade src="https://demo.arcade.software/M2WLIzEDJbkdeJOShwhB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="GenAI LLM Inputs | SmythOS" />
 
 <TipCallout title="Reusable Inputs">
 Rename inputs, set data types, and define defaults so your component is reusable across workflows.
@@ -320,37 +319,27 @@ Start with defaults. Adjust only when you need to guide behaviour.
 
 <Spacer size="md" />
 
-## Step 5: Define Outputs
+# Step 5: Define Outputs
 
-Expose the model’s reply and map fields for downstream use.
+Expose the model’s reply and map fields for downstream use. Custom outputs can be returned as `text`, `markdown`, `html`, or `json`, depending on downstream requirements.
 
 | Output | Required? | Description | Example |
 |--------|-----------|-------------|---------|
 | **Reply** | <Badge type="required">Yes</Badge> | Main model output | Paragraph, list, or JSON text |
 | **Custom Output** | <Badge type="optional">No</Badge> | Extracted fields from the reply | `Reply.summary`, `Reply.json.customer_id` |
 
-<PromptCard
-  title="Custom Output Mapping"
-  prompt={`[
-  { "Name": "title", "Expression": "Reply.title" },
-  { "Name": "summary", "Expression": "Reply.summary", "Format": "markdown" }
-]`}
-/>
-
-<InfoCallout title="Formatting Options">
-Custom outputs can be returned as `text`, `markdown`, `html`, or `json`, depending on downstream requirements.
+<InfoCallout title="What is unique in Smythos">
+You can declare new outputs like `title` and `content` without mentioning them in your prompt. Smythos will auto structure the reply so `title` contains only the title and `content` contains only the body. You can add other fields such as `toc` or `keywords` and control them purely through the output description. For example, if you need exactly 10 keywords, just state that in the output description and you are done.
 </InfoCallout>
 
 <Spacer size="md" />
-
-<Divider />
 
 ## Before You Go Live
 
 You are close. Run a quick loop to make sure this component behaves the way you expect, then [deploy](/docs/agent-deployments/quickstart) it and keep an eye on it.
 
 <InfoCallout title="Quick Play Test">
-- Open **Debug Mode** and run 3 real samples from your use case  
+- Open **Debug Mode** and run a real sample from your use case  
 - Read the **raw response** and confirm your **Custom Outputs** render correctly  
 - Try one bad input on purpose to see how the component fails and recovers  
 </InfoCallout>
@@ -373,18 +362,11 @@ You are close. Run a quick loop to make sure this component behaves the way you 
 If a field is missing, output an empty string instead of guessing.`}
 />
 
-### Ship And Watch It
+### Best Practices
 
 - Connect to the [Code Component](/docs/agent-studio/components/advanced/code) for validation or post processing  
 - Add to your workflow and follow the [Deploying Agents](/docs/agent-deployments/overview) guide  
 - Keep an eye on logs and usage in **Observability**. Look for spikes in token count, latency jumps, or empty fields
-
-<InfoCallout title="Green Flags To Publish">
-- Sample inputs produce the exact shape you asked for  
-- Custom Outputs render as the right types: text, markdown, html, or json  
-- Guardrails for length, format, and repetition are in place  
-- You have at least one real failure case tested and handled  
-</InfoCallout>
 
 <TipCallout title="When To Revisit Settings">
 If your data changes or latency targets tighten, revisit **Max Tokens**, **Top P**, and **Reasoning Effort**. Small changes can reduce cost without hurting quality.

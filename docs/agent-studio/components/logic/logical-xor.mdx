@@ -15,17 +15,6 @@ Many business rules require mutual exclusivity. The `Logic XOR` component enforc
 
 <Spacer size="md" />
 
-## What You’ll Configure
-
-- [Understand the Logic](#step-1-understand-the-logic)
-- [Provide Inputs](#step-2-provide-inputs)
-- [Handle the Outputs](#step-3-handle-the-outputs)
-- [Best Practices](#best-practices)
-- [Troubleshooting Tips](#troubleshooting-tips)
-- [What to Try Next](#what-to-try-next)
-
-<Spacer size="md" />
-
 ## Step 1: Understand the Logic
 
 The component takes multiple inputs and provides two outputs: `Verified` and `Unverified`. The `Verified` path is triggered only if **exactly one** input is `true`. In all other cases (zero `true` inputs, or more than one `true` input), the `Unverified` path is triggered.

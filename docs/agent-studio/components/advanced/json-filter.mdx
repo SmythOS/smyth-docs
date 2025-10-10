@@ -13,6 +13,8 @@ Use the **JSON Filter** component to reduce large JSON objects to only the field
 APIs often return far more data than you need. Sending a massive JSON object to an LLM wastes tokens and risks hitting context limits. The `JSON Filter` lets you surgically remove the noise, ensuring only relevant data is passed on.
 </InfoCallout>
 
+<Arcade src="https://demo.arcade.software/WJpOVfU9Ll9F6NrOtjnv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="JSON Filter | SmythOS" />
+
 <Spacer size="md" />
 
 ## Step 1: Define Filter Parameters
@@ -26,8 +28,6 @@ Specify the exact keys you want to keep from the original JSON object. All other
 <TipCallout title="Nested Keys">
 To keep a nested field like `user.profile.email`, you must include all parent keys in the list: `user, user.profile, user.profile.email`.
 </TipCallout>
-
-<Arcade src="https://demo.arcade.software/WJpOVfU9Ll9F6NrOtjnv?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="JSON Filter | SmythOS" />
 
 <Spacer size="md" />
 

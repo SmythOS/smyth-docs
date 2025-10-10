@@ -10,34 +10,15 @@ toc_max_heading_level: 2
 Use the **Computer Use** component to give your agent a powerful, AI-driven virtual computer. It can execute complex, multi-step tasks described in natural language without writing a single line of code.
 
 <InfoCallout title="Why this matters">
-This component allows you to automate tasks that would normally require a human operator or complex custom code. By simply describing what you want to achieve, you can enable your agent to perform research, analyze information, and generate structured results autonomously.
-
+This component allows you to automate tasks that would normally require a human operator or complex custom code. When you provide a natural language prompt, the AI formulates an execution plan. This plan may involve using various tools like web search, data calculation, or text analysis to fulfill your request. The final result is then structured and returned as an output.
 This component is exclusively available for Enterprise accounts. [Contact us](https://smythos.com/talk-to-us) to get access.
 </InfoCallout>
-
-<Spacer size="md" />
-
-## What You’ll Configure
-
-- [How It Works](#step-1-how-it-works)
-- [Define the Task (Prompt)](#step-2-define-the-task-prompt)
-- [Provide Inputs](#step-3-provide-inputs)
-- [Handle Outputs](#step-4-handle-the-outputs)
-- [Best Practices & Limitations](#step-5-best-practices--limitations)
-- [Troubleshooting Tips](#step-6-troubleshooting-tips)
-- [What to Try Next](#step-7-what-to-try-next)
-
-<Spacer size="md" />
-
-## Step 1: How It Works
-
-The Computer Use component functions as a virtual computer operated by an advanced AI model. When you provide a natural language prompt, the AI formulates an execution plan. This plan may involve using various tools like web search, data calculation, or text analysis to fulfill your request. The final result is then structured and returned as an output.
 
 <Arcade src="https://demo.arcade.software/iA1SBPZMiyWMdwRUeTUP?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Computer Use | SmythOS" />
 
 <Spacer size="md" />
 
-## Step 2: Define the Task (Prompt)
+## Step 1: Define the Task
 
 This is the core of the component. You provide a clear, natural language instruction that tells the AI computer what you want it to accomplish.
 
@@ -52,7 +33,7 @@ This is the core of the component. You provide a clear, natural language instruc
 
 <Spacer size="md" />
 
-## Step 3: Provide Inputs
+## Step 2: Provide Inputs
 
 You can make your prompts dynamic by adding custom inputs.
 
@@ -63,7 +44,7 @@ You can make your prompts dynamic by adding custom inputs.
 
 <Spacer size="md" />
 
-## Step 4: Handle Outputs
+## Step 3: Handle Outputs
 
 The component provides a single, comprehensive `Output` and allows you to define custom outputs to easily extract specific pieces of data.
 
@@ -78,7 +59,7 @@ By creating custom outputs with clear names, you can easily route different part
 
 <Spacer size="md" />
 
-## Step 5: Best Practices & Limitations
+## Best Practices
 
 - **Be Specific:** Provide clear, detailed instructions for best results. Instead of "find company info," try "Find the founding date and current CEO of Microsoft."
 - **Start Simple:** Begin with straightforward, single-step tasks and gradually increase complexity as you get a feel for how the component interprets prompts.
@@ -93,7 +74,7 @@ By creating custom outputs with clear names, you can easily route different part
 
 <Spacer size="md" />
 
-## Step 6: Troubleshooting Tips
+## Troubleshooting Tips
 
 <InfoCallout title="If your task isn't executing correctly...">
 - **The result is inaccurate or irrelevant:** Your prompt is likely too ambiguous. Add more specific details, context, and constraints to guide the AI.
@@ -103,7 +84,7 @@ By creating custom outputs with clear names, you can easily route different part
 
 <Spacer size="md" />
 
-## Step 7: What to Try Next
+## What to Try Next
 
 - Feed the raw `Output` into a **[GenAI LLM Component](/docs/agent-studio/components/base/gen-ai-llm)** to have it write a narrative summary of the structured data.
 - Use this component as a more powerful alternative to the basic **[Web Search Component](/docs/agent-studio/components/tools/web-search)** for complex research tasks that require multiple steps.

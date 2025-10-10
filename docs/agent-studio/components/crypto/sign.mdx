@@ -13,6 +13,8 @@ Use the **Sign** component to generate a digital signature for any piece of data
 Digital signatures are crucial for securing communications. They allow a receiving system to verify that a message truly came from the expected sender and that its content has not been altered in transit. This is essential for securing webhooks and authenticating API requests.
 </InfoCallout>
 
+<Arcade src="https://demo.arcade.software/vmUBVaRLHhhL5QOcpDN0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Sign | SmythOS" />
+
 <Spacer size="md" />
 
 ## Step 1: Select a Signature Method and Settings
@@ -25,8 +27,6 @@ Choose the cryptographic method, hash algorithm, and output format for your sign
 | **Key/Secret** | Define the cryptographic key to use for signing. For **HMAC**, this is a secret string. For **RSA**, this must be a valid RSA private key (e.g., in PEM format). <TipCallout title="Secure Your Keys">Store your keys and secrets in the **[Vault](/docs/agent-studio/key-concepts/vault)** and reference them here as variables (e.g., `{{vault.hmac_secret}}`).</TipCallout> |
 | **Hash Type** | Select a cryptographic hash function: <br/> 1. `md5`: 128-bit (less secure). <br/> 2. `sha1`: 160-bit (deprecated). <br/> 3. `sha256`: 256-bit (secure & balanced). <br/> 4. `sha512`: 512-bit (high security, slower). |
 | **Output Encoding**| Choose the output format for the signature string: <br/> 1. `hex`: Hexadecimal string. <br/> 2. `base64`: Base64 string. <br/> 3. `base64url`: URL and filename-safe Base64. <br/> 4. `latin1`: ISO-8859-1 character set. <br/> 5. `utf8`: UTF-8 encoding. |
-
-<Arcade src="https://demo.arcade.software/vmUBVaRLHhhL5QOcpDN0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Sign | SmythOS" />
 
 <Spacer size="md" />
 

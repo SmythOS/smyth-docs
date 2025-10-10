@@ -13,6 +13,8 @@ Use the **Await** component to pause your main workflow until one or more backgr
 `Await` bridges the gap between your main workflow and background processes. It's the key to making a workflow wait for a long-running task to complete so you can use its output in subsequent steps, like showing results to a user or making decisions based on the processed data.
 </InfoCallout>
 
+<Arcade src="https://demo.arcade.software/Zm414J05Em9ruNick1Uy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Await | SmythOS" />
+
 <Spacer size="md" />
 
 ## Step 1: Set Wait Conditions
@@ -27,8 +29,6 @@ Define the criteria for when the `Await` component should stop waiting and allow
 <TipCallout title="Race Condition">
 The workflow resumes as soon as the *first* condition is met. If `Minimum Jobs Count` is 5 and `Maximum Wait Time` is 30 seconds, the flow continues at 30 seconds even if only 3 jobs have finished.
 </TipCallout>
-
-<Arcade src="https://demo.arcade.software/Zm414J05Em9ruNick1Uy?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Await | SmythOS" />
 
 <Spacer size="md" />
 

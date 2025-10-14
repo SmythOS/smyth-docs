@@ -26,7 +26,7 @@ This page shows you how to connect Google Calendar to SmythOS and pick the right
 * [Troubleshooting](#troubleshooting-common-issues)
 * [What's Next?](#whats-next)
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Why Integrate Google Calendar with Your Agent?
 
@@ -51,7 +51,7 @@ Google Calendar is a cornerstone for managing time and events. Integrating it wi
 
 By connecting Google Calendar, you reduce manual data entry, minimize scheduling conflicts, and ensure that your calendar accurately reflects the activities and commitments managed by your automated SmythOS agents.
 </details> </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites: What You'll Need to Get Started
 
@@ -62,7 +62,7 @@ Before you begin the integration, please ensure you have the following:
 - You will need to generate **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console. This process also involves configuring an OAuth consent screen and enabling the Google Calendar API. Detailed steps are provided below.
 - The **Authorized redirect URI** for SmythOS, which is: `https://app.smythos.com/oauth/google/callback` (You'll need this when creating credentials in Google Cloud Console).
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step-by-Step: Connecting Your Google Calendar Account
 
@@ -141,7 +141,7 @@ Let's establish the connection between SmythOS and your Google Calendar. This in
 
 <InfoCallout title="Switching Google Accounts or Reconnecting?" collapsible > If you ever need to connect a different Google Account or refresh an existing connection, you can typically find a `Sign Out`, `Disconnect`, or `Deauthenticate` button within the Google Calendar integration settings in SmythOS. After deauthenticating, simply repeat the authentication steps (Part B, and potentially Part A if credentials change or scopes need updating) with the new account. </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Google Calendar Components: An Overview
 
@@ -158,7 +158,7 @@ Click any component name to jump directly to its detailed guide. Here’s what's
 | [Delete Event](#delete-event) | Write | Removes an event from a calendar.<br /><Badge type="required" /> `calendarId`, `eventId` |
 
 <InfoCallout title="Good to Know!"> That initial authentication you performed (OAuth 2.0 setup) covers **all** these components. You won't need to re-authenticate or re-enter your Client ID/Secret for each individual component you use with the connected Google account. </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 ## Understanding Common Calendar Component I/O Fields
 
 Many Google Calendar components share common input and output field names or structures. This section defines these common elements to avoid repetition in the detailed component guides.
@@ -215,7 +215,7 @@ Many Google Calendar components share common input and output field names or str
 2. Event fields within the <code>event</code> object (like <code>summary</code>, <code>start.dateTime</code>, <code>attendees</code>) have specific formatting requirements by Google Calendar API.
 </small>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Deep Dive into Calendar I/O Fields
 
@@ -412,7 +412,7 @@ Use this table to quickly compare inputs, outputs, and typical use cases for eac
 | **Cancel** a scheduled meeting | `calendarId`, `eventId` | [Delete Event](#delete-event) | Removes an event. Use `sendNotifications` to inform attendees if needed. |
 
 <InfoCallout> Still unsure? For creating new entries, start with **Create Event**. For finding existing ones, **List Events** is your primary tool. For modifying, use **Patch Update Event**. </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 ## Detailed Component Guides
 This section provides detailed information for each Google Calendar component. Remember to refer to the [Understanding Common Sheet Component Fields](#understanding-common-calendar-component-io-fields) and [Deep Dive Into Calendar Fields](#deep-dive-into-calendar-i/o-fields) for explanations of common inputs (like `calendarId`, `eventId`, `start`/`end` objects, `attendees`) and outputs (like the `event` object structure, `Response`, `Headers`). Each component guide below will highlight any unique fields or provide specific context.
 
@@ -484,7 +484,7 @@ Adds a new event to a specified calendar. Supports timed events, all-day events,
   }
 }
 ```
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="get-event"></a>Get Event — Fetch Details for a Specific Event
 
@@ -516,7 +516,7 @@ Retrieves detailed information about a single event, identified by its `eventId`
 ```
 
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="list-events"></a>List Events — Retrieve Multiple Events
 
@@ -662,7 +662,7 @@ Permanently removes an event from the specified calendar.
 - **Recurring Events:** Deleting an instance of a recurring event might have different behavior (e.g., deleting just that instance, or the instance and all following) depending on Google Calendar's API handling for that specific event type. Test thoroughly. 
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -684,7 +684,7 @@ To make the most of your Google Calendar integration with SmythOS, consider thes
 * **Rate Limiting:** Be aware of Google Calendar API usage quotas. If your agents perform many calendar operations in a short period, you might encounter rate limits. Design workflows to be efficient, and implement retry logic with backoff if necessary.
 * **Testing with Non-Primary Calendars:** If interacting with shared or resource calendars, thoroughly test permissions and `calendarId` usage. `primary` only works for the authenticated user's main calendar.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -727,7 +727,7 @@ Encountering an issue with your Google Calendar integration? Here are solutions 
 
 <InfoCallout> If you're still facing issues, the detailed `Response` output from the Google Calendar components often contains specific error messages directly from Google that can provide excellent clues. The SmythOS support team is always ready to help. [Get help from the SmythOS team](https://discord.gg/smythos) </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

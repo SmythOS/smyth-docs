@@ -38,7 +38,7 @@ Firestore is a flexible, scalable NoSQL database perfect for building modern app
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Before you begin, please ensure you have the following:
 - The **Cloud Firestore API** enabled in your GCP project.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Firestore
 
@@ -95,7 +95,7 @@ The connection between SmythOS and Firestore is handled via OAuth 2.0. This requ
 Once you authenticate, the connection is saved for your SmythOS account. You won't need to re-enter credentials for other Firestore components.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Firestore Component Should I Use?
 
@@ -276,7 +276,7 @@ When a user requests to delete their account, an agent is triggered to call this
 Deletion is irreversible. Once a document is deleted, it cannot be recovered. This action does not delete subcollections within the document.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -285,7 +285,7 @@ Deletion is irreversible. Once a document is deleted, it cannot be recovered. Th
 * **Understand Data Structure:** Firestore is a NoSQL database. Plan your data structure with collections and documents in mind. A common pattern is to use the User ID (UID) from Firebase Authentication as the `document_id` for user-specific data.
 * **Parse the `fields` Object:** When you get a document, the `fields` output contains nested objects with data types (e.g., `{"name": {"stringValue": "Jane"}}`). You will need to use a Code component or other tools to parse this structure to access the simple values (e.g., "Jane").
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -305,7 +305,7 @@ Deletion is irreversible. Once a document is deleted, it cannot be recovered. Th
   * **Cause:** The JSON `Body` for creating or updating a document is malformed.
   * **Solution:** Ensure your fields follow the correct Firestore REST API structure: `{"fields": {"yourFieldName": {"stringValue": "yourValue"}}}`. Every value must be wrapped in an object that declares its type.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

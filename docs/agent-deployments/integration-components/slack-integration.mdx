@@ -8,9 +8,9 @@ keywords: [Slack, SmythOS, Slack Bot, Slack integration, MCP, Model Context Prot
 
 > Connect your agents to Slack for real-time team communication, automated alerts, and contextual interactions via components or Model Context Protocol (MCP).
 
-<InfoCallout> **TL;DR:** Authenticate your Slack app, configure the Send Message component, or deploy using [Model Context Protocol (MCP)](/docs/agent-deployments/deployments/deploy-as-mcp-server) to route intelligent agent outputs into Slack. </InfoCallout>
+<InfoCallout title="TL;DR">  Authenticate your Slack app, configure the Send Message component, or deploy using [Model Context Protocol (MCP)](/docs/agent-deployments/deployments/deploy-as-mcp-server) to route intelligent agent outputs into Slack. </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Why Use Slack With Your Agent?
 
@@ -25,7 +25,7 @@ Slack is a core communication tool for modern teams. Integrating it with SmythOS
 
 With both direct Slack component integration **and** Model Context Protocol (MCP), you can choose how and where Slack fits in.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ Make sure you have:
 - Your **Bot User OAuth Token**
 - Optional: Store the token in [Vault → API Keys](/docs/agent-studio/key-concepts/vault)
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Option 1: Send Slack Messages Using the Component
 
@@ -77,7 +77,7 @@ Once the message sends, the outputs include:
 - `status`: HTTP status code
 - `msgObj`: Message ID, content, timestamp
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Option 2: Deploy Slack Integration via Model Context Protocol (MCP)
 
@@ -100,7 +100,7 @@ Follow this with a `Send Message` component for delivery.
 
 <InfoCallout> MCP is best for routing Slack messages after memory/context-based decision logic. </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What’s Next?
 

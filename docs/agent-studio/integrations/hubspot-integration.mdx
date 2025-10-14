@@ -43,7 +43,7 @@ HubSpot is a central CRM for managing the entire customer lifecycle. Integrating
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -53,7 +53,7 @@ Before you begin, please ensure you have the following:
 - A **HubSpot account** with permissions to create private apps.
 - A HubSpot Private App **Access Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With HubSpot
 
@@ -83,7 +83,7 @@ Your Access Token is a sensitive credential. Use the SmythOS `Vault` to store it
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Access Token from the Vault to **each** HubSpot component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which HubSpot Component Should I Use?
 
@@ -364,7 +364,7 @@ After a contract is signed via an e-signature platform, an agent takes the URL o
 The `file_url` must be publicly accessible for HubSpot's servers to be able to download it.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -373,7 +373,7 @@ The `file_url` must be publicly accessible for HubSpot's servers to be able to d
 * **Handle Pagination:** For all `List` components, the API returns paginated results. To get all records, you must build a loop that uses the corresponding `Next ... Page` component, passing the `pagingNextAfter` token from the previous call until it is no longer returned.
 * **Understand the HubSpot Object Model:** To associate objects (e.g., linking a deal to a contact), you will typically need to create or get one object first to retrieve its ID, then use that ID when creating the second object. This may require advanced use of the component's `Body` setting if not available as a direct input.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -389,7 +389,7 @@ The `file_url` must be publicly accessible for HubSpot's servers to be able to d
   * **Cause:** An incorrect ID was provided (e.g., `contactId`, `deal_id`).
   * **Solution:** Double-check all IDs for typos. Use a `List` or `Search` component to verify that the resource you are trying to access exists.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

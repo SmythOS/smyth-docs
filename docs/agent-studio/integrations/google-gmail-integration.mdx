@@ -43,7 +43,7 @@ Gmail is at the core of business communication. Integrating it with SmythOS lets
 </details>
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites: What You'll Need to Get Started
 
@@ -56,7 +56,7 @@ Before you begin the integration, please ensure you have the following:
 https://app.smythos.com/oauth/google/callback
 
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step-by-Step: Connecting Your Gmail Account
 
@@ -165,7 +165,7 @@ Choose the minimum access SmythOS needs. For example, if SmythOS only needs to s
 If you want to connect a different Google account or refresh the integration, use the **Disconnect** or **Deauthenticate** option in SmythOS Gmail settings. Then repeat the authentication steps above.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Gmail Components: An Overview
 
@@ -186,7 +186,7 @@ With your Gmail account successfully linked, you gain access to a suite of compo
 | [Delete Message](#delete-message) | Write | Permanently deletes a specified email message.<br /><Badge type="required" /> `id` (messageId) |
 
 <InfoCallout title="Good to Know!"> The initial OAuth authentication covers all these components. You won't need to re-enter your Client ID/Secret for each one, though re-authorization might be needed if scopes change or tokens expire. </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Understanding Common Gmail Component I/O Fields
 
@@ -273,7 +273,7 @@ Many Gmail components share common input and output field names or structures. T
 2. <code>body_data_base64url_encode</code>: Constructing a valid RFC 2822 message with correct headers (To, From, Subject, Content-Type, MIME-Version) and encoding it is crucial for sending or creating emails/drafts. For multipart messages (e.g., with attachments or HTML + plain text), the MIME structure must be correctly formatted before encoding.
 </small>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Deep Dive into Gmail I/O Fields
 
@@ -480,7 +480,7 @@ Use this table to quickly compare inputs, outputs, and typical use cases for eac
 | **Check for any unsent drafts** | (No specific inputs beyond `userId`) | [List Drafts](#list-drafts) | Gives you a list of all current draft IDs. |
 
 <InfoCallout> Still unsure? For sending, decide if you need a review step (**Create Draft** then **Send Draft**) or direct sending (**Send Message**). For reading, **List Messages** helps you find emails, and **Get Message** retrieves their content. </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Detailed Component Guides
 
@@ -531,7 +531,7 @@ _Image: Example of outputs after listing drafts._
 - Use `pageToken` for pagination if `resultSizeEstimate` is larger than `maxResults`.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="get-draft"></a>Get Draft
 
@@ -576,7 +576,7 @@ _Image: Outputs provided by the Get Draft component._
 To read the body, you'll need to inspect the `message.payload` (and its `parts` if multipart), then base64url decode the `body.data` field.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="update-draft"></a>Update Draft
 
@@ -621,7 +621,7 @@ _Image: Outputs after updating a draft._
 This operation replaces the entire existing draft. You must provide the complete new message content, including all desired headers.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="create-draft"></a>Create Draft
 
@@ -663,7 +663,7 @@ _Image: Outputs after creating a draft._
 Ensure the `body_data_base64url_encode` input is a correctly formatted and encoded RFC 2822 message, including headers like `To`, `From`, `Subject`, and `Content-Type`.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="send-draft"></a>Send Draft
 
@@ -708,7 +708,7 @@ _Image: Outputs after sending a draft._
 Once a draft is successfully sent, it is typically automatically deleted from the drafts folder by Gmail.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="delete-draft"></a>Delete Draft
 
@@ -748,7 +748,7 @@ _Image: Outputs after deleting a draft._
 This action permanently deletes the draft. It cannot be undone.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="list-messages"></a>List Messages
 
@@ -796,7 +796,7 @@ _Image: Outputs after listing messages._
 This component lists message IDs. To get full message content, use the "Get Message" component with the IDs obtained here.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="get-message"></a>Get Message
 
@@ -848,7 +848,7 @@ _Image: Outputs from the Get Message component._
 To access the email body, navigate `payload.parts` (for multipart messages) or `payload.body.data` (for simple messages) and base64url decode the `data`. Check `Content-Type` and `Content-Transfer-Encoding` headers.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="send-message"></a>Send Message
 
@@ -891,7 +891,7 @@ _Image: Outputs after sending a message._
 Properly formatting the RFC 2822 message (including `To`, `From`, `Subject`, `Content-Type`, `MIME-Version` headers and the body) before base64url encoding is critical for successful delivery.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="move-to-trash"></a>Move to Trash (Trash Message)
 
@@ -933,7 +933,7 @@ _Image: Outputs after moving a message to trash._
 Messages moved to trash are not immediately permanently deleted and can usually be recovered from the Trash folder in Gmail.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="delete-message"></a>Delete Message (Untrash Message - Note: this component name in the draft seems incorrect if it's for permanent deletion. Assuming permanent delete.)
 
@@ -973,7 +973,7 @@ _Image: Outputs after deleting a message._
 This action permanently deletes the message. It cannot be recovered from the trash. Use with extreme caution. Requires appropriate OAuth scope (e.g., `https://mail.google.com/` or `gmail.modify` might be needed depending on API version and specifics).
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -988,7 +988,7 @@ This action permanently deletes the message. It cannot be recovered from the tra
 * **Security with `Client ID` & `Secret`:** Store your OAuth credentials securely, ideally using SmythOS Vault, and never embed them directly in agent scripts or share them publicly.
 * **Test Thoroughly:** Before deploying agents that manage important email communications, test them extensively with a test Gmail account to ensure they behave as expected, especially for operations like sending, modifying, or deleting.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -1020,7 +1020,7 @@ Encountering an issue with your Gmail integration? Here are solutions to some co
 For persistent issues, examine the full `Response` object from the component. It often contains detailed error messages or codes directly from the Gmail API that can pinpoint the problem. The SmythOS support team is also available to assist. [Link to SmythOS Support Page]
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

@@ -36,7 +36,7 @@ Medium is a major platform for sharing ideas and stories. Integrating it with Sm
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ Before you begin, please ensure you have the following:
 - A **Medium account**.
 - Your Medium **Integration Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Medium
 
@@ -73,7 +73,7 @@ Your Integration Token is a sensitive credential. Use the SmythOS `Vault` to sto
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Integration Token from the Vault to each Medium component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Medium Component Should I Use?
 
@@ -160,7 +160,7 @@ This component is primarily used as a first step to get your `userId`, which you
 }
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -169,7 +169,7 @@ This component is primarily used as a first step to get your `userId`, which you
 * **Include the Title in the Body:** This is the most common point of confusion. Remember to add your article's title as a heading (e.g., `# My Title`) at the top of your `content` input if you want it to be visible on the published page.
 * **Publishing to Publications:** To publish to a specific Medium Publication you own or contribute to, you first need to get that publication's ID. You can do this by using a custom API call to list the user's publications, then passing that ID into an advanced input field for the `Publish Blog Post` component.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -185,7 +185,7 @@ This component is primarily used as a first step to get your `userId`, which you
   * **Cause:** The title was provided in the `title` input but was not included in the `content` input.
   * **Solution:** Add the title as a Markdown heading (`# My Title`) or an HTML tag (`<h1>My Title</h1>`) at the beginning of the `content` string.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

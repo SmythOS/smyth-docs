@@ -36,7 +36,7 @@ Google Translate is a world-class machine translation service. Integrating it wi
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ Before you begin, please ensure you have the following:
 - The **Cloud Translation API** enabled in your GCP project.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Google Translate
 
@@ -93,7 +93,7 @@ The connection between SmythOS and Google Translate is handled via OAuth 2.0. Th
 Once you authenticate, the connection is saved for your SmythOS account. You won't need to re-enter credentials for other Google Translate components.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Google Translate Component Should I Use?
 
@@ -183,7 +183,7 @@ Build an intelligent ticket routing system. An agent uses this component to dete
 For short or ambiguous text, the detection may have a low confidence. The full `Response` object contains a `confidence` score that you can use to build more robust logic.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -192,7 +192,7 @@ For short or ambiguous text, the detection may have a low confidence. The full `
 * **Use Correct Language Codes:** All language codes should be in ISO-639-1 format (e.g., `en`, `es`, `zh-CN`). An incorrect code will result in an error.
 * **Error Handling:** Build logic in your agent to handle cases where language detection is not confident or a translation fails. The raw `Response` object is key for debugging.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -208,7 +208,7 @@ For short or ambiguous text, the detection may have a low confidence. The full `
     * **Cause:** An invalid language code was provided, or the `project_id` format is incorrect.
     * **Solution:** Check that all language codes are valid ISO-639-1 codes. Ensure your `project_id` is correct.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

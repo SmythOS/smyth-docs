@@ -42,7 +42,7 @@ Asana is a central tool for coordinating team work. Integrating it with SmythOS 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Before you begin, please ensure you have the following:
 - An **Asana account**.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Asana Developer Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Asana
 
@@ -81,7 +81,7 @@ Your Client ID and Secret are sensitive credentials. Use the SmythOS `Vault` to 
 5.  Your connection is now ready to use across all Asana components.
 
 <InfoCallout title="Heads-up">The OAuth authentication flow connects your Asana account to SmythOS. You only need to complete this process once.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Asana Component Should I Use?
 
@@ -237,7 +237,7 @@ When a project is archived, a cleanup agent runs, finds all incomplete tasks wit
 This action is permanent and cannot be undone. Use with caution.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -246,7 +246,7 @@ This action is permanent and cannot be undone. Use with caution.
 * **Understand the Data Model:** Asana's structure is hierarchical: Organizations contain Workspaces and Teams, which contain Projects, which contain Sections and Tasks. Understanding this structure is key to using the right GIDs in the right places.
 * **Use the `Body` for Updates:** For `Update Task` and `Update Goal` components, you must construct the JSON payload in the `Body` setting. Refer to the official Asana API documentation for the correct schema.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -266,7 +266,7 @@ This action is permanent and cannot be undone. Use with caution.
   * **Cause:** The JSON `Body` for a create/update operation is malformed, missing required fields, or contains invalid values.
   * **Solution:** Carefully validate your JSON structure against the official Asana API documentation. For example, when creating a task, `workspace` and `name` are typically required.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

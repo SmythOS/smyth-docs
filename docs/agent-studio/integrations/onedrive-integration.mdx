@@ -47,7 +47,7 @@ Microsoft OneDrive is a cornerstone of modern document management. Integrating i
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ Before you begin, please ensure you have the following:
 - A **Microsoft 365 Account** with administrative permissions to register applications in Microsoft Entra.
 - Necessary permissions (e.g., `Files.ReadWrite.All`, `Group.Read.All`) granted to your application in Microsoft Entra.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With OneDrive
 
@@ -97,7 +97,7 @@ Authentication is handled via OAuth2, which requires you to register an applicat
 4.  Click the blue **Authenticate** button. You will be redirected to a Microsoft sign-in page to authorize the connection.
 
 <InfoCallout title="Heads-up">Once you authenticate, the connection is saved for your SmythOS account. You won't need to re-enter credentials for other OneDrive components. Use the **Sign Out** button in the component settings if you need to switch accounts or re-authenticate.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which OneDrive Component Should I Use?
 
@@ -542,7 +542,7 @@ List all proposals located in the `/Proposals/2025/` folder within a sales team'
 A `404 Not Found` error can occur if the `itemId` does not belong to the specified `groupId` or is not a folder.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -552,7 +552,7 @@ A `404 Not Found` error can occur if the `itemId` does not belong to the specifi
 * **Error Handling:** Always check the `response` output for error codes or messages. Build conditional logic in your agent to handle potential failures gracefully, such as by sending a notification or retrying the operation.
 * **Group vs. User Components:** Be mindful of which components you are using. Operations on shared team libraries require the "Group" components and a `groupId`, while personal files use the standard user components and a `userId`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -570,7 +570,7 @@ A `404 Not Found` error can occur if the `itemId` does not belong to the specifi
     1.  Verify that the `Client ID` and `Client Secret` in the component settings match the values in Microsoft Entra.
     2.  Use the **Sign Out** button in the component settings, then click **Authenticate** again to refresh the connection and obtain a new token.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

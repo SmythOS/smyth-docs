@@ -37,7 +37,7 @@ Firebase provides a complete suite of tools for building applications, with Fire
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin, please ensure you have the following:
 - **Email/Password Sign-In** enabled in your Firebase Authentication settings.
 - Your Firebase project's **Web API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Firebase
 
@@ -75,7 +75,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Firebase component you use. This key identifies your Firebase project for each request.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Firebase Component Should I Use?
 
@@ -197,7 +197,7 @@ After a user logs in successfully using the "Sign In" component, the agent immed
 This component will fail if the `idToken` is missing, invalid, or expired. It is a secure way to fetch data only for the currently authenticated user.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -206,7 +206,7 @@ This component will fail if the `idToken` is missing, invalid, or expired. It is
 * **Handle Tokens Securely:** The `idToken` proves a user is signed in. Never expose it to untrusted environments. It should be managed within your agent's workflow to make secure requests.
 * **Use Firebase Security Rules:** While this integration manages users, remember to configure Firebase Security Rules for services like Firestore and Cloud Storage to control what data each authenticated user can access.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -226,7 +226,7 @@ This component will fail if the `idToken` is missing, invalid, or expired. It is
   * **Cause:** The Web API Key configured in the component's settings is incorrect.
   * **Solution:** Go to your Firebase Project Settings, copy the correct `apiKey`, and update the secret in your SmythOS Vault.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

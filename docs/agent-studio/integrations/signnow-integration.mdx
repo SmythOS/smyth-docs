@@ -35,7 +35,7 @@ SignNow is a leading e-signature platform that simplifies document workflows. In
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ Before you begin, please ensure you have the following:
 - Your SignNow **Access Token**.
 - A pre-uploaded document or template in your SignNow account to get a `document_id`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With SignNow
 
@@ -72,7 +72,7 @@ Your Access Token is a sensitive credential. Use the SmythOS `Vault` to store it
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Access Token from the Vault to each SignNow component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which SignNow Component Should I Use?
 
@@ -126,7 +126,7 @@ A sales agent closes a deal in their CRM. This triggers another agent that takes
 This component sends an *existing* document for signature. You must upload the document or template to your SignNow account first to get a `document_id`.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -135,7 +135,7 @@ This component sends an *existing* document for signature. You must upload the d
 * **Track Document Status with Webhooks:** While these components initiate the flow, the most powerful automation comes from using SignNow webhooks. You can configure a webhook in SignNow to call a SmythOS agent endpoint whenever a document is viewed, signed, or completed, allowing your agent to react in real-time.
 * **Dynamic Documents:** For more advanced workflows, you can use the SignNow API to first create a document from a template and merge fields with customer data (e.g., name, address), then get that new `document_id` and send it for signature, all within one agent.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -151,7 +151,7 @@ This component sends an *existing* document for signature. You must upload the d
   * **Cause:** The recipient's email server may be blocking emails from SignNow, or the email may be in their spam folder. It could also be a deliverability issue with the `from` address.
   * **Solution:** Ask the recipient to check their spam/junk folder. Ensure the `from` email address is a valid address that you control.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

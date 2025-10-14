@@ -57,7 +57,7 @@ Webflow's CMS is powerful and flexible. Integrating it with SmythOS allows you t
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ Before you begin, please ensure you have the following:
 - A **Webflow account** with an active site.
 - A Webflow **API Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Webflow
 
@@ -94,7 +94,7 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Token from the Vault to **each** Webflow component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Webflow Component Should I Use?
 
@@ -551,7 +551,7 @@ A cleanup agent removes an old, unused field from a collection schema to simplif
 Deleting a field will remove all data stored in that field across all items in the collection. This is irreversible.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -560,7 +560,7 @@ Deleting a field will remove all data stored in that field across all items in t
 * **Understand the `Body` Schema:** When creating or updating items, the `fieldData` object in the `Body` is critical. The keys must be the "slugs" of your collection fields (which you can find in the Webflow Designer). Refer to the Webflow API documentation for the correct data structure for different field types (Plain Text, Rich Text, Images, etc.).
 * **Start with `List` Components:** When starting a new workflow, it's often easiest to begin with `List Sites` and `List Collections` to programmatically find the IDs you need, rather than hardcoding them.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -580,7 +580,7 @@ Deleting a field will remove all data stored in that field across all items in t
   * **Cause:** You have successfully used `Create Collection Item` but have not yet used the `Publish Item` component.
   * **Solution:** After creating or updating an item, you must call the `Publish Item` component with the corresponding `item_id`(s) to push the changes to your live website.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

@@ -12,7 +12,7 @@ keywords: [SmythOS, webhook integration, Discord, Google Chat, Zapier, real-time
 **TL;DR:** Deploy your agent with a public endpoint, secure it, and connect any platform that supports outbound HTTP requests.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Why Connect Webhooks to Your Agent?
 
@@ -24,7 +24,7 @@ Webhooks let your SmythOS agent act like an event listener. When a trigger happe
 
 Unlike polling, webhooks are instantaneous, efficient, and perfect for reactive agent workflows.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites for Webhook Deployments
 
@@ -34,7 +34,7 @@ Before you begin, make sure you:
 - Understand the webhook format of your target platform (e.g., Discord, Google Chat).
 - Have appropriate authentication set up via [Vault → API Keys](/docs/agent-studio/key-concepts/vault).
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 1: Create a Webhook-Ready Endpoint
 
@@ -50,7 +50,7 @@ Before you begin, make sure you:
 You can also [Deploy via MCP Server](/docs/agent-deployments/deployments/deploy-as-mcp-server) if you need additional authentication, throttling, or multi-agent routing.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 2: Secure the Webhook Endpoint
 
@@ -75,7 +75,7 @@ Authorization: Bearer your-token
 
 See [Authentication Setup](/docs/agent-studio/manage-agents/authentication) for full details.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 3: Connect Your Platform to the Webhook
 
@@ -104,7 +104,7 @@ Once your agent has a public, secure endpoint:
 }
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 4: Process the Webhook Data in SmythOS
 
@@ -117,7 +117,7 @@ Configure these components to handle incoming webhook data:
 
 > Use defensive logic in the Code Component to handle missing or malformed inputs.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 5: Format and Return a Response
 
@@ -143,7 +143,7 @@ Return a payload structured for the target platform:
 
 > Always test using Postman, curl, or the platform’s native test tools.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 6: Register and Activate the Webhook
 
@@ -156,7 +156,7 @@ Finally, register the webhook URL in your platform:
 
 > Once registered, your agent will begin receiving POST data from the platform in real time.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Example Integration: Zapier + SmythOS
 
@@ -166,7 +166,7 @@ Use [Zapier](https://zapier.com) to trigger your agent from thousands of apps:
 2. Add a **Webhook Action** to POST data to your agent  
 3. Your SmythOS agent processes and responds to the payload
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What’s Next?
 

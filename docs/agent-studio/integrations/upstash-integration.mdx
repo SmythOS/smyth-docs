@@ -35,7 +35,7 @@ Upstash provides a fully serverless Redis database, which is a perfect match for
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ Before you begin, please ensure you have the following:
 - An **Upstash account** with a Redis database created.
 - Your Upstash Database's **ID** and **REST Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Upstash
 
@@ -71,7 +71,7 @@ Your REST Token is a sensitive credential. Use the SmythOS `Vault` to store it s
 4.  Your connection is now configured for that component. You will provide the `db_id` as a standard input.
 
 <InfoCallout title="Heads-up">You must add the REST Token from the Vault to **each** Upstash component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Upstash Component Should I Use?
 
@@ -121,7 +121,7 @@ An agent caches a response from a slow, external API. It uses the API endpoint a
 To store complex objects like JSON, you must first serialize them into a string before passing them to the `db_value` input.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -130,7 +130,7 @@ To store complex objects like JSON, you must first serialize them into a string 
 * **Use JSON for Complex Data:** When storing objects or arrays, convert them to a JSON string before using `Set Record`. Remember to parse the JSON string after retrieving it with `Get Record`.
 * **Set Time-to-Live (TTL) for Caches:** When using Upstash for caching, set an expiration time on your keys to ensure stale data is automatically removed. This can be done by using more advanced Redis commands if the component supports them, or by building time-based logic into your agent.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -146,7 +146,7 @@ To store complex objects like JSON, you must first serialize them into a string 
   * **Cause:** Storing a complex object without first converting it to a JSON string, or forgetting to parse the JSON string after retrieving it.
   * **Solution:** Always use a Code component or similar tool to `JSON.stringify()` before setting and `JSON.parse()` after getting complex data.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

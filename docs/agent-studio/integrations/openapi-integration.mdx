@@ -38,7 +38,7 @@ The OpenAPI specification is the industry standard for defining APIs. By leverag
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin, please ensure you have the following:
 - The **OpenAPI Manifest URL** for the tool you want to integrate. This must be a publicly accessible URL ending in `.json` or `.yaml`.
 - (Optional) An **API Key or other credentials** for the external tool, if it requires authentication.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With OpenAPI
 
@@ -65,7 +65,7 @@ Locate the documentation for the third-party tool you want to use. Look for a li
 5.  **Authentication (If Required):** If the external tool requires an API key, you will need to configure it. The manifest will define how authentication is handled (e.g., as a header). You will typically add the API key to the SmythOS `Vault` and reference it in the component's header settings.
 
 <InfoCallout title="Heads-up">The OpenAPI component itself doesn't have a single authentication method. It adapts to whatever the manifest file specifies for the external tool.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## When Should I Use the OpenAPI Component?
 
@@ -114,7 +114,7 @@ You configure the component with the OpenAPI manifest for a flight booking API. 
 The success of this component is entirely dependent on a well-formed and accurate OpenAPI manifest from the third-party tool.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -123,7 +123,7 @@ The success of this component is entirely dependent on a well-formed and accurat
 * **Start with Simple Queries:** When testing a new tool, start with simple, unambiguous queries to ensure the connection is working and the AI understands the basic functions.
 * **Inspect the Raw Response:** The `output` field often provides a user-friendly summary. For detailed, structured data, you will need to parse the `Response` object.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -139,7 +139,7 @@ The success of this component is entirely dependent on a well-formed and accurat
   * **Cause:** The `query` may be too ambiguous, or the function descriptions in the OpenAPI manifest may be unclear. The selected AI model might not be powerful enough to reason over the tool.
   * **Solution:** Make your `query` more specific. Try upgrading to a more advanced AI model in the component settings. If you control the manifest, improve the `description` for each function to be clearer.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

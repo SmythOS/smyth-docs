@@ -57,7 +57,7 @@ Your Squarespace store is the heart of your e-commerce business. Integrating it 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ Before you begin, please ensure you have the following:
 - A **Squarespace account** on a Business plan or higher.
 - A Squarespace **API Key** with the necessary permissions.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Squarespace
 
@@ -97,7 +97,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Squarespace component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Squarespace Component Should I Use?
 
@@ -649,7 +649,7 @@ Retrieves all store pages on your site.
 This is an essential first step for many workflows. An agent uses this component to find the correct `storePageId` before creating a new product.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -658,7 +658,7 @@ This is an essential first step for many workflows. An agent uses this component
 * **Understand the Data Hierarchy:** Remember the structure: a `Product` contains one or more `Variants`, and `Inventory` is tracked at the `Variant` level. You often need to get a product's variants first to find the correct `variantId` to update.
 * **Use the `Body` for Updates:** For the `Update Product` and `Update Product Variant` components, you must construct the JSON payload in the `Body` setting. Refer to the Squarespace Developer documentation for the correct schema for each object.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -674,7 +674,7 @@ This is an essential first step for many workflows. An agent uses this component
   * **Cause:** The JSON `Body` payload for an update or create operation is malformed or missing required fields.
   * **Solution:** Carefully check your JSON structure against the official Squarespace API documentation. Ensure all required fields are present and data types are correct.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

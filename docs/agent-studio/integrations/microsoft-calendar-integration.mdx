@@ -39,7 +39,7 @@ Integrating Microsoft Calendar with SmythOS allows your agents to become active 
 By connecting Microsoft Calendar, you reduce manual data entry for scheduling, minimize conflicts, and ensure that team calendars accurately reflect activities and commitments managed by your automated SmythOS agents.
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Before you begin the integration, please ensure you have the following:
 - Permissions to register an application in the **Microsoft Entra admin center**.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from your app registration.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Microsoft Calendar
 
@@ -79,7 +79,7 @@ The connection is handled via OAuth 2.0, which requires a one-time setup in Micr
 <InfoCallout title="Secure Your Credentials!">
 Your `Client ID` and `Client Secret` are highly sensitive. Always store them in the SmythOS Vault.
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Microsoft Calendar Component Should I Use?
 
@@ -253,7 +253,7 @@ A "daily digest" agent uses this component with a `$filter` for today's date to 
 * **`changeKey` for Updates (Advanced):** For updating or deleting some Microsoft Graph resources (less common for basic calendar/event properties but good to be aware of), you might need to provide the latest `changeKey` of the item to ensure you're modifying the most recent version and to handle concurrency. The API usually handles this for common calendar/event updates.
 * **Rate Limiting & Throttling:** Be aware of Microsoft Graph API rate limits and throttling. If agents make too many requests in a short period, you might receive `429 Too Many Requests` or `503 Service Unavailable` errors. Check for a `Retry-After` header in the `Headers` output and pause requests accordingly.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -285,7 +285,7 @@ Encountering an issue with your Microsoft Calendar integration? Here are solutio
 For persistent issues, the `Response` object from the component is invaluable. It contains the raw JSON error message from the Microsoft Graph API, which usually provides specific error codes and messages to help diagnose the problem.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

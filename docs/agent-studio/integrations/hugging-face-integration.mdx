@@ -39,7 +39,7 @@ Hugging Face is the leading platform for open-source AI models. Integrating it w
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Before you begin, please ensure you have the following:
 - A **Hugging Face account**.
 - Your Hugging Face **Access Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Hugging Face
 
@@ -76,7 +76,7 @@ Your Access Token is a sensitive credential. Use the SmythOS `Vault` to store it
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Access Token from the Vault to each Hugging Face component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Hugging Face Model Should I Use?
 The Hugging Face integration uses a single, powerful component. The key is choosing the right model for your task. You can browse thousands of models on the [Hugging Face Hub](https://huggingface.co/models).
@@ -129,7 +129,7 @@ An agent takes customer feedback text from a form, passes it as the `inputs` to 
 The single most important step is to **check the documentation on the model's page on the Hugging Face Hub**. This will tell you the exact format required for the `inputs` and what structure to expect in the `response`.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -138,7 +138,7 @@ The single most important step is to **check the documentation on the model's pa
 * **Parse the Response Carefully:** The output structure is model-specific. Use a "Code" component in SmythOS to parse the JSON `response` and extract the exact fields you need for downstream steps.
 * **Handle Model Loading Times:** The first time you call a model via the Inference API, it may need to be loaded into memory, which can take some time. Subsequent calls are usually much faster. Build appropriate delays or retries into your agent if you need an immediate response.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -154,7 +154,7 @@ The single most important step is to **check the documentation on the model's pa
   * **Cause:** The `inputs` you provided are not in the format the model expects.
   * **Solution:** Go to the model's page on the Huggng Face Hub. Read its documentation carefully and look at the examples to see the required input structure. For example, some models expect `{"inputs": "your text"}` while others might expect `{"text": "your text"}`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

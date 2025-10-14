@@ -41,7 +41,7 @@ Your Shopify store is more than just products; it's a content platform. Integrat
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Before you begin, please ensure you have the following:
 - Permissions to create and manage **private apps** in your Shopify admin panel.
 - Your Shopify **Admin API access token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Shopify
 
@@ -83,7 +83,7 @@ Your Admin API access token is a sensitive credential. Use the SmythOS `Vault` t
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Access Token from the Vault to **each** Shopify component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Shopify Component Should I Use?
 
@@ -299,7 +299,7 @@ An agent generates a blog post and a relevant image with AI. It then calls this 
 The `img_src` URL must be publicly accessible for Shopify's servers to be able to download and attach it to the post.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -308,7 +308,7 @@ The `img_src` URL must be publicly accessible for Shopify's servers to be able t
 * **Use HTML for Content:** The `body_html` input requires your content to be in HTML format. Your agent should be designed to generate or convert content to HTML before passing it to the component.
 * **Manage Scopes:** When creating your private app in Shopify, grant only the permissions your agent needs. If it only manages blogs, it doesn't need access to `read_orders` or `write_products`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -324,7 +324,7 @@ The `img_src` URL must be publicly accessible for Shopify's servers to be able t
   * **Cause:** The request body is malformed. This typically means a required field like `title` or `body_html` is missing when creating an article.
   * **Solution:** Check that all required inputs are provided and correctly formatted. Ensure the `body_html` contains valid HTML.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

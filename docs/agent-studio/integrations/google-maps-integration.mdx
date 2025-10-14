@@ -22,7 +22,7 @@ Generate a Google Maps API Key, store it in the Vault, and use Drive components 
 | [**Geocode Address**](#geocode-address) | Convert | Turns an address into coordinates. | <code>urlEncodedAddress</code> | <code>location</code>, <code>response</code> | Enrich a user form with lat/lng. |
 | [**Get Nearby Places**](#get-nearby-places) | Search | Finds POIs within a given radius. | <code>location</code>, <code>radius</code>, <code>keyword</code> | <code>results</code> | Suggest coffee spots or ATMs nearby. |
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ To use Google Maps with SmythOS, you need:
 - A **Maps API Key**
 - A **SmythOS account** ([sign up](https://app.smythos.com/signup)) and access to the **Vault**
 
-<Divider />
+<Spacer size="md" /> 
 
 ## API Key Setup
 
@@ -58,7 +58,7 @@ Restrict by IP, referrer, and limit to Maps APIs only. Store securely in the Vau
 2. Name it something like <code>google_maps_api_key</code>  
 3. Paste the API Key you copied from Google
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Component Reference
 
@@ -93,7 +93,7 @@ Convert shipping or address input into coordinates and pass to logistics API or 
   "urlEncodedAddress": "1600+Amphitheatre+Parkway,+Mountain+View,+CA"
 }`} />
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="get-nearby-places"></a>Get Nearby Places
 
@@ -130,7 +130,7 @@ Pair this with a user’s geocoded address to find relevant venues nearby: coffe
   "keyword": "restaurant"
 }`} />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices
 
@@ -139,7 +139,7 @@ Pair this with a user’s geocoded address to find relevant venues nearby: coffe
 - ✅ Validate API results by checking <code>status</code> and <code>ZERO_RESULTS</code>.
 - ⚠️ Use clear <code>keyword</code> values to improve relevance (e.g., use "pharmacy", not "meds").
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting
 
@@ -154,7 +154,7 @@ Pair this with a user’s geocoded address to find relevant venues nearby: coffe
 Check <code>response.status</code> and <code>error_message</code> in the output for deeper context.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What’s Next?
 
@@ -165,4 +165,4 @@ Example workflows to try:
 
 <Image src="/docs/img/integrations/smythos_googlemaps.png" alt="Google Maps integration overview" />
 
-<Divider />
+<Spacer size="md" /> 

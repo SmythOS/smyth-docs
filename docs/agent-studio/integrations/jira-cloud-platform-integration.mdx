@@ -56,7 +56,7 @@ Jira is the central nervous system for countless development teams. Integrating 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ Before you begin, please ensure you have the following:
 - An **Atlassian account** with permissions to access the desired Jira projects.
 - An **API Token** generated from your Atlassian account.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Jira Cloud
 
@@ -98,7 +98,7 @@ Your encoded credentials are a sensitive secret. Use the SmythOS `Vault` to stor
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to each Jira component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Jira Component Should I Use?
 
@@ -672,7 +672,7 @@ An agent posts an automated status update as a comment. Once the task is complet
 This action is permanent and cannot be undone.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -681,7 +681,7 @@ This action is permanent and cannot be undone.
 * **Use JQL for Advanced Searches:** While not a dedicated component, Jira's power comes from JQL (Jira Query Language). You can use a generic API component in SmythOS to make calls to Jira's `/rest/api/3/search` endpoint with a JQL query for highly specific searches.
 * **Custom Fields:** To update custom fields on an issue, you will need to use the `Update Issue` endpoint with a custom JSON body. This typically requires a generic API call component where you construct the full payload according to the Jira REST API documentation.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -701,7 +701,7 @@ This action is permanent and cannot be undone.
   * **Cause:** You are attempting to use a `transitionId` that is not valid for the issue's current status in the workflow.
   * **Solution:** Always call the `Get Transitions` component for the specific issue right before you attempt to transition it to get the list of currently available transitions.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

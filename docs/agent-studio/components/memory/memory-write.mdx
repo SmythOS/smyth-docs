@@ -21,8 +21,6 @@ Memory gives agents short-term and long-term context. By writing values to memor
 - value is any JSON serializable data.
 - scope controls how long the value lives. Choose Request or TTL.
 
-<WarningCallout title="Important"> If you omit a memory name, the value cannot be retrieved later. </WarningCallout> 
-
 <Spacer size="md" />
 
 ## Step 1: Configure Memory Name
@@ -33,7 +31,7 @@ Every memory operation requires a **Memory Name**. This groups related keys toge
 |--------------------|-----------|-----------------------------------------------------------------------------|
 | **Memory Name**    | <Badge type="required">Yes</Badge> | The namespace or group under which keys are stored. | `session-memory` |
 
-<WarningCallout title="Important">
+<WarningCallout title="Forgot the name?">
 If you omit a memory name, the values cannot be retrieved later.
 </WarningCallout>
 

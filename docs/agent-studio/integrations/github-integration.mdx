@@ -56,7 +56,7 @@ Integrating GitHub with SmythOS allows your agents to become powerful assistants
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -66,7 +66,7 @@ Before you begin, please ensure you have the following:
 - A **GitHub Account** with access to the repositories you plan to integrate with.
 - A **GitHub Personal Access Token (PAT)** with the appropriate scopes.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With GitHub
 
@@ -99,7 +99,7 @@ The connection is configured using a secure Personal Access Token (PAT).
 If your agents encounter permission errors, the most common reason is that the PAT lacks the required scopes. You may need to regenerate the token with broader permissions (like the full `repo` scope) and update the secret in your Vault.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Which GitHub Component Should I Use?
 
@@ -676,7 +676,7 @@ Retrieves the latest published full release for a specified repository.
 An agent monitors a critical software repository and, upon detecting a new latest release, triggers a deployment workflow.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -686,7 +686,7 @@ An agent monitors a critical software repository and, upon detecting a new lates
 * **Base64 Encoding for File Content:** For "Commit File" and "Update File Content," ensure the `content` input is correctly Base64 encoded.
 * **SHA for File Updates:** When using "Update File Content," providing the correct `sha` (blob SHA) of the file you intend to update is crucial to avoid conflicts.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -704,7 +704,7 @@ An agent monitors a critical software repository and, upon detecting a new lates
 For persistent issues, the `Response` object from the component is your most valuable tool. It contains the raw JSON error message from the GitHub API, which usually provides specific details about what went wrong.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 ## What's Next?
 
 With SmythOS integrated with GitHub, you can automate your entire development lifecycle.

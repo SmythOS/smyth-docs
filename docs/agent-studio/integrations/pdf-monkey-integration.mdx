@@ -38,7 +38,7 @@ PDF Monkey is a powerful API for creating pixel-perfect PDF documents from templ
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin, please ensure you have the following:
 - A **PDF Monkey account** with at least one document template created.
 - Your PDF Monkey **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With PDF Monkey
 
@@ -74,7 +74,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** PDF Monkey component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which PDF Monkey Component Should I Use?
 
@@ -212,7 +212,7 @@ An agent generates a temporary PDF report for a user to download. After 24 hours
 This action is permanent and cannot be undone.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -221,7 +221,7 @@ This action is permanent and cannot be undone.
 * **Master the `Body` Payload:** The `Body` setting in the `Generate PDF` and `Generate Draft` components is where you pass your data. The JSON must have a `_payload` key, and its value should be an object containing key-value pairs that match the variables in your template.
 * **Handle Asynchronous Generation:** PDF generation is not always instantaneous. For complex documents, it's best to check the document status using `Get Document Info` before trying to use the `download_url`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -241,7 +241,7 @@ This action is permanent and cannot be undone.
   * **Cause:** The keys in your JSON `_payload` do not exactly match the variable names in your PDF Monkey template (e.g., `{{customer_name}}` in the template vs. `"customerName"` in the JSON).
   * **Solution:** Carefully check that every key in your JSON payload is an exact match for the corresponding variable in your template.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

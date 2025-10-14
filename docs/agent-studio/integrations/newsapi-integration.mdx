@@ -34,7 +34,7 @@ NewsAPI provides direct access to a massive, real-time firehose of global news. 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ Before you begin, please ensure you have the following:
 - A **NewsAPI account**.
 - Your NewsAPI **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With NewsAPI
 
@@ -69,7 +69,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to each NewsAPI component you use. This ensures all connections are secure and properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which NewsAPI Component Should I Use?
 
@@ -128,7 +128,7 @@ Create a brand monitoring agent. Every morning, it searches for your company's n
 On the free Developer plan, the API can only fetch articles up to one month old. You also cannot sort by `popularity`.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -137,7 +137,7 @@ On the free Developer plan, the API can only fetch articles up to one month old.
 * **Filter by Domain:** To monitor specific sources, use the `domains` parameter. This is great for tracking news from top-tier publications or industry-specific blogs.
 * **Manage Pagination:** The API returns a maximum of 100 articles per page. If `totalResults` is greater than `pageSize`, you will need to build a loop in your agent that increments the `page` input to fetch all results.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -157,7 +157,7 @@ On the free Developer plan, the API can only fetch articles up to one month old.
   * **Cause:** The query genuinely returned no results for the specified parameters.
   * **Solution:** Broaden your `keyword` or date range (`from`/`to`). Remove any restrictive `domains` filters. Test the same query directly in a browser to confirm.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

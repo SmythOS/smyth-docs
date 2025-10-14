@@ -39,7 +39,7 @@ Tavily is a search API built from the ground up for AI applications, particularl
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Before you begin, please ensure you have the following:
 - A **Tavily account**.
 - Your Tavily **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Tavily
 
@@ -74,7 +74,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Tavily component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Tavily Component Should I Use?
 
@@ -230,7 +230,7 @@ An agent first uses a search component to get a list of relevant URLs. It then p
 
 <Arcade src="https://demo.arcade.software/cI4rN4ZVZnOJUYjNobuB?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Tavily Extract" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -239,7 +239,7 @@ An agent first uses a search component to get a list of relevant URLs. It then p
 * **Use Domain Filters:** The `include_domains` and `exclude_domains` parameters are powerful tools for refining your search. Use them to focus on authoritative sources or to filter out known low-quality sites.
 * **Leverage for RAG:** Tavily is purpose-built for Retrieval-Augmented Generation. Use the clean content from its search or extract results as the context (`Retrieval`) for your LLM prompts to get more accurate and factual `Generated` answers.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -259,7 +259,7 @@ An agent first uses a search component to get a list of relevant URLs. It then p
   * **Cause:** The website may have strong anti-scraping measures that even Tavily could not bypass, or the URL might be invalid or lead to a page with no main content.
   * **Solution:** This is expected for some sites. Build logic in your agent to handle failed extractions gracefully, such as by logging the failed URL or trying an alternative source.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

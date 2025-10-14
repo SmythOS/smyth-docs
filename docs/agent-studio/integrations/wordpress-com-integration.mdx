@@ -41,7 +41,7 @@ WordPress.com is a powerful platform for publishing. Integrating it with SmythOS
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ Before you begin, please ensure you have the following:
 - A **WordPress.com account** and site.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the WordPress.com Developer portal.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With WordPress.com
 
@@ -81,7 +81,7 @@ Your Client ID and Secret are sensitive credentials. Use the SmythOS `Vault` to 
 5.  Your connection is now ready to use across all WordPress.com components.
 
 <InfoCallout title="Heads-up">The OAuth authentication flow connects your WordPress.com account to SmythOS. You only need to complete this process once.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which WordPress.com Component Should I Use?
 
@@ -268,7 +268,7 @@ An agent identifies promotional posts for events that have already passed and au
 This action permanently deletes the post. Use with caution.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -276,7 +276,7 @@ This action permanently deletes the post. Use with caution.
 * **Use the `Body` for Advanced Operations:** The `Create Post` and `Edit Post` components are much more powerful when you use the `Body` setting. You can specify tags, categories, status (`draft`, `pending`, `publish`), and more by constructing the appropriate JSON object according to the [WordPress.com REST API documentation](https://developer.wordpress.com/docs/api/1.1/post/sites/$site/posts/new/).
 * **Manage Site and Post IDs:** Your agent workflows will often require a `site` identifier and a `post_id`. The `site` is your site's domain. You can get `post_id`s from the `Create Post` or `Get Posts` components.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -292,7 +292,7 @@ This action permanently deletes the post. Use with caution.
   * **Cause:** The `site` identifier or `post_id` is incorrect.
   * **Solution:** Double-check your site domain and the ID of the post you are trying to interact with.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

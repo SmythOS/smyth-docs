@@ -38,7 +38,7 @@ PdfCrowd is a robust API for handling document conversions. Integrating it with 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin, please ensure you have the following:
 - A **PdfCrowd account**.
 - Your PdfCrowd **Username** and **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With PdfCrowd
 
@@ -78,7 +78,7 @@ Your encoded key is a sensitive credential. Use the SmythOS `Vault` to store it 
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to **each** PdfCrowd component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which PdfCrowd Component Should I Use?
 
@@ -192,7 +192,7 @@ Converts a PDF document, accessible via a URL, into an HTML document.
 To make a legacy PDF manual searchable on a website, an agent uses this component to convert the PDF to HTML, which can then be indexed or embedded into a webpage.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -201,7 +201,7 @@ To make a legacy PDF manual searchable on a website, an agent uses this componen
 * **Handle Large Files:** Document conversion, especially for large or complex files, can take time. Design your agent workflows to account for potential delays.
 * **Error Handling:** Check the `Headers` output for HTTP status codes. A `200 OK` indicates success, while codes like `400` or `500` indicate an error. The `Response` body will often contain a detailed error message.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -217,7 +217,7 @@ To make a legacy PDF manual searchable on a website, an agent uses this componen
   * **Cause:** The source file may be extremely large, complex, or corrupted. There could also be a temporary issue with the PdfCrowd service.
   * **Solution:** Try converting a smaller, simpler file to confirm your setup is correct. Check the PdfCrowd status page for any reported outages.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

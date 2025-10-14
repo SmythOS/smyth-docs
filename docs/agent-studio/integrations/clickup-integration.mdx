@@ -42,7 +42,7 @@ ClickUp is a powerful "do-it-all" productivity platform. Integrating it with Smy
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Before you begin, please ensure you have the following:
 - A **ClickUp account**.
 - Your personal ClickUp **API Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With ClickUp
 
@@ -78,7 +78,7 @@ Your API Token is a sensitive credential. Use the SmythOS `Vault` to store it se
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Token from the Vault to **each** ClickUp component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which ClickUp Component Should I Use?
 
@@ -370,7 +370,7 @@ Retrieves all Spaces within a specific Workspace (Team).
 This is often the first step in a workflow that needs to navigate the ClickUp hierarchy. An agent gets the list of all spaces to find the `space_id` for the "Engineering" space.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -379,7 +379,7 @@ This is often the first step in a workflow that needs to navigate the ClickUp hi
 * **Use Custom Fields:** For advanced workflows, you can create Custom Fields in ClickUp (e.g., "Ticket ID," "Customer Email"). While not directly supported by default inputs, you can often update these fields by constructing a custom JSON payload in the `Body` of the `Update Task` component.
 * **Pagination:** When using `Get Tasks` or other list components, remember that the API returns paginated results. You may need to build a loop that increments the `page` input to fetch all tasks if a list contains more than the default limit.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -395,7 +395,7 @@ This is often the first step in a workflow that needs to navigate the ClickUp hi
   * **Cause:** This often relates to permissions. The user whose personal API token is being used may not have access to the specific Space, Folder, or List you are trying to interact with.
   * **Solution:** Ensure the user associated with the API token has been invited to and has the necessary permissions for the target resources within ClickUp.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

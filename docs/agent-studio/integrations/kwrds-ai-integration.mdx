@@ -40,7 +40,7 @@ Kwrds.ai provides AI-powered SEO insights that are essential for modern content 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Before you begin, please ensure you have the following:
 - A **Kwrds.ai account**.
 - Your Kwrds.ai **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Kwrds.ai
 
@@ -75,7 +75,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Kwrds.ai component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Kwrds.ai Component Should I Use?
 
@@ -189,7 +189,7 @@ Returns the live Search Engine Results Page (SERP) data for a given query.
 A competitor analysis agent runs this component with a target keyword, extracts the top 5 ranking URLs from the `serp` output, and then sends those URLs to a web scraper to analyze their content.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -198,7 +198,7 @@ A competitor analysis agent runs this component with a target keyword, extracts 
 * **Use a Loop for Bulk Analysis:** To analyze a large list of keywords, use a `Loop` component in SmythOS. Inside the loop, call the `Keyword Research` component for each keyword and log the results to a Google Sheet or database.
 * **Localize Your Research:** Always specify the `search_country` and `search_language` to get the most accurate and relevant data for your target audience.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -214,7 +214,7 @@ A competitor analysis agent runs this component with a target keyword, extracts 
   * **Cause:** The keyword may have very low or no search data, or the specific combination of keyword and country has no results.
   * **Solution:** Try a broader keyword to test the connection. Double-check the `search_country` code for typos.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

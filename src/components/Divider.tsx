@@ -45,7 +45,7 @@ export default function Divider({ variant = 'subtle', label }: DividerProps) {
 }
 
 
-/* example usage -> <Divider />
+/* example usage -> <Spacer size="md" /> 
 <Divider variant="dashed" />
 <Divider variant="inset" />
 <Divider variant="labeled" label="Advanced Settings" /> */

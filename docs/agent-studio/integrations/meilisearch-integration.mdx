@@ -39,7 +39,7 @@ Meilisearch provides an incredibly fast and relevant search experience. By integ
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Before you begin, please ensure you have the following:
 - The **Host URL** of your Meilisearch instance (e.g., `https://my-instance.meilisearch.com`).
 - Your Meilisearch **Master Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Meilisearch
 
@@ -75,7 +75,7 @@ Your Master Key is highly sensitive. Use the SmythOS `Vault` to store it securel
 5.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the `url` and `Master Key` to **each** Meilisearch component you use. This provides the flexibility to connect to different Meilisearch instances within the same agent.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Meilisearch Component Should I Use?
 
@@ -371,7 +371,7 @@ To make searching for "pants" also return results for "trousers" and "slacks", u
 This operation overwrites existing synonyms. To add to the list, you must first fetch the current synonyms, append your new ones, and then send the complete list back.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -381,7 +381,7 @@ This operation overwrites existing synonyms. To add to the list, you must first 
 * **Schema Design:** Before indexing, carefully design the schema for your documents. Deciding on a consistent `primaryKey` and which fields should be searchable or filterable is crucial for a good search experience.
 * **Understand Filterable Attributes:** To filter search results (e.g., by price, category), you must first configure those attributes as "filterable" in your Meilisearch index settings. This is another task that can be automated with an agent.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -401,7 +401,7 @@ This operation overwrites existing synonyms. To add to the list, you must first 
   * **Cause:** Indexing is an asynchronous process. It might take a moment for new documents to become searchable.
   * **Solution:** Use the `taskUid` returned by write operations to check the status of the task. Only expect to find the document in search results after the task status is `succeeded`.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

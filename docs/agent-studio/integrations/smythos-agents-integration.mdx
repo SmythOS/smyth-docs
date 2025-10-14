@@ -35,7 +35,7 @@ Connecting agents is a core concept in building advanced AI systems. It allows y
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ Before you begin, please ensure you have the following:
 - At least one existing SmythOS agent that can be used as a **subagent** (the agent being called).
 - A second SmythOS agent to act as the **parent agent** (the agent that will do the calling).
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Subagents
 
@@ -66,7 +66,7 @@ Next, create the agent that will orchestrate the work. For example, an agent nam
 <InfoCallout title="No API Key Needed">
 Since you are connecting agents within the same SmythOS ecosystem, no external authentication like API keys is required. The connection is handled seamlessly.
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Component Should I Use?
 
@@ -126,7 +126,7 @@ The Manager Agent then takes the `Response` from the subagent (e.g., a CRM entry
 The `Version` setting is critical. Using "Dev" allows for safe testing, while "Prod Latest" ensures your live automations are stable. Be mindful of which version you are targeting to avoid unexpected behavior.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -135,7 +135,7 @@ The `Version` setting is critical. Using "Dev" allows for safe testing, while "P
 * **Manage Versions:** Thoroughly test your subagents in their `Dev` environment. Only promote a subagent to `Prod` when it is stable. In your parent agent, use the `Dev` version setting for testing and switch to `Prod Latest` for your live workflows.
 * **Standardize Inputs/Outputs:** For easier interoperability, design your subagents to accept and return data in a consistent format, such as JSON.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -151,7 +151,7 @@ The `Version` setting is critical. Using "Dev" allows for safe testing, while "P
   * **Cause:** Agent A calls Agent B, and Agent B calls Agent A, creating a recursive loop.
   * **Solution:** Carefully map out your agent architecture. Avoid circular dependencies where agents call each other in a way that could lead to an infinite loop.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

@@ -41,7 +41,7 @@ Twilio is a leading cloud communications platform. Integrating it with SmythOS a
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ Before you begin, please ensure you have the following:
 - A **Twilio account** with a provisioned phone number (for SMS) or WhatsApp sender.
 - Your Twilio **Account SID** and **Auth Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Twilio
 
@@ -80,7 +80,7 @@ Your encoded key is a sensitive credential. Use the SmythOS `Vault` to store it 
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to **each** Twilio component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Twilio Component Should I Use?
 
@@ -277,7 +277,7 @@ Creates a new webhook for a Twilio service to receive real-time event notificati
 To build an interactive SMS bot, an agent first uses this component to register its own webhook URL with a Twilio service. This tells Twilio where to send incoming message data, which can then trigger the agent to process the message and reply.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -286,7 +286,7 @@ To build an interactive SMS bot, an agent first uses this component to register 
 * **Handle Message Status:** Twilio messages go through several statuses (`queued`, `sending`, `sent`, `delivered`, `failed`). For critical messages, your agent may need to poll the message status using its `messageSID` to confirm delivery.
 * **Verify Numbers:** To send SMS messages from your Twilio account to a personal number during development, you must first verify that number in your Twilio Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -306,7 +306,7 @@ To build an interactive SMS bot, an agent first uses this component to register 
   * **Cause:** You may be trying to send a freeform message outside of the 24-hour customer service window, or your WhatsApp sender is not properly configured.
   * **Solution:** Ensure you are using an approved Message Template if initiating a conversation. Check the status of your WhatsApp sender in the Twilio Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

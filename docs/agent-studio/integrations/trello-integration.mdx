@@ -49,7 +49,7 @@ Trello is a simple yet powerful tool for visual project management. Integrating 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ Before you begin, please ensure you have the following:
 - A **Trello account**.
 - A Trello **API Key** and **Access Token**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Trello
 
@@ -84,7 +84,7 @@ Your API Key and Token are sensitive credentials. Use the SmythOS `Vault` to sto
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key and Access Token from the Vault to **each** Trello component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Trello Component Should I Use?
 
@@ -481,7 +481,7 @@ Finds and retrieves the card associated with a specific action ID.
 A monitoring agent receives a webhook notification with an `action_id` for a new comment. It uses this component to get the `card_id` and `cardUrl` to include in a Slack notification.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -490,7 +490,7 @@ A monitoring agent receives a webhook notification with an `action_id` for a new
 * **Use Webhooks for Real-Time Actions:** For the most responsive workflows, set up a Trello webhook. You can configure it to trigger your SmythOS agent whenever an action happens (e.g., a card is moved to the "Done" list), allowing your agent to react instantly.
 * **Markdown in Comments and Descriptions:** Remember that Trello card descriptions and comments support Markdown for formatting. Your agent can generate formatted text for clearer communication.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -506,7 +506,7 @@ A monitoring agent receives a webhook notification with an `action_id` for a new
   * **Cause:** A required input is missing (e.g., you tried to create a card without a `name`), or a parameter is invalid.
   * **Solution:** Check that all required inputs for the component are provided and are in the correct format.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

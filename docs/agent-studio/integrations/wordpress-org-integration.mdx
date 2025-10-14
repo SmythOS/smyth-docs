@@ -41,7 +41,7 @@ Your self-hosted WordPress.org site gives you full control. Integrating it with 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Before you begin, please ensure you have the following:
 - An **Administrator** user account on your WordPress site.
 - An **Application Password** generated for that user.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With WordPress.org
 
@@ -84,7 +84,7 @@ Your encoded credentials are a sensitive secret. Use the SmythOS `Vault` to stor
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the Base64 encoded secret from the Vault to each WordPress.org component that performs a write action (Create, Update, Delete).</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which WordPress.org Component Should I Use?
 
@@ -267,7 +267,7 @@ This action permanently deletes the post. Use with caution.
 
 <Arcade src="https://demo.arcade.software/HWrgHHPEeyf9pwEchsrb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="WP.org Delete Post" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -276,7 +276,7 @@ This action permanently deletes the post. Use with caution.
 * **Manage Media First:** To create a post with an image, you must first ensure the image exists in your WordPress Media Library. This may require a separate agent step to upload the image via the REST API to get the `image_id`.
 * **Update Status to Publish:** The `Create Draft Post` component saves the post with a `draft` status. To publish it, you must use the `Update Post` component, providing the `post_id` and setting the `status` to `publish` in the request body.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -292,7 +292,7 @@ This action permanently deletes the post. Use with caution.
   * **Cause:** The `image_id` provided to the `Create Post With Image` component is incorrect or does not exist in the Media Library.
   * **Solution:** Confirm the image ID in your WordPress Media Library. Ensure the image was successfully uploaded before calling the component.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

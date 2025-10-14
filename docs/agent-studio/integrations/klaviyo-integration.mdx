@@ -46,7 +46,7 @@ Klaviyo is a powerful marketing automation platform. Integrating it with SmythOS
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -56,7 +56,7 @@ Before you begin, please ensure you have the following:
 - A **Klaviyo account**.
 - A Klaviyo Private **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Klaviyo
 
@@ -84,7 +84,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Klaviyo component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Klaviyo Component Should I Use?
 
@@ -399,7 +399,7 @@ Unsubscribes a profile from email marketing for a specific list.
 An agent processes a user's request to be removed from a promotional newsletter. It takes the user's email and the newsletter's `list_id` and calls this component to unsubscribe them.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -408,7 +408,7 @@ An agent processes a user's request to be removed from a promotional newsletter.
 * **Use Webhooks for Real-Time Events:** While these components are great for taking action, Klaviyo's webhooks are ideal for triggering your agents in real time based on user behavior (e.g., opening an email, making a purchase).
 * **Leverage Custom Properties:** When adding or updating profiles, you can include a `properties` object to store custom data (e.g., `{"favorite_color": "blue"}`). This is essential for advanced segmentation.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -424,7 +424,7 @@ An agent processes a user's request to be removed from a promotional newsletter.
   * **Cause:** The list may be set to double opt-in, which means the user must confirm their subscription via email before they become active.
   * **Solution:** This is expected behavior for double opt-in lists. The API call succeeds by sending the confirmation email. Check your list settings in Klaviyo.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

@@ -40,7 +40,7 @@ tl;dv records, transcribes, and summarizes your meetings. Integrating it with Sm
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Before you begin, please ensure you have the following:
 - A **tl;dv account**.
 - Your tl;dv **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With tl;dv
 
@@ -76,7 +76,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** tl;dv component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which tl;dv Component Should I Use?
 
@@ -233,7 +233,7 @@ Retrieves all meetings that occurred within a specified date range.
 To generate a quarterly report, an agent uses this component to fetch all sales calls that happened between the start and end dates of the quarter.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -242,7 +242,7 @@ To generate a quarterly report, an agent uses this component to fetch all sales 
 * **Parse Transcript Data:** The transcript data can be quite large. Use Code components or AI models to parse this text to find action items, key decisions, or customer feedback.
 * **Handle Pagination:** When using `Get Meetings List`, be aware of the `limit` and `page` parameters. If you have more meetings than the limit, you will need to build a loop in your agent that increments the `page` input to fetch all results.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -258,7 +258,7 @@ To generate a quarterly report, an agent uses this component to fetch all sales 
   * **Cause:** The meeting may genuinely have no transcript or highlights, or the search/date range returned no meetings.
   * **Solution:** Verify in the tl;dv web application that the meeting has the data you expect. Broaden your search query or date range to test the connection.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

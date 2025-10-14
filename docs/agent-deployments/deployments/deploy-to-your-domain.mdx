@@ -12,7 +12,7 @@ keywords: [SmythOS, custom domain, agent deployment, DNS, CNAME, subdomain setup
 **TL;DR:** Add a CNAME record with the provided target, verify your domain in SmythOS, and deploy your agent to it using Agent Cloud.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Why Deploy Your Agent to a Custom Domain?
 
@@ -24,7 +24,7 @@ Deploying to your own domain allows you to:
 
 Linking your domain puts you in control if you're launching a support assistant, embedding a chatbot, or even building a backend API.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What You Need Before You Begin
 
@@ -34,7 +34,7 @@ To connect a domain, you’ll need:
 - Access to your domain registrar or DNS management (e.g., Cloudflare, GoDaddy)
 - A subdomain (e.g., `ai.mycompany.com`) you want to use
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 1: Register Your Domain in SmythOS
 
@@ -50,7 +50,7 @@ Host: ai.mycompany.com
 Target: ca0e27d8eeec9ebf4c62a76719df460a.proxy.stage.smyth.ai
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 2: Configure Your DNS with a CNAME Record
 
@@ -72,7 +72,7 @@ Value:  ca0e27d8eeec9ebf4c62a76719df460a.proxy.stage.smyth.ai
 DNS propagation may take up to 24 hours depending on your provider. Wait until it's verified in SmythOS.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 3: Verify the Domain in SmythOS
 
@@ -86,7 +86,7 @@ Once the CNAME is live:
 See [Subdomains docs](/docs/agent-deployments/subdomains) for troubleshooting tips and advanced routing options.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Step 4: Deploy Your Agent to the Verified Domain
 
@@ -97,7 +97,7 @@ See [Subdomains docs](/docs/agent-deployments/subdomains) for troubleshooting ti
 
 Your agent is now live at your own domain.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What’s Next?
 
@@ -111,4 +111,4 @@ Now that your agent is running on your own domain, you can:
 
 <PromptCard prompt="Add a CNAME record to your DNS and verify it in SmythOS to connect your domain to an agent." />
 
-<Divider />
+<Spacer size="md" /> 

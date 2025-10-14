@@ -23,7 +23,7 @@ Use your Google OAuth credentials to connect Docs to SmythOS, then use component
 | [**Append Text**](#append-text) | Write | Adds text to a document | <code>documentId</code>, <code>text</code> | <code>documentId</code> | Auto-log output into a running doc |
 | [**Create Document**](#create-document) | Create | Starts a new blank document | <code>title</code> | <code>documentId</code> | Generate a report or note in real-time |
 
-<Divider />
+<Spacer size="md" /> 
 
 ## OAuth Setup for Google Docs
 
@@ -53,7 +53,7 @@ Always store your Client ID and Secret in <strong>Vault</strong> for secure reus
 
 <Arcade url="https://app.smythos.com/demo/google-auth" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="get-document"></a>Get Document
 
@@ -83,7 +83,7 @@ Fetch a Google Doc’s full JSON representation, including title and structured 
   "documentId": "1Z3Xy_a2Nd0fTqx..."
 }`} />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="append-text"></a>Append Text
 
@@ -119,7 +119,7 @@ Add raw text content to the end of an existing Google Document.
 Append meeting notes, user summaries, or GPT responses directly to a shared doc during a session.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="create-document"></a>Create Document
 
@@ -148,7 +148,7 @@ Creates a new blank Google Doc with a given title.
   "title": "Meeting Notes – June 2025"
 }`} />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices
 
@@ -157,7 +157,7 @@ Creates a new blank Google Doc with a given title.
 - ✍🏼 Style and format using Docs batch update methods (upcoming support).
 - 📄 Treat the document structure as an editable tree—parse with care.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting
 
@@ -172,7 +172,7 @@ Creates a new blank Google Doc with a given title.
 You can inspect <code>response.error</code> in outputs to capture error messages directly inside flows.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Example Flows
 

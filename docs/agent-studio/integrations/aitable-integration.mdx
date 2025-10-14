@@ -25,7 +25,7 @@ Get your <code>AITable API Token</code> from your profile, store it in Vault, an
 | [**Update Multiple Records**](#update-multiple-records) | Batch update up to 10 rows | <code>datasheetId</code> | <code>records</code> | Modify rows in bulk |
 | [**Delete Field**](#delete-field) | Removes a field from a datasheet | <code>spaceId</code>, <code>datasheetId</code>, <code>fieldId</code> | <code>message</code> | Clean up unneeded columns |
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Required Setup
 
@@ -43,7 +43,7 @@ Store your API token in <strong>Vault</strong> so it’s reusable across flows a
 
 <Image src="/docs/img/integrations/aitable_token.png" alt="AITable Token Configuration" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="get-records"></a>Get Records
 
@@ -65,7 +65,7 @@ Fetches all rows from a specified datasheet.
 
 <Arcade src="https://demo.arcade.software/w5v49RTlZuD51AoglFW8?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Get Records" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="create-datasheet"></a>Create Datasheet
 
@@ -91,7 +91,7 @@ Creates a new datasheet (optionally with a first field).
 
 <Arcade src="https://demo.arcade.software/2XNmm3eArAaCUQDbYGM0?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Datasheet" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="create-record"></a>Create Record
 
@@ -115,7 +115,7 @@ Additional fields go in the component’s **Body** section, using the field keys
 
 <Arcade src="https://demo.arcade.software/YGylrA9hpNMqeKXlGrGb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Create Record" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="update-multiple-records"></a>Update Multiple Records
 
@@ -139,7 +139,7 @@ Update data is included in the **Body** tab in JSON format.
 
 <Arcade src="https://demo.arcade.software/9TLRNKnR1LKShUMpEA6J?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Update Multiple Records" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## <a name="delete-field"></a>Delete Field
 
@@ -163,7 +163,7 @@ Remove a field (column) from a datasheet.
 
 <Arcade src="https://demo.arcade.software/GUl6Dg2jQNbT13pe7z3U?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="AITable Delete Field" />
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices
 
@@ -173,7 +173,7 @@ Remove a field (column) from a datasheet.
 - Use "Create Datasheet" + "Create Field" to build custom table structures dynamically
 - Batch-create or update records where possible to reduce API calls
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting
 
@@ -183,7 +183,7 @@ Remove a field (column) from a datasheet.
 | <code>404 Not Found</code> | Datasheet or field ID typo | Double-check IDs from dashboard |
 | <code>400 Bad Request</code> | Malformed payload | Review body structure and required fields |
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

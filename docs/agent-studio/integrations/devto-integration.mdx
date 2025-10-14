@@ -36,7 +36,7 @@ Dev.to is a massive community for developers. Integrating it with SmythOS allows
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ Before you begin, please ensure you have the following:
 - A **Dev.to account**.
 - Your Dev.to **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Dev.to
 
@@ -73,7 +73,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to each Dev.to component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Dev.to Component Should I Use?
 
@@ -164,7 +164,7 @@ An agent generates a first draft of a technical tutorial using an AI model. It t
 }
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -173,7 +173,7 @@ An agent generates a first draft of a technical tutorial using an AI model. It t
 * **Frontmatter:** The Dev.to API uses a JSON payload. However, if you were to structure your `body` input with YAML frontmatter (the metadata at the top of a Markdown file), the API can often parse it to set the title, tags, and other properties, which can be an alternative way to structure your input.
 * **Update Articles:** To update an existing article, you would need to use a `PUT` request to the `/api/articles/{id}` endpoint. This would require a custom API call component in SmythOS where you provide the `articleId` obtained from creating the article.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -189,7 +189,7 @@ An agent generates a first draft of a technical tutorial using an AI model. It t
   * **Cause:** This can sometimes happen if the API key is invalid or has issues.
   * **Solution:** Regenerate your API key on Dev.to and update the secret in your SmythOS Vault.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

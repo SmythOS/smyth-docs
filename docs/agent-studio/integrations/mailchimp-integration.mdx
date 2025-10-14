@@ -35,7 +35,7 @@ Mailchimp is a leading email marketing and automation platform. Integrating it w
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ Before you begin, please ensure you have the following:
 - The **Audience ID** for the list you want to add subscribers to.
 - Your account's **Data Center Prefix** (e.g., `us6`).
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Mailchimp
 
@@ -74,7 +74,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured. You will provide the `dc` and `audience_id` as standard inputs.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to each Mailchimp component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Mailchimp Component Should I Use?
 
@@ -134,7 +134,7 @@ An agent is connected to a "Request a Demo" form on a website. When the form is 
 The `dc` input is required and must match your account's data center prefix. An incorrect value will cause the API call to fail.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -143,7 +143,7 @@ The `dc` input is required and must match your account's data center prefix. An 
 * **Manage Audiences:** Keep your audiences clean and segmented. You can create different agents to add subscribers to different audiences based on where they signed up (e.g., "Newsletter Subscribers" vs. "Webinar Attendees").
 * **Include Merge Fields:** You can add more inputs to the component to pass additional data, like `FNAME` for first name and `LNAME` for last name. This requires adding a `merge_fields` object to the component's request body, which can be done with advanced customization.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -159,7 +159,7 @@ The `dc` input is required and must match your account's data center prefix. An 
   * **Cause:** You are trying to add an email address that is already on the specified audience.
   * **Solution:** This is expected behavior. If you need to update an existing member, you would use a different API endpoint (e.g., a PATCH request), which may require a custom API component in SmythOS.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

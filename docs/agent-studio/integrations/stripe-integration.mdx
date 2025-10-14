@@ -36,7 +36,7 @@ Stripe is a leading platform for online payment processing. Integrating it with 
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ Before you begin, please ensure you have the following:
 - A **Stripe account**.
 - Your Stripe **Secret API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Stripe
 
@@ -74,7 +74,7 @@ Your API Secret Key is a highly sensitive credential. Use the SmythOS `Vault` to
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Secret from the Vault to **each** Stripe component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Stripe Component Should I Use?
 
@@ -159,7 +159,7 @@ A customer service agent needs to check a user's subscription status. The agent 
 }
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -168,7 +168,7 @@ A customer service agent needs to check a user's subscription status. The agent 
 * **Leverage Metadata:** The `metadata` field on many Stripe objects (like Customer) is a powerful tool. Use it to store your application's internal IDs (e.g., your user ID) on the Stripe object. This makes it easy to link a Stripe customer back to a user in your own database.
 * **Handle Errors Gracefully:** The Stripe API provides clear error codes and messages. Design your agents to handle common errors, such as a declined card when creating a payment, by parsing the `Response` object.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -184,7 +184,7 @@ A customer service agent needs to check a user's subscription status. The agent 
   * **Cause:** The JSON `Body` for a create operation is malformed or contains an invalid value for a parameter.
   * **Solution:** Carefully check your JSON structure against the official Stripe API documentation. For example, ensure the `email` field is a valid email address.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

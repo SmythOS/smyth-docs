@@ -43,7 +43,7 @@ Supabase provides the power of a PostgreSQL database with the convenience of a m
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -53,7 +53,7 @@ Before you begin, please ensure you have the following:
 - A **Supabase account** with a project created.
 - Your Supabase Project's **URL** and **`service_role` secret key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Supabase
 
@@ -82,7 +82,7 @@ Your `service_role` key grants full access to your database, bypassing any Row L
 4.  Your connection is now configured. You will provide the `project_id` (the reference ID from your URL) as a standard input.
 
 <InfoCallout title="Heads-up">You must add the API Key and Role Secret from the Vault to **each** Supabase component you use. This ensures all your API calls are properly authenticated with the correct permissions.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Supabase Component Should I Use?
 
@@ -316,7 +316,7 @@ Inserts a batch of new rows into a specified table in a single API call.
 An agent reads a CSV file containing 100 new leads, converts it to a JSON array, and uses this component to insert all 100 leads into the `contacts` table in one efficient operation.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -325,7 +325,7 @@ An agent reads a CSV file containing 100 new leads, converts it to a JSON array,
 * **Master PostgREST Filtering:** The power of Supabase's API comes from its PostgREST filtering capabilities. Learn the operators (`eq`, `gt`, `lt`, `like`, `in`, etc.) to build precise queries directly in your component inputs for components like `Read Rows`, `Update Row`, and `Delete Row`.
 * **Create Database Functions:** For complex, multi-step database operations (like "increment a value by 10"), create a PostgreSQL function inside your Supabase project. You can then call this single function from your agent, which is more efficient and secure than making multiple API calls.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -341,7 +341,7 @@ An agent reads a CSV file containing 100 new leads, converts it to a JSON array,
   * **Cause:** This is often due to a database constraint violation. For example, trying to insert a row with a `user_email` that is marked as `UNIQUE` but already exists, or trying to insert a `null` value into a `NOT NULL` column.
   * **Solution:** Check the `Response` output for the detailed error message from PostgreSQL. This will usually tell you exactly which constraint was violated. Ensure the data in your `Body` matches your table's schema.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

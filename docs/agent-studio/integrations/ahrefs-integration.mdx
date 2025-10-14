@@ -38,7 +38,7 @@ Ahrefs is an industry-leading tool for SEO intelligence. By connecting it to Smy
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin, please ensure you have the following:
 - An **Ahrefs account** with a subscription plan that includes API access.
 - Your Ahrefs **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Ahrefs
 
@@ -75,7 +75,7 @@ Your Ahrefs API Key is a sensitive credential. Use the SmythOS `Vault` to store 
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Ahrefs component you use. This provides granular control and ensures all connections are secure.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Ahrefs Component Should I Use?
 
@@ -242,7 +242,7 @@ Monitor your anchor text profile to ensure a natural mix of branded, keyword-ric
 Use this component to quickly identify potentially spammy or negative anchor text that could be harming your brand's reputation.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -251,7 +251,7 @@ Use this component to quickly identify potentially spammy or negative anchor tex
 * **Handle Rate Limits:** The Ahrefs API has usage limits. Design your agents to handle potential rate-limiting errors, perhaps by inspecting the response headers or building in small delays between large batches of requests.
 * **Paginate for Large Audits:** For comprehensive audits, you may need more than the maximum `limit` of 1000 results. The Ahrefs API supports cursor-based pagination; you can build a looping mechanism in your agent to fetch all pages of results.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -267,7 +267,7 @@ Use this component to quickly identify potentially spammy or negative anchor tex
   * **Cause:** The target may genuinely have no data, or the `target` parameter is formatted incorrectly.
   * **Solution:** Double-check the `target`. For domains, do not include `http://` or `www.`. For prefixes, ensure it ends with a `*`. Confirm in the Ahrefs UI that the target has data.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

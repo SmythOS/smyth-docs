@@ -37,7 +37,7 @@ Google Drive lets your agents access documents as inputs and store generated fil
 </details>
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ You’ll need:
 - A **Google account** with access to Drive
 - Appropriate access to the target files and folders
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Connect Google Drive to SmythOS
 
@@ -57,7 +57,7 @@ The integration requires a simple one-time authorization.
 
 From the SmythOS Integrations panel, drag in any **Google Drive** component like "Upload File".
 
-<Divider />
+<Spacer size="md" /> 
 
 ### Step 2: Authenticate
 
@@ -80,7 +80,7 @@ To switch accounts, de-authenticate from the Drive integration settings. Then re
 <Arcade src="https://demo.arcade.software/deauth-google-drive" title="Remove Google Drive Connection" />
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Component Details
 
@@ -125,7 +125,7 @@ Convert a markdown blog post into PDF, then upload it to your team’s shared Dr
 Missing file? Double-check your MIME type and ensure the `file` object is populated.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="list-files"></a>List Files — Get Files in a Folder
 
@@ -158,7 +158,7 @@ List all submissions in a shared folder, then loop over them for processing.
 Empty array returned? Check that your Google account has permission to view the folder contents.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="get-file-metadata"></a>Get File Metadata — Inspect a Drive File
 
@@ -191,7 +191,7 @@ Use this to verify a file’s type or timestamp before processing it in a workfl
 Getting 403 errors? Make sure the file isn’t in trash or shared only with other users.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices
 
@@ -200,7 +200,7 @@ Getting 403 errors? Make sure the file isn’t in trash or shared only with othe
 - Store sensitive folder IDs in SmythOS Vault for reusability
 - Clean up stale or temporary files by chaining a [Delete File] component (coming soon)
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Tips
 
@@ -217,7 +217,7 @@ Getting 403 errors? Make sure the file isn’t in trash or shared only with othe
 Still stuck? Inspect the <code>response</code> field for a detailed error from the Drive API.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 
@@ -229,4 +229,4 @@ Now try building an agent that:
 - Uses `driveFile.webViewLink` to send the user a view-only version of the file
 - Combine this with [Google Sheets Integration](/docs/agent-studio/integrations/google-sheets-integration)
 
-<Divider />
+<Spacer size="md" /> 

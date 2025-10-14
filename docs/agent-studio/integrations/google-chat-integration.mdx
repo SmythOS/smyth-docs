@@ -40,7 +40,7 @@ Google Chat is a central communication tool for teams using Google Workspace. In
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ Before you begin, please ensure you have the following:
 - The **Google Chat API** enabled in your GCP project.
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Google Chat
 
@@ -88,7 +88,7 @@ The connection is handled via OAuth 2.0. This requires a one-time setup in the G
 2.  **Add a Component:** Drag any Google Chat component onto your agent graph.
 3.  **Connect:** Open the component's **Settings**, select your credentials from the Vault, and click **Authenticate**. You will be redirected to Google to sign in and grant consent.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Google Chat Component Should I Use?
 
@@ -254,7 +254,7 @@ For simple, one-way notifications, a webhook is the fastest way to get set up. A
 Messages sent via webhooks are posted by the "Webhook App" and cannot be updated or deleted via the API. For full message control, use the OAuth-based `Create Message` component.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -263,7 +263,7 @@ Messages sent via webhooks are posted by the "Webhook App" and cannot be updated
 * **Master Message Formatting:** Google Chat messages support simple HTML-like formatting (bold, italic, links, etc.). Use this to make your agent's messages clearer and more professional.
 * **Use Threading:** When replying to messages or posting a series of related updates, use the `thread` property in your message payload to keep conversations organized.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -283,7 +283,7 @@ Messages sent via webhooks are posted by the "Webhook App" and cannot be updated
     * **Cause:** The `webhookUrl` is incorrect, has been revoked, or the message body is malformed.
     * **Solution:** Generate a new webhook URL from your Google Chat space settings and update your component. Check the JSON payload for syntax errors.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

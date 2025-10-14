@@ -36,7 +36,7 @@ SendGrid is a best-in-class email delivery platform. Integrating it with SmythOS
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ Before you begin, please ensure you have the following:
 - A SendGrid **API Key**.
 - A **verified sender identity** (domain or email address) in your SendGrid account.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With SendGrid
 
@@ -75,7 +75,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** SendGrid component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which SendGrid Component Should I Use?
 
@@ -168,7 +168,7 @@ A monitoring agent detects that a server's disk space is low and uses this compo
 }
 ```
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -177,7 +177,7 @@ A monitoring agent detects that a server's disk space is low and uses this compo
 * **Verify Senders:** Before you can send an email from an address (or domain), you must prove you own it by completing the Sender Authentication process in your SendGrid account.
 * **Monitor Your Email Activity:** Use the SendGrid dashboard to monitor your email deliverability, open rates, and click rates to ensure your emails are reaching the inbox and engaging users.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -197,7 +197,7 @@ A monitoring agent detects that a server's disk space is low and uses this compo
   * **Cause:** The keys in your `JSON_template_handlebars` input do not exactly match the variable names in your SendGrid template (e.g., `{{name}}` in the template vs. `"username"` in the JSON).
   * **Solution:** Carefully check that every key in your JSON payload matches the corresponding Handlebars variable in the template.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

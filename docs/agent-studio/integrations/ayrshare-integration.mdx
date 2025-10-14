@@ -39,7 +39,7 @@ Ayrshare is a powerful API for social media management. Integrating it with Smyt
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Before you begin, please ensure you have the following:
 - An **Ayrshare account**.
 - Your Ayrshare **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Ayrshare
 
@@ -73,7 +73,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Ayrshare component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Ayrshare Component Should I Use?
 
@@ -247,7 +247,7 @@ Removes a specific post from your social media platforms.
 If an agent posts an announcement with a typo, a user could trigger another agent with the `postId` to quickly remove the incorrect post from all platforms.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -256,7 +256,7 @@ If an agent posts an announcement with a typo, a user could trigger another agen
 * **Scheduling Posts:** To schedule a post for the future, include a `scheduleDate` parameter in the `Body` of your request. This is an advanced input you can add. The date should be in ISO 8601 format.
 * **Check Post Status:** After sending a post, it's good practice to use the returned `id` with the `Get a Post` component after a short delay to confirm that it was published successfully on all platforms.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -272,7 +272,7 @@ If an agent posts an announcement with a typo, a user could trigger another agen
   * **Cause:** The social media account for that platform may have become disconnected, or the content violates a specific rule for that platform.
   * **Solution:** Log in to your Ayrshare dashboard to check the status of your linked social accounts. Re-link any that show an error. Adjust your content to meet the specific platform's guidelines.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

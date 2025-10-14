@@ -40,7 +40,7 @@ InFlow Inventory is a powerful system for managing the core of your physical bus
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ Before you begin, please ensure you have the following:
 - Your InFlow Inventory **API Key**.
 - Your InFlow **Company ID**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With InFlow Inventory
 
@@ -77,7 +77,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component. You will provide the `companyId` as a standard input.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** InFlow component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which InFlow Inventory Component Should I Use?
 
@@ -193,7 +193,7 @@ Includes **Get Customer List** and **Get Customer Detail**. These components all
 When a new order comes in, an agent uses `Get Customer Detail` with the customer's name to see if they already exist in InFlow. If not, the agent could then proceed to create a new customer record.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -202,7 +202,7 @@ When a new order comes in, an agent uses `Get Customer Detail` with the customer
 * **Use for Synchronization:** This integration is ideal for creating a single source of truth for your inventory. Build agents that sync data between InFlow and your other platforms (e-commerce, accounting, CRM) to ensure consistency.
 * **Error Handling:** When adding a product, check for errors related to duplicate SKUs. Your agent should be able to handle these cases gracefully, perhaps by switching to an "update" logic instead of "create".
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -218,7 +218,7 @@ When a new order comes in, an agent uses `Get Customer Detail` with the customer
   * **Cause:** The `search_details` query may not have any matches, or the term might be too specific.
   * **Solution:** Try a broader search term to confirm the connection is working. Check for typos in your query.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

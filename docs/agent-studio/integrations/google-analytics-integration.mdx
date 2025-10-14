@@ -37,7 +37,7 @@ With this integration, Google Analytics becomes an active part of your workflowâ
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Before you begin the integration, please ensure you have the following:
 - **OAuth 2.0 credentials (`Client ID` and `Client Secret`)** from the Google Cloud Console.
 - The **Authorized redirect URI** for SmythOS: `https://app.smythos.com/oauth/google/callback`
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Google Analytics
 
@@ -94,7 +94,7 @@ The connection between SmythOS and Google Analytics is handled via OAuth 2.0. Th
 If you need to connect a different Google Account, find the `Sign Out` or `Deauthenticate` button in the integration settings within SmythOS, then repeat the authentication steps.
 </InfoCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Google Analytics Component Should I Use?
 
@@ -105,7 +105,7 @@ If you need to connect a different Google Account, find the `Sign Out` or `Deaut
 | **Generate several reports at once** (e.g., for a dashboard) | `GA4_property_id`, `Body` with a `requests` array of multiple report definitions | [Batch Run Reports](#batch-run-reports) | More efficient than multiple "Run Report" calls. |
 | **Track a specific campaign** | `GA4_property_id`, `Body` with `dateRanges` and a `dimensionFilter` for the campaign | [Run Report](#run-report) | Allows detailed segmentation and filtering. |
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Component Details
 
@@ -150,7 +150,7 @@ An agent generates a weekly report of website traffic sources (`sessionSourceMed
 Ensure the `GA4_property_id` is in the format `properties/YOUR_ID`. Verify all dimension and metric names against the GA4 API documentation, as they are case-sensitive.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="run-real-time-report"></a>Run Real-Time Report
 Generates a report of real-time event data from your GA4 property, providing immediate insights into user activity.
@@ -190,7 +190,7 @@ An agent monitors `activeUsers` on key campaign landing pages immediately after 
 Not all dimensions and metrics are available in real-time reports. Check the GA4 API documentation for compatibility.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ### <a name="batch-run-reports"></a>Batch Run Reports
 Retrieves multiple standard analytics reports in a single, efficient API request.
@@ -239,7 +239,7 @@ An agent generates a comprehensive monthly dashboard by fetching separate report
 The primary output is a `reports` array. You will need to iterate through this array to access the data for each individual report you requested.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -248,7 +248,7 @@ The primary output is a `reports` array. You will need to iterate through this a
 * **Use Specific Dimensions & Metrics:** To optimize performance and cost, only request the dimensions and metrics you need for your analysis.
 * **Implement Pagination:** For reports that may return a large number of rows, use the `offset` and `limit` parameters in the request `Body` to paginate through the results.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -268,7 +268,7 @@ The primary output is a `reports` array. You will need to iterate through this a
     * **Cause:** The GA4 property genuinely has no data for the requested query, or filters are too restrictive.
     * **Solution:** Verify that data exists for the same query in the GA4 Explore reports. Try a broader date range or simpler dimensions to test the connection.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

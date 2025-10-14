@@ -50,7 +50,7 @@ Stability AI is at the forefront of open-source generative AI. Integrating its m
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -60,7 +60,7 @@ Before you begin, please ensure you have the following:
 - A **Stability AI Platform account**.
 - Your Stability AI **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Stability AI
 
@@ -85,7 +85,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Stability AI component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Stability AI Component Should I Use?
 
@@ -468,7 +468,7 @@ Retrieves the final result of an asynchronous Image to Video job.
 This is the mandatory second step for the Image to Video workflow. An agent calls this component after a delay to fetch the final video.
 </TipCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -477,7 +477,7 @@ This is the mandatory second step for the Image to Video workflow. An agent call
 * **Understand Asynchronous Workflows:** For `Creative Upscale` and `Image to Video`, you must build a two-step process in your agent. A simple approach is to add a delay after the first call, then call the "Get Result" component. For more robust workflows, use a loop to poll the result until the status is "succeeded".
 * **Manage Credits:** Image and video generation consume credits from your Stability AI account. Be aware of the cost of different models and operations, and monitor your usage in your Stability AI dashboard.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -493,7 +493,7 @@ This is the mandatory second step for the Image to Video workflow. An agent call
   * **Cause:** The generation task may have failed on Stability AI's end due to a complex prompt or resource issue, or the job is taking a very long time.
   * **Solution:** Check the status of the job via the raw `Response` from the "Get Result" component. If it remains in a "processing" state for an extended period or fails, try the request again with a simpler prompt or different settings. Check Stability AI's status page for any ongoing issues.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

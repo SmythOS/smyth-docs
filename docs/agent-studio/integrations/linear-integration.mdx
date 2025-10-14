@@ -36,7 +36,7 @@ Linear is a powerful issue tracker designed for high-performance software teams.
 
 </details>
 </InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ Before you begin, please ensure you have the following:
 - A **Linear account**.
 - Your Linear personal **API Key**.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Getting Started With Linear
 
@@ -72,7 +72,7 @@ Your API Key is a sensitive credential. Use the SmythOS `Vault` to store it secu
 4.  Your connection is now configured for that component.
 
 <InfoCallout title="Heads-up">You must add the API Key from the Vault to **each** Linear component you use. This ensures all your API calls are properly authenticated.</InfoCallout>
-<Divider />
+<Spacer size="md" /> 
 
 ## Which Linear Component Should I Use?
 
@@ -158,7 +158,7 @@ This is often the first step in a workflow. An agent calls this component to get
 The default `teamId` and `teamName` outputs only show the first team in the list. To find a specific team, you will need to loop through the `data.teams.nodes` array inside the `Response` object.
 </WarningCallout>
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Best Practices & Advanced Tips
 
@@ -167,7 +167,7 @@ The default `teamId` and `teamName` outputs only show the first team in the list
 * **Find Your Team ID:** The most common prerequisite for creating issues is the `teamId`. Use the `Get Team Information` component first to programmatically find the correct ID rather than hardcoding it.
 * **Automate Your Triage:** Combine the `Create Linear Issue` component with other tools to build a powerful triage system. An agent can receive an alert, use an LLM to determine its priority and relevant team, find the `teamId`, and then create a well-formatted issue.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## Troubleshooting Common Issues
 
@@ -183,7 +183,7 @@ The default `teamId` and `teamName` outputs only show the first team in the list
   * **Cause:** A required field like `title` or `teamId` is missing from the request.
   * **Solution:** Check that all required inputs are provided and are not empty strings.
 
-<Divider />
+<Spacer size="md" /> 
 
 ## What's Next?
 

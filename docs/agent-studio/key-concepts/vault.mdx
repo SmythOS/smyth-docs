@@ -82,6 +82,56 @@ To add a provider, open **Vault → Add Provider** and paste your credentials.
 
 <Spacer size="md" />
 
+## Custom Models
+
+You can now add **custom models** to the SmythOS platform directly through the Vault.  
+This feature lets you connect your own model servers or third-party hosted APIs, as long as they expose endpoints compatible with the **OpenAI SDK**.
+
+### How it works
+
+1. Go to **Vault → Custom Models**  
+2. Click **Add Custom Model**  
+3. Provide the required details:
+   - **Name**: The display name shown in the model list  
+   - **Model ID**: Copy from your supported model (e.g., Grok, Together AI, etc.)  
+   - **Base URL**: The API base endpoint (must be public, not localhost or private IP)  
+   - **Provider**: Select **OpenAI-compatible**  
+   - **API Key**: Add the provider key (e.g., from Grok)  
+   - **Context Window**: Optional limit on context tokens  
+   - **Fallback Model**: Used when the custom model is unreachable  
+
+<WarningCallout title="Important Security Note">
+Local or private IP addresses (like `localhost`, `127.0.0.1`, `10.x.x.x`, or `172.x.x.x`) are **not allowed** for base URLs in the SaaS environment for security reasons.  
+Always use a public or hosted endpoint instead (e.g., Grok, Together AI, or a remote Colab server).
+</WarningCallout>
+
+Once saved, reload your **Builder** page to see the newly added custom model in your model list.
+
+### Example: Adding a Grok model
+
+```json
+{
+  "name": "Model for Grok",
+  "model_id": "grok-1",
+  "base_url": "https://api.grok.ai/v1",
+  "provider": "OpenAI",
+  "api_key": "grk-1234abcd...",
+  "fallback_model": "gpt-4o-mini"
+}
+```
+After saving, reload the Builder. Your custom model will appear at the top of the model list. You can now select it for testing or deployment just like built-in models.
+
+<InfoCallout title="Compatibility"> 
+Any model API compatible with the OpenAI schema (`/v1/chat/completions`, `/v1/completions`, etc.) will work with SmythOS custom models. This includes integrations built with `ollama.cpp`, `Grok`, `Together AI`, or even custom endpoints hosted on services like Google Colab (if properly exposed). 
+</InfoCallout>
+
+### Managing Keys
+
+Custom model API keys are stored securely in Vault.
+You can reveal, edit, or remove them at any time from the model entry.
+
+<Spacer size="md" />
+
 ## Enterprise platforms
 
 If your team uses managed AI infrastructure, Vault supports enterprise providers too.

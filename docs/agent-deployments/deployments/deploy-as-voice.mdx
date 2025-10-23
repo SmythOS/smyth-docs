@@ -1,0 +1,122 @@
+---
+title: Voice Chat
+keywords: [SmythOS, Voice, voice agent, voice embed, Alexa, deploy voice, voice chat]
+description: Learn how to deploy your SmythOS agent as a website-embedded voice chat or as an endpoint for an Alexa Skill.
+---
+
+# Deploy as a Voice Agent
+
+> Give your agent a voice. SmythOS allows you to deploy your agent as a voice-enabled assistant in two primary ways: as an embeddable chat widget for your website, or as the backend for a custom Amazon Alexa Skill.
+
+<InfoCallout title="TL;DR">
+You can deploy your agent in two ways:
+1. **Website Embed:** Get the code snippet from Deploy → Voice.
+2. **Alexa Skill:** Get the Endpoint URL from the Deploy → Voice.
+</InfoCallout>
+
+<Spacer size="md" /> 
+
+## Embed a Voice Chat on Your Website
+
+This option adds a voice-enabled chat widget to your website, allowing users to talk to your agent directly from their browser.
+
+### 1. Find Your Code Snippet
+
+1.  In your agent, navigate to the **[Deploy](/docs/agent-deployments/overivew)** tab.
+2.  In the **Embed** section, find the **Voice** option and click **Get Endpoints**.
+    <Image 
+      src="/docs/img/agent_deployments/voice-deploy.png" 
+      alt="Finding the Voice deployment option in the SmythOS Deploy tab." 
+      caption="Click 'Get Endpoints' on the Voice option in the Embed section." 
+    />
+3.  In the **"Voice and Alexa Integration"** modal, find the **Voice Integration** section and copy the **Code Snippet**.
+    <Image 
+      src="/docs/img/agent_deployments/voice-alexa-integration.png" 
+      alt="The SmythOS Voice and Alexa Integration modal." 
+      caption="Copy the Code Snippet from the Voice Integration section." 
+    />
+
+### 2. Add the Code to Your Website
+
+Paste the snippet you copied just before the closing `</body>` tag in your website's HTML file.
+
+The snippet will look similar to this:
+
+```html 
+<script 
+  src="https://<your-id>.smyth.ai/voice.agent.js" 
+  id="smythos-voice-embed" 
+  data-voice-embed-id="https://<your-agent-id>/voiceEmbedment.init?cid=..."
+>
+</script>
+<script>
+  voiceEmbedment.init()
+</script>
+```
+
+### 3. How it Looks
+
+Once embedded, a microphone icon will appear on your site. When activated, the voice interface provides clear visual feedback and controls for the user.
+
+<Image 
+  src="/docs/img/agent_deployments/voice-ui.png" 
+  alt="User interface of the SmythOS voice chat embed." 
+  caption="The voice chat interface showing active listening/speaking status with microphone controls." 
+/>
+
+<InfoCallout title="Personal Information">
+  Note that to use the voice embedment feature, you may need to provide personal details for compliance and security purposes.
+</InfoCallout>
+<Spacer size="md" /> 
+
+
+## Connect to an Amazon Alexa Skill
+
+This option uses SmythOS to provide the backend HTTPS endpoint for a custom Amazon Alexa Skill.
+
+### Step 1 (Development): Get Your Test Endpoint
+
+The fastest way to start developing your Alexa skill is to use the **Test** panel. This gives you a development endpoint without needing to run a full deployment.
+
+1.  In your agent, click the **Test** button in the top-right debug panel.
+2.  Select the **Voice** tab.
+3.  Copy the **Alexa Dev Endpoint**. This is the URL you will use for initial setup and testing in the Alexa Developer Console.
+
+<Image 
+  src="/docs/img/agent_deployments/test-with-voice.png" 
+  alt="Finding the Alexa endpoints in the Test with Voice sidebar." 
+  caption="Use the Test panel's Voice tab to get your development endpoint." 
+/>
+
+### Step 2 (Production): Get Your Stable Production Endpoint
+
+Once you have tested your skill and are ready to deploy it, you should switch to the permanent, stable endpoint.
+
+1.  Gi to the **[Deploy](/docs/agent-deployments/overview)** tab.
+2.  Click **Get Endpoints** on the **Voice** option.
+3.  From the **"Voice and Alexa Integration"** modal, copy the **Alexa Prod URL** (e.g., `...agent.pstage.smyth.ai/alexa`).
+
+<Image 
+  src="/docs/img/agent_deployments/voice-alexa-integration.png" 
+  alt="The SmythOS Voice and Alexa Integration modal showing production URLs." 
+  caption="Use the Alexa Prod URL from the Deploy modal for your live skill." 
+/>
+
+### Step 3: Configure Your Skill
+
+Now that you have your endpoint URL (from Step 1 or 2), you are ready to configure your skill.
+
+<Spacer size="md" /> 
+<InfoCallout title="Next Steps for Alexa">
+  Once you have this URL, you are ready to create your skill. Go to our detailed guide on [Alexa Skill](/docs/agent-deployments/deployments/deploy-as-alexa-skill) which will walk you through the entire process in the Alexa Developer Console.
+</InfoCallout>
+
+<Spacer size="md" /> 
+
+## What’s Next?
+
+Now that you have your voice endpoints, you can:
+
+-   **[Deploy your agent as an Alexa Skill](/docs/agent-deployments/deployments/deploy-as-alexa-skill)** using the endpoint you just copied.
+-   Explore other deployment types, like a **[web-based ChatBot](/docs/agent-deployments/deployments/deploy-as-chatbot)**.
+-   Review your agent's **[Logs](/docs/agent-studio/manage-agents/logs)** to see conversations from your new voice channel.

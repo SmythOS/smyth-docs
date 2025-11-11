@@ -98,11 +98,6 @@ a.menu__link[href="/docs/agent-collaboration/overview"].menu__link--active
    src: url(https://smythos.com/wp-content/themes/generatepress_child/fonts/manrope.woff2) format("woff2")
 }
 
-html *,
-body * {
-  font-family: "Inter", sans-serif !important;
-}
-
 /* 
 [class*="sidebar"] {
   width: 360px !important;        

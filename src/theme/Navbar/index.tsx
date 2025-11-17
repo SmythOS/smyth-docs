@@ -39,7 +39,7 @@ const HeaderComponent: React.FC = () => {
                 <a href="/docs/">Docs</a>
               </li>
               <li>
-                <a href="/updates/">Community</a>
+                <a href="https://forged.smythos.com/">Community</a>
               </li>
               <li>
                 <a href="/about-us/">Company</a>
@@ -1138,30 +1138,31 @@ const HeaderComponent: React.FC = () => {
           </div>
           <ul className="submenu" role="menu">
             <li role="none">
-              <a href="/updates/" role="menuitem">
+              <a href="https://forged.smythos.com" role="menuitem">
                 <svg
                   width={20}
                   height={20}
+                  viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
                 >
                   <path
-                    d="M1.6923 5.156v10.3825a1.8464 1.8464 0 0 0 1.8461 1.846h12.9232a1.8465 1.8465 0 0 0 1.846-1.846V7.6923c0-.7648-.6198-1.3847-1.3845-1.3847h-2.3078"
+                    clipRule="evenodd"
+                    d="m13.9716 8.3795-5.4458 5.4458c-1.06 1.06-2.7782 1.06-3.8382 0l-2.046-2.0459c-1.0599-1.06-1.0599-2.7782 0-3.8381l5.446-5.446c1.0599-1.0599 2.7781-1.0599 3.838 0l2.046 2.046c1.06 1.06 1.06 2.7782 0 3.8382z"
                     stroke="currentColor"
+                    strokeWidth="1.385"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38462" }}
                   />
                   <path
-                    d="M16.4616 17.3846a1.8461 1.8461 0 0 1-1.8463-1.8461V4c0-.7647-.6199-1.3846-1.3846-1.3846H3.077c-.7647 0-1.3846.62-1.3846 1.3846v6.6947m9.2308-4.387H5.3847M10.923 10H7.2308"
+                    d="M1.6925 18.2952h4.0362M12.9403 9.6534l4.8551 4.8551c.6885.6884.6885 1.805 0 2.4934l-.6481.6482c-.6884.6883-1.805.6883-2.4933 0l-4.8552-4.8552"
                     stroke="currentColor"
+                    strokeWidth="1.385"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38462" }}
                   />
                 </svg>{" "}
-                <span className="link-text">Updates</span>
+                <span className="link-text">Smyth Forged</span>
                 <svg
                   className="icon-right"
                   width={20}
@@ -1316,31 +1317,30 @@ const HeaderComponent: React.FC = () => {
               </a>
             </li>
             <li role="none">
-              <a href="https://forged.smythos.com" role="menuitem">
+              <a href="/updates/" role="menuitem">
                 <svg
                   width={20}
                   height={20}
-                  viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
                 >
                   <path
-                    clipRule="evenodd"
-                    d="m13.9716 8.3795-5.4458 5.4458c-1.06 1.06-2.7782 1.06-3.8382 0l-2.046-2.0459c-1.0599-1.06-1.0599-2.7782 0-3.8381l5.446-5.446c1.0599-1.0599 2.7781-1.0599 3.838 0l2.046 2.046c1.06 1.06 1.06 2.7782 0 3.8382z"
+                    d="M1.6923 5.156v10.3825a1.8464 1.8464 0 0 0 1.8461 1.846h12.9232a1.8465 1.8465 0 0 0 1.846-1.846V7.6923c0-.7648-.6198-1.3847-1.3845-1.3847h-2.3078"
                     stroke="currentColor"
-                    strokeWidth="1.385"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38462" }}
                   />
                   <path
-                    d="M1.6925 18.2952h4.0362M12.9403 9.6534l4.8551 4.8551c.6885.6884.6885 1.805 0 2.4934l-.6481.6482c-.6884.6883-1.805.6883-2.4933 0l-4.8552-4.8552"
+                    d="M16.4616 17.3846a1.8461 1.8461 0 0 1-1.8463-1.8461V4c0-.7647-.6199-1.3846-1.3846-1.3846H3.077c-.7647 0-1.3846.62-1.3846 1.3846v6.6947m9.2308-4.387H5.3847M10.923 10H7.2308"
                     stroke="currentColor"
-                    strokeWidth="1.385"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    style={{ strokeWidth: "1.38462" }}
                   />
                 </svg>{" "}
-                <span className="link-text">Smyth Forged</span>
+                <span className="link-text">Updates</span>
                 <svg
                   className="icon-right"
                   width={20}
@@ -1359,6 +1359,40 @@ const HeaderComponent: React.FC = () => {
                 </svg>{" "}
               </a>
             </li>
+            <li role="none">
+            <a href="https://smythos.com/events/" role="menuitem">
+              <svg
+                width={20}
+                height={20}
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M14.617 1.233c-.25.062-.397.171-.505.371-.051.096-.062.215-.073.821l-.012.708H5.972l-.011-.691c-.013-.774-.021-.804-.257-1.018-.148-.134-.291-.173-.538-.15a.615.615 0 0 0-.512.364c-.085.171-.087.19-.087.835 0 .363-.012.66-.025.66-.277.002-1.11.08-1.257.118-.763.199-1.288.745-1.473 1.533-.059.255-.062.52-.062 6.166 0 5.53.004 5.916.059 6.151.187.797.718 1.349 1.491 1.549.399.103 1.131.116 6.7.116s6.301-.013 6.7-.116c.775-.201 1.303-.749 1.491-1.549.055-.235.059-.621.059-6.151 0-5.646-.003-5.911-.062-6.166-.185-.788-.709-1.333-1.474-1.534-.162-.042-.908-.114-1.206-.116l-.075-.001v-.654c0-.42-.014-.703-.04-.791-.09-.297-.483-.528-.776-.455m2.282 10.475c-.001 2.37-.014 4.493-.031 4.718-.05.691-.18.844-.77.906-.426.045-11.77.045-12.196 0-.584-.061-.718-.215-.77-.888-.017-.217-.031-2.34-.031-4.719L3.1 7.4h13.8l-.001 4.308m-5.432.017a.59.59 0 0 0-.191.172c-.076.113-.076.117-.076 1.42s0 1.307.076 1.42c.152.228.162.23 1.569.23 1.397 0 1.431-.005 1.559-.214.058-.096.062-.19.062-1.436s-.004-1.34-.062-1.436c-.128-.21-.162-.214-1.559-.214-1.135 0-1.273.006-1.378.058"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
+              </svg>
+              <span className="link-text">Events</span>
+              <svg
+                className="icon-right"
+                width={20}
+                height={20}
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
+                  stroke="currentColor"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </li>
           </ul>
         </li>
         <li className="menu-label has-submenu-m" role="none">

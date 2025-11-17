@@ -21,7 +21,7 @@ The component takes multiple inputs and provides two outputs: `Verified` and `Un
 
 In this context:
 - **`True`**: Any input that has a value (e.g., a non-empty string, any number, the boolean `true`, an object, an array).
-- **`False`**: Any input that is empty, `null`, `undefined`, or the boolean `false`.
+- **`False`**: Any input that is empty or the boolean `false`.
 
 ### Operational Rules
 
@@ -71,7 +71,7 @@ Connect the `Verified` output to the steps that should run when any valid condit
 ## Troubleshooting Tips
 
 <InfoCallout title="If your logic isn't branching as expected...">
-- **Check Your "False" Values:** Remember that an empty string (`""`), `null`, or an unassigned variable will be treated as `false`. An input you expect to be false might contain a value (like the string "false"), which evaluates to `true`.
+- **Check Your "False" Values:** Remember that an empty string (`""`) or an unassigned variable will be treated as `false`. An input you expect to be false might contain a value (like the string "false"), which evaluates to `true`.
 - **Inspect Input Data:** Use the **Debug** panel to check the exact value being passed into each input of the `Logic OR` component to confirm they are what you expect.
 - **It Only Takes One:** The `Verified` path will be taken if even a single input is true. If the workflow is unexpectedly going down the "verified" path, systematically check each input to find the one that is evaluating to `true`.
 </InfoCallout>

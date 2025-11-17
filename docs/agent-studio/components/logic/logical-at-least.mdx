@@ -25,7 +25,7 @@ This is the core setting of the component. You define the minimum number of inpu
 
 ### How Inputs are Evaluated
 - **`True`**: Any input that has a value (e.g., a non-empty string, any number, the boolean `true`, an object, an array).
-- **`False`**: Any input that is empty, `null`, `undefined`, or the boolean `false`.
+- **`False`**: Any input that is empty or the boolean `false`.
 
 <Spacer size="md" />
 
@@ -67,7 +67,7 @@ Connect the `Verified` output to the steps that should run when the threshold is
 
 <InfoCallout title="If your logic isn't branching as expected...">
 - **Check the Minimum Setting:** Ensure the `Minimum Inputs` setting is correct. A common mistake is an "off-by-one" error where the number is one higher or lower than intended.
-- **Inspect Your Inputs:** Use the **Debug** panel to check the actual values being passed to each input. An input you believe is `true` might actually be empty or `null`, causing it to be evaluated as `false`.
+- **Inspect Your Inputs:** Use the **Debug** panel to check the actual values being passed to each input. An input you believe is `true` might actually be empty, causing it to be evaluated as `false`.
 - **Verified vs. Unverified Path:** Make sure you have connected your downstream components to the correct output path (`Verified` or `Unverified`).
 </InfoCallout>
 

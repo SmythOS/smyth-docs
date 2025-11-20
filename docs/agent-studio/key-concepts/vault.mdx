@@ -85,7 +85,7 @@ To add a provider, open **Vault → Add Provider** and paste your credentials.
 ## Custom Models
 
 You can now add **custom models** to the SmythOS platform directly through the Vault.  
-This feature lets you connect your own model servers or third-party hosted APIs, as long as they expose endpoints compatible with the **OpenAI SDK**.
+This feature lets you connect your own model servers or third-party hosted APIs, supporting both **Ollama SDK** and **OpenAI-compatible SDK** endpoints.
 
 ### How it works
 
@@ -93,37 +93,92 @@ This feature lets you connect your own model servers or third-party hosted APIs,
 2. Click **Add Custom Model**  
 3. Provide the required details:
    - **Name**: The display name shown in the model list  
-   - **Model ID**: Copy from your supported model (e.g., Grok, Together AI, etc.)  
-   - **Base URL**: The API base endpoint (must be public, not localhost or private IP)  
-   - **Provider**: Select **OpenAI-compatible**  
-   - **API Key**: Add the provider key (e.g., from Grok)  
-   - **Context Window**: Optional limit on context tokens  
+   - **Model ID**: Copy from your supported model (e.g., `grok-1`, `ollama-mistral-7b`, etc.)  
+   - **Base URL**: The API base endpoint (for SaaS: must be public, not localhost or private IP)  
+   - **Provider**: Select **Ollama** or **OpenAI**  
+   - **API Key**: Add the provider key if required
+   - **Context Window**: Maximum tokens for input + output  
+   - **Max Output Tokens**: Maximum tokens for model response  
    - **Fallback Model**: Used when the custom model is unreachable  
 
-<WarningCallout title="Important Security Note">
+### Feature Toggles
+
+- **Text Completion** *(enabled by default)* — Makes model available in all LLM components
+- **Function Calling / Tool Use** *(disabled by default)* — Enables model for Agents with skill calling
+
+<WarningCallout title="Important Security Note (SaaS Environment)">
 Local or private IP addresses (like `localhost`, `127.0.0.1`, `10.x.x.x`, or `172.x.x.x`) are **not allowed** for base URLs in the SaaS environment for security reasons.  
 Always use a public or hosted endpoint instead (e.g., Grok, Together AI, or a remote Colab server).
+
+**Note:** If you're running SmythOS on your own infrastructure, local endpoints are supported.
 </WarningCallout>
 
 Once saved, reload your **Builder** page to see the newly added custom model in your model list.
 
-### Example: Adding a Grok model
+### Provider Specifications
 
-```json
+#### Ollama
+- **Base URL**: `http://your-hosted-model` your hosted Ollama endpoint
+- **Supported Models**: Mistral, Llama 2, Neural Chat, Wizard Coder, and others available in Ollama's model library
+- **Authentication**: Usually not required for local instances; include API key if your hosted instance requires it
+
+#### OpenAI-Compatible
+- **Base URL**: `https://api.openai.com/v1` (OpenAI) or provider-specific endpoint (Grok, Together AI, etc.)
+- **Supported Providers**: OpenAI, Azure OpenAI, Together AI, Replicate, Fireworks, xAI (Grok)
+- **Authentication**: API key if required for OpenAI-compatible providers
+
+### Example: Adding an Ollama Model
+
+~~~json
+{
+  "name": "Mistral 7B Local",
+  "model_id": "mistral-7b",
+  "base_url": "http://your-hosted-model",
+  "provider": "Ollama",
+  "api_key": "",
+  "context_window": 8192,
+  "max_output_tokens": 4096,
+  "fallback_model": "gpt-4o-mini"
+}
+~~~
+
+### Example: Adding a Grok Model (OpenAI-Compatible)
+
+~~~json
 {
   "name": "Model for Grok",
   "model_id": "grok-1",
   "base_url": "https://api.grok.ai/v1",
   "provider": "OpenAI",
   "api_key": "grk-1234abcd...",
+  "context_window": 32000,
+  "max_output_tokens": 8000,
   "fallback_model": "gpt-4o-mini"
 }
-```
+~~~
+
 After saving, reload the Builder. Your custom model will appear at the top of the model list. You can now select it for testing or deployment just like built-in models.
 
 <InfoCallout title="Compatibility"> 
-Any model API compatible with the OpenAI schema (`/v1/chat/completions`, `/v1/completions`, etc.) will work with SmythOS custom models. This includes integrations built with `ollama.cpp`, `Grok`, `Together AI`, or even custom endpoints hosted on services like Google Colab (if properly exposed). 
+SmythOS supports two SDK protocols for custom models:
+
+1. **Ollama SDK** — For models running on Ollama instances
+2. **OpenAI SDK** — For any model API compatible with the OpenAI schema (`/v1/chat/completions`, `/v1/completions`, etc.)
+
+This includes integrations built with Ollama, Grok, Together AI, Replicate, or even custom endpoints hosted on services like Google Colab (if properly exposed).
 </InfoCallout>
+
+### Using Custom Models
+
+Custom models appear in all LLM selection dropdowns across SmythOS:
+- **Agent Settings** → Default LLM
+- **Skill components** with LLM options
+- **Any component** that accepts LLM selection
+
+### Managing Custom Models
+
+- **Edit**: Go to **Vault → Custom Models**, click the Edit icon
+- **Delete**: Click the Delete icon
 
 ### Managing Keys
 

@@ -56,6 +56,10 @@ jobs:
           echo "Transferring compressed file..."
           scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $USER@$HOST:/tmp/build.tar.gz
           
+          # Upload .env file to server for inspection (comment out after use)
+          echo "Uploading .env file..."
+          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null .env $USER@$HOST:/tmp/.env
+          
           # Extract and move files on server
           echo "Extracting files on server..."
           ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "

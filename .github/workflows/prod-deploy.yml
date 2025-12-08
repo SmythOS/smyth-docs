@@ -2,8 +2,6 @@ name: 'PROD: Deploy'
 run-name: PROD - Deploy
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:

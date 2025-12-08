@@ -37,6 +37,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PROD_SERVER_SSH_PRIVATE_KEY }}
           HOST: ${{ secrets.PROD_SERVER_HOST }}
           USER: ${{ secrets.PROD_SERVER_USER }}
+          PORT: ${{ secrets.PROD_SERVER_SSH_PORT }}
         run: |
           # Setup SSH key
           echo "$PRIVATE_KEY" > private_key.pem
@@ -48,21 +49,21 @@ jobs:
           ls -lh build.tar.gz
           
           # Create target directory if it doesn't exist
-          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
+          ssh -p $PORT -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
             mkdir -p /opt/apps/smyth-docs/build
           "
           
           # Transfer compressed file to server
           echo "Transferring compressed file..."
-          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $USER@$HOST:/tmp/build.tar.gz
+          scp -P $PORT -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null build.tar.gz $USER@$HOST:/tmp/build.tar.gz
           
           # Upload .env file to server for inspection (comment out after use)
           echo "Uploading .env file..."
-          scp -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null .env $USER@$HOST:/tmp/.env
+          scp -P $PORT -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null .env $USER@$HOST:/tmp/.env
           
           # Extract and move files on server
           echo "Extracting files on server..."
-          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
+          ssh -p $PORT -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "
             rm -rf /opt/apps/smyth-docs/build/*
             cd /opt/apps/smyth-docs/build
             tar -xzf /tmp/build.tar.gz
@@ -79,8 +80,9 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PROD_SERVER_SSH_PRIVATE_KEY }}
           HOST: ${{ secrets.PROD_SERVER_HOST }}
           USER: ${{ secrets.PROD_SERVER_USER }}
+          PORT: ${{ secrets.PROD_SERVER_SSH_PORT }}
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "/opt/git/smyth-docs/deploy-docs.sh smyth-docs origin/main"
+          ssh -p $PORT -i private_key.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $USER@$HOST "/opt/git/smyth-docs/deploy-docs.sh smyth-docs origin/main"
           rm -f private_key.pem

@@ -1,61 +1,175 @@
 ---
 title: Custom Storage
-description: Connect external vector databases like Pinecone to store indexed embeddings outside SmythOS. Ideal for advanced retrieval and large-scale data sharing.
-keywords: [custom storage, pinecone, vector store, external embeddings, rag, agent memory, data pool, indexing]
+description: Connect external vector databases like Pinecone or Milvus to store indexed embeddings outside SmythOS. Ideal for advanced retrieval, large-scale data sharing, and enterprise deployments.
+keywords: [custom storage, pinecone, milvus, vector store, external embeddings, rag, agent memory, data pool, indexing, vector database providers]
 sidebar_position: 3
 ---
 
 # Custom Storage
 
-**Custom Storage** lets you connect your own vector database, such as Pinecone, to handle document embeddings outside of SmythOS. This gives you full control over storage, scaling, and retrieval logic—especially in enterprise or multi-agent environments.
+**Custom Storage** lets you connect your own vector database, such as Pinecone or Milvus, to handle document embeddings outside of SmythOS. This gives you full control over storage, scaling, and retrieval logic—especially in enterprise or multi-agent environments.
 
 <InfoCallout title="Why use Custom Storage?">
-Use Custom Storage if you need external access to your vector data, want to scale embedding limits, or plan to share the same data across multiple agents or systems.
+Use Custom Storage if you need external access to your vector data, want to scale embedding limits, plan to share the same data across multiple agents or systems, or prefer self-hosted infrastructure.
 </InfoCallout>
 
 <Spacer size="md" />
 
 ## How It Works
 
-When Custom Storage is configured, all indexing operations from your [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) write directly to the external vector store. During Retrieval-Augmented Generation (RAG), SmythOS queries that store for relevant context.
+When you connect a Custom Storage provider to a [Data Space](/docs/agent-collaboration/data-pool/data-spaces), all indexing operations write directly to your external vector database. During Retrieval-Augmented Generation (RAG), SmythOS queries that provider for relevant context.
 
-This setup is managed from the [Data Pool](/docs/agent-collaboration/data-pool), and supports both built-in RAG tools and direct API-based approaches.
+This setup is managed from the [Data Pool](/docs/agent-collaboration/data-pool) when creating or updating Data Spaces, and supports both built-in RAG tools and direct API-based approaches.
 
 <Spacer size="md" />
 
-## Working with Pinecone in SmythOS
+## Supported Vector Database Providers
 
-There are two ways to integrate Pinecone with SmythOS:
+### SmythOS Managed Pinecone (Default)
 
-### 1. Use Built-in RAG Components
+- **Best for:** Quick setups, testing, and standard RAG workflows
+- **Setup required:** None
+- **Cost:** Included with SmythOS plan
+- **Scaling:** Managed by SmythOS
+
+### Pinecone (Your Own Account)
+
+- **Best for:** Enterprise deployments, full control, existing Pinecone investments
+- **Setup required:** API key, index name, endpoint
+- **Cost:** Pinecone usage fees
+- **Scaling:** Managed by you in Pinecone
+
+### Milvus
+
+- **Best for:** Self-hosted infrastructure, open-source deployments, on-premises requirements
+- **Setup required:** Server address, token, configuration
+- **Cost:** Self-hosted infrastructure costs
+- **Scaling:** Managed by you or your Milvus deployment
+
+<Spacer size="md" />
+
+## Setting Up Custom Providers
+
+### Creating a Provider Connection
+
+Provider connections are created when you set up a new Data Space:
+
+1. Open the **Data Pool**
+2. Click **Add Data Space**
+3. In the **Vector Database Provider** dropdown, click **Create New Connection**
+4. Select your provider type: **Pinecone** or **Milvus**
+5. Enter your provider credentials (see below)
+6. Click **Create Connection**
+
+The connection is now saved and available for current and future Data Spaces.
+
+### Pinecone Connection Details
+
+To connect your own Pinecone account:
+
+1. Create an account or log in at [pinecone.io](https://www.pinecone.io/)
+2. Create an index with:
+   - **Dimension**: Must match your embedding model (typically `1536`)
+   - **Metric**: `cosine` (recommended for semantic search)
+3. From your Pinecone dashboard, copy:
+   - **API Key** – Found in your project settings
+   - **Index Name** – Name of your created index
+4. In SmythOS, when creating a provider connection, enter:
+   - **Connection Name** – A label for this connection (e.g., "Production Pinecone")
+   - **API Key** – Your Pinecone API key
+   - **Index Name** – Your Pinecone index name
+5. Click **Create Connection**
+
+<WarningCallout title="Vector dimension compatibility">
+Ensure your Pinecone index dimensions match your embedding model. For example, if using OpenAI embeddings (1536 dimensions), your Pinecone index must also be 1536-dimensional.
+</WarningCallout>
+
+### Milvus Connection Details
+
+To connect your Milvus instance:
+
+1. Set up or access your Milvus deployment (cloud or self-hosted)
+2. From your Milvus dashboard, gather:
+   - **Server Address** – The endpoint URL (e.g., `https://milvus.example.com:19530`)
+   - **Token** – Your authentication token (if enabled)
+3. In SmythOS, when creating a provider connection, enter:
+   - **Connection Name** – A label for this connection (e.g., "Self-Hosted Milvus")
+   - **Address** – Your Milvus server address
+   - **Token** – Your Milvus authentication token
+4. Click **Create Connection**
+
+<InfoCallout title="Milvus collections">
+SmythOS automatically creates and manages collections in Milvus. Each Data Space gets its own collection for isolation and organization.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Managing Multiple Provider Connections
+
+You can create and organize multiple provider connections from the same service or account:
+
+**Example organization structure:**
+
+- **Development Environment**
+  - Connection name: "Dev Pinecone"
+  - Pinecone index: `smythos-dev`
+
+- **Staging Environment**
+  - Connection name: "Staging Pinecone"
+  - Pinecone index: `smythos-staging`
+
+- **Production Environment**
+  - Connection name: "Prod Pinecone"
+  - Pinecone index: `smythos-prod`
+
+This allows you to:
+- Keep environments isolated
+- Test changes in lower environments before production
+- Scale each environment independently
+- Manage costs by environment
+
+<TipCallout title="Organize for clarity">
+Use descriptive connection names that include the environment, service, or project. For example, "Client-A Pinecone Prod" is clearer than "Connection1".
+</TipCallout>
+
+<Spacer size="md" />
+
+## Working with Vector Data in SmythOS
+
+There are two ways to interact with your custom storage:
+
+### 1. Use Built-in RAG Components (Recommended)
 
 For most workflows, use these drag-and-drop components in Studio:
 
-- `RAG Remember` to write data into Pinecone  
-- `RAG Search` to retrieve context during queries  
-- `RAG Forget` to remove data from the index  
+- `RAG Remember` – Write data into your vector database
+- `RAG Search` – Retrieve context during queries
+- `RAG Forget` – Remove data from the index
 
-This approach gives you a clean, user-friendly interface for managing vector data.
+This approach gives you a clean, user-friendly interface for managing vector data without worrying about API details.
 
-### 2. Use Direct API Access
+### 2. Use Direct API Access (Advanced)
 
-<InfoCallout title="For components that consume credits">
-- An icon appears next to these components indicating they contain cost information  
-- When clicked, the estimated cost is displayed in the details panel  
-- This allows real-time monitoring of resource usage during development
-</InfoCallout>
+Advanced users can use the `API Call` component to communicate directly with your provider's REST API. This enables custom operations such as:
 
-Advanced users can use the `API Call` component to communicate directly with Pinecone’s REST API. This enables custom operations such as batch inserts, metadata filtering, or advanced querying.
+- Batch inserts or updates
+- Metadata filtering
+- Advanced querying
+- Direct index management
 
 To configure:
 
-- Add your Pinecone API key from the **Vault**  
-- Use endpoint URLs from [Pinecone's API reference](https://docs.pinecone.io/reference)  
-- Pass headers, payloads, and parameters manually  
+- Add your provider credentials from the **Vault**
+- Use endpoint URLs from your provider's API reference:
+  - [Pinecone API Reference](https://docs.pinecone.io/reference)
+  - [Milvus API Reference](https://milvus.io/api-reference/restful/v2.2.x/About.md)
+- Pass headers, payloads, and parameters manually
 
-<WarningCallout title="Vector dimension must be 1536">
-SmythOS requires a vector dimension of 1536 to match its embedding model. Other dimensions are not supported.
-</WarningCallout>
+<InfoCallout title="For components that consume credits">
+- An icon appears next to components indicating they contain cost information
+- When clicked, the estimated cost is displayed in the details panel
+- This allows real-time monitoring of resource usage during development
+</InfoCallout>
 
 <Spacer size="md" />
 
@@ -67,70 +181,97 @@ Organizing your data into multiple Data Spaces can improve both relevance and pe
 
 Rather than placing all your content in a single index, create separate Data Spaces for different types of content:
 
-- `contacts-data` for contact records  
-- `product-specs` for product metadata  
-- `support-docs` for documentation and FAQs  
+- `contacts-data` – Contact records and customer information
+- `product-specs` – Product metadata and specifications
+- `support-docs` – Documentation and FAQs
+- `legal-documents` – Contracts and compliance materials
 
 This separation ensures that each agent or component searches only within the appropriate context.
 
 ### Contextual Search with RAG Components
 
-- Configure the `RAG Search` component to point to the specific Data Space required for the task  
-- Tailor the query to match the content type and format stored within that space  
+- Configure the `RAG Search` component to point to the specific Data Space required for the task
+- Tailor the query to match the content type and format stored within that space
+- Use consistent naming conventions for easy identification
 
 ### Benefits of This Approach
 
-- **Higher precision** by avoiding irrelevant results  
-- **Faster searches** due to smaller index sizes  
-- **Simplified maintenance** by updating only relevant sections  
-- **Smarter agents** that specialize in specific domains  
+- **Higher precision** by avoiding irrelevant results
+- **Faster searches** due to smaller, focused indexes
+- **Simplified maintenance** by updating only relevant sections
+- **Smarter agents** that specialize in specific domains
+- **Better cost control** by scaling individual spaces independently
 
 <InfoCallout title="Why Data Spaces matter">
-Files within a Data Space are converted into vector embeddings. While you cannot target individual files, you can isolate content types by creating multiple, purpose-specific Data Spaces.
+Files and text within a Data Space are converted into vector embeddings based on your chunking configuration. While you cannot target individual sources, you can isolate content types by creating multiple, purpose-specific Data Spaces.
 </InfoCallout>
 
 <Spacer size="md" />
 
-## Pinecone Setup Steps
+## Comparing Storage Options
 
-1. Create an account at [pinecone.io](https://www.pinecone.io/)  
-2. Set up an index with:  
-   - **Dimension**: `1536`  
-   - **Environment**: e.g., `us-west4-gcp`  
-3. From your Pinecone dashboard, copy:  
-   - API Key  
-   - Index Name  
-   - Host URL  
-   - Environment  
-4. In SmythOS Studio:  
-   - Open **Data Pool**  
-   - Click **Customize Storage**  
-   - Paste the credentials into the configuration form  
-   - Save and activate  
+| Aspect                | SmythOS Managed | Your Pinecone | Milvus |
+|--------------------------------------|-----------------|---------------|--------|
+| **Setup required**                   | None            | API key, index | Address, token |
+| **Hosting**                          | SmythOS         | Pinecone| Self-hosted or managed |
+| **Cost model**                       | Included        | Per-usage      | Infrastructure |
+| **Full control**                     | Limited         | Full          | Full |
+| **Shared access**                    | Within SmythOS  | Across tools| Across tools |
+| **Enterprise readiness**             | Yes| Yes           | Yes |
+| **Best for**                         | Testing, quick start | Production, scalability | Self-hosted, compliance |
 
-<Image src="/docs/img/agent_collaboration/customize-storage-pinecone.jpg" alt="Custom Storage configuration form in SmythOS" caption="Paste your Pinecone credentials and save to activate external storage." />
+<TipCallout title="Start simple, scale when needed">
+If you're unsure whether Custom Storage is necessary, start with SmythOS Managed Pinecone. You can always switch to your own provider later without losing data.
+</TipCallout>
 
 <Spacer size="md" />
 
-## When to Use Internal vs Custom Storage
+## Migration Between Providers
 
-| Use Case                               | Internal Storage | Custom Storage (Pinecone) |
-|----------------------------------------|------------------|----------------------------|
-| Quick testing and prototyping          | ✓                |                            |
-| Large-scale production use             |                  | ✓                          |
-| Full control over indexing and cost    |                  | ✓                          |
-| Shared access across multiple agents   |                  | ✓                          |
-| Fastest performance inside SmythOS     | ✓                |                            |
+If you need to switch providers:
 
-<TipCallout title="Start simple, scale when needed">
-If you're unsure whether Custom Storage is necessary, start with the default internal setup. You can always switch to Pinecone later.
-</TipCallout>
+1. **Create a new Data Space** with the target provider
+2. **Re-upload your sources** to the new space (or use batch import if available)
+3. **Update agent connections** to use the new Data Space
+4. **Verify retrieval** works as expected
+5. **Delete the old Data Space** once confirmed
+
+<InfoCallout title="Preserve your data">
+Re-uploading sources creates new embeddings in the new provider. The original Data Space remains intact until you delete it.
+</InfoCallout>
+
+<Spacer size="md" />
+
+## Troubleshooting Custom Storage
+
+### Connection fails
+
+- **Pinecone:** Verify API key is valid and index exists with correct name
+- **Milvus:** Verify address is reachable and token is valid
+- Check network/firewall settings if accessing remote instances
+
+### Indexing fails after connection
+
+- Verify vector dimensions match between Data Space and your provider's index
+- Check that credentials have appropriate permissions
+- Review provider logs for specific error messages
+
+### Slow retrieval performance
+
+- Consider reducing chunk size for faster, more granular searches
+- Verify your provider has adequate resources
+- Use multiple Data Spaces to reduce search scope
+
+### Cost concerns
+
+- Review indexing frequency and data volume in your provider dashboard
+- Consider consolidating less-used Data Spaces
+- Use batch operations when possible to reduce API calls
 
 <Spacer size="md" />
 
 ## What's Next
 
-- [Data Pool overview](/docs/agent-collaboration/data-pool)  
-- [Create and manage Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)  
-- [Connect data to agents](/docs/agent-collaboration/spaces)  
+- [Data Pool overview](/docs/agent-collaboration/data-pool)
+- [Create and manage Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)
 - [Monitor usage in Analytics](/docs/account-management/user-management)

@@ -1,16 +1,16 @@
 ---
 title: Data Pool
-description: The Data Pool is where you manage all document and URL sources used for retrieval-augmented generation (RAG) in SmythOS. Learn how to create Data Spaces and configure custom vector storage.
-keywords: [data pool, retrieval augmented generation, rag, vector storage, pinecone, data spaces, custom storage, smythos indexing]
+description: The Data Pool is where you manage alldocument and file sources used for retrieval-augmented generation (RAG) in SmythOS. Learn how to create Data Spaces, configure multiple vector database providers, and manage your embeddings.
+keywords: [data pool, retrieval augmented generation, rag, vector storage, pinecone, milvus, data spaces, custom storage, smythos indexing, vector database providers]
 sidebar_position: 1
 ---
 
 # Data Pool
 
-The **Data Pool** is the central interface for managing indexed data in SmythOS. It allows you to create [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces), upload files or URLs, and optionally connect external vector storage using [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage). This enables agents to use **retrieval-augmented generation (RAG)** and answer queries using relevant context from your documents.
+The **Data Pool** is the central interface for managing indexed data in SmythOS. It allows you to create [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces), upload files or paste raw text, and connect to multiple vector database providers including SmythOS managed Pinecone, your own Pinecone instance, or Milvus. This enables agents to use **retrieval-augmented generation (RAG)** and answer queries using relevant context from your documents.
 
 <InfoCallout title="What the Data Pool enables">
-Agents in SmythOS can use your files, pages, and structured content for precise responses. The Data Pool powers this by indexing data into searchable embeddings.
+Agents in SmythOS can use your files and text content for precise responses. The Data Pool powers this by indexing data into searchable embeddings across your choice of vector database providers.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -27,12 +27,12 @@ Without data, your agent only knows what you prompt it with. With RAG, it retrie
 
 ## Key features of the Data Pool
 
-| Feature                              | Description                                                                                             | Learn More                                                                 |
+| Feature                | Description                                                                                             | Learn More|
 |--------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| **[Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)**       | Containers where you upload and manage files or URLs for indexing                                        | [Create Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) |
-| **[Custom Storage](/docs/agent-collaboration/data-pool/custom-storage)**             | Connect Pinecone or another vector store to store embeddings externally                                 | [Set Up Custom Storage](/docs/agent-collaboration/data-pool/custom-storage)                               |
-| **Indexing Status**                  | See whether each data source has been successfully indexed and is available for agent retrieval         | Included in the [Data Spaces guide](/docs/agent-collaboration/data-pool/data-spaces#indexing-behavior) |
-| **Data source preview**              | Review uploaded files or linked content from the interface                                               | Managed inside each [Data Space](/docs/agent-collaboration/data-pool/data-spaces) |
+| **[Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)**       | Containers where you upload files or paste raw text for indexing                                        | [Create Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) |
+| **Multi-Provider Support**             | Connect SmythOS Pinecone, your own Pinecone instance, or Milvus for vector storage                       | [Set Up Providers](/docs/agent-collaboration/data-pool/data-spaces#setting-up-vector-database-providers)|
+| **Data source preview**              | Review uploaded files, chunking configuration, metadata, and content from the interface| Managed inside each [Data Space](/docs/agent-collaboration/data-pool/data-spaces) |
+| **Provider Management**              | Create and organize multiple provider connections for flexible infrastructure management| [Manage Providers](/docs/agent-collaboration/data-pool/custom-storage) |
 
 <TipCallout title="Use one Data Pool, many agents">
 You can reuse the same Data Spaces across multiple agents. This makes your content modular and efficient to maintain.
@@ -46,32 +46,51 @@ To access the Data Pool:
 
 1. Open the **SmythOS Studio sidebar**
 2. Click **Data Pool**
-3. View your list of existing [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces)
-4. Check the **indexing status** for each row
-5. Click any row to open the full Data Space view
+3. View your list of existing [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) in a table with:
+   - **Data Space Name** – displays the name and embedding model
+   - **Provider** – shows which vector database provider is being used
+   - **Actions** – add data sources or delete the data space
+4. Click **Add Data Space** to create a new container
+5. Click the actions column to manage data sources or delete spaces
 
-<Image src="/docs/img/agent_collaboration/data-pool-main.jpg" alt="Data Pool table in SmythOS" caption="The Data Pool shows your content containers, index status, and linked storage at a glance." />
+<Image src="/docs/img/agent_collaboration/data-pool-main.png" alt="Data Pool table in SmythOS" caption="The Data Pool displays your data spaces, their providers, and quick actions for managing content." />
 
 <Spacer size="md" />
 
 ## Storage options
 
-The Data Pool supports both internal and external vector storage for embeddings.
+The Data Pool supports multiple vector storage providers for embeddings, giving you flexibility to choose what works best for your needs.
 
-| Storage Type                      | Hosted By      | Setup Required        | Best For                                       | Docs                           |
+| Storage Type| Hosted By| Setup Required        | Best For                                       | Docs|
 |----------------------------------|----------------|------------------------|------------------------------------------------|--------------------------------|
-| Internal Storage                 | SmythOS        | None                   | Quick setups, default RAG usage                | [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) |
-| External Storage (Pinecone)      | You (Pinecone) | API key and index info | Full control, enterprise use, scalable vectors | [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage)         |
+| SmythOS Managed Pinecone         | SmythOS        | None| Quick setups, default RAG usage, no configuration | [Data Spaces](/docs/agent-collaboration/data-pool/data-spaces) |
+| Your Own Pinecone                | You (Pinecone) | API key, index name, connection setup | Full control, enterprise use, scalable vectors | [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage)|
+| Milvus                | You (Milvus)   | Address, token, connection setup | Open-source deployment, self-hosted infrastructure | [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage)         |
 
-<WarningCallout title="Pinecone index requirement">
-Make sure your Pinecone index uses a vector dimension of **1536** or indexing will not work.
+<WarningCallout title="Vector dimension requirements">
+Ensure your vector database is configured with the correct dimensions for your embedding model. Mismatched dimensions will prevent successful indexing.
 </WarningCallout>
+
+<Spacer size="md" />
+
+## Provider flexibility
+
+With Data Pool, you can:
+
+- **Use SmythOS managed Pinecone** – No setup needed, start indexing immediately
+- **Bring your own Pinecone** – Use your existing Pinecone account and indexes for enterprise deployments
+- **Deploy with Milvus** – Self-host or use managed Milvus for complete infrastructure control
+- **Organize multiple providers** – Create multiple provider connections from the same service or account for better organization
+
+<TipCallout title="Mix and match providers">
+You can use different providers for different Data Spaces. Create one space with SmythOS Pinecone for testing, and another with your own Pinecone for production.
+</TipCallout>
 
 <Spacer size="md" />
 
 ## What's Next
 
 - [Set up your first Data Space](/docs/agent-collaboration/data-pool/data-spaces)
-- [Connect custom vector storage](/docs/agent-collaboration/data-pool/custom-storage)
-- [Attach data to agents in Project Spaces](/docs/agent-collaboration/spaces)
+- [Configure vector database providers](/docs/agent-collaboration/data-pool/custom-storage)
+- [Upload and manage data sources](/docs/agent-collaboration/data-pool/data-spaces#managing-data-sources)
 - [Monitor how agents use data in Analytics](/docs/account-management/user-management)

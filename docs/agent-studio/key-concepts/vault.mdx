@@ -213,6 +213,109 @@ If your team uses managed AI infrastructure, Vault supports enterprise providers
 
 <Spacer size="md" />
 
+<Spacer size="md" />
+
+## Vector Databases
+
+The **Vector Databases** section in Vault lets you manage connections to vector databases used by your data pool. SmythOS comes with a default managed connection, but you can add your own for greater flexibility and control.
+
+### Default connection
+
+By default, SmythOS provides a managed **SmythOS Pinecone** connection that handles vector storage internally. You don't need to set it up—it works out of the box.
+
+<InfoCallout title="Managed by SmythOS">
+The default Pinecone connection is maintained and scaled automatically. It's ideal for getting started quickly without infrastructure setup.
+</InfoCallout>
+
+<Spacer size="md" />
+
+### Add a custom vector database
+
+You can add additional vector database connections from **Pinecone** or **Milvus** to match your production infrastructure or specific requirements.
+
+#### How to add
+
+1. Go to **Vault → Vector Databases → Add Vector Database**  
+2. Select your provider: **Pinecone** or **Milvus**  
+3. Enter your provider credentials (see tables below)  
+4. Save
+
+Your new connection will appear in the vector database list and be available across your agents and data pools.
+
+<Spacer size="md" />
+
+### Pinecone Connection
+
+Use this option to connect your own Pinecone index.
+
+| Field              | Description                                  |
+|--------------------|----------------------------------------------|
+| **Connection Name**| A label for this connection (e.g., "Production Pinecone") |
+| **API Key**        | Your Pinecone API key                        |
+| **Index Name**     | The name of your Pinecone index              |
+
+**Example:**
+~~~json
+{
+  "connection_name": "Production Pinecone",
+  "api_key": "pcn-abc123...",
+  "index_name": "my-prod-index"
+}
+~~~
+
+<Spacer size="md" />
+
+### Milvus Connection
+
+Use this option to connect a self-hosted or managed Milvus instance.
+
+| Field              | Description                                  |
+|--------------------|----------------------------------------------|
+| **Connection Name**| A label for this connection (e.g., "Self-Hosted Milvus") |
+| **Address**        | The endpoint/address of your Milvus server|
+| **Token**          | Your Milvus authentication token             |
+
+**Example:**
+~~~json
+{
+  "connection_name": "Self-Hosted Milvus",
+  "address": "milvus-prod.example.com:19530",
+  "token": "milvus-token-abc123..."
+}
+~~~
+
+<Spacer size="md" />
+
+### Manage connections
+
+#### Edit
+
+1. Go to **Vault → Vector Databases**  
+2. Click the **Edit** icon next to the connection  
+3. Update your credentials or connection name  
+4. Save  
+
+#### Delete
+
+1. Go to **Vault → Vector Databases**  
+2. Click the **Delete** icon next to the connection  
+3. A confirmation dialog will appear — **type the connection name** to confirm deletion  
+4. Click **Delete**  
+
+<WarningCallout title="Deletion is permanent">
+Deleting a vector database connection will disconnect it from any agents or data pools currently using it. Ensure no active workflows depend on this connection before deleting.
+</WarningCallout>
+
+<Spacer size="md" />
+
+### Using vector databases
+
+Once added, your custom vector database connections are available wherever you configure data pools and embeddings across SmythOS. Simply select the connection you want to use in your RAG components.
+
+<InfoCallout title="When to use custom connections">
+Use the default SmythOS Pinecone for quick testing and prototyping. Switch to your own Pinecone or Milvus instance for production deployments where you need full control over infrastructure, scaling, and billing.
+</InfoCallout>
+
 ## Use keys inside agents
 
 Once a key is in Vault and scoped, SmythOS injects it automatically into your components.

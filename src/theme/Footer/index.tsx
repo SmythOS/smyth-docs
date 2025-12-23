@@ -111,10 +111,10 @@ const Footer: React.FC = () => {
         <span className="company-phone">
           Phone:{" "}
           <a
-            href="tel:+18327229004"
-            aria-label="Call SmythOS at +1 832-722-9004"
+            href="tel:+14176984671"
+            aria-label="Call SmythOS at +1 417-698-4671"
           >
-            +18327229004
+            +14176984671
           </a>
         </span>
       </div>

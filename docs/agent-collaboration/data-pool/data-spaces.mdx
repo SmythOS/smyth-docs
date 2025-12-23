@@ -1,16 +1,16 @@
 ---
 title: Data Spaces
-description: Data Spaces are named containers where you upload and index documents or URLs for agents to use as part of their memory.
-keywords: [data spaces, indexing, data upload, rag, document search, smythos agent memory, file knowledge base]
+description: Data Spaces are named containers where you upload and index files or raw text for agents to use as part of their memory. Configure your vector database provider, manage data sources, and control chunking behavior.
+keywords: [data spaces, indexing, data upload, rag, document search, smythos agent memory, file knowledge base, vector database providers, pinecone, milvus, chunking]
 sidebar_position: 2
 ---
 
 # Data Spaces
 
-**Data Spaces** are named containers in the [Data Pool](/docs/agent-collaboration/data-pool) that hold files or URLs. These sources are indexed using vector embeddings so your agents can retrieve and use them through **retrieval-augmented generation (RAG)**.
+**Data Spaces** are named containers in the [Data Pool](/docs/agent-collaboration/data-pool) that hold files or raw text. These sources are indexed using vector embeddings so your agents can retrieve and use them through **retrieval-augmented generation (RAG)**. Each Data Space is backed by a vector database provider of your choice: SmythOS managed Pinecone, your own Pinecone instance, or Milvus.
 
 <InfoCallout title="What makes Data Spaces useful">
-Once indexed, your sources become part of your agent’s contextual knowledge. This allows agents to answer questions, summarise content, and reference details from those documents in real time.
+Once indexed, your sources become part of your agent's contextual knowledge. This allows agents to answer questions, summarise content, and reference details from those documents in real time.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -19,40 +19,126 @@ Once indexed, your sources become part of your agent’s contextual knowledge. T
 
 1. Open the **Data Pool** from the left navigation
 2. Click **Add Data Space**
-3. Enter a name and confirm
+3. Fill in the required fields:
+   - **Vector Database Provider** – Choose SmythOS Pinecone, your own Pinecone, or Milvus
+   - **Name** – Enter a descriptive name for your space
+   - **Embedding Model** – Select your preferred embedding model
+   - **Vector Dimensions** – Specify the vector dimensions for your embeddings
+4. Click **Create**
 
-<Image src="/docs/img/data_pool/data_spaces/create-data-space-popup.jpg" alt="Create Data Space modal" caption="Each Data Space represents a dedicated container of searchable documents." />
+<Image src="/docs/img/data_pool/data_spaces/create-data-space-popup.png" alt="Create Data Space modal" caption="Each Data Space represents a dedicated container with its own vector database provider." />
 
 <SuccessCallout title="Space created">
-The new space appears in your list. It will initially show **No data source** and **Not Indexed**.
+The new space appears in your list. It will initially show **No data sources** and be ready for indexing.
 </SuccessCallout>
 
 <Spacer size="md" />
 
-## How to Add Sources
+## Setting Up Vector Database Providers
 
-Each Data Space can include one or more sources:
+### SmythOS Managed Pinecone (Default)
 
-1. Click the **Add Data Source** icon next to a space
-2. Enter a label
-3. Choose one of the following:
-   - Upload a file (`.pdf`, `.docx`, `.xml`)
-   - Add a URL or sitemap
+No additional setup required. Start indexing immediately with our managed infrastructure.
 
-<Image src="/docs/img/data_pool/data_spaces/add-data-source-popup.jpg" alt="Add Data Source modal in SmythOS" caption="Files and links are transformed into searchable vector embeddings." />
+### Your Own Pinecone or Milvus
+
+To use a custom provider, you'll need to create a provider connection first:
+
+1. When creating a Data Space, click **Vector Database Provider** dropdown
+2. Click **Create New Connection**
+3. Select your provider type: **Pinecone** or **Milvus**
+4. Enter your provider credentials:
+
+#### Pinecone Connection
+
+- **Connection Name** – A label for this connection (e.g., "Production Pinecone")
+- **API Key** – Your Pinecone API key
+- **Index Name** – The name of your Pinecone index
+
+#### Milvus Connection
+
+- **Connection Name** – A label for this connection (e.g., "Self-Hosted Milvus")
+- **Address** – The address/endpoint of your Milvus server
+- **Token** – Your Milvus authentication token
+
+<TipCallout title="Organize multiple connections">
+Create multiple provider connections from the same service or account. For example, create separate connections for "Dev Pinecone" and "Prod Pinecone" to keep environments organized.
+</TipCallout>
+
+5. Click **Create Connection**
+6. The connection is now available in your provider dropdown
+
+<WarningCallout title="Vector dimension compatibility">
+Ensure your vector database index is configured with dimensions that match your embedding model. Mismatched dimensions will prevent indexing.
+</WarningCallout>
+
+<Spacer size="md" />
+
+## Managing Data Sources
+
+### Adding a Data Source
+
+1. From the Data Pool, click **Add Data Source** in the Actions column for your Data Space
+2. The **Upload Datasource** modal opens
+3. Enter a **Datasource Label** for reference
+4. Choose your upload method:
+   - **Upload File** – Select `.txt`, `.pdf`, or `.docx` files (max 10MB)
+   - **Raw Text** – Paste text content directly
+5. (Optional) Expand **Advanced Configuration** to customize:
+   - **Chunk Size** – How many characters per chunk (default: 1000)
+   - **Chunk Overlap** – Overlap between chunks for context (default: 200)
+   - **Custom Metadata** – Add JSON metadata to enrich the source (e.g., author, date, tags)
+6. Click **Upload** to add the source
+
+<Image src="/docs/img/data_pool/data_spaces/add-data-source-popup.png" alt="Add Data Source modal in SmythOS" caption="Files and text are transformed into searchable vector embeddings with customizable chunking." />
+
+<Image src="/docs/img/data_pool/data_spaces/add-data-source-advanced.png" alt="Advanced Configuration section" caption="Fine-tune how your data is chunked and add custom metadata." />
 
 <TipCallout title="Label clearly for easier reference">
-Use titles like “2024 Pricing Guide” instead of generic names like “Document 1.”
+Use titles like "2024 Pricing Guide" instead of generic names like "Document 1."
 </TipCallout>
+
+### Viewing Data Source Details
+
+1. Navigate to a Data Space
+2. View the **Datasources** table showing:
+   - **Name** – The datasource label
+   - **Size** – File/content size
+   - **Created** – Timestamp of creation
+   - **Actions** – View details or delete
+3. Click the **View Details** icon to see:
+   - Number of vectors created
+   - Total size
+   - Creation timestamp
+   - Chunking configuration (chunk size and overlap)
+   - Metadata fields (title, author, date, tags)
+   - Preview of the source content
+
+<Image src="/docs/img/data_pool/data_spaces/datasource-details-modal.png" alt="Data Source Details modal" caption="Review configuration and content of any indexed source." />
+
+### Deleting a Data Source
+
+1. Click the **Delete** icon in the Actions column for a datasource
+2. Confirm the deletion
+3. The source is immediately removed from your Data Space
+
+<WarningCallout title="Deletion is permanent">
+Removing a data source also removes its embeddings from your vector database. Agents will no longer have access to that content.
+</WarningCallout>
 
 <Spacer size="md" />
 
 ## How Indexing Works
 
-Indexing starts automatically once a source is added. You can track progress in the **Indexing Status** column. Agents can only retrieve from sources marked **Indexed**.
+Indexing starts automatically once a source is added. The embedding process:
+
+1. **Chunking** – Your content is split into chunks based on your configured chunk size and overlap
+2. **Embedding** – Each chunk is converted to vector embeddings using your selected embedding model
+3. **Storage** – Embeddings are stored in your vector database provider (SmythOS Pinecone, your Pinecone, or Milvus)
+4. **Availability** – Once indexed, agents can immediately retrieve and use the content
 
 <InfoCallout title="Behind the scenes">
-Indexing turns your files into vector embeddings. These are stored in your default or [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage) setup and made available to agents via semantic search.
+Indexing turns your files and text into vector embeddings through semantic analysis. These embeddings are stored in your vector database and made available to agents via semantic search.
 </InfoCallout>
 
 <Spacer size="md" />
@@ -61,12 +147,13 @@ Indexing turns your files into vector embeddings. These are stored in your defau
 
 From the Data Pool overview:
 
-- Click a row to view or edit a Data Space
-- Add or remove sources at any time
-- Duplicate or delete a Data Space
+- **View all spaces** – See your Data Spaces in a table with provider and embedding model information
+- **Add sources** – Click **Add Data Source** to upload files or paste text
+- **View datasources** – Click on a Data Space row to enter the datasources view
+- **Delete a space** – Click the **Delete** icon to remove an entire Data Space
 
 <WarningCallout title="Deleting a space is permanent">
-Removing a Data Space also deletes all its sources. Agents depending on this data will no longer have access to it.
+Removing a Data Space also deletes all its sources and embeddings from your vector database. Agents depending on this data will no longer have access to it.
 </WarningCallout>
 
 <Spacer size="md" />
@@ -77,7 +164,7 @@ To connect a Data Space to an agent:
 
 1. Open your [Project Space](/docs/agent-collaboration/spaces)
 2. Select or create an agent
-3. Attach one or more Data Spaces
+3. Attach one or more Data Spaces with the RAG components
 
 Once connected, the agent uses semantic retrieval to reference indexed content during execution.
 
@@ -87,29 +174,78 @@ After attaching a space, your agent can immediately start pulling context from i
 
 <Spacer size="md" />
 
+## Understanding Chunking and Metadata
+
+### Chunking Configuration
+
+**Chunk Size** controls how your content is split:
+- **Smaller chunks** (e.g., 500) – More granular retrieval, faster processing, higher token usage
+- **Larger chunks** (e.g., 2000) – More context per chunk, better for complex documents, fewer API calls
+
+**Chunk Overlap** ensures continuity between chunks:
+- Prevents loss of context at chunk boundaries
+- Default of 200 characters is suitable for most use cases
+- Increase for highly technical or dense content
+
+### Custom Metadata
+
+Add structured metadata as JSON to enrich your datasources:
+
+~~~json
+{
+  "title": "Q3 Financial Report",
+  "author": "Finance Team",
+  "date": "2024-09-30",
+  "tags": ["finance", "quarterly", "2024"]
+}
+~~~
+
+Metadata helps with:
+- Organizing sources for better retrieval
+- Filtering and categorization
+- Adding context to agent responses
+
+<Spacer size="md" />
+
 ## FAQ
 
-### What types of sources are supported?
+### What file types are supported?
 
-You can upload `.pdf`, `.docx`, and `.xml` files, or add URLs and full sitemaps.
+You can upload `.txt`, `.pdf`, and `.docx` files, or paste raw text content directly.
 
-### Can a single space contain both files and URLs?
+### What is the maximum file size?
 
-Yes. Data Spaces can mix multiple file types and links.
+The maximum file size is **10MB** per datasource.
+
+### Can a single space contain both files and raw text?
+
+Yes. Data Spaces can include multiple file types and raw text sources mixed together.
 
 ### Is there a limit to how many sources I can add?
 
 There is no enforced limit. For better performance and organisation, group similar content across separate spaces.
 
+### Can I use different vector database providers for different Data Spaces?
+
+Yes. Each Data Space can use a different provider. For example, use SmythOS Pinecone for testing and your own Pinecone for production.
+
+### What happens if I modify chunking settings?
+
+Chunking settings apply to new uploads. Existing sources keep their original chunking configuration. To re-chunk existing data, delete and re-upload the source.
+
 ### What if indexing fails?
 
-Check file type and size. Retry if needed, or consider using [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage) for more control.
+Common causes include:
+- File type not supported (use `.txt`, `.pdf`, or `.docx`)
+- File size exceeds 10MB
+- Vector dimension mismatch with your database
+
+Check these factors and retry. For additional support, review your [Custom Storage](/docs/agent-collaboration/data-pool/custom-storage) configuration.
 
 <Spacer size="md" />
 
 ## What's Next?
 
 - [Explore the full Data Pool](/docs/agent-collaboration/data-pool)
-- [Use Custom Storage integrations](/docs/agent-collaboration/data-pool/custom-storage)
-- [Connect data to agents in Spaces](/docs/agent-collaboration/spaces)
+- [Configure Custom Storage providers](/docs/agent-collaboration/data-pool/custom-storage)
 - [Track how agents use data in Analytics](/docs/account-management/user-management)

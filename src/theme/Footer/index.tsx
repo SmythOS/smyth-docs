@@ -84,6 +84,7 @@ const Footer: React.FC = () => {
               <span className="screen-reader-text">LinkedIn</span>
             </a>
           </div>
+          
           <div className="footer-menu">
             <nav aria-label="Footer navigation">
               <ul>

@@ -92,7 +92,7 @@ export default function Footer() {
               <span className="company-phone">
                 Phone:{' '}
                 <a href="tel:+14176984671" aria-label="Call SmythOS at +1 417-698-4671">
-                  +14176984671
+                  +1 417-698-4671
                 </a>
               </span>
             </address>

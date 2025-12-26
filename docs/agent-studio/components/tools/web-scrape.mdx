@@ -21,12 +21,13 @@ The web is the world's largest data source. The Web Scrape component allows your
 
 Fine-tune the scraper's behavior to match the structure of your target websites and the format you need.
 
-| Setting                      | Description                                                                                                                                                                                                                                    |
+| Setting| Description|
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Format** | Choose how the scraped content should be structured. Options include `Markdown` (great for LLMs), `Text` (for clean text extraction), `Raw` HTML, or structured `JSON`. You can also choose to exclude images or links from Markdown. |
-| **Bypass Anti-Bot Protection** | Enable this if the target website uses tools like Cloudflare or other Captcha-based systems to block scrapers.                                                                                                                                   |
-| **JavaScript Rendering** | Enable this for Single Page Applications (SPAs) or any site that loads its content dynamically using JavaScript. The component will render the page in a headless browser before extracting content.                                                 |
-| **Auto Scroll** | Enable this for pages that use infinite scrolling to load more content as the user scrolls down. The component will automatically scroll to the bottom to ensure all content is loaded before extraction.                                                 |
+| **Countries** | Select one or more countries for proxy rotation using ISO 3166-1 alpha-2 country codes (e.g., US, GB, FR, DE). Routes scraping requests through proxies from selected geographic locations to access region-restricted content. |
+| **Bypass Anti-Bot Protection** | Enable this if the target website uses tools like Cloudflare or other Captcha-based systems to block scrapers.|
+| **JavaScript Rendering** | Enable this for Single Page Applications (SPAs) or any site that loads its content dynamically using JavaScript. The component will render the page in a headless browser before extracting content.|
+| **Auto Scroll** | Enable this for pages that use infinite scrolling to load more content as the user scrolls down. The component will automatically scroll to the bottom to ensure all content is loaded before extraction.                                                |                                                |
 
 <TipCallout title="Which Format Should I Choose?">
 - Use **Markdown** when you plan to feed the content into a **GenAI LLM** for summarization or analysis.

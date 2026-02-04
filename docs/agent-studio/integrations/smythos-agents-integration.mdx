@@ -91,7 +91,7 @@ Executes a specified "subagent" as part of the current agent's workflow, passing
     - `Same As Parent`: If the parent is in `Dev`, it calls the `Dev` subagent. If `Prod`, it calls `Prod`.
     - `Dev`: Always calls the `Dev` version of the subagent, useful for testing.
     - `Prod Latest`: Always calls the latest `Prod` version of the subagent, ensuring stability.
-- **Description for Model:** A description of what the subagent does. This is pre-filled from the subagent's `Behavior` field but can be edited. This text helps the parent agent's AI understand the subagent's capabilities.
+- **Behavior:** A description of what the subagent does. This is pre-filled from the subagent's `Behavior` field but can be edited. This text helps the parent agent's AI understand the subagent's capabilities.
 
 <InfoCallout>
 - The model selected here overrides only the **orchestrating AI** of the sub-agent - the AI that decides which skills/endpoints to call and interprets responses. Individual LLM components within the sub-agent's workflows retain their own model settings and are not affected by this selection.

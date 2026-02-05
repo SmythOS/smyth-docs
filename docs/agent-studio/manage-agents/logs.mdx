@@ -1,139 +1,217 @@
 ---
-title: Logs
-description: Learn how to access and interpret execution logs for your agents.
-keywords: [logs, execution logs, debugging, agent diagnostics, log viewer]
+title: Telemetry & Logs
+description: Monitor agent performance, analyze execution traces, and access detailed logs for debugging and optimization.
+keywords: [telemetry, logs, execution logs, traces, debugging, agent diagnostics, performance monitoring, LLM performance]
 sidebar_position: 4
 ---
 
-# Logs
-You can use logs to trace your agent’s behavior, troubleshoot issues, monitor performance, and audit activity. Logs show what ran, when it ran, and what happened at each step.
-Logs help you:
-- Diagnose agent failures
-- Understand logic breakdowns
-- Monitor API calls and data flows
-- Track performance and execution timelines
+# Telemetry & Logs
+
+Telemetry & Logs provides comprehensive insights into your agents' performance and behavior. Access real-time metrics, execution traces, detailed logs, and LLM performance data to troubleshoot issues, optimize efficiency, and monitor activity across all agents.
 
 <Spacer size="md" />
 
-<WarningCallout title="Log Retention by Plan">
-Logs are automatically deleted based on your plan tier:
-- **Free**: 7 days  
-- **Builder / Startup**: 30 days  
-- **Scaleup**: 90 days  
-</WarningCallout>
+## Key Benefits
+
+Telemetry & Logs helps you:
+
+- **Monitor Performance**: Track key metrics like conversation count, average response time, and error rates
+- **Analyze Execution**: View detailed traces and step-by-step execution logs for each run
+- **Debug Issues**: Identify component failures, logic breakdowns, and performance bottlenecks
+- **Optimize LLM Usage**: Review LLM performance metrics, model selection, and Time To First Byte (TTFB) data
+- **Track Component Health**: Analyze error rates and latency for individual components
+- **Audit Activity**: Access up to 30 days of historical data for all agents
+
+<InfoCallout>
+Data is retained for **30 days** across all plan tiers, giving you complete visibility into your agent's recent activity and performance trends.
+</InfoCallout>
 
 <Arcade src="https://demo.arcade.software/LgSaen05m0QOdQhRmQNr?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Logs | SmythOS" />
 
 <Spacer size="md" />
 
-## Where to Find Logs
+## Accessing Telemetry & Logs
 
-You can access logs from two places:
+### From the Sidebar
 
-- **From the Agent Dashboard**  
-  Click on an agent card. This opens **Agent Settings**. From there, go to the **Logs** tab.
+Navigate to **Telemetry & Logs** in the main sidebar to view aggregated data across **all agents**. From here, you can:
+- Filter by specific agents using the agent dropdown
+- Adjust the time range for analysis
+- Explore different data views (Overview, Traces, Logs, LLM Performance, Components)
 
-- **From Studio Canvas**  
-  Click **Edit** on the agent card to open the Studio Canvas. In the left sidebar, go to **Settings → Logs**.
+### From Agent Settings
 
-<Spacer size="md" />
-
-<InfoCallout>
-Each log represents a complete run of an endpoint. Use it to trace the flow of data and decisions through your agent.
-</InfoCallout>
-
-<Spacer size="md" />
-## Log Types
-
-SmythOS captures several categories of logs:
-
-| Log Type           | Description                                | Use Case                    |
-|--------------------|--------------------------------------------|-----------------------------|
-| **Execution Logs** | Step-by-step breakdown of agent workflows  | Debug workflow logic        |
-| **Performance Logs** | Timing and resource usage metrics       | Optimize agent efficiency   |
-| **Error Logs**     | Failures and stack traces                  | Troubleshoot breakdowns     |
-| **API Logs**       | Records of outgoing API calls              | Monitor third-party calls   |
-| **Security Logs**  | Access attempts and auth activity          | Audit user access and roles |
+Click on an agent card from the **Agent Dashboard** to open **Agent Settings**, then navigate to the **Telemetry & Logs** tab. This automatically filters all data to show only that agent's executions.
 
 <Spacer size="md" />
 
-## What You’ll See
+## Dashboard Tabs
 
-Each log entry includes:
+### Overview
 
-- **Timestamp** of execution  
-- **Endpoint** that was called  
-- **Input** data submitted  
-- **Tags**, if triggered from the [Scheduler](/docs/agent-studio/manage-agents/tasks#scheduled-tasks)  
-- **Execution Steps** showing each component, input, and output
+Get a high-level summary of agent performance with key metrics:
 
-Logs are shown in reverse chronological order.
-
-<Spacer size="md" />
-
-## View a Specific Run
-
-Click on any log row to open a detailed trace.
-
-Each step will show:
-
-- Component name  
-- Type of component (e.g., API call, GenAI)  
-- Input payload  
-- Output payload  
-
-You can download this log as a JSON file using the **Download Log** button.
-
-<Spacer size="md" />
-
-## Visualize the Call Tree
-
-To see how your agent executed step-by-step, use the **Show Call Tree** option.
-
-1. Open a log entry
-2. Click **Show Call Tree** in the first segment
-3. A new window will show a visual map of your agent’s execution path
+- **Conversations**: Total number of agent interactions during the selected period
+- **Average Conversation Time**: Average duration of each agent execution
+- **Skill Runs** (Component Executions): Total number of component/skill invocations
+- **Error Rate**: Percentage of failed executions
+- **Component Calls**: Total count of individual component calls
+- **Activity Over Time Chart**: Visual trend of conversations, skill runs, and errors across the past 30 days
 
 <TipCallout title="Tip">
-Use the Call Tree to find silent failures or skipped branches in complex workflows.
+Use the Overview tab to identify trends and anomalies. A sudden spike in error rate may indicate a recent deployment issue or external service outage.
 </TipCallout>
 
 <Spacer size="md" />
 
-## Debug With Logs
+### Traces
 
-Logs work seamlessly with [Debug Mode](/docs/agent-studio/build-agents/debugging) on the canvas. Together, they help you:
+View detailed execution traces for individual agent runs:
 
-- Verify agent logic  
-- Compare expected vs actual outputs  
-- Track component behavior across runs  
+- **Trace ID**: Unique identifier for each execution
+- **Root**: The primary entity executed (e.g., Agent.Skill)
+- **Agent**: The endpoint or agent that triggered the trace
+- **Duration**: Total execution time
+- **Spans**: Number of distinct operations within the trace
+- **Errors**: Count of errors encountered during execution
+
+Click on any trace row to inspect the complete execution flow and step-by-step component interactions.
+
+<Spacer size="md" />
+
+### Logs
+
+Access structured logs for detailed event tracking:
+
+- **Timestamp**: When the event occurred
+- **Severity**: Log level (INFO, WARN, ERROR, etc.)
+- **Message**: Description of the logged event
+- **Agent**: Associated agent or endpoint
+- **Trace ID**: Link to the related trace for context
+
+Filter and search logs to quickly locate specific events or error messages.
+
+<Spacer size="md" />
+
+### LLM Performance
+
+Monitor Large Language Model (LLM) usage and performance:
+
+- **Total LLM Calls**: Aggregate count of LLM API calls
+- **Average TTFB** (Time To First Byte): Average response latency from the LLM
+- **TTFB by Model**: Breakdown of response times across different LLM models
+- **Model Usage**: Which LLM models are being used and how frequently
+- **Response Time Metrics**: Additional timing and performance data
+
+Use this tab to compare LLM providers, identify slow models, and optimize model selection.
+
+<TipCallout title="Optimize LLM Costs">
+Monitor TTFB and model usage to identify opportunities for model switching or prompt optimization.
+</TipCallout>
+
+<Spacer size="md" />
+
+### Components
+
+Analyze individual component performance and reliability:
+
+- **Errors per Component**: Pie chart showing error distribution across components
+- **Latency per Component (Top 10)**: Bar chart displaying response times for the most-used components
+- **Component Calls**: Frequency of invocations for each component
+
+Identify problematic or slow-running components and prioritize optimization efforts.
+
+<Spacer size="md" />
+
+## Detailed Log Inspection
+
+### View a Specific Run
+
+Click on any trace or log entry to open the detailed execution view:
+
+- **Component Name**: Name of the executed component
+- **Component Type**: Classification (e.g., API call, GenAI, code execution)
+- **Input Payload**: Data sent to the component
+- **Output Payload**: Results returned by the component
+- **Execution Status**: Success, failure, or warning indicators
+- **Timing**: Duration of component execution
+
+### Call Tree Visualization
+
+The **Call Tree** provides a visual map of your agent's execution flow:
+
+1. Open a trace from the **Traces** tab
+2. Click **Show Call Tree** to visualize the execution path
+3. A hierarchical tree displays each component, data transformation, and decision point
+4. Follow the flow to identify silent failures or skipped branches
+
+<TipCallout title="Tip">
+Use the Call Tree to trace data flow through complex workflows and identify where logic diverges from expectations.
+</TipCallout>
+
+<Spacer size="md" />
+
+## Time Range Selection
+
+By default, Telemetry & Logs displays data from the **past 30 days**. You can adjust the time range to focus on:
+
+- Recent activity (last 24 hours, 7 days)
+- Historical analysis (full 30-day window)
+- Specific incidents or events
+
+<Spacer size="md" />
+
+## Filtering and Search
+
+### Filter by Agent
+
+When viewing Telemetry & Logs from the sidebar, use the **Agent dropdown** to filter:
+
+- **All Agents**: View aggregated data across your entire workspace
+- **Specific Agent**: Focus on a single agent's telemetry
+
+### Search and Sort
+
+- Sort logs by timestamp, severity, agent, or trace ID
+- Search logs by message content or trace ID
+- Filter traces by error status or duration ranges
+
+<Spacer size="md" />
+
+## Common Use Cases
+
+### Debugging Agent Failures
+
+1. Go to the **Overview** tab and note spikes in the **Error Rate**
+2. Navigate to the **Traces** tab and filter for failed runs
+3. Click on a failed trace to view the **Call Tree**
+4. Inspect component inputs and outputs to identify the failure point
+5. Check the **Logs** tab for error messages and stack traces
+
+### Optimizing Performance
+
+1. Review **Average Conversation Time** on the Overview tab
+2. Identify slow components using the **Components** tab
+3. Compare LLM performance across models in the **LLM Performance** tab
+4. Adjust model selection, prompt engineering, or component logic based on findings
+
+### Monitoring LLM Costs
+
+1. Check **Total LLM Calls** and **TTFB by Model** in the **LLM Performance** tab
+2. Identify underperforming or expensive models
+3. Consider switching to faster or more cost-effective alternatives
+
+### Troubleshooting Specific Issues
+
+1. Search the **Logs** tab for error messages or component names
+2. Click the associated **Trace ID** to view full execution context
+3. Download the JSON log for detailed analysis or sharing with support
+
+<Spacer size="md" />
 
 <InfoCallout>
-For scheduled or bulk runs, follow the log link directly from the [Agent Tasks](/docs/agent-studio/manage-agents/tasks) tab.
+All workspace members can access Telemetry & Logs with data available for the past 30 days, regardless of plan tier.
 </InfoCallout>
-
-<Spacer size="md" />
-
-## Example API Log Request
-
-You can test logs by triggering a run using an API request with a bearer token. Here’s a basic example:
-
-```bash
-curl https://your-agent.smythos.com/api/v1/chat \
-  -H "Authorization: Bearer abc123xyz789" \
-  -H "Content-Type: application/json" \
-  -d '{"message": "hello"}'
-```
-
-<Spacer size="md" />
-
-<small>
-Logs are especially useful when paired with analytics. For more details, visit [Analytics](/docs/account-management/user-management).
-</small>
-
-<TipCallout title="Debug faster">
-Use the call tree to quickly locate where logic breaks or unexpected outputs occur.
-</TipCallout>
 
 <Spacer size="md" />
 
@@ -141,3 +219,4 @@ Use the call tree to quickly locate where logic breaks or unexpected outputs occ
 
 - [Debugging Agents](/docs/agent-studio/build-agents/debugging)
 - [Manage Agents](/docs/agent-studio/manage-agents/overview)
+- [Agent Tasks](/docs/agent-studio/manage-agents/tasks)

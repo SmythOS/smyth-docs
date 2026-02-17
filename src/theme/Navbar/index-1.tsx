@@ -210,7 +210,6 @@ export default function Navbar() {
                   SmythOS app
                 </a>
               </li>
-              <li className="menu-label" role="none">Go to...</li>
             </ul>
           </nav>
         </div>
@@ -261,7 +260,7 @@ export default function Navbar() {
                 </ul>
               </li>
               <li className="menu-label has-submenu-m" role="none">
-                <div className="menu-label-content">Community.</div>
+                <div className="menu-label-content">Community</div>
                 <ul className="submenu" role="menu">
                   <li role="none">
                     <a href="/updates" role="menuitem" onClick={go('/updates')}>Updates</a>

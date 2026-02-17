@@ -198,7 +198,7 @@ export default function Navbar() {
       >
           <nav id="userMenu" role="navigation" aria-label="User Navigation">
             <ul role="menu">
-              <li className="menu-label" role="none">Go to...</li>
+              <li className="menu-label" role="none">Go to....</li>
               <li role="none">
                 <a
                   href="https://app.smythos.com/"
@@ -207,7 +207,7 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  SmythOS app
+                  SmythOS App
                 </a>
               </li>
             </ul>

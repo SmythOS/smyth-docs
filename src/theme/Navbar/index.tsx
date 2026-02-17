@@ -1261,62 +1261,6 @@ const HeaderComponent: React.FC = () => {
               </a>
             </li>
             <li role="none">
-              <a
-                href="https://discord.gg/smythos"
-                role="menuitem"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg
-                  width={20}
-                  height={20}
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M7.6488 14.551c-.1985.3056-.6944 1.0654-.936 1.3358-.1195.133-.3414.2775-.4967.2587-1.4139-.1752-2.7397-.5902-3.8355-1.5548-.4508-.398-.7339-.8489-.6835-1.5108.1752-2.2925.6924-4.4931 1.5476-6.6283.3864-.9628 1.0744-1.6285 2.0238-1.9553.547-.2282 1.156-.4096 1.748-.5103 1.0473-.1786 1.0815-.238 1.3248.6719a12.7004 12.7004 0 0 1 3.3127 0c.2425-.9098.282-.8507 1.3303-.6719.592.1007 1.2001.282 1.747.5102.9503.327 1.6384.9926 2.0246 1.9554.8553 2.1352 1.3726 4.3358 1.5469 6.6283.0512.6619-.2327 1.1128-.6836 1.5108-1.095.9646-2.4217 1.3796-3.8344 1.5548-.1565.0188-.3784-.1257-.497-.2587-.2416-.2704-.7383-1.0302-.9359-1.3357"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38478" }}
-                  />
-                  <path
-                    d="M5.5184 13.5758c2.9876 1.7802 5.975 1.7802 8.9626 0"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38478" }}
-                  />
-                  <path
-                    clipRule="evenodd"
-                    d="M8.53 10.0137c0 .7478-.5165 1.3532-1.1542 1.3532-.6368 0-1.1542-.6054-1.1542-1.3532 0-.7478.5174-1.3534 1.1542-1.3534.6377 0 1.1543.6056 1.1543 1.3534zm5.2471 0c0 .7478-.5165 1.3532-1.1542 1.3532-.6377 0-1.1542-.6053-1.1542-1.353 0-.7479.5165-1.3534 1.1542-1.3534.6377 0 1.1542.6055 1.1542 1.3533z"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ strokeWidth: "1.38478" }}
-                  />
-                </svg>{" "}
-                <span className="link-text">Discord Community</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
-            </li>
-            <li role="none">
               <a href="/updates/" role="menuitem">
                 <svg
                   width={20}
@@ -1720,60 +1664,6 @@ const HeaderComponent: React.FC = () => {
         </li>
         <li className="menu-label" role="none">
           Community
-        </li>
-        <li role="none">
-          <a
-            href="https://discord.gg/smythos"
-            role="menuitem"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg
-              width={20}
-              height={20}
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.674.77h8.651c3.024 0 4.906 2.134 4.906 5.154v8.151c0 3.021-1.882 5.156-4.907 5.156h-8.65c-3.024 0-4.905-2.135-4.905-5.156v-8.15C.77 2.903 2.66.768 5.674.768z"
-                stroke="currentColor"
-                strokeWidth="1.538"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8.337 9.994v.037m.153-.03a.154.154 0 1 1-.308 0 .154.154 0 0 1 .308 0zM11.665 9.994v.037m.153-.03a.154.154 0 1 1-.308 0 .154.154 0 0 1 .308 0z"
-                stroke="currentColor"
-                strokeWidth="1.538"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8.306 5.705a9.979 9.979 0 0 0-2.045.582 1.059 1.059 0 0 0-.51.44 10.035 10.035 0 0 0-1.345 6.085c.073.718.9 1.053 1.52 1.305l.193.079c.974.414 1.44-.621 1.752-1.332 1.402.31 2.856.31 4.258 0 .311.711.778 1.746 1.752 1.332.06-.026.125-.052.192-.079.621-.252 1.448-.587 1.52-1.305.21-2.12-.261-4.251-1.344-6.085a1.059 1.059 0 0 0-.51-.44 9.977 9.977 0 0 0-2.045-.582l-.522.598H8.828Z"
-                stroke="currentColor"
-                strokeWidth="1.538"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>{" "}
-            <span className="link-text">Discord</span>
-            <svg
-              className="icon-right"
-              width={20}
-              height={20}
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>{" "}
-          </a>
         </li>
       </ul>
     </nav>

@@ -211,16 +211,6 @@ export default function Navbar() {
                 </a>
               </li>
               <li className="menu-label" role="none">Community</li>
-              <li role="none">
-                <a
-                  href="https://discord.gg/smythos"
-                  role="menuitem"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Discord
-                </a>
-              </li>
             </ul>
           </nav>
         </div>
@@ -281,16 +271,6 @@ export default function Navbar() {
                   </li>
                   <li role="none">
                     <a href="/ai-trends" role="menuitem" onClick={go('/ai-trends')}>Trending</a>
-                  </li>
-                  <li role="none">
-                    <a
-                      href="https://discord.gg/smythos"
-                      role="menuitem"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Discord Community
-                    </a>
                   </li>
                 </ul>
               </li>

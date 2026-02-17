@@ -43,8 +43,7 @@ const config: Config = {
     // Make env vars available in components
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-    supportEmail: 'support@smythos.com',
-    supportDiscordUrl: 'https://discord.gg/smythos',
+    supportEmail: 'support@smythos.com'
   },
 
   onBrokenLinks: 'throw',

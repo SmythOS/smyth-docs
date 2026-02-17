@@ -74,8 +74,7 @@ We welcome all contributsions: whether you’re fixing a typo, adding a new guid
 
 ## Need Help?
 
-- Ask in our [Discord community](https://discord.gg/smythos)
-- - For bug reports or feature requests, [open an issue on GitHub](https://github.com/SmythOS/smyth-docs/issues).
+- For bug reports or feature requests, [open an issue on GitHub](https://github.com/SmythOS/smyth-docs/issues).
 
 <Spacer size="md" />
 

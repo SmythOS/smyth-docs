@@ -868,59 +868,6 @@ const HeaderComponent: React.FC = () => {
                     </svg>{" "}
                   </a>
                 </li>
-                <li role="none">
-                  <a
-                    href="https://discord.gg/smythos"
-                    target="_blank"
-                    rel="noopener"
-                    role="menuitem"
-                  >
-                    <svg
-                      width={20}
-                      height={20}
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M6.301 10.125a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.699 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.699 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                        fill="currentColor"
-                        style={{ strokeWidth: "1.30435" }}
-                      />
-                      <path
-                        d="m1.6957 4.5435-1.5218 9.8913h14.4348l1.6956-9.8913-3.0435-3.0435H4.739Z"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        style={{ strokeWidth: "1.30435" }}
-                      />
-                      <path
-                        d="M14.4348 14.4348 12.0652 17.5M5.9348 14.4348 8.3044 17.5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        style={{ strokeWidth: "1.30435" }}
-                      />
-                    </svg>{" "}
-                    <span className="link-text">Discord Community</span>
-                    <svg
-                      className="icon-right"
-                      width={20}
-                      height={20}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                        stroke="currentColor"
-                        strokeWidth="1.25"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>{" "}
-                  </a>
-                </li>
               </ul>
             </li>
             <li className="menu-label has-submenu-m" role="none">

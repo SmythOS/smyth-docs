@@ -76,7 +76,6 @@ No production deployment is required to contribute. Simply open a PR and share y
 
 -   We will release an open source visual agent IDE later this year.
 -   Support us at [SmythOS](https://smythos.com) and read the [SmythOS Documentation](https://smythos.com/docs/).
--   Join our [community](https://discord.gg/smythos) to stay updated on new features, connectors, and capabilities.
 
 /smɪθ oʊ ɛs/
 

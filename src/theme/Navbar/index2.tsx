@@ -279,7 +279,7 @@ const HeaderComponent: React.FC = () => {
         <nav id="mobileMenu" role="navigation" aria-label="Mobile Navigation">
           <ul role="menu">
             <li className="menu-label always-open" role="none">
-              <div className="menu-label-content">Go to...</div>
+              <div className="menu-label-content">Go to....</div>
               <ul className="submenu" role="menu">
                 <li role="none">
                   <a

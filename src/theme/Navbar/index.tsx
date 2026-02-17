@@ -162,7 +162,7 @@ const HeaderComponent: React.FC = () => {
           fill="currentColor"
         />
       </svg>
-      <span style={{ marginLeft: '0.5rem' }}>Weaver.</span>
+      <span style={{ marginLeft: '0.5rem' }}>Weaver</span>
     </span>
   </Link>
 </li>

@@ -210,7 +210,6 @@ export default function Navbar() {
                   SmythOS app
                 </a>
               </li>
-              <li className="menu-label" role="none">Community</li>
             </ul>
           </nav>
         </div>

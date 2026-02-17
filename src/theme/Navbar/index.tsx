@@ -1662,9 +1662,6 @@ const HeaderComponent: React.FC = () => {
             </svg>{" "}
           </a>
         </li>
-        <li className="menu-label" role="none">
-          Community
-        </li>
       </ul>
     </nav>
   </div>

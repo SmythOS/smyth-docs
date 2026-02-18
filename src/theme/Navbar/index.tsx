@@ -39,9 +39,6 @@ const HeaderComponent: React.FC = () => {
                 <a href="/docs/">Docs</a>
               </li>
               <li>
-                <a href="https://forged.smythos.com/">Community</a>
-              </li>
-              <li>
                 <a href="/about-us/">Company</a>
               </li>
             </ul>
@@ -1137,50 +1134,6 @@ const HeaderComponent: React.FC = () => {
             </svg>
           </div>
           <ul className="submenu" role="menu">
-            <li role="none">
-              <a href="https://forged.smythos.com" role="menuitem">
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="m13.9716 8.3795-5.4458 5.4458c-1.06 1.06-2.7782 1.06-3.8382 0l-2.046-2.0459c-1.0599-1.06-1.0599-2.7782 0-3.8381l5.446-5.446c1.0599-1.0599 2.7781-1.0599 3.838 0l2.046 2.046c1.06 1.06 1.06 2.7782 0 3.8382z"
-                    stroke="currentColor"
-                    strokeWidth="1.385"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M1.6925 18.2952h4.0362M12.9403 9.6534l4.8551 4.8551c.6885.6884.6885 1.805 0 2.4934l-.6481.6482c-.6884.6883-1.805.6883-2.4933 0l-4.8552-4.8552"
-                    stroke="currentColor"
-                    strokeWidth="1.385"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-                <span className="link-text">Smyth Forged</span>
-                <svg
-                  className="icon-right"
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.83325 14.1667L14.1666 5.83333M14.1666 5.83333H7.49992M14.1666 5.83333V12.5"
-                    stroke="currentColor"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>{" "}
-              </a>
-            </li>
             <li role="none">
               <a href="/blog/" role="menuitem">
                 <svg

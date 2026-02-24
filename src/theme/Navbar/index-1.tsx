@@ -27,7 +27,7 @@ const MAIN_NAV = [
   { label: 'Why SmythOS', href: 'https://smythos.com/why-smythos' },
   { label: 'Pricing', href: 'https://smythos.com/pricing' },
   { label: 'Docs', href: '/docs' },
-  { label: 'Community', href: 'https://smythos.com/updates' },
+  { label: 'Community', href: 'https://smythos.com/blog' },
   { label: 'Company', href: 'https://smythos.com/about-us' },
 ];
 

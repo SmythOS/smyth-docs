@@ -1,7 +1,7 @@
 ---
 title: OAuth Connections
 description: Learn how to configure and reuse OAuth connections across agents, integrations, and API call components in SmythOS.
-keywords: [OAuth, authentication, API integrations, Google OAuth, LinkedIn OAuth, reusable auth, SmythOS auth]
+keywords: [OAuth, authentication, API integrations, Google OAuth, LinkedIn OAuth, reusable auth, SmythOS auth, PKCE, custom OAuth 2.0]
 sidebar_position: 3
 ---
 
@@ -30,11 +30,17 @@ Click **Add OAuth Connection** and a setup window will open.
 
 <Image src="/docs/img/vault/add-oauth-connection.png" alt="Add OAuth Connection modal" />
 
-You’ll start with three basic fields:
+Use the **Select Provider** dropdown to choose the service you want to connect to:
 
-- **Name** — A label you’ll recognize later (e.g., *Google Workspace*, *LinkedIn CRM*).  
-- **Platform** — The service you’re connecting to (e.g., *Google Mail*, *HubSpot CRM*).  
-- **Auth Service** — The type of OAuth flow to use. The form changes depending on what you select.  
+- **Google** — Connect to Google services using OAuth 2.0.
+- **LinkedIn** — Connect to LinkedIn using OAuth 2.0.
+- **X (OAuth 1.0a)** — Connect to Twitter using OAuth 1.0a.
+- **X (OAuth 2.0)** — Connect to Twitter/X using OAuth 2.0 with PKCE.
+- **Custom OAuth 2.0** — Connect to any service using a custom OAuth 2.0 configuration.
+- **Custom OAuth 1.0** — Connect to any service using a custom OAuth 1.0a configuration.
+- **OAuth2 Client Credentials** — For server-to-server flows that don’t involve user login.
+
+Once you select a provider, the form updates to show the fields required for that connection type.
 
 <Spacer size="md" />
 
@@ -64,15 +70,32 @@ You’ll only need to provide:
 
 ### Custom OAuth 2.0
 
-For any service that supports OAuth2 but isn’t prefilled:
+For any service that supports OAuth 2.0 but isn’t prefilled:
 
 <Image src="/docs/img/vault/custom-oauth2.png" alt="Custom OAuth 2.0 example" />
 
-- **Auth URL** — where users are redirected to log in (from your provider’s docs).  
-- **Token URL** — where SmythOS exchanges the code for a token.  
-- **Client ID / Client Secret** — from your provider’s developer settings.  
-- **Callback URL** — pre-filled by SmythOS. Copy this into your provider’s app settings.  
-- **Scopes** — the list of permissions (ask your provider or check their API docs).  
+- **Authorization URL** — where users are redirected to log in (from your provider’s docs).
+- **Token URL** — where SmythOS exchanges the authorization code for a token.
+- **Client ID / Client Secret** — from your provider’s developer settings.
+- **Scopes** — space-separated list of permissions (check your provider’s API docs).
+- **Callback Path** — pre-filled by SmythOS (`https://app.smythos.dev/oauth/oauth2/callback`). Copy this into your provider’s allowed redirect URIs.
+- **Enable PKCE** — adds Proof Key for Code Exchange to the OAuth flow (see below).
+
+#### Enable PKCE
+
+PKCE (Proof Key for Code Exchange) is a security extension for OAuth 2.0 that protects the authorization code from interception. Some providers require it; others recommend it for public clients.
+
+When you toggle **Enable PKCE** on, SmythOS automatically:
+
+1. Generates a `code_verifier` and derives a `code_challenge` from it.
+2. Includes `code_challenge` and `code_challenge_method=S256` in the authorization request sent to the provider.
+3. Sends the `code_verifier` when exchanging the authorization code for a token.
+
+You do not need to provide any additional fields — PKCE is handled entirely by SmythOS once the toggle is on.
+
+<TipCallout title="When to enable PKCE">
+Enable PKCE if your provider’s docs mention it as required or recommended, or if you’re seeing authorization errors with standard Custom OAuth 2.0 flows. Existing connections without PKCE are unaffected.
+</TipCallout>
 
 <Spacer size="md" />
 
